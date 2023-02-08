@@ -1,17 +1,17 @@
-# Reactivity API: Core {#reactivity-api-core}
+# 반응형 API: 핵심 {#reactivity-api-core}
 
-:::info See also
-To better understand the Reactivity APIs, it is recommended to read the following chapters in the guide:
+:::info 참고
+반응형 API를 더 이해하고 싶은 경우, 다음 가이드 문서를 읽는 것을 추천합니다:
 
-- [Reactivity Fundamentals](/guide/essentials/reactivity-fundamentals.html) (with the API preference set to Composition API)
-- [Reactivity in Depth](/guide/extras/reactivity-in-depth.html)
+- [반응형 기초](/guide/essentials/reactivity-fundamentals.html) (API 스타일을 **컴포지션 API**로 설정하고 읽으세요)
+- [반응형 심화](/guide/extras/reactivity-in-depth.html)
   :::
 
 ## ref() {#ref}
 
-Takes an inner value and returns a reactive and mutable ref object, which has a single property `.value` that points to the inner value.
+전달된 값을 갖게 되고, 이것을 가리키는 단일 속성 `.value`가 있는 변경 가능한 반응형 ref 객체를 반환합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function ref<T>(value: T): Ref<UnwrapRef<T>>
@@ -21,15 +21,24 @@ Takes an inner value and returns a reactive and mutable ref object, which has a 
   }
   ```
 
-- **Details**
+- **세부 사항**:
 
-  The ref object is mutable - i.e. you can assign new values to `.value`. It is also reactive - i.e. any read operations to `.value` are tracked, and write operations will trigger associated effects.
+  ref 객체는 반응형이며, `.value` 속성에 새 값을 할당할 수 있습니다.
+  즉, `.value`에 대한 모든 읽기 작업이 추적되고, 쓰기 작업은 관련 이펙트를 트리거합니다.
 
-  If an object is assigned as a ref's value, the object is made deeply reactive with [reactive()](#reactive). This also means if the object contains nested refs, they will be deeply unwrapped.
+  객체가 ref의 값(`.value`)으로 할당되면,
+  [reactive()](#reactive)로 내부 깊숙이(deeply) 반응하게 됩니다.
+  이러한 동작은 객체 내부 깊숙이 ref가 포함되어 있으면, 언래핑됨을 의미합니다.
 
-  To avoid the deep conversion, use [`shallowRef()`](./reactivity-advanced.html#shallowref) instead.
+  내부 깊숙이까지 변환되는 것을 방지하려면, [`shallowRef()`](./reactivity-advanced.html#shallowref)를 사용해야 합니다.
 
-- **Example**
+  :::info 래핑, 언래핑의 개념이 혼란스러울 경우
+  어떤 값이 `ref`에 할당되어 있다고 가정합시다.
+
+  이 때, `.value`를 통해 할당된 값에 접근해야 한다면 "래핑"된 것이고, `.value` 없이 접근된다면 "언래핑"된 것이라고 이해할 수 있습니다.  
+  :::
+
+- **예제**:
 
   ```js
   const count = ref(0)
@@ -39,25 +48,26 @@ Takes an inner value and returns a reactive and mutable ref object, which has a 
   console.log(count.value) // 1
   ```
 
-- **See also:**
-  - [Guide - Reactive Variables with `ref()`](/guide/essentials/reactivity-fundamentals.html#reactive-variables-with-ref)
-  - [Guide - Typing `ref()`](/guide/typescript/composition-api.html#typing-ref) <sup class="vt-badge ts" />
+- **참고**:
+  - [가이드 - `ref()`를 사용한 반응형 변수](/guide/essentials/reactivity-fundamentals.html#reactive-variables-with-ref)
+  - [가이드 - `ref()`에 타입 지정하기](/guide/typescript/composition-api.html#typing-ref) <sup class="vt-badge ts" />
 
 ## computed() {#computed}
 
-Takes a getter function and returns a readonly reactive [ref](#ref) object for the returned value from the getter. It can also take an object with `get` and `set` functions to create a writable ref object.
+getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 반응형 [ref](#ref) 객체로 반환합니다.
+`get`과 `set` 함수가 있는 객체를 사용하면, 쓰기 가능한 ref 객체를 반환합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
-  // read-only
+  // 읽기 전용
   function computed<T>(
     getter: () => T,
-    // see "Computed Debugging" link below
+    // 아래의 "계산된 속성 디버깅" 링크를 참고하세요
     debuggerOptions?: DebuggerOptions
   ): Readonly<Ref<Readonly<T>>>
 
-  // writable
+  // 쓰기 가능
   function computed<T>(
     options: {
       get: () => T
@@ -67,9 +77,9 @@ Takes a getter function and returns a readonly reactive [ref](#ref) object for t
   ): Ref<T>
   ```
 
-- **Example**
+- **예제**:
 
-  Creating a readonly computed ref:
+  읽기 전용 계산된 속성 ref 만들기:
 
   ```js
   const count = ref(1)
@@ -80,7 +90,7 @@ Takes a getter function and returns a readonly reactive [ref](#ref) object for t
   plusOne.value++ // error
   ```
 
-  Creating a writable computed ref:
+  쓰기 가능한 계산된 속성 ref 만들기:
 
   ```js
   const count = ref(1)
@@ -95,7 +105,7 @@ Takes a getter function and returns a readonly reactive [ref](#ref) object for t
   console.log(count.value) // 0
   ```
 
-  Debugging:
+  디버깅:
 
   ```js
   const plusOne = computed(() => count.value + 1, {
@@ -108,73 +118,76 @@ Takes a getter function and returns a readonly reactive [ref](#ref) object for t
   })
   ```
 
-- **See also:**
-  - [Guide - Computed Properties](/guide/essentials/computed.html)
-  - [Guide - Computed Debugging](/guide/extras/reactivity-in-depth.html#computed-debugging)
-  - [Guide - Typing `computed()`](/guide/typescript/composition-api.html#typing-computed) <sup class="vt-badge ts" />
+- **참고**:
+  - [가이드 - 계산된 속성](/guide/essentials/computed.html)
+  - [가이드 - 계산된 속성 디버깅](/guide/extras/reactivity-in-depth.html#computed-debugging)
+  - [가이드 - `computed()`에 타입 지정하기](/guide/typescript/composition-api.html#typing-computed) <sup class="vt-badge ts" />
 
 ## reactive() {#reactive}
 
-Returns a reactive proxy of the object.
+객체의 반응형 프락시(proxy)를 반환합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function reactive<T extends object>(target: T): UnwrapNestedRefs<T>
   ```
 
-- **Details**
+- **세부 사항**:
 
-  The reactive conversion is "deep": it affects all nested properties. A reactive object also deeply unwraps any properties that are [refs](#ref) while maintaining reactivity.
+  반응형 변환은 "내부 깊숙이 있는(deep)" 모든 중첩 속성에 영향을 줍니다.
+  또한, 반응형 객체는 내부 깊숙이 있는 모든 [refs](#ref) 속성의 반응형을 유지하면서 언래핑합니다.
 
-  It should also be noted that there is no ref unwrapping performed when the ref is accessed as an element of a reactive array or a native collection type like `Map`.
+  그러나 `Map` 같은 네이티브 컬렉션 타입 또는 반응형 배열의 요소인 ref로 접근할 때는 언래핑 되지 않음에 유의해야 합니다.
 
-  To avoid the deep conversion and only retain reactivity at the root level, use [shallowReactive()](./reactivity-advanced.html#shallowreactive) instead.
+  내부 깊은 곳까지의 변환은 피하고 루트 수준에서만 반응형을 유지하려면, [shallowReactive()](./reactivity-advanced.html#shallowreactive)를 사용해야 합니다.
 
-  The returned object and its nested objects are wrapped with [ES Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) and **not** equal to the original objects. It is recommended to work exclusively with the reactive proxy and avoid relying on the original object.
+  반환된 객체와 중첩된 객체는 [프락시(Proxy)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)로 래핑되므로,
+  원본 객체와 **동일하지 않습니다**.
+  그러므로 반응형 프락시로만 작업하고, 원본 객체에 의존하지 않는 것이 좋습니다.
 
-- **Example**
+- **예제**:
 
-  Creating a reactive object:
+  반응형 객체 생성:
 
   ```js
   const obj = reactive({ count: 0 })
   obj.count++
   ```
 
-  Ref unwrapping:
+  Ref 언래핑:
 
   ```ts
   const count = ref(1)
   const obj = reactive({ count })
 
-  // ref will be unwrapped
+  // obj.count인 ref는 언래핑 됨
   console.log(obj.count === count.value) // true
 
-  // it will update `obj.count`
+  // `obj.count`도 업데이트 됨
   count.value++
   console.log(count.value) // 2
   console.log(obj.count) // 2
 
-  // it will also update `count` ref
+  // `count` ref도 업데이트 됨
   obj.count++
   console.log(obj.count) // 3
   console.log(count.value) // 3
   ```
 
-  Note that refs are **not** unwrapped when accessed as array or collection elements:
+  배열 또는 컬렉션 요소인 ref에 접근시, **언래핑 되지 않습니다**:
 
   ```js
   const books = reactive([ref('Vue 3 Guide')])
-  // need .value here
+  // .value 필요
   console.log(books[0].value)
 
   const map = reactive(new Map([['count', ref(0)]]))
-  // need .value here
+  // .value 필요
   console.log(map.get('count').value)
   ```
 
-  When assigning a [ref](#ref) to a `reactive` property, that ref will also be automatically unwrapped:
+  [ref](#ref)를 `reactive` 속성에 할당하면, 해당 ref도 자동으로 언래핑됩니다:
 
   ```ts
   const count = ref(1)
@@ -186,15 +199,15 @@ Returns a reactive proxy of the object.
   console.log(obj.count === count.value) // true
   ```
 
-- **See also:**
-  - [Guide - Reactivity Fundamentals](/guide/essentials/reactivity-fundamentals.html)
-  - [Guide - Typing `reactive()`](/guide/typescript/composition-api.html#typing-reactive) <sup class="vt-badge ts" />
+- **참고**:
+  - [가이드 - 반응형 기초](/guide/essentials/reactivity-fundamentals.html)
+  - [가이드 - `reactive()`에 타입 지정하기](/guide/typescript/composition-api.html#typing-reactive) <sup class="vt-badge ts" />
 
 ## readonly() {#readonly}
 
-Takes an object (reactive or plain) or a [ref](#ref) and returns a readonly proxy to the original.
+객체(반응형 또는 일반) 또는 [ref](#ref)를 가져와서 원본에 대한 읽기 전용 프락시를 반환합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function readonly<T extends object>(
@@ -202,13 +215,14 @@ Takes an object (reactive or plain) or a [ref](#ref) and returns a readonly prox
   ): DeepReadonly<UnwrapNestedRefs<T>>
   ```
 
-- **Details**
+- **세부 사항**:
 
-  A readonly proxy is deep: any nested property accessed will be readonly as well. It also has the same ref-unwrapping behavior as `reactive()`, except the unwrapped values will also be made readonly.
+  읽기 전용 프락시는 접근하게 될 모든 중첩 속성 깊숙이까지 읽기 전용입니다.
+  또한 `reactive()`처럼 ref를 언래핑하며, 언래핑 값도 읽기 전용으로 변환됩니다.
 
-  To avoid the deep conversion, use [shallowReadonly()](./reactivity-advanced.html#shallowreadonly) instead.
+  내부 깊은 곳까지의 변환을 피하려면, [shallowReadonly()](./reactivity-advanced.html#shallowreadonly)를 사용해야 합니다.
 
-- **Example**
+- **예제**:
 
   ```js
   const original = reactive({ count: 0 })
@@ -216,22 +230,22 @@ Takes an object (reactive or plain) or a [ref](#ref) and returns a readonly prox
   const copy = readonly(original)
 
   watchEffect(() => {
-    // works for reactivity tracking
+    // 반응형 추적으로 작동됨
     console.log(copy.count)
   })
 
-  // mutating original will trigger watchers relying on the copy
+  // original을 변경하면 copy를 의존하는 감시자가 트리거됨
   original.count++
 
-  // mutating the copy will fail and result in a warning
-  copy.count++ // warning!
+  // copy를 변경하려 해도 변경되지 않으며, 경고가 발생함
+  copy.count++ // 경고!
   ```
 
 ## watchEffect() {#watcheffect}
 
-Runs a function immediately while reactively tracking its dependencies and re-runs it whenever the dependencies are changed.
+즉시 함수를 실행하고 의존성을 반응적으로 추적하며, 의존성이 변경될 때마다 다시 실행합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function watchEffect(
@@ -242,7 +256,7 @@ Runs a function immediately while reactively tracking its dependencies and re-ru
   type OnCleanup = (cleanupFn: () => void) => void
 
   interface WatchEffectOptions {
-    flush?: 'pre' | 'post' | 'sync' // default: 'pre'
+    flush?: 'pre' | 'post' | 'sync' // 기본 값: 'pre'
     onTrack?: (event: DebuggerEvent) => void
     onTrigger?: (event: DebuggerEvent) => void
   }
@@ -250,17 +264,22 @@ Runs a function immediately while reactively tracking its dependencies and re-ru
   type StopHandle = () => void
   ```
 
-- **Details**
+- **세부 사항**:
 
-  The first argument is the effect function to be run. The effect function receives a function that can be used to register a cleanup callback. The cleanup callback will be called right before the next time the effect is re-run, and can be used to clean up invalidated side effects, e.g. a pending async request (see example below).
+  첫 번째 인자는 실행할 이펙트 함수입니다.
+  이펙트 함수는 인자로 클린업(cleanup) 콜백을 등록해 실행할 수 있는 함수를 받습니다.
+  클린업 콜백은 다음에 이펙트가 다시 실행되기 직전에 호출되며,
+  무효화된 사이드 이펙트를 정리하는 데 사용할 수 있습니다.
+  예를들어 비동기 요청의 결과 대기중(pending)에 사용할 수 있습니다.(아래 예제 참고)
 
-  The second argument is an optional options object that can be used to adjust the effect's flush timing or to debug the effect's dependencies.
+  두 번째 인자는 이펙트의 발생(flush) 타이밍을 조정하거나,
+  이펙트의 의존성을 디버그하는 데 사용할 수 있는 선택적 옵션 객체입니다.
 
-  By default, watchers will run just prior to component rendering. Setting `flush: 'post'` will defer the watcher until after component rendering. See [Callback Flush Timing](/guide/essentials/watchers.html#callback-flush-timing) for more information. In rare cases, it might be necessary to trigger a watcher immediately when a reactive dependency changes, e.g. to invalidate a cache. This can be achieved using `flush: 'sync'`. However, this setting should be used with caution, as it can lead to problems with performance and data consistency if multiple properties are being updated at the same time.
+  기본적으로 와처는 컴포넌트 렌더링 직전에 실행됩니다. `flush: 'post'`를 설정하면 컴포넌트 렌더링 이후까지 와처가 지연됩니다. 자세한 내용은 [콜백 플러시 타이밍](/guide/essentials/watchers.html#callback-flush-timing)을 참조하세요. 드물지만 캐시 무효화와 같이 반응형 의존성이 변경될 때 즉시 와처를 트리거해야 하는 경우가 있을 수 있습니다. 이는 `flush: 'sync'`를 사용하여 수행할 수 있습니다. 그러나 이 설정은 여러 프로퍼티가 동시에 업데이트되는 경우 성능 및 데이터 일관성 문제를 일으킬 수 있으므로 주의해서 사용해야 합니다.
 
-  The return value is a handle function that can be called to stop the effect from running again.
+  반환 값은 이펙트가 다시 실행되지 않도록 호출할 수 있는 핸들 함수입니다.
 
-- **Example**
+- **예제**:
 
   ```js
   const count = ref(0)
@@ -272,29 +291,29 @@ Runs a function immediately while reactively tracking its dependencies and re-ru
   // -> logs 1
   ```
 
-  Side effect cleanup:
+  사이드 이펙트 정리:
 
   ```js
   watchEffect(async (onCleanup) => {
     const { response, cancel } = doAsyncWork(id.value)
-    // `cancel` will be called if `id` changes
-    // so that previous pending request will be cancelled
-    // if not yet completed
+    // `id`가 변경되면 `cancel`이 호출됩니다.
+    // 이럴경우, 이전 요청이 완료되지 않고 여전히 대기중이라면,
+    // 취소할 수 있습니다.(cancel 콜백 로직을 그렇게 정의한 경우)
     onCleanup(cancel)
     data.value = await response
   })
   ```
 
-  Stopping the watcher:
+  감시자 중지하기:
 
   ```js
   const stop = watchEffect(() => {})
 
-  // when the watcher is no longer needed:
+  // 감시자가 더 이상 필요하지 않을 때:
   stop()
   ```
 
-  Options:
+  옵션:
 
   ```js
   watchEffect(() => {}, {
@@ -308,33 +327,33 @@ Runs a function immediately while reactively tracking its dependencies and re-ru
   })
   ```
 
-- **See also**:
-  - [Guide - Watchers](/guide/essentials/watchers.html#watcheffect)
-  - [Guide - Watcher Debugging](/guide/extras/reactivity-in-depth.html#watcher-debugging)
+- **참고**:
+  - [가이드 - 감시자](/guide/essentials/watchers.html#watcheffect)
+  - [가이드 - 감시자 디버깅](/guide/extras/reactivity-in-depth.html#watcher-debugging)
 
 ## watchPostEffect() {#watchposteffect}
 
-Alias of [`watchEffect()`](#watcheffect) with `flush: 'post'` option.
+`flush: 'post'` 옵션 값을 사용하는 [`watchEffect()`](#watcheffect)의 별칭.
 
 ## watchSyncEffect() {#watchsynceffect}
 
-Alias of [`watchEffect()`](#watcheffect) with `flush: 'sync'` option.
+`flush: 'sync'` 옵션 값을 사용하는 [`watchEffect()`](#watcheffect)의 별칭.
 
 ## watch() {#watch}
 
-Watches one or more reactive data sources and invokes a callback function when the sources change.
+하나 이상의 반응형 데이터 소스를 감시하고, 소스가 변경되면 콜백 함수를 호출합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
-  // watching single source
+  // 하나의 소스 감시
   function watch<T>(
     source: WatchSource<T>,
     callback: WatchCallback<T>,
     options?: WatchOptions
   ): StopHandle
 
-  // watching multiple sources
+  // 여러 개의 소스 감시
   function watch<T>(
     sources: WatchSource<T>[],
     callback: WatchCallback<T[]>,
@@ -352,50 +371,60 @@ Watches one or more reactive data sources and invokes a callback function when t
     | (() => T) // getter
     | T extends object
     ? T
-    : never // reactive object
+    : never // 반응형 객체
 
   interface WatchOptions extends WatchEffectOptions {
-    immediate?: boolean // default: false
-    deep?: boolean // default: false
-    flush?: 'pre' | 'post' | 'sync' // default: 'pre'
+    immediate?: boolean // 기본 값: false
+    deep?: boolean // 기본 값: false
+    flush?: 'pre' | 'post' | 'sync' // 기본 값: 'pre'
     onTrack?: (event: DebuggerEvent) => void
     onTrigger?: (event: DebuggerEvent) => void
   }
   ```
 
-  > Types are simplified for readability.
+  > 타입은 가독성을 위해 단순화되었습니다.
 
-- **Details**
+- **세부 사항**:
 
-  `watch()` is lazy by default - i.e. the callback is only called when the watched source has changed.
+  `watch()`는 기본적으로 개으릅니다(lazy).
+  그러므로 콜백은 감시된 소스가 변경되었을 때만 호출됩니다.
 
-  The first argument is the watcher's **source**. The source can be one of the following:
+  첫 번째 인자는 감시될 **소스**입니다.
+  소스는 다음 중 하나일 수 있습니다:
 
-  - A getter function that returns a value
-  - A ref
-  - A reactive object
-  - ...or an array of the above.
+  - 값을 반환하는 getter 함수
+  - ref
+  - 반응형 객체
+  - 또는 위에 나열한 것들의 배열
 
-  The second argument is the callback that will be called when the source changes. The callback receives three arguments: the new value, the old value, and a function for registering a side effect cleanup callback. The cleanup callback will be called right before the next time the effect is re-run, and can be used to clean up invalidated side effects, e.g. a pending async request.
+  두 번째 인자는 소스가 변경될 때 호출될 콜백입니다.
+  콜백은 "변경된 값", "이전 값", "사이드 이펙트 클린업 콜백을 등록하기 위한 함수" 이렇게 세 가지 인자를 받습니다.
+  클린업 콜백은 다음에 이펙트가 다시 실행되기 직전에 호출되며,
+  무효화된 사이드 이펙트를 정리하는 데 사용할 수 있습니다.
+  예를들어 비동기 요청의 결과 대기중(pending)에 사용할 수 있습니다.
 
-  When watching multiple sources, the callback receives two arrays containing new / old values corresponding to the source array.
+  여러 소스를 감시할 때, 콜백은 소스 배열에 해당하는 변경된 값 배열, 이전 값 배열 두 개를 수신합니다.
 
-  The third optional argument is an options object that supports the following options:
+  세 번째 인자는 선택적이며, 다음을 지원하는 옵션 객체입니다:
 
-  - **`immediate`**: trigger the callback immediately on watcher creation. Old value will be `undefined` on the first call.
-  - **`deep`**: force deep traversal of the source if it is an object, so that the callback fires on deep mutations. See [Deep Watchers](/guide/essentials/watchers.html#deep-watchers).
-  - **`flush`**: adjust the callback's flush timing. See [Callback Flush Timing](/guide/essentials/watchers.html#callback-flush-timing) and [`watchEffect()`](/api/reactivity-core.html#watcheffect).
-  - **`onTrack / onTrigger`**: debug the watcher's dependencies. See [Watcher Debugging](/guide/extras/reactivity-in-depth.html#watcher-debugging).
+  - **`immediate`**: 감시자가 생성되는 즉시 콜백이 호출됩니다.
+    최초 호출 시, 이전 값은 `undefined`입니다.
+  - **`deep`**: 소스가 객체인 경우, 깊은 변경사항에서도 콜백이 실행되도록 합니다.
+    참고: [깊은 감시자](/guide/essentials/watchers.html#deep-watchers).
+  - **`flush`**: 콜백의 발생(flush) 타이밍을 조정합니다.
+    참고: [콜백 실행 타이밍](/guide/essentials/watchers.html#callback-flush-timing), [`watchEffect()`](/api/reactivity-core.html#watcheffect).
+  - **`onTrack / onTrigger`**: 감시자의 의존성을 디버그합니다.
+    참고: [감시자 디버깅](/guide/extras/reactivity-in-depth.html#watcher-debugging).
 
-  Compared to [`watchEffect()`](#watcheffect), `watch()` allows us to:
+  [`watchEffect()`](#watcheffect)와 비교하여 `watch()`를 사용하면 다음을 수행할 수 있습니다:
 
-  - Perform the side effect lazily;
-  - Be more specific about what state should trigger the watcher to re-run;
-  - Access both the previous and current value of the watched state.
+  - 사이드 이펙트를 게으르게(lazily) 실행합니다.
+  - 어떤 상태가 변경면 감시자가 다시 실행될지 더 자세하게 정의할 수 있습니다.
+  - 감시하는 상태의 변경 전후 값을 알 수 있습니다.
 
-- **Example**
+- **예제**:
 
-  Watching a getter:
+  getter를 감시:
 
   ```js
   const state = reactive({ count: 0 })
@@ -407,7 +436,7 @@ Watches one or more reactive data sources and invokes a callback function when t
   )
   ```
 
-  Watching a ref:
+  ref를 감시:
 
   ```js
   const count = ref(0)
@@ -416,7 +445,7 @@ Watches one or more reactive data sources and invokes a callback function when t
   })
   ```
 
-  When watching multiple sources, the callback receives arrays containing new / old values corresponding to the source array:
+  여러 소스를 감시할 때, 콜백은 소스 배열에 해당하는 변경된 값 배열, 이전 값 배열 두 개를 수신합니다:
 
   ```js
   watch([fooRef, barRef], ([foo, bar], [prevFoo, prevBar]) => {
@@ -424,7 +453,9 @@ Watches one or more reactive data sources and invokes a callback function when t
   })
   ```
 
-  When using a getter source, the watcher only fires if the getter's return value has changed. If you want the callback to fire even on deep mutations, you need to explicitly force the watcher into deep mode with `{ deep: true }`. Note in deep mode, the new value and the old will be the same object if the callback was triggered by a deep mutation:
+  getter 소스를 사용할 때, 감시자는 getter의 반환 값이 변경된 경우에만 실행됩니다.
+  깊은 변경사항에서도 콜백을 실행하려면, `{ deep: true }`를 사용하여 감시자를 딥 모드로 설정해야 합니다.
+  딥 모드에서 콜백이 깊은 변경사항으로 트리거된 경우, 새 값과 이전 값은 동일한 객체입니다.
 
   ```js
   const state = reactive({ count: 0 })
@@ -437,16 +468,16 @@ Watches one or more reactive data sources and invokes a callback function when t
   )
   ```
 
-  When directly watching a reactive object, the watcher is automatically in deep mode:
+  반응형 객체를 직접 감시할 때, 감시자는 자동으로 딥 모드가 됩니다:
 
   ```js
   const state = reactive({ count: 0 })
   watch(state, () => {
-    /* triggers on deep mutation to state */
+    /* 상태의 깊은 변경사항에도 트리거 됨 */
   })
   ```
 
-  `watch()` shares the same flush timing and debugging options with [`watchEffect()`](#watcheffect):
+  `watch()`는 [`watchEffect()`](#watcheffect)와 동일한 발생(flush) 타이밍 및 디버깅 옵션을 공유합니다:
 
   ```js
   watch(source, callback, {
@@ -460,28 +491,28 @@ Watches one or more reactive data sources and invokes a callback function when t
   })
   ```
 
-  Stopping the watcher:
+  와처 종료하기:
 
   ```js
   const stop = watch(source, callback)
 
-  // when the watcher is no longer needed:
+  // 더이상 필요하지 않을때:
   stop()
   ```
 
-  Side effect cleanup:
+  부작용(Side effect) 제거:
 
   ```js
   watch(id, async (newId, oldId, onCleanup) => {
     const { response, cancel } = doAsyncWork(newId)
-    // `cancel` will be called if `id` changes, cancelling
-    // the previous request if it hasn't completed yet
+    //`id`가 변경되면 `cancel`이 호출되어 이전 요청이 아직 완료되지 않은 경우 취소합니다.    
     onCleanup(cancel)
     data.value = await response
   })
   ```
 
-- **See also**:
 
-  - [Guide - Watchers](/guide/essentials/watchers.html)
-  - [Guide - Watcher Debugging](/guide/extras/reactivity-in-depth.html#watcher-debugging)
+- **참고**:
+
+  - [가이드 - 감시자](/guide/essentials/watchers.html)
+  - [가이드 - 감시자 디버깅](/guide/extras/reactivity-in-depth.html#watcher-debugging)

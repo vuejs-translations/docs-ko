@@ -7,20 +7,20 @@ import { headerPlugin } from './headerMdPlugin'
 
 const nav: ThemeConfig['nav'] = [
   {
-    text: 'Docs',
+    text: '문서',
     activeMatch: `^/(guide|style-guide|cookbook|examples)/`,
     items: [
-      { text: 'Guide', link: '/guide/introduction' },
-      { text: 'Tutorial', link: '/tutorial/' },
-      { text: 'Examples', link: '/examples/' },
-      { text: 'Quick Start', link: '/guide/quick-start' },
+      { text: '가이드', link: '/guide/introduction' },
+      { text: '튜토리얼', link: '/tutorial/' },
+      { text: '예제', link: '/examples/' },
+      { text: '시작하기', link: '/guide/quick-start' },
       // { text: 'Style Guide', link: '/style-guide/' },
       {
-        text: 'Vue 2 Docs',
-        link: 'https://v2.vuejs.org'
+        text: 'Vue 2 문서',
+        link: 'https://kr.vuejs.org'
       },
       {
-        text: 'Migration from Vue 2',
+        text: 'Vue 2에서 마이그레이션',
         link: 'https://v3-migration.vuejs.org/'
       }
     ]
@@ -31,7 +31,7 @@ const nav: ThemeConfig['nav'] = [
     link: '/api/'
   },
   {
-    text: 'Playground',
+    text: '온라인 연습장',
     link: 'https://sfc.vuejs.org'
   },
   {
@@ -39,24 +39,24 @@ const nav: ThemeConfig['nav'] = [
     activeMatch: `^/ecosystem/`,
     items: [
       {
-        text: 'Resources',
+        text: '리소스',
         items: [
-          { text: 'Partners', link: '/partners/' },
-          { text: 'Themes', link: '/ecosystem/themes' },
-          { text: 'Jobs', link: 'https://vuejobs.com/?ref=vuejs' },
-          { text: 'T-Shirt Shop', link: 'https://vue.threadless.com/' }
+          { text: '파트너', link: '/partners/' },
+          { text: '테마', link: '/ecosystem/themes' },
+          { text: '일자리', link: 'https://vuejobs.com/?ref=vuejs' },
+          { text: 'T-셔츠샵', link: 'https://vue.threadless.com/' }
         ]
       },
       {
-        text: 'Official Libraries',
+        text: '공식 라이브러리',
         items: [
           { text: 'Vue Router', link: 'https://router.vuejs.org/' },
           { text: 'Pinia', link: 'https://pinia.vuejs.org/' },
-          { text: 'Tooling Guide', link: '/guide/scaling-up/tooling.html' }
+          { text: '도구 가이드', link: '/guide/scaling-up/tooling.html' }
         ]
       },
       {
-        text: 'Video Courses',
+        text: '비디오 코스',
         items: [
           {
             text: 'Vue Mastery',
@@ -69,54 +69,54 @@ const nav: ThemeConfig['nav'] = [
         ]
       },
       {
-        text: 'Help',
+        text: '도움',
         items: [
           {
-            text: 'Discord Chat',
+            text: 'Discord 채팅',
             link: 'https://discord.com/invite/HBherRA'
           },
           {
-            text: 'GitHub Discussions',
+            text: 'GitHub 토론',
             link: 'https://github.com/vuejs/core/discussions'
           },
           { text: 'DEV Community', link: 'https://dev.to/t/vue' }
         ]
       },
       {
-        text: 'News',
+        text: '뉴스',
         items: [
-          { text: 'Blog', link: 'https://blog.vuejs.org/' },
-          { text: 'Twitter', link: 'https://twitter.com/vuejs' },
-          { text: 'Events', link: 'https://events.vuejs.org/' },
-          { text: 'Newsletters', link: '/ecosystem/newsletters' }
+          { text: '블로그', link: 'https://blog.vuejs.org/' },
+          { text: '트위터', link: 'https://twitter.com/vuejs' },
+          { text: '이벤트', link: 'https://events.vuejs.org/' },
+          { text: '뉴스레터', link: '/ecosystem/newsletters' }
         ]
       }
     ]
   },
   {
-    text: 'About',
+    text: '정보',
     activeMatch: `^/about/`,
     items: [
-      { text: 'FAQ', link: '/about/faq' },
-      { text: 'Team', link: '/about/team' },
-      { text: 'Releases', link: '/about/releases' },
+      { text: '자주 묻는 질문', link: '/about/faq' },
+      { text: '팀', link: '/about/team' },
+      { text: '출시', link: '/about/releases' },
       {
-        text: 'Community Guide',
+        text: '커뮤니티 가이드',
         link: '/about/community-guide'
       },
-      { text: 'Code of Conduct', link: '/about/coc' },
+      { text: '행동 강령', link: '/about/coc' },
       {
-        text: 'The Documentary',
+        text: '다큐멘터리',
         link: 'https://www.youtube.com/watch?v=OrxmtDw4pVI'
       }
     ]
   },
   {
-    text: 'Sponsor',
+    text: '스폰서',
     link: '/sponsor/'
   },
   {
-    text: 'Partners',
+    text: '파트너',
     link: '/partners/',
     activeMatch: `^/partners/`
   }
@@ -125,101 +125,101 @@ const nav: ThemeConfig['nav'] = [
 export const sidebar: ThemeConfig['sidebar'] = {
   '/guide/': [
     {
-      text: 'Getting Started',
+      text: '시작하기',
       items: [
-        { text: 'Introduction', link: '/guide/introduction' },
+        { text: '소개', link: '/guide/introduction' },
         {
-          text: 'Quick Start',
+          text: '빠른 시작',
           link: '/guide/quick-start'
         }
       ]
     },
     {
-      text: 'Essentials',
+      text: '핵심 가이드',
       items: [
         {
-          text: 'Creating an Application',
+          text: '앱 생성',
           link: '/guide/essentials/application'
         },
         {
-          text: 'Template Syntax',
+          text: '템플릿 문법',
           link: '/guide/essentials/template-syntax'
         },
         {
-          text: 'Reactivity Fundamentals',
+          text: '반응형 기초',
           link: '/guide/essentials/reactivity-fundamentals'
         },
         {
-          text: 'Computed Properties',
+          text: '계산된 속성',
           link: '/guide/essentials/computed'
         },
         {
-          text: 'Class and Style Bindings',
+          text: '클래스와 스타일 바인딩',
           link: '/guide/essentials/class-and-style'
         },
         {
-          text: 'Conditional Rendering',
+          text: '조건부 렌더링',
           link: '/guide/essentials/conditional'
         },
-        { text: 'List Rendering', link: '/guide/essentials/list' },
+        { text: '리스트 렌더링', link: '/guide/essentials/list' },
         {
-          text: 'Event Handling',
+          text: '이벤트 핸들링',
           link: '/guide/essentials/event-handling'
         },
-        { text: 'Form Input Bindings', link: '/guide/essentials/forms' },
+        { text: 'Form 입력 바인딩', link: '/guide/essentials/forms' },
         {
-          text: 'Lifecycle Hooks',
+          text: '생명주기 훅',
           link: '/guide/essentials/lifecycle'
         },
-        { text: 'Watchers', link: '/guide/essentials/watchers' },
-        { text: 'Template Refs', link: '/guide/essentials/template-refs' },
+        { text: '감시자', link: '/guide/essentials/watchers' },
+        { text: '템플릿 참조', link: '/guide/essentials/template-refs' },
         {
-          text: 'Components Basics',
+          text: '컴포넌트 기초',
           link: '/guide/essentials/component-basics'
         }
       ]
     },
     {
-      text: 'Components In-Depth',
+      text: '컴포넌트 심화',
       items: [
         {
-          text: 'Registration',
+          text: '등록',
           link: '/guide/components/registration'
         },
         { text: 'Props', link: '/guide/components/props' },
-        { text: 'Events', link: '/guide/components/events' },
-        { text: 'Component v-model', link: '/guide/components/v-model' },
+        { text: '이벤트', link: '/guide/components/events' },
+        { text: '컴포넌트 v-model', link: '/guide/components/v-model' },
         {
-          text: 'Fallthrough Attributes',
+          text: '폴스루 속성',
           link: '/guide/components/attrs'
         },
-        { text: 'Slots', link: '/guide/components/slots' },
+        { text: '슬롯', link: '/guide/components/slots' },
         {
           text: 'Provide / inject',
           link: '/guide/components/provide-inject'
         },
         {
-          text: 'Async Components',
+          text: '비동기 컴포넌트',
           link: '/guide/components/async'
         }
       ]
     },
     {
-      text: 'Reusability',
+      text: '재사용성',
       items: [
         {
-          text: 'Composables',
+          text: '컴포저블',
           link: '/guide/reusability/composables'
         },
         {
-          text: 'Custom Directives',
+          text: '커스텀 디렉티브',
           link: '/guide/reusability/custom-directives'
         },
-        { text: 'Plugins', link: '/guide/reusability/plugins' }
+        { text: '플러그인', link: '/guide/reusability/plugins' }
       ]
     },
     {
-      text: 'Built-in Components',
+      text: '빌트인 컴포넌트',
       items: [
         { text: 'Transition', link: '/guide/built-ins/transition' },
         {
@@ -232,90 +232,90 @@ export const sidebar: ThemeConfig['sidebar'] = {
       ]
     },
     {
-      text: 'Scaling Up',
+      text: '확장하기',
       items: [
-        { text: 'Single-File Components', link: '/guide/scaling-up/sfc' },
-        { text: 'Tooling', link: '/guide/scaling-up/tooling' },
-        { text: 'Routing', link: '/guide/scaling-up/routing' },
+        { text: '싱글 파일 컴포넌트', link: '/guide/scaling-up/sfc' },
+        { text: '툴', link: '/guide/scaling-up/tooling' },
+        { text: '라우팅', link: '/guide/scaling-up/routing' },
         {
-          text: 'State Management',
+          text: '상태 관리',
           link: '/guide/scaling-up/state-management'
         },
-        { text: 'Testing', link: '/guide/scaling-up/testing' },
+        { text: '테스팅', link: '/guide/scaling-up/testing' },
         {
-          text: 'Server-Side Rendering (SSR)',
+          text: '서버 사이드 렌더링 (SSR)',
           link: '/guide/scaling-up/ssr'
         }
       ]
     },
     {
-      text: 'Best Practices',
+      text: '모범 사례',
       items: [
         {
-          text: 'Production Deployment',
+          text: '프로덕션 배포',
           link: '/guide/best-practices/production-deployment'
         },
         {
-          text: 'Performance',
+          text: '성능',
           link: '/guide/best-practices/performance'
         },
         {
-          text: 'Accessibility',
+          text: '접근성',
           link: '/guide/best-practices/accessibility'
         },
         {
-          text: 'Security',
+          text: '보안',
           link: '/guide/best-practices/security'
         }
       ]
     },
     {
-      text: 'TypeScript',
+      text: '타입스크립트',
       items: [
-        { text: 'Overview', link: '/guide/typescript/overview' },
+        { text: '개요', link: '/guide/typescript/overview' },
         {
-          text: 'TS with Composition API',
+          text: '컴포지션 API & TS',
           link: '/guide/typescript/composition-api'
         },
         {
-          text: 'TS with Options API',
+          text: '옵션 API & TS',
           link: '/guide/typescript/options-api'
         }
       ]
     },
     {
-      text: 'Extra Topics',
+      text: '추가 주제',
       items: [
         {
-          text: 'Ways of Using Vue',
+          text: 'Vue를 사용하는 다양한 방법들',
           link: '/guide/extras/ways-of-using-vue'
         },
         {
-          text: 'Composition API FAQ',
+          text: '컴포지션 API FAQ',
           link: '/guide/extras/composition-api-faq'
         },
         {
-          text: 'Reactivity in Depth',
+          text: '반응형 심화',
           link: '/guide/extras/reactivity-in-depth'
         },
         {
-          text: 'Rendering Mechanism',
+          text: '렌더링 메커니즘',
           link: '/guide/extras/rendering-mechanism'
         },
         {
-          text: 'Render Functions & JSX',
+          text: '렌더 함수 & JSX',
           link: '/guide/extras/render-function'
         },
         {
-          text: 'Vue and Web Components',
+          text: 'Vue와 웹 컴포넌트',
           link: '/guide/extras/web-components'
         },
         {
-          text: 'Animation Techniques',
+          text: '애니메이션 기법',
           link: '/guide/extras/animation'
         },
         {
-          text: 'Reactivity Transform',
+          text: '반응형 변환',
           link: '/guide/extras/reactivity-transform'
         }
         // {
@@ -332,153 +332,153 @@ export const sidebar: ThemeConfig['sidebar'] = {
   ],
   '/api/': [
     {
-      text: 'Global API',
+      text: '전역 API',
       items: [
         { text: 'Application', link: '/api/application' },
         {
-          text: 'General',
+          text: '일반',
           link: '/api/general'
         }
       ]
     },
     {
-      text: 'Composition API',
+      text: '컴포지션 API',
       items: [
         { text: 'setup()', link: '/api/composition-api-setup' },
         {
-          text: 'Reactivity: Core',
+          text: '반응형: 핵심',
           link: '/api/reactivity-core'
         },
         {
-          text: 'Reactivity: Utilities',
+          text: '반응형: 유틸리티',
           link: '/api/reactivity-utilities'
         },
         {
-          text: 'Reactivity: Advanced',
+          text: '반응형: 고급',
           link: '/api/reactivity-advanced'
         },
         {
-          text: 'Lifecycle Hooks',
+          text: '생명주기 훅',
           link: '/api/composition-api-lifecycle'
         },
         {
-          text: 'Dependency Injection',
+          text: '종속성 주입',
           link: '/api/composition-api-dependency-injection'
         }
       ]
     },
     {
-      text: 'Options API',
+      text: '옵션 API',
       items: [
-        { text: 'Options: State', link: '/api/options-state' },
-        { text: 'Options: Rendering', link: '/api/options-rendering' },
+        { text: '옵션: 상태', link: '/api/options-state' },
+        { text: '옵션: 렌더링', link: '/api/options-rendering' },
         {
-          text: 'Options: Lifecycle',
+          text: '옵션: 생명주기',
           link: '/api/options-lifecycle'
         },
         {
-          text: 'Options: Composition',
+          text: '옵션: 컴포지션',
           link: '/api/options-composition'
         },
-        { text: 'Options: Misc', link: '/api/options-misc' },
+        { text: '옵션: 기타', link: '/api/options-misc' },
         {
-          text: 'Component Instance',
+          text: '컴포넌트 인스턴스',
           link: '/api/component-instance'
         }
       ]
     },
     {
-      text: 'Built-ins',
+      text: '빌트-인',
       items: [
-        { text: 'Directives', link: '/api/built-in-directives' },
-        { text: 'Components', link: '/api/built-in-components' },
+        { text: '디렉티브', link: '/api/built-in-directives' },
+        { text: '컴포넌트', link: '/api/built-in-components' },
         {
-          text: 'Special Elements',
+          text: '특수 엘리먼트',
           link: '/api/built-in-special-elements'
         },
         {
-          text: 'Special Attributes',
+          text: '특수 속성(Attributes)',
           link: '/api/built-in-special-attributes'
         }
       ]
     },
     {
-      text: 'Single-File Component',
+      text: '싱글 파일 컴포넌트',
       items: [
-        { text: 'Syntax Specification', link: '/api/sfc-spec' },
+        { text: '문법 설명서', link: '/api/sfc-spec' },
         { text: '<script setup>', link: '/api/sfc-script-setup' },
-        { text: 'CSS Features', link: '/api/sfc-css-features' }
+        { text: 'CSS 기능', link: '/api/sfc-css-features' }
       ]
     },
     {
-      text: 'Advanced APIs',
+      text: '고급 APIs',
       items: [
-        { text: 'Render Function', link: '/api/render-function' },
-        { text: 'Server-Side Rendering', link: '/api/ssr' },
-        { text: 'TypeScript Utility Types', link: '/api/utility-types' },
-        { text: 'Custom Renderer', link: '/api/custom-renderer' }
+        { text: '렌더 함수', link: '/api/render-function' },
+        { text: '서버 사이드 렌더링', link: '/api/ssr' },
+        { text: 'TypeScript 유틸리티 타입', link: '/api/utility-types' },
+        { text: '커스텀 렌더러', link: '/api/custom-renderer' }
       ]
     }
   ],
   '/examples/': [
     {
-      text: 'Basic',
+      text: '기초',
       items: [
         {
-          text: 'Hello World',
+          text: '안녕 Vue',
           link: '/examples/#hello-world'
         },
         {
-          text: 'Handling User Input',
+          text: '사용자 입력 핸들링',
           link: '/examples/#handling-input'
         },
         {
-          text: 'Attribute Bindings',
+          text: '속성 바인딩',
           link: '/examples/#attribute-bindings'
         },
         {
-          text: 'Conditionals and Loops',
+          text: '조건문과 반복문',
           link: '/examples/#conditionals-and-loops'
         },
         {
-          text: 'Form Bindings',
+          text: '폼(form) 바인딩',
           link: '/examples/#form-bindings'
         },
         {
-          text: 'Simple Component',
+          text: '단순한 컴포넌트',
           link: '/examples/#simple-component'
         }
       ]
     },
     {
-      text: 'Practical',
+      text: '실습',
       items: [
         {
-          text: 'Markdown Editor',
+          text: 'Markdown 편집기',
           link: '/examples/#markdown'
         },
         {
-          text: 'Fetching Data',
+          text: '데이터 가져오기',
           link: '/examples/#fetching-data'
         },
         {
-          text: 'Grid with Sort and Filter',
+          text: '정렬과 필터가 있는 그리드',
           link: '/examples/#grid'
         },
         {
-          text: 'Tree View',
+          text: '트리 뷰',
           link: '/examples/#tree'
         },
         {
-          text: 'SVG Graph',
+          text: 'SVG 그래프',
           link: '/examples/#svg'
         },
         {
-          text: 'Modal with Transitions',
+          text: '트렌지션으로 모달 구현',
           link: '/examples/#modal'
         },
         {
-          text: 'List with Transitions',
+          text: '트렌지션으로 리스트 구현',
           link: '/examples/#list-transition'
         },
         {
@@ -492,19 +492,19 @@ export const sidebar: ThemeConfig['sidebar'] = {
       text: '7 GUIs',
       items: [
         {
-          text: 'Counter',
+          text: '숫자세기',
           link: '/examples/#counter'
         },
         {
-          text: 'Temperature Converter',
+          text: '온도 단위 변환',
           link: '/examples/#temperature-converter'
         },
         {
-          text: 'Flight Booker',
+          text: '항공편 예약',
           link: '/examples/#flight-booker'
         },
         {
-          text: 'Timer',
+          text: '타이머',
           link: '/examples/#timer'
         },
         {
@@ -512,11 +512,11 @@ export const sidebar: ThemeConfig['sidebar'] = {
           link: '/examples/#crud'
         },
         {
-          text: 'Circle Drawer',
+          text: '원 그리기',
           link: '/examples/#circle-drawer'
         },
         {
-          text: 'Cells',
+          text: '셀(스프레드시트)',
           link: '/examples/#cells'
         }
       ]
@@ -524,26 +524,26 @@ export const sidebar: ThemeConfig['sidebar'] = {
   ],
   '/style-guide/': [
     {
-      text: 'Style Guide',
+      text: '스타일 가이드',
       items: [
         {
-          text: 'Overview',
+          text: '개요',
           link: '/style-guide/'
         },
         {
-          text: 'A - Essential',
+          text: 'A - 핵심',
           link: '/style-guide/rules-essential'
         },
         {
-          text: 'B - Strongly Recommended',
+          text: 'B - 강력 추천',
           link: '/style-guide/rules-strongly-recommended'
         },
         {
-          text: 'C - Recommended',
+          text: 'C - 추천',
           link: '/style-guide/rules-recommended'
         },
         {
-          text: 'D - Use with Caution',
+          text: 'D - 주의해서 사용',
           link: '/style-guide/rules-use-with-caution'
         }
       ]
@@ -558,9 +558,9 @@ export const sidebar: ThemeConfig['sidebar'] = {
 export default defineConfigWithTheme<ThemeConfig>({
   extends: baseConfig,
 
-  lang: 'en-US',
+  lang: 'ko-KR',
   title: 'Vue.js',
-  description: 'Vue.js - The Progressive JavaScript Framework',
+  description: 'Vue.js - 프로그래시브 자바스크립트 프레임워크',
   srcDir: 'src',
   srcExclude: ['tutorial/**/description.md'],
   scrollOffset: 'header',
@@ -620,6 +620,11 @@ export default defineConfigWithTheme<ThemeConfig>({
         repo: 'https://github.com/vuejs-translations/docs-ja'
       },
       {
+        link: 'http://v3-docs.vuejs-korea.org',
+        text: '한국어',
+        repo: 'https://github.com/vuejs-kr/docs'
+      },
+      {
         link: '/translations/',
         text: 'Help Us Translate!',
         isTranslationsDesc: true
@@ -648,7 +653,7 @@ export default defineConfigWithTheme<ThemeConfig>({
 
     editLink: {
       repo: 'vuejs/docs',
-      text: 'Edit this page on GitHub'
+      text: 'GitHub에서 이 페이지 편집'
     },
 
     footer: {

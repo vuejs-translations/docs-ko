@@ -1,34 +1,37 @@
-# Composition API: Lifecycle Hooks {#composition-api-lifecycle-hooks}
+# 컴포지션 API: 생명주기 훅 {#composition-api-lifecycle-hooks}
 
-:::info Usage Note
-All APIs listed on this page must be called synchronously during the `setup()` phase of a component. See [Guide - Lifecycle Hooks](/guide/essentials/lifecycle.html) for more details.
+:::info 사용 참고 사항
+이 페이지에 나열된 모든 API는 컴포넌트의 `setup()` 단계에서 동기적으로 호출되어야 합니다.
+자세한 내용은 [가이드 - 생명주기 훅](/guide/essentials/lifecycle.html)을 참고하세요.
 :::
 
 ## onMounted() {#onmounted}
 
-Registers a callback to be called after the component has been mounted.
+컴포넌트가 마운트된 후 호출될 콜백을 등록합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onMounted(callback: () => void): void
   ```
 
-- **Details**
+- **세부 사항**:
 
-  A component is considered mounted after:
+  컴포넌트가 마운트 되었다고 간주하는 조건은 다음과 같습니다:
 
-  - All of its synchronous child components have been mounted (does not include async components or components inside `<Suspense>` trees).
+  - 동기식 자식 컴포넌트가 모두 마운트됨(`<Suspense>` 트리 내부의 비동기 컴포넌트 또는 컴포넌트는 포함하지 않음).
 
-  - Its own DOM tree has been created and inserted into the parent container. Note it only guarantees that the component's DOM tree is in-document if the application's root container is also in-document.
+  - 자체 DOM 트리가 생성되어 상위 컨테이너에 삽입됨.
+    앱의 루트 컨테이너가 Document 내에 있는 경우에만 컴포넌트의 DOM 트리가 문서 내에 있음을 보장함.
 
-  This hook is typically used for performing side effects that need access to the component's rendered DOM, or for limiting DOM-related code to the client in a [server-rendered application](/guide/scaling-up/ssr.html).
+  일반적으로 이 훅은 컴포넌트의 렌더링된 DOM에 접근해야 하는 사이드 이펙트를 실행하거나,
+  [서버에서 렌더링 된 앱](/guide/scaling-up/ssr.html)에서 DOM과 관련 코드를 클라이언트에서만 실행하도록 제한하는 데 사용됩니다.
 
-  **This hook is not called during server-side rendering.**
+  **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **Example**
+- **예제**:
 
-  Accessing an element via template ref:
+  템플릿 ref를 통해 엘리먼트에 접근:
 
   ```vue
   <script setup>
@@ -48,29 +51,31 @@ Registers a callback to be called after the component has been mounted.
 
 ## onUpdated() {#onupdated}
 
-Registers a callback to be called after the component has updated its DOM tree due to a reactive state change.
+반응형 상태 변경으로 컴포넌트의 DOM 트리가 업데이트된 후 호출될 콜백을 등록합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onUpdated(callback: () => void): void
   ```
 
-- **Details**
+- **세부 사항**:
 
-  A parent component's updated hook is called after that of its child components.
+  부모 컴포넌트의 updated 훅은 자식 컴포넌트의 훅 이후에 호출됩니다.
 
-  This hook is called after any DOM update of the component, which can be caused by different state changes. If you need to access the updated DOM after a specific state change, use [nextTick()](/api/general.html#nexttick) instead.
+  이 훅은 상태 변경에 영향을 받을 컴포넌트의 DOM 업데이트 후에 호출됩니다.
+  특정 상태 변경 후 업데이트된 DOM에 접근해야 하는 경우, [nextTick()](/api/general.html#nexttick)을 사용해야 합니다.
 
-  **This hook is not called during server-side rendering.**
+  **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-  :::warning
-  Do not mutate component state in the updated hook - this will likely lead to an infinite update loop!
+  :::warning 주의
+  updated 훅에서 컴포넌트 상태를 변경하면 안되는데,
+  무한 업데이트 루프가 발생할 수 있기 때문입니다!
   :::
 
-- **Example**
+- **예제**:
 
-  Accessing updated DOM:
+  업데이트된 DOM에 접근:
 
   ```vue
   <script setup>
@@ -79,7 +84,7 @@ Registers a callback to be called after the component has updated its DOM tree d
   const count = ref(0)
 
   onUpdated(() => {
-    // text content should be the same as current `count.value`
+    // 텍스트 내용은 현재 `count.value`와 같아야 함
     console.log(document.getElementById('count').textContent)
   })
   </script>
@@ -91,27 +96,27 @@ Registers a callback to be called after the component has updated its DOM tree d
 
 ## onUnmounted() {#onunmounted}
 
-Registers a callback to be called after the component has been unmounted.
+컴포넌트가 마운트 해제된 후 호출될 콜백을 등록합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onUnmounted(callback: () => void): void
   ```
 
-- **Details**
+- **세부 사항**:
 
-  A component is considered unmounted after:
+  컴포넌트가 마운트 해제되었다고 간주하는 조건은 다음과 같습니다:
 
-  - All of its child components have been unmounted.
+  - 모든 자식 컴포넌트가 마운트 해제됨.
 
-  - All of its associated reactive effects (render effect and computed / watchers created during `setup()`) have been stopped.
+  - 관련된 모든 반응형 이펙트(`setup()`에서 생성된 렌더 이펙트, 계산된 속성, 감시자)가 중지됨.
 
-  Use this hook to clean up manually created side effects such as timers, DOM event listeners or server connections.
+  이 훅을 사용하여 타이머, DOM 이벤트 리스너 또는 서버 연결처럼 수동으로 생성된 사이드 이펙트를 정리합니다.
 
-  **This hook is not called during server-side rendering.**
+  **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **Example**
+- **예제**:
 
   ```vue
   <script setup>
@@ -130,57 +135,59 @@ Registers a callback to be called after the component has been unmounted.
 
 ## onBeforeMount() {#onbeforemount}
 
-Registers a hook to be called right before the component is to be mounted.
+컴포넌트가 마운트되기 직전에 호출될 훅을 등록합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onBeforeMount(callback: () => void): void
   ```
 
-- **Details**
+- **세부 사항**:
 
-  When this hook is called, the component has finished setting up its reactive state, but no DOM nodes have been created yet. It is about to execute its DOM render effect for the first time.
+  이 훅은 컴포넌트의 반응형 상태 설정이 완료된 후 호출되지만, 아직 DOM 노드가 생성되지 않은 단계입니다.
+  첫 DOM 렌더 이펙트를 실행하려고 합니다.
 
-  **This hook is not called during server-side rendering.**
+  **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
 ## onBeforeUpdate() {#onbeforeupdate}
 
-Registers a hook to be called right before the component is about to update its DOM tree due to a reactive state change.
+반응형 상태 변경으로 컴포넌트의 DOM 트리를 업데이트하기 직전에 호출될 콜백을 등록합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onBeforeUpdate(callback: () => void): void
   ```
 
-- **Details**
+- **세부 사항**:
 
-  This hook can be used to access the DOM state before Vue updates the DOM. It is also safe to modify component state inside this hook.
+  이 훅은 Vue가 DOM을 업데이트하기 전에 DOM 상태에 접근하는 데 사용할 수 있습니다.
+  이 훅 내부에서 컴포넌트 상태를 수정하는 것도 안전합니다.
 
-  **This hook is not called during server-side rendering.**
+  **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
 ## onBeforeUnmount() {#onbeforeunmount}
 
-Registers a hook to be called right before a component instance is to be unmounted.
+컴포넌트 인스턴스가 마운트 해제되기 직전에 호출될 콜백을 등록합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onBeforeUnmount(callback: () => void): void
   ```
 
-- **Details**
+- **세부 사항**:
 
-  When this hook is called, the component instance is still fully functional.
+  이 훅이 호출될 때, 여전히 컴포넌트 인스턴스는 완전히 동작하는 상태입니다.
 
-  **This hook is not called during server-side rendering.**
+  **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
 ## onErrorCaptured() {#onerrorcaptured}
 
-Registers a hook to be called when an error propagating from a descendant component has been captured.
+자식 컴포넌트에서 전파된 에러가 캡쳐되었을 때 호출될 콜백을 등록합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onErrorCaptured(callback: ErrorCapturedHook): void
@@ -192,41 +199,49 @@ Registers a hook to be called when an error propagating from a descendant compon
   ) => boolean | void
   ```
 
-- **Details**
+- **세부 사항**:
 
-  Errors can be captured from the following sources:
+  다음과 같은 출처의 에러를 캡처할 수 있습니다:
 
-  - Component renders
-  - Event handlers
-  - Lifecycle hooks
-  - `setup()` function
-  - Watchers
-  - Custom directive hooks
-  - Transition hooks
+  - 컴포넌트 렌더
+  - 이벤트 핸들러
+  - 생명주기 훅
+  - `setup()` 함수
+  - 감시자
+  - 커스텀 디렉티브 훅
+  - 트랜지션 훅
 
-  The hook receives three arguments: the error, the component instance that triggered the error, and an information string specifying the error source type.
+  훅은 '에러', '에러를 트리거한 컴포넌트 인스턴스', '에러 소스 유형을 지정하는 정보 문자열' 세 개의 인자를 받습니다.
 
-  You can modify component state in `errorCaptured()` to display an error state to the user. However, it is important that the error state should not render the original content that caused the error; otherwise the component will be thrown into an infinite render loop.
+  `errorCaptured` 훅에서 컴포넌트 상태를 수정하여 사용자에게 에러 상태를 표시할 수 있습니다.
+  그러나 에러가 난 컴포넌트에서 에러 상태를 렌더링해서는 안됩니다.
+  그렇지 않으면 컴포넌트가 무한 렌더링 루프에 빠집니다.
 
-  The hook can return `false` to stop the error from propagating further. See error propagation details below.
+  훅은 `false`를 반환하여 에러가 더 이상 전파되지 않도록 할 수 있습니다.
+  아래의 에러 전파 세부 사항을 참조하십시오.
 
-  **Error Propagation Rules**
+  **에러 전파 규칙**
 
-  - By default, all errors are still sent to the application-level [`app.config.errorHandler`](/api/application.html#app-config-errorhandler) if it is defined, so that these errors can still be reported to an analytics service in a single place.
+  - 기본적으로 모든 에러는 단계적으로 전파되며,
+    [`app.config.errorHandler`](/api/application.html#app-config-errorhandler)가 정의된 경우,
+    최종적으로 이곳으로 전파되므로 한 곳에서 서비스 분석 및 보고 작업을 할 수 있습니다.
 
-  - If multiple `errorCaptured` hooks exist on a component's inheritance chain or parent chain, all of them will be invoked on the same error, in the order of bottom to top. This is similar to the bubbling mechanism of native DOM events.
+  - 컴포넌트의 상속 체인 또는 부모 체인에 여러 개의 `errorCaptured` 후크가 존재하는 경우, 모든 후크는 동일한 오류에 대해 아래에서 위로 순서대로 호출됩니다. 이는 네이티브 DOM 이벤트의 버블링 메커니즘과 유사합니다.
 
-  - If the `errorCaptured` hook itself throws an error, both this error and the original captured error are sent to `app.config.errorHandler`.
+  - `errorCaptured` 훅 자체에서 에러가 발생하면,
+    이 에러와 원래 캡처된 에러가 모두 `app.config.errorHandler`로 전송됩니다.
 
-  - An `errorCaptured` hook can return `false` to prevent the error from propagating further. This is essentially saying "this error has been handled and should be ignored." It will prevent any additional `errorCaptured` hooks or `app.config.errorHandler` from being invoked for this error.
+  - `errorCaptured` 훅에서 `false`를 반환하면 더 이상 에러가 전파되지 않습니다.
+    이것은 본질적으로 "이 에러는 처리되었으므로 무시되어야 합니다."를 의미합니다.
+    따라서 이후 단계적으로 전파되어야 할 `errorCaptured` 훅 또는 `app.config.errorHandler`에 이 에러로 인한 호출 동작은 없습니다.
 
 ## onRenderTracked() <sup class="vt-badge dev-only" /> {#onrendertracked}
 
-Registers a debug hook to be called when a reactive dependency has been tracked by the component's render effect.
+컴포넌트의 렌더 이펙트에 의해 반응형 의존성이 추적됐을 때, 호출될 디버그 콜백을 등록합니다.
 
-**This hook is development-mode-only and not called during server-side rendering.**
+**이 훅은 개발 모드 전용이며, 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onRenderTracked(callback: DebuggerHook): void
@@ -241,15 +256,15 @@ Registers a debug hook to be called when a reactive dependency has been tracked 
   }
   ```
 
-- **See also:** [Reactivity in Depth](/guide/extras/reactivity-in-depth.html)
+- **참고**: [반응형 심화](/guide/extras/reactivity-in-depth.html)
 
 ## onRenderTriggered() <sup class="vt-badge dev-only" /> {#onrendertriggered}
 
-Registers a debug hook to be called when a reactive dependency triggers the component's render effect to be re-run.
+컴포넌트의 렌더 이펙트가 반응형 의존성에 의해 다시 실행되도록 트리거된 경우, 호출될 디버그 콜백을 등록합니다.
 
-**This hook is development-mode-only and not called during server-side rendering.**
+**이 훅은 개발 모드 전용이며, 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onRenderTriggered(callback: DebuggerHook): void
@@ -267,53 +282,55 @@ Registers a debug hook to be called when a reactive dependency triggers the comp
   }
   ```
 
-- **See also:** [Reactivity in Depth](/guide/extras/reactivity-in-depth.html)
+- **참고**: [반응형 심화](/guide/extras/reactivity-in-depth.html)
 
 ## onActivated() {#onactivated}
 
-Registers a callback to be called after the component instance is inserted into the DOM as part of a tree cached by [`<KeepAlive>`](/api/built-in-components.html#keepalive).
+[`<KeepAlive>`](/api/built-in-components.html#keepalive)로 캐시된 컴포넌트 인스턴스가 DOM 트리의 일부로 삽입된 후 호출될 콜백을 등록합니다.
 
-**This hook is not called during server-side rendering.**
+**이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onActivated(callback: () => void): void
   ```
 
-- **See also:** [Guide - Lifecycle of Cached Instance](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
+- **참고**: [가이드 - 캐시된 인스턴스의 수명 주기](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
 
-## onDeactivated() {#ondeactivated}
+## onDeactivated()  {#ondeactivated}
 
-Registers a callback to be called after the component instance is removed from the DOM as part of a tree cached by [`<KeepAlive>`](/api/built-in-components.html#keepalive).
+[`<KeepAlive>`](/api/built-in-components.html#keepalive)로 캐시된 컴포넌트 인스턴스가 DOM 트리에서 제거된 후 호출될 콜백을 등록합니다.
 
-**This hook is not called during server-side rendering.**
+**이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onDeactivated(callback: () => void): void
   ```
 
-- **See also:** [Guide - Lifecycle of Cached Instance](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
+- **참고**: [가이드 - 캐시된 인스턴스의 수명 주기](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
 
-## onServerPrefetch() <sup class="vt-badge" data-text="SSR only" /> {#onserverprefetch}
+## onServerPrefetch() <sup class="vt-badge" data-text="SSR 전용" /> {#onserverprefetch}
 
-Registers an async function to be resolved before the component instance is to be rendered on the server.
+컴포넌트 인스턴스가 서버에서 렌더링 되기 전에 완료(resolve)되어야 하는 비동기 함수를 등록합니다.
 
-- **Type**
+- **타입**:
 
   ```ts
   function onServerPrefetch(callback: () => Promise<any>): void
   ```
 
-- **Details**
+- **세부 사항**:
 
-  If the callback returns a Promise, the server renderer will wait until the Promise is resolved before rendering the component.
+  콜백이 Promise를 반환하면,
+  서버 렌더러는 컴포넌트를 렌더링하기 전 Promise가 해결될 때까지 기다립니다.
 
-  This hook is only called during server-side rendering can be used to perform server-only data fetching.
+  이 훅은 SSR(서버 사이드 렌더링) 중에만 호출되므로,
+  서버 전용 데이터 가져오기를 실행하는 데 사용할 수 있습니다.
 
-- **Example**
+- **예제**:
 
   ```vue
   <script setup>
@@ -322,20 +339,21 @@ Registers an async function to be resolved before the component instance is to b
   const data = ref(null)
 
   onServerPrefetch(async () => {
-    // component is rendered as part of the initial request
-    // pre-fetch data on server as it is faster than on the client
+    // 서버에서 미리 데이터를 가져오는 것은
+    // 클라이언트에서 데이터를 요청하는 것보다 빠름.
+    // 최초 데이터 요청 결과로 컴포넌트의 일부가 렌더링 됨.
     data.value = await fetchOnServer(/* ... */)
   })
 
   onMounted(async () => {
     if (!data.value) {
-      // if data is null on mount, it means the component
-      // is dynamically rendered on the client. Perform a
-      // client-side fetch instead.
+      // 마운트 시 데이터가 null일 경우,
+      // 컴포넌트가 클라이언트에서 동적으로 렌더링되도록
+      // 클라이언트 측에서 가져오기를 실행해야 함.
       data.value = await fetchOnClient(/* ... */)
     }
   })
   </script>
   ```
 
-- **See also:** [Server-Side Rendering](/guide/scaling-up/ssr.html)
+- **참고**: [서버 사이드 렌더링](/guide/scaling-up/ssr.html)
