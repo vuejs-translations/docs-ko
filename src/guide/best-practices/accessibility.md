@@ -1,7 +1,3 @@
-<script setup>
-import CodepenSnippet from './accessibility-demos/CodepenSnippet.vue'
-</script>
-
 # 접근성 {#accessibility}
 
 웹 접근성(a11y라고도 함)은 장애가 있는 사람, 네트워크 속도가 느린 사람, 오래되거나 손상된 하드웨어 또는 단순히 낙후된 환경에 있는 사람 등 누구나 사용할 수 있는 웹사이트를 만드는 것 입니다.

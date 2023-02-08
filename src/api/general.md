@@ -1,7 +1,3 @@
-<script setup>
-import CustomPreferenceSwitch from './CustomPreferenceSwitch.vue'
-</script>
-
 # Global API: General {#global-api-general}
 
 ## version {#version}
@@ -37,8 +33,7 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
 - **예제**:
 
-  <CustomPreferenceSwitch />
-
+  
   <div class="composition-api">
 
   ```vue

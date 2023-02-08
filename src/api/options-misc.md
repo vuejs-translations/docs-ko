@@ -1,7 +1,3 @@
-<script setup>
-import CustomPreferenceSwitch from './CustomPreferenceSwitch.vue'
-</script>
-
 # 옵션: 기타 {#options-misc}
 
 ## name {#name}
@@ -79,9 +75,8 @@ import CustomPreferenceSwitch from './CustomPreferenceSwitch.vue'
 
   </div>
 
-  <CustomPreferenceSwitch />
-
-  <div class="composition-api">
+  
+  <div class="options-api">
 
   ```vue
   <script>
