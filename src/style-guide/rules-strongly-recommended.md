@@ -1,3 +1,24 @@
+# 우선순위 B 규칙: 강력히 권장 {#priority-b-rules-strongly-recommended}
+
+이 규칙은 대부분의 프로젝트에서 가독성 및/또는 개발자 경험을 개선하는 것으로 밝혀졌습니다. 이 규칙을 위반해도 코드는 계속 실행되지만 위반하는 경우는 드물고 정당한 이유가 있어야 합니다.
+
+## 컴포넌트 파일 {#component-files}
+
+**빌드 시스템에서 파일을 연결할 수 있는 경우 각 컴포넌트는 자체 파일에 있어야 합니다.**
+
+이렇게 하면 컴포넌트를 편집하거나 사용 방법을 검토해야 할 때 더 빠르게 찾을 수 있습니다.
+
+
+
+
+
+
+
+
+
+
+
+
 # Priority B Rules: Strongly Recommended {#priority-b-rules-strongly-recommended}
 
 These rules have been found to improve readability and/or developer experience in most projects. Your code will still run if you violate them, but violations should be rare and well-justified.
@@ -40,11 +61,12 @@ components/
 
 </div>
 
-## Single-file component filename casing {#single-file-component-filename-casing}
+## 단일 파일 컴포넌트 파일명 대/소문자 {#단일 파일 컴포넌트-파일명-대/소문자}
 
-**Filenames of [Single-File Components](/guide/scaling-up/sfc.html) should either be always PascalCase or always kebab-case.**
+**단일 파일 컴포넌트](/guide/scaling-up/sfc.html)의 파일명은 항상 파스칼 케이스이거나 항상 케밥 케이스여야 합니다.**
 
-PascalCase works best with autocompletion in code editors, as it's consistent with how we reference components in JS(X) and templates, wherever possible. However, mixed case filenames can sometimes create issues on case-insensitive file systems, which is why kebab-case is also perfectly acceptable.
+파스칼 케이스는 코드 편집기의 자동 완성 기능에서 가장 잘 작동하며, 가능한 경우 JSX 및 템플릿에서 컴포넌트를 참조하는 방식과 일치하기 때문입니다. 그러나 대소문자를 구분하지 않는 파일 시스템에서는 대소문자가 혼합된 파일 이름으로 인해 문제가 발생할 수 있으므로 케밥 케이스도 완벽하게 사용할 수 있습니다.
+
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -76,28 +98,29 @@ components/
 
 </div>
 
-## Base component names {#base-component-names}
 
-**Base components (a.k.a. presentational, dumb, or pure components) that apply app-specific styling and conventions should all begin with a specific prefix, such as `Base`, `App`, or `V`.**
+## 기본 컴포넌트 이름 {#base-component-names}
 
-::: details Detailed Explanation
-These components lay the foundation for consistent styling and behavior in your application. They may **only** contain:
+**앱별 스타일과 규칙을 적용하는 기본 컴포넌트(프레젠테이션, 덤 또는 순수 컴포넌트라고도 함)는 모두 `Base`, `App` 또는 `V`와 같은 특정 접두사로 시작해야 합니다.**
 
-- HTML elements,
-- other base components, and
-- 3rd-party UI components.
+::: details 자세한 설명
+이러한 구성 요소는 애플리케이션에서 일관된 스타일과 동작을 위한 토대를 마련합니다. 다음과 같은 요소만 포함할 수 있습니다:
 
-But they'll **never** contain global state (e.g. from a [Pinia](https://pinia.vuejs.org/) store).
+- HTML 요소,
+- 기타 기본 컴포넌트, 그리고
+- 타사 UI 컴포넌트.
 
-Their names often include the name of an element they wrap (e.g. `BaseButton`, `BaseTable`), unless no element exists for their specific purpose (e.g. `BaseIcon`). If you build similar components for a more specific context, they will almost always consume these components (e.g. `BaseButton` may be used in `ButtonSubmit`).
+그러나 글로벌 상태(예: [Pinia](https://pinia.vuejs.org/) 스토어)는 **절대로** 포함하지 않습니다.
 
-Some advantages of this convention:
+특정 목적에 맞는 요소가 존재하지 않는 한(예: `BaseIcon`) 이름에 래핑하는 요소의 이름이 포함되는 경우가 많습니다(예: `BaseButton`, `BaseTable`). 보다 구체적인 컨텍스트에 대해 유사한 컴포넌트를 빌드하는 경우 거의 항상 이러한 컴포넌트를 사용하게 됩니다(예: `BaseButton`은 `ButtonSubmit`에서 사용될 수 있음).
 
-- When organized alphabetically in editors, your app's base components are all listed together, making them easier to identify.
+이 규칙에는 몇 가지 장점이 있습니다:
 
-- Since component names should always be multi-word, this convention prevents you from having to choose an arbitrary prefix for simple component wrappers (e.g. `MyButton`, `VueButton`).
+- 편집기에서 알파벳순으로 구성하면 앱의 기본 컴포넌트가 모두 함께 나열되므로 쉽게 식별할 수 있습니다.
 
-- Since these components are so frequently used, you may want to simply make them global instead of importing them everywhere. A prefix makes this possible with Webpack:
+- 컴포넌트 이름은 항상 여러 단어로 구성해야 하므로 이 규칙을 사용하면 간단한 컴포넌트 래퍼에 임의의 접두사(예: `MyButton`, `VueButton`)를 선택하지 않아도 됩니다.
+
+- 이러한 컴포넌트는 자주 사용되기 때문에 모든 곳에서 임포트하는 대신 전역으로 만들고 싶을 수 있습니다. 접두사를 사용하면 Webpack에서 이를 가능하게 합니다:
 
   ```js
   const requireComponent = require.context(
@@ -156,11 +179,13 @@ components/
 
 </div>
 
-## Single-instance component names {#single-instance-component-names}
 
-**Components that should only ever have a single active instance should begin with the `The` prefix, to denote that there can be only one.**
+## 단일 인스턴스 컴포넌트 이름 {#단일 인스턴스 컴포넌트 이름}
 
-This does not mean the component is only used in a single page, but it will only be used once _per page_. These components never accept any props, since they are specific to your app, not their context within your app. If you find the need to add props, it's a good indication that this is actually a reusable component that is only used once per page _for now_.
+**활성 인스턴스가 하나만 있어야 하는 컴포넌트는 `The` 접두사로 시작하여 하나만 있을 수 있음을 나타내야 합니다.
+
+이는 컴포넌트가 단일 페이지에서만 사용된다는 뜻이 아니라 _페이지당_ 한 번만 사용된다는 뜻입니다. 이러한 컴포넌트는 앱 내 컨텍스트가 아닌 앱에 고유한 것이므로 어떤 소품도 허용하지 않습니다. 소품을 추가해야 할 필요가 있다면, 이 컴포넌트가 실제로 페이지당 _현재_ 한 번만 사용되는 재사용 가능한 컴포넌트라는 것을 나타내는 좋은 신호입니다.
+
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -184,14 +209,15 @@ components/
 
 </div>
 
-## Tightly coupled component names {#tightly-coupled-component-names}
+## 긴밀하게 결합된 컴포넌트 이름 {#tightly-coupled-component-names}
 
-**Child components that are tightly coupled with their parent should include the parent component name as a prefix.**
+**부모 컴포넌트와 긴밀하게 결합된 자식 컴포넌트는 부모 컴포넌트 이름을 접두사로 포함해야 합니다.**
 
-If a component only makes sense in the context of a single parent component, that relationship should be evident in its name. Since editors typically organize files alphabetically, this also keeps these related files next to each other.
+컴포넌트가 단일 상위 컴포넌트의 컨텍스트에서만 의미가 있는 경우, 그 관계가 이름에 명확히 드러나야 합니다. 편집기는 일반적으로 파일을 알파벳순으로 정리하므로 이렇게 하면 관련 파일이 서로 나란히 정렬됩니다.
 
-::: details Detailed Explanation
-You might be tempted to solve this problem by nesting child components in directories named after their parent. For example:
+::: details 상세 설명
+부모 컴포넌트의 이름을 딴 디렉터리에 자식 컴포넌트를 중첩하여 이 문제를 해결하고 싶을 수 있습니다. 예를 들어
+
 
 ```
 components/
@@ -213,10 +239,11 @@ components/
 |- TodoList.vue
 ```
 
-This isn't recommended, as it results in:
+이 방법은 권장하지 않습니다:
 
-- Many files with similar names, making rapid file switching in code editors more difficult.
-- Many nested sub-directories, which increases the time it takes to browse components in an editor's sidebar.
+- 이름이 비슷한 파일이 많아 코드 편집기에서 파일을 빠르게 전환하기가 더 어려워집니다.
+- 중첩된 하위 디렉터리가 많아 에디터 사이드바에서 컴포넌트를 탐색하는 데 걸리는 시간이 늘어납니다.
+
   :::
 
 <div class="style-example style-example-bad">
@@ -255,24 +282,26 @@ components/
 
 </div>
 
-## Order of words in component names {#order-of-words-in-component-names}
 
-**Component names should start with the highest-level (often most general) words and end with descriptive modifying words.**
+## 컴포넌트 이름 내 단어 순서 {#order-of-words-in-component-names}
 
-::: details Detailed Explanation
-You may be wondering:
+**컴포넌트 이름은 가장 높은 수준의 단어(보통 가장 일반적인 단어)로 시작하고 설명적인 수정 단어로 끝나야 합니다.**
 
-> "Why would we force component names to use less natural language?"
 
-In natural English, adjectives and other descriptors do typically appear before the nouns, while exceptions require connector words. For example:
+::: details 자세한 설명
+궁금하실 수 있습니다:
 
-- Coffee _with_ milk
-- Soup _of the_ day
-- Visitor _to the_ museum
+> "왜 컴포넌트 이름에 자연스럽지 않은 언어를 사용하도록 강제할까요?"
 
-You can definitely include these connector words in component names if you'd like, but the order is still important.
+자연스러운 영어에서는 형용사 및 기타 설명어가 명사 앞에 오는 것이 일반적이지만, 예외적으로 연결어가 필요합니다. 예를 들어
 
-Also note that **what's considered "highest-level" will be contextual to your app**. For example, imagine an app with a search form. It may include components like this one:
+- 커피 _와_ 우유
+- 수프 _오늘의_ 수프
+- 박물관 _방문자
+
+원한다면 이러한 연결어를 컴포넌트 이름에 포함할 수 있지만 순서는 여전히 중요합니다.
+
+또한 "최상위 수준"으로 간주되는 것은 앱의 컨텍스트에 따라 달라질 수 있습니다**. 예를 들어 검색 양식이 있는 앱을 상상해 보세요. 이 앱에는 다음과 같은 컴포넌트가 포함될 수 있습니다:
 
 ```
 components/
@@ -283,8 +312,7 @@ components/
 |- SearchInput.vue
 |- TermsCheckbox.vue
 ```
-
-As you might notice, it's quite difficult to see which components are specific to the search. Now let's rename the components according to the rule:
+아시다시피 어떤 구성 요소가 검색과 관련이 있는지 확인하는 것은 매우 어렵습니다. 이제 규칙에 따라 구성 요소의 이름을 변경해 보겠습니다:
 
 ```
 components/
@@ -296,13 +324,15 @@ components/
 |- SettingsCheckboxTerms.vue
 ```
 
-Since editors typically organize files alphabetically, all the important relationships between components are now evident at a glance.
+편집기는 일반적으로 파일을 알파벳순으로 정리하기 때문에 이제 구성 요소 간의 모든 중요한 관계를 한 눈에 알 수 있습니다.
 
-You might be tempted to solve this problem differently, nesting all the search components under a "search" directory, then all the settings components under a "settings" directory. We only recommend considering this approach in very large apps (e.g. 100+ components), for these reasons:
+모든 검색 컴포넌트를 "검색" 디렉토리 아래에 중첩하고 모든 설정 컴포넌트를 "설정" 디렉토리 아래에 중첩하는 등 이 문제를 다른 방식으로 해결하고 싶을 수도 있습니다. 이러한 이유로 이 접근 방식은 매우 큰 앱(예: 100개 이상의 컴포넌트)에서만 고려하는 것이 좋습니다:
 
-- It generally takes more time to navigate through nested sub-directories, than scrolling through a single `components` directory.
-- Name conflicts (e.g. multiple `ButtonDelete.vue` components) make it more difficult to quickly navigate to a specific component in a code editor.
-- Refactoring becomes more difficult, because find-and-replace often isn't sufficient to update relative references to a moved component.
+- 일반적으로 단일 `components` 디렉터리를 스크롤하는 것보다 중첩된 하위 디렉터리를 탐색하는 데 더 많은 시간이 걸립니다.
+- 이름 충돌(예: 여러 개의 `ButtonDelete.vue` 컴포넌트)로 인해 코드 편집기에서 특정 컴포넌트로 빠르게 이동하기가 더 어려워집니다.
+- 찾기 및 바꾸기만으로는 이동된 컴포넌트에 대한 상대 참조를 업데이트하기에 충분하지 않은 경우가 많으므로 리팩터링이 더 어려워집니다.
+
+
   :::
 
 <div class="style-example style-example-bad">
@@ -335,13 +365,14 @@ components/
 
 </div>
 
-## Self-closing components {#self-closing-components}
+## 셀프 클로징 컴포넌트 {#self-closing-components}
 
-**Components with no content should be self-closing in [Single-File Components](/guide/scaling-up/sfc.html), string templates, and [JSX](/guide/extras/render-function.html#jsx-tsx) - but never in DOM templates.**
+**콘텐츠가 없는 컴포넌트는 [단일 파일 컴포넌트](/guide/scaling-up/sfc.html), 문자열 템플릿, [JSX](/guide/extras/render-function.html#jsx-tsx)에서 자체 닫혀야 하지만, DOM 템플릿에서는 절대 자체 닫혀서는 안 됩니다.**
 
-Components that self-close communicate that they not only have no content, but are **meant** to have no content. It's the difference between a blank page in a book and one labeled "This page intentionally left blank." Your code is also cleaner without the unnecessary closing tag.
+자체 닫히는 컴포넌트는 콘텐츠가 없을 뿐만 아니라 콘텐츠가 없는 것으로 **의미**된다는 것을 알립니다. 책에서 빈 페이지와 "이 페이지는 의도적으로 비워 두었습니다."라고 표시된 페이지의 차이입니다. 불필요한 닫는 태그가 없는 코드도 더 깔끔해집니다.
 
-Unfortunately, HTML doesn't allow custom elements to be self-closing - only [official "void" elements](https://www.w3.org/TR/html/syntax.html#void-elements). That's why the strategy is only possible when Vue's template compiler can reach the template before the DOM, then serve the DOM spec-compliant HTML.
+안타깝게도 HTML에서는 사용자 정의 요소가 자체적으로 닫히는 것을 허용하지 않으며, [공식적인 "무효" 요소](https://www.w3.org/TR/html/syntax.html#void-elements)만 허용합니다. 그렇기 때문에 이 전략은 Vue의 템플릿 컴파일러가 DOM보다 먼저 템플릿에 도달한 다음 DOM 사양을 준수하는 HTML을 제공할 수 있을 때만 가능합니다.
+
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -373,21 +404,20 @@ Unfortunately, HTML doesn't allow custom elements to be self-closing - only [off
 
 </div>
 
-## Component name casing in templates {#component-name-casing-in-templates}
+## 템플릿 내 컴포넌트 이름 대/소문자 구분 {#component-name-casing-in-templates}
 
-**In most projects, component names should always be PascalCase in [Single-File Components](/guide/scaling-up/sfc.html) and string templates - but kebab-case in DOM templates.**
+**대부분의 프로젝트에서 컴포넌트 이름은 [단일 파일 컴포넌트](/guide/scaling-up/sfc.html)와 문자열 템플릿에서는 항상 파스칼 케이스를 사용해야 하지만, DOM 템플릿에서는 케밥 케이스를 사용해야 합니다.**
 
-PascalCase has a few advantages over kebab-case:
+파스칼케이스는 케밥케이스에 비해 몇 가지 장점이 있습니다:
 
-- Editors can autocomplete component names in templates, because PascalCase is also used in JavaScript.
-- `<MyComponent>` is more visually distinct from a single-word HTML element than `<my-component>`, because there are two character differences (the two capitals), rather than just one (a hyphen).
-- If you use any non-Vue custom elements in your templates, such as a web component, PascalCase ensures that your Vue components remain distinctly visible.
+- 파스칼케이스는 자바스크립트에서도 사용되기 때문에 편집자는 템플릿에서 컴포넌트 이름을 자동 완성할 수 있습니다.
+- `<MyComponent>`는 한 글자(하이픈)가 아닌 두 글자(대문자 두 개)의 차이가 있기 때문에 `<내 컴포넌트>`보다 단일 단어 HTML 요소와 시각적으로 더 잘 구분됩니다.
+- 템플릿에서 웹 컴포넌트와 같이 Vue가 아닌 사용자 정의 요소를 사용하는 경우 파스칼 대소문자를 사용하면 Vue 컴포넌트가 명확하게 표시됩니다.
 
-Unfortunately, due to HTML's case insensitivity, DOM templates must still use kebab-case.
+안타깝게도 HTML의 대소문자를 구분하지 않기 때문에 DOM 템플릿은 여전히 케밥 케이스를 사용해야 합니다.
 
-Also note that if you've already invested heavily in kebab-case, consistency with HTML conventions and being able to use the same casing across all your projects may be more important than the advantages listed above. In those cases, **using kebab-case everywhere is also acceptable.**
+또한 이미 케밥 케이스에 많은 투자를 했다면 HTML 규칙과의 일관성 및 모든 프로젝트에서 동일한 대소문자를 사용할 수 있는 것이 위에 나열된 장점보다 더 중요할 수 있습니다. 이러한 경우에는 **모든 곳에 케밥 케이스를 사용하는 것도 허용됩니다**.
 
-<div class="style-example style-example-bad">
 <h3>Bad</h3>
 
 ```vue-html
@@ -429,17 +459,18 @@ OR
 
 </div>
 
-## Component name casing in JS/JSX {#component-name-casing-in-js-jsx}
+## JS/JSX의 컴포넌트 이름 대/소문자 {#component-name-casing-in-js-jsx}
 
-**Component names in JS/[JSX](/guide/extras/render-function.html#jsx-tsx) should always be PascalCase, though they may be kebab-case inside strings for simpler applications that only use global component registration through `app.component`.**
+**JS/[JSX](/guide/extras/render-function.html#jsx-tsx)의 컴포넌트 이름은 항상 파스칼 케이스를 사용해야 하지만, `app.component`를 통한 전역 컴포넌트 등록만 사용하는 간단한 애플리케이션의 경우 문자열 내부에 케밥 케이스를 사용할 수 있습니다.**
 
-::: details Detailed Explanation
-In JavaScript, PascalCase is the convention for classes and prototype constructors - essentially, anything that can have distinct instances. Vue components also have instances, so it makes sense to also use PascalCase. As an added benefit, using PascalCase within JSX (and templates) allows readers of the code to more easily distinguish between components and HTML elements.
 
-However, for applications that use **only** global component definitions via `app.component`, we recommend kebab-case instead. The reasons are:
+::: details 자세한 설명
+자바스크립트에서 파스칼케이스는 클래스 및 프로토타입 생성자, 즉 본질적으로 별개의 인스턴스를 가질 수 있는 모든 것에 대한 규칙입니다. Vue 컴포넌트에도 인스턴스가 있으므로 파스칼케이스도 사용하는 것이 합리적입니다. 추가적인 이점으로, JSX(및 템플릿) 내에서 파스칼케이스를 사용하면 코드 독자가 컴포넌트와 HTML 요소를 더 쉽게 구분할 수 있습니다.
 
-- It's rare that global components are ever referenced in JavaScript, so following a convention for JavaScript makes less sense.
-- These applications always include many in-DOM templates, where [kebab-case **must** be used](#component-name-casing-in-templates).
+그러나 `app.component`를 통해 전역 컴포넌트 정의만 사용하는 애플리케이션의 경우 케밥 케이스를 사용하는 것이 좋습니다. 그 이유는 다음과 같습니다:
+
+- 자바스크립트에서 전역 컴포넌트를 참조하는 경우는 거의 없으므로 자바스크립트 규칙을 따르는 것이 덜 합리적입니다.
+- 이러한 애플리케이션에는 항상 많은 인-DOM 템플릿이 포함되며, 여기에는 [kebab-case **필수** 사용](#component-name-casing-in-templates)이 사용됩니다.
   :::
 
 <div class="style-example style-example-bad">
@@ -499,11 +530,11 @@ export default {
 
 </div>
 
-## Full-word component names {#full-word-component-names}
+## 전체 단어 컴포넌트 이름 {#full-word-component-names}
 
-**Component names should prefer full words over abbreviations.**
+**컴포넌트 이름은 약어보다 완전한 단어를 사용하는 것이 좋습니다.**
 
-The autocompletion in editors make the cost of writing longer names very low, while the clarity they provide is invaluable. Uncommon abbreviations, in particular, should always be avoided.
+편집기의 자동 완성 기능은 긴 이름을 작성하는 데 드는 비용을 매우 낮춰주는 반면, 명확성을 제공하는 것은 매우 귀중합니다. 특히 흔하지 않은 약어는 항상 피해야 합니다.
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -527,9 +558,11 @@ components/
 
 </div>
 
-## Prop name casing {#prop-name-casing}
+## 소품 이름 대소문자 {#prop-name-casing}
 
-**Prop names should always use camelCase during declaration. When used inside in-DOM templates, props should be kebab-cased. Single-File Components templates and [JSX](/guide/extras/render-function.html#jsx-tsx) can use either kebab-case or camelCase props. Casing should be consistent - if you choose to use camelCased props, make sure you don't use kebab-cased ones in your application**
+**소품 이름은 선언 시 항상 대/소문자를 구분해야 합니다. in-DOM 템플릿 내에서 사용하는 경우 소품은 케밥 케이스를 사용해야 합니다. 단일 파일 컴포넌트 템플릿과 [JSX](/guide/extras/render-function.html#jsx-tsx)는 케밥 케이스 또는 캠멜 케이스 프로퍼티를 사용할 수 있습니다. 대소문자는 일관성을 유지해야 합니다. camelCase 소품을 사용하기로 선택한 경우 애플리케이션에서 케밥 케이스 소품을 사용하지 않아야 합니다**
+
+
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -585,8 +618,8 @@ const props = defineProps({
 </div>
 
 ```vue-html
-// for SFC - please make sure your casing is consistent throughout the project
-// you can use either convention but we don't recommend mixing two different casing styles
+// SFC의 경우 - 프로젝트 전체에서 대소문자가 일관성 있게 유지되도록 하세요. 
+// 두 가지 규칙 중 하나를 사용할 수 있지만 두 가지 다른 대소문자 스타일을 혼합하는 것은 권장하지 않습니다.
 <WelcomeMessage greeting-text="hi"/>
 // or
 <WelcomeMessage greetingText="hi"/>
@@ -599,11 +632,11 @@ const props = defineProps({
 
 </div>
 
-## Multi-attribute elements {#multi-attribute-elements}
+## 다중 속성 요소 {#multi-attribute-elements}
 
-**Elements with multiple attributes should span multiple lines, with one attribute per line.**
+**여러 속성을 가진 요소는 여러 줄에 걸쳐 있어야 하며, 한 줄당 하나의 속성을 사용해야 합니다.**
 
-In JavaScript, splitting objects with multiple properties over multiple lines is widely considered a good convention, because it's much easier to read. Our templates and [JSX](/guide/extras/render-function.html#jsx-tsx) deserve the same consideration.
+자바스크립트에서는 여러 속성을 가진 객체를 여러 줄에 걸쳐 분할하는 것이 훨씬 읽기 쉽기 때문에 좋은 관습으로 널리 알려져 있습니다. 워드프레스닷컴의 템플릿과 [JSX](/guide/extras/render-function.html#jsx-tsx)도 이와 동일하게 고려할 가치가 있습니다.
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -638,11 +671,11 @@ In JavaScript, splitting objects with multiple properties over multiple lines is
 
 </div>
 
-## Simple expressions in templates {#simple-expressions-in-templates}
+## 템플릿의 간단한 표현식 {#simple-expressions-in-templates}
 
-**Component templates should only include simple expressions, with more complex expressions refactored into computed properties or methods.**
+**컴포넌트 템플릿에는 단순한 표현식만 포함해야 하며, 복잡한 표현식은 계산된 속성이나 메서드로 리팩터링해야 합니다.**
 
-Complex expressions in your templates make them less declarative. We should strive to describe _what_ should appear, not _how_ we're computing that value. Computed properties and methods also allow the code to be reused.
+템플릿에 복잡한 표현식이 있으면 선언적 표현이 줄어듭니다. 값을 계산하는 '방법'이 아니라 '무엇'이 표시되어야 하는지를 설명하기 위해 노력해야 합니다. 계산된 프로퍼티와 메서드는 코드를 재사용할 수 있게 해줍니다.
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -696,26 +729,26 @@ const normalizedFullName = computed(() =>
 
 </div>
 
-## Simple computed properties {#simple-computed-properties}
+## 단순 계산 프로퍼티 {#simple-computed-properties}
 
-**Complex computed properties should be split into as many simpler properties as possible.**
+**복잡한 계산 프로퍼티는 가능한 한 많은 단순한 프로퍼티로 분할해야 합니다.**
 
-::: details Detailed Explanation
-Simpler, well-named computed properties are:
+::: details자세한 설명
+더 간단하고 이름이 잘 지정된 계산된 프로퍼티입니다:
 
-- **Easier to test**
+- **테스트하기 쉬움**
 
-  When each computed property contains only a very simple expression, with very few dependencies, it's much easier to write tests confirming that it works correctly.
+  각 계산된 프로퍼티에 종속성이 거의 없는 매우 간단한 표현식만 포함되어 있으면 올바르게 작동하는지 확인하는 테스트를 작성하기가 훨씬 쉽습니다.
 
-- **Easier to read**
+- **읽기 쉬움**
 
-  Simplifying computed properties forces you to give each value a descriptive name, even if it's not reused. This makes it much easier for other developers (and future you) to focus in on the code they care about and figure out what's going on.
+  계산된 프로퍼티를 단순화하면 재사용되지 않더라도 각 값에 설명이 포함된 이름을 지정할 수 있습니다. 이렇게 하면 다른 개발자(그리고 미래의 개발자)가 관심 있는 코드에 집중하고 무슨 일이 일어나고 있는지 파악하기가 훨씬 쉬워집니다.
 
-- **More adaptable to changing requirements**
+- **변화하는 요구 사항에 더 쉽게 적응**
 
-  Any value that can be named might be useful to the view. For example, we might decide to display a message telling the user how much money they saved. We might also decide to calculate sales tax, but perhaps display it separately, rather than as part of the final price.
+  이름을 지정할 수 있는 모든 값은 뷰에 유용할 수 있습니다. 예를 들어, 사용자가 얼마나 많은 돈을 절약했는지 알려주는 메시지를 표시하기로 결정할 수 있습니다. 또한 판매세를 계산하되 최종 가격의 일부가 아닌 별도로 표시하기로 결정할 수도 있습니다.
 
-  Small, focused computed properties make fewer assumptions about how information will be used, so require less refactoring as requirements change.
+  작고 집중적으로 계산되는 속성은 정보 사용 방식에 대한 가정이 적기 때문에 요구 사항 변경에 따른 리팩터링이 덜 필요합니다.
   :::
 
 <div class="style-example style-example-bad">
@@ -791,11 +824,11 @@ const finalPrice = computed(() => basePrice.value - discount.value)
 
 </div>
 
-## Quoted attribute values {#quoted-attribute-values}
+## 따옴표로 묶인 속성 값 {#quoted-attribute-values}
 
-**Non-empty HTML attribute values should always be inside quotes (single or double, whichever is not used in JS).**
+**비어 있지 않은 HTML 속성 값은 항상 따옴표 안에 넣어야 합니다(JS에서 사용되지 않는 단일 또는 이중 중 하나).**
 
-While attribute values without any spaces are not required to have quotes in HTML, this practice often leads to _avoiding_ spaces, making attribute values less readable.
+공백이 없는 속성 값은 HTML에서 따옴표로 묶을 필요가 없지만, 이 관행은 종종 공백을 _회피_하여 속성 값의 가독성을 떨어뜨립니다.
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -823,9 +856,10 @@ While attribute values without any spaces are not required to have quotes in HTM
 
 </div>
 
-## Directive shorthands {#directive-shorthands}
+## 지시어 단축 {#directive-shorthands}
 
-**Directive shorthands (`:` for `v-bind:`, `@` for `v-on:` and `#` for `v-slot`) should be used always or never.**
+**지시어 단축(`v-bind:`의 경우 `:`, `v-on:`의 경우 `@`, `v-slot`의 경우 `#`)는 항상 사용하거나 절대 사용하지 않아야 합니다.**
+
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>

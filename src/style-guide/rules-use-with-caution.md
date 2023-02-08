@@ -1,17 +1,19 @@
-# Priority D Rules: Use with Caution {#priority-d-rules-use-with-caution}
+# 우선순위 D 규칙: 주의해서 사용 {#priority-d-rules-use-with-care}
 
-Some features of Vue exist to accommodate rare edge cases or smoother migrations from a legacy code base. When overused however, they can make your code more difficult to maintain or even become a source of bugs. These rules shine a light on potentially risky features, describing when and why they should be avoided.
+Vue의 일부 기능은 드문 에지 케이스나 레거시 코드 기반에서 원활한 마이그레이션을 위해 존재합니다. 그러나 과도하게 사용하면 코드 유지 관리가 더 어려워지거나 버그의 원인이 될 수 있습니다. 이 규칙은 잠재적으로 위험한 기능을 조명하여 언제, 왜 피해야 하는지 설명합니다.
 
-## Element selectors with `scoped` {#element-selectors-with-scoped}
 
-**Element selectors should be avoided with `scoped`.**
+## scoped`가 포함된 요소 선택기 {#element-selectors-with-scoped}
 
-Prefer class selectors over element selectors in `scoped` styles, because large numbers of element selectors are slow.
+**요소 선택기는 `scoped`를 사용하지 않아야 합니다.
 
-::: details Detailed Explanation
-To scope styles, Vue adds a unique attribute to component elements, such as `data-v-f3f3eg9`. Then selectors are modified so that only matching elements with this attribute are selected (e.g. `button[data-v-f3f3eg9]`).
+많은 수의 요소 선택기는 느리기 때문에 `scoped` 스타일의 요소 선택기보다 클래스 선택기를 선호합니다.
 
-The problem is that large numbers of element-attribute selectors (e.g. `button[data-v-f3f3eg9]`) will be considerably slower than class-attribute selectors (e.g. `.btn-close[data-v-f3f3eg9]`), so class selectors should be preferred whenever possible.
+
+::: details 자세한 설명
+스타일 범위를 지정하기 위해 Vue는 컴포넌트 요소에 `데이터-v-f3f3eg9`와 같은 고유 속성을 추가합니다. 그런 다음 이 속성을 가진 일치하는 요소만 선택되도록 선택기를 수정합니다(예: `button[data-v-f3f3eg9]`).
+
+문제는 많은 수의 요소 속성 선택자(예: `button[data-v-f3f3eg9]`)가 클래스 속성 선택자(예: `.btn-close[data-v-f3f3eg9]`)보다 상당히 느리다는 것이므로 가능하면 클래스 선택자를 선호해야 한다는 것입니다.
 :::
 
 <div class="style-example style-example-bad">
@@ -48,13 +50,13 @@ button {
 
 </div>
 
-## Implicit parent-child communication {#implicit-parent-child-communication}
+## 암시적 부모-자식 통신 {#implicit-parent-child-communication}
 
-**Props and events should be preferred for parent-child component communication, instead of `this.$parent` or mutating props.**
+**부모-자식 컴포넌트 통신에는 `this.$parent` 또는 변이 프로퍼티 대신 프로퍼티와 이벤트가 선호됩니다.
 
-An ideal Vue application is props down, events up. Sticking to this convention makes your components much easier to understand. However, there are edge cases where prop mutation or `this.$parent` can simplify two components that are already deeply coupled.
+이상적인 Vue 애플리케이션은 프로퍼티는 아래로, 이벤트는 위로 배치하는 것입니다. 이 규칙을 고수하면 컴포넌트를 훨씬 더 쉽게 이해할 수 있습니다. 그러나 프로퍼티 돌연변이 또는 `this.$parent`가 이미 깊게 결합된 두 컴포넌트를 단순화할 수 있는 에지 케이스가 있습니다.
 
-The problem is, there are also many _simple_ cases where these patterns may offer convenience. Beware: do not be seduced into trading simplicity (being able to understand the flow of your state) for short-term convenience (writing less code).
+문제는 이러한 패턴이 편의를 제공할 수 있는 _단순한_ 경우도 많다는 것입니다. 주의: 단기적인 편의성(코드 작성 감소)을 위해 단순성(상태의 흐름을 이해할 수 있음)을 거래하는 유혹에 빠지지 마세요.
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
