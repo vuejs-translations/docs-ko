@@ -18,9 +18,9 @@ jobs:
     - name: Install build tool
       run: npm install -g pnpm
     - name: Install Dependencies
-      run: cd ko-KR ; pnpm i
+      run: pnpm i
     - name: Generate pages
-      run: cd ko-KR ; pnpm run build
+      run: pnpm run build
     - name: Add CNAME
       run: echo "v3-docs.vuejs-korea.org" > .vitepress/dist/CNAME
     - name: Deploy to GitHub Pages
