@@ -37,7 +37,7 @@
 
   :::tip
 
-  버전 3.2.34부터 `<script setup>`을 사용하는 단일 파일 컴포넌트는 파일명을 기반으로 `name` 옵션을 자동으로 추론하므로 `<KeepAlive>`와 함께 사용할 때도 이름을 수동으로 선언할 필요가 없습니다.
+  버전 3.2.34부터 `<script setup>`을 사용하는 싱글 파일 컴포넌트는 파일명을 기반으로 `name` 옵션을 자동으로 추론하므로 `<KeepAlive>`와 함께 사용할 때도 이름을 수동으로 선언할 필요가 없습니다.
 
   Since version 3.2.34, a single-file component using `<script setup>` will automatically infer its `name` option based on the filename, removing the need to manually declare the name even when used with `<KeepAlive>`.
   :::
@@ -64,7 +64,7 @@
   `inheritAttrs`를 `false`로 설정하면,
   이 기본 동작을 비활성화할 수 있습니다.
   속성은 `$attrs` 인스턴스 속성을 통해 사용할 수 있으며,
-  `v-bind`를 사용하여 루트가 아닌 요소에 명시적으로 바인딩할 수 있습니다.
+  `v-bind`를 사용하여 루트가 아닌 앨리먼트에 명시적으로 바인딩할 수 있습니다.
 
 - **예제**:
 

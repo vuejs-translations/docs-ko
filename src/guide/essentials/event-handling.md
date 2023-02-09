@@ -250,7 +250,7 @@ methods: {
 ```
 
 ::: tip
-수정자를 사용할 때는 관련 코드가 동일한 순서로 생성되므로 순서가 중요합니다. 따라서 `@click.prevent.self`를 사용하면 **요소 자체와 그 자식에 대한 클릭의 기본 동작**을 방지하는 반면, `@click.self.prevent`는 요소 자체에 대한 클릭의 기본 동작만 방지합니다.
+수정자를 사용할 때는 관련 코드가 동일한 순서로 생성되므로 순서가 중요합니다. 따라서 `@click.prevent.self`를 사용하면 **앨리먼트 자체와 그 자식에 대한 클릭의 기본 동작**을 방지하는 반면, `@click.self.prevent`는 앨리먼트 자체에 대한 클릭의 기본 동작만 방지합니다.
 :::
 
 `.capture`, `.once` 및 `.passive` 수식어는 [네이티브 `addEventListener` 메서드의 옵션](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#options)을 반영합니다:

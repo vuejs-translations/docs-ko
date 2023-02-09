@@ -8,7 +8,7 @@
 
 ## 여러 단어로 된 컴포넌트명을 사용하세요 {#use-multi-word-component-names}
 
-사용자 컴포넌트 이름은 루트 `App` 컴포넌트를 제외하고 항상 다중 단어여야 합니다. 이렇게 하면 모든 HTML 요소가 단일 단어이므로 기존 및 향후 HTML 요소와의 [충돌을 방지](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name)할 수 있습니다.
+사용자 컴포넌트 이름은 루트 `App` 컴포넌트를 제외하고 항상 다중 단어여야 합니다. 이렇게 하면 모든 HTML 앨리먼트가 단일 단어이므로 기존 및 향후 HTML 앨리먼트와의 [충돌을 방지](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name)할 수 있습니다.
 
 <div class="style-example style-example-bad">
 <h3>나쁨</h3>
@@ -118,7 +118,7 @@ data() {
 
 
 
-문제는 DOM에 남을 요소를 삭제하지 않는 것이 중요한 경우가 있다는 것입니다. 예를 들어 `<transition-group>`을 사용하여 목록 정렬에 애니메이션을 적용하거나 렌더링된 요소가 `<input>`인 경우 포커스를 유지하려고 할 수 있습니다. 이러한 경우 각 항목에 고유 키(예: `:key="todo.id"`)를 추가하면 Vue가 보다 예측 가능한 방식으로 작동하는 방법을 알 수 있습니다.
+문제는 DOM에 남을 앨리먼트를 삭제하지 않는 것이 중요한 경우가 있다는 것입니다. 예를 들어 `<transition-group>`을 사용하여 목록 정렬에 애니메이션을 적용하거나 렌더링된 앨리먼트가 `<input>`인 경우 포커스를 유지하려고 할 수 있습니다. 이러한 경우 각 항목에 고유 키(예: `:key="todo.id"`)를 추가하면 Vue가 보다 예측 가능한 방식으로 작동하는 방법을 알 수 있습니다.
 
 저희 경험상 고유 키를 _항상_ 추가하는 것이 좋습니다. 그래야 여러분과 여러분의 팀이 이러한 에지 케이스에 대해 걱정할 필요가 없습니다. 그런 다음 객체 불변성이 필요하지 않은 드물고 성능에 중요한 시나리오에서는 의도적으로 예외를 만들 수 있습니다.
 :::
@@ -154,13 +154,13 @@ data() {
 
 ## `v-if`와  `v-for`를 같이 사용하지 않기 {#avoid-v-if-with-v-for}
 
-**v-for`와 같은 요소에 `v-if`를 사용하지 마세요.**
+**`v-for`와 같은 앨리먼트에 `v-if`를 사용하지 마세요.**
 
 두 가지 일반적인 경우가 있습니다:
 
 - 목록의 항목을 필터링하는 경우(예: `v-for="user in users" v-if="user.isActive"`). 이러한 경우 `users`를 필터링된 목록을 반환하는 새로운 계산된 속성(예: `activeUsers`)으로 대체하세요.
 
-- 숨겨야 하는 경우 목록을 렌더링하지 않으려면(예: `v-for="user in users" v-if="shouldShowUsers"`). 이 경우 `v-if`를 컨테이너 요소(예: `ul`, `ol`)로 이동합니다.
+- 숨겨야 하는 경우 목록을 렌더링하지 않으려면(예: `v-for="user in users" v-if="shouldShowUsers"`). 이 경우 `v-if`를 컨테이너 앨리먼트(예: `ul`, `ol`)로 이동합니다.
 
 
 ::: details 상세 설명
@@ -202,7 +202,7 @@ computed: {
 </ul>
 ```
 
-또는 `v-for`와 함께 `<템플template릿>` 태그를 사용하여 `<li>` 요소를 래핑할 수 있습니다:
+또는 `v-for`와 함께 `<템플template릿>` 태그를 사용하여 `<li>` 앨리먼트를 래핑할 수 있습니다:
 
 ```vue-html
 <ul>
@@ -263,7 +263,7 @@ computed: {
 
 애플리케이션의 경우 최상위 `App` 컴포넌트와 레이아웃 컴포넌트의 스타일은 전역적일 수 있지만 다른 모든 컴포넌트는 항상 범위가 지정되어야 합니다.
 
-이는 [단일 파일 컴포넌트](/guide/scaling-up/sfc.html)에만 해당됩니다. 반드시 [`scoped` 속성](https://vue-loader.vuejs.org/en/features/scoped-css.html)을 사용할 필요는 없습니다. 범위 지정은 [CSS 모듈](https://vue-loader.vuejs.org/en/features/css-modules.html), [BEM](http://getbem.com/)과 같은 클래스 기반 전략 또는 다른 라이브러리/규약을 통해 이루어질 수 있습니다.
+이는 [싱글 파일 컴포넌트](/guide/scaling-up/sfc.html)에만 해당됩니다. 반드시 [`scoped` 속성](https://vue-loader.vuejs.org/en/features/scoped-css.html)을 사용할 필요는 없습니다. 범위 지정은 [CSS 모듈](https://vue-loader.vuejs.org/en/features/css-modules.html), [BEM](http://getbem.com/)과 같은 클래스 기반 전략 또는 다른 라이브러리/규약을 통해 이루어질 수 있습니다.
 
 **그러나 컴포넌트 라이브러리는 `scoped` 속성을 사용하는 대신 클래스 기반 전략을 선호해야 합니다.**
 

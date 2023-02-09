@@ -296,7 +296,7 @@
   function onActivated(callback: () => void): void
   ```
 
-- **참고**: [가이드 - 캐시된 인스턴스의 수명 주기](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
+- **참고**: [가이드 - 캐시된 인스턴스의 생명 주기](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
 
 ## onDeactivated()  {#ondeactivated}
 
@@ -310,7 +310,7 @@
   function onDeactivated(callback: () => void): void
   ```
 
-- **참고**: [가이드 - 캐시된 인스턴스의 수명 주기](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
+- **참고**: [가이드 - 캐시된 인스턴스의 생명 주기](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
 
 ## onServerPrefetch() <sup class="vt-badge" data-text="SSR 전용" /> {#onserverprefetch}
 

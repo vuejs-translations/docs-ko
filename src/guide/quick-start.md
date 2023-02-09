@@ -23,7 +23,7 @@ footer: false
 - [Node.js](https://nodejs.org/) 버전 16.0 이상 설치
   :::
 
-이 섹션에서는 로컬 컴퓨터에서 Vue [단일 페이지 애플리케이션](/guide/extras/ways-of-using-vue.html#single-page-application-spa)을 스캐폴드하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vitejs.dev)를 기반으로 빌드 설정을 사용하고 Vue [단일 파일 컴포넌트](/guide/scaling-up/sfc)(SFC)를 사용할 수 있도록 합니다.
+이 섹션에서는 로컬 컴퓨터에서 Vue [단일 페이지 애플리케이션](/guide/extras/ways-of-using-vue.html#single-page-application-spa)을 스캐폴드하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vitejs.dev)를 기반으로 빌드 설정을 사용하고 Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc)(SFC)를 사용할 수 있도록 합니다.
 
 최신 버전의 [Node.js](https://nodejs.org/)가 설치되어 있는지 확인한 다음 명령줄에 다음 명령을 실행합니다(`>` 기호 제외):
 
@@ -83,7 +83,7 @@ When you are ready to ship your app to production, run the following:
 여기서는 [unpkg](https://unpkg.com/)를 사용하고 있지만, [jsdelivr](https://www.jsdelivr.com/package/npm/vue) 또는 [cdnjs](https://cdnjs.com/libraries/vue)와 같이 npm 패키지를 제공하는 모든 CDN을 사용할 수도 있습니다. 물론 이 파일을 다운로드하여 직접 제공할 수도 있습니다.
 
 
-CDN에서 Vue를 사용하는 경우 "빌드 단계"가 필요하지 않습니다. 따라서 설정이 훨씬 간단해지며 정적 HTML을 향상시키거나 백엔드 프레임워크와 통합하는 데 적합합니다. 하지만 단일 파일 컴포넌트(SFC) 구문은 사용할 수 없습니다.
+CDN에서 Vue를 사용하는 경우 "빌드 단계"가 필요하지 않습니다. 따라서 설정이 훨씬 간단해지며 정적 HTML을 향상시키거나 백엔드 프레임워크와 통합하는 데 적합합니다. 하지만 싱글 파일 컴포넌트(SFC) 구문은 사용할 수 없습니다.
 
 
 ### 글로벌 빌드 사용 {#using-the-global-build}

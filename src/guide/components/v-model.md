@@ -29,7 +29,7 @@
 
 하지만 이 기능이 실제로 작동하려면 `<CustomInput>` 컴포넌트가 두 가지 작업을 수행해야 합니다:
 
-1. 네이티브 `<input>` 요소의 `value` 속성을 `modelValue` 프로퍼티에 바인딩합니다.
+1. 네이티브 `<input>` 앨리먼트의 `value` 속성을 `modelValue` 프로퍼티에 바인딩합니다.
 2. 네이티브 `input` 이벤트가 트리거되면 새 값으로 `update:modelValue` 사용자 지정 이벤트를 내보냅니다.
 
 실제로 작동하는 모습은 다음과 같습니다:
@@ -203,7 +203,7 @@ export default {
 
 ## Multiple `v-model` bindings {#multiple-v-model-bindings}
 
-앞서 배운 것처럼 특정 prop과 이벤트를 타깃팅하는 기능을 [`v-model` 인수](#v-model-arguments)로 활용하면 이제 단일 컴포넌트 인스턴스에 여러 개의 `v-model` 바인딩을 생성할 수 있습니다.
+앞서 배운 것처럼 특정 prop과 이벤트를 타깃팅하는 기능을 [`v-model` 인자](#v-model-arguments)로 활용하면 이제 단일 컴포넌트 인스턴스에 여러 개의 `v-model` 바인딩을 생성할 수 있습니다.
 
 각 `v-model`은 컴포넌트에서 추가 옵션 없이도 다른 prop에 동기화됩니다:
 
@@ -343,7 +343,7 @@ export default {
 컴포넌트의 `modelModifiers` 프로퍼티에 `capitalize`가 포함되어 있고 그 값은 `v-model` 바인딩 `v-model.capitalize="myText"`에 설정되어 있기 때문에 `true`인 것을 알 수 있습니다.
 
 
-이제 prop이  설정되었으므로 `modelModifiers` 객체 키를 확인하고 방출된 값을 변경하는 핸들러를 작성할 수 있습니다. 아래 코드에서는 `<input />` 요소가 `input` 이벤트를 실행할 때마다 문자열을 대문자로 표시합니다.
+이제 prop이  설정되었으므로 `modelModifiers` 객체 키를 확인하고 발신된 값을 변경하는 핸들러를 작성할 수 있습니다. 아래 코드에서는 `<input />` 앨리먼트가 `input` 이벤트를 실행할 때마다 문자열을 대문자로 표시합니다.
 
 <div class="composition-api">
 

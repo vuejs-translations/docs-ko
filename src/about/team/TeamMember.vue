@@ -34,14 +34,14 @@ const avatarUrl = computed(() => {
       :href="`https://github.com/sponsors/${member.socials.github}`"
       no-icon
     >
-      <VTIconHeart class="sponsor-icon" /> Sponsor
+      <VTIconHeart class="sponsor-icon" /> 스폰서
     </VTLink>
 
     <figure class="avatar">
       <img
         class="avatar-img"
         :src="avatarUrl"
-        :alt="`${member.name}'s Profile Picture`"
+        :alt="`${member.name}'의 프로필 사진`"
       />
     </figure>
 

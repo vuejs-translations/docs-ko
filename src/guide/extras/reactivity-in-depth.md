@@ -269,7 +269,7 @@ Vue의 반응성 시스템이 종속성을 자동으로 추적하는 것은 훌�
 
 ### 컴포넌트 디버깅 훅 {#component-debugging-hooks}
 
-컴포넌트의 렌더링 중에 사용되는 의존성과 <span class="options-api">`renderTracked`</span><span class="composition-api">`onRenderTracked`</span> 및 <span class="options-api">`renderTriggered`</span><span class="composition-api">`onRenderTriggered`</span> 수명 주기 훅을 사용하여 업데이트를 트리거하는 의존성을 디버그할 수 있습니다.
+컴포넌트의 렌더링 중에 사용되는 의존성과 <span class="options-api">`renderTracked`</span><span class="composition-api">`onRenderTracked`</span> 및 <span class="options-api">`renderTriggered`</span><span class="composition-api">`onRenderTriggered`</span> 생명 주기 훅을 사용하여 업데이트를 트리거하는 의존성을 디버그할 수 있습니다.
 두 훅 모두 해당 의존성에 대한 정보가 포함된 디버거 이벤트를 수신합니다.
 의존성을 대화식으로 검사하기 위해 콜백에 `debugger` 문을 배치하는 것이 좋습니다:
 

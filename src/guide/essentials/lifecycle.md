@@ -1,10 +1,10 @@
-# 수명 주기 훅 {#lifecycle-hooks}
+# 생명 주기 훅 {#lifecycle-hooks}
 
 각 Vue 컴포넌트 인스턴스는 생성될 때 일련의 초기화 단계를 거칩니다.
 예를 들어, 데이터 감시를 설정하고, 템플릿을 컴파일하고, 인스턴스를 DOM에 마운트하고, 데이터가 변경되면 DOM을 업데이트해야 합니다.
-그 과정에서 수명 주기 훅(lifecycle hooks)이라 불리는 함수도 실행하여, 특정 단계에서 개발자가 의도하는 로직이 실행될 수 있도록 합니다.
+그 과정에서 생명 주기 훅(lifecycle hooks)이라 불리는 함수도 실행하여, 특정 단계에서 개발자가 의도하는 로직이 실행될 수 있도록 합니다.
 
-## 수명 주기 훅 등록하기 {#registering-lifecycle-hooks}
+## 생명 주기 훅 등록하기 {#registering-lifecycle-hooks}
 
 예를 들어 <span class="composition-api">`onMounted`</span><span class="options-api">`mounted`</span> 훅은 컴포넌트가 초기 렌더링 및 DOM 노드 생성이 완료된 후 코드를 실행하는 데 사용할 수 있습니다:
 
@@ -33,13 +33,13 @@ export default {
 
 </div>
 
-인스턴스 수명 주기의 여러 단계에서 호출되는 다른 훅도 있으며,
+인스턴스 생명 주기의 여러 단계에서 호출되는 다른 훅도 있으며,
 가장 일반적으로 사용되는 것은 <span class="composition-api">[`onMounted`](/api/composition-api-lifecycle.html#onmounted), [`onUpdated`](/api/composition-api-lifecycle.html#onupdated), [`onUnmounted`](/api/composition-api-lifecycle.html#onunmounted)가 있습니다.</span><span class="options-api">[`mounted`](/api/options-lifecycle.html#mounted), [`updated`](/api/options-lifecycle.html#updated), [`unmounted`](/api/options-lifecycle.html#unmounted)가 있습니다.</span>
 
 <div class="options-api">
 
-모든 수명 주기 훅은 호출하는 현재 활성 인스턴스를 가리키는 `this` 컨텍스트로 호출됩니다.
-이것은 수명 주기 훅을 선언할 때 화살표 함수를 사용해선 안 된다는 것을 의미합니다.
+모든 생명 주기 훅은 호출하는 현재 활성 인스턴스를 가리키는 `this` 컨텍스트로 호출됩니다.
+이것은 생명 주기 훅을 선언할 때 화살표 함수를 사용해선 안 된다는 것을 의미합니다.
 그렇지 않으면 `this`를 통해 컴포넌트 인스턴스에 접근할 수 없기 때문입니다.
 
 </div>
@@ -89,9 +89,9 @@ export default {
 
 </div>
 
-## 수명 주기 표 {#lifecycle-diagram}
+## 생명 주기 표 {#lifecycle-diagram}
 
-다음은 인스턴스 수명 주기에 대한 표입니다.
+다음은 인스턴스 생명 주기에 대한 표입니다.
 지금 진행 중인 모든 것을 완전히 이해할 필요는 없지만, 더 많이 배우고 구축함에 따라 유용한 참고 자료가 될 것입니다.
 
 ![Component lifecycle diagram](./images/lifecycle.png)
@@ -99,4 +99,4 @@ export default {
 <!-- https://www.figma.com/file/Xw3UeNMOralY6NV7gSjWdS/Vue-Lifecycle -->
 <!-- https://www.figma.com/file/6W2me8dWiTjx2em2Pow3gJ/Vue-Lifecycle-(ko-kr) -->
 
-수명 주기 훅의 모든 종류와 사용 사례에 대한 자세한 내용은 <span class="composition-api">[수명 주기 API](/api/composition-api-lifecycle.html)</span><span class="options-api">[수명 주기 API](/api/options-lifecycle.html)</span>를 참조하세요.
+생명 주기 훅의 모든 종류와 사용 사례에 대한 자세한 내용은 <span class="composition-api">[생명 주기 API](/api/composition-api-lifecycle.html)</span><span class="options-api">[생명 주기 API](/api/options-lifecycle.html)</span>를 참조하세요.

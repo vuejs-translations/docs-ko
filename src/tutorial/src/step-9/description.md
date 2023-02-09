@@ -99,10 +99,10 @@ createApp({
 </div>
 </div>
 
-이것을 컴포넌트 **수명 주기 훅**이라고 하며,
-수명 주기의 특정 시간에 호출할 콜백을 등록할 수 있습니다.
+이것을 컴포넌트 **생명 주기 훅**이라고 하며,
+생명 주기의 특정 시간에 호출할 콜백을 등록할 수 있습니다.
 <span class="options-api">`created` 및 `updated`</span><span class="composition-api">`onUpdated` 및 `onUnmounted`</span>와 같은 다른 훅도 있습니다.
-자세한 내용은 <a target="_blank" href="/guide/essentials/lifecycle.html#lifecycle-diagram">수명 주기 도표</a>에서 다룹니다.
+자세한 내용은 <a target="_blank" href="/guide/essentials/lifecycle.html#lifecycle-diagram">생명 주기 도표</a>에서 다룹니다.
 
 이제 <span class="options-api">`mounted`</span><span class="composition-api">`onMounted`</span> 훅을 추가하고,
 <span class="options-api">`this.$refs.p`</span><span class="composition-api">`p.value`</span>를 통해 `<p>`에 접근한 다음,

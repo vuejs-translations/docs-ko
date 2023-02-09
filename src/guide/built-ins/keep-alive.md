@@ -43,10 +43,9 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 </div>
 <div class="options-api">
 
-[Try it in the Playground](https://sfc.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdD5cbmltcG9ydCBDb21wQSBmcm9tICcuL0NvbXBBLnZ1ZSdcbmltcG9ydCBDb21wQiBmcm9tICcuL0NvbXBCLnZ1ZSdcbiAgXG5leHBvcnQgZGVmYXVsdCB7XG4gIGNvbXBvbmVudHM6IHsgQ29tcEEsIENvbXBCIH0sXG4gIGRhdGEoKSB7XG4gICAgcmV0dXJuIHtcbiAgICAgIGN1cnJlbnQ6ICdDb21wQSdcbiAgICB9XG4gIH1cbn1cbjwvc2NyaXB0PlxuXG48dGVtcGxhdGU+XG4gIDxkaXYgY2xhc3M9XCJkZW1vXCI+XG4gICAgPGxhYmVsPjxpbnB1dCB0eXBlPVwicmFkaW9cIiB2LW1vZGVsPVwiY3VycmVudFwiIHZhbHVlPVwiQ29tcEFcIiAvPiBBPC9sYWJlbD5cbiAgICA8bGFiZWw+PGlucHV0IHR5cGU9XCJyYWRpb1wiIHYtbW9kZWw9XCJjdXJyZW50XCIgdmFsdWU9XCJDb21wQlwiIC8+IEI8L2xhYmVsPlxuICAgIDxLZWVwQWxpdmU+XG4gICAgICA8Y29tcG9uZW50IDppcz1cImN1cnJlbnRcIj48L2NvbXBvbmVudD5cbiAgICA8L0tlZXBBbGl2ZT5cbiAgPC9kaXY+XG48L3RlbXBsYXRlPlxuIiwiaW1wb3J0LW1hcC5qc29uIjoie1xuICBcImltcG9ydHNcIjoge1xuICAgIFwidnVlXCI6IFwiaHR0cHM6Ly9zZmMudnVlanMub3JnL3Z1ZS5ydW50aW1lLmVzbS1icm93c2VyLmpzXCIsXG4gICAgXCJ2dWUvc2VydmVyLXJlbmRlcmVyXCI6IFwiaHR0cHM6Ly9zZmMudnVlanMub3JnL3NlcnZlci1yZW5kZXJlci5lc20tYnJvd3Nlci5qc1wiXG4gIH1cbn0iLCJDb21wQS52dWUiOiI8c2NyaXB0PlxuZXhwb3J0IGRlZmF1bHQge1xuICBkYXRhKCkge1xuICAgIHJldHVybiB7XG4gICAgICBjb3VudDogMFxuICAgIH1cbiAgfVxufVxuPC9zY3JpcHQ+XG5cbjx0ZW1wbGF0ZT5cbiAgPHA+7ZiE7J6sIOy7tO2PrOuEjO2KuDogQTwvcD5cbiAgPHNwYW4+7Lm07Jq07Yq4OiB7eyBjb3VudCB9fTwvc3Bhbj5cbiAgPGJ1dHRvbiBAY2xpY2s9XCJjb3VudCsrXCI+KzwvYnV0dG9uPlxuPC90ZW1wbGF0ZT5cbiIsIkNvbXBCLnZ1ZSI6IjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gIGRhdGEoKSB7XG4gICAgcmV0dXJuIHtcbiAgICAgIG1zZzogJydcbiAgICB9XG4gIH1cbn1cbjwvc2NyaXB0PlxuXG5cbjx0ZW1wbGF0ZT5cbiAgPHA+7ZiE7J6sIOy7tO2PrOuEjO2KuDogQjwvcD5cbiAgPHNwYW4+66mU7IS47KeAOiB7eyBtc2cgfX08L3NwYW4+XG4gIDxpbnB1dCB2LW1vZGVsPVwibXNnXCI+XG48L3RlbXBsYXRlPlxuIn0=)
+[온라인 연습장으로 실행하기](https://sfc.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdD5cbmltcG9ydCBDb21wQSBmcm9tICcuL0NvbXBBLnZ1ZSdcbmltcG9ydCBDb21wQiBmcm9tICcuL0NvbXBCLnZ1ZSdcbiAgXG5leHBvcnQgZGVmYXVsdCB7XG4gIGNvbXBvbmVudHM6IHsgQ29tcEEsIENvbXBCIH0sXG4gIGRhdGEoKSB7XG4gICAgcmV0dXJuIHtcbiAgICAgIGN1cnJlbnQ6ICdDb21wQSdcbiAgICB9XG4gIH1cbn1cbjwvc2NyaXB0PlxuXG48dGVtcGxhdGU+XG4gIDxkaXYgY2xhc3M9XCJkZW1vXCI+XG4gICAgPGxhYmVsPjxpbnB1dCB0eXBlPVwicmFkaW9cIiB2LW1vZGVsPVwiY3VycmVudFwiIHZhbHVlPVwiQ29tcEFcIiAvPiBBPC9sYWJlbD5cbiAgICA8bGFiZWw+PGlucHV0IHR5cGU9XCJyYWRpb1wiIHYtbW9kZWw9XCJjdXJyZW50XCIgdmFsdWU9XCJDb21wQlwiIC8+IEI8L2xhYmVsPlxuICAgIDxLZWVwQWxpdmU+XG4gICAgICA8Y29tcG9uZW50IDppcz1cImN1cnJlbnRcIj48L2NvbXBvbmVudD5cbiAgICA8L0tlZXBBbGl2ZT5cbiAgPC9kaXY+XG48L3RlbXBsYXRlPlxuIiwiaW1wb3J0LW1hcC5qc29uIjoie1xuICBcImltcG9ydHNcIjoge1xuICAgIFwidnVlXCI6IFwiaHR0cHM6Ly9zZmMudnVlanMub3JnL3Z1ZS5ydW50aW1lLmVzbS1icm93c2VyLmpzXCIsXG4gICAgXCJ2dWUvc2VydmVyLXJlbmRlcmVyXCI6IFwiaHR0cHM6Ly9zZmMudnVlanMub3JnL3NlcnZlci1yZW5kZXJlci5lc20tYnJvd3Nlci5qc1wiXG4gIH1cbn0iLCJDb21wQS52dWUiOiI8c2NyaXB0PlxuZXhwb3J0IGRlZmF1bHQge1xuICBkYXRhKCkge1xuICAgIHJldHVybiB7XG4gICAgICBjb3VudDogMFxuICAgIH1cbiAgfVxufVxuPC9zY3JpcHQ+XG5cbjx0ZW1wbGF0ZT5cbiAgPHA+7ZiE7J6sIOy7tO2PrOuEjO2KuDogQTwvcD5cbiAgPHNwYW4+7Lm07Jq07Yq4OiB7eyBjb3VudCB9fTwvc3Bhbj5cbiAgPGJ1dHRvbiBAY2xpY2s9XCJjb3VudCsrXCI+KzwvYnV0dG9uPlxuPC90ZW1wbGF0ZT5cbiIsIkNvbXBCLnZ1ZSI6IjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gIGRhdGEoKSB7XG4gICAgcmV0dXJuIHtcbiAgICAgIG1zZzogJydcbiAgICB9XG4gIH1cbn1cbjwvc2NyaXB0PlxuXG5cbjx0ZW1wbGF0ZT5cbiAgPHA+7ZiE7J6sIOy7tO2PrOuEjO2KuDogQjwvcD5cbiAgPHNwYW4+66mU7IS47KeAOiB7eyBtc2cgfX08L3NwYW4+XG4gIDxpbnB1dCB2LW1vZGVsPVwibXNnXCI+XG48L3RlbXBsYXRlPlxuIn0=)
 
 </div>
-
 
 :::tip
 [DOM 템플릿](/guide/essentials/component-basics.html#dom-template-parsing-caveats)에서 사용할 때 `<keep-alive>`로 참조해야 합니다.
@@ -78,7 +77,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 컴포넌트의 [`name`](/api/options-misc.html#name) 옵션과 일치하는지 확인하므로, `KeepAlive`에 의해 조건부로 캐시되어야 하는 컴포넌트는 명시적으로 `name` 옵션을 선언해야 합니다.
 
 :::tip
-버전 3.2.34부터 `<script setup>`을 사용하는 단일 파일 컴포넌트는 파일명을 기반으로 `name` 옵션을 자동으로 추론하므로 이름을 수동으로 선언할 필요가 없습니다.
+버전 3.2.34부터 `<script setup>`을 사용하는 싱글 파일 컴포넌트는 파일명을 기반으로 `name` 옵션을 자동으로 추론하므로 이름을 수동으로 선언할 필요가 없습니다.
 :::
 
 
@@ -102,7 +101,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 
 <div class="composition-api">
 
-kept-alive 컴포넌트는 [`onActivated()`](/api/composition-api-lifecycle.html#onactivated) 및 [`onDeactivated()`](/api/composition-api-lifecycle.html#ondeactivated)를 사용하여 이 두 가지 상태에 대한 수명 주기 훅을 등록할 수 있습니다:
+kept-alive 컴포넌트는 [`onActivated()`](/api/composition-api-lifecycle.html#onactivated) 및 [`onDeactivated()`](/api/composition-api-lifecycle.html#ondeactivated)를 사용하여 이 두 가지 상태에 대한 생명 주기 훅을 등록할 수 있습니다:
 
 ```vue
 <script setup>
@@ -123,7 +122,7 @@ onDeactivated(() => {
 </div>
 <div class="options-api">
 
-Keeped-alive 컴포넌트는 [`activated`](/api/options-lifecycle.html#activated) 및 [`deactivated`](/api/options-lifecycle.html#deactivated) 훅을 사용하여, 이 두 가지 상태에 대한 수명 주기 훅을 등록할 수 있습니다:
+Keeped-alive 컴포넌트는 [`activated`](/api/options-lifecycle.html#activated) 및 [`deactivated`](/api/options-lifecycle.html#deactivated) 훅을 사용하여, 이 두 가지 상태에 대한 생명 주기 훅을 등록할 수 있습니다:
 
 ```js
 export default {

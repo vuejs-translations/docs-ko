@@ -4,7 +4,7 @@
 
 `v-for` 디렉티브를 사용하여 배열을 리스트로 렌더링할 수 있습니다.
 `v-for` 디렉티브는 `item in items` 형식의 특별한 문법이 필요합니다.
-여기서 `items`는 배열이고, `item`(이하 아이템)은 배열 내 반복되는 요소의 **에일리어스**(alias)입니다.
+여기서 `items`는 배열이고, `item`(이하 아이템)은 배열 내 반복되는 앨리먼트의 **별칭(alias)**입니다.
 
 <div class="composition-api">
 
@@ -33,7 +33,7 @@ data() {
 ```
 
 `v-for` 범위 내 템플릿 표현식은 모든 상위 범위 속성에 접근할 수 있습니다.
-또한 `v-for`는 현재 아이템의 인덱스를 가리키는 선택적 두 번째 에일리어스도 지원합니다.
+또한 `v-for`는 현재 아이템의 인덱스를 가리키는 선택적 두 번째 별칭도 지원합니다.
 
 <div class="composition-api">
 
@@ -106,7 +106,7 @@ items.forEach((item, index) => {
   {{ message }}
 </li>
 
-<!-- index 에일리어스도 사용 -->
+<!-- index 별칭도 사용 -->
 <li v-for="({ message }, index) in items">
   {{ message }} {{ index }}
 </li>
@@ -168,7 +168,7 @@ data() {
 </ul>
 ```
 
-속성명을 가리키는 두 번째 에일리어스를 사용할 수도 있습니다:
+속성명을 가리키는 두 번째 별칭를 사용할 수도 있습니다:
 
 ```vue-html
 <li v-for="(value, key) in myObject">
@@ -176,7 +176,7 @@ data() {
 </li>
 ```
 
-그리고 인덱스를 가리키는 세 번째 에일리어스를 사용할 수도 있습니다:
+그리고 인덱스를 가리키는 세 번째 별칭를 사용할 수도 있습니다:
 
 ```vue-html
 <li v-for="(value, key, index) in myObject">
@@ -283,7 +283,7 @@ DOM Node의 위치가 변경되면 DOM Tree구조가 변경 되었기 때문에 
 
 :::tip 참고
 여기서 `key`는 `v-bind`와 결합되는 특수 속성입니다.
-[객체에 `v-for` 사용하기](#v-for-with-an-object)에서 언급하는 두 번째 에일리어스인 key와 혼동해서는 안 됩니다.
+[객체에 `v-for` 사용하기](#v-for-with-an-object)에서 언급하는 두 번째 별칭인 key와 혼동해서는 안 됩니다.
 :::
 
 반복되는 DOM 컨텐츠가 단순하거나(컴포넌트도 없고, 상태를 가지는 DOM 앨리먼트도 없을때), 의도적으로 기본 리스트 렌더링 동작을 통해 성능 향샹을 꾀하는 경우가 아니라면, 가능한 한 언제나 `v-for`는 `key` 속성과 함께 사용하는 것을 [권장합니다](/style-guide/rules-essential.html#use-keyed-v-for). 

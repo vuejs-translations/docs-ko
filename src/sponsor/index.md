@@ -9,71 +9,52 @@ sponsors: false
 import SponsorsGroup from '@theme/components/SponsorsGroup.vue'
 </script>
 
-# Become a Vue.js Sponsor {#become-a-vue-js-sponsor}
+# Vue.js 스폰서 되기 {#become-a-vue-js-sponsor}
 
-Vue.js is an MIT licensed open source project and completely free to use.
-The tremendous amount of effort needed to maintain such a large ecosystem and develop new features for the project is only made sustainable thanks to the generous financial backing of our sponsors.
+Vue.js는 MIT 라이선스를 받은 오픈 소스 프로젝트이며 완전히 무료로 사용할 수 있습니다.
+대규모 에코시스템을 유지하고 프로젝트를 위한 새로운 기능을 개발하는 데 필요한 엄청난 노력은 후원자의 관대한 재정적 지원 덕분에 지속 가능합니다.
 
-## How to Sponsor {#how-to-sponsor}
 
-Sponsorships can be done via [GitHub Sponsors](https://github.com/sponsors/yyx990803) or [OpenCollective](https://opencollective.com/vuejs). Invoices can be obtained via GitHub's payment system. Both monthly-recurring sponsorships and one-time donations are accepted. Recurring sponsorships are entitled to logo placements as specified in [Sponsorship Tiers](#tier-benefits).
+## 등급 혜택 {#tier-benefits}
 
-If you have questions regarding tiers, payment logistics, or sponsor exposure data, please reach out to [sponsor@vuejs.org](mailto:sponsor@vuejs.org).
+- **글로벌 스페셜**:
+  - 전 세계적으로 한 스폰서로 제한됩니다(현재 정원이 채워짐).
+  - [vuejs.org](/)의 첫 페이지에 독점적으로 접히는 로고가 배치됩니다.
+  - 아래 등급부터 모든 위치에서 가장 눈에 잘 띄는 로고 배치.
+- **플래티넘(USD$2,000/월)**:
+  - [vuejs.org](/)의 첫 페이지에 눈에 잘 띄는 로고 배치.
+  - 모든 콘텐츠 페이지의 사이드바에 눈에 잘 띄는 로고 배치.
+  - [`vuejs/core`](https://github.com/vuejs/core) 및 [`vuejs/vue`](https://github.com/vuejs/core)의 README에 눈에 잘 띄는 로고 배치.
+- **골드(USD$500/월)**:
+  - [vuejs.org](/)의 첫 페이지에 대형 로고 배치.
+  - `vuejs/core` 및 `vuejs/vue`의 README에 대형 로고 배치.
+- **실버(USD$250/월)**:
+  - `vuejs/core` 및 `vuejs/vue`의 `BACKERS.md` 파일에 중간 크기의 로고 배치.
+- **브론즈(USD$100/월)**:
+  - `vuejs/core` 및 `vuejs/vue`의 `BACKERS.md` 파일에 작은 로고 배치.
+- **관대한 후원자(USD$50/월)**:
+  - 다른 개인 후원자보다 `vuejs/core` 및 `vuejs/vue`의 `BACKERS.md` 파일에 기재된 이름입니다.
+- **개인 후원자 (USD$5/월)**:
+  - `vuejs/core` 및 `vuejs/vue`의 `BACKERS.md` 파일에 기재된 이름.
 
-## Sponsoring Vue as a Business {#sponsoring-vue-as-a-business}
+## 현재 스폰서 {#current-sponsors}
 
-Sponsoring Vue gives you great exposure to over **1.7 million** Vue developers around the world through our website and GitHub project READMEs. In addition, supporting OSS improves the reputation of your brand, which is an important asset for any company that interacts with developers.
-
-If you are using Vue to build a revenue-generating product, it makes business sense to sponsor Vue's development: **it ensures the project that your product relies on stays healthy and actively maintained.** The exposure and positive brand image in the Vue community also makes it easier to attract and recruit Vue developers.
-
-If you are building a product where your target customers are developers, you will gain high quality traffic through the sponsorship exposure, since all our visitors are developers. The sponsorship also builds brand recognition and improves conversion.
-
-## Sponsoring Vue as an Individual {#sponsoring-vue-as-an-individual}
-
-If you are an individual user and have enjoyed the productivity of using Vue, consider donating as a sign of appreciation - like buying us coffee once in a while. Many of our team members accept sponsorships and donations via GitHub Sponsors. Look for the "Sponsor" button on each team member's profile on our [team page](/about/team).
-
-You can also try to convince your employer to sponsor Vue as a business. This may not be easy, but business sponsorships typically make a much larger impact on the sustainability of OSS projects than individual donations, so you will help us much more if you succeed.
-
-## Tier Benefits {#tier-benefits}
-
-- **Global Special**:
-  - Limited to one sponsor globally (currently filled).
-  - Exclusive above the fold logo placement on the front page of [vuejs.org](/).
-  - Most prominent logo placement in all locations from tiers below.
-- **Platinum (USD$2,000/mo)**:
-  - Prominent logo placement on the front page of [vuejs.org](/).
-  - Prominent logo placement in sidebar of all content pages.
-  - Prominent logo placement in the README of [`vuejs/core`](https://github.com/vuejs/core) and [`vuejs/vue`](https://github.com/vuejs/core).
-- **Gold (USD$500/mo)**:
-  - Large logo placement on the front page of [vuejs.org](/).
-  - Large logo placement in the README of `vuejs/core` and `vuejs/vue`.
-- **Silver (USD$250/mo)**:
-  - Medium logo placement in the `BACKERS.md` file of `vuejs/core` and `vuejs/vue`.
-- **Bronze (USD$100/mo)**:
-  - Small logo placement in the `BACKERS.md` file of `vuejs/core` and `vuejs/vue`.
-- **Generous Backer (USD$50/mo)**:
-  - Name listed in the `BACKERS.md` file of `vuejs/core` and `vuejs/vue`, above other individual backers.
-- **Individual Backer (USD$5/mo)**:
-  - Name listed in the `BACKERS.md` file of `vuejs/core` and `vuejs/vue`.
-
-## Current Sponsors {#current-sponsors}
-
-### Special Global Sponsor {#special-global-sponsor}
+### 글로벌 스페셜 스폰서 {#special-global-sponsor}
 
 <SponsorsGroup tier="special" placement="page" />
 
-### Platinum {#platinum}
+### 플래티넘 {#platinum}
 
 <SponsorsGroup tier="platinum" placement="page" />
 
-### Platinum (China) {#platinum-china}
+### 플래티넘 (China) {#platinum-china}
 
 <SponsorsGroup tier="platinum_china" placement="page" />
 
-### Gold {#gold}
+### 골드 {#gold}
 
 <SponsorsGroup tier="gold" placement="page" />
 
-### Silver {#silver}
+### 실버 {#silver}
 
 <SponsorsGroup tier="silver" placement="page" />

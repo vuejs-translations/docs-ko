@@ -145,7 +145,7 @@ export default defineComponent({
 ```
 ### 복합 prop 타입 {#complex-prop-types}
 
-타입 기반 선언을 사용하면 소품은 다른 타입과 마찬가지로 복잡한 타입을 사용할 수 있습니다:
+타입 기반 선언을 사용하면 prop은 다른 타입과 마찬가지로 복잡한 타입을 사용할 수 있습니다:
 
 ```vue
 <script setup lang="ts">

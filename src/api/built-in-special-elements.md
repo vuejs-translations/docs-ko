@@ -154,7 +154,7 @@
 
 ## `<template>` {#template}
 
-`<template>` 태그는 DOM에 렌더링없이 사용할 요소들에 대한 위치기술을 위해(placeholder)로 사용할수 있습니다. 
+`<template>` 태그는 DOM에 렌더링없이 사용할 앨리먼트들에 대한 위치기술을 위해(placeholder)로 사용할수 있습니다. 
 The `<template>` tag is used as a placeholder when we want to use a built-in directive without rendering an element in the DOM.
 
 - **세부 사항:**
@@ -164,7 +164,7 @@ The `<template>` tag is used as a placeholder when we want to use a built-in dir
   - `v-for`
   - `v-slot`
   
-  만약 이런 디렉티브가 없다면, [네이티브 `<template>` 요소](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)로 렌더링됩니다. 
+  만약 이런 디렉티브가 없다면, [네이티브 `<template>` 앨리먼트](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)로 렌더링됩니다. 
   
   `v-for`가 있는 `<template>`은 [`key` 속성](/api/built-in-special-attributes.html#key)도 가질 수 있습니다. 다른 모든 속성과 디렉티브는 해당 엘리먼트가가 없으면 의미가 없으므로 버려집니다.
 

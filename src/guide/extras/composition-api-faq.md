@@ -1,10 +1,6 @@
 ---
 outline: deep
 ---
-
-:::warning 현재 이 문서는 번역 작업이 진행중입니다
-:::
-
 # 컴포지션 API FAQ {#composition-api-faq}
 
 :::tip
@@ -12,6 +8,8 @@ outline: deep
 :::
 
 ## 컴포지션 API란? {#what-is-composition-api}
+
+<VueSchoolLink href="https://vueschool.io/lessons/introduction-to-the-vue-js-3-composition-api" title="무료 컴포지션 API 강좌"/>
 
 컴포지션(Composition) API는 옵션을 선언하는 대신 `import`한 함수를 사용하여 Vue 컴포넌트를 작성할 수 있는 API 세트입니다.
 이것은 아래 API를 다루는 포괄적인 용어입니다:
@@ -23,7 +21,7 @@ outline: deep
 - [의존성 주입(Dependency Injection)](/api/composition-api-dependency-injection.html): `provide()` 및 `inject()`를 사용하면 반응형 API를 사용하는 동안 Vue의 의존성 주입 시스템을 활용할 수 있습니다.
 
 
-컴포지션 API는 Vue 3 및 [Vue 2.7](https://blog.vuejs.org/posts/vue-2-7-naruto.html)에 내장된 기능입니다. 이전 Vue 2 버전의 경우 공식적으로 유지 관리되는 [`@vue/composition-api`](https://github.com/vuejs/composition-api) 플러그인을 사용하십시오. Vue 3에서는 주로 단일 파일 컴포넌트에서 [`<스크립트 설정>`](/api/sfc-script-setup.html) 구문과 함께 사용되기도 합니다. 다음은 컴포지션 API를 사용하는 컴포넌트의 기본 예시입니다:
+컴포지션 API는 Vue 3 및 [Vue 2.7](https://blog.vuejs.org/posts/vue-2-7-naruto.html)에 내장된 기능입니다. 이전 Vue 2 버전의 경우 공식적으로 유지 관리되는 [`@vue/composition-api`](https://github.com/vuejs/composition-api) 플러그인을 사용하십시오. Vue 3에서는 주로 싱글 파일 컴포넌트에서 [`<스크립트 설정>`](/api/sfc-script-setup.html) 구문과 함께 사용되기도 합니다. 다음은 컴포지션 API를 사용하는 컴포넌트의 기본 예시입니다:
 
 ```vue
 <script setup>

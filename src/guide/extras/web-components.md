@@ -1,17 +1,17 @@
 # Vue 및 웹 컴포넌트 {#vue-and-web-components}
 
-[웹 컴포넌트](https://developer.mozilla.org/en-US/docs/Web/Web_Components)는 개발자가 재사용 가능한 사용자 정의 요소를 만들 수 있는 웹 네이티브 API 집합을 포괄적으로 지칭하는 용어입니다.
+[웹 컴포넌트](https://developer.mozilla.org/en-US/docs/Web/Web_Components)는 개발자가 재사용 가능한 사용자 정의 앨리먼트를 만들 수 있는 웹 네이티브 API 집합을 포괄적으로 지칭하는 용어입니다.
 
-워드프레스닷컴은 Vue와 웹 컴포넌트를 주로 상호 보완적인 기술로 간주합니다. Vue는 사용자 정의 요소의 사용과 생성을 모두 훌륭하게 지원합니다. 사용자 지정 요소를 기존 Vue 애플리케이션에 통합하든, 사용자 지정 요소를 빌드하고 배포하는 데 Vue를 사용하든 관계없이 좋은 회사에서 사용할 수 있습니다.
+워드프레스닷컴은 Vue와 웹 컴포넌트를 주로 상호 보완적인 기술로 간주합니다. Vue는 사용자 정의 앨리먼트의 사용과 생성을 모두 훌륭하게 지원합니다. 사용자 지정 앨리먼트를 기존 Vue 애플리케이션에 통합하든, 사용자 지정 앨리먼트를 빌드하고 배포하는 데 Vue를 사용하든 관계없이 좋은 회사에서 사용할 수 있습니다.
 
-## Vue에서 사용자 정의 요소 사용 {#using-custom-elements-in-vue}
+## Vue에서 사용자 정의 앨리먼트 사용 {#using-custom-elements-in-vue}
 
-Vue는 [사용자 정의 엘리먼트 에브리웨어 테스트에서 100% 만점을 받았습니다](https://custom-elements-everywhere.com/libraries/vue/results/results.html). Vue 애플리케이션 내에서 사용자 정의 요소를 사용하는 것은 기본 HTML 요소를 사용하는 것과 거의 동일하게 작동하지만 몇 가지 유의해야 할 사항이 있습니다:
+Vue는 [사용자 정의 엘리먼트 에브리웨어 테스트에서 100% 만점을 받았습니다](https://custom-elements-everywhere.com/libraries/vue/results/results.html). Vue 애플리케이션 내에서 사용자 정의 앨리먼트를 사용하는 것은 기본 HTML 앨리먼트를 사용하는 것과 거의 동일하게 작동하지만 몇 가지 유의해야 할 사항이 있습니다:
 
 
 ### 컴포넌트 리졸브 건너뛰기 {#skipping-component-resolution}
 
-기본적으로 Vue는 네이티브가 아닌 HTML 태그를 사용자 정의 요소로 렌더링하기 전에 등록된 Vue 구성 요소로 확인하려고 시도합니다. 이로 인해 Vue는 개발 중에 "구성 요소를 확인하지 못했습니다"라는 경고를 표시합니다. 특정 요소를 사용자 정의 요소로 처리하고 컴포넌트 확인을 건너뛰어야 한다는 것을 Vue에 알리기 위해 [`compilerOptions.isCustomElement` 옵션](/api/application.html#app-config-compiler옵션)을 지정할 수 있습니다.
+기본적으로 Vue는 네이티브가 아닌 HTML 태그를 사용자 정의 앨리먼트로 렌더링하기 전에 등록된 Vue 컴포넌트로 확인하려고 시도합니다. 이로 인해 Vue는 개발 중에 "컴포넌트를 확인하지 못했습니다"라는 경고를 표시합니다. 특정 앨리먼트를 사용자 정의 앨리먼트로 처리하고 컴포넌트 확인을 건너뛰어야 한다는 것을 Vue에 알리기 위해 [`compilerOptions.isCustomElement` 옵션](/api/application.html#app-config-compiler옵션)을 지정할 수 있습니다.
 
 빌드 설정과 함께 Vue를 사용하는 경우 이 옵션은 컴파일 타임 옵션이므로 빌드 설정을 통해 전달해야 합니다.
 
@@ -34,7 +34,7 @@ export default {
     vue({
       template: {
         compilerOptions: {
-          // 대시가 있는 모든 태그를 사용자 지정 요소로 취급합니다.
+          // 대시가 있는 모든 태그를 사용자 지정 앨리먼트로 취급합니다.
           isCustomElement: (tag) => tag.includes('-')
         }
       }
@@ -55,7 +55,7 @@ module.exports = {
       .tap(options => ({
         ...options,
         compilerOptions: {
-          // ion-으로 시작하는 모든 태그를 사용자 지정 요소로 취급합니다.
+          // ion-으로 시작하는 모든 태그를 사용자 지정 앨리먼트로 취급합니다.
           isCustomElement: tag => tag.startsWith('ion-')
         }
       }))
@@ -65,9 +65,9 @@ module.exports = {
 
 ### DOM 속성 전달 {#passing-dom-properties}
 
-DOM 속성은 문자열만 가능하므로 복잡한 데이터를 사용자 정의 요소에 DOM 속성으로 전달해야 합니다. 사용자 정의 요소에 프로퍼티를 설정할 때 Vue 3는 `in` 연산자를 사용하여 DOM 속성 존재 여부를 자동으로 확인하고 키가 있는 경우 값을 DOM 속성으로 설정하는 것을 선호합니다. 즉, 대부분의 경우 사용자 정의 요소가 [권장 모범 사례](https://web.dev/custom-elements-best-practices/)를 따르는 경우 이에 대해 생각할 필요가 없습니다.
+DOM 속성은 문자열만 가능하므로 복잡한 데이터를 사용자 정의 앨리먼트에 DOM 속성으로 전달해야 합니다. 사용자 정의 앨리먼트에 프로퍼티를 설정할 때 Vue 3는 `in` 연산자를 사용하여 DOM 속성 존재 여부를 자동으로 확인하고 키가 있는 경우 값을 DOM 속성으로 설정하는 것을 선호합니다. 즉, 대부분의 경우 사용자 정의 앨리먼트가 [권장 모범 사례](https://web.dev/custom-elements-best-practices/)를 따르는 경우 이에 대해 생각할 필요가 없습니다.
 
-그러나 드물게 데이터를 DOM 프로퍼티로 전달해야 하지만 사용자 정의 요소가 프로퍼티를 제대로 정의/반영하지 않는 경우(`in` 체크가 실패하는 경우)가 있을 수 있습니다. 이 경우 '.prop' 수정자를 사용하여 `v-bind` 바인딩이 DOM 속성으로 설정되도록 강제할 수 있습니다:
+그러나 드물게 데이터를 DOM 프로퍼티로 전달해야 하지만 사용자 정의 앨리먼트가 프로퍼티를 제대로 정의/반영하지 않는 경우(`in` 체크가 실패하는 경우)가 있을 수 있습니다. 이 경우 '.prop' 수정자를 사용하여 `v-bind` 바인딩이 DOM 속성으로 설정되도록 강제할 수 있습니다:
 
 
 ```vue-html
@@ -77,13 +77,13 @@ DOM 속성은 문자열만 가능하므로 복잡한 데이터를 사용자 정�
 <my-element .user="{ name: 'jack' }"></my-element>
 ```
 
-## Vue로 사용자 정의 요소 구축 {#building-custom-elements-with-vue}
+## Vue로 사용자 정의 앨리먼트 구축 {#building-custom-elements-with-vue}
 
-사용자 정의 요소의 주요 이점은 프레임워크와 함께 사용하거나 프레임워크 없이도 사용할 수 있다는 것입니다. 따라서 최종 소비자가 동일한 프론트엔드 스택을 사용하지 않을 수 있는 컴포넌트를 배포하거나 최종 애플리케이션을 사용하는 컴포넌트의 구현 세부 사항으로부터 격리하려는 경우에 이상적입니다.
+사용자 정의 앨리먼트의 주요 이점은 프레임워크와 함께 사용하거나 프레임워크 없이도 사용할 수 있다는 것입니다. 따라서 최종 소비자가 동일한 프론트엔드 스택을 사용하지 않을 수 있는 컴포넌트를 배포하거나 최종 애플리케이션을 사용하는 컴포넌트의 구현 세부 사항으로부터 격리하려는 경우에 이상적입니다.
 
 ### defineCustomElement {#definecustomelement}
 
-Vue는 [`defineCustomElement`](/api/general.html#definecustomelement) 메서드를 통해 정확히 동일한 Vue 컴포넌트 API를 사용하여 사용자 정의 요소를 생성할 수 있도록 지원합니다. 이 메서드는 [`defineComponent`](/api/general.html#definecomponent)와 동일한 인수를 허용하지만 대신 `HTMLElement`를 확장하는 사용자 정의 엘리먼트 생성자를 반환합니다:
+Vue는 [`defineCustomElement`](/api/general.html#definecustomelement) 메서드를 통해 정확히 동일한 Vue 컴포넌트 API를 사용하여 사용자 정의 앨리먼트를 생성할 수 있도록 지원합니다. 이 메서드는 [`defineComponent`](/api/general.html#definecomponent)와 동일한 인자를 허용하지만 대신 `HTMLElement`를 확장하는 사용자 정의 엘리먼트 생성자를 반환합니다:
 
 
 ```vue-html
@@ -119,18 +119,18 @@ document.body.appendChild(
 
 #### 생명주기 {#lifecycle}
 
-- Vue 사용자 정의 요소는 요소의 [`connectedCallback`](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks)이 처음 호출될 때 섀도 루트 내부에 내부 Vue 컴포넌트 인스턴스를 마운트합니다.
+- Vue 사용자 정의 앨리먼트는 앨리먼트의 [`connectedCallback`](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks)이 처음 호출될 때 섀도 루트 내부에 내부 Vue 컴포넌트 인스턴스를 마운트합니다.
 
-- 요소의 `disconnectedCallback`이 호출되면 Vue는 마이크로태스크 틱 후 요소가 문서에서 분리되었는지 여부를 확인합니다.
+- 앨리먼트의 `disconnectedCallback`이 호출되면 Vue는 마이크로태스크 틱 후 앨리먼트가 문서에서 분리되었는지 여부를 확인합니다.
 
-  - 요소가 여전히 문서에 있으면 이동으로 간주되며 컴포넌트 인스턴스가 보존됩니다;
+  - 앨리먼트가 여전히 문서에 있으면 이동으로 간주되며 컴포넌트 인스턴스가 보존됩니다;
 
-  - 요소가 문서에서 분리되면 제거가 되고 컴포넌트 인스턴스가 마운트 해제됩니다.
+  - 앨리먼트가 문서에서 분리되면 제거가 되고 컴포넌트 인스턴스가 마운트 해제됩니다.
 
 
 #### Props {#props}
 
-- `prop` 옵션을 사용하여 선언된 모든 소품은 사용자 정의 요소에 속성으로 정의됩니다. Vue는 적절한 경우 속성/프로퍼티 간의 반영을 자동으로 처리합니다.
+- `prop` 옵션을 사용하여 선언된 모든 prop은 사용자 정의 앨리먼트에 속성으로 정의됩니다. Vue는 적절한 경우 속성/프로퍼티 간의 반영을 자동으로 처리합니다.
 
   - 속성은 항상 해당 속성에 반영됩니다.
 
@@ -146,7 +146,7 @@ document.body.appendChild(
   }
   ```
 
-  그리고 사용자 정의 요소 사용법:
+  그리고 사용자 정의 앨리먼트 사용법:
 
   ```vue-html
   <my-element selected index="1"></my-element>
@@ -156,13 +156,13 @@ document.body.appendChild(
 
 #### 이벤트 {#events}
 
-`this.$emit` 또는 설정 `emit`을 통해 전송된 이벤트는 사용자 정의 요소에서 기본 [CustomEvents](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#adding_custom_data_%E2%80%93_customevent)로 디스패치됩니다. 추가 이벤트 인수(페이로드)는 CustomEvent 객체의 `detail` 속성으로 배열로 노출됩니다.
+`this.$emit` 또는 설정 `emit`을 통해 전송된 이벤트는 사용자 정의 앨리먼트에서 기본 [CustomEvents](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#adding_custom_data_%E2%80%93_customevent)로 디스패치됩니다. 추가 이벤트 인자(페이로드)는 CustomEvent 객체의 `detail` 속성으로 배열로 노출됩니다.
 
 
 #### 슬롯 {#slots}
 
 
-컴포넌트 내부에서 슬롯은 평소처럼 `<슬slot롯/>` 요소를 사용하여 렌더링할 수 있습니다. 하지만 결과 요소를 소비할 때는 [네이티브 슬롯 구문](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots)만 허용합니다:
+컴포넌트 내부에서 슬롯은 평소처럼 `<슬slot롯/>` 앨리먼트를 사용하여 렌더링할 수 있습니다. 하지만 결과 앨리먼트를 소비할 때는 [네이티브 슬롯 구문](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots)만 허용합니다:
 
 - [Scoped slots](/guide/components/slots.html#scoped-slots)는 지원하지 않습니다.
 

@@ -28,26 +28,26 @@
 
 - **세부 사항**:
 
-  첫 번째 인수는 문자열(네이티브 엘리먼트의 경우) 또는 Vue 컴포넌트 정의일 수 있습니다. 두 번째 인수는 전달할 소품이고, 세 번째 인수는 자식입니다.
+  첫 번째 인자는 문자열(네이티브 엘리먼트의 경우) 또는 Vue 컴포넌트 정의일 수 있습니다. 두 번째 인자는 전달할 prop이고, 세 번째 인자는 자식입니다.
 
   컴포넌트 vnode를 생성할 때, 자식은 슬롯 함수로 전달되어야 합니다. 컴포넌트가 기본 슬롯만 기대하는 경우 단일 슬롯 함수를 전달할 수 있습니다. 그렇지 않으면 슬롯을 슬롯 함수의 객체로 전달해야 합니다.
 
-  편의상 자식이 슬롯 객체가 아닌 경우 props 인수를 생략할 수 있습니다.
+  편의상 자식이 슬롯 객체가 아닌 경우 props 인자를 생략할 수 있습니다.
 
 - **예제**:
 
-  네이티브 요소 만들기:
+  네이티브 앨리먼트 만들기:
   Creating native elements:
 
   ```js
   import { h } from 'vue'
 
-  // 유형을 제외한 모든 인수는 선택 사항입니다.
+  // 유형을 제외한 모든 인자는 선택 사항입니다.
   // all arguments except the type are optional
   h('div')
   h('div', { id: 'foo' })
 
-  // 속성과 프로퍼티를 모두 소품에 사용할 수 있습니다. Vue가 자동으로 올바른 할당 방법을 선택합니다.
+  // 속성과 프로퍼티를 모두 prop에 사용할 수 있습니다. Vue가 자동으로 올바른 할당 방법을 선택합니다.
   // both attributes and properties can be used in props
   // Vue automatically picks the right way to assign it
   h('div', { class: 'bar', innerHTML: 'hello' })
@@ -64,7 +64,7 @@
   // children can be a string
   h('div', { id: 'foo' }, 'hello')
 
-  // 소품이 없는 경우 소품 생략 가능
+  // prop이 없는 경우 prop 생략 가능
   // props can be omitted when there are no props
   h('div', 'hello')
   h('div', [h('span', 'hello')])
@@ -105,7 +105,7 @@
 
 ## mergeProps() {#mergeprops}
 
-특정 소품에 대한 특수 처리를 사용하여 여러 소품 개체를 병합합니다.
+특정 prop에 대한 특수 처리를 사용하여 여러 prop 개체를 병합합니다.
 
 - **타입**:
 
@@ -292,7 +292,7 @@ For adding custom directives to vnodes.
 
 - **세부 사항**:
 
-  기존 vnode를 사용자 정의 지시어로 래핑합니다. 두 번째 인자는 사용자지시어의 배열입니다. 각 사용자 정의 지시어는 `[지시어, 값, 인자, 수정자]` 형식의 배열로 표현됩니다. 배열의 꼬리 요소는 필요하지 않은 경우 생략할 수 있습니다.
+  기존 vnode를 사용자 정의 지시어로 래핑합니다. 두 번째 인자는 사용자지시어의 배열입니다. 각 사용자 정의 지시어는 `[지시어, 값, 인자, 수정자]` 형식의 배열로 표현됩니다. 배열의 꼬리 앨리먼트는 필요하지 않은 경우 생략할 수 있습니다.
 
   Wraps an existing vnode with custom directives. The second argument is an array of custom directives. Each custom directive is also represented as an array in the form of `[Directive, value, argument, modifiers]`. Tailing elements of the array can be omitted if not needed.
 

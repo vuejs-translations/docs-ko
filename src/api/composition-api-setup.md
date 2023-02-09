@@ -121,7 +121,7 @@ export default {
 `attrs`와 `slots`는 컴포넌트가 업데이트될 때, 항상 업데이트되는 스테이트풀(stateful) 객체입니다.
 즉, 구조를 분해하지 말고 `attrs.x`나 `slots.x`와 같이 속성을 참조해야 합니다.
 또한 `props`와 달리 `attrs`와 `slots`의 속성은 **반응형이 아닙니다**.
-따라서 `attrs` 또는 `slots`의 변경 사항을 기반으로 하는 사이드 이펙트는 `onBeforeUpdate` 수명 주기 훅 내에서 구현해야 합니다.
+따라서 `attrs` 또는 `slots`의 변경 사항을 기반으로 하는 사이드 이펙트는 `onBeforeUpdate` 생명 주기 훅 내에서 구현해야 합니다.
 
 ### 퍼블릭 속성 노출하기 {#exposing-public-properties}
 

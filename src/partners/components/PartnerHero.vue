@@ -10,7 +10,7 @@ const { title = 'Vue Partners' } = defineProps<{ title?: string }>()
       Vue 컨설팅 및 개발 서비스를 제공합니다. 귀사가
       파트너로 등록하는 데 관심이 있으시면
       <a href="https://airtable.com/shrCQhat57SApJI2l" target="_blank"
-        >에서 관심을 등록하세요</a
+        >여기에서 등록하세요</a
       >.
     </p>
   </div>

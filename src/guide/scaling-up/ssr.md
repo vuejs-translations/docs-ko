@@ -304,9 +304,9 @@ SSR 동안 각 리퀘스트 URL은 앱이 원하는 상태로 매핑됩니다.
 사용자 상호 작용 및 DOM 업데이트가 없으므로 서버에서 반응형이 필요하지 않습니다.
 기본적으로 반응성은 더 나은 성능을 위해 SSR 동안 비활성화됩니다.
 
-### 컴포넌트 수명 주기 훅 {#component-lifecycle-hooks}
+### 컴포넌트 생명 주기 훅 {#component-lifecycle-hooks}
 
-동적 업데이트가 없기 때문에 <span class="options-api">`mounted`</span><span class="composition-api">`onMounted`</span> 또는 <span class="options-api">`updated`</span><span class="composition-api">`onUpdated`</span>과 같은 수명 주기 훅은 SSR 중에 호출되지 않고 클라이언트에서만 실행됩니다.
+동적 업데이트가 없기 때문에 <span class="options-api">`mounted`</span><span class="composition-api">`onMounted`</span> 또는 <span class="options-api">`updated`</span><span class="composition-api">`onUpdated`</span>과 같은 생명 주기 훅은 SSR 중에 호출되지 않고 클라이언트에서만 실행됩니다.
 <span class="options-api">SSR 동안 호출되는 유일한 훅은 `beforeCreate` 및 `created`입니다.</span>
 
 <span class="options-api">`beforeCreate`과 `created`</span><span class="composition-api">`setup()` 또는 `<script setup>`의 루트 범위</span> 에서 정리가 필요한 사이드 이팩트을 생성하는 코드를 피해야 합니다.
@@ -327,7 +327,7 @@ Node.js에서 실행할 때 에러가 발생하고,
 예를 들어, [`node-fetch`](https://github.com/node-fetch/node-fetch)를 사용하여 서버와 클라이언트 모두에서 동일한 가져오기 API를 사용할 수 있습니다.
 
 브라우저 전용 API의 경우,
-일반적인 접근 방식은 한 탬포 느리게 <span class="options-api">`mounted`</span><span class="composition-api">`onMounted`</span>와 같은 클라이언트 전용 수명 주기 훅 내에서 접근하는 것입니다.
+일반적인 접근 방식은 한 탬포 느리게 <span class="options-api">`mounted`</span><span class="composition-api">`onMounted`</span>와 같은 클라이언트 전용 생명 주기 훅 내에서 접근하는 것입니다.
 
 타사 라이브러리가 보편적 사용을 염두에 두고 작성되지 않은 경우,
 서버에서 렌더링된 앱에 통합하기가 까다로울 수 있습니다.
@@ -341,7 +341,7 @@ SSR 컨텍스트에서 이 패턴은 몇 가지 추가 조정이 필요합니다
 
 패턴은 JavaScript 모듈의 루트 범위에서 공유 상태를 선언합니다.
 이것은 그것들을 **싱글톤**으로 만듭니다.
-즉, 앱의 전체 수명 주기 동안 반응형 객체의 인스턴스가 하나만 있습니다.
+즉, 앱의 전체 생명 주기 동안 반응형 객체의 인스턴스가 하나만 있습니다.
 이것은 우리 앱의 모듈이 각 브라우저 페이지 방문에 대해 새로 초기화되기 때문에 순수한 클라이언트 측 Vue 앱에서 예상대로 작동합니다.
 
 그러나 SSR 컨텍스트에서 앱 모듈은 일반적으로 서버가 부팅될 때 서버에서 한 번만 초기화됩니다.

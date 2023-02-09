@@ -175,7 +175,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
   console.log(count.value) // 3
   ```
 
-  배열 또는 컬렉션 요소인 ref에 접근시, **언래핑 되지 않습니다**:
+  배열 또는 컬렉션 앨리먼트인 ref에 접근시, **언래핑 되지 않습니다**:
 
   ```js
   const books = reactive([ref('Vue 3 Guide')])

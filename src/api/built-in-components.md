@@ -208,7 +208,7 @@ h(Transition, {
   `<KeepAlive>`에는 언제나 활성화된 직계 자식의 컴포넌트 인스턴스가 하나만 있을 수 있습니다.
 
   컴포넌트가 `<KeepAlive>` 내에서 토글되면,
-  `mounted` 및 `unmounted` 대신 `activated` 및 `deactivated` 수명 주기 훅이 호출됩니다.
+  `mounted` 및 `unmounted` 대신 `activated` 및 `deactivated` 생명 주기 훅이 호출됩니다.
   이는 `<KeepAlive>`의 직계 자식과 모든 하위 항목에 적용됩니다.
 
 - **예제**:
