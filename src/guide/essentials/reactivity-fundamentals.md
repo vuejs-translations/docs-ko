@@ -488,7 +488,7 @@ const object = { foo: ref(1) }
 {{ object.foo + 1 }}
 ```
 
-`object.foo`는 ref 객체이기 때문에 렌더링된 결과는 `[object Object]`가 됩니다.
+`object.foo`는 ref 객체이기 때문에 렌더링된 결과는 `[object Object]1`가 됩니다.
 `foo`를 최상위 속성으로 만들어 해결할 수 있습니다:
 
 ```js

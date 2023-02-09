@@ -239,7 +239,7 @@ declare module 'vue' {
 
 참고:
 
-- [컴포넌트 타입 확장을 위한 타입스크립트 유닛 테스트](https://github.com/vuejs/core/blob/main/test-dts/componentTypeExtensions.test-d.tsx)
+- [컴포넌트 타입 확장을 위한 타입스크립트 유닛 테스트](https://github.com/vuejs/core/blob/main/packages/dts-test/componentTypeExtensions.test-d.tsx)
 
 ### 타입 배치 증강 {#type-argumentation-placement}
 
@@ -300,4 +300,4 @@ declare module 'vue' {
 
 참고:
 
-- [TypeScript unit tests for component type extensions](https://github.com/vuejs/core/blob/main/test-dts/componentTypeExtensions.test-d.tsx)
+- [TypeScript unit tests for component type extensions](https://github.com/vuejs/core/blob/main/packages/dts-test/componentTypeExtensions.test-d.tsx)
