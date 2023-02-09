@@ -8,27 +8,6 @@
 
 이렇게 하면 컴포넌트를 편집하거나 사용 방법을 검토해야 할 때 더 빠르게 찾을 수 있습니다.
 
-
-
-
-
-
-
-
-
-
-
-
-# Priority B Rules: Strongly Recommended {#priority-b-rules-strongly-recommended}
-
-These rules have been found to improve readability and/or developer experience in most projects. Your code will still run if you violate them, but violations should be rare and well-justified.
-
-## Component files {#component-files}
-
-**Whenever a build system is available to concatenate files, each component should be in its own file.**
-
-This helps you to more quickly find a component when you need to edit it or review how to use it.
-
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
 
@@ -61,7 +40,7 @@ components/
 
 </div>
 
-## 싱글 파일 컴포넌트 파일명 대/소문자 {#싱글 파일 컴포넌트-파일명-대/소문자}
+## 싱글 파일 컴포넌트 파일명 대/소문자 {#single-file-component-filename-casing}
 
 **[싱글 파일 컴포넌트](/guide/scaling-up/sfc.html)의 파일명은 항상 파스칼 케이스이거나 항상 케밥 케이스여야 합니다.**
 
@@ -180,7 +159,7 @@ components/
 </div>
 
 
-## 단일 인스턴스 컴포넌트 이름 {#단일 인스턴스 컴포넌트 이름}
+## 단일 인스턴스 컴포넌트 이름 {#single-instance-component-names}
 
 **활성 인스턴스가 하나만 있어야 하는 컴포넌트는 `The` 접두사로 시작하여 하나만 있을 수 있음을 나타내야 합니다.
 
@@ -418,6 +397,51 @@ components/
 
 또한 이미 케밥 케이스에 많은 투자를 했다면 HTML 규칙과의 일관성 및 모든 프로젝트에서 동일한 대소문자를 사용할 수 있는 것이 위에 나열된 장점보다 더 중요할 수 있습니다. 이러한 경우에는 **모든 곳에 케밥 케이스를 사용하는 것도 허용됩니다**.
 
+<div class="style-example style-example-bad">
+<h3>Bad</h3>
+
+```vue-html
+<!-- In Single-File Components, string templates, and JSX -->
+<MyComponent></MyComponent>
+```
+
+```vue-html
+<!-- In DOM templates -->
+<my-component/>
+```
+
+</div>
+
+<div class="style-example style-example-good">
+<h3>Good</h3>
+
+```vue-html
+<!-- In Single-File Components, string templates, and JSX -->
+<MyComponent/>
+```
+
+```vue-html
+<!-- In DOM templates -->
+<my-component></my-component>
+```
+
+</div>
+
+## JS/JSX의 컴포넌트 이름 대/소문자 {#component-name-casing-in-js-jsx}
+
+**JS/[JSX](/guide/extras/render-function.html#jsx-tsx)의 컴포넌트 이름은 항상 파스칼 케이스를 사용해야 하지만, `app.component`를 통한 전역 컴포넌트 등록만 사용하는 간단한 애플리케이션의 경우 문자열 내부에 케밥 케이스를 사용할 수 있습니다.**
+
+
+::: details 자세한 설명
+자바스크립트에서 파스칼케이스는 클래스 및 프로토타입 생성자, 즉 본질적으로 별개의 인스턴스를 가질 수 있는 모든 것에 대한 규칙입니다. Vue 컴포넌트에도 인스턴스가 있으므로 파스칼케이스도 사용하는 것이 합리적입니다. 추가적인 이점으로, JSX(및 템플릿) 내에서 파스칼케이스를 사용하면 코드 독자가 컴포넌트와 HTML 앨리먼트를 더 쉽게 구분할 수 있습니다.
+
+그러나 `app.component`를 통해 전역 컴포넌트 정의만 사용하는 애플리케이션의 경우 케밥 케이스를 사용하는 것이 좋습니다. 그 이유는 다음과 같습니다:
+
+- 자바스크립트에서 전역 컴포넌트를 참조하는 경우는 거의 없으므로 자바스크립트 규칙을 따르는 것이 덜 합리적입니다.
+- 이러한 애플리케이션에는 항상 많은 인-DOM 템플릿이 포함되며, 여기에는 [kebab-case **필수** 사용](#component-name-casing-in-templates)이 사용됩니다.
+  :::
+
+<div class="style-example style-example-bad">
 <h3>Bad</h3>
 
 ```vue-html
@@ -459,77 +483,6 @@ OR
 
 </div>
 
-## JS/JSX의 컴포넌트 이름 대/소문자 {#component-name-casing-in-js-jsx}
-
-**JS/[JSX](/guide/extras/render-function.html#jsx-tsx)의 컴포넌트 이름은 항상 파스칼 케이스를 사용해야 하지만, `app.component`를 통한 전역 컴포넌트 등록만 사용하는 간단한 애플리케이션의 경우 문자열 내부에 케밥 케이스를 사용할 수 있습니다.**
-
-
-::: details 자세한 설명
-자바스크립트에서 파스칼케이스는 클래스 및 프로토타입 생성자, 즉 본질적으로 별개의 인스턴스를 가질 수 있는 모든 것에 대한 규칙입니다. Vue 컴포넌트에도 인스턴스가 있으므로 파스칼케이스도 사용하는 것이 합리적입니다. 추가적인 이점으로, JSX(및 템플릿) 내에서 파스칼케이스를 사용하면 코드 독자가 컴포넌트와 HTML 앨리먼트를 더 쉽게 구분할 수 있습니다.
-
-그러나 `app.component`를 통해 전역 컴포넌트 정의만 사용하는 애플리케이션의 경우 케밥 케이스를 사용하는 것이 좋습니다. 그 이유는 다음과 같습니다:
-
-- 자바스크립트에서 전역 컴포넌트를 참조하는 경우는 거의 없으므로 자바스크립트 규칙을 따르는 것이 덜 합리적입니다.
-- 이러한 애플리케이션에는 항상 많은 인-DOM 템플릿이 포함되며, 여기에는 [kebab-case **필수** 사용](#component-name-casing-in-templates)이 사용됩니다.
-  :::
-
-<div class="style-example style-example-bad">
-<h3>Bad</h3>
-
-```js
-app.component('myComponent', {
-  // ...
-})
-```
-
-```js
-import myComponent from './MyComponent.vue'
-```
-
-```js
-export default {
-  name: 'myComponent'
-  // ...
-}
-```
-
-```js
-export default {
-  name: 'my-component'
-  // ...
-}
-```
-
-</div>
-
-<div class="style-example style-example-good">
-<h3>Good</h3>
-
-```js
-app.component('MyComponent', {
-  // ...
-})
-```
-
-```js
-app.component('my-component', {
-  // ...
-})
-```
-
-```js
-import MyComponent from './MyComponent.vue'
-```
-
-```js
-export default {
-  name: 'MyComponent'
-  // ...
-}
-```
-
-</div>
-
 ## 전체 단어 컴포넌트 이름 {#full-word-component-names}
 
 **컴포넌트 이름은 약어보다 완전한 단어를 사용하는 것이 좋습니다.**
@@ -561,8 +514,6 @@ components/
 ## prop 이름 대소문자 {#prop-name-casing}
 
 **prop 이름은 선언 시 항상 대/소문자를 구분해야 합니다. in-DOM 템플릿 내에서 사용하는 경우 prop은 케밥 케이스를 사용해야 합니다. 싱글 파일 컴포넌트 템플릿과 [JSX](/guide/extras/render-function.html#jsx-tsx)는 케밥 케이스 또는 캠멜 케이스 프로퍼티를 사용할 수 있습니다. 대소문자는 일관성을 유지해야 합니다. camelCase prop을 사용하기로 선택한 경우 애플리케이션에서 케밥 케이스 prop을 사용하지 않아야 합니다**
-
-
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>

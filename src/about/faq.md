@@ -1,4 +1,4 @@
-# 자주 묻는 질문 {#자주 묻는 질문}
+# 자주 묻는 질문 {#frequently-asked-questions}
 
 ## Vue는 누가 유지 관리하나요? {#who-maintains-vue}
 
@@ -67,7 +67,7 @@ Svelte와 같은 일부 프레임워크는 단일 컴포넌트 시나리오에�
 
 - [싱글 파일 컴포넌트](/guide/scaling-up/sfc)는 애플리케이션의 여러 부분을 개별적으로 개발할 수 있는 모듈화된 개발 모델을 제공합니다.
 
-- [컴포지션 API](/가이드/재사용성/컴포저블)는 최고 수준의 TypeScript 통합을 제공하며 복잡한 로직을 구성, 추출 및 재사용할 수 있는 깔끔한 패턴을 지원합니다.
+- [컴포지션 API](/guide/reusability/composables)는 최고 수준의 TypeScript 통합을 제공하며 복잡한 로직을 구성, 추출 및 재사용할 수 있는 깔끔한 패턴을 지원합니다.
 
 - [포괄적인 툴링 지원](/guide/scaling-up/tooling.html)은 애플리케이션이 성장함에 따라 원활한 개발 환경을 보장합니다.
 
