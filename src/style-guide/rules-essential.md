@@ -1,6 +1,3 @@
-:::warning 현재 이 문서는 번역 작업이 진행중입니다
-:::
-
 # 우선순위 A: 필수(오류 예방)  {#priority-a-rules-essential}
 
 

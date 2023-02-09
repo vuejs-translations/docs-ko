@@ -531,7 +531,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
           link: '/style-guide/'
         },
         {
-          text: 'A - 핵심',
+          text: 'A - 필수',
           link: '/style-guide/rules-essential'
         },
         {
@@ -626,24 +626,24 @@ export default defineConfigWithTheme<ThemeConfig>({
       },
       {
         link: '/translations/',
-        text: 'Help Us Translate!',
+        text: '번역에 참가하세요!',
         isTranslationsDesc: true
       }
     ],
 
     algolia: {
-      indexName: 'vuejs',
-      appId: 'ML0LEBN7FQ',
-      apiKey: 'f49cbd92a74532cc55cfbffa5e5a7d01',
-      searchParameters: {
-        facetFilters: ['version:v3']
-      }
+      indexName: 'vuejs-korea',
+      appId: 'MEIERGO63D',
+      apiKey: '736f8ceee537a06dcd6ecea297cb7942',
+      // searchParameters: {
+      //   facetFilters: ['version:v3']
+      // }
     },
 
-    carbonAds: {
-      code: 'CEBDT27Y',
-      placement: 'vuejsorg'
-    },
+    // carbonAds: {
+    //   code: 'CEBDT27Y',
+    //   placement: 'vuejsorg'
+    // },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/' },
