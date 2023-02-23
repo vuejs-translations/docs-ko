@@ -17,7 +17,7 @@ const nav: ThemeConfig['nav'] = [
       // { text: 'Style Guide', link: '/style-guide/' },
       {
         text: 'Vue 2 문서',
-        link: 'https://kr.vuejs.org'
+        link: 'https://v2.ko.vuejs.org'
       },
       {
         text: 'Vue 2에서 마이그레이션',

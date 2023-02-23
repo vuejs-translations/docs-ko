@@ -5,9 +5,9 @@ footer: false
 # 소개 {#introduction}
 
 :::info 당신은 현재 Vue 3에 대한 문서를 읽고 있습니다!
-- Vue 2 지원이 2023년 12월 31일에 종료됩니다. 자세한 내용은 [Vue 2 Extended LTS](https://v2.vuejs.org/lts/)에서 확인하세요. 
-- Vue 2 문서가 [v2.vuejs.org](https://kr.vuejs.org/index.html)로 이동되었습니다.
-- Vue 2에서 업그레이드 하시려면 [마이그레이션 가이드](https://v3-migration.vuejs.org/)를 확인하십시오. 
+- Vue 2 지원이 2023년 12월 31일에 종료됩니다. 자세한 내용은 [Vue 2 Extended LTS](https://v2.vuejs.org/lts/)에서 확인하세요.
+- Vue 2 문서가 [v2.ko.vuejs.org](https://v2.ko.vuejs.org/)로 이동되었습니다.
+- Vue 2에서 업그레이드 하시려면 [마이그레이션 가이드](https://v3-migration.vuejs.org/)를 확인하십시오.
 :::
 
 <style src="@theme/styles/vue-mastery.css"></style>
@@ -67,7 +67,7 @@ const count = ref(0)
 
 - **선언적 렌더링(Declarative Rendering)**: Vue는 표준 HTML을 템플릿 문법으로 확장하여 JavaScript 상태(State)를 기반으로 화면에 출력될 HTML을 선언적(declaratively)으로 작성할 수 있습니다.
 
-- **반응성(Reactivity)**: Vue는 JavaScript 상태(State) 변경을 추적하고, 변경이 발생하면 DOM을 효율적으로 업데이트하는 것을 자동으로 수행합니다. 
+- **반응성(Reactivity)**: Vue는 JavaScript 상태(State) 변경을 추적하고, 변경이 발생하면 DOM을 효율적으로 업데이트하는 것을 자동으로 수행합니다.
 
 이미 Vue에 대해 궁금한 점이 있을 수 있으나 조급해하지 마세요.
 이후 문서에서 모든 세부 사항을 다 다룰 것입니다.
