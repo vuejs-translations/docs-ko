@@ -620,9 +620,9 @@ export default defineConfigWithTheme<ThemeConfig>({
         repo: 'https://github.com/vuejs-translations/docs-ja'
       },
       {
-        link: 'http://v3-docs.vuejs-korea.org',
+        link: 'http://ko.vuejs.org',
         text: '한국어',
-        repo: 'https://github.com/vuejs-kr/docs'
+        repo: 'https://github.com/vuejs-translations/vuejs-kr'
       },
       {
         link: '/translations/',
