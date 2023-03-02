@@ -622,7 +622,7 @@ export default defineConfigWithTheme<ThemeConfig>({
       {
         link: 'http://ko.vuejs.org',
         text: '한국어',
-        repo: 'https://github.com/vuejs-translations/vuejs-kr'
+        repo: 'https://github.com/vuejs-translations/docs-ko'
       },
       {
         link: '/translations/',
@@ -652,7 +652,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     ],
 
     editLink: {
-      repo: 'vuejs/docs',
+      repo: '/vuejs-translations/docs-ko',
       text: 'GitHub에서 이 페이지 편집'
     },
 
