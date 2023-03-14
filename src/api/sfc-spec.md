@@ -37,7 +37,7 @@ export default {
 
 ### `<template>`
 
-- `*.vue` 파일은 최상위 `<template>` 블록은 하나만 포함할 수 있습니다.
+- 각 `*.vue` 파일은 최상위 `<template>` 블록을 하나만 포함할 수 있습니다.
 
 - 컨텐츠는 추출되어 `@vue/compiler-dom`으로 전달되고,
   JavaScript 렌더 함수로 사전 컴파일되며,
@@ -45,7 +45,7 @@ export default {
 
 ### `<script>`
 
-- `*.vue` 파일은 하나의 `<script>` 블록만 포함할 수 있습니다([`<script setup>`](/api/sfc-script-setup) 제외).
+- 각 `*.vue` 파일은 하나의 `<script>` 블록만 포함할 수 있습니다([`<script setup>`](/api/sfc-script-setup) 제외).
 
 - 스크립트는 ES 모듈로 실행됩니다.
 
@@ -53,7 +53,7 @@ export default {
 
 ### `<script setup>`
 
-- `*.vue` 파일은 하나의 `<script setup>` 블록만 포함할 수 있습니다(일반 `<script>` 제외).
+- 각 `*.vue` 파일은 하나의 `<script setup>` 블록만 포함할 수 있습니다(일반 `<script>` 제외).
 
 - 스크립트는 전처리되어 컴포넌트의 `setup()` 함수로 사용됩니다.
   즉, **컴포넌트의 각 인스턴스**에 대해 실행됩니다.
@@ -78,7 +78,7 @@ export default {
 - [vue-i18n: `<i18n>`](https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n#i18n-custom-block)
 
 커스텀 블록 처리는 도구에 따라 다릅니다.
-자체 커스텀 블록 통합을 구축하려는 경우 자세한 내용은 [도구 섹션](/guide/scaling-up/tooling#sfc-custom-block-integrations)을 참고하십시오.
+자체 커스텀 블록 통합을 구축하려는 경우 자세한 내용은 [SFC 커스텀 블록 통합 도구 섹션](/guide/scaling-up/tooling#sfc-custom-block-integrations)을 참고하십시오.
 
 ## 자동으로 이름 추론 {#automatic-name-inference}
 
@@ -124,7 +124,7 @@ p {{ msg }}
 - [Vue CLI](https://cli.vuejs.org/guide/css#pre-processors)
 - [webpack + vue-loader](https://vue-loader.vuejs.org/guide/pre-processors#using-pre-processors)
 
-## Src 가져오기 {#src-imports}
+## `src` 가져오기 {#src-imports}
 
 `*.vue` 컴포넌트를 여러 파일로 분할하는 것을 선호하는 경우,
 `src` 속성을 사용하여 언어 블록에서 외부 파일을 가져올 수 있습니다:
