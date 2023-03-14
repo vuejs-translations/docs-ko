@@ -106,6 +106,14 @@ h(Transition, {
   </Transition>
   ```
 
+  `key` 속성을 변경하여 강제로 트랜지션(전환):
+
+  ```vue-html
+  <Transition>
+    <div :key="text">{{ text }}</div>
+  </Transition>
+  ```
+  
   트랜지션 모드 + 등장 애니메이션을 가진 동적 컴포넌트:
 
   ```vue-html
