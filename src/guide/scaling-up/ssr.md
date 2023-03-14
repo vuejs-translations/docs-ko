@@ -116,7 +116,7 @@ renderToString(app).then((html) => {
 ```
 
 [`renderToString()`](/api/ssr.html#rendertostring)은 Vue 앱 인스턴스를 사용하여 앱의 렌더링된 HTML로 해결되는 Promise를 반환합니다.
-[Node.js Stream API](https://nodejs.org/api/stream) 또는 [Web Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)를 사용하여 스트리밍 렌더링도 가능합니다.
+[Node.js Stream API](https://nodejs.org/api/stream.html) 또는 [Web Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)를 사용하여 스트리밍 렌더링도 가능합니다.
 자세한 내용은 [SSR API](/api/ssr)를 확인하세요.
 
 그런 다음 앱이 전체 페이지 HTML로 마크업 된 Vue SSR 코드를 서버 리퀘스트 핸들러로 이동시킬 수 있습니다.
