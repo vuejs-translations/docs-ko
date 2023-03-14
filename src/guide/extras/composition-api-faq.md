@@ -14,14 +14,14 @@ outline: deep
 컴포지션(Composition) API는 옵션을 선언하는 대신 `import`한 함수를 사용하여 Vue 컴포넌트를 작성할 수 있는 API 세트입니다.
 이것은 아래 API를 다루는 포괄적인 용어입니다:
 
-- [반응형(Reactivity) API](/api/reactivity-core.html): 예를 들어 `ref()` 및 `reactive()`를 사용하여 반응형 상태, 계산된 상태 및 감시자를 직접 생성할 수 있습니다.
+- [반응형(Reactivity) API](/api/reactivity-core): 예를 들어 `ref()` 및 `reactive()`를 사용하여 반응형 상태, 계산된 상태 및 감시자를 직접 생성할 수 있습니다.
 
-- [생명주기 훅](/api/composition-api-lifecycle.html): 예를 들어 `onMounted()` 및 `onUnmounted()`를 사용하여 컴포넌트 생명주기에 프로그래밍 방식으로 연결할 수 있습니다.
+- [생명주기 훅](/api/composition-api-lifecycle): 예를 들어 `onMounted()` 및 `onUnmounted()`를 사용하여 컴포넌트 생명주기에 프로그래밍 방식으로 연결할 수 있습니다.
 
-- [의존성 주입(Dependency Injection)](/api/composition-api-dependency-injection.html): `provide()` 및 `inject()`를 사용하면 반응형 API를 사용하는 동안 Vue의 의존성 주입 시스템을 활용할 수 있습니다.
+- [의존성 주입(Dependency Injection)](/api/composition-api-dependency-injection): `provide()` 및 `inject()`를 사용하면 반응형 API를 사용하는 동안 Vue의 의존성 주입 시스템을 활용할 수 있습니다.
 
 
-컴포지션 API는 Vue 3 및 [Vue 2.7](https://blog.vuejs.org/posts/vue-2-7-naruto.html)에 내장된 기능입니다. 이전 Vue 2 버전의 경우 공식적으로 유지 관리되는 [`@vue/composition-api`](https://github.com/vuejs/composition-api) 플러그인을 사용하십시오. Vue 3에서는 주로 싱글 파일 컴포넌트에서 [`<스크립트 설정>`](/api/sfc-script-setup.html) 구문과 함께 사용되기도 합니다. 다음은 컴포지션 API를 사용하는 컴포넌트의 기본 예시입니다:
+컴포지션 API는 Vue 3 및 [Vue 2.7](https://blog.vuejs.org/posts/vue-2-7-naruto)에 내장된 기능입니다. 이전 Vue 2 버전의 경우 공식적으로 유지 관리되는 [`@vue/composition-api`](https://github.com/vuejs/composition-api) 플러그인을 사용하십시오. Vue 3에서는 주로 싱글 파일 컴포넌트에서 [`<스크립트 설정>`](/api/sfc-script-setup) 구문과 함께 사용되기도 합니다. 다음은 컴포지션 API를 사용하는 컴포넌트의 기본 예시입니다:
 
 ```vue
 <script setup>
@@ -55,7 +55,7 @@ Vue를 컴포지션 API와 함께 사용하는 방법을 배우고 싶다면 왼
 
 ### 더 나은 로직 재사용성 {#better-logic-reuse}
 
-컴포지션 API의 가장 큰 장점은 [컴포저블 함수](/guide/reusability/composables.html)의 형태로 깔끔하고 효율적인 로직 재사용이 가능하다는 것입니다.
+컴포지션 API의 가장 큰 장점은 [컴포저블 함수](/guide/reusability/composables)의 형태로 깔끔하고 효율적인 로직 재사용이 가능하다는 것입니다.
 옵션 API의 기본 로직 재사용 메커니즘인 [믹스인의 모든 단점](/guide/reusability/composables.html#vs-mixins)을 해결합니다.
 
 컴포지션 API의 로직 재사용 기능은 컴포저블 유틸리티의 계속 성장하는 컬렉션인 [VueUse](https://vueuse.org/)와 같은 인상적인 커뮤니티 프로젝트를 탄생시켰습니다.
@@ -150,7 +150,7 @@ Vue에서 옵션 API 관련 코드를 삭제하는 [컴파일 타임 플래그](
 
 ### 두 API를 함께 사용할 수 있습니까? {#can-i-use-both-apis-together}
 
-예. 옵션 API 컴포넌트에서 [`setup()`](/api/composition-api-setup.html) 옵션을 통해 컴포지션 API를 사용할 수 있습니다.
+예. 옵션 API 컴포넌트에서 [`setup()`](/api/composition-api-setup) 옵션을 통해 컴포지션 API를 사용할 수 있습니다.
 
 그러나 컴포지션 API로 작성된 새 기능 또는 외부 라이브러리와 통합해야 하는 기존 옵션 API 코드베이스가 있는 경우에만 그렇게 하는 것이 좋습니다.
 

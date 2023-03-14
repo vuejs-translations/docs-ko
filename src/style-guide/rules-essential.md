@@ -260,7 +260,7 @@ computed: {
 
 애플리케이션의 경우 최상위 `App` 컴포넌트와 레이아웃 컴포넌트의 스타일은 전역적일 수 있지만 다른 모든 컴포넌트는 항상 범위가 지정되어야 합니다.
 
-이는 [싱글 파일 컴포넌트](/guide/scaling-up/sfc.html)에만 해당됩니다. 반드시 [`scoped` 속성](https://vue-loader.vuejs.org/en/features/scoped-css.html)을 사용할 필요는 없습니다. 범위 지정은 [CSS 모듈](https://vue-loader.vuejs.org/en/features/css-modules.html), [BEM](http://getbem.com/)과 같은 클래스 기반 전략 또는 다른 라이브러리/규약을 통해 이루어질 수 있습니다.
+이는 [싱글 파일 컴포넌트](/guide/scaling-up/sfc)에만 해당됩니다. 반드시 [`scoped` 속성](https://vue-loader.vuejs.org/en/features/scoped-css)을 사용할 필요는 없습니다. 범위 지정은 [CSS 모듈](https://vue-loader.vuejs.org/en/features/css-modules), [BEM](http://getbem.com/)과 같은 클래스 기반 전략 또는 다른 라이브러리/규약을 통해 이루어질 수 있습니다.
 
 **그러나 컴포넌트 라이브러리는 `scoped` 속성을 사용하는 대신 클래스 기반 전략을 선호해야 합니다.**
 

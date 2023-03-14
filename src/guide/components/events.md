@@ -65,7 +65,7 @@ export default {
 [props 케이싱](/guide/components/props.html#prop-name-casing)과 마찬가지로 템플릿에서 kebab-case 형식의 이벤트 리스너를 사용하는 것이 좋습니다.
 
 :::tip
-네이티브 DOM 이벤트와 달리 컴포넌트에서 발신되는 이벤트는 버블이 발생하지 않습니다. 직접 자식 컴포넌트에서 발생하는 이벤트만 수신할 수 있습니다. 형제 또는 깊게 중첩된 컴포넌트 간에 통신이 필요한 경우 외부 이벤트 버스 또는 [글로벌 상태 관리 솔루션](/guide/scaling-up/state-management.html)을 사용하세요.
+네이티브 DOM 이벤트와 달리 컴포넌트에서 발신되는 이벤트는 버블이 발생하지 않습니다. 직접 자식 컴포넌트에서 발생하는 이벤트만 수신할 수 있습니다. 형제 또는 깊게 중첩된 컴포넌트 간에 통신이 필요한 경우 외부 이벤트 버스 또는 [글로벌 상태 관리 솔루션](/guide/scaling-up/state-management)을 사용하세요.
 :::
 
 ## 이벤트 인자 {#event-arguments}

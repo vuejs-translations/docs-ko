@@ -9,7 +9,7 @@ pageClass: api
 빌트인 컴포넌트는 등록할 필요 없이 템플릿에서 직접 사용할 수 있습니다.
 이것은 트리 쉐이킹되므로 사용되는 경우에만 빌드에 포함됩니다.
 
-[렌더 함수](/guide/extras/render-function.html)에서 사용할 때는 명시적으로 `import` 해야합니다.
+[렌더 함수](/guide/extras/render-function)에서 사용할 때는 명시적으로 `import` 해야합니다.
 예를 들어:
 
 ```js
@@ -106,6 +106,14 @@ h(Transition, {
   </Transition>
   ```
 
+  `key` 속성을 변경하여 강제로 트랜지션(전환):
+
+  ```vue-html
+  <Transition>
+    <div :key="text">{{ text }}</div>
+  </Transition>
+  ```
+  
   트랜지션 모드 + 등장 애니메이션을 가진 동적 컴포넌트:
 
   ```vue-html
@@ -122,7 +130,7 @@ h(Transition, {
   </Transition>
   ```
 
-- **참고**: [가이드 - `<Transition>`](/guide/built-ins/transition.html)
+- **참고**: [가이드 - `<Transition>`](/guide/built-ins/transition)
 
 ## `<TransitionGroup>` {#transitiongroup}
 
@@ -155,7 +163,7 @@ h(Transition, {
 
   기본적으로 `<TransitionGroup>`은 래퍼 DOM 엘리먼트를 렌더링하지 않지만 `tag` prop을 통해 정의할 수 있습니다.
 
-  애니메이션이 제대로 작동하려면 `<transition-group>`의 모든 자식이 [**고유 키**](/guide/essentials/list.html#maintaining-state-with-key)를 가져야 합니다.
+  애니메이션이 제대로 작동하려면 `<transition-group>`의 모든 자식이 [**고유 키**](/guide/essentials/list#maintaining-state-with-key)를 가져야 합니다.
 
   `<TransitionGroup>`은 CSS `transform`으로 이동 트랜지션을 지원합니다.
   업데이트 후 화면에서 자식의 위치가 변경되면,
@@ -173,7 +181,7 @@ h(Transition, {
   </TransitionGroup>
   ```
 
-- **참고**: [가이드 - TransitionGroup](/guide/built-ins/transition-group.html)
+- **참고**: [가이드 - TransitionGroup](/guide/built-ins/transition-group)
 
 ## `<KeepAlive>` {#keepalive}
 
@@ -268,7 +276,7 @@ h(Transition, {
   </KeepAlive>
   ```
 
-- **참고**: [가이드 - KeepAlive](/guide/built-ins/keep-alive.html)
+- **참고**: [가이드 - KeepAlive](/guide/built-ins/keep-alive)
 
 ## `<Teleport>` {#teleport}
 
@@ -310,7 +318,7 @@ h(Transition, {
   </teleport>
   ```
 
-- **참고**: [가이드 - Teleport](/guide/built-ins/teleport.html)
+- **참고**: [가이드 - Teleport](/guide/built-ins/teleport)
 
 ## `<Suspense>` <sup class="vt-badge experimental" /> {#suspense}
 
@@ -336,7 +344,7 @@ h(Transition, {
   메모리에서 기본 슬롯을 렌더링하는 동안,
   폴백 슬롯의 대체 컨텐츠를 노출합니다.
 
-  기본 슬롯을 렌더링하는 동안 비동기 의존성([비동기 컴포넌트](/guide/components/async.html) 및 [`async setup()`](/guide/built-ins/suspense.html#async-setup)이 있는 컴포넌트)을 만나면,
+  기본 슬롯을 렌더링하는 동안 비동기 의존성([비동기 컴포넌트](/guide/components/async) 및 [`async setup()`](/guide/built-ins/suspense#async-setup)이 있는 컴포넌트)을 만나면,
   기본 슬롯을 표시하기 전에 모든 것이 해결될 때까지 대기합니다.
 
-- **참고**: [가이드 - Suspense](/guide/built-ins/suspense.html)
+- **참고**: [가이드 - Suspense](/guide/built-ins/suspense)

@@ -7,7 +7,7 @@ const { x, y } = useMouse()
 
 :::tip
 이 섹션에서는 `컴포지션 API`에 대한 기본 지식이 있다고 가정합니다.
-`옵션 API`만 배웠다면 왼쪽 사이드바 상단의 `API 스타일 설정`을 `컴포지션 API`로 설정하고 [반응형 기초](/guide/essentials/reactivity-fundamentals.html) 및 [생명주기 훅](/guide/essentials/lifecycle.html) 장을 다시 읽을 수 있습니다.
+`옵션 API`만 배웠다면 왼쪽 사이드바 상단의 `API 스타일 설정`을 `컴포지션 API`로 설정하고 [반응형 기초](/guide/essentials/reactivity-fundamentals) 및 [생명주기 훅](/guide/essentials/lifecycle) 장을 다시 읽을 수 있습니다.
 :::
 
 ## 컴포저블이란? {#what-is-a-composable}
@@ -140,7 +140,7 @@ export function useMouse() {
 
 :::tip
 `useMouse()`를 호출하는 각 컴포넌트 인스턴스는 서로 간섭하지 않도록 `x`와 `y` 상태의 자체 복사본을 생성합니다.
-컴포넌트 간의 공유 상태를 관리하려면 [상태 관리](/guide/scaling-up/state-management.html) 문서를 읽으십시오.
+컴포넌트 간의 공유 상태를 관리하려면 [상태 관리](/guide/scaling-up/state-management) 문서를 읽으십시오.
 :::
 
 ## 비동기 상태 예제 {#async-state-example}
@@ -299,7 +299,7 @@ console.log(mouse.x)
 
 컴포저블에서 사이드 에픽트(예: DOM 이벤트 리스너 추가 또는 데이터 가져오기)를 수행하는 것은 괜찮지만 다음 규칙에 주의하십시오:
 
-- [서버 사이드 렌더링](/guide/scaling-up/ssr.html)(SSR)을 사용하는 앱에서 작업하는 경우,
+- [서버 사이드 렌더링](/guide/scaling-up/ssr)(SSR)을 사용하는 앱에서 작업하는 경우,
   마운트 후 생명주기 훅인 `onMounted()`에서 DOM 관련 사이드 이펙트를 수행해야 합니다.
   이 훅은 브라우저에서만 호출되므로 내부 코드가 DOM에 접근할 수 있는지 알 수 있습니다.
 
@@ -409,9 +409,9 @@ React에 대한 경험이 있다면 이것이 커스텀 React 훅과 매우 유�
 
 ## 추가적인 읽을거리 {#further-reading}
 
-- [반응형 심화](/guide/extras/reactivity-in-depth.html): Vue의 반응형 시스템이 어떻게 작동하는지에 대한 심화 수준의 이해를 위해.
+- [반응형 심화](/guide/extras/reactivity-in-depth): Vue의 반응형 시스템이 어떻게 작동하는지에 대한 심화 수준의 이해를 위해.
 
-- [상태 관리](/guide/scaling-up/state-management.html): 여러 컴포넌트가 공유하는 상태를 관리하는 패턴입니다.
+- [상태 관리](/guide/scaling-up/state-management): 여러 컴포넌트가 공유하는 상태를 관리하는 패턴입니다.
 
 - [테스팅 컴포저블](/guide/scaling-up/testing.html#testing-composables): 단위 테스트 컴포저블에 대한 팁.
 

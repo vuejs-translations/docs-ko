@@ -195,7 +195,7 @@ Vue 템플릿은 JavaScript로 컴파일되고 템플릿 내부의 표현식은 
 [잠재적 위험](#potential-dangers)에 대해 위에서 설명한 권장 사항 외에도 다음 리소스를 숙지하는 것이 좋습니다:
 
 - [HTML5 보안 치트 시트](https://html5sec.org/)
-- [OWASP에서 제공하는 XSS(교차 사이트 스크립팅) 방지 치트 시트](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
+- [OWASP에서 제공하는 XSS(교차 사이트 스크립팅) 방지 치트 시트](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet)
 
 그런 다음 학습한 내용을 사용하여 잠재적으로 위험한 패턴의 소스 코드를 검토합니다.
 이러한 패턴이 타사 컴포넌트나 DOM에 렌더링되는 내용에 영향을 미치는 경우가 있습니다.
@@ -207,4 +207,4 @@ Vue 템플릿은 JavaScript로 컴파일되고 템플릿 내부의 표현식은 
 
 ## 서버 사이드 렌더링 (SSR) {#server-side-rendering-ssr}
 
-SSR을 사용할 때 몇 가지 추가적인 보안 문제가 있으므로 [SSR 문서](/guide/scaling-up/ssr.html) 전반에 걸쳐 요약된 모범 사례(예제)를 따라 취약점을 방지하십시오.
+SSR을 사용할 때 몇 가지 추가적인 보안 문제가 있으므로 [SSR 문서](/guide/scaling-up/ssr) 전반에 걸쳐 요약된 모범 사례(예제)를 따라 취약점을 방지하십시오.

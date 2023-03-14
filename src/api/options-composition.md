@@ -57,7 +57,7 @@
   위 예제에서 제공된 `msg`는 반응형이 아닙니다.
   자세한 내용은 [반응형으로 만들기](/guide/components/provide-inject.html#working-with-reactivity)를 참고하십시오.
 
-- **참고**: [Provide / Inject](/guide/components/provide-inject.html)
+- **참고**: [Provide / Inject](/guide/components/provide-inject)
 
 ## inject {#inject}
 
@@ -180,7 +180,7 @@
   }
   ```
 
-- **참고**: [Provide / Inject](/guide/components/provide-inject.html)
+- **참고**: [Provide / Inject](/guide/components/provide-inject)
 
 ## mixins {#mixins}
 
@@ -207,7 +207,7 @@
   :::warning 더 이상 권장되지 않음
   Vue 2에서 믹스인은 컴포넌트 로직의 재사용 가능한 청크를 생성하기 위한 기본 메커니즘이었습니다.
   Vue 3에서 믹스인은 계속 지원되지만,
-  컴포넌트 간 코드 재사용을 위한 접근 방식으로 [컴포지션 API](/guide/reusability/composables.html)가 추천됩니다.
+  컴포넌트 간 코드 재사용을 위한 접근 방식으로 [컴포지션 API](/guide/reusability/composables)가 추천됩니다.
   :::
 
 - **예제**:

@@ -3,7 +3,7 @@
 :::info Note
 이 페이지는 컴포넌트의 `setup` 옵션 사용법을 설명합니다.
 싱글 파일 컴포넌트에 컴포지션 API를 사용하는 경우,
-보다 간결하고 인체공학적인 문법을 위해 [`<script setup>`](/api/sfc-script-setup.html) 사용을 권장합니다.
+보다 간결하고 인체공학적인 문법을 위해 [`<script setup>`](/api/sfc-script-setup) 사용을 권장합니다.
 :::
 
 `setup()` 훅은 다음과 같은 경우, 컴포넌트에서 컴포지션 API 사용을 위한 진입점 역할을 합니다:
@@ -13,7 +13,7 @@
 
 ## 기본 사용법 {#basic-usage}
 
-[반응형 API](./reactivity-core.html)를 사용하여 반응형 상태를 선언하고 `setup()`에서 객체를 반환하여 템플릿에 노출할 수 있습니다.
+[반응형 API](./reactivity-core)를 사용하여 반응형 상태를 선언하고 `setup()`에서 객체를 반환하여 템플릿에 노출할 수 있습니다.
 반환된 객체의 속성은 컴포넌트 인스턴스에서 사용할 수 있습니다(옵션 API가 사용되는 경우):
 
 ```vue
@@ -41,8 +41,8 @@ export default {
 </template>
 ```
 
-`setup`에서 반환된 [refs](/api/reactivity-core.html#ref)는 템플릿에서 접근할 때,
-[자동으로 얕은 언래핑](/guide/essentials/reactivity-fundamentals.html#deep-reactivity)되므로, 접근할 때 `.value`를 사용할 필요가 없습니다.
+`setup`에서 반환된 [refs](/api/reactivity-core#ref)는 템플릿에서 접근할 때,
+[자동으로 얕은 언래핑](/guide/essentials/reactivity-fundamentals#deep-reactivity)되므로, 접근할 때 `.value`를 사용할 필요가 없습니다.
 또한 `this`에서 접근할 때, 같은 방식으로 언래핑 됩니다.
 
 `setup()`은 객체를 _동기적으로_ 반환해야 합니다. `async setup()`을 사용할 수 있는 유일한 경우는 컴포넌트가 [Suspense](../guide/built-ins/suspense) 컴포넌트의 자손인 경우입니다.
@@ -67,7 +67,7 @@ export default {
 따라서 항상 `props.xxx`처럼 접근하는 것이 좋습니다.
 
 Props를 분해해야 하거나, 반응성을 유지하면서 외부 함수에 props를 전달해야 하는 경우,
-[toRefs()](./reactivity-utilities.html#torefs) 또는 [toRef()](/api/reactivity-utilities.html#toref) 유틸리티 API를 사용하여 구현할 수 있습니다.
+[toRefs()](./reactivity-utilities#torefs) 또는 [toRef()](/api/reactivity-utilities#toref) 유틸리티 API를 사용하여 구현할 수 있습니다.
 
 ```js
 import { toRefs, toRef } from 'vue'
@@ -125,7 +125,7 @@ export default {
 
 ### 퍼블릭 속성 노출하기 {#exposing-public-properties}
 
-`expose` 함수는 부모 컴포넌트가 [템플릿 참조](/guide/essentials/template-refs.html#ref-on-component)를 통해 자식 컴포넌트 인스턴스에 접근할 때,
+`expose` 함수는 부모 컴포넌트가 [템플릿 참조](/guide/essentials/template-refs#ref-on-component)를 통해 자식 컴포넌트 인스턴스에 접근할 때,
 노출되는 속성을 명시적으로 제한하기 위해 사용합니다.
 
 ```js{5,10}
@@ -145,7 +145,7 @@ export default {
 
 ## 렌더 함수와 함께 사용하기 {#usage-with-render-functions}
 
-`setup`은 범위 내 선언된 반응형 상태에 직접 접근할 수 있는 [렌더 함수](/guide/extras/render-function.html)를 반환할 수도 있습니다:
+`setup`은 범위 내 선언된 반응형 상태에 직접 접근할 수 있는 [렌더 함수](/guide/extras/render-function)를 반환할 수도 있습니다:
 
 ```js{6}
 import { h, ref } from 'vue'

@@ -393,7 +393,7 @@ function MyComponent(slots) {
 }
 ```
 
-사실 이것은 범위가 지정된 슬롯이 컴파일되는 방법과 수동 [렌더 함수](/guide/extras/render-function.html)에서 범위가 지정된 슬롯을 사용하는 방법에 매우 유사합니다.
+사실 이것은 범위가 지정된 슬롯이 컴파일되는 방법과 수동 [렌더 함수](/guide/extras/render-function)에서 범위가 지정된 슬롯을 사용하는 방법에 매우 유사합니다.
 
 `v-slot="slotProps"`가 슬롯 함수 특징과 어떻게 일치하는지 주목하십시오.
 함수의 인자와 마찬가지로 `v-slot`에서 분해 할당을 사용할 수 있습니다:
@@ -539,6 +539,6 @@ function MyComponent(slots) {
 </div>
 
 흥미로운 패턴이지만 렌더리스 컴포넌트로 구현할 수 있는 대부분의 케이스는, 추가 컴포넌트 중첩에 의한 오버헤드를 발생시키지 않고 Composition API를 사용하여 보다 효율적인 방식으로 구현할 수 있습니다.
-나중에 [컴포지블](/guide/reusability/composables.html)로 동일한 마우스 추적 기능을 구현하는 방법을 살펴보겠습니다.
+나중에 [컴포지블](/guide/reusability/composables)로 동일한 마우스 추적 기능을 구현하는 방법을 살펴보겠습니다.
 
 결론적으로, 범위가 지정된 슬롯은 `<FancyList>` 예제와 같이 로직을 포함하고 시각적 출력을 구성해야 할 때에 여전히 유용합니다.

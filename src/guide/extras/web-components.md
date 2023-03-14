@@ -6,7 +6,7 @@
 
 ## Vue에서 사용자 정의 앨리먼트 사용 {#using-custom-elements-in-vue}
 
-Vue는 [사용자 정의 엘리먼트 에브리웨어 테스트에서 100% 만점을 받았습니다](https://custom-elements-everywhere.com/libraries/vue/results/results.html). Vue 애플리케이션 내에서 사용자 정의 앨리먼트를 사용하는 것은 기본 HTML 앨리먼트를 사용하는 것과 거의 동일하게 작동하지만 몇 가지 유의해야 할 사항이 있습니다:
+Vue는 [사용자 정의 엘리먼트 에브리웨어 테스트에서 100% 만점을 받았습니다](https://custom-elements-everywhere.com/libraries/vue/results/results). Vue 애플리케이션 내에서 사용자 정의 앨리먼트를 사용하는 것은 기본 HTML 앨리먼트를 사용하는 것과 거의 동일하게 작동하지만 몇 가지 유의해야 할 사항이 있습니다:
 
 
 ### 컴포넌트 리졸브 건너뛰기 {#skipping-component-resolution}
@@ -253,6 +253,6 @@ There are also some areas where we find custom elements to be limiting:
 
 - Eager slot evaluation hinders component composition. Vue's [scoped slots](/guide/components/slots.html#scoped-slots) are a powerful mechanism for component composition, which can't be supported by custom elements due to native slots' eager nature. Eager slots also mean the receiving component cannot control when or whether to render a piece of slot content.
 
-- Shipping custom elements with shadow DOM scoped CSS today requires embedding the CSS inside JavaScript so that they can be injected into shadow roots at runtime. They also result in duplicated styles in markup in SSR scenarios. There are [platform features](https://github.com/whatwg/html/pull/4898/) being worked on in this area - but as of now they are not yet universally supported, and there are still production performance / SSR concerns to be addressed. In the meanwhile, Vue SFCs provide [CSS scoping mechanisms](/api/sfc-css-features.html) that support extracting the styles into plain CSS files.
+- Shipping custom elements with shadow DOM scoped CSS today requires embedding the CSS inside JavaScript so that they can be injected into shadow roots at runtime. They also result in duplicated styles in markup in SSR scenarios. There are [platform features](https://github.com/whatwg/html/pull/4898/) being worked on in this area - but as of now they are not yet universally supported, and there are still production performance / SSR concerns to be addressed. In the meanwhile, Vue SFCs provide [CSS scoping mechanisms](/api/sfc-css-features) that support extracting the styles into plain CSS files.
 
 Vue will always stay up to date with the latest standards in the web platform, and we will happily leverage whatever the platform provides if it makes our job easier. However, our goal is to provide solutions that work well and work today. That means we have to incorporate new platform features with a critical mindset - and that involves filling the gaps where the standards fall short while that is still the case.

@@ -25,7 +25,7 @@
   예를 들어,
   `MyComponent.vue`라는 파일에서 유추된 이름 "MyComponent"입니다.
 
-  또는 컴포넌트를 [`app.component`](/api/application.html#app-component)를 사용하여 전역으로 등록하면,
+  또는 컴포넌트를 [`app.component`](/api/application#app-component)를 사용하여 전역으로 등록하면,
   전역 ID가 자동으로 이름으로 설정되는 경우 입니다.
 
   `name` 옵션을 사용하면,
@@ -33,7 +33,7 @@
   이름을 명시적으로 제공할 수 있습니다.
 
   `name`이 명시적으로 필요한 경우는 단 하나로,
-  [`<KeepAlive>`](/guide/built-ins/keep-alive.html)의 `include / exclude` props를 통해 캐시 가능한 컴포넌트를 정의하는 경우입니다.
+  [`<KeepAlive>`](/guide/built-ins/keep-alive)의 `include / exclude` props를 통해 캐시 가능한 컴포넌트를 정의하는 경우입니다.
 
   :::tip
 
@@ -128,7 +128,7 @@
 
   </div>
 
-- **참고**: [가이드 - 폴스루 속성](/guide/components/attrs.html)
+- **참고**: [가이드 - 폴스루 속성](/guide/components/attrs)
 
 ## components {#components}
 
@@ -158,7 +158,7 @@
   }
   ```
 
-- **참고**: [가이드 - 컴포넌트 등록](/guide/components/registration.html)
+- **참고**: [가이드 - 컴포넌트 등록](/guide/components/registration)
 
 ## directives {#directives}
 
@@ -194,4 +194,4 @@
   번잡해질 수 있는 기능을 정의한 디렉티브로,
   간단하게 컴포넌트 인스턴스에서 사용할 수 있습니다.
 
-- **참고**: [가이드 - 커스텀 디렉티브](/guide/reusability/custom-directives.html)
+- **참고**: [가이드 - 커스텀 디렉티브](/guide/reusability/custom-directives)

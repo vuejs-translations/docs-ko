@@ -117,7 +117,7 @@ renderToString(app).then((html) => {
 
 [`renderToString()`](/api/ssr.html#rendertostring)은 Vue 앱 인스턴스를 사용하여 앱의 렌더링된 HTML로 해결되는 Promise를 반환합니다.
 [Node.js Stream API](https://nodejs.org/api/stream.html) 또는 [Web Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)를 사용하여 스트리밍 렌더링도 가능합니다.
-자세한 내용은 [SSR API](/api/ssr.html)를 확인하세요.
+자세한 내용은 [SSR API](/api/ssr)를 확인하세요.
 
 그런 다음 앱이 전체 페이지 HTML로 마크업 된 Vue SSR 코드를 서버 리퀘스트 핸들러로 이동시킬 수 있습니다.
 다음 단계에서는 [`express`](https://expressjs.com/)를 사용할 것입니다:
@@ -286,7 +286,7 @@ server.get('/', (req, res) => {
 
 ### Vite SSR {#vite-ssr}
 
-Vite는 내장된 [Vue 서버 사이드 렌더링 지원](https://vitejs.dev/guide/ssr.html)을 제공하지만 의도적으로 저수준입니다.
+Vite는 내장된 [Vue 서버 사이드 렌더링 지원](https://vitejs.dev/guide/ssr)을 제공하지만 의도적으로 저수준입니다.
 Vite를 직접 사용하고 싶다면 [vite-plugin-ssr](https://github.com/vitejs/vite-plugin-vue/tree/main/playground/ssr-vue)을 확인하십시오.
 커뮤니티 플러그인은 많은 어려운 세부 사항을 추상화해 줍니다.
 

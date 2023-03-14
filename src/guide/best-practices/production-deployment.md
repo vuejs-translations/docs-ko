@@ -35,9 +35,9 @@ CDN 또는 자체 호스팅 스크립트에서 로드하여 빌드 도구 없이
 
 참고:
 
-- [Vite 프로덕션 빌드 가이드](https://vitejs.dev/guide/build.html)
-- [Vite 배포 가이드](https://vitejs.dev/guide/static-deploy.html)
-- [Vue CLI 배포 가이드](https://cli.vuejs.org/guide/deployment.html)
+- [Vite 프로덕션 빌드 가이드](https://vitejs.dev/guide/build)
+- [Vite 배포 가이드](https://vitejs.dev/guide/static-deploy)
+- [Vue CLI 배포 가이드](https://cli.vuejs.org/guide/deployment)
 
 ## 런타임 에러 추적 {#tracking-runtime-errors}
 

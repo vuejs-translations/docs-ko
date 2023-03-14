@@ -119,4 +119,4 @@ const AsyncComp = defineAsyncComponent({
 ## 지연(suspense) 사용하기 {#using-with-suspense}
 
 비동기 컴포넌트는 내장 컴포넌트인 `<Suspense>`와 함께 사용할 수 있습니다.
-`<Suspense>`와 비동기 컴포넌트 간의 상호 작용은 [`<Suspense>`](/guide/built-ins/suspense.html)에 설명되어 있습니다.
+`<Suspense>`와 비동기 컴포넌트 간의 상호 작용은 [`<Suspense>`](/guide/built-ins/suspense)에 설명되어 있습니다.

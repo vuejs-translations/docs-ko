@@ -11,7 +11,7 @@
   `v-text`는 엘리먼트의 [텍스트 컨텐츠](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) 속성을 설정하므로,
   엘리먼트 내부의 기존 컨텐츠를 덮어씁니다.
   `텍스트 컨텐츠`의 일부를 업데이트해야 하는 경우,
-  [이중 중괄호](/guide/essentials/template-syntax.html#text-interpolation)를 사용해야 합니다.
+  [이중 중괄호](/guide/essentials/template-syntax#text-interpolation)를 사용해야 합니다.
 
 - **예제**:
 
@@ -21,7 +21,7 @@
   <span>{{msg}}</span>
   ```
 
-- **참고**: [템플릿 문법 - 텍스트 보간법](/guide/essentials/template-syntax.html#text-interpolation)
+- **참고**: [템플릿 문법 - 텍스트 보간법](/guide/essentials/template-syntax#text-interpolation)
 
 ## v-html {#v-html}
 
@@ -44,7 +44,7 @@
   [싱글 파일 컴포넌트(SFC)](/guide/scaling-up/sfc)에서 `scoped`(범위를 지정한) Style은 `v-html` 내부 컨텐츠에 적용되지 않습니다.
   왜냐하면 해당 HTML은 Vue의 템플릿 컴파일러에서 처리되지 않기 때문입니다.
   범위를 지정한 CSS로 `v-html` 컨텐츠를 대상으로 지정하려는 경우,
-  [CSS 모듈](./sfc-css-features.html#css-modules) 또는 BEM과 같은 수동 범위 지정 방법과 함께 전역 `<style>` 엘리먼트를 사용할 수 있습니다.
+  [CSS 모듈](./sfc-css-features#css-modules) 또는 BEM과 같은 수동 범위 지정 방법과 함께 전역 `<style>` 엘리먼트를 사용할 수 있습니다.
 
 - **예제**:
 
@@ -52,7 +52,7 @@
   <div v-html="html"></div>
   ```
 
-- **참고**: [템플릿 문법 - HTML 출력](/guide/essentials/template-syntax.html#raw-html)
+- **참고**: [템플릿 문법 - HTML 출력](/guide/essentials/template-syntax#raw-html)
 
 ## v-show {#v-show}
 
@@ -66,7 +66,7 @@
   엘리먼트가 표시될 때 초기 `display` 값을 설정하려고 시도합니다.
   또한 조건이 변경될 때 전환을 트리거합니다.
 
-- **참고**: [조건부 렌더링 - v-show](/guide/essentials/conditional.html#v-show)
+- **참고**: [조건부 렌더링 - v-show](/guide/essentials/conditional#v-show)
 
 ## v-if {#v-if}
 
@@ -83,13 +83,13 @@
   텍스트 또는 여러 엘리먼트를 포함하는 조건부 블록을 나타내기 위해 `<template>`에 사용할 수도 있습니다.
 
   이 디렉티브는 조건이 변경될 때,
-  [트랜지션](/guide/built-ins/transition.html)을 트리거합니다.
+  [트랜지션](/guide/built-ins/transition)을 트리거합니다.
 
   `v-for`와 함께 사용하는 경우, `v-if`의 우선 순위가 높습니다.
   하나의 엘리먼트에 이 두 디렉티브을 함께 사용하는 것은 권장되지 않습니다.
-  자세한 내용은 [리스트 렌더링](/guide/essentials/list.html#v-for-with-v-if)을 참고하세요.
+  자세한 내용은 [리스트 렌더링](/guide/essentials/list#v-for-with-v-if)을 참고하세요.
 
-- **참고**: [조건부 렌더링 - v-if](/guide/essentials/conditional.html#v-if)
+- **참고**: [조건부 렌더링 - v-if](/guide/essentials/conditional#v-if)
 
 ## v-else {#v-else}
 
@@ -114,7 +114,7 @@
   </div>
   ```
 
-- **참고**: [조건부 렌더링 - v-else](/guide/essentials/conditional.html#v-else)
+- **참고**: [조건부 렌더링 - v-else](/guide/essentials/conditional#v-else)
 
 ## v-else-if {#v-else-if}
 
@@ -146,7 +146,7 @@
   </div>
   ```
 
-- **참고**: [조건부 렌더링 - v-else-if](/guide/essentials/conditional.html#v-else-if)
+- **참고**: [조건부 렌더링 - v-else-if](/guide/essentials/conditional#v-else-if)
 
 ## v-for {#v-for}
 
@@ -186,7 +186,7 @@
   `v-for`는 네이티브 `Map`,`Set`과 더불어 [Iterable Protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)을 구현한 값에서도 작동합니다.
 
 - **참고**:
-  - [가이드 - 리스트 렌더링](/guide/essentials/list.html)
+  - [가이드 - 리스트 렌더링](/guide/essentials/list)
 
 ## v-on {#v-on}
 
@@ -279,8 +279,8 @@
   ```
 
 - **참고**:
-  - [이벤트 핸들링](/guide/essentials/event-handling.html)
-  - [컴포넌트 - 이벤트 청취하기](/guide/essentials/component-basics.html#listening-to-events)
+  - [이벤트 핸들링](/guide/essentials/event-handling)
+  - [컴포넌트 - 이벤트 청취하기](/guide/essentials/component-basics#listening-to-events)
 
 ## v-bind {#v-bind}
 
@@ -376,7 +376,7 @@
   문자열 템플릿을 사용하거나 템플릿을 빌드 과정으로 미리 컴파일하는 경우에는 `.camel`이 필요하지 않습니다.
 
 - **참고**:
-  - [가이드 - 클래스와 스타일 바인딩](/guide/essentials/class-and-style.html)
+  - [가이드 - 클래스와 스타일 바인딩](/guide/essentials/class-and-style)
   - [가이드 - Props: Props 전달에 관한 심화](/guide/components/props.html#prop-passing-details)
 
 ## v-model {#v-model}
@@ -400,8 +400,8 @@
 
 - **참고**:
 
-  - [가이드 - Form 입력 바인딩](/guide/essentials/forms.html)
-  - [가이드 - 이벤트: `v-model`과 함께 사용하기](/guide/components/v-model.html)
+  - [가이드 - Form 입력 바인딩](/guide/essentials/forms)
+  - [가이드 - 이벤트: `v-model`과 함께 사용하기](/guide/components/v-model)
 
 ## v-slot {#v-slot}
 
@@ -452,7 +452,7 @@
   ```
 
 - **참고**:
-  - [가이드 - 슬롯](/guide/components/slots.html)
+  - [가이드 - 슬롯](/guide/components/slots)
 
 ## v-pre {#v-pre}
 

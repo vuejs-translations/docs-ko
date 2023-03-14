@@ -148,7 +148,7 @@ Vue 팀은 SFC별 린팅 규칙을 지원하는 [ESLint](https://eslint.org/) �
   커스텀 Vite 플러그인을 사용해야 합니다. [예제](https://github.com/vitejs/vite-plugin-vue/tree/main/packages/plugin-vue#example-for-transforming-custom-blocks)
 
 - Vue CLI 또는 일반 웹팩을 사용하는 경우,
-  일치하는 블록을 변환하도록 웹팩 로더를 구성해야 합니다. [예제](https://vue-loader.vuejs.org/guide/custom-blocks.html)
+  일치하는 블록을 변환하도록 웹팩 로더를 구성해야 합니다. [예제](https://vue-loader.vuejs.org/guide/custom-blocks)
 
 ## 저수준 패키지 {#lower-level-packages}
 

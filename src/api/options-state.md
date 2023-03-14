@@ -54,7 +54,7 @@
   data: (vm) => ({ a: vm.myProp })
   ```
 
-- **참고**: [반응형 심화](/guide/extras/reactivity-in-depth.html)
+- **참고**: [반응형 심화](/guide/extras/reactivity-in-depth)
 
 ## props {#props}
 
@@ -144,7 +144,7 @@
   ```
 
 - **참고**: 
-  - [가이드 - Props](/guide/components/props.html)
+  - [가이드 - Props](/guide/components/props)
   - [가이드 - 컴포넌트 Props에 타입 적용하기](/guide/typescript/options-api.html#typing-component-props) <sup class="vt-badge ts" />
 
 ## computed {#computed}
@@ -228,7 +228,7 @@
   ```
 
 - **참고**: 
-  - [가이드  - 계산된 속성](/guide/essentials/computed.html)
+  - [가이드  - 계산된 속성](/guide/essentials/computed)
   - [가이드  - 계산된 속성에 타입 적용하기](/guide/typescript/options-api.html#typing-computed-properties) <sup class="vt-badge ts" />
 
 ## methods {#methods}
@@ -274,7 +274,7 @@
   }
   ```
 
-- **참고**: [이벤트 핸들링](/guide/essentials/event-handling.html)
+- **참고**: [이벤트 핸들링](/guide/essentials/event-handling)
 
 ## watch {#watch}
 
@@ -407,7 +407,7 @@
   }
   ```
 
-- **참고**: [감시자](/guide/essentials/watchers.html)
+- **참고**: [감시자](/guide/essentials/watchers)
 
 ## emits {#emits}
 
@@ -442,7 +442,7 @@
   `emits` 옵션은 기본 DOM 이벤트 리스너가 아닌 컴포넌트 이벤트 리스너로 간주되는 이벤트 리스너에 영향을 미칩니다.
   `emits`에 선언된 이벤트의 리스너는 컴포넌트의 `$attrs` 객체에서 제거되므로,
   컴포넌트의 루트 엘리먼트로 전달되지 않습니다.
-  자세한 내용은 [폴스루 속성](/guide/components/attrs.html) 참고.
+  자세한 내용은 [폴스루 속성](/guide/components/attrs) 참고.
 
 - **예제**:
 
@@ -479,7 +479,7 @@
   ```
 
 - **참고:**
-  - [가이드 - 폴스루 속성](/guide/components/attrs.html)
+  - [가이드 - 폴스루 속성](/guide/components/attrs)
   - [가이드 - 컴포넌트 Emits에 타입 적용하기](/guide/typescript/options-api.html#typing-component-emits) <sup class="vt-badge ts" />
 
 ## expose {#expose}
