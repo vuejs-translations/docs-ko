@@ -25,6 +25,7 @@
       "destination": "https://v2.ko.vuejs.org/v2/:path*"
     }
   ],
+  "cleanUrls": true,
   "git": {
     "deploymentEnabled": {
       "gh-pages": false,
