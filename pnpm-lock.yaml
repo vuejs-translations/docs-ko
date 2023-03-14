@@ -8,7 +8,7 @@ specifiers:
   dynamics.js: ^1.1.5
   gsap: ^3.9.0
   terser: ^5.14.2
-  vitepress: ^1.0.0-alpha.50
+  vitepress: ^1.0.0-alpha.56
   vue: ^3.2.47
 
 dependencies:
