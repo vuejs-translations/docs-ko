@@ -1,7 +1,7 @@
 # 옵션: 생명주기 {#options-lifecycle}
 
 :::info 참고
-생명주기 훅의 여러 사용법에 대해서는 [가이드 - 생명주기 훅](/guide/essentials/lifecycle.html)을 참고하십시오.
+생명주기 훅의 여러 사용법에 대해서는 [가이드 - 생명주기 훅](/guide/essentials/lifecycle)을 참고하십시오.
 :::
 
 ## beforeCreate {#beforecreate}
@@ -81,7 +81,7 @@
     앱의 루트 컨테이너가 문서 내에 있고, 컴포넌트의 DOM 트리도 문서 내 있는 경우에만 보장됨.
 
   이 훅은 일반적으로 컴포넌트의 렌더링된 DOM에 접근해야 하는 사이드 이펙트를 실행하거나,
-  [서버에서 렌더링된 앱](/guide/scaling-up/ssr.html)의 DOM 관련 코드를 클라이언트에서만 조작하도록 제한하는 데 사용됩니다.
+  [서버에서 렌더링된 앱](/guide/scaling-up/ssr)의 DOM 관련 코드를 클라이언트에서만 조작하도록 제한하는 데 사용됩니다.
 
   **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
@@ -124,7 +124,7 @@
   이 훅은 반응형 상태 변경에 의한 컴포넌트 DOM 트리 업데이트 후 호출됩니다.
   한 코드블럭 내에서 특정 상태 변경 후,
   이어서 업데이트된 DOM에 접근해야 하는 로직의 경우,
-  [nextTick()](/api/general.html#nexttick)을 사용해야 합니다.
+  [nextTick()](/api/general#nexttick)을 사용해야 합니다.
 
   **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
@@ -215,7 +215,7 @@
   **에러 전파 규칙**
 
   - 기본적으로 모든 에러는 단계적으로 전파되며,
-    [`app.config.errorHandler`](/api/application.html#app-config-errorhandler)가 정의된 경우,
+    [`app.config.errorHandler`](/api/application#app-config-errorhandler)가 정의된 경우,
     최종적으로 이곳으로 전파되므로 한 곳에서 서비스 분석 및 보고 작업을 할 수 있습니다.
 
   - 컴포넌트의 상속 체인 또는 부모 체인에 여러 개의 `errorCaptured` 후크가 존재하는 경우, 모든 후크는 동일한 오류에 대해 아래에서 위로 순서대로 호출됩니다. 이는 네이티브 DOM 이벤트의 버블링 메커니즘과 유사합니다.
@@ -250,7 +250,7 @@
   }
   ```
 
-- **참고**: [가이드 - 반응형 심화](/guide/extras/reactivity-in-depth.html)
+- **참고**: [가이드 - 반응형 심화](/guide/extras/reactivity-in-depth)
 
 ## renderTriggered <sup class="vt-badge dev-only" /> {#rendertriggered}
 
@@ -274,11 +274,11 @@
   }
   ```
 
-- **참고**: [가이드 - 반응형 심화](/guide/extras/reactivity-in-depth.html)
+- **참고**: [가이드 - 반응형 심화](/guide/extras/reactivity-in-depth)
 
 ## activated {#activated}
 
-[`<KeepAlive>`](/api/built-in-components.html#keepalive)로 캐시된 컴포넌트 인스턴스가 DOM 트리의 일부로 삽입된 후 호출됩니다.
+[`<KeepAlive>`](/api/built-in-components#keepalive)로 캐시된 컴포넌트 인스턴스가 DOM 트리의 일부로 삽입된 후 호출됩니다.
 
 
 **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
@@ -291,11 +291,11 @@
   }
   ```
 
-- **참고**: [가이드 - 캐시된 인스턴스의 생명주기](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
+- **참고**: [가이드 - 캐시된 인스턴스의 생명주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
 
 ## deactivated {#deactivated}
 
-[`<KeepAlive>`](/api/built-in-components.html#keepalive)로 캐시된 컴포넌트 인스턴스가 DOM 트리에서 제거된 후 호출됩니다.
+[`<KeepAlive>`](/api/built-in-components#keepalive)로 캐시된 컴포넌트 인스턴스가 DOM 트리에서 제거된 후 호출됩니다.
 
 **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
@@ -307,7 +307,7 @@
   }
   ```
 
-- **참고**: [가이드 - 캐시된 인스턴스의 생명주기](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
+- **참고**: [가이드 - 캐시된 인스턴스의 생명주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
 
 ## serverPrefetch <sup class="vt-badge" data-text="SSR 전용" /> {#serverprefetch}
 
@@ -355,4 +355,4 @@
   }
   ```
 
-- **참고**: [가이드 - 서버 사이드 렌더링 (SSR)](/guide/scaling-up/ssr.html)
+- **참고**: [가이드 - 서버 사이드 렌더링 (SSR)](/guide/scaling-up/ssr)

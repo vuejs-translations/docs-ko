@@ -8,7 +8,7 @@ Vue 컴포넌트는 템플릿을 발견할 때, Vue가 구현 할 수 있도록 
 
 ## 전역 등록 {#global-registration}
 
-`app.component()` 메서드를 사용하여 현재 [Vue 앱](/guide/essentials/application.html)에서 컴포넌트를 전역으로 사용할 수 있도록 할 수 있습니다:
+`app.component()` 메서드를 사용하여 현재 [Vue 앱](/guide/essentials/application)에서 컴포넌트를 전역으로 사용할 수 있도록 할 수 있습니다:
 
 ```js
 import { createApp } from 'vue'

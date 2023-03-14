@@ -2,7 +2,7 @@
 
 ## shallowRef() {#shallowref}
 
-[`ref()`](./reactivity-core.html#ref)의 얕은 버전입니다.
+[`ref()`](./reactivity-core#ref)의 얕은 버전입니다.
 
 - **타입**:
 
@@ -34,8 +34,8 @@
   ```
 
 - **참고**:
-  - [가이드 - 큰 불변 구조에 대한 반응형 오버헤드 감소](/guide/best-practices/performance.html#reduce-reactivity-overhead-for-large-immutable-structures)
-  - [가이드 - 외부 상태 시스템과의 통합](/guide/extras/reactivity-in-depth.html#integration-with-external-state-systems)
+  - [가이드 - 큰 불변 구조에 대한 반응형 오버헤드 감소](/guide/best-practices/performance#reduce-reactivity-overhead-for-large-immutable-structures)
+  - [가이드 - 외부 상태 시스템과의 통합](/guide/extras/reactivity-in-depth#integration-with-external-state-systems)
 
 ## triggerRef() {#triggerref}
 
@@ -139,7 +139,7 @@
 
 ## shallowReactive() {#shallowreactive}
 
-[`reactive()`](./reactivity-core.html#reactive)의 얕은 버전입니다.
+[`reactive()`](./reactivity-core#reactive)의 얕은 버전입니다.
 
 - **타입**:
 
@@ -183,7 +183,7 @@
 
 ## shallowReadonly() {#shallowreadonly}
 
-[`readonly()`](./reactivity-core.html#readonly)의 얕은 버전입니다.
+[`readonly()`](./reactivity-core#readonly)의 얕은 버전입니다.
 
 - **타입**:
 
@@ -237,7 +237,7 @@ Vue에서 만든 프락시의 원시 원본 객체를 반환합니다.
 
 - **세부 사항**:
 
-  `toRaw()`는 [`reactive()`](./reactivity-core.html#reactive), [`readonly()`](./reactivity-core.html#readonly), [`shallowReactive()`](#shallowreactive), [`shallowReadonly()`](#shallowreadonly)로 생성된 프락시에서 원본 객체를 반환합니다.
+  `toRaw()`는 [`reactive()`](./reactivity-core#reactive), [`readonly()`](./reactivity-core#readonly), [`shallowReactive()`](#shallowreactive), [`shallowReadonly()`](#shallowreadonly)로 생성된 프락시에서 원본 객체를 반환합니다.
 
   이것은 일시적으로 프락시의 접근/추적 오버헤드를 발생시키는 읽기/쓰기와 관련된 트리거 없이 사용하기 위한 용도입니다.
   원본 객체의 영구 참조를 유지하는 것은 **권장되지 않습니다**.

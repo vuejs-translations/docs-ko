@@ -246,7 +246,7 @@ data() {
 <span>반가워!</span>
 ```
 
-컴포넌트 속성 상속에 대한 자세한 내용은 [폴스루 속성](/guide/components/attrs.html) 섹션에서 확인할 수 있습니다.
+컴포넌트 속성 상속에 대한 자세한 내용은 [폴스루 속성](/guide/components/attrs) 섹션에서 확인할 수 있습니다.
 
 ## 인라인 스타일 바인딩 {#binding-inline-styles}
 

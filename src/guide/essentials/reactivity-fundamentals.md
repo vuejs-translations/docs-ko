@@ -89,7 +89,7 @@ const state = reactive({ count: 0 })
 
 반응형 객체는 [JavaScript Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)이며 일반 객체처럼 작동합니다.
 일반 객체와 차이점은 Vue가 속성에 접근 및 반응형 객체의 변경사항을 감지할 수 있다는 것입니다.
-자세한 내용이 궁금하시다면 [반응형 심화](/guide/extras/reactivity-in-depth.html)에서 Vue의 반응형 시스템이 어떻게 작동하는지 설명하지만, 메인 가이드를 마친 후 읽는 것을 권장합니다.
+자세한 내용이 궁금하시다면 [반응형 심화](/guide/extras/reactivity-in-depth)에서 Vue의 반응형 시스템이 어떻게 작동하는지 설명하지만, 메인 가이드를 마친 후 읽는 것을 권장합니다.
 
 참고: [반응형에 타입 지정하기](/guide/typescript/composition-api.html#typing-reactive) <sup class="vt-badge ts" />
 
@@ -447,7 +447,7 @@ const { foo, bar } = obj
 ```
 
 즉, `ref()`를 사용하면 모든 값에 대한 "참조"를 만들어 반응성을 잃지 않고 전달할 수 있습니다.
-이 기능은 [컴포저블 함수](/guide/reusability/composables.html)로 로직을 추출할 때 자주 사용되기 때문에 상당히 중요합니다.
+이 기능은 [컴포저블 함수](/guide/reusability/composables)로 로직을 추출할 때 자주 사용되기 때문에 상당히 중요합니다.
 
 ### 템플릿에서 ref 언래핑 \*\* {#ref-unwrapping-in-templates}
 
@@ -624,7 +624,7 @@ function increment() {
 </template>
 ```
 
-[반응형 변환](/guide/extras/reactivity-transform.html)에 대한 자세한 내용은 해당 섹션에서 확인할 수 있습니다.
+[반응형 변환](/guide/extras/reactivity-transform)에 대한 자세한 내용은 해당 섹션에서 확인할 수 있습니다.
 현재 아직 실험 단계이며 최종적으로 확정되기 전에 변경될 수 있습니다.
 
 </div>

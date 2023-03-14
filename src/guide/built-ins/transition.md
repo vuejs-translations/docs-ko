@@ -14,10 +14,10 @@ Vue는 상태 변화에 대응하기 위해 트랜지션 및 애니메이션 작
 
 - 엘리먼트 또는 컴포넌트가 DOM에 들어오고 나갈 때 애니메이션을 적용하기 위한 `<Transition>`. 이 페이지에서 다룹니다.
 
-- 엘리먼트 또는 컴포넌트가 `v-for` 리스트에 삽입, 제거 또는 이동할 때 애니메이션을 적용하기 위한 `<TransitionGroup>`. 이것은 [다음 장](/guide/built-ins/transition-group.html)에서 다룹니다.
+- 엘리먼트 또는 컴포넌트가 `v-for` 리스트에 삽입, 제거 또는 이동할 때 애니메이션을 적용하기 위한 `<TransitionGroup>`. 이것은 [다음 장](/guide/built-ins/transition-group)에서 다룹니다.
 
 이 두 가지 컴포넌트 외에도 CSS 클래스 트랜지션 또는 스타일 바인딩을 통한 상태 기반 애니메이션과 같은 기술을 사용하여 Vue에서 애니메이션을 적용할 수도 있습니다.
-이러한 추가 기술은 [애니메이션 기법](/guide/extras/animation.html) 장에서 다룹니다.
+이러한 추가 기술은 [애니메이션 기법](/guide/extras/animation) 장에서 다룹니다.
 
 ## `<Transition>` 컴포넌트 {#the-transition-component}
 

@@ -16,7 +16,7 @@ app.use(myPlugin, {
 ```
 
 플러그인은 `install()` 메서드를 노출하는 객체 또는 단순히 install 함수 자체로 작동하는 함수로 정의됩니다.
-install 함수는 `app.use()`에 전달된 추가 옵션과 함께 [앱 인스턴스](/api/application.html)를 받습니다(있는 경우):
+install 함수는 `app.use()`에 전달된 추가 옵션과 함께 [앱 인스턴스](/api/application)를 받습니다(있는 경우):
 
 ```js
 const myPlugin = {
@@ -30,7 +30,7 @@ const myPlugin = {
 
 1. [`app.component()`](/api/application.html#app-component) 및 [`app.directive()`](/api/application.html#app-directive)를 사용하여 하나 이상의 전역 컴포넌트 또는 커스텀 디렉티브를 등록합니다.
 
-2. [`app.provide()`](/api/application.html#app-provide)를 호출하여 앱 전체에 리소스를 [주입 가능](/guide/components/provide-inject.html)하게 만듭니다.
+2. [`app.provide()`](/api/application.html#app-provide)를 호출하여 앱 전체에 리소스를 [주입 가능](/guide/components/provide-inject)하게 만듭니다.
 
 3. 일부 전역 인스턴스 속성 또는 메서드를 [`app.config.globalProperties`](/api/application.html#app-config-globalproperties)에 첨부하여 추가합니다.
 

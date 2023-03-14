@@ -187,7 +187,7 @@ computed: {
 
 ## 싱글 파일 컴포넌트 최상위 앨리먼트 순서 {#single-file-component-top-level-element-order}
 
-**[싱글 파일 컴포넌트](/guide/scaling-up/sfc.html)는 항상 다른 두 태그 중 하나 이상이 항상 필요하므로 `<script>`, `<template>`, `<style>` 태그의 순서를 일관되게 유지하되 `<style>`을 마지막에 배치해야 합니다.**
+**[싱글 파일 컴포넌트](/guide/scaling-up/sfc)는 항상 다른 두 태그 중 하나 이상이 항상 필요하므로 `<script>`, `<template>`, `<style>` 태그의 순서를 일관되게 유지하되 `<style>`을 마지막에 배치해야 합니다.**
 
 
 <div class="style-example style-example-bad">

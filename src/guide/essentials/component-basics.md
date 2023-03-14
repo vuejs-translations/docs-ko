@@ -10,11 +10,11 @@
 이것은 기본 HTML 엘리먼트를 중첩하는 방법과 매우 유사하지만,
 Vue는 각 컴포넌트에 사용자 정의 컨텐츠와 논리를 캡슐화할 수 있는 자체 컴포넌트 모델을 구현합니다.
 Vue는 기본 웹 컴포넌트와도 잘 작동합니다.
-Vue 컴포넌트와 기본 웹 컴포넌트 간의 관계가 궁금하시다면 [여기에서 자세히 읽어보세요](/guide/extras/web-components.html).
+Vue 컴포넌트와 기본 웹 컴포넌트 간의 관계가 궁금하시다면 [여기에서 자세히 읽어보세요](/guide/extras/web-components).
 
 ## 컴포넌트 정의하기 {#defining-a-component}
 
-빌드 방식을 사용할 때 일반적으로 [싱글 파일 컴포넌트](/guide/scaling-up/sfc.html)(줄여서 SFC)라고 하는 `.vue` 확장자를 사용하는 전용 파일에 각 Vue 컴포넌트를 정의합니다:
+빌드 방식을 사용할 때 일반적으로 [싱글 파일 컴포넌트](/guide/scaling-up/sfc)(줄여서 SFC)라고 하는 `.vue` 확장자를 사용하는 전용 파일에 각 Vue 컴포넌트를 정의합니다:
 
 <div class="options-api">
 
@@ -127,7 +127,7 @@ export default {
 </template>
 ```
 
-가져온 컴포넌트를 템플릿에 노출하려면 `components` 옵션을 사용하여 [등록](/guide/components/registration.html)해야 합니다.
+가져온 컴포넌트를 템플릿에 노출하려면 `components` 옵션을 사용하여 [등록](/guide/components/registration)해야 합니다.
 그러면 컴포넌트는 등록된 키를 사용하여 태그로 사용할 수 있습니다.
 
 </div>
@@ -150,7 +150,7 @@ import ButtonCounter from './ButtonCounter.vue'
 </div>
 
 컴포넌트를 전역으로 등록하면, 가져오기(import) 없이 지정된 앱의 모든 곳에서 컴포넌트를 사용할 수 있습니다.
-전역 및 로컬 등록의 장단점은 [컴포넌트 등록](/guide/components/registration.html) 섹션에서 설명합니다.
+전역 및 로컬 등록의 장단점은 [컴포넌트 등록](/guide/components/registration) 섹션에서 설명합니다.
 
 컴포넌트는 원하는 만큼 재사용할 수 있습니다:
 
@@ -325,7 +325,7 @@ const posts = ref([
 이것은 미리 렌더링할 정확한 콘텐츠를 모를 때 특히 유용합니다.
 
 지금은 이것이 `props`에 대해 알아야 할 전부입니다.
-하지만 이 페이지를 다 읽고 내용에 익숙해지면 나중에 다시 돌아와 [Props](/guide/components/props.html)의 전체 가이드를 읽는 것이 좋습니다.
+하지만 이 페이지를 다 읽고 내용에 익숙해지면 나중에 다시 돌아와 [Props](/guide/components/props)의 전체 가이드를 읽는 것이 좋습니다.
 
 ## 이벤트 청취하기 {#listening-to-events}
 
@@ -576,7 +576,7 @@ HTML 엘리먼트와 마찬가지로 다음과 같이 컴포넌트에 컨텐츠�
 `is` 속성을 사용하여 일반 HTML 엘리먼트를 만들 수도 있습니다.
 
 `<component :is="...">`를 사용하여 여러 컴포넌트 간에 전환할 때, 다른 컴포넌트로 전환되면 컴포넌트가 마운트 해제됩니다.
-내장된 [`<KeepAlive>` 컴포넌트](/guide/built-ins/keep-alive.html)를 사용하여 비활성 컴포넌트를 "활성" 상태로 유지하도록 강제할 수 있습니다.
+내장된 [`<KeepAlive>` 컴포넌트](/guide/built-ins/keep-alive)를 사용하여 비활성 컴포넌트를 "활성" 상태로 유지하도록 강제할 수 있습니다.
 
 ## DOM 템플릿 파싱 주의 사항 {#dom-template-parsing-caveats}
 

@@ -57,16 +57,16 @@ footer: false
 
 
 - 권장 IDE 설정은 [Visual Studio Code](https://code.visualstudio.com/) + [Volar extension](https://marketplace.visualstudio.com/items?itemName=Vue.volar)입니다. 다른 편집기를 사용하는 경우 [IDE 지원 섹션](/guide/scaling-up/tooling.html#ide-support)을 확인하세요.
-- 백엔드 프레임워크와의 통합을 포함한 자세한 툴링 내용은 [툴링 가이드](/guide/scaling-up/tooling.html)에서 확인할 수 있습니다.
+- 백엔드 프레임워크와의 통합을 포함한 자세한 툴링 내용은 [툴링 가이드](/guide/scaling-up/tooling)에서 확인할 수 있습니다.
 - 기본 빌드 도구인 Vite에 대해 자세히 알아보려면 [Vite 문서](https://vitejs.dev)를 확인하세요.
-- 타입스크립트를 사용하기로 선택한 경우 [타입스크립트 사용 가이드](typescript/overview.html)를 확인하세요.
+- 타입스크립트를 사용하기로 선택한 경우 [타입스크립트 사용 가이드](typescript/overview)를 확인하세요.
 
 When you are ready to ship your app to production, run the following:
 
 <div class="language-sh"><pre><code><span class="line"><span style="color:var(--vt-c-green);">&gt; </span><span style="color:#A6ACCD;">npm run build</span></span>
 <span class="line"></span></code></pre></div>
 
-이렇게 하면 프로젝트의 `./dist` 디렉터리에 프로덕션에 사용할 수 있는 앱 빌드가 생성됩니다. 프로덕션 배포 가이드](/guide/best-practices/production-deployment.html)를 확인하여 앱을 프로덕션에 배포하는 방법에 대해 자세히 알아보세요.
+이렇게 하면 프로젝트의 `./dist` 디렉터리에 프로덕션에 사용할 수 있는 앱 빌드가 생성됩니다. 프로덕션 배포 가이드](/guide/best-practices/production-deployment)를 확인하여 앱을 프로덕션에 배포하는 방법에 대해 자세히 알아보세요.
 
 [Next Steps >](#next-steps)
 
@@ -219,7 +219,7 @@ export default {
 가져온 컴포넌트의 템플릿이 자바스크립트 문자열로 인라인되어 있는 것을 보셨을 것입니다. VSCode를 사용하는 경우, [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) 확장자를 설치하고 문자열 앞에 `/*html*/` 주석을 추가하면 구문 강조 표시를 받을 수 있습니다.
 
 ### 빌드 단계 없이 컴포지션 API 사용 {#using-composition-api-without-a-build-step}
-컴포지션 API에 대한 많은 예제에서는 `<script setup>` 구문을 사용합니다. 빌드 단계 없이 컴포지션 API를 사용하려면 [`setup()` 옵션](/api/composition-api-setup.html) 사용법을 참조하세요.
+컴포지션 API에 대한 많은 예제에서는 `<script setup>` 구문을 사용합니다. 빌드 단계 없이 컴포지션 API를 사용하려면 [`setup()` 옵션](/api/composition-api-setup) 사용법을 참조하세요.
 
 ## Next Steps {#next-steps}
 

@@ -38,7 +38,7 @@ Vite 기반 설정을 사용하면 개발 서버와 번들러가 트랜스파일
 
 ### `tsconfig.json` 설정 {#configuring-tsconfig-json}
 
-`create-vue` 를 통해 생성된 프로젝트에는 사전 설정된 `tsconfig.json`가 포함됩니다. 기본 설정은 [`@vue/tsconfig`](https://github.com/vuejs/tsconfig) 패키지에서 추상화됩니다. 프로젝트 내에서 [프로젝트 참조](https://www.typescriptlang.org/docs/handbook/project-references.html) 를 사용하여 다른 환경(예: 앱 코드와 테스트 코드에는 서로 다른 전역 변수가 있어야 합니다.)에서 실행되는 코드에 대한 올바른 타입을 확인합니다.
+`create-vue` 를 통해 생성된 프로젝트에는 사전 설정된 `tsconfig.json`가 포함됩니다. 기본 설정은 [`@vue/tsconfig`](https://github.com/vuejs/tsconfig) 패키지에서 추상화됩니다. 프로젝트 내에서 [프로젝트 참조](https://www.typescriptlang.org/docs/handbook/project-references) 를 사용하여 다른 환경(예: 앱 코드와 테스트 코드에는 서로 다른 전역 변수가 있어야 합니다.)에서 실행되는 코드에 대한 올바른 타입을 확인합니다.
 
 `tsconfig.json` 을 수동으로 구성할 때 몇 가지 알고 있으면 좋은 옵션들은 다음과 같습니다.
 
@@ -50,7 +50,7 @@ Vite 기반 설정을 사용하면 개발 서버와 번들러가 트랜스파일
 
 참고항목
 
-- [공식 타입스크립트 컴파일러 옵션 문서](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
+- [공식 타입스크립트 컴파일러 옵션 문서](https://www.typescriptlang.org/docs/handbook/compiler-options)
 - [esbuild 타입스크립트 컴파일 주의 사항](https://esbuild.github.io/content-types/#typescript-caveats)
 
 ### Volar Takeover Mode {#volar-takeover-mode}

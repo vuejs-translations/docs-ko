@@ -38,11 +38,11 @@
 
   `text`가 변경되면 `<span>`이 패치 대신 항상 교체되므로 트랜지션이 트리거됩니다.
 
-- **참고**: [가이드 - 리스트 렌더링: `key`를 통한 상태유지](/guide/essentials/list.html#maintaining-state-with-key)
+- **참고**: [가이드 - 리스트 렌더링: `key`를 통한 상태유지](/guide/essentials/list#maintaining-state-with-key)
 
 ## ref {#ref}
 
-[템플릿 참조](/guide/essentials/template-refs.html)를 의미합니다.
+[템플릿 참조](/guide/essentials/template-refs)를 의미합니다.
 
 - **요구되는 값**: `string | Function`
 
@@ -91,22 +91,22 @@
   `this.$refs`도 반응형이 아니므로 데이터 바인딩을 위한 템플릿에서 사용하면 안됩니다.
 
 - **참고**: 
-  - [가이드 - 템플릿 refs](/guide/essentials/template-refs.html)
-  - [Guide - 템플릿 Refs에 타입 적용하기Typing Template Refs](/guide/typescript/composition-api.html#typing-template-refs) <sup class="vt-badge ts" />
-  - [Guide - 컴포넌트 템플릿 Refs에 타입 적용하기](/guide/typescript/composition-api.html#typing-component-template-refs) <sup class="vt-badge ts" />
+  - [가이드 - 템플릿 refs](/guide/essentials/template-refs)
+  - [Guide - 템플릿 Refs에 타입 적용하기Typing Template Refs](/guide/typescript/composition-api#typing-template-refs) <sup class="vt-badge ts" />
+  - [Guide - 컴포넌트 템플릿 Refs에 타입 적용하기](/guide/typescript/composition-api#typing-component-template-refs) <sup class="vt-badge ts" />
 
 ## is {#is}
 
-[동적 컴포넌트](/guide/essentials/component-basics.html#dynamic-components) 바인딩에 사용합니다.
+[동적 컴포넌트](/guide/essentials/component-basics#dynamic-components) 바인딩에 사용합니다.
 
 - **요구되는 값**: `string | Component`
 
 - **네이티브 엘리먼트에 사용** <sup class="vt-badge">3.1+</sup>
 
   `is` 속성이 네이티브 HTML 엘리먼트에 사용되면,
-  네이티브 웹 플랫폼 함수인 [커스터마이즈 빌트인 엘리먼트](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example)로 해석됩니다.
+  네이티브 웹 플랫폼 함수인 [커스터마이즈 빌트인 엘리먼트](https://html.spec.whatwg.org/multipage/custom-elements#custom-elements-customized-builtin-example)로 해석됩니다.
 
-  그러나 [DOM 템플릿 파싱 주의 사항](/guide/essentials/component-basics.html#dom-template-parsing-caveats)에 설명된 대로,
+  그러나 [DOM 템플릿 파싱 주의 사항](/guide/essentials/component-basics#dom-template-parsing-caveats)에 설명된 대로,
   기본 엘리먼트를 Vue 컴포넌트로 교체하기 위해 Vue가 필요할 수 있는 사용 사례가 있습니다.
   Vue가 엘리먼트를 Vue 컴포넌트로 렌더링하도록 `is` 속성 값에 `vue:` 접두사를 붙일 수 있습니다:
 
@@ -118,5 +118,5 @@
 
 - **참고**:
 
-  - [API - 특수 엘리먼트: `<component>`](/api/built-in-special-elements.html#component)
-  - [가이드 - 컴포넌트 기초: 동적 컴포넌트](/guide/essentials/component-basics.html#dynamic-components)
+  - [API - 특수 엘리먼트: `<component>`](/api/built-in-special-elements#component)
+  - [가이드 - 컴포넌트 기초: 동적 컴포넌트](/guide/essentials/component-basics#dynamic-components)

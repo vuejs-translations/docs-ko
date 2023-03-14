@@ -107,7 +107,7 @@ Vue 관련 기능을 단위 테스트하는 두 가지 경우가 있습니다.
 
 ### 컴포저블 {#composables}
 
-Vue 앱에 특별한 함수의 한 범주인 [컴포저블](/guide/reusability/composables.html)은 테스트 중에 특별한 처리가 필요할 수 있습니다.
+Vue 앱에 특별한 함수의 한 범주인 [컴포저블](/guide/reusability/composables)은 테스트 중에 특별한 처리가 필요할 수 있습니다.
 자세한 내용은 아래의 [컴포저블 테스트](#testing-composables)를 참조하세요.
 
 ### 컴포넌트 단위 테스트 {#unit-testing-components}
@@ -443,7 +443,7 @@ test('it should work', () => {
 
 ### 컴포저블 테스트 {#testing-composables}
 
-> 이 섹션은 [컴포저블](/guide/reusability/composables.html) 섹션을 읽었다고 가정합니다.
+> 이 섹션은 [컴포저블](/guide/reusability/composables) 섹션을 읽었다고 가정합니다.
 
 컴포저블을 테스트할 때, 호스트 컴포넌트 인스턴스에 의존하는 경우와 그렇지 않은 경우 두 가지 범주로 나눌 수 있습니다.
 

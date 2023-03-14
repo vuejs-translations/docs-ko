@@ -2,7 +2,7 @@
 
 :::info 사용 참고 사항
 이 페이지에 나열된 모든 API는 컴포넌트의 `setup()` 단계에서 동기적으로 호출되어야 합니다.
-자세한 내용은 [가이드 - 생명주기 훅](/guide/essentials/lifecycle.html)을 참고하세요.
+자세한 내용은 [가이드 - 생명주기 훅](/guide/essentials/lifecycle)을 참고하세요.
 :::
 
 ## onMounted() {#onmounted}
@@ -25,7 +25,7 @@
     앱의 루트 컨테이너가 Document 내에 있는 경우에만 컴포넌트의 DOM 트리가 문서 내에 있음을 보장함.
 
   일반적으로 이 훅은 컴포넌트의 렌더링된 DOM에 접근해야 하는 사이드 이펙트를 실행하거나,
-  [서버에서 렌더링 된 앱](/guide/scaling-up/ssr.html)에서 DOM과 관련 코드를 클라이언트에서만 실행하도록 제한하는 데 사용됩니다.
+  [서버에서 렌더링 된 앱](/guide/scaling-up/ssr)에서 DOM과 관련 코드를 클라이언트에서만 실행하도록 제한하는 데 사용됩니다.
 
   **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
@@ -256,7 +256,7 @@
   }
   ```
 
-- **참고**: [반응형 심화](/guide/extras/reactivity-in-depth.html)
+- **참고**: [반응형 심화](/guide/extras/reactivity-in-depth)
 
 ## onRenderTriggered() <sup class="vt-badge dev-only" /> {#onrendertriggered}
 
@@ -282,7 +282,7 @@
   }
   ```
 
-- **참고**: [반응형 심화](/guide/extras/reactivity-in-depth.html)
+- **참고**: [반응형 심화](/guide/extras/reactivity-in-depth)
 
 ## onActivated() {#onactivated}
 
@@ -356,4 +356,4 @@
   </script>
   ```
 
-- **참고**: [서버 사이드 렌더링](/guide/scaling-up/ssr.html)
+- **참고**: [서버 사이드 렌더링](/guide/scaling-up/ssr)

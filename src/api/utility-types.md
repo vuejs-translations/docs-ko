@@ -38,7 +38,7 @@ Used to annotate a prop with more advanced types when using runtime props declar
   }
   ```
 
-- **참고**: [가이드 - Typing Component Props](/guide/typescript/options-api.html#typing-component-props)
+- **참고**: [가이드 - Typing Component Props](/guide/typescript/options-api#typing-component-props)
 
 ## ComponentCustomProperties {#componentcustomproperties}
 
@@ -60,12 +60,12 @@ Used to augment the component instance type to support custom global properties.
   ```
 
   :::tip
-  증강은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 자세한 내용은 [타입 증강 배치](/guide/typescript/options-api.html#augmenting-global-properties)를 참조하세요.
+  증강은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 자세한 내용은 [타입 증강 배치](/guide/typescript/options-api#augmenting-global-properties)를 참조하세요.
 
-  Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api.html#augmenting-global-properties) for more details.
+  Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api#augmenting-global-properties) for more details.
   :::
 
-- **참고**: [가이드 - Augmenting Global Properties](/guide/typescript/options-api.html#augmenting-global-properties)
+- **참고**: [가이드 - Augmenting Global Properties](/guide/typescript/options-api#augmenting-global-properties)
 
 ## ComponentCustomOptions {#componentcustomoptions}
 
@@ -86,12 +86,12 @@ Used to augment the component options type to support custom options.
   ```
 
   :::tip
-  증강은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 자세한 내용은 [타입 증강 배치](/guide/typescript/options-api.html#augmenting-global-properties)를 참조하세요.
+  증강은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 자세한 내용은 [타입 증강 배치](/guide/typescript/options-api#augmenting-global-properties)를 참조하세요.
 
-  Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api.html#augmenting-global-properties) for more details.
+  Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api#augmenting-global-properties) for more details.
   :::
 
-- **참고**: [가이드 - Augmenting Custom Options](/guide/typescript/options-api.html#augmenting-custom-options)
+- **참고**: [가이드 - Augmenting Custom Options](/guide/typescript/options-api#augmenting-custom-options)
 
 ## ComponentCustomProps {#componentcustomprops}
 
@@ -118,9 +118,9 @@ Used to augment allowed TSX props in order to use non-declared props on TSX elem
   ```
 
   :::tip
-  증강은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 자세한 내용은 [타입 증강 배치](/guide/typescript/options-api.html#augmenting-global-properties)를 참조하세요.
+  증강은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 자세한 내용은 [타입 증강 배치](/guide/typescript/options-api#augmenting-global-properties)를 참조하세요.
 
-  Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api.html#augmenting-global-properties) for more details.
+  Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api#augmenting-global-properties) for more details.
   :::
 
 ## CSSProperties {#cssproperties}
@@ -149,9 +149,9 @@ Used to augment allowed values in style property bindings.
   ```
 
   :::tip
- 증강은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 자세한 내용은 [타입 증강 배치](/guide/typescript/options-api.html#augmenting-global-properties)를 참조하세요.
+ 증강은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 자세한 내용은 [타입 증강 배치](/guide/typescript/options-api#augmenting-global-properties)를 참조하세요.
 
-  Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api.html#augmenting-global-properties) for more details.
+  Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api#augmenting-global-properties) for more details.
   :::
   
   :::info See also
@@ -159,5 +159,5 @@ Used to augment allowed values in style property bindings.
 
   SFC `<style>` tags support linking CSS values to dynamic component state using the `v-bind CSS` function. This allows for custom properties without type augmentation. 
 
-- [v-bind() in CSS](/api/sfc-css-features.html#v-bind-in-css)
+- [v-bind() in CSS](/api/sfc-css-features#v-bind-in-css)
   :::

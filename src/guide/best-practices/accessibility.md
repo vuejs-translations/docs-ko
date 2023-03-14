@@ -86,7 +86,7 @@ watch(
 
 </div>
 
-[주요 컨텐츠로 건너뛰기 링크에 대한 설명서 읽기](https://www.w3.org/WAI/WCAG21/Techniques/general/G1.html)
+[주요 컨텐츠로 건너뛰기 링크에 대한 설명서 읽기](https://www.w3.org/WAI/WCAG21/Techniques/general/G1)
 
 ## 컨텐츠 구조 {#content-structure}
 
@@ -103,7 +103,7 @@ watch(
 - 섹션 내에서 제목을 건너뛰지 않기.
 - 제목의 시각적 모양을 제공하기 위해 텍스트 스타일 지정 대신 실제 제목 태그를 사용.
 
-[제목에 대해 자세히 알아보기](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html)
+[제목에 대해 자세히 알아보기](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive)
 
 ```vue-html
 <main role="main" aria-labelledby="main-title">
@@ -300,7 +300,7 @@ form 엘리먼트에 `autocomplete='on'`을 포함하면 form의 모든 input에
 
 플레이스홀더는 많은 사용자를 혼란스럽게 할 수 있으므로 사용하지 마십시오.
 
-플레이스홀더의 문제 중 하나는 기본적으로 [색상 대비 기준](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)을 충족하지 않는다는 것입니다.
+플레이스홀더의 문제 중 하나는 기본적으로 [색상 대비 기준](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum)을 충족하지 않는다는 것입니다.
 색상 대비를 수정하면 플레이스홀더가 입력 필드에 미리 채워진 데이터처럼 보입니다.
 다음 예제를 보면 색상 대비 기준을 충족하는 성 플레이스홀더가 미리 채워진 데이터처럼 보입니다:
 

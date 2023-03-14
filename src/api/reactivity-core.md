@@ -3,8 +3,8 @@
 :::info 참고
 반응형 API를 더 이해하고 싶은 경우, 다음 가이드 문서를 읽는 것을 추천합니다:
 
-- [반응형 기초](/guide/essentials/reactivity-fundamentals.html) (API 스타일을 **컴포지션 API**로 설정하고 읽으세요)
-- [반응형 심화](/guide/extras/reactivity-in-depth.html)
+- [반응형 기초](/guide/essentials/reactivity-fundamentals) (API 스타일을 **컴포지션 API**로 설정하고 읽으세요)
+- [반응형 심화](/guide/extras/reactivity-in-depth)
   :::
 
 ## ref() {#ref}
@@ -30,7 +30,7 @@
   [reactive()](#reactive)로 내부 깊숙이(deeply) 반응하게 됩니다.
   이러한 동작은 객체 내부 깊숙이 ref가 포함되어 있으면, 언래핑됨을 의미합니다.
 
-  내부 깊숙이까지 변환되는 것을 방지하려면, [`shallowRef()`](./reactivity-advanced.html#shallowref)를 사용해야 합니다.
+  내부 깊숙이까지 변환되는 것을 방지하려면, [`shallowRef()`](./reactivity-advanced#shallowref)를 사용해야 합니다.
 
   :::info 래핑, 언래핑의 개념이 혼란스러울 경우
   어떤 값이 `ref`에 할당되어 있다고 가정합시다.
@@ -49,8 +49,8 @@
   ```
 
 - **참고**:
-  - [가이드 - `ref()`를 사용한 반응형 변수](/guide/essentials/reactivity-fundamentals.html#reactive-variables-with-ref)
-  - [가이드 - `ref()`에 타입 지정하기](/guide/typescript/composition-api.html#typing-ref) <sup class="vt-badge ts" />
+  - [가이드 - `ref()`를 사용한 반응형 변수](/guide/essentials/reactivity-fundamentals#reactive-variables-with-ref)
+  - [가이드 - `ref()`에 타입 지정하기](/guide/typescript/composition-api#typing-ref) <sup class="vt-badge ts" />
 
 ## computed() {#computed}
 
@@ -119,9 +119,9 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
   ```
 
 - **참고**:
-  - [가이드 - 계산된 속성](/guide/essentials/computed.html)
-  - [가이드 - 계산된 속성 디버깅](/guide/extras/reactivity-in-depth.html#computed-debugging)
-  - [가이드 - `computed()`에 타입 지정하기](/guide/typescript/composition-api.html#typing-computed) <sup class="vt-badge ts" />
+  - [가이드 - 계산된 속성](/guide/essentials/computed)
+  - [가이드 - 계산된 속성 디버깅](/guide/extras/reactivity-in-depth#computed-debugging)
+  - [가이드 - `computed()`에 타입 지정하기](/guide/typescript/composition-api#typing-computed) <sup class="vt-badge ts" />
 
 ## reactive() {#reactive}
 
@@ -140,7 +140,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
 
   그러나 `Map` 같은 네이티브 컬렉션 타입 또는 반응형 배열의 요소인 ref로 접근할 때는 언래핑 되지 않음에 유의해야 합니다.
 
-  내부 깊은 곳까지의 변환은 피하고 루트 수준에서만 반응형을 유지하려면, [shallowReactive()](./reactivity-advanced.html#shallowreactive)를 사용해야 합니다.
+  내부 깊은 곳까지의 변환은 피하고 루트 수준에서만 반응형을 유지하려면, [shallowReactive()](./reactivity-advanced#shallowreactive)를 사용해야 합니다.
 
   반환된 객체와 중첩된 객체는 [프락시(Proxy)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)로 래핑되므로,
   원본 객체와 **동일하지 않습니다**.
@@ -200,8 +200,8 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
   ```
 
 - **참고**:
-  - [가이드 - 반응형 기초](/guide/essentials/reactivity-fundamentals.html)
-  - [가이드 - `reactive()`에 타입 지정하기](/guide/typescript/composition-api.html#typing-reactive) <sup class="vt-badge ts" />
+  - [가이드 - 반응형 기초](/guide/essentials/reactivity-fundamentals)
+  - [가이드 - `reactive()`에 타입 지정하기](/guide/typescript/composition-api#typing-reactive) <sup class="vt-badge ts" />
 
 ## readonly() {#readonly}
 
@@ -220,7 +220,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
   읽기 전용 프락시는 접근하게 될 모든 중첩 속성 깊숙이까지 읽기 전용입니다.
   또한 `reactive()`처럼 ref를 언래핑하며, 언래핑 값도 읽기 전용으로 변환됩니다.
 
-  내부 깊은 곳까지의 변환을 피하려면, [shallowReadonly()](./reactivity-advanced.html#shallowreadonly)를 사용해야 합니다.
+  내부 깊은 곳까지의 변환을 피하려면, [shallowReadonly()](./reactivity-advanced#shallowreadonly)를 사용해야 합니다.
 
 - **예제**:
 
@@ -275,7 +275,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
   두 번째 인자는 이펙트의 발생(flush) 타이밍을 조정하거나,
   이펙트의 의존성을 디버그하는 데 사용할 수 있는 선택적 옵션 객체입니다.
 
-  기본적으로 와처는 컴포넌트 렌더링 직전에 실행됩니다. `flush: 'post'`를 설정하면 컴포넌트 렌더링 이후까지 와처가 지연됩니다. 자세한 내용은 [콜백 플러시 타이밍](/guide/essentials/watchers.html#callback-flush-timing)을 참조하세요. 드물지만 캐시 무효화와 같이 반응형 의존성이 변경될 때 즉시 와처를 트리거해야 하는 경우가 있을 수 있습니다. 이는 `flush: 'sync'`를 사용하여 수행할 수 있습니다. 그러나 이 설정은 여러 프로퍼티가 동시에 업데이트되는 경우 성능 및 데이터 일관성 문제를 일으킬 수 있으므로 주의해서 사용해야 합니다.
+  기본적으로 와처는 컴포넌트 렌더링 직전에 실행됩니다. `flush: 'post'`를 설정하면 컴포넌트 렌더링 이후까지 와처가 지연됩니다. 자세한 내용은 [콜백 플러시 타이밍](/guide/essentials/watchers#callback-flush-timing)을 참조하세요. 드물지만 캐시 무효화와 같이 반응형 의존성이 변경될 때 즉시 와처를 트리거해야 하는 경우가 있을 수 있습니다. 이는 `flush: 'sync'`를 사용하여 수행할 수 있습니다. 그러나 이 설정은 여러 프로퍼티가 동시에 업데이트되는 경우 성능 및 데이터 일관성 문제를 일으킬 수 있으므로 주의해서 사용해야 합니다.
 
   반환 값은 이펙트가 다시 실행되지 않도록 호출할 수 있는 핸들 함수입니다.
 
@@ -328,8 +328,8 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
   ```
 
 - **참고**:
-  - [가이드 - 감시자](/guide/essentials/watchers.html#watcheffect)
-  - [가이드 - 감시자 디버깅](/guide/extras/reactivity-in-depth.html#watcher-debugging)
+  - [가이드 - 감시자](/guide/essentials/watchers#watcheffect)
+  - [가이드 - 감시자 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging)
 
 ## watchPostEffect() {#watchposteffect}
 
@@ -410,11 +410,11 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
   - **`immediate`**: 감시자가 생성되는 즉시 콜백이 호출됩니다.
     최초 호출 시, 이전 값은 `undefined`입니다.
   - **`deep`**: 소스가 객체인 경우, 깊은 변경사항에서도 콜백이 실행되도록 합니다.
-    참고: [깊은 감시자](/guide/essentials/watchers.html#deep-watchers).
+    참고: [깊은 감시자](/guide/essentials/watchers#deep-watchers).
   - **`flush`**: 콜백의 발생(flush) 타이밍을 조정합니다.
-    참고: [콜백 실행 타이밍](/guide/essentials/watchers.html#callback-flush-timing), [`watchEffect()`](/api/reactivity-core.html#watcheffect).
+    참고: [콜백 실행 타이밍](/guide/essentials/watchers#callback-flush-timing), [`watchEffect()`](/api/reactivity-core#watcheffect).
   - **`onTrack / onTrigger`**: 감시자의 의존성을 디버그합니다.
-    참고: [감시자 디버깅](/guide/extras/reactivity-in-depth.html#watcher-debugging).
+    참고: [감시자 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging).
 
   [`watchEffect()`](#watcheffect)와 비교하여 `watch()`를 사용하면 다음을 수행할 수 있습니다:
 
@@ -514,5 +514,5 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
 
 - **참고**:
 
-  - [가이드 - 감시자](/guide/essentials/watchers.html)
-  - [가이드 - 감시자 디버깅](/guide/extras/reactivity-in-depth.html#watcher-debugging)
+  - [가이드 - 감시자](/guide/essentials/watchers)
+  - [가이드 - 감시자 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging)

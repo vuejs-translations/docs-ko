@@ -71,8 +71,8 @@
   `render`가 더 높은 우선 순위를 갖습니다.
 
 - **참고**:
-  - [가이드 - 렌더링 메커니즘](/guide/extras/rendering-mechanism.html)
-  - [가이드 - Render Functions](/guide/extras/render-function.html)
+  - [가이드 - 렌더링 메커니즘](/guide/extras/rendering-mechanism)
+  - [가이드 - Render Functions](/guide/extras/render-function)
 
 ## compilerOptions {#compileroptions}
 

@@ -94,7 +94,7 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
   </div>
 
-- **참고**: [`this.$nextTick()`](/api/component-instance.html#nexttick)
+- **참고**: [`this.$nextTick()`](/api/component-instance#nexttick)
 
 ## defineComponent() {#definecomponent}
 
@@ -144,7 +144,7 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
   Note this is not necessary if you are using Vite, because Rollup (the underlying production bundler used by Vite) is smart enough to determine that `defineComponent()` is in fact side-effect-free without the need for manual annotations.
 
-- **참고**: [가이드 - Vue에서 타입스크립트 사용하기](/guide/typescript/overview.html#general-usage-notes)
+- **참고**: [가이드 - Vue에서 타입스크립트 사용하기](/guide/typescript/overview#general-usage-notes)
 
 ## defineAsyncComponent() {#defineasynccomponent}
 
@@ -176,7 +176,7 @@ Vue의 현재 버전(문자열)을 반환합니다.
   }
   ```
 
-- **참고**: [가이드 - 비동기 컴포넌트](/guide/components/async.html)
+- **참고**: [가이드 - 비동기 컴포넌트](/guide/components/async)
 
 ## defineCustomElement() {#definecustomelement}
 
@@ -219,6 +219,6 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
 - **참고**:
 
-  - [가이드 - Vue로 커스텀 엘리먼트 만들기](/guide/extras/web-components.html#building-custom-elements-with-vue)
+  - [가이드 - Vue로 커스텀 엘리먼트 만들기](/guide/extras/web-components#building-custom-elements-with-vue)
 
-  - `defineCustomElement()`는 싱글 파일 컴포넌트와 함께 사용할 때, [특별한 설정](/guide/extras/web-components.html#sfc-as-custom-element)이 필요합니다.
+  - `defineCustomElement()`는 싱글 파일 컴포넌트와 함께 사용할 때, [특별한 설정](/guide/extras/web-components#sfc-as-custom-element)이 필요합니다.

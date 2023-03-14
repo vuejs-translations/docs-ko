@@ -104,7 +104,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 이는 동등한 런타임 프로퍼티 `default` 옵션으로 컴파일됩니다. 또한 `withDefaults` 헬퍼는 기본값에 대한 유형 검사를 제공하고, 기본값이 선언된 프로퍼티에 대해 반환된 `props` 유형에 선택적 플래그가 제거되었는지 확인합니다.
 
-또는 현재 실험 중인 [반응성 변환](/guide/extras/reactivity-transform.html)을 사용할 수도 있습니다:
+또는 현재 실험 중인 [반응성 변환](/guide/extras/reactivity-transform)을 사용할 수도 있습니다:
 
 ```vue
 <script setup lang="ts">

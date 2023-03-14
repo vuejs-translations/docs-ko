@@ -99,4 +99,4 @@ export default {
 <!-- https://www.figma.com/file/Xw3UeNMOralY6NV7gSjWdS/Vue-Lifecycle -->
 <!-- https://www.figma.com/file/6W2me8dWiTjx2em2Pow3gJ/Vue-Lifecycle-(ko-kr) -->
 
-생명 주기 훅의 모든 종류와 사용 사례에 대한 자세한 내용은 <span class="composition-api">[생명 주기 API](/api/composition-api-lifecycle.html)</span><span class="options-api">[생명 주기 API](/api/options-lifecycle.html)</span>를 참조하세요.
+생명 주기 훅의 모든 종류와 사용 사례에 대한 자세한 내용은 <span class="composition-api">[생명 주기 API](/api/composition-api-lifecycle)</span><span class="options-api">[생명 주기 API](/api/options-lifecycle)</span>를 참조하세요.

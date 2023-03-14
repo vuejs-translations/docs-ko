@@ -35,11 +35,11 @@
   const app = createApp(App)
   ```
 
-- **참고**: [가이드 - 앱 생성](/guide/essentials/application.html)
+- **참고**: [가이드 - 앱 생성](/guide/essentials/application)
 
 ## createSSRApp() {#createssrapp}
 
-[SSR 하이드레이션](/guide/scaling-up/ssr.html#client-hydration) 모드에서 앱 인스턴스를 생성합니다.
+[SSR 하이드레이션](/guide/scaling-up/ssr#client-hydration) 모드에서 앱 인스턴스를 생성합니다.
 사용법은 `createApp()`과 완전히 동일합니다.
 
 ## app.mount() {#app-mount}
@@ -63,7 +63,7 @@
   만약 런타임 컴파일러를 사용하는 경우, 컨테이너의 `innerHTML`이 템플릿으로 사용됩니다.
 
   SSR 하이드레이션 모드에서는 컨테이너 내부의 기존 DOM 노드를 하이드레이트합니다.
-  [불일치](/guide/scaling-up/ssr.html#hydration-mismatch)할 경우, 기존 DOM 노드가 의도하는 출력과 일치하도록 변경됩니다.
+  [불일치](/guide/scaling-up/ssr#hydration-mismatch)할 경우, 기존 DOM 노드가 의도하는 출력과 일치하도록 변경됩니다.
 
   각 앱 인스턴스는 `mount()`를 한 번만 호출할 수 있습니다.
 
@@ -153,8 +153,8 @@
   </div>
 
 - **참고**:
-  - [Provide / Inject](/guide/components/provide-inject.html)
-  - [앱 수준의 Provide](/guide/components/provide-inject.html#app-level-provide)
+  - [Provide / Inject](/guide/components/provide-inject)
+  - [앱 수준의 Provide](/guide/components/provide-inject#app-level-provide)
 
 ## app.component() {#app-component}
 
@@ -186,7 +186,7 @@
   const MyComponent = app.component('my-component')
   ```
 
-- **참고**: [컴포넌트 등록](/guide/components/registration.html)
+- **참고**: [컴포넌트 등록](/guide/components/registration)
 
 ## app.directive() {#app-directive}
 
@@ -225,11 +225,11 @@
   const myDirective = app.directive('my-directive')
   ```
 
-- **참고**: [커스텀 디렉티브](/guide/reusability/custom-directives.html)
+- **참고**: [커스텀 디렉티브](/guide/reusability/custom-directives)
 
 ## app.use() {#app-use}
 
-[플러그인](/guide/reusability/plugins.html) 설치.
+[플러그인](/guide/reusability/plugins) 설치.
 
 - **타입**:
 
@@ -262,7 +262,7 @@
   app.use(MyPlugin)
   ```
 
-- **참고**: [플러그인](/guide/reusability/plugins.html)
+- **참고**: [플러그인](/guide/reusability/plugins)
 
 ## app.mixin() {#app-mixin}
 
@@ -273,7 +273,7 @@
 믹스인은 라이브러리 생태계에서 널리 사용되고 있기 때문에, 하위 호환성을 위해 Vue 3에서 지원됩니다.
 하지만 앱 내 코드에서 믹스인(특히 전역 믹스인)의 사용은 피해야 합니다.
 
-로직 재상용은 [컴포저블](/guide/reusability/composables.html)을 추천합니다.
+로직 재상용은 [컴포저블](/guide/reusability/composables)을 추천합니다.
 :::
 
 - **타입**:
@@ -287,7 +287,7 @@
 ## app.version {#app-version}
 
 앱을 생성한 Vue 버전을 제공합니다.
-이것은 Vue 버전에 기반한 [플러그인](/guide/reusability/plugins.html) 내부에서 조건부 로직이 필요한 경우에 유용합니다.
+이것은 Vue 버전에 기반한 [플러그인](/guide/reusability/plugins) 내부에서 조건부 로직이 필요한 경우에 유용합니다.
 
 - **타입**:
 
@@ -312,7 +312,7 @@
   }
   ```
 
-- **참고**: [전역 API - version](/api/general.html#version)
+- **참고**: [전역 API - version](/api/general#version)
 
 ## app.config {#app-config}
 
@@ -410,19 +410,19 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
 
 - **타입**: `boolean`
 
-- **참고**: [가이드 - 성능](/guide/best-practices/performance.html)
+- **참고**: [가이드 - 성능](/guide/best-practices/performance)
 
 ### app.config.compilerOptions.isCustomElement {#app-config-compileroptions}
 
 런타임 컴파일러 옵션을 설정합니다.
 이 객체에 설정된 값은 브라우저 내 템플릿 컴파일러에 전달되고, 설정된 앱의 모든 컴포넌트에 영향을 미칩니다.
-[`compilerOptions` 옵션](/api/options-rendering.html#compileroptions)을 사용하여 컴포넌트별로 이러한 옵션을 재정의할 수도 있습니다.
+[`compilerOptions` 옵션](/api/options-rendering#compileroptions)을 사용하여 컴포넌트별로 이러한 옵션을 재정의할 수도 있습니다.
 
 ::: warning 중요
 이 옵션은 전체 빌드(예: 브라우저에서 템플릿을 컴파일할 수 있는 독립 실행형 `vue.js`)를 사용할 때만 적용됩니다.
 빌드 셋업과 함께 런타임 전용 빌드를 사용하는 경우, 빌드 도구 환경설정을 통해 컴파일러 옵션을 `@vue/compiler-dom`으로 전달해야 합니다.
 
-- `vue-loader`의 경우: [`compilerOptions` 로더 옵션을 통해 전달](https://vue-loader.vuejs.org/options.html#compileroptions). [`vue-cli`에서 환경설정 하는 방법](https://cli.vuejs.org/guide/webpack.html#modifying-options-of-a-loader)도 참고하세요.
+- `vue-loader`의 경우: [`compilerOptions` 로더 옵션을 통해 전달](https://vue-loader.vuejs.org/options#compileroptions). [`vue-cli`에서 환경설정 하는 방법](https://cli.vuejs.org/guide/webpack#modifying-options-of-a-loader)도 참고하세요.
 
 - `vite`의 경우: [`@vitejs/plugin-vue` 옵션을 통해 전달](https://github.com/vitejs/vite-plugin-vue/tree/main/packages/plugin-vue#options).
   :::
@@ -449,7 +449,7 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
   }
   ```
 
-- **참고**: [Vue와 웹 컴포넌트](/guide/extras/web-components.html)
+- **참고**: [Vue와 웹 컴포넌트](/guide/extras/web-components)
 
 ### app.config.compilerOptions.whitespace {#app-config-compileroptions-whitespace}
 
@@ -549,7 +549,7 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
   }
   ```
 
- - **참고:** [가이드 - 전역 속성 전달하기s](/guide/typescript/options-api.html#augmenting-global-properties) <sup class="vt-badge ts" />
+ - **참고:** [가이드 - 전역 속성 전달하기s](/guide/typescript/options-api#augmenting-global-properties) <sup class="vt-badge ts" />
 
 ## app.config.optionMergeStrategies {#app-config-optionmergestrategies}
 
@@ -601,4 +601,4 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
   // 앱 mounted 트리거 후 로그: '안녕 Vue'
   ```
 
-- **참고**: [컴포넌트 인스턴스 - `$options`](/api/component-instance.html#options)
+- **참고**: [컴포넌트 인스턴스 - `$options`](/api/component-instance#options)

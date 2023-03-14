@@ -64,7 +64,7 @@
 
   :::tip
   엘리먼트에 일관적으로 접근해야 할 때,
-  `$el`보다 [템플릿 참조](/guide/essentials/template-refs.html)를 사용하는 것이 권장됩니다.
+  `$el`보다 [템플릿 참조](/guide/essentials/template-refs)를 사용하는 것이 권장됩니다.
   :::
 
 ## $options {#options}
@@ -130,7 +130,7 @@
 
 ## $slots {#slots}
 
-부모 컴포넌트로부터 전달된 [slots](/guide/components/slots.html)을 나타내는 객체입니다.
+부모 컴포넌트로부터 전달된 [slots](/guide/components/slots)을 나타내는 객체입니다.
 
 - **타입**:
 
@@ -144,7 +144,7 @@
 
 - **세부 사항**:
 
-  일반적으로 [렌더 함수](/guide/extras/render-function.html)를 수동으로 작성할 때 사용되지만,
+  일반적으로 [렌더 함수](/guide/extras/render-function)를 수동으로 작성할 때 사용되지만,
   슬롯 유무 확인에도 사용할 수 있습니다.
 
   `this.$slots`는 각 슬롯의 이름에 해당하는 함수가 노출되며,
@@ -158,7 +158,7 @@
 
 ## $refs {#refs}
 
-[템플릿 참조](/guide/essentials/template-refs.html)를 통해 등록된,
+[템플릿 참조](/guide/essentials/template-refs)를 통해 등록된,
 DOM 엘리먼트 및 컴포넌트 인스턴스 객체입니다.
 
 - **타입**:
@@ -171,7 +171,7 @@ DOM 엘리먼트 및 컴포넌트 인스턴스 객체입니다.
 
 - **참고**:
 
-  - [가이드 - 템플릿 참조](/guide/essentials/template-refs.html)
+  - [가이드 - 템플릿 참조](/guide/essentials/template-refs)
   - [특수 속성 - ref](./built-in-special-attributes.md#ref)
 
 ## $attrs {#attrs}
@@ -188,7 +188,7 @@ DOM 엘리먼트 및 컴포넌트 인스턴스 객체입니다.
 
 - **세부 사항**:
 
-  [폴스루 속성](/guide/components/attrs.html)은 부모 컴포넌트에서 전달한 속성 및 이벤트 핸들러이지만,
+  [폴스루 속성](/guide/components/attrs)은 부모 컴포넌트에서 전달한 속성 및 이벤트 핸들러이지만,
   자식의 prop 또는 내보낼(emit) 이벤트로 선언하지 않습니다.
 
   기본적으로 `$attrs`의 모든 항목은 싱글 루트 엘리먼트만 있는 경우,
@@ -198,7 +198,7 @@ DOM 엘리먼트 및 컴포넌트 인스턴스 객체입니다.
 
 - **참고**:
 
-  - [가이드 - 폴스루 속성](/guide/components/attrs.html)
+  - [가이드 - 폴스루 속성](/guide/components/attrs)
 
 ## $watch() {#watch}
 
@@ -286,7 +286,7 @@ DOM 엘리먼트 및 컴포넌트 인스턴스 객체입니다.
 
 - **참고**:
   - [옵션 - `watch`](/api/options-state.html#watch)
-  - [가이드 - 감시자](/guide/essentials/watchers.html)
+  - [가이드 - 감시자](/guide/essentials/watchers)
 
 ## $emit() {#emit}
 
@@ -316,7 +316,7 @@ DOM 엘리먼트 및 컴포넌트 인스턴스 객체입니다.
 
 - **참고**:
 
-  - [가이드 - 컴포넌트 이벤트](/guide/components/events.html)
+  - [가이드 - 컴포넌트 이벤트](/guide/components/events)
   - [옵션 - `emits`](./options-state.html#emits)
 
 ## $forceUpdate() {#forceupdate}

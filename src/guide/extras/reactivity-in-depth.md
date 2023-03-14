@@ -247,7 +247,7 @@ Vue의 반응형 시스템은 주로 런타임 기반입니다.
 JavaScript는 로컬 변수의 읽기 및 쓰기를 가로챌 수 있는 방법을 제공하지 않으므로,
 항상 반응형 객체나 참조를 사용하여 반응형 상태에 객체 속성으로 접근해야 합니다.
 
-코드의 장황함을 줄이기 위해 [Reactivity Transform](/guide/extras/reactivity-transform.html) 기능을 실험하고 있습니다:
+코드의 장황함을 줄이기 위해 [Reactivity Transform](/guide/extras/reactivity-transform) 기능을 실험하고 있습니다:
 
 ```js
 let A0 = $ref(0)
@@ -460,4 +460,4 @@ export function useMachine(options) {
 ### RxJS {#rxjs}
 
 [RxJS](https://rxjs.dev/)는 비동기 이벤트 스트림 작업을 위한 라이브러리입니다.
-[VueUse](https://vueuse.org/) 라이브러리는 RxJS 스트림을 Vue의 반응형 시스템과 연결하기 위한 [`@vueuse/rxjs`](https://vueuse.org/rxjs/readme.html) 추가 기능을 제공합니다.
+[VueUse](https://vueuse.org/) 라이브러리는 RxJS 스트림을 Vue의 반응형 시스템과 연결하기 위한 [`@vueuse/rxjs`](https://vueuse.org/rxjs/readme) 추가 기능을 제공합니다.

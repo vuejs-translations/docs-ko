@@ -121,7 +121,7 @@ app.provide(/* 키 */ 'message', /* 값 */ '안녕!')
 ```
 
 앱 수준 제공은 앱에서 렌더링되는 모든 컴포넌트에서 사용할 수 있습니다.
-플러그인은 일반적으로 컴포넌트를 사용하여 값을 제공할 수 없기 때문에 [플러그인](/guide/reusability/plugins.html)을 작성할 때 특히 유용합니다.
+플러그인은 일반적으로 컴포넌트를 사용하여 값을 제공할 수 없기 때문에 [플러그인](/guide/reusability/plugins)을 작성할 때 특히 유용합니다.
 
 ## Inject {#inject}
 
@@ -335,7 +335,7 @@ export default {
 [반응형으로 작동하는 provide 및 inject의 전체 예제 보기](https://sfc.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdD5cbmltcG9ydCBDaGlsZCBmcm9tICcuL0NoaWxkLnZ1ZSdcbmltcG9ydCB7IGNvbXB1dGVkIH0gZnJvbSAndnVlJ1xuXG5leHBvcnQgZGVmYXVsdCB7XG4gIGNvbXBvbmVudHM6IHsgQ2hpbGQgfSxcbiAgZGF0YSgpIHtcbiAgICByZXR1cm4ge1xuICAgICAgbWVzc2FnZTogJ+yViOuFlSdcbiAgICB9XG4gIH0sXG4gIHByb3ZpZGUoKSB7XG4gICAgcmV0dXJuIHtcbiAgICAgIG1lc3NhZ2U6IGNvbXB1dGVkKCgpID0+IHRoaXMubWVzc2FnZSlcbiAgICB9XG4gIH1cbn1cbjwvc2NyaXB0PlxuXG48dGVtcGxhdGU+XG4gIDxpbnB1dCB2LW1vZGVsPVwibWVzc2FnZVwiPlxuICA8Q2hpbGQgLz5cbjwvdGVtcGxhdGU+IiwiaW1wb3J0LW1hcC5qc29uIjoie1xuICBcImltcG9ydHNcIjoge1xuICAgIFwidnVlXCI6IFwiaHR0cHM6Ly9zZmMudnVlanMub3JnL3Z1ZS5ydW50aW1lLmVzbS1icm93c2VyLmpzXCIsXG4gICAgXCJ2dWUvc2VydmVyLXJlbmRlcmVyXCI6IFwiaHR0cHM6Ly9zZmMudnVlanMub3JnL3NlcnZlci1yZW5kZXJlci5lc20tYnJvd3Nlci5qc1wiXG4gIH1cbn0iLCJDaGlsZC52dWUiOiI8c2NyaXB0PlxuaW1wb3J0IEdyYW5kQ2hpbGQgZnJvbSAnLi9HcmFuZENoaWxkLnZ1ZSdcblxuZXhwb3J0IGRlZmF1bHQge1xuICBjb21wb25lbnRzOiB7XG4gICAgR3JhbmRDaGlsZFxuICB9XG59XG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuICA8R3JhbmRDaGlsZCAvPlxuPC90ZW1wbGF0ZT4iLCJHcmFuZENoaWxkLnZ1ZSI6IjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gIGluamVjdDogWydtZXNzYWdlJ11cbn1cbjwvc2NyaXB0PlxuXG48dGVtcGxhdGU+XG4gIDxwPlxuICAgIOyGkOyekOyXkOqyjCDsoITtlZjripQg66mU7Iuc7KeAOiB7eyBtZXNzYWdlIH19XG4gIDwvcD5cbjwvdGVtcGxhdGU+In0=)
 
 `computed()` 함수는 일반적으로 컴포지션 API 컴포넌트에서 사용되지만 옵션 API의 특정 사용 사례를 보완하는 데 사용할 수도 있습니다.
-API 스타일 설정이 Composition API로 지정된 상태에서 [반응형 기초](/guide/essentials/reactivity-fundamentals.html) 및 [계산된 속성](/guide/essentials/computed.html) 가이드 문서를 읽으면 사용법에 대해 자세히 알아볼 수 있습니다.
+API 스타일 설정이 Composition API로 지정된 상태에서 [반응형 기초](/guide/essentials/reactivity-fundamentals) 및 [계산된 속성](/guide/essentials/computed) 가이드 문서를 읽으면 사용법에 대해 자세히 알아볼 수 있습니다.
 
 :::warning 환경 설정이 필요함
 위의 사용법은 주입되는 곳에서 계산된 refs를 자동으로 해제하기 위해 `app.config.unwrapInjectedRef = true`를 설정해야 합니다.

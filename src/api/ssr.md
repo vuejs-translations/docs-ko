@@ -35,9 +35,9 @@
 
   ### SSR Context {#ssr-context}
 
-  렌더링 중에 추가 데이터를 기록하는 데 사용할 수 있는 선택적 컨텍스트 객체를 전달할 수 있습니다(예: [텔레포트 콘텐츠에 액세스](/guide/scaling-up/ssr.html#teleports)):
+  렌더링 중에 추가 데이터를 기록하는 데 사용할 수 있는 선택적 컨텍스트 객체를 전달할 수 있습니다(예: [텔레포트 콘텐츠에 액세스](/guide/scaling-up/ssr#teleports)):
 
-  You can pass an optional context object, which can be used to record additional data during the render, for example [accessing content of Teleports](/guide/scaling-up/ssr.html#teleports):
+  You can pass an optional context object, which can be used to record additional data during the render, for example [accessing content of Teleports](/guide/scaling-up/ssr#teleports):
 
   ```js
   const ctx = {}
@@ -50,13 +50,13 @@
 
   Most other SSR APIs on this page also optionally accept a context object. The context object can be accessed in component code via the [useSSRContext](#usessrcontext) helper.
 
-- **참고**: [가이드 - Server-Side Rendering](/guide/scaling-up/ssr.html)
+- **참고**: [가이드 - Server-Side Rendering](/guide/scaling-up/ssr)
 
 ## renderToNodeStream() {#rendertonodestream}
 
-입력을 [Node.js 읽기 가능한 스트림](https://nodejs.org/api/stream.html#stream_class_stream_readable)으로 렌더링합니다.
+입력을 [Node.js 읽기 가능한 스트림](https://nodejs.org/api/stream#stream_class_stream_readable)으로 렌더링합니다.
 
-Renders input as a [Node.js Readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable).
+Renders input as a [Node.js Readable stream](https://nodejs.org/api/stream#stream_class_stream_readable).
 
 - **Exported from `vue/server-renderer`**
 
@@ -86,9 +86,9 @@ Renders input as a [Node.js Readable stream](https://nodejs.org/api/stream.html#
 
 ## pipeToNodeWritable() {#pipetonodewritable}
 
-렌더링하고 기존 [Node.js 쓰기 가능한 스트림](https://nodejs.org/api/stream.html#stream_writable_streams) 인스턴스로 파이프합니다.
+렌더링하고 기존 [Node.js 쓰기 가능한 스트림](https://nodejs.org/api/stream#stream_writable_streams) 인스턴스로 파이프합니다.
 
-Render and pipe to an existing [Node.js Writable stream](https://nodejs.org/api/stream.html#stream_writable_streams) instance.
+Render and pipe to an existing [Node.js Writable stream](https://nodejs.org/api/stream#stream_writable_streams) instance.
 
 - **Exported from `vue/server-renderer`**
 
@@ -247,7 +247,7 @@ A runtime API used to retrieve the context object passed to `renderToString()` o
   import { useSSRContext } from 'vue'
   // SSR 중에만 호출해야 합니다.
   // make sure to only call it during SSR
-  // https://vitejs.dev/guide/ssr.html#conditional-logic
+  // https://vitejs.dev/guide/ssr#conditional-logic
   if (import.meta.env.SSR) {
     const ctx = useSSRContext()
     // ...attach properties to the context

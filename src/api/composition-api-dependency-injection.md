@@ -39,7 +39,7 @@
   ```
 
 - **참고**:
-  - [가이드 - Provide/Inject](/guide/components/provide-inject.html)
+  - [가이드 - Provide/Inject](/guide/components/provide-inject)
   - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api.html#typing-provide-inject) <sup class="vt-badge ts" />
 
 ## inject() {#inject}
@@ -127,5 +127,5 @@
   :::
 
 - **참고**:
-  - [가이드 - Provide/Inject](/guide/components/provide-inject.html)
+  - [가이드 - Provide/Inject](/guide/components/provide-inject)
   - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api.html#typing-provide-inject) <sup class="vt-badge ts" />
