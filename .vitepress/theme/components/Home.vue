@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import SiteMap from './SiteMap.vue';
+import SiteMap from './SiteMap.vue'
 // import NewsLetter from './NewsLetter.vue'
 import { load, data, base } from './sponsors'
 import SponsorsGroup from './SponsorsGroup.vue'
@@ -14,14 +14,16 @@ onMounted(async () => {
 <template>
   <section id="hero">
     <h1 class="tagline">
+
       <span class="accent">프로그레시브</span>
       <br />자바스크립트 프레임워크
     </h1>
     <p class="description">
-      웹 사용자 인터페이스를 만들기 위한 쉽고 강력하며 다재다능한 프레임워크
+      웹 사용자 인터페이스를 만들기 위한 쉽고 강력하며
+      다재다능한 프레임워크
     </p>
     <p class="actions">
-      <vue-mastery-modal />
+      <VueMasteryModal />
       <a class="get-started" href="/guide/introduction.html">
         시작하기
         <svg
@@ -46,10 +48,19 @@ onMounted(async () => {
       <template v-for="{ url, img, name, description } of data.special">
         <a :href="url" target="_blank" rel="sponsored noopener">
           <picture v-if="img.endsWith('png')">
-            <source type="image/avif" :srcset="`${base}/images/${img.replace(/\.png$/, '.avif')}`" />
+            <source
+              type="image/avif"
+              :srcset="`${base}/images/${img.replace(/\.png$/, '.avif')}`"
+            />
             <img :src="`${base}/images/${img}`" :alt="name" />
           </picture>
-          <img v-else :src="`${base}/images/${img}`" :alt="name" />
+          <img
+            width="168"
+            height="42"
+            v-else
+            :src="`${base}/images/${img}`"
+            :alt="name"
+          />
         </a>
         <span>{{ description }}</span>
       </template>

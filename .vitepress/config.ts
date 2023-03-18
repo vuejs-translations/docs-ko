@@ -563,7 +563,6 @@ export default defineConfigWithTheme<ThemeConfig>({
   description: 'Vue.js - 프로그래시브 자바스크립트 프레임워크',
   srcDir: 'src',
   srcExclude: ['tutorial/**/description.md'],
-  scrollOffset: 'header',
 
   head: [
     ['meta', { name: 'theme-color', content: '#3c8772' }],
