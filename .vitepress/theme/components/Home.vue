@@ -23,7 +23,7 @@ onMounted(async () => {
       다재다능한 프레임워크
     </p>
     <p class="actions">
-      <vue-mastery-modal />
+      <VueMasteryModal />
       <a class="get-started" href="/guide/introduction.html">
         시작하기
         <svg
