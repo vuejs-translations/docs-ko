@@ -2,17 +2,19 @@ name: Auto Sync
 
 on:
   schedule:
-    - cron: '0 0 * * *' # At 00:00
+    - cron: '0 0 * * *' # At 00:00.  https://crontab.guru/
+  workflow_dispatch: # on button click
 
 jobs:
   sync:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - uses: TobKed/github-forks-sync-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN  }}
-          upstream_repository: https://github.com/vuejs-translations/docs-ko
-          upstream_branch: upstream
-          target_repository: https://github.com/niceplugin/Vuejs-KO
+          upstream_repository: vuejs/docs
+          upstream_branch: main
+          target_repository: vuejs-kr/docs
           target_branch: upstream
+          force: false
+          tags: false 
