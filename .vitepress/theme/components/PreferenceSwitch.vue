@@ -171,6 +171,12 @@ function useToggleFn(
   align-items: center;
 }
 
+@media(max-width: 959px){
+  .switch-container {
+    padding: 0 1em;
+  }
+}
+
 .switch-container:nth-child(2) {
   margin-top: 10px;
 }
