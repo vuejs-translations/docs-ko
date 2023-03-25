@@ -451,3 +451,12 @@ const openModal = () => {
 ```
 
 Vue SFC 대신 타입스크립트 파일에서 이 기술을 사용하려면 Volar의 [Takeover Mode](./overview.html#volar-takeover-mode) 를 활성화해야 합니다.
+
+컴포넌트의 정확한 타입을 사용할 수 없거나 중요하지 않은 경우, `ComponentPublicInstance`를 사용할 수 있습니다. 여기에는 `$el`과 같이 모든 컴포넌트가 공유하는 속성만 포함됩니다.
+
+```ts
+import { ref } from 'vue'
+import type { ComponentPublicInstance } from 'vue'
+
+const child = ref<ComponentPublicInstance | null>(null)
+```
