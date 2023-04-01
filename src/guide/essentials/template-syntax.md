@@ -17,7 +17,7 @@ Vue는 컴포넌트 인스턴스의 데이터를 서술적으로 렌더링된 DO
 <span>메세지: {{ msg }}</span>
 ```
 
-이중 중괄호 태그 내 `msg`는 해당 컴포넌트 인스턴스의 `msg` 속성의 값으로 대체됩니다.
+이중 중괄호 태그 내 `msg`는 [해당 컴포넌트 인스턴스](/guide/essentials/reactivity-fundamentals#declaring-reactive-state)의 `msg` 속성의 값으로 대체됩니다.
 또한 `msg` 속성이 변경될 때마다 업데이트됩니다.
 
 ## HTML 출력 {#raw-html}
