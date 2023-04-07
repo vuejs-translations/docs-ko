@@ -191,7 +191,7 @@ Vue 템플릿에서 JavaScript 표현식은 다음과 같은 위치에 사용할
 
 ## 디렉티브 {#directives}
 
-`v-` 접두사가 있는 특수한 속성을 디렉티브라 합입니다.
+`v-` 접두사가 있는 특수한 속성을 디렉티브라 합니다.
 Vue는 위에서 소개한 `v-html`과 `v-bind`를 포함하여 [빌트인 디렉티브](/api/built-in-directives)를 제공합니다.
 
 디렉티브 속성 값은 단일 JavaScript 표현식이어야 합니다(나중에 해당 섹션에서 설명할 `v-for`, `v-on` 및 `v-slot` 제외).
