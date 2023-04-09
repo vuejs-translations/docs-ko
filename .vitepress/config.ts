@@ -32,7 +32,7 @@ const nav: ThemeConfig['nav'] = [
   },
   {
     text: '온라인 연습장',
-    link: 'https://sfc.vuejs.org'
+    link: 'https://play.vuejs.org'
   },
   {
     text: 'Ecosystem',

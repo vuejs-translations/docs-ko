@@ -5,7 +5,7 @@
 Vue SFC를 사용해 보기 위해서 컴퓨터에 무엇을 설치할 필요가 없습니다.
 브라우저에서 바로 실행할 수 있는 온라인 연습장이 있습니다:
 
-- [Vue SFC 온라인 연습장](https://sfc.vuejs.org)
+- [Vue SFC 온라인 연습장](https://play.vuejs.org)
   - 항상 최신 버전 상태
   - 컴포넌트 컴파일 결과를 확인할 수 있도록 설계
 - [StackBlitz(Vue + Vite)](https://vite.new/vue)

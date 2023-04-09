@@ -102,7 +102,7 @@ export default {
 SFC 내부의 `<style>` 태그는 일반적으로 핫 업데이트를 지원하기 위해 개발 중에는 기본 `<style>` 태그로 삽입됩니다.
 프로덕션을 위해 단일 CSS 파일로 추출 및 병합할 수 있습니다.
 
-[Vue SFC 온라인 연습장](https://sfc.vuejs.org/)에서 SFC로 플레이하고 컴파일 방법을 탐색할 수 있습니다.
+[Vue SFC 온라인 연습장](https://play.vuejs.org/)에서 SFC로 플레이하고 컴파일 방법을 탐색할 수 있습니다.
 
 실제 프로젝트에서는 일반적으로 SFC 컴파일러를 [Vite](https://vitejs.dev/) 또는 [Vue CLI](http://cli.vuejs.org/)와 같은 빌드 도구([webpack](https://webpack.js.org/)을 기반으로)와 통합합니다.
 Vue는 가능한 한 빨리 SFC를 시작할 수 있도록 공식 스캐폴딩 도구를 제공합니다.
