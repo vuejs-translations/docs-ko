@@ -93,7 +93,7 @@ const state = reactive({ count: 0 })
 
 참고: [반응형에 타입 지정하기](/guide/typescript/composition-api.html#typing-reactive) <sup class="vt-badge ts" />
 
-컴포넌트의 템플릿에서 반응형 상태를 사용하려면, 컴포넌트의 `setup()'` 함수에서 반응형 상태를 선언하고 반환해야 합니다:
+컴포넌트의 템플릿에서 반응형 상태를 사용하려면, 컴포넌트의 `setup()` 함수에서 반응형 상태를 선언하고 반환해야 합니다:
 
 ```js{5,9-11}
 import { reactive } from 'vue'
@@ -306,7 +306,7 @@ const obj = reactive({
 })
 
 function mutateDeeply() {
-  // 변경 사항이
+  // 변경 사항이 감지됩니다.
   obj.nested.count++
   obj.arr.push('baz')
 }
