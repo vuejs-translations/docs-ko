@@ -56,35 +56,9 @@ const props = defineProps<Props>()
 
 #### 문법 제한 {#syntax-limitations}
 
-올바른 런타임 코드를 생성하려면 `defineProps()` 의 제너릭 전달인자가 다음 중 하나여야 합니다.
+In version 3.2 and below, the generic type parameter for `defineProps()` were limited to a type literal or a reference to a local interface.
 
-
-- 객체 리터럴 타입:
-
-  ```ts
-  defineProps<{ /*... */ }>()
-  ```
-
-- **동일한 파일**에 있는 인터페이스 또는 객체 리터럴 타입에 대한 참조:
-
-  ```ts
-  interface Props {/* ... */}
-
-  defineProps<Props>()
-  ```
-
-인터페이스 또는 객체 리터럴 타입은 다른 파일에서 가져온 타입을 참조 할 수 있지만, `defineProps` 의 제네릭 전달인자는 가져온 타입을 **사용 할 수 없습니다**:
-
-
-```ts
-import { Props } from './other-file'
-
-// 지원하지 않음
-defineProps<Props>()
-```
-
-이는 Vue 컴포넌트가 격리되어 컴파일되고 컴파일러가 현재 소스 유형을 분석하기 위해 가져온 파일을 크롤링하지 않기 때문입니다. 이 제한은 향후 업데이트에서 제거될 수 있습니다.
-
+This limitation has been resolved in 3.3. The latest version of Vue supports referencing imported and complex types in the type parameter position. However, do note that complex types support is AST-based and therefore not 100% comprehensive.
 
 ### Props 기본값 {#props-default-values}
 
