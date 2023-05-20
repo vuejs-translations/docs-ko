@@ -1,15 +1,17 @@
 <template>
   <div class="divider"></div>
   <div class="join-container">
-    <h2>Vue로 비즈니스 성장하기</h2>
+    <h2>Grow your business with Vue</h2>
     <p>
-      새로운 프로젝트에 대한 리드를 생성하고, 고객에 대한 신뢰도를 높이며, Vue.js 및 ts 에코시스템의 장기적인 지속 가능성을 지원하세요.
+      Generate leads for new projects, boost your credibility to your
+      clients, and support the long term sustainability of Vue.js and its
+      ecosystem.
     </p>
     <a
       class="join"
       href="https://airtable.com/shrCQhat57SApJI2l"
       target="_blank"
-      >파트너 등록</a
+      >Become a partner</a
     >
   </div>
 </template>
