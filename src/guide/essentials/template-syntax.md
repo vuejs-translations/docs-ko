@@ -172,9 +172,9 @@ Vue 템플릿에서 JavaScript 표현식은 다음과 같은 위치에 사용할
 바인딩 표현식 내부에서 컴포넌트에서 노출하는 메서드를 호출할 수 있습니다:
 
 ```vue-html
-<span :title="toTitleDate(date)">
+<time :title="toTitleDate(date)" :datetime="date">
   {{ formatDate(date) }}
-</span>
+</time>
 ```
 
 :::tip
