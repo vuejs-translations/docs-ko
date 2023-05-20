@@ -204,9 +204,51 @@ const emit = defineEmits(['change', 'delete'])
   그렇게 하면 컴파일 에러가 발생합니다.
   그러나 `import`한 바인딩은 모듈 범위에 있으므로 **참조 할 수 있습니다**.
 
-TypeScript를 사용하는 경우, [순수 타입 주석을 사용하여 props를 선언하고 내보내는(emit)](#typescript-only-features) 것도 가능합니다.
+### Type-only props/emit declarations<sup class="vt-badge ts" /> {#type-only-props-emit-declarations}
 
-## `defineExpose()`
+Props and emits can also be declared using pure-type syntax by passing a literal type argument to `defineProps` or `defineEmits`:
+
+```ts
+const props = defineProps<{
+  foo: string
+  bar?: number
+}>()
+
+const emit = defineEmits<{
+  (e: 'change', id: number): void
+  (e: 'update', value: string): void
+}>()
+```
+
+- `defineProps` or `defineEmits` can only use either runtime declaration OR type declaration. Using both at the same time will result in a compile error.
+
+- When using type declaration, the equivalent runtime declaration is automatically generated from static analysis to remove the need for double declaration and still ensure correct runtime behavior.
+
+  - In dev mode, the compiler will try to infer corresponding runtime validation from the types. For example here `foo: String` is inferred from the `foo: string` type. If the type is a reference to an imported type, the inferred result will be `foo: null` (equal to `any` type) since the compiler does not have information of external files.
+
+  - In prod mode, the compiler will generate the array format declaration to reduce bundle size (the props here will be compiled into `['foo', 'bar']`)
+
+- In versions 3.2 and below, the type parameter is limited to either a type literal or a reference to a local type. This limitation has been removed in 3.3. Starting in 3.3, Vue is able to infer runtime props from most common types, including externally imported ones.
+
+### Default props values when using type declaration {#default-props-values-when-using-type-declaration}
+
+One drawback of the type-only `defineProps` declaration is that it doesn't have a way to provide default values for the props. To resolve this problem, a `withDefaults` compiler macro is also provided:
+
+```ts
+export interface Props {
+  msg?: string
+  labels?: string[]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  msg: 'hello',
+  labels: () => ['one', 'two']
+})
+```
+
+This will be compiled to equivalent runtime props `default` options. In addition, the `withDefaults` helper provides type checks for the default values, and ensures the returned `props` type has the optional flags removed for properties that do have default values declared.
+
+## defineExpose() {#defineexpose}
 
 `<script setup>`을 사용하는 컴포넌트는 **기본적으로 닫혀 있습니다**.
 즉, 템플릿 참조 또는 `$parent` 체인을 통해 검색되는 컴포넌트의 공개 인스턴스는 `<script setup>` 내부에서 선언된 바인딩을 **노출하지 않습니다**.
