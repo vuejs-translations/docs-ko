@@ -43,6 +43,8 @@
 
 ## toRef() {#toref}
 
+Can be used to normalize values / refs / getters into refs (3.3+).
+
 반응형 객체의 속성에 대한 ref를 만드는 데 사용할 수 있습니다.
 생성된 ref는 소스 속성과 동기화됩니다.
 소스 속성을 변경하면 ref가 업데이트되고 그 반대의 경우도 마찬가지입니다.
@@ -50,6 +52,16 @@
 - **타입**:
 
   ```ts
+  // normalization signature (3.3+)
+  function toRef<T>(
+    value: T
+  ): T extends () => infer R
+    ? Readonly<Ref<R>>
+    : T extends Ref
+    ? T
+    : Ref<UnwrapRef<T>>
+
+  // object property signature
   function toRef<T extends object, K extends keyof T>(
     object: T,
     key: K,
@@ -61,12 +73,29 @@
 
 - **예제**:
 
+  Normalization signature (3.3+):
+
+  ```js
+  // returns existing refs as-is
+  toRef(existingRef)
+
+  // creates a readonly ref that calls the getter on .value access
+  toRef(() => props.foo)
+
+  // creates normal refs from non-function values
+  // equivalent to ref(1)
+  toRef(1)
+  ```
+
+  Object property signature:
+
   ```js
   const state = reactive({
     foo: 1,
     bar: 2
   })
 
+  // a two-way ref that syncs with the original property
   const fooRef = toRef(state, 'foo')
 
   // ref를 변경하면 원본도 업데이트 됨
@@ -97,6 +126,9 @@
 
   // `props.foo`를 ref로 변환한 다음 컴포저블 함수에 전달
   useSomeFeature(toRef(props, 'foo'))
+  
+  // getter syntax - recommended in 3.3+
+  useSomeFeature(toRef(() => props.foo))
   </script>
   ```
 
@@ -106,8 +138,7 @@
   이런 경우에는 [`computed()`](./reactivity-core.html#computed)에 `get`과 `set`을 선언하여 사용하는 것으로 구현할 수 있습니다.
   자세한 내용은 [컴포넌트를 `v-model`과 함께 사용하기](/guide/components/v-model) 가이드 참고.
 
-  `toRef()`는 소스 속성이 현재 존재하지 않더라도 사용 가능한 ref를 반환합니다.
-  이렇게 하면 [`toRefs`](#torefs)에서 선택하지 않는 선택적 속성으로 작업할 수 있습니다.
+  When using the object property signature, `toRef()` will return a usable ref even if the source property doesn't currently exist. This makes it possible to work with optional properties, which wouldn't be picked up by [`toRefs`](#torefs).
 
 ## toRefs() {#torefs}
 
