@@ -258,7 +258,7 @@ cy.get(valueSelector).should('be.visible').and('contain.text', '0')
 ### 추천 {#recommendation-1}
 
 - 헤드리스로 렌더링되는 컴포넌트 또는 컴포넌트의 [Vitest](https://vitest.dev/)(예: VueUse의 [`useFavicon`](https://vueuse.org/core/useFavicon/#usefavicon) 함수).
-  컴포넌트와 DOM은 [@testing-library/vue](https://testing-library.com/docs/vue-testing-library/intro)를 사용하여 테스트할 수 있습니다.
+  컴포넌트와 DOM은 [@testing-library/vue](https://github.com/vuejs/test-utils)를 사용하여 테스트할 수 있습니다.
 
 - 예상 동작이 스타일을 올바르게 렌더링하거나 기본 DOM 이벤트를 트리거하는 데 의존하는 컴포넌트에 대한 [Cypress 컴포넌트 테스트](https://on.cypress.io/component).
   [@testing-library/cypress](https://testing-library.com/docs/cypress-testing-library/intro) 테스팅 라이브러리로 사용할 수 있습니다.
@@ -276,15 +276,12 @@ Vitest와 Cypress를 비교한 최신 정보는 [비교 페이지](https://vites
 렌더링된 DOM 출력에 대한 검증이 포함되는 경우가 많습니다.
 이러한 작업을 더 간단하게 만드는 전용 유틸리티 라이브러리가 있습니다.
 
-- [`@testing-library/vue`](https://github.com/testing-library/vue-testing-library)는 구현 세부 사항에 의존하지 않고 컴포넌트를 테스트하는 데 중점을 둔 Vue 테스트 라이브러리입니다.
-  접근성을 염두에 두고 구축된 이 접근 방식은 리팩토링도 수월하게 해줍니다.
-  그 기본 원칙은 테스트가 소프트웨어 사용 방법과 더 많이 유사할수록 더 많은 신뢰를 제공할 수 있다는 것이다.
-
 - [`@vue/test-utils`](https://github.com/vuejs/test-utils)는 사용자에게 Vue 특정 API에 대한 접근을 제공하기 위해 작성된 공식 저수준 컴포넌트 테스트 라이브러리입니다.
   또한 저수준 라이브러리 `@testing-library/vue`가 그 위에 구축됩니다.
 
-앱의 테스트 우선 순위와 초점이 더 잘 맞기 때문에 앱의 컴포넌트를 테스트할 때 `@testing-library/vue`를 사용하는 것이 좋습니다.
-Vue 전용 내부 테스트가 필요한 고급 컴포넌트를 빌드하는 경우에만 `@vue/test-utils`를 사용하세요.
+- [`@testing-library/vue`](https://github.com/testing-library/vue-testing-library)는 구현 세부 사항에 의존하지 않고 구성 요소 테스트에 중점을 둔 Vue 테스트 라이브러리입니다. 기본 원칙은 테스트가 소프트웨어 사용 방식과 유사할수록 더 많은 신뢰를 제공할 수 있다는 것입니다.
+
+앱의 컴포넌트를 테스트하려면 `@vue/test-utils`를 사용하는 것이 좋습니다. `@testing-library/vue`는 Suspense로 비동기 컴포넌트를 테스트하는 데 문제가 있으므로 주의해서 사용해야 합니다.
 
 ### 다른 선택지 {#other-options-1}
 
