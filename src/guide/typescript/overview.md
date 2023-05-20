@@ -174,6 +174,10 @@ const count = ref(1)
 </template>
 ```
 
+참고:
+
+- [`<script setup>`의 TypeScript 전용 기능](/api/sfc-script-setup.html#typescript-only-features)
+
 ### 템플릿에서의 타입스크립트 {#typescript-in-templates}
 
 `<template>` 은 `<script lang="ts">` 또는 `<script setup lang="ts">` 가 사용되는 경우 바인딩 표현식에서 타입스크립트를 지원합니다. 이는 템플릿 표현식에서 타입 캐스팅을 수행해야 하는 경우에 유용합니다.
@@ -210,6 +214,13 @@ Vue CLI 또는 웹팩 기반 설정을 사용하는 경우 타입스크립트 �
 ### TSX와 함께 사용하기 {#usage-with-tsx}
 
 Vue는 JSX/TSX로 컴포넌트 제작을 지원합니다. 자세한 내용은 [Render Function & JSX](/guide/extras/render-function.html#jsx-tsx) 가이드에서 다룹니다.
+
+## Generic Components {#generic-components}
+
+Generic components are supported in two cases:
+
+- In SFCs: [`<script setup>` with the `generic` attribute](/api/sfc-script-setup.html#generics)
+- Render function / JSX components: [`defineComponent()`'s function signature](/api/general.html#function-signature)
 
 ## API-Specific Recipes {#api-specific-recipes}
 

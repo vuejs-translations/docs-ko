@@ -357,6 +357,35 @@ const props = withDefaults(defineProps<Props>(), {
 또한 `withDefaults` 헬퍼는 기본값에 대한 타입 검사를 제공하고,
 반환된 `props` 타입에 기본값이 선언된 속성의 선택적 플래그가 제거되었는지 확인합니다.
 
+### Generics
+
+Generic type parameters can be declared using the `generic` attribute on the `<script>` tag:
+
+```vue
+<script setup lang="ts" generic="T">
+defineProps<{
+  id: T
+  list: T[]
+}>()
+</script>
+```
+
+The value of `generic` works exactly the same as the parameter list between `<...>` in TypeScript. For example, you can use multiple parameters, `extends` constraints, default types, or reference imported types:
+
+```vue
+<script
+  setup
+  lang="ts"
+  generic="T extends string | number, U extends Item"
+>
+import type { Item } from './types'
+defineProps<{
+  id: T
+  list: U[]
+}>()
+</script>
+```
+
 ## 제한사항 {#restrictions}
 
 모듈 실행 의미의 차이로 인해 `<script setup>` 내부의 코드는 SFC의 컨텍스트에 의존합니다.
