@@ -204,9 +204,9 @@ const emit = defineEmits(['change', 'delete'])
   그렇게 하면 컴파일 에러가 발생합니다.
   그러나 `import`한 바인딩은 모듈 범위에 있으므로 **참조 할 수 있습니다**.
 
-### Type-only props/emit declarations<sup class="vt-badge ts" /> {#type-only-props-emit-declarations}
+### 타입 전용 props/emit 선언 {#type-only-props-emit-declarations}
 
-Props and emits can also be declared using pure-type syntax by passing a literal type argument to `defineProps` or `defineEmits`:
+Props 및 emits는 리터럴 타입 인자를 `defineProps` 또는 `defineEmits`에 전달하여 순수 타입 문법을 사용하여 선언할 수도 있습니다:
 
 ```ts
 const props = defineProps<{
@@ -226,21 +226,28 @@ const emit = defineEmits<{
 }>()
 ```
 
-- `defineProps` or `defineEmits` can only use either runtime declaration OR type declaration. Using both at the same time will result in a compile error.
+- `defineProps` 또는 `defineEmits`는 런타임 선언 또는 타입 선언만 사용할 수 있습니다.
+  두 가지를 동시에 사용하면 컴파일 에러가 발생합니다.
 
-- When using type declaration, the equivalent runtime declaration is automatically generated from static analysis to remove the need for double declaration and still ensure correct runtime behavior.
+- 타입 선언을 사용할 때 정적 분석에서 동등한 런타임 선언이 자동으로 생성되어,
+  이중 선언의 필요성을 제거하고 여전히 올바른 런타임 동작을 보장합니다.
 
-  - In dev mode, the compiler will try to infer corresponding runtime validation from the types. For example here `foo: String` is inferred from the `foo: string` type. If the type is a reference to an imported type, the inferred result will be `foo: null` (equal to `any` type) since the compiler does not have information of external files.
+  - 개발 모드에서 컴파일러는 타입에서 해당 런타임 유효성 검사를 유추하려고 시도합니다.
+    예를 들어 `foo: String`은 `foo: string` 타입에서 유추됩니다.
+    타입이 가져온 타입의 참조인 경우,
+    컴파일러에 외부 파일 정보가 없기 때문에 추론된 결과는 `foo: null`(`any` 타입과 동일)이 됩니다.
 
-  - In prod mode, the compiler will generate the array format declaration to reduce bundle size (the props here will be compiled into `['foo', 'bar']`)
+  - prod 모드에서 컴파일러는 번들 크기를 줄이기 위해 배열 형식 선언을 생성합니다(여기서 props는 `['foo', 'bar']`로 컴파일됩니다).
 
-- In version 3.2 and below, the generic type parameter for `defineProps()` were limited to a type literal or a reference to a local interface.
+  - 내보낼(emit)) 코드는 여전히 유효한 타이핑이 있는 TypeScript이며,
+    다른 도구에서 추가로 처리할 수 있습니다.
 
-  This limitation has been resolved in 3.3. The latest version of Vue supports referencing imported and a limited set of complex types in the type parameter position. However, because the type to runtime conversion is still AST-based, some complex types that require actual type analysis, e.g. conditional types, are not supported. You can use conditional types for the type of a single prop, but not the entire props object.
+- 버전 3.2 이하에서 타입 파라미터는 타입 리터럴 또는 로컬 타입에 대한 참조로 제한됩니다. 이 제한은 3.3에서 제거되었습니다. 3.3부터 Vue는 외부에서 가져온 것을 포함하여 가장 일반적인 타입에서 런타임 props를 유추할 수 있습니다.
 
-### Default props values when using type declaration {#default-props-values-when-using-type-declaration}
+### 타입 선언을 사용할 때 기본 props 값 {#default-props-values-when-using-type-declaration}
 
-One drawback of the type-only `defineProps` declaration is that it doesn't have a way to provide default values for the props. To resolve this problem, a `withDefaults` compiler macro is also provided:
+타입 전용 `defineProps` 선언의 한 가지 단점은 props에 대한 기본값을 제공할 방법이 없다는 것입니다.
+이 문제를 해결하기 위해 `withDefaults` 컴파일러 매크로를 제공합니다:
 
 ```ts
 export interface Props {
@@ -249,12 +256,14 @@ export interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  msg: 'hello',
-  labels: () => ['one', 'two']
+  msg: '안녕!',
+  labels: () => ['하나', '둘']
 })
 ```
 
-This will be compiled to equivalent runtime props `default` options. In addition, the `withDefaults` helper provides type checks for the default values, and ensures the returned `props` type has the optional flags removed for properties that do have default values declared.
+이것은 동등한 런타임 props `default` 옵션으로 컴파일됩니다.
+또한 `withDefaults` 헬퍼는 기본값에 대한 타입 검사를 제공하고,
+반환된 `props` 타입에 기본값이 선언된 속성의 선택적 플래그가 제거되었는지 확인합니다.
 
 ## defineExpose() {#defineexpose}
 
@@ -386,64 +395,7 @@ const post = await fetch(`/api/post/1`).then((r) => r.json())
 하지만 지금 궁금한 점은 [테스트](https://github.com/vuejs/core/blob/main/packages/runtime-core/__tests__/components/Suspense.spec.ts)를 참고하여 작동 방식을 확인할 수 있습니다.
 :::
 
-## TypeScript 전용 기능 <sup class="vt-badge ts" /> {#typescript-only-features}
-
-### 타입 전용 props/emit 선언 {#type-only-props-emit-declarations}
-
-Props 및 emits는 리터럴 타입 인자를 `defineProps` 또는 `defineEmits`에 전달하여 순수 타입 문법을 사용하여 선언할 수도 있습니다:
-
-```ts
-const props = defineProps<{
-  foo: string
-  bar?: number
-}>()
-
-const emit = defineEmits<{
-  (e: 'change', id: number): void
-  (e: 'update', value: string): void
-}>()
-```
-
-- `defineProps` 또는 `defineEmits`는 런타임 선언 또는 타입 선언만 사용할 수 있습니다.
-  두 가지를 동시에 사용하면 컴파일 에러가 발생합니다.
-
-- 타입 선언을 사용할 때 정적 분석에서 동등한 런타임 선언이 자동으로 생성되어,
-  이중 선언의 필요성을 제거하고 여전히 올바른 런타임 동작을 보장합니다.
-
-  - 개발 모드에서 컴파일러는 타입에서 해당 런타임 유효성 검사를 유추하려고 시도합니다.
-    예를 들어 `foo: String`은 `foo: string` 타입에서 유추됩니다.
-    타입이 가져온 타입의 참조인 경우,
-    컴파일러에 외부 파일 정보가 없기 때문에 추론된 결과는 `foo: null`(`any` 타입과 동일)이 됩니다.
-
-  - prod 모드에서 컴파일러는 번들 크기를 줄이기 위해 배열 형식 선언을 생성합니다(여기서 props는 `['foo', 'bar']`로 컴파일됩니다).
-
-  - 내보낼(emit)) 코드는 여전히 유효한 타이핑이 있는 TypeScript이며,
-    다른 도구에서 추가로 처리할 수 있습니다.
-
-- 버전 3.2 이하에서 타입 파라미터는 타입 리터럴 또는 로컬 타입에 대한 참조로 제한됩니다. 이 제한은 3.3에서 제거되었습니다. 3.3부터 Vue는 외부에서 가져온 것을 포함하여 가장 일반적인 타입에서 런타임 props를 유추할 수 있습니다.
-
-### 타입 선언을 사용할 때 기본 props 값 {#default-props-values-when-using-type-declaration}
-
-타입 전용 `defineProps` 선언의 한 가지 단점은 props에 대한 기본값을 제공할 방법이 없다는 것입니다.
-이 문제를 해결하기 위해 `withDefaults` 컴파일러 매크로를 제공합니다:
-
-```ts
-export interface Props {
-  msg?: string
-  labels?: string[]
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  msg: '안녕!',
-  labels: () => ['하나', '둘']
-})
-```
-
-이것은 동등한 런타임 props `default` 옵션으로 컴파일됩니다.
-또한 `withDefaults` 헬퍼는 기본값에 대한 타입 검사를 제공하고,
-반환된 `props` 타입에 기본값이 선언된 속성의 선택적 플래그가 제거되었는지 확인합니다.
-
-### Generics
+## Generics <sup class="vt-badge ts" />  {#generics}
 
 Generic type parameters can be declared using the `generic` attribute on the `<script>` tag:
 
