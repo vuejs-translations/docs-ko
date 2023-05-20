@@ -278,7 +278,25 @@ defineExpose({
 부모가 템플릿 참조를 통해 이 컴포넌트의 인스턴스를 가져오면,
 검색된 인스턴스는 `{ a: number, b: number }` 모양이 됩니다(참조는 일반 인스턴스와 마찬가지로 자동으로 언래핑됨).
 
-## `useSlots()` & `useAttrs()`
+## defineOptions() {#defineoptions}
+
+This macro can be used to declare component options directly inside `<script setup>` without having to use a separate `<script>` block:
+
+```vue
+<script setup>
+defineOptions({
+  inheritAttrs: false,
+  customOptions: {
+    /* ... */
+  }
+})
+</script>
+```
+
+- Only supported in 3.3+.
+- This is a macro. The options will be hoisted to module scope and cannot access local variables in `<script setup>` that are not literal constants.
+
+## `useSlots()` & `useAttrs()` {#useslots-useattrs}
 
 `<script setup>` 내부에서 `slots` 및 `attrs` 사용은 템플릿에서 `$slots` 및 `$attrs`로 직접 접근할 수 있으므로 비교적 드물게 사용해야 합니다.
 드물게 필요한 경우 `useSlots` 및 `useAttrs` 헬퍼를 각각 사용합니다:
