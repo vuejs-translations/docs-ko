@@ -203,50 +203,60 @@ const { data, error } = useFetch('...')
 </script>
 ```
 
-`useFetch()`는 정적 URL 문자열을 입력으로 사용하므로 가져오기를 한 번만 수행한 다음 완료됩니다.
-URL이 변경될 때마다 다시 가져오기를 원하면 어떻게 해야 할까요?
-ref를 인자로 사용 가능토록 구현하면 됩니다:
+### 리액티브 상태 수락 {#accepting-reactive-state}
+
+`useFetch()`는 정적 URL 문자열을 입력으로 받아 한 번만 fetch를 수행하고 끝납니다. 그런데 URL이 변경될 때마다 다시 fetch를 수행하려면 어떻게 해야 할까요? 이를 달성하려면 리액티브 상태를 composable 함수에 전달해야 하며, composable이 전달된 상태를 사용하여 작업을 수행하는 watcher를 생성합니다.
+
+예를 들어, `useFetch()`는 `ref`를 받아들일 수 있어야 합니다:
+
+```js
+const url = ref('/initial-url')
+
+const { data, error } = useFetch(url)
+
+// re-fetch를 트리거 합니다.
+url.value = '/new-url'
+```
+
+또는 `getter` 함수를 수락합니다:
+
+```js
+// props.id가 변경되면 re-fetch 됩니다.
+const { data, error } = useFetch(() => `/posts/${props.id}`)
+```
+
+우리는 [`watchEffect()`](/api/reactivity-core.html#watcheffect)와 [`toValue()`](/api/reactivity-utilities.html#tovalue) API를 이용하여 기존의 구현을 리팩토링 할 수 있습니다:
 
 ```js
 // fetch.js
-import { ref, isRef, unref, watchEffect } from 'vue'
+import { ref, watchEffect, toValue } from 'vue'
 
 export function useFetch(url) {
   const data = ref(null)
   const error = ref(null)
 
-  function doFetch() {
+  watchEffect(() => {
     // 가져오기 전에 상태 재설정..
     data.value = null
     error.value = null
-    // unref()는 ref의 래핑을 해제합니다.
-    fetch(unref(url))
+    // toValue()는 잠재적 ref 또는 getter를 언래핑합니다
+    fetch(toValue(url))
       .then((res) => res.json())
       .then((json) => (data.value = json))
       .catch((err) => (error.value = err))
-  }
-
-  if (isRef(url)) {
-    // 설정하기: 입력 URL이 ref인 경우 반응적 다시 가져오기
-    watchEffect(doFetch)
-  } else {
-    // 그렇지 않으면 한 번만 가져 와서
-    // 감시자의 오버 헤드를 피하합니다.
-    doFetch()
-  }
+  })
 
   return { data, error }
 }
 ```
 
-이 버전의 `useFetch()`는 이제 정적 URL 문자열과 ref된 URL 문자열 모두 허용합니다.
-URL이 [`isRef()`](/api/reactivity-utilities.html#isref)를 사용하여 동적 참조임을 감지하면,
-[`watchEffect()`](/api/reactivity-core.html#watcheffect)를 사용하여 반응형 이팩트를 설정합니다.
-이팩트는 즉시 실행되고 프로세스의 의존성으로 URL ref를 감시합니다.
-URL ref가 변경될 때마다 데이터가 재설정되고 다시 가져옵니다.
+`toValue()`는 3.3 버전에서 추가된 API로, ref나 getter를 값으로 정규화하는 데 사용됩니다. 인자가 ref인 경우 ref의 값을 반환하고, 인자가 함수인 경우 함수를 호출하고 그 반환값을 반환합니다. 그 외의 경우에는 인자를 그대로 반환합니다. 이는 [`unref()`](/api/reactivity-utilities.html#unref)와 유사하게 작동하지만, 함수에 대한 특별한 처리가 있습니다.
 
-여기 [`useFetch()`의 업데이트된 버전](https://play.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdCBzZXR1cD5cbmltcG9ydCB7IHJlZiwgY29tcHV0ZWQgfSBmcm9tICd2dWUnXG5pbXBvcnQgeyB1c2VGZXRjaCB9IGZyb20gJy4vdXNlRmV0Y2guanMnXG5cbmNvbnN0IGJhc2VVcmwgPSAnaHR0cHM6Ly9qc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tL3RvZG9zLydcbmNvbnN0IGlkID0gcmVmKCcxJylcbmNvbnN0IHVybCA9IGNvbXB1dGVkKCgpID0+IGJhc2VVcmwgKyBpZC52YWx1ZSlcblxuY29uc3QgeyBkYXRhLCBlcnJvciwgcmV0cnkgfSA9IHVzZUZldGNoKHVybClcbjwvc2NyaXB0PlxuXG48dGVtcGxhdGU+XG4gIExvYWQgcG9zdCBpZDpcbiAgPGJ1dHRvbiB2LWZvcj1cImkgaW4gNVwiIEBjbGljaz1cImlkID0gaVwiPnt7IGkgfX08L2J1dHRvbj5cblxuXHQ8ZGl2IHYtaWY9XCJlcnJvclwiPlxuICAgIDxwPuyVlyEg7Jik66WYIOuwnOyDnToge3sgZXJyb3IubWVzc2FnZSB9fTwvcD5cbiAgICA8YnV0dG9uIEBjbGljaz1cInJldHJ5XCI+7J6s7Iuc64+EPC9idXR0b24+XG4gIDwvZGl2PlxuICA8ZGl2IHYtZWxzZS1pZj1cImRhdGFcIj7roZzrk5zrkJwg642w7J207YSwOiA8cHJlPnt7IGRhdGEgfX08L3ByZT48L2Rpdj5cbiAgPGRpdiB2LWVsc2U+66Gc65SpLi4uPC9kaXY+XG48L3RlbXBsYXRlPiIsImltcG9ydC1tYXAuanNvbiI6IntcbiAgXCJpbXBvcnRzXCI6IHtcbiAgICBcInZ1ZVwiOiBcImh0dHBzOi8vc2ZjLnZ1ZWpzLm9yZy92dWUucnVudGltZS5lc20tYnJvd3Nlci5qc1wiLFxuICAgIFwidnVlL3NlcnZlci1yZW5kZXJlclwiOiBcImh0dHBzOi8vc2ZjLnZ1ZWpzLm9yZy9zZXJ2ZXItcmVuZGVyZXIuZXNtLWJyb3dzZXIuanNcIlxuICB9XG59IiwidXNlRmV0Y2guanMiOiJpbXBvcnQgeyByZWYsIGlzUmVmLCB1bnJlZiwgd2F0Y2hFZmZlY3QgfSBmcm9tICd2dWUnXG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VGZXRjaCh1cmwpIHtcbiAgY29uc3QgZGF0YSA9IHJlZihudWxsKVxuICBjb25zdCBlcnJvciA9IHJlZihudWxsKVxuXG4gIGFzeW5jIGZ1bmN0aW9uIGRvRmV0Y2goKSB7XG4gICAgLy8g6rCA7KC47Jik6riwIOyghOyXkCDsg4Htg5wg7J6s7ISk7KCVLi5cbiAgICBkYXRhLnZhbHVlID0gbnVsbFxuICAgIGVycm9yLnZhbHVlID0gbnVsbFxuICAgIFxuICAgIC8vIHdhdGNoRWZmZWN0KCnsl5Ag7J2Y7ZW0IOyiheyGjeyEseycvOuhnCDstpTsoIHrkJjrj4TroZ1cbiAgICAvLyBVUkwg6rCS7J2EIOuPmeq4sOyLneycvOuhnCByZXNvbHZl7ZWp64uI64ukLlxuICAgIGNvbnN0IHVybFZhbHVlID0gdW5yZWYodXJsKVxuICAgIFxuICAgIHRyeSB7XG4gICAgICAvLyDsnbjsnITsoIHsnbgg65Sc66CI7J20IC8g66y07J6R7JyEIOyVoOufrFxuICBcdCAgYXdhaXQgdGltZW91dCgpXG4gIFx0ICAvLyB1bnJlZigp64qUIHJlZuydtOuptCByZWYg6rCS7J2EIOuwmO2ZmO2VqeuLiOuLpC5cbiAgICAgIC8vIOq3uOugh+yngCDslYrsnLzrqbQg6rCS7J2EIOyeiOuKlCDqt7jrjIDroZwg67CY7ZmY7ZWp64uI64ukLlxuICAgIFx0Y29uc3QgcmVzID0gYXdhaXQgZmV0Y2godXJsVmFsdWUpXG5cdCAgICBkYXRhLnZhbHVlID0gYXdhaXQgcmVzLmpzb24oKVxuICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgIGVycm9yLnZhbHVlID0gZVxuICAgIH1cbiAgfVxuXG4gIGlmIChpc1JlZih1cmwpKSB7XG4gICAgLy8g7ISk7KCV7ZWY6riwOiDsnoXroKUgVVJM7J20IHJlZuyduCDqsr3smrAg67CY7J2R7KCBIOuLpOyLnCDqsIDsoLjsmKTquLBcbiAgICB3YXRjaEVmZmVjdChkb0ZldGNoKVxuICB9IGVsc2Uge1xuICAgIC8vIOq3uOugh+yngCDslYrsnLzrqbQg7ZWcIOuyiOunjCDqsIDsoLjsmKTquLBcbiAgICBkb0ZldGNoKClcbiAgfVxuXG4gIHJldHVybiB7IGRhdGEsIGVycm9yLCByZXRyeTogZG9GZXRjaCB9XG59XG5cbi8vIOyduOychOyggeyduCDrlJzroIjsnbRcbmZ1bmN0aW9uIHRpbWVvdXQoKSB7XG4gIHJldHVybiBuZXcgUHJvbWlzZSgocmVzb2x2ZSwgcmVqZWN0KSA9PiB7XG4gICAgc2V0VGltZW91dCgoKSA9PiB7XG4gICAgICBpZiAoTWF0aC5yYW5kb20oKSA+IDAuMykge1xuICAgICAgICByZXNvbHZlKClcbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIHJlamVjdChuZXcgRXJyb3IoJ+ustOyekeychCDslaDrn6wnKSlcbiAgICAgIH1cbiAgICB9LCAzMDApXG4gIH0pXG59In0=)이 있습니다.
-데모용이므로 인위적인 지연과 무작위 에러가 있습니다.
+`toValue(url)`이 `watchEffect` 콜백 내부에서 호출되는 것에 주목하세요. 이는 `toValue()` 정규화 과정 중에 접근한 모든 리액티브 의존성이 watcher에 의해 추적되도록 보장합니다.
+
+이 버전의 `useFetch()`는 이제 정적 URL 문자열, ref, getter를 받아들이므로 훨씬 더 유연합니다. watch 효과는 즉시 실행되며, `toValue(url)` 중에 접근한 모든 의존성을 추적합니다. 추적된 의존성이 없는 경우 (예: url이 이미 문자열인 경우) 효과는 한 번만 실행됩니다; 그렇지 않으면 추적된 의존성이 변경될 때마다 다시 실행됩니다.
+
+다음은 인공적인 지연과 데모 목적으로 무작위 오류가 있는 [useFetch()의 업데이트 된 버전](https://play.vuejs.org/#eNptVMFu2zAM/RXOFztYZncodgmSYAPWnTZsKLadfFFsulHrSIZEJwuC/PtIyXaTtkALxxT5yPf45FPypevyfY/JIln6yumOwCP13bo0etdZR3ACh80cKrvresIaztA4u4OUi9KLpN7jN6RqO53nxRjKHz1nlqayxhNslMc/roUVpFuizi+K4tFb07Wqwq1ta3Q5HTtd2RpzblqQra0vGCCW65oreaIs/ZjOxmAf8MYRs2wGq/XU6D3X5HvV9sj5Y8UJakVqDuicdXMGJHfk0VcTj4wxOX9ZRFVYD34h3PGchPwG8N2qGjobZlpIYLnpiayB/YfGulWZaNAGPpUJfK5aXT1JRIbXZbI+nUDD+bwsYklAL2lZ6z1X64ZTw2CcKcAM3a1/2s6/gzsJAzKL3hA6rBfAWCE536H36gEDriwwFA4zTSMEpox7L8+L/pxacPv4K86Brcc4jGjFNV/5AS3TlrbLzqHwkLPYkt/fxFiLUto85Hk+ni+LScpknlwYhX147buD4oO7psGK5kD2r+zxhQdLg/9CSdObijSzvVoinGSeuPYwbPSP6VtZ8HgSJHx5JP8XA2TKH00F0V4BFaAouISvDHhiNrBB3j1CI90D5ZglfaMHuYXAx3Dc2+v4JbRt9wi0xWDymCpTbJ01tvftEbwFTakHcqp64guqPKgJoMYOTc1+OcLmeMUlEBzZM3ZUdjVqPPj/eRq5IAPngKwc6UZXWrXcpFVH4GmVqXkt0boiHwGog9IEpHdo+6GphBmgN6L1DA66beUC9s4EnhwdeOomMlMSkwsytLac5g7aR11ibkDZSLUABRk+aD8QoMiS1WSCcaKwISEZ2MqXIaBfLSpmchUb05pRsTNUIiNkOFjr9SZxyJTHOXx1YGR49eGRDP4rzRt6lmay86Re7DcgGTzAL74GrEOWDUaRL9kjb/fSoWzO3wPAlXNB9M1+KNrmcXF8uoab/PaCljQLwCN5oS93+jpFWmYyT/g8Zel9NEJ4S2fPpYMsc7i9uQlREeecnP8DWEwr0Q==)입니다.
 
 ## 관례와 모범 사례 {#conventions-and-best-practices}
 
@@ -256,22 +266,22 @@ URL ref가 변경될 때마다 데이터가 재설정되고 다시 가져옵니�
 
 ### 입력 인자 {#input-arguments}
 
-컴포저블 함수는 반응형에 의존하지 않더라도 ref 인자를 받을 수 있습니다.
-다른 개발자가 사용할 수 있는 컴포저블 함수를 작성하는 경우, 입력 인자가 원시 값 대신 ref인 경우를 처리하는 것이 좋습니다.
-[`unref()`](/api/reactivity-utilities.html#unref) 유틸리티 함수는 이러한 목적의 구현에 유용할 것입니다:
+composable은 리액티비티에 따라 그것들을 사용하지 않아도 ref 또는 getter 인수를 받아들일 수 있습니다. 다른 개발자가 사용할 수 있는 composable을 작성하는 경우, 입력 인수가 원시 값 대신 ref나 getter인 경우를 처리하는 것이 좋습니다. 이럴 때 [`toValue()`](/api/reactivity-utilities#tovalue) 유틸리티 함수가 유용하게 사용될 수 있습니다:
 
 ```js
-import { unref } from 'vue'
+import { toValue } from 'vue'
 
-function useFeature(maybeRef) {
+function useFeature(maybeRefOrGetter) {
   // 만약 mayRef가 실제로 ref라면,
   // mayRef.value가 반환될 것이고,
   // 그렇지 않을 경우, mayRef는 있는 그대로 반환될 것입니다.
-  const value = unref(maybeRef)
+  const value = toValue(maybeRefOrGetter)
 }
 ```
 
-입력이 ref일 때 컴포저블이 반응 효과를 생성하는 경우, `watch()`를 사용하여 ref를 명시적으로 감시하거나, `watchEffect()` 내부에서 `unref()`를 호출하여 올바르게 추적되도록 하십시오.
+입력이 ref 또는 getter일 때 composable이 반응형 효과를 생성하면, 반드시 `watch()`로 ref / getter를 명시적으로 감시하거나, 적절히 추적되도록 `watchEffect()` 내에서 `toValue()`를 호출해야 합니다.
+
+[앞서 논의한 useFetch() 구현](#accepting-reactive-state)은 입력 인수로 ref, getter, 그리고 일반 값을 받아들이는 composable의 구체적인 예를 제공합니다.
 
 ### 반환 값 {#return-values}
 
