@@ -144,6 +144,12 @@ Vue CLI의 GUI에서 폴더 탐색기 컴포넌트를 예로 들어 보겠습니
 컴포지션 API를 사용할 때 여전히 필요할 수 있는 옵션은 `props`, `emit`, `name` 및 `inheritAttrs`뿐입니다.
 `<script setup>`을 사용하는 경우 일반적으로 `inheritAttrs`가 별도의 일반 `<script>` 블록을 필요로 하는 유일한 옵션입니다.
 
+:::tip
+
+3.3부터 `<script setup>`에서 `defineOptions`를 직접 사용하여 컴포넌트 이름 또는 `inheritAttrs` 속성을 설정할 수 있습니다.
+
+:::
+
 위에 나열된 옵션과 함께 컴포지션 API를 독점적으로 사용하려는 경우,
 Vue에서 옵션 API 관련 코드를 삭제하는 [컴파일 타임 플래그](https://github.com/vuejs/core/tree/main/packages/vue#bundler-build-feature-flags)를 통해 프로덕션 번들에서 몇 kb를 줄일 수 있습니다.
 이것은 의존성의 Vue 컴포넌트에도 영향을 미칩니다.

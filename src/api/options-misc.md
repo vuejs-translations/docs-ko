@@ -126,6 +126,27 @@
   </template>
   ```
 
+  3.3 버전부터 `<script setup>` 내에서 직접 `defineOptions`를 사용할 수도 있습니다:
+
+  ```vue
+  <script setup>
+  defineProps(['label', 'value'])
+  defineEmits(['input'])
+  defineOptions({ inheritAttrs: false })
+  </script>
+
+  <template>
+    <label>
+      {{ label }}
+      <input
+        v-bind="$attrs"
+        v-bind:value="value"
+        v-on:input="$emit('input', $event.target.value)"
+      />
+    </label>
+  </template>
+  ```
+
   </div>
 
 - **참고**: [가이드 - 폴스루 속성](/guide/components/attrs)
