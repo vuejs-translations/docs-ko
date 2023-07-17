@@ -386,7 +386,7 @@ export default {
 
 <div class="composition-api">
 
-## `reactive()`
+## `reactive()` \** {#reactive}
 
 반응 상태를 선언하는 또 다른 방법은 `reactive()` API를 사용하는 것입니다. 내부 값을 특수 객체로 감싸는 ref와 달리 `reactive()`는 객체 자체를 반응형으로 만듭니다:
 
@@ -514,7 +514,7 @@ console.log(count.value) // 1
 ref의 언래핑은 깊은 반응형 객체 내부에 중첩된 경우에만 발생합니다.
 [얕은 반응형 객체](/api/reactivity-advanced.html#shallowreactive)의 속성으로 접근하는 경우에는 적용되지 않습니다.
 
-### 배열 및 컬렉션의 주의 사항 {#caveat-in-arrays-and-collections}
+### 배열 및 컬렉션의 주의 사항 /** {#caveat-in-arrays-and-collections}
 
 반응형 객체와 달리 ref가 반응형 배열의 요소 또는 `Map`과 같은 기본 컬렉션 유형으로 액세스될 때 랩핑 해제가 수행되지 않습니다:
 
