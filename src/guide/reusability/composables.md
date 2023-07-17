@@ -227,7 +227,7 @@ const { data, error } = useFetch(() => `/posts/${props.id}`)
 
 우리는 [`watchEffect()`](/api/reactivity-core.html#watcheffect)와 [`toValue()`](/api/reactivity-utilities.html#tovalue) API를 이용하여 기존의 구현을 리팩토링 할 수 있습니다:
 
-```js
+```js{8,13}
 // fetch.js
 import { ref, watchEffect, toValue } from 'vue'
 
@@ -272,9 +272,9 @@ composable은 리액티비티에 따라 그것들을 사용하지 않아도 ref 
 import { toValue } from 'vue'
 
 function useFeature(maybeRefOrGetter) {
-  // 만약 mayRef가 실제로 ref라면,
-  // mayRef.value가 반환될 것이고,
-  // 그렇지 않을 경우, mayRef는 있는 그대로 반환될 것입니다.
+  // MaybeRefOrGetter가 ref 또는 getter인 경우,
+  // 정규화된 값이 반환됩니다.
+  // 그렇지 않으면 있는 그대로 반환됩니다.
   const value = toValue(maybeRefOrGetter)
 }
 ```
