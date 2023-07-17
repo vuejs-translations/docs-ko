@@ -174,10 +174,6 @@ const count = ref(1)
 </template>
 ```
 
-참고:
-
-- [`<script setup>`의 TypeScript 전용 기능](/api/sfc-script-setup.html#typescript-only-features)
-
 ### 템플릿에서의 타입스크립트 {#typescript-in-templates}
 
 `<template>` 은 `<script lang="ts">` 또는 `<script setup lang="ts">` 가 사용되는 경우 바인딩 표현식에서 타입스크립트를 지원합니다. 이는 템플릿 표현식에서 타입 캐스팅을 수행해야 하는 경우에 유용합니다.
