@@ -59,7 +59,7 @@ Vue를 컴포지션 API와 함께 사용하는 방법을 배우고 싶다면 왼
 옵션 API의 기본 로직 재사용 메커니즘인 [믹스인의 모든 단점](/guide/reusability/composables.html#vs-mixins)을 해결합니다.
 
 컴포지션 API의 로직 재사용 기능은 컴포저블 유틸리티의 계속 성장하는 컬렉션인 [VueUse](https://vueuse.org/)와 같은 인상적인 커뮤니티 프로젝트를 탄생시켰습니다.
-또한 상태 저장 타사 서비스 또는 라이브러리를 [불변 데이터](/guide/extras/reactivity-in-depth.html#immutable-data), [상태 머신](/guide/extras/reactivity-in-depth.html#state-machines) 및 [RxJS](https://vueuse.org/rxjs/readme.html#vueuse-rxjs)와 같은 Vue의 반응형 시스템에 쉽게 통합하기 위한 깔끔한 메커니즘 역할을 합니다.
+또한 상태 저장 타사 서비스 또는 라이브러리를 [불변 데이터](/guide/extras/reactivity-in-depth.html#immutable-data), [상태 머신](/guide/extras/reactivity-in-depth.html#state-machines) 및 [RxJS](/guide/extras/reactivity-in-depth#rxjs)와 같은 Vue의 반응형 시스템에 쉽게 통합하기 위한 깔끔한 메커니즘 역할을 합니다.
 
 ### 보다 유연한 코드 구성 {#more-flexible-code-organization}
 
@@ -143,6 +143,12 @@ Vue CLI의 GUI에서 폴더 탐색기 컴포넌트를 예로 들어 보겠습니
 상태 저장 로직 측면에서 그렇습니다.
 컴포지션 API를 사용할 때 여전히 필요할 수 있는 옵션은 `props`, `emit`, `name` 및 `inheritAttrs`뿐입니다.
 `<script setup>`을 사용하는 경우 일반적으로 `inheritAttrs`가 별도의 일반 `<script>` 블록을 필요로 하는 유일한 옵션입니다.
+
+:::tip
+
+3.3부터 `<script setup>`에서 `defineOptions`를 직접 사용하여 컴포넌트 이름 또는 `inheritAttrs` 속성을 설정할 수 있습니다.
+
+:::
 
 위에 나열된 옵션과 함께 컴포지션 API를 독점적으로 사용하려는 경우,
 Vue에서 옵션 API 관련 코드를 삭제하는 [컴파일 타임 플래그](https://github.com/vuejs/core/tree/main/packages/vue#bundler-build-feature-flags)를 통해 프로덕션 번들에서 몇 kb를 줄일 수 있습니다.

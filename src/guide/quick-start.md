@@ -25,9 +25,7 @@ footer: false
 
 이 섹션에서는 로컬 컴퓨터에서 Vue [싱글 페이지 애플리케이션](/guide/extras/ways-of-using-vue.html#single-page-application-spa)을 스캐폴드하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vitejs.dev)를 기반으로 빌드 설정을 사용하고 Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc)(SFC)를 사용할 수 있도록 합니다.
 
-최신 버전의 [Node.js](https://nodejs.org/)가 설치되어 있는지 확인한 다음 명령줄에 다음 명령을 실행합니다(`>` 기호 제외):
-
-
+최신 버전의 [Node.js](https://nodejs.org/)가 설치되어 있고 현재 작업 디렉터리가 프로젝트를 만들려는 디렉터리인지 확인하세요. 명령줄에서 다음 명령을 실행합니다(`>` 기호 제외):
 
 <div class="language-sh"><pre><code><span class="line"><span style="color:var(--vt-c-green);">&gt;</span> <span style="color:#A6ACCD;">npm init vue@latest</span></span></code></pre></div>
 
@@ -39,7 +37,7 @@ footer: false
 <span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add Vue Router for Single Page Application development? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
 <span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add Pinia for state management? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
 <span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add Vitest for Unit testing? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
-<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add Cypress for both Unit and End-to-End testing? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
+<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add an End-to-End Testing Solution? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Cypress / Playwright</span></span>
 <span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add ESLint for code quality? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
 <span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add Prettier for code formatting? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
 <span></span>
@@ -109,7 +107,7 @@ CDN에서 Vue를 사용하는 경우 "빌드 단계"가 필요하지 않습니�
 </script>
 ```
 
-[JSFiddle demo](https://jsfiddle.net/yyx990803/nw1xg8Lj/)
+[Codepen demo](https://codepen.io/vuejs-examples/pen/QWJwJLp)
 
 ### ES 모듈 빌드 사용 {#using-the-es-module-build}
 
@@ -133,8 +131,7 @@ CDN에서 Vue를 사용하는 경우 "빌드 단계"가 필요하지 않습니�
 
 `<script type="module">`을 사용하고 있으며, 가져온 CDN URL이 대신 Vue의 **ES 모듈 빌드**를 가리키고 있음을 알 수 있습니다.
 
-
-[JSFiddle demo](https://jsfiddle.net/yyx990803/vo23c470/)
+[Codepen demo](https://codepen.io/vuejs-examples/pen/VwVYVZO)
 
 ### 임포트맵 활성화 {#enabling-import-maps}
 
@@ -145,7 +142,6 @@ import { createApp } from 'vue'
 ```
 
 [임포트 맵](https://caniuse.com/import-maps)를 사용하여 브라우저에 `vue`를 어디에서 가져와야 할지  알려줄 수 있습니다:
-
 
 ```html{1-7,12}
 <script type="importmap">
@@ -224,7 +220,6 @@ export default {
 ## Next Steps {#next-steps}
 
 [소개](/guide/introduction)를 건너뛰셨다면, 나머지 설명서를 읽기 전에 반드시 읽어보시길 권장합니다.
-
 
 <div class="vt-box-container next-steps">
   <a class="vt-box" href="/guide/essentials/application.html">

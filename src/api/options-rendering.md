@@ -98,3 +98,30 @@
   현재 컴포넌트가 더 높은 우선 순위를 갖습니다.
 
 - **참고**: [app.config.compilerOptions](/api/application.html#app-config-compileroptions)
+
+## slots<sup class="vt-badge ts"/> {#slots}
+
+An option to assist with type inference when using slots programmatically in render functions. Only supported in 3.3+.
+
+- **Details**
+
+  This option's runtime value is not used. The actual types should be declared via type casting using the `SlotsType` type helper:
+
+  ```ts
+  import { SlotsType } from 'vue'
+
+  defineComponent({
+    slots: Object as SlotsType<{
+      default: { foo: string; bar: number }
+      item: { data: number }
+    }>,
+    setup(props, { slots }) {
+      expectType<
+        undefined | ((scope: { foo: string; bar: number }) => any)
+      >(slots.default)
+      expectType<undefined | ((scope: { data: number }) => any)>(
+        slots.item
+      )
+    }
+  })
+  ```

@@ -10,9 +10,9 @@ outline: deep
 좌측 사이드바 상단에 있는 "API 스타일 설정" 스위치를 사용하여 API 스타일을 전환할 수 있습니다.
 :::
 
-## 반응형 상태 설정 {#declaring-reactive-state}
-
 <div class="options-api">
+
+## 반응형 상태 설정 {#declaring-reactive-state}
 
 옵션 API에서는 `data` 옵션을 사용하여 컴포넌트의 반응형 상태를 선언합니다.
 옵션 값은 객체를 반환하는 함수여야 합니다.
@@ -50,7 +50,7 @@ Vue는 컴포넌트 인스턴스를 통해 기본 제공되는 API를 노출할 
 또한 내부 속성에 대해서는 `_` 접두사를 사용합니다.
 따라서 `data` 함수에 의해 반환되는 객체 내 최상위 속성명은 이러한 문자 중 하나로 시작하지 않아야 합니다.
 
-### 반응형 재정의 vs 원본 \* {#reactive-proxy-vs-original}
+### 반응형 프록시 vs 원본 \* {#reactive-proxy-vs-original}
 
 Vue 3에서는 [JavaScript Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)를 활용하여 데이터를 반응형으로 만듭니다.
 Vue 2를 경험한 개발자는 다음과 같은 경우에 주의해야 합니다:
@@ -79,100 +79,157 @@ export default {
 
 <div class="composition-api">
 
-[`reactive()`](/api/reactivity-core.html#reactive) 함수를 사용하여 객체 또는 배열을 반응형으로 만들 수 있습니다:
+# 반응형 상태 선언 \** {#declaring-reactive-state-1}
+
+### `ref()` \** {#ref}
+
+Composition API에서 반응형 상태를 선언하는 권장 방법은 [`ref()`](/api/reactivity-core#ref) 함수를 사용하는 것입니다:
 
 ```js
-import { reactive } from 'vue'
+import { ref } from 'vue'
 
-const state = reactive({ count: 0 })
+const count = ref(0)
 ```
 
-반응형 객체는 [JavaScript Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)이며 일반 객체처럼 작동합니다.
-일반 객체와 차이점은 Vue가 속성에 접근 및 반응형 객체의 변경사항을 감지할 수 있다는 것입니다.
-자세한 내용이 궁금하시다면 [반응형 심화](/guide/extras/reactivity-in-depth)에서 Vue의 반응형 시스템이 어떻게 작동하는지 설명하지만, 메인 가이드를 마친 후 읽는 것을 권장합니다.
+`ref()`는 인수를 가져와서 `.value` 속성이 있는 ref 객체에 래핑하여 반환합니다:
 
-참고: [반응형에 타입 지정하기](/guide/typescript/composition-api.html#typing-reactive) <sup class="vt-badge ts" />
+```js
+const count = ref(0)
 
-컴포넌트의 템플릿에서 반응형 상태를 사용하려면, 컴포넌트의 `setup()` 함수에서 반응형 상태를 선언하고 반환해야 합니다:
+console.log(count) // { value: 0 }
+console.log(count.value) // 0
+
+count.value++
+console.log(count.value) // 1
+```
+
+> 참고: [Refs 타입 지정하기](/guide/typescript/composition-api#typing-ref) <sup class="vt-badge ts" />
+
+컴포넌트 템플릿의 ref에 액세스하려면, 컴포넌트의 `setup()` 함수에서 선언하고 반환합니다.
 
 ```js{5,9-11}
-import { reactive } from 'vue'
+import { ref } from 'vue'
 
 export default {
-  // `setup`은 컴포지션 API에서만 사용되는 특별한 훅입니다.
+  // `setup`은 Composition API 전용 특수 후크입니다.
   setup() {
-    const state = reactive({ count: 0 })
+    const count = ref(0)
 
-    // 상태를 템플릿에 노출
+    // ref를 템플릿에 노출
     return {
-      state
+      count
     }
   }
 }
 ```
 
 ```vue-html
-<div>{{ state.count }}</div>
+<div>{{ count }}</div>
 ```
-마찬가지로 반응형 상태를 변경하는 함수를 같은 범위에서 선언하고 상태와 함께 메서드로 노출할 수 있습니다:
 
-```js{7-9,14}
-import { reactive } from 'vue'
+템플릿에서 ref를 사용할 때 `.value`를 추가할 필요가 없었습니다. 편의상 ref는 템플릿 내에서 사용될 때 자동으로 언래핑됩니다(몇 가지 [주의 사항](#caveat-when-unwrapping-in-templates)).
+
+이벤트 핸들러에서 직접 참조를 변경할 수도 있습니다:
+
+```vue-html{1}
+<button @click="count++">
+  {{ count }}
+</button>
+```
+
+보다 복잡한 논리를 위해 동일한 범위에서 ref를 변경하고 상태와 함께 메서드로 노출하는 함수를 선언할 수 있습니다:
+
+```js{7-10,15}
+import { ref } from 'vue'
 
 export default {
   setup() {
-    const state = reactive({ count: 0 })
+    const count = ref(0)
 
     function increment() {
-      state.count++
+      // JavaScript 에서 .value 는 필요합니다.
+      count.value++
     }
 
-    // 함수를 반환하는 것을 잊지 마세요.
+    // 함수를 노출하는 것도 잊지 마세요.
     return {
-      state,
+      count,
       increment
     }
   }
 }
 ```
 
-노출된 메서드는 일반적으로 이벤트 리스너로 사용됩니다:
+그런 다음 노출된 메서드를 이벤트 처리기로 사용할 수 있습니다:
 
-```vue-html
+```vue-html{1}
 <button @click="increment">
-  {{ state.count }}
+  {{ count }}
 </button>
 ```
 
+다음은 빌드 도구를 사용하지 않은 [Codepen](https://codepen.io/vuejs-examples/pen/WNYbaqo)에 있는 예시입니다.
+
 ### `<script setup>` \*\* {#script-setup}
 
-`setup()` 훅을 통해 상태와 메서드를 수동으로 노출하는 것은 장황할 수 있습니다.
-다행히 빌드 방식을 사용하지 않을 때만 이러한 방법이 필요합니다.
-싱글 파일 컴포넌트(`*.vue`) 사용 시, `<script setup>`과 같이 표기만 하면 되므로 복잡성을 크게 단순화할 수 있습니다:
+`setup()`을 통해 상태와 메서드를 수동으로 노출하는 것은 장황할 수 있습니다. 다행히 [단일 파일 컴포넌트(SFC)](/guide/scaling-up/sfc)를 사용하면 피할 수 있습니다. `<script setup>`으로 사용법을 단순화할 수 있습니다:
 
-```vue
+```vue{1}
 <script setup>
-import { reactive } from 'vue'
+import { ref } from 'vue'
 
-const state = reactive({ count: 0 })
+const count = ref(0)
 
 function increment() {
-  state.count++
+  count.value++
 }
 </script>
 
 <template>
   <button @click="increment">
-    {{ state.count }}
+    {{ count }}
   </button>
 </template>
 ```
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNpNjkEKgzAURK8yZFNF0K5FS3uPbGyIEKo/If64Cbl7fxWky2HePCarVwjtnqzq1bCZ6AJjs5zCQ5Nbg4+MjGgnw263KJijX3ET/qZJk/G0Cc8TW4wXVmUYn4h73FHqHzcnksYTHJloV0tc1ciacG7bA28aTUXT0J035IAEtmtYBJEEDO/ELJanWZz5jFpdOq0OAMj5X4kiQtl151CYobuMqnwBBoFaVA==)
+[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNo9jUEKgzAQRa8yZKMiaNcllvYe2dgwQqiZhDhxE3L3jrW4/DPvv1/UK8Zhz6juSm82uciwIef4MOR8DImhQMIFKiwpeGgEbQwZsoE2BhsyMUwH0d66475ksuwCgSOb0CNx20ExBCc77POase8NVUN6PBdlSwKjj+vMKAlAvzOzWJ52dfYzGXXpjPoBAKX856uopDGeFfnq8XKp+gWq4FAi)
 
-컴포넌트의 `<script setup>`에서 import 또는 최상위 레벨로 선언된 변수나 함수는 해당 템플릿에서 바로 사용할 수 있습니다.
+`<script setup>`에서 선언된 최상위 수준 가져오기, 변수 및 함수는 동일한 컴포넌트의 템플릿에서 자동으로 사용할 수 있습니다. 템플릿을 동일한 범위에서 선언된 JavaScript 함수로 생각하십시오. 자연스럽게 함께 선언된 모든 항목에 액세스할 수 있습니다.
 
-> 이후 가이드 문서의 컴포지션 API 스타일의 예제는 개발자가 가장 많이 사용하는 SFC + `<script setup>` 문법을 사용할 것입니다.
+:::tip
+가이드의 나머지 부분에서는 Vue 개발자가 가장 일반적으로 사용하는 Composition API 코드 예제에 주로 SFC + `<script setup>` 구문을 사용합니다.
+
+SFC를 사용하지 않는 경우에도 [`setup()`](/api/composition-api-setup) 옵션과 함께 Composition API를 사용할 수 있습니다.
+:::
+
+### 왜 Refs 입니까? \*\* {#why-refs}
+
+일반 변수 대신 `.value`가 포함된 ref가 필요한 이유가 궁금할 수 있습니다. 이를 설명하기 위해 Vue의 반응성 시스템이 어떻게 작동하는지 간략하게 논의해야 합니다.
+
+템플릿에서 ref를 사용하고 나중에 ref의 값을 변경하면 Vue는 자동으로 변경 사항을 감지하고 이에 따라 DOM을 업데이트합니다. 이는 종속성 추적 기반 반응성 시스템으로 가능합니다. 컴포넌트가 처음으로 렌더링되면 Vue는 렌더링 중에 사용된 모든 참조를 **추적**합니다. 나중에 ref가 변경되면 이를 추적하는 컴포넌트에 대해 다시 렌더링을 **트리거**합니다.
+
+표준 JavaScript 에서는 일반 변수의 액세스 또는 변형을 감지할 방법이 없습니다. 그러나 속성의 get 및 set 작업을 가로챌 수 있습니다.
+
+`.value` 속성은 Vue가 참조가 액세스되거나 변경된 시기를 감지할 수 있는 기회를 제공합니다. 내부적으로 Vue는 getter에서 추적을 수행하고 setter에서 트리거를 수행합니다. 개념적으로 ref는 다음과 같은 개체로 생각할 수 있습니다:
+
+```js
+// 실제 구현이 아닌 유사 코드
+const myRef = {
+  _value: 0,
+  get value() {
+    track()
+    return this._value
+  },
+  set value(newValue) {
+    this._value = newValue
+    trigger()
+  }
+}
+```
+
+refs의 또 다른 좋은 특성은 일반 변수와 달리 최신 값과 반응성 연결에 대한 액세스를 유지하면서 refs를 함수에 전달할 수 있다는 것입니다. 이는 복잡한 논리를 재사용 가능한 코드로 리팩터링할 때 특히 유용합니다.
+
+반응성 시스템은 [깊은 반응성](/guide/extras/reactivity-in-depth) 섹션에서 자세히 설명합니다.
 
 </div>
 
@@ -228,6 +285,66 @@ export default {
 
 </div>
 
+### 깊은 반응형 {#deep-reactivity}
+
+<div class="options-api">
+
+Vue에서 상태는 기본적으로 매우 반응적입니다. 즉, 중첩된 객체나 배열을 변경하더라도 변경 사항이 감지될 것으로 예상할 수 있습니다:
+
+```js
+export default {
+  data() {
+    return {
+      obj: {
+        nested: { count: 0 },
+        arr: ['foo', 'bar']
+      }
+    }
+  },
+  methods: {
+    mutateDeeply() {
+      // 예상대로 작동합니다
+      this.obj.nested.count++
+      this.obj.arr.push('baz')
+    }
+  }
+}
+```
+
+</div>
+
+<div class="composition-api">
+
+Refs는 깊게 중첩된 개체, 배열 또는 `Map`과 같은 JavaScript 내장 데이터 구조를 포함하여 모든 값 유형을 보유할 수 있습니다.
+
+ref는 값을 깊이 반응하게 만듭니다. 즉, 중첩된 객체나 배열을 변경하더라도 변경 사항이 감지될 것으로 예상할 수 있습니다:
+
+```js
+import { ref } from 'vue'
+
+const obj = ref({
+  nested: { count: 0 },
+  arr: ['foo', 'bar']
+})
+
+function mutateDeeply() {
+  // 예상대로 작동합니다
+  obj.value.nested.count++
+  obj.value.arr.push('baz')
+}
+```
+
+기본이 아닌 값은 아래에서 설명하는 [`reactive()`](#reactive)를 통해 반응형 프록시로 전환됩니다.
+
+[shallow refs(얕은 참조)](/api/reactivity-advanced#shallowref)를 사용하여 깊은 반응성을 옵트아웃할 수도 있습니다. 얕은 참조의 경우 반응성을 위해 `.value` 액세스만 추적됩니다. 얕은 참조는 큰 개체의 관찰 비용을 피하거나 외부 라이브러리에서 내부 상태를 관리하는 경우 성능을 최적화하는 데 사용할 수 있습니다.
+
+추가 정보:
+
+- [큰 불변 구조체에 대한 반응성 오버헤드 줄이기](/guide/best-practices/performance#reduce-reactivity-overhead-for-large-immutable-structures)
+- [외부 상태 시스템과 통합](/guide/extras/reactivity-in-depth#integration-with-external-state-systems)
+
+</div>
+
 ### DOM 업데이트 타이밍 {#dom-update-timing}
 
 반응 상태를 변경하면 DOM이 자동으로 업데이트됩니다. 하지만 DOM 업데이트는 동기적으로 적용되지 않는다는 점에 유의해야 합니다. 대신 Vue는 업데이트 주기의 "다음 틱"까지 버퍼링하여 얼마나 많은 상태 변경을 수행하든 각 컴포넌트가 한 번만 업데이트되도록 합니다.
@@ -240,7 +357,7 @@ export default {
 import { nextTick } from 'vue'
 
 function increment() {
-  state.count++
+  count.value++
   nextTick(() => {
     // 업데이트된 DOM에 접근 가능
   })
@@ -267,56 +384,31 @@ export default {
 
 </div>
 
-### 깊은 반응형 {#deep-reactivity}
-
-Vue는 기본적으로 반응형 상태를 내부 깊숙이 추적하므로, 중첩된 객체나 배열을 변경할 때에도 변경 사항이 감지됩니다:
-
-<div class="options-api">
-
-```js
-export default {
-  data() {
-    return {
-      obj: {
-        nested: { count: 0 },
-        arr: ['foo', 'bar']
-      }
-    }
-  },
-  methods: {
-    mutateDeeply() {
-      // 변경 사항이 감지됩니다.
-      this.obj.nested.count++
-      this.obj.arr.push('baz')
-    }
-  }
-}
-```
-
-</div>
-
 <div class="composition-api">
+
+## `reactive()` \** {#reactive}
+
+반응 상태를 선언하는 또 다른 방법은 `reactive()` API를 사용하는 것입니다. 내부 값을 특수 객체로 감싸는 ref와 달리 `reactive()`는 객체 자체를 반응형으로 만듭니다:
 
 ```js
 import { reactive } from 'vue'
 
-const obj = reactive({
-  nested: { count: 0 },
-  arr: ['foo', 'bar']
-})
-
-function mutateDeeply() {
-  // 변경 사항이 감지됩니다.
-  obj.nested.count++
-  obj.arr.push('baz')
-}
+const state = reactive({ count: 0 })
 ```
 
-</div>
+> 참고: [Reactive 타입 지정하기](/guide/typescript/composition-api#typing-reactive) <sup class="vt-badge ts" />
 
-루트 수준에서만 반응성을 추적하는 [얕은 반응형 객체](/api/reactivity-advanced.html#shallowreactive)를 명시적으로 생성할 수도 있지만, 이는 일반적으로 고급 사용 사례에서만 필요한 경우입니다.
+템플릿에서의 사용법:
 
-<div class="composition-api">
+```vue-html
+<button @click="state.count++">
+  {{ state.count }}
+</button>
+```
+
+반응형 개체는 [JavaScript Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)이며 일반 개체처럼 작동합니다. 차이점은 Vue가 반응성 추적 및 트리거링을 위해 반응성 객체의 모든 속성에 대한 액세스 및 변형을 가로챌 수 있다는 것입니다.
+
+`reactive()`는 객체를 심층적으로 변환합니다. 중첩된 객체도 액세스할 때 `reactive()`로 래핑됩니다. ref 값이 객체일 때 내부적으로 `ref()`에 의해 호출되기도 합니다. 얕은 참조와 유사하게 깊은 반응성을 옵트아웃하기 위한 [`shallowReactive()`](/api/reactivity-advanced#shallowreactive) API도 있습니다.
 
 ### 반응형 재정의 vs. 원본 \*\* {#reactive-proxy-vs-original-1}
 
@@ -358,160 +450,43 @@ console.log(proxy.nested === raw) // false
 
 ### `reactive()`의 제한 사항 \*\* {#limitations-of-reactive}
 
-`reactive()` API는 두 개의 제한 사항이 있습니다:
+`reactive()` API에는 몇 가지 제한 사항이 있습니다:
 
-1. 객체, 배열 그리고 `Map`이나 `Set`과 같은 [컬렉션 유형](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects#keyed_collections)에만 작동합니다.
-   `string`, `number` 또는 `boolean`과 같은 [기본 유형](https://developer.mozilla.org/en-US/docs/Glossary/Primitive)에 사용할 수 없습니다.
+1. **제한된 값 유형:** 객체 유형(객체, 배열 및 [컬렉션 유형](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects#keyed_collections)에만 작동합니다. (예: `Map` 및 `Set`). 그러나 `string`, `number` 또는 `boolean`과 같은 [기본 유형](https://developer.mozilla.org/en-US/docs/Glossary/Primitive)을 보유할 수 없습니다.
 
-2. Vue의 반응형 변경 감지는 속성에 접근함으로써 작동하므로, 항상 반응형 객체에 대한 동일한 참조를 유지해야 합니다.
-   즉, 첫 번째 참조에 대한 반응형 연결이 손실되기 때문에 반응형 객체를 쉽게 "교체"할 수 없음을 의미합니다.
+2. **전체 객체를 대체할 수 없음:** Vue의 반응성 추적은 속성 액세스를 통해 작동하므로 반응 객체에 대한 동일한 참조를 항상 유지해야 합니다. 즉, 첫 번째 참조에 대한 반응성 연결이 끊어지기 때문에 반응성 개체를 쉽게 "대체(replace)"할 수 없습니다:
 
    ```js
    let state = reactive({ count: 0 })
 
-   // 위에서 참조한 ({ count: 0 })는 더 이상 추적되지 않습니다. (반응형 연결이 끊어졌습니다.)
+   // 위 참조({ count: 0 })는 더 이상 추적되지 않습니다.
+   // (반응성 연결이 끊어졌습니다!)
    state = reactive({ count: 1 })
    ```
 
-   또한 반응형 객체의 속성을 로컬 변수에 할당하거나 분해 할당 또는 함수에 전달할 때 반응형 연결이 끊어짐을 의미합니다:
+3. **분해 할당에 친화적이지 않음:** 반응 객체의 속성을 지역 변수로 분해하거나 해당 속성을 함수에 전달할 때 반응 연결이 끊어집니다:
 
    ```js
    const state = reactive({ count: 0 })
 
-   // n은 state.count에서 연결이 끊긴 로컬 변수입니다.
-   let n = state.count
-   // 원본의 상태(state.count)에 영향을 미치지 않습니다.
-   n++
-
-   // 로컬 변수 count는 state.count로부터 연결이 끊깁니다.
+   // count는 분해 할당 될 때 state.count에서 연결이 끊어집니다.
    let { count } = state
-   // 원본의 상태(state.count)에 영향을 미치지 않습니다.
+   // 원래 상태에 영향을 주지 않음
    count++
 
-   // 함수는 일반적인 숫자를 수신하며,
-   // state.count의 변경 사항을 감지할 수 없습니다.
+   // 함수는 일반 숫자를 수신하고
+   // state.count에 대한 변경 사항을 추적할 수 없습니다.
+   // 반응성을 유지하려면 전체 개체를 전달해야 합니다.
    callSomeFunction(state.count)
    ```
 
-## `ref()`를 사용한 반응형 변수 \*\* {#reactive-variables-with-ref}
+이러한 제한으로 인해 반응 상태를 선언하기 위한 기본 API로 `ref()`를 사용하는 것이 좋습니다.
 
-Vue는 `reactive()`의 제한 사항을 해결하기 위해, 어떠한 유형의 데이터라도 반응형으로 재정의할 수 있는 [`ref()`](/api/reactivity-core.html#ref) 함수를 제공합니다:
+## 추가적인 Ref 언래핑 세부 사항 \*\* {#additional-ref-unwrapping-details}
 
-```js
-import { ref } from 'vue'
+### Reactive 객체 프로퍼티 \*\* {#ref-unwrapping-as-reactive-object-property}
 
-const count = ref(0)
-```
-
-`ref()`는 받은 인자를 `.value` 속성을 포함하는 **ref** 객체에 래핑 후 반환합니다:
-
-```js
-const count = ref(0)
-
-console.log(count) // { value: 0 }
-console.log(count.value) // 0
-
-count.value++
-console.log(count.value) // 1
-```
-
-참고: [Refs에 타입 지정하기](/guide/typescript/composition-api.html#typing-ref) <sup class="vt-badge ts" />
-
-반응형 객체의 속성과 유사하게 ref의 `.value` 속성은 반응형입니다.
-또한 객체 유형을 가지고 있는 경우, ref는 자동으로 `.value`를 `reactive()`로 변환합니다.
-
-ref가 값으로 객체를 가지는 경우, 객체 전체를 반응형으로 대체할 수 있습니다:
-
-```js
-const objectRef = ref({ count: 0 })
-
-// 이것은 반응형으로 작동합니다
-objectRef.value = { count: 1 }
-```
-
-또한 반응형 상태로 함수에 전달되거나 분해 할당될 수 있습니다:
-
-```js
-const obj = {
-  foo: ref(1),
-  bar: ref(2)
-}
-
-// 함수가 ref를 전달받습니다.
-// .value를 통해 값에 접근해야 하지만
-// 반응형 연결 상태가 유지됩니다.
-callSomeFunction(obj.foo)
-
-// 분해 할당했지만, 반응형 상태가 유지됩니다.
-const { foo, bar } = obj
-```
-
-즉, `ref()`를 사용하면 모든 값에 대한 "참조"를 만들어 반응성을 잃지 않고 전달할 수 있습니다.
-이 기능은 [컴포저블 함수](/guide/reusability/composables)로 로직을 추출할 때 자주 사용되기 때문에 상당히 중요합니다.
-
-### 템플릿에서 ref 언래핑 \*\* {#ref-unwrapping-in-templates}
-
-최상위 속성의 ref를 템플릿에서 접근하면 자동으로 "언래핑"되므로 `.value`를 사용할 필요가 없습니다.
-아래는 `ref()`를 사용한 카운터 예제입니다:
-
-```vue{13}
-<script setup>
-import { ref } from 'vue'
-
-const count = ref(0)
-
-function increment() {
-  count.value++
-}
-</script>
-
-<template>
-  <button @click="increment">
-    {{ count }} <!-- .value가 필요하지 않습니다. -->
-  </button>
-</template>
-```
-
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdCBzZXR1cD5cbmltcG9ydCB7IHJlZiB9IGZyb20gJ3Z1ZSdcblxuY29uc3QgY291bnQgPSByZWYoMClcblxuZnVuY3Rpb24gaW5jcmVtZW50KCkge1xuICBjb3VudC52YWx1ZSsrXG59XG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuICA8YnV0dG9uIEBjbGljaz1cImluY3JlbWVudFwiPnt7IGNvdW50IH19PC9idXR0b24+XG48L3RlbXBsYXRlPiIsImltcG9ydC1tYXAuanNvbiI6IntcbiAgXCJpbXBvcnRzXCI6IHtcbiAgICBcInZ1ZVwiOiBcImh0dHBzOi8vc2ZjLnZ1ZWpzLm9yZy92dWUucnVudGltZS5lc20tYnJvd3Nlci5qc1wiXG4gIH1cbn0ifQ==)
-
-언래핑은 참조가 템플릿 렌더링 컨텍스트에서 최상위 프로퍼티인 경우에만 적용됩니다. 예를 들어 `foo`는 최상위 프로퍼티이지만 `object.foo`는 최상위 프로퍼티가 아닙니다.
-
-따라서 아래와 같은 객체가 주어졌을 때:
-
-```js
-const object = { foo: ref(1) }
-```
-
-아래 표현식은 **예상대로 작동하지 않습니다**:
-
-```vue-html
-{{ object.foo + 1 }}
-```
-
-`object.foo`는 ref 객체이기 때문에 렌더링된 결과는 `[object Object]1`가 됩니다.
-`foo`를 최상위 속성으로 만들어 해결할 수 있습니다:
-
-```js
-const { foo } = object
-```
-
-```vue-html
-{{ foo + 1 }}
-```
-
-이제 렌더링 결과는 `2`가 됩니다.
-
-한 가지 주목해야 할 점은 ref가 <code v-pre>{{ }}</code> 또는 `v-text=" "`와 같은 텍스트 보간의 최종 평가 값인 경우에도 언래핑되므로 다음은 `1`이 렌더링 됩니다:
-
-```vue-html
-{{ object.foo }}
-```
-
-이것은 텍스트 보간의 편의 기능일 뿐이며 <code v-pre>{{ object.foo.value }}</code>와 동일합니다.
-
-### 반응형 객체에서 ref 언래핑 \*\* {#ref-unwrapping-in-reactive-objects}
-
-`ref`가 반응형 객체의 속성으로 접근하거나 변경되면 자동으로 언래핑되어 일반 속성처럼 작동합니다:
+ref는 반응 객체의 속성으로 액세스되거나 변경될 때 자동으로 래핑 해제됩니다. 즉, 일반 속성처럼 동작합니다:
 
 ```js
 const count = ref(0)
@@ -539,9 +514,9 @@ console.log(count.value) // 1
 ref의 언래핑은 깊은 반응형 객체 내부에 중첩된 경우에만 발생합니다.
 [얕은 반응형 객체](/api/reactivity-advanced.html#shallowreactive)의 속성으로 접근하는 경우에는 적용되지 않습니다.
 
-#### 배열 및 컬렉션에서 ref 언래핑 {#ref-unwrapping-in-arrays-and-collections}
+### 배열 및 컬렉션의 주의 사항 /** {#caveat-in-arrays-and-collections}
 
-반응형 객체와 달리 ref를 반응형 배열의 요소로서 접근하거나 `Map`과 같은 기본 컬렉션 유형에서 접근할 때 언래핑이 실행되지 않습니다:
+반응형 객체와 달리 ref가 반응형 배열의 요소 또는 `Map`과 같은 기본 컬렉션 유형으로 액세스될 때 랩핑 해제가 수행되지 않습니다:
 
 ```js
 const books = reactive([ref('Vue 3 Guide')])
@@ -552,6 +527,49 @@ const map = reactive(new Map([['count', ref(0)]]))
 // .value가 필요합니다
 console.log(map.get('count').value)
 ```
+
+### 템플릿에서 래핑 해제 시 주의 사항 \*\* {#caveat-when-unwrapping-in-templates}
+
+템플릿에서 ref 언래핑은 ref가 템플릿 렌더링 컨텍스트의 최상위 속성인 경우에만 적용됩니다.
+
+아래 예에서 `count` 및 `object`는 최상위 속성이지만 `object.id`는 그렇지 않습니다.:
+
+```js
+const count = ref(0)
+const object = { id: ref(0) }
+```
+
+따라서 이 표현식은 예상대로 작동합니다:
+
+```vue-html
+{{ count + 1 }}
+```
+
+...하지만 아래는 아닙니다:
+
+```vue-html
+{{ object.id + 1 }}
+```
+
+표현식을 평가할 때 `object.id`가 언래핑되지 않고 ref 객체로 남아 있기 때문에 렌더링된 결과는 `[object Object]1`이 됩니다. 이 문제를 해결하기 위해 `id`를 최상위 속성으로 분해해야 합니다.
+
+```js
+const { id } = object
+```
+
+```vue-html
+{{ id + 1 }}
+```
+
+이제 렌더링 결과는 `2`가 됩니다.
+
+주목해야 할 또 다른 사항은 ref가 텍스트 보간(예: <code v-pre>{{ }}</code> 태그)의 최종 평가 값인 경우 래핑되지 않으므로 다음은 `1`을 렌더링한다는 것입니다:
+
+```vue-html
+{{ object.id }}
+```
+
+이는 텍스트 보간의 편의 기능일 뿐이며 <code v-pre>{{ object.id.value }}</code>와 동일합니다.
 
 </div>
 

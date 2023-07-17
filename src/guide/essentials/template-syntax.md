@@ -172,9 +172,9 @@ Vue 템플릿에서 JavaScript 표현식은 다음과 같은 위치에 사용할
 바인딩 표현식 내부에서 컴포넌트에서 노출하는 메서드를 호출할 수 있습니다:
 
 ```vue-html
-<span :title="toTitleDate(date)">
+<time :title="toTitleDate(date)" :datetime="date">
   {{ formatDate(date) }}
-</span>
+</time>
 ```
 
 :::tip
@@ -183,7 +183,7 @@ Vue 템플릿에서 JavaScript 표현식은 다음과 같은 위치에 사용할
 
 ### 제한된 전역 접근 {#restricted-globals-access}
 
-템플릿 표현식은 샌드박스 처리되어 [제한된 전역 리스트](https://github.com/vuejs/core/blob/main/packages/shared/src/globalsWhitelist.ts#L3)에만 접근할 수 있습니다.
+템플릿 표현식은 샌드박스 처리되어 [제한된 전역 리스트](https://github.com/vuejs/core/blob/main/packages/shared/src/globalsAllowList.ts#L3)에만 접근할 수 있습니다.
 이 목록은 `Math` 및 `Date` 등 일반적으로 사용되는 기본 제공 전역 객체를 표시합니다.
 
 리스트에 명시적으로 포함되지 않은 `window`와 같은 전역 속성은 템플릿 표현식에서 접근할 수 없습니다.

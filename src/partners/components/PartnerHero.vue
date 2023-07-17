@@ -1,16 +1,16 @@
 <script setup lang="ts">
-const { title = 'Vue Partners' } = defineProps<{ title?: string }>()
+defineProps<{ title?: string }>()
 </script>
 
 <template>
   <div class="PartnerHero">
-    <h1 class="title">{{ title }}</h1>
+    <h1 class="title">{{ title || 'Vue Partners' }}</h1>
     <p class="lead">
-      Vue 파트너는 Vue 팀이 승인한 에이전시로서 최고 수준의
-      Vue 컨설팅 및 개발 서비스를 제공합니다. 귀사가
-      파트너로 등록하는 데 관심이 있으시면
+      Vue Partners are Vue-team endorsed agencies that provide first-class
+      Vue consulting and development services. If your company is
+      interested in being listed as a partner, please
       <a href="https://airtable.com/shrCQhat57SApJI2l" target="_blank"
-        >여기에서 등록하세요</a
+        >register your interest here</a
       >.
     </p>
   </div>

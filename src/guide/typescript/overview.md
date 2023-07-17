@@ -207,6 +207,17 @@ let x: string | number = 1
 Vue CLI 또는 웹팩 기반 설정을 사용하는 경우 타입스크립트 템플릿 표현식은  `vue-loader@^16.8.0` 이 필요합니다. 
 :::
 
+### TSX와 함께 사용하기 {#usage-with-tsx}
+
+Vue는 JSX/TSX로 컴포넌트 제작을 지원합니다. 자세한 내용은 [Render Function & JSX](/guide/extras/render-function.html#jsx-tsx) 가이드에서 다룹니다.
+
+## Generic Components {#generic-components}
+
+Generic components are supported in two cases:
+
+- In SFCs: [`<script setup>` with the `generic` attribute](/api/sfc-script-setup.html#generics)
+- Render function / JSX components: [`defineComponent()`'s function signature](/api/general.html#function-signature)
+
 ## API-Specific Recipes {#api-specific-recipes}
 
 - [TS와 Composition API](./composition-api)

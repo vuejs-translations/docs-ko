@@ -95,67 +95,6 @@
   }
   ```
 
-## app.provide() {#app-provide}
-
-앱 내의 모든 하위 컴포넌트에 주입할 수 있는 값을 제공합니다.
-
-- **타입**:
-
-  ```ts
-  interface App {
-    provide<T>(key: InjectionKey<T> | symbol | string, value: T): this
-  }
-  ```
-
-- **세부 사항**:
-
-  첫 번째 인자는 주입 키이고, 두 번째 인자는 제공될 값입니다.
-  반환 값은 앱 인스턴스입니다.
-
-- **예제**:
-
-  ```js
-  import { createApp } from 'vue'
-
-  const app = createApp(/* ... */)
-
-  app.provide('message', '안녕!')
-  ```
-
-  앱 내 컴포넌트에서:
-
-  <CustomPreferenceSwitch />
-
-  <div class="composition-api">
-
-  ```js
-  import { inject } from 'vue'
-
-  export default {
-    setup() {
-      console.log(inject('message')) // '안녕!'
-    }
-  }
-  ```
-
-  </div>
-  <div class="options-api">
-
-  ```js
-  export default {
-    inject: ['message'],
-    created() {
-      console.log(this.message) // '안녕!'
-    }
-  }
-  ```
-
-  </div>
-
-- **참고**:
-  - [Provide / Inject](/guide/components/provide-inject)
-  - [앱 수준의 Provide](/guide/components/provide-inject#app-level-provide)
-
 ## app.component() {#app-component}
 
 이름(문자열)과 컴포넌트정의를 모두 전달하는 경우, 전역 컴포넌트를 등록합니다.
@@ -282,6 +221,98 @@
   interface App {
     mixin(mixin: ComponentOptions): this
   }
+  ```
+
+## app.provide() {#app-provide}
+
+앱 내의 모든 하위 컴포넌트에 주입할 수 있는 값을 제공합니다.
+
+- **타입**:
+
+  ```ts
+  interface App {
+    provide<T>(key: InjectionKey<T> | symbol | string, value: T): this
+  }
+  ```
+
+- **세부 사항**:
+
+  첫 번째 인자는 주입 키이고, 두 번째 인자는 제공될 값입니다.
+  반환 값은 앱 인스턴스입니다.
+
+- **예제**:
+
+  ```js
+  import { createApp } from 'vue'
+
+  const app = createApp(/* ... */)
+
+  app.provide('message', '안녕!')
+  ```
+
+  앱 내 컴포넌트에서:
+
+  <CustomPreferenceSwitch />
+
+  <div class="composition-api">
+
+  ```js
+  import { inject } from 'vue'
+
+  export default {
+    setup() {
+      console.log(inject('message')) // '안녕!'
+    }
+  }
+  ```
+
+  </div>
+  <div class="options-api">
+
+  ```js
+  export default {
+    inject: ['message'],
+    created() {
+      console.log(this.message) // '안녕!'
+    }
+  }
+  ```
+
+  </div>
+
+- **참고**:
+  - [Provide / Inject](/guide/components/provide-inject)
+  - [앱 수준의 Provide](/guide/components/provide-inject#app-level-provide)
+  - [app.runWithContext()](#app-runwithcontext)
+
+## app.runWithContext()<sup class="vt-badge" data-text="3.3+" /> {#app-runwithcontext}
+
+Execute a callback with the current app as injection context.
+
+- **Type**
+
+  ```ts
+  interface App {
+    runWithContext<T>(fn: () => T): T
+  }
+  ```
+
+- **Details**
+
+  Expects a callback function and runs the callback immediately. During the synchronous call of the callback,  `inject()` calls are able to look up injections from the values provided by the current app, even when there is no current active component instance. The return value of the callback will also be returned.
+
+- **Example**
+
+  ```js
+  import { inject } from 'vue'
+
+  app.provide('id', 1)
+
+  const injected = app.runWithContext(() => {
+    return inject('id')
+  })
+
+  console.log(injected) // 1
   ```
 
 ## app.version {#app-version}

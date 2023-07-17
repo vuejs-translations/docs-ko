@@ -204,9 +204,68 @@ const emit = defineEmits(['change', 'delete'])
   그렇게 하면 컴파일 에러가 발생합니다.
   그러나 `import`한 바인딩은 모듈 범위에 있으므로 **참조 할 수 있습니다**.
 
-TypeScript를 사용하는 경우, [순수 타입 주석을 사용하여 props를 선언하고 내보내는(emit)](#typescript-only-features) 것도 가능합니다.
+### 타입 전용 props/emit 선언 {#type-only-props-emit-declarations}
 
-## `defineExpose()`
+Props 및 emits는 리터럴 타입 인자를 `defineProps` 또는 `defineEmits`에 전달하여 순수 타입 문법을 사용하여 선언할 수도 있습니다:
+
+```ts
+const props = defineProps<{
+  foo: string
+  bar?: number
+}>()
+
+const emit = defineEmits<{
+  (e: 'change', id: number): void
+  (e: 'update', value: string): void
+}>()
+
+// 3.3+: alternative, more succinct syntax
+const emit = defineEmits<{
+  change: [id: number] // named tuple syntax
+  update: [value: string]
+}>()
+```
+
+- `defineProps` 또는 `defineEmits`는 런타임 선언 또는 타입 선언만 사용할 수 있습니다.
+  두 가지를 동시에 사용하면 컴파일 에러가 발생합니다.
+
+- 타입 선언을 사용할 때 정적 분석에서 동등한 런타임 선언이 자동으로 생성되어,
+  이중 선언의 필요성을 제거하고 여전히 올바른 런타임 동작을 보장합니다.
+
+  - 개발 모드에서 컴파일러는 타입에서 해당 런타임 유효성 검사를 유추하려고 시도합니다.
+    예를 들어 `foo: String`은 `foo: string` 타입에서 유추됩니다.
+    타입이 가져온 타입의 참조인 경우,
+    컴파일러에 외부 파일 정보가 없기 때문에 추론된 결과는 `foo: null`(`any` 타입과 동일)이 됩니다.
+
+  - prod 모드에서 컴파일러는 번들 크기를 줄이기 위해 배열 형식 선언을 생성합니다(여기서 props는 `['foo', 'bar']`로 컴파일됩니다).
+
+  - 내보낼(emit)) 코드는 여전히 유효한 타이핑이 있는 TypeScript이며,
+    다른 도구에서 추가로 처리할 수 있습니다.
+
+- 버전 3.2 이하에서 타입 파라미터는 타입 리터럴 또는 로컬 타입에 대한 참조로 제한됩니다. 이 제한은 3.3에서 제거되었습니다. 3.3부터 Vue는 외부에서 가져온 것을 포함하여 가장 일반적인 타입에서 런타임 props를 유추할 수 있습니다.
+
+### 타입 선언을 사용할 때 기본 props 값 {#default-props-values-when-using-type-declaration}
+
+타입 전용 `defineProps` 선언의 한 가지 단점은 props에 대한 기본값을 제공할 방법이 없다는 것입니다.
+이 문제를 해결하기 위해 `withDefaults` 컴파일러 매크로를 제공합니다:
+
+```ts
+export interface Props {
+  msg?: string
+  labels?: string[]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  msg: '안녕!',
+  labels: () => ['하나', '둘']
+})
+```
+
+이것은 동등한 런타임 props `default` 옵션으로 컴파일됩니다.
+또한 `withDefaults` 헬퍼는 기본값에 대한 타입 검사를 제공하고,
+반환된 `props` 타입에 기본값이 선언된 속성의 선택적 플래그가 제거되었는지 확인합니다.
+
+## defineExpose() {#defineexpose}
 
 `<script setup>`을 사용하는 컴포넌트는 **기본적으로 닫혀 있습니다**.
 즉, 템플릿 참조 또는 `$parent` 체인을 통해 검색되는 컴포넌트의 공개 인스턴스는 `<script setup>` 내부에서 선언된 바인딩을 **노출하지 않습니다**.
@@ -230,7 +289,43 @@ defineExpose({
 부모가 템플릿 참조를 통해 이 컴포넌트의 인스턴스를 가져오면,
 검색된 인스턴스는 `{ a: number, b: number }` 모양이 됩니다(참조는 일반 인스턴스와 마찬가지로 자동으로 언래핑됨).
 
-## `useSlots()` & `useAttrs()`
+## defineOptions() {#defineoptions}
+
+This macro can be used to declare component options directly inside `<script setup>` without having to use a separate `<script>` block:
+
+```vue
+<script setup>
+defineOptions({
+  inheritAttrs: false,
+  customOptions: {
+    /* ... */
+  }
+})
+</script>
+```
+
+- Only supported in 3.3+.
+- This is a macro. The options will be hoisted to module scope and cannot access local variables in `<script setup>` that are not literal constants.
+
+## defineSlots()<sup class="vt-badge ts"/> {#defineslots}
+
+This macro can be used to provide type hints to IDEs for slot name and props type checking.
+
+`defineSlots()` only accepts a type parameter and no runtime arguments. The type parameter should be a type literal where the property key is the slot name, and the value type is the slot function. The first argument of the function is the props the slot expects to receive, and its type will be used for slot props in the template. The return type is currently ignored and can be `any`, but we may leverage it for slot content checking in the future.
+
+It also returns the `slots` object, which is equivalent to the `slots` object exposed on the setup context or returned by `useSlots()`.
+
+```vue
+<script setup lang="ts">
+const slots = defineSlots<{
+  default(props: { msg: string }): any
+}>()
+</script>
+```
+
+- Only supported in 3.3+.
+
+## `useSlots()` & `useAttrs()` {#useslots-useattrs}
 
 `<script setup>` 내부에서 `slots` 및 `attrs` 사용은 템플릿에서 `$slots` 및 `$attrs`로 직접 접근할 수 있으므로 비교적 드물게 사용해야 합니다.
 드물게 필요한 경우 `useSlots` 및 `useAttrs` 헬퍼를 각각 사용합니다:
@@ -300,68 +395,34 @@ const post = await fetch(`/api/post/1`).then((r) => r.json())
 하지만 지금 궁금한 점은 [테스트](https://github.com/vuejs/core/blob/main/packages/runtime-core/__tests__/components/Suspense.spec.ts)를 참고하여 작동 방식을 확인할 수 있습니다.
 :::
 
-## TypeScript 전용 기능 <sup class="vt-badge ts" /> {#typescript-only-features}
+## Generics <sup class="vt-badge ts" />  {#generics}
 
-### 타입 전용 props/emit 선언 {#type-only-props-emit-declarations}
+Generic type parameters can be declared using the `generic` attribute on the `<script>` tag:
 
-Props 및 emits는 리터럴 타입 인자를 `defineProps` 또는 `defineEmits`에 전달하여 순수 타입 문법을 사용하여 선언할 수도 있습니다:
-
-```ts
-const props = defineProps<{
-  foo: string
-  bar?: number
+```vue
+<script setup lang="ts" generic="T">
+defineProps<{
+  id: T
+  list: T[]
 }>()
-
-const emit = defineEmits<{
-  (e: 'change', id: number): void
-  (e: 'update', value: string): void
-}>()
+</script>
 ```
 
-- `defineProps` 또는 `defineEmits`는 런타임 선언 또는 타입 선언만 사용할 수 있습니다.
-  두 가지를 동시에 사용하면 컴파일 에러가 발생합니다.
+The value of `generic` works exactly the same as the parameter list between `<...>` in TypeScript. For example, you can use multiple parameters, `extends` constraints, default types, or reference imported types:
 
-- 타입 선언을 사용할 때 정적 분석에서 동등한 런타임 선언이 자동으로 생성되어,
-  이중 선언의 필요성을 제거하고 여전히 올바른 런타임 동작을 보장합니다.
-
-  - 개발 모드에서 컴파일러는 타입에서 해당 런타임 유효성 검사를 유추하려고 시도합니다.
-    예를 들어 `foo: String`은 `foo: string` 타입에서 유추됩니다.
-    타입이 가져온 타입의 참조인 경우,
-    컴파일러에 외부 파일 정보가 없기 때문에 추론된 결과는 `foo: null`(`any` 타입과 동일)이 됩니다.
-
-  - prod 모드에서 컴파일러는 번들 크기를 줄이기 위해 배열 형식 선언을 생성합니다(여기서 props는 `['foo', 'bar']`로 컴파일됩니다).
-
-  - 내보낼(emit)) 코드는 여전히 유효한 타이핑이 있는 TypeScript이며,
-    다른 도구에서 추가로 처리할 수 있습니다.
-
-- 현재로서는 올바른 정적 분석을 위해 타입 선언 인자가 다음 중 하나여야 합니다.
-
-  - A 타입 리터럴
-  - 동일한 파일에 있는 인터페이스 또는 타입 리터럴에 대한 참조
-
-  현재 복합 타입 및 다른 파일에서 타입 `import`는 지원되지 않습니다.
-  향후 타입 `import`를 지원할 예정입니다.
-
-### 타입 선언을 사용할 때 기본 props 값 {#default-props-values-when-using-type-declaration}
-
-타입 전용 `defineProps` 선언의 한 가지 단점은 props에 대한 기본값을 제공할 방법이 없다는 것입니다.
-이 문제를 해결하기 위해 `withDefaults` 컴파일러 매크로를 제공합니다:
-
-```ts
-export interface Props {
-  msg?: string
-  labels?: string[]
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  msg: '안녕!',
-  labels: () => ['하나', '둘']
-})
+```vue
+<script
+  setup
+  lang="ts"
+  generic="T extends string | number, U extends Item"
+>
+import type { Item } from './types'
+defineProps<{
+  id: T
+  list: U[]
+}>()
+</script>
 ```
-
-이것은 동등한 런타임 props `default` 옵션으로 컴파일됩니다.
-또한 `withDefaults` 헬퍼는 기본값에 대한 타입 검사를 제공하고,
-반환된 `props` 타입에 기본값이 선언된 속성의 선택적 플래그가 제거되었는지 확인합니다.
 
 ## 제한사항 {#restrictions}
 

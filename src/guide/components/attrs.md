@@ -101,6 +101,17 @@ export default {
 </script>
 ```
 
+3.3 버전부터 `<script setup>` 내에서 직접 `defineOptions`를 사용할 수도 있습니다:
+
+```vue
+<script setup>
+defineOptions({
+  inheritAttrs: false
+})
+// ...setup 로직
+</script>
+```
+
 </div>
 
 속성 상속을 비활성화하는 일반적인 시나리오는 루트 노드 이외의 다른 엘리먼트에 속성을 적용해야 하는 경우입니다.

@@ -159,7 +159,7 @@ export default {
   },
 
   // methods는 속성 값을 변경하고 업데이트 할 수 있는 함수.
-  // 템플릿 내에서 이벤트 리스너로 바인딩 될 수 있음.
+  // 템플릿 내에서 이벤트 헨들러로 바인딩 될 수 있음.
   methods: {
     increment() {
       this.count++
