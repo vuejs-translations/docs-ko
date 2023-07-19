@@ -218,8 +218,8 @@ export default {
 <div class="composition-api">
 
 ```js
-// "message"와 일치하는 데이터가 제공되지 않은 경우
-// `value`의 기본 값은 "이것은 기본 값 문자열 입니다."가 됩니다.
+// `value` 값은 "default value"가 됩니다.
+// "message"에 해당하는 데이터가 제공되지 않은 경우
 const value = inject('message', '이것은 기본 값 문자열 입니다.')
 ```
 
@@ -227,8 +227,10 @@ const value = inject('message', '이것은 기본 값 문자열 입니다.')
 값이 제공되지 않는 경우, 불필요한 계산이나 사이드 이펙트를 피하기 위해 기본값을 생성하는 팩토리 함수를 사용할 수 있습니다:
 
 ```js
-const value = inject('key', () => new ExpensiveClass())
+const value = inject('key', () => new ExpensiveClass(), true)
 ```
+
+세 번째 매개변수는 기본값이 팩토리 함수로 처리되어야 함을 나타냅니다.
 
 </div>
 
