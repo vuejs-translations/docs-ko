@@ -32,7 +32,7 @@
   function unref<T>(ref: T | Ref<T>): T
   ```
 
-- **예제**:
+- **예제**
 
   ```ts
   function useFoo(x: number | Ref<number>) {
@@ -71,7 +71,7 @@ Can be used to normalize values / refs / getters into refs (3.3+).
   type ToRef<T> = T extends Ref ? T : Ref<T>
   ```
 
-- **예제**:
+- **예제**
 
   Normalization signature (3.3+):
 
@@ -195,7 +195,7 @@ This can be used in [Composables](/guide/reusability/composables.html) to normal
   type ToRef = T extends Ref ? T : Ref<T>
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   const state = reactive({

@@ -64,7 +64,7 @@ Creates a custom renderer. By providing platform-specific node creation and mani
   }
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   import { createRenderer } from '@vue/runtime-core'

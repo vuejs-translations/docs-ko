@@ -406,6 +406,7 @@ export default {
 
 </div>
 
+### 인자와 수정자가 있는 `v-model`에 대한 수정자들 {#modifiers-for-v-model-with-arguments}
 
 인자와 수정자가 모두 있는 `v-model` 바인딩의 경우, 생성된 prop 이름은 `arg + "수정자"`가 됩니다. 예를 들어
 
@@ -435,5 +436,57 @@ export default {
     console.log(this.titleModifiers) // { capitalize: true }
   }
 }
+```
+</div>
+
+다음은 다른 인자를 가진 여러 `v-model`에 수정자를 사용한 예시입니다:
+
+```vue-html
+<UserName
+  v-model:first-name.capitalize="first"
+  v-model:last-name.uppercase="last"
+/>
+```
+
+<div class="composition-api">
+
+```vue{5,6,10,11}
+<script setup >
+const props = defineProps({
+  firstName: String,
+  lastName: String,
+  firstNameModifiers: { default: () => ({}) },
+  lastNameModifiers: { default: () => ({}) }
+})
+defineEmits(['update:firstName', 'update:lastName'])
+
+console.log(props.firstNameModifiers) // { capitalize: true }
+console.log(props.lastNameModifiers) // { uppercase: true}
+</script>
+```
+
+</div>
+<div class="options-api">
+
+```vue{15,16}
+<script>
+export default {
+  props: {
+    firstName: String,
+    lastName: String,
+    firstNameModifiers: {
+      default: () => ({})
+    },
+    lastNameModifiers: {
+      default: () => ({})
+    }
+  },
+  emits: ['update:firstName', 'update:lastName'],
+  created() {
+    console.log(this.firstNameModifiers) // { capitalize: true }
+    console.log(this.lastNameModifiers) // { uppercase: true}
+  }
+}
+</script>
 ```
 </div>

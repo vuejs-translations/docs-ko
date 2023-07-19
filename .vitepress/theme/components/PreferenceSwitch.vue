@@ -1,24 +1,25 @@
 <script setup lang="ts">
 import { VTSwitch, VTIconChevronDown } from '@vue/theme'
 import { useRoute } from 'vitepress'
-import { inject, Ref } from 'vue'
+import { ref, computed, inject, Ref } from 'vue'
 import {
   preferCompositionKey,
   preferComposition,
   preferSFCKey,
   preferSFC
 } from './preferences'
+import PreferenceTooltip from './PreferenceTooltip.vue'
 
 const route = useRoute()
-const show = $computed(() =>
+const show = computed(() =>
   /^\/(guide|tutorial|examples|style-guide)\//.test(route.path)
 )
-const showSFC = $computed(() => !/^\/guide|style-guide/.test(route.path))
+const showSFC = computed(() => !/^\/guide|style-guide/.test(route.path))
 
-let isOpen = $ref(true)
+let isOpen = ref(true)
 
 const toggleOpen = () => {
-  isOpen = !isOpen
+  isOpen.value = !isOpen.value
 }
 
 const removeOutline = (e: Event) => {
@@ -74,7 +75,7 @@ function useToggleFn(
     <div id="preference-switches" :hidden="!isOpen" :aria-hidden="!isOpen">
       <div class="switch-container">
         <label class="options-label" @click="toggleCompositionAPI(false)"
-          >Options</label
+        >Options</label
         >
         <VTSwitch
           class="api-switch"
@@ -85,15 +86,16 @@ function useToggleFn(
         <label
           class="composition-label"
           @click="toggleCompositionAPI(true)"
-          >Composition</label
+        >Composition</label
         >
         <a
           class="switch-link"
           title="About API preference"
           href="/guide/introduction.html#api-styles"
           @click="closeSideBar"
-          >?</a
+        >?</a
         >
+        <PreferenceTooltip />
       </div>
       <div class="switch-container" v-if="showSFC">
         <label class="no-sfc-label" @click="toggleSFC(false)">HTML</label>
@@ -109,7 +111,7 @@ function useToggleFn(
           title="About SFC"
           href="/guide/scaling-up/sfc.html"
           @click="closeSideBar"
-          >?</a
+        >?</a
         >
       </div>
     </div>

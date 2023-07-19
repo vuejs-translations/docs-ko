@@ -248,7 +248,7 @@ DOM 엘리먼트 및 컴포넌트 인스턴스 객체입니다.
   - **`onTrack / onTrigger`**: 감시자의 의존성을 디버그합니다.
     참고: [감시자 디버깅](/guide/extras/reactivity-in-depth.html#watcher-debugging).
 
-- **예제**:
+- **예제**
 
   속성명으로 감시:
 
@@ -301,7 +301,7 @@ DOM 엘리먼트 및 컴포넌트 인스턴스 객체입니다.
   }
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   export default {

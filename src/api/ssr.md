@@ -16,7 +16,7 @@
   ): Promise<string>
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   import { createSSRApp } from 'vue'
@@ -69,7 +69,7 @@ Renders input as a [Node.js Readable stream](https://nodejs.org/api/stream#strea
   ): Readable
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   // inside a Node.js http handler
@@ -102,7 +102,7 @@ Render and pipe to an existing [Node.js Writable stream](https://nodejs.org/api/
   ): void
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   // inside a Node.js http handler
@@ -126,7 +126,7 @@ Renders input as a [Web ReadableStream](https://developer.mozilla.org/en-US/docs
   ): ReadableStream
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   // ReadableStream을 지원하는 환경 내에서
@@ -158,7 +158,7 @@ Render and pipe to an existing [Web WritableStream](https://developer.mozilla.or
   ): void
   ```
 
-- **예제**:
+- **예제**
 
   이것은 일반적으로 [`TransformStream`](https://developer.mozilla.org/en-US/docs/Web/API/TransformStream)과 함께 사용됩니다:
   
@@ -199,7 +199,7 @@ Renders input in streaming mode using a simple readable interface.
   }
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   let res = ''
@@ -236,7 +236,7 @@ A runtime API used to retrieve the context object passed to `renderToString()` o
   function useSSRContext<T = Record<string, any>>(): T | undefined
   ```
 
-- **예제**:
+- **예제**
 
   검색된 컨텍스트는 최종 HTML 렌더링에 필요한 정보(예: 헤드 메타데이터)를 첨부하는 데 사용할 수 있습니다.
 

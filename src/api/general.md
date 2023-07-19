@@ -6,7 +6,7 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
 - **타입**: `string`
 
-- **예제**:
+- **예제**
 
   ```js
   import { version } from 'vue'
@@ -31,7 +31,7 @@ Vue의 현재 버전(문자열)을 반환합니다.
   `nextTick()`은 상태 변경 직후에 DOM 업데이트가 완료될 때까지 대기하는 데 사용할 수 있습니다.
   콜백을 인자로 전달하거나, 프로미스(Promise) 반환을 기다릴 수 있습니다.
 
-- **예제**:
+- **예제**
 
   
   <div class="composition-api">
@@ -261,7 +261,7 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
   반환 값은 [`customElements.define()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define)을 사용하여 등록할 수 있는 커스텀 엘리먼트 생성자입니다.
 
-- **예제**:
+- **예제**
 
   ```js
   import { defineCustomElement } from 'vue'

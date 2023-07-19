@@ -14,7 +14,7 @@
 
   첫 번째 인자는 루트 컴포넌트입니다.  선택적인 두 번째 인자는 루트 컴포넌트에 전달할 props입니다.
 
-- **예제**:
+- **예제**
 
   루트 컴포넌트를 직접 서술하는 방식(inline)으로 사용하는 경우:
 
@@ -35,7 +35,7 @@
   const app = createApp(App)
   ```
 
-- **참고**: [가이드 - 앱 생성](/guide/essentials/application)
+- **참고** [가이드 - 앱 생성](/guide/essentials/application)
 
 ## createSSRApp() {#createssrapp}
 
@@ -67,7 +67,7 @@
 
   각 앱 인스턴스는 `mount()`를 한 번만 호출할 수 있습니다.
 
-- **예제**:
+- **예제**
 
   ```js
   import { createApp } from 'vue'
@@ -109,7 +109,7 @@
   }
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   import { createApp } from 'vue'
@@ -125,7 +125,7 @@
   const MyComponent = app.component('my-component')
   ```
 
-- **참고**: [컴포넌트 등록](/guide/components/registration)
+- **참고** [컴포넌트 등록](/guide/components/registration)
 
 ## app.directive() {#app-directive}
 
@@ -141,7 +141,7 @@
   }
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   import { createApp } from 'vue'
@@ -164,7 +164,7 @@
   const myDirective = app.directive('my-directive')
   ```
 
-- **참고**: [커스텀 디렉티브](/guide/reusability/custom-directives)
+- **참고** [커스텀 디렉티브](/guide/reusability/custom-directives)
 
 ## app.use() {#app-use}
 
@@ -188,7 +188,7 @@
 
   동일한 플러그인을 여러 번 `app.use()`로 호출하는 경우, 플러그인은 한 번만 설치됩니다.
 
-- **예제**:
+- **예제**
 
   ```js
   import { createApp } from 'vue'
@@ -201,7 +201,7 @@
   app.use(MyPlugin)
   ```
 
-- **참고**: [플러그인](/guide/reusability/plugins)
+- **참고** [플러그인](/guide/reusability/plugins)
 
 ## app.mixin() {#app-mixin}
 
@@ -240,7 +240,7 @@
   첫 번째 인자는 주입 키이고, 두 번째 인자는 제공될 값입니다.
   반환 값은 앱 인스턴스입니다.
 
-- **예제**:
+- **예제**
 
   ```js
   import { createApp } from 'vue'
@@ -280,7 +280,7 @@
 
   </div>
 
-- **참고**:
+- **참고**
   - [Provide / Inject](/guide/components/provide-inject)
   - [앱 수준의 Provide](/guide/components/provide-inject#app-level-provide)
   - [app.runWithContext()](#app-runwithcontext)
@@ -328,7 +328,7 @@ Execute a callback with the current app as injection context.
   }
   ```
 
-- **예제**:
+- **예제**
 
   플러그인 내부에서 버전 확인 진행:
 
@@ -343,7 +343,7 @@ Execute a callback with the current app as injection context.
   }
   ```
 
-- **참고**: [전역 API - version](/api/general#version)
+- **참고** [전역 API - version](/api/general#version)
 
 ## app.config {#app-config}
 
@@ -390,7 +390,7 @@ console.log(app.config)
   - 커스텀 디렉티브 훅
   - 트랜지션 훅
 
-- **예제**:
+- **예제**
 
   ```js
   app.config.errorHandler = (err, instance, info) => {
@@ -426,7 +426,7 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
   경고는 개발 모드에서만 발생하므로, 이것은 프로덕션 모드에서 무시됩니다.
   :::
 
-- **예제**:
+- **예제**
 
   ```js
   app.config.warnHandler = (msg, instance, trace) => {
@@ -439,9 +439,9 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
 이것을 `true`로 설정하면 (크롬 기준) 브라우저 개발자 도구의 "성능(Performance) 탭 → 소요시간(Timings) 패널"에 컴포넌트 초기화, 컴파일, 렌더링, 패치 성능 추적 기록이 활성화 됩니다.
 브라우저가 [performance.mark](https://developer.mozilla.org/en-US/docs/Web/API/Performance/mark) API를 지원하고 개발 모드일 경우에만 작동(기록)합니다.
 
-- **타입**: `boolean`
+- **타입:** `boolean`
 
-- **참고**: [가이드 - 성능](/guide/best-practices/performance)
+- **참고** [가이드 - 성능](/guide/best-practices/performance)
 
 ### app.config.compilerOptions.isCustomElement {#app-config-compileroptions}
 
@@ -471,7 +471,7 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
 
   네이티브 HTML과 SVG 태그는 Vue 파서가 자동으로 인식하므로, 이 함수로 검사 작업을 할 필요가 없습니다.
 
-- **예제**:
+- **예제**
 
   ```js
   // 'ion-'으로 시작하는 모든 태그를 커스텀 엘리먼트로 처리
@@ -480,7 +480,7 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
   }
   ```
 
-- **참고**: [Vue와 웹 컴포넌트](/guide/extras/web-components)
+- **참고** [Vue와 웹 컴포넌트](/guide/extras/web-components)
 
 ### app.config.compilerOptions.whitespace {#app-config-compileroptions-whitespace}
 
@@ -501,7 +501,7 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
 
   이 옵션을 `'preserve'`로 설정하면, (2)와 (3)이 비활성화됩니다.
 
-- **예제**:
+- **예제**
 
   ```js
   app.config.compilerOptions.whitespace = 'preserve'
@@ -519,7 +519,7 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
 
   이것은 일반적으로 이중 중괄호 문법을 사용하는 서버 측 프레임워크와의 충돌을 피하기 위해 사용됩니다.
 
-- **예제**:
+- **예제**
 
   ```js
   // 구분 기호가 ES6 템플릿 문자열 스타일로 변경됨
@@ -540,7 +540,7 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
   강제로 프로덕션 환경에서 주석을 보존해야 하는 경우, 이 옵션을 `true`로 설정해야 합니다.
   일반적으로 이 옵션은 Vue와 HTML 주석에 의존하는 다른 라이브러리를 함께 사용해야 할 때 사용됩니다.
 
-- **예제**:
+- **예제**
 
   ```js
   app.config.compilerOptions.comments = true
@@ -605,7 +605,7 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
 
   병합 함수는 부모 및 자식 인스턴스에 정의된 해당 옵션의 값을 각각 첫 번째 그리고 두 번째 인자로 받습니다.
 
-- **예제**:
+- **예제**
 
   ```js
   const app = createApp({
@@ -632,4 +632,4 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
   // 앱 mounted 트리거 후 로그: '안녕 Vue'
   ```
 
-- **참고**: [컴포넌트 인스턴스 - `$options`](/api/component-instance#options)
+- **참고** [컴포넌트 인스턴스 - `$options`](/api/component-instance#options)

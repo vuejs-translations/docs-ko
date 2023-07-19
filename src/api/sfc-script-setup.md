@@ -348,7 +348,7 @@ const attrs = useAttrs()
 다음을 수행해야 하는 경우 일반 `<script>`가 필요할 수 있습니다:
 
 - `<script setup>`에서 표현할 수 없는 옵션을 선언하는 경우.
-  예를 들어 `inheritAttrs` 또는 플러그인을 통해 활성화된 커스텀 옵션이 있는 경우.
+  예를 들어 `inheritAttrs` 또는 플러그인을 통해 활성화된 커스텀 옵션이 있는 경우 (3.3 이상에서 [`defineOptions`](/api/sfc-script-setup#defineoptions)로 대체 가능).
 - 명명된 `export`를 선언하는 경우.
 - 사이드 이펙트를 실행하거나 한 번만 실행되어야 하는 객체를 만드는 경우.
 

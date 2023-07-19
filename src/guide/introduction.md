@@ -30,6 +30,8 @@ Vue( **view** 와 마찬가지로 /vjuː/ 라고 발음합니다 )는 사용자 
 
 아주 단순한 예제를 한번 볼까요:
 
+<div class="options-api">
+
 ```js
 import { createApp } from 'vue'
 
@@ -41,6 +43,23 @@ createApp({
   }
 }).mount('#app')
 ```
+
+</div>
+<div class="composition-api">
+
+```js
+import { createApp, ref } from 'vue'
+
+createApp({
+  setup() {
+    return {
+      count: ref(0)
+    }
+  }
+}).mount('#app')
+```
+
+</div>
 
 ```vue-html
 <div id="app">
@@ -113,6 +132,8 @@ Vue는 프론트엔드 개발에 필요한 대부분의 공통 기능을 다루�
 Vue SFC는 이름에서 알 수 있듯이 컴포넌트의 논리(JavaScript), 템플릿(HTML) 및 스타일(CSS)을 하나의 파일에 캡슐화합니다.
 이전에 보았던 예제는 다음과 같이 SFC 형식으로 작성할 수 있습니다:
 
+<div class="options-api">
+
 ```vue
 <script>
 export default {
@@ -134,6 +155,28 @@ button {
 }
 </style>
 ```
+
+</div>
+<div class="composition-api">
+
+```vue
+<script setup>
+import { ref } from 'vue'
+const count = ref(0)
+</script>
+
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<style scoped>
+button {
+  font-weight: bold;
+}
+</style>
+```
+
+</div>
 
 SFC는 Vue를 빌드 방식으로 사용하는 경우, 컴포넌트를 만들고 정의하는데 권장되는 방법입니다.
 [SFC를 왜 그리고 어떻게 사용해야 할까](/guide/scaling-up/sfc)에서 자세히 알아볼 수 있습니다.

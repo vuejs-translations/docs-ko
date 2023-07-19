@@ -15,6 +15,7 @@ const nav: ThemeConfig['nav'] = [
       { text: '예제', link: '/examples/' },
       { text: '시작하기', link: '/guide/quick-start' },
       // { text: 'Style Guide', link: '/style-guide/' },
+      { text: '용어 사전', link: '/glossary/' },
       {
         text: 'Vue 2 문서',
         link: 'https://v2.ko.vuejs.org'

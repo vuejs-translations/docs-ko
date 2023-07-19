@@ -96,7 +96,7 @@ h(Transition, {
   - `@leave-cancelled` (`v-show`에서만)
   - `@appear-cancelled`
 
-- **예제**:
+- **예제**
 
   간단한 엘리먼트:
 
@@ -130,7 +130,7 @@ h(Transition, {
   </Transition>
   ```
 
-- **참고**: [가이드 - `<Transition>`](/guide/built-ins/transition)
+- **참고** [가이드 - `<Transition>`](/guide/built-ins/transition)
 
 ## `<TransitionGroup>` {#transitiongroup}
 
@@ -171,7 +171,7 @@ h(Transition, {
   이동 클래스가 적용될 때 CSS의 `transform` 속성이 "트랜지션 가능"이면,
   [FLIP 기술](https://aerotwist.com/blog/flip-your-animations/)을 사용하여 엘리먼트가 목적지까지 부드럽게 애니메이션됩니다.
 
-- **예제**:
+- **예제**
 
   ```vue-html
   <TransitionGroup tag="ul" name="slide">
@@ -181,7 +181,7 @@ h(Transition, {
   </TransitionGroup>
   ```
 
-- **참고**: [가이드 - TransitionGroup](/guide/built-ins/transition-group)
+- **참고** [가이드 - TransitionGroup](/guide/built-ins/transition-group)
 
 ## `<KeepAlive>` {#keepalive}
 
@@ -219,7 +219,7 @@ h(Transition, {
   `mounted` 및 `unmounted` 대신 `activated` 및 `deactivated` 생명 주기 훅이 호출됩니다.
   이는 `<KeepAlive>`의 직계 자식과 모든 하위 항목에 적용됩니다.
 
-- **예제**:
+- **예제**
 
   기본 사용법:
 
@@ -276,7 +276,7 @@ h(Transition, {
   </KeepAlive>
   ```
 
-- **참고**: [가이드 - KeepAlive](/guide/built-ins/keep-alive)
+- **참고** [가이드 - KeepAlive](/guide/built-ins/keep-alive)
 
 ## `<Teleport>` {#teleport}
 
@@ -300,7 +300,7 @@ h(Transition, {
   }
   ```
 
-- **예제**:
+- **예제**
 
   대상이 될 컨테이너 지정:
 
@@ -318,7 +318,7 @@ h(Transition, {
   </teleport>
   ```
 
-- **참고**: [가이드 - Teleport](/guide/built-ins/teleport)
+- **참고** [가이드 - Teleport](/guide/built-ins/teleport)
 
 ## `<Suspense>` <sup class="vt-badge experimental" /> {#suspense}
 
@@ -347,4 +347,4 @@ h(Transition, {
   기본 슬롯을 렌더링하는 동안 비동기 의존성([비동기 컴포넌트](/guide/components/async) 및 [`async setup()`](/guide/built-ins/suspense#async-setup)이 있는 컴포넌트)을 만나면,
   기본 슬롯을 표시하기 전에 모든 것이 해결될 때까지 대기합니다.
 
-- **참고**: [가이드 - Suspense](/guide/built-ins/suspense)
+- **참고** [가이드 - Suspense](/guide/built-ins/suspense)
