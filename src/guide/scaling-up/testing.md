@@ -285,8 +285,9 @@ Vitest와 Cypress를 비교한 최신 정보는 [비교 페이지](https://vites
 
 ### 다른 선택지 {#other-options-1}
 
-- [Nightwatch](https://v2.nightwatchjs.org/)는 Vue 컴포넌트 테스트를 지원하는 E2E 테스트 러너입니다.
-  (Nightwatch v2의 [예제 프로젝트](https://github.com/nightwatchjs-community/todo-vue))
+- [Nightwatch](https://nightwatchjs.org/)는 Vue 컴포넌트 테스트를 지원하는 E2E 테스트 러너입니다. ([예제 프로젝트](https://github.com/nightwatchjs-community/todo-vue))
+
+- [WebdriverIO](https://webdriver.io/docs/component-testing/vue)는 표준화된 자동화를 기반으로 한 네이티브 사용자 상호작용을 기반으로 하는 크로스 브라우저 컴포넌트 테스팅에 사용되는 도구입니다. Testing Library와 함께 사용할 수도 있습니다.
 
 ## E2E 테스트 {#e2e-testing}
 
@@ -353,11 +354,11 @@ E2E 테스트가 지속적인 CI/CD 파이프라인에서 실행될 때, 종종 
 
 ### 다른 선택지 {#other-options-2}
 
-- [Playwright](https://playwright.dev/)는 광범위한 브라우저 지원(주로 WebKit)을 갖춘 훌륭한 E2E 테스트 솔루션입니다.
-  자세한 내용은 [Why Playwright](https://playwright.dev/docs/why-playwright)를 참조하십시오.
+- [Playwright](https://playwright.dev/)는 다양한 브라우저 지원(주로 WebKit)을 가진 우수한 E2E 테스팅 솔루션입니다. 자세한 내용은 [Why Playwright](https://playwright.dev/docs/why-playwright)를 참조하세요.
 
-- [Nightwatch v2](https://v2.nightwatchjs.org/)는 [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) 기반의 E2E 테스트 솔루션입니다.
-  이것은 가장 광범위한 브라우저 지원 범위를 제공합니다.
+- [Nightwatch](https://nightwatchjs.org/)는 [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver)를 기반으로 한 E2E 테스팅 솔루션입니다. 이를 통해 가장 넓은 브라우저 지원 범위를 제공합니다.
+
+- [WebdriverIO](https://webdriver.io/)는 WebDriver 프로토콜을 기반으로 한 웹 및 모바일 테스트 자동화 프레임워크입니다.
 
 
 ## 레시피 {#recipes}
