@@ -612,13 +612,29 @@ export default {
 <MyComponent />
 ```
 
-예를 들어 prop이 여러 타입을 가질 수 있게 선언되었다면:
+여러 타입을 허용하도록 프롭(prop)을 선언할 때, `Boolean`에 대한 캐스팅 규칙도 적용됩니다. 그러나 `String`과 `Boolean`이 모두 허용되는 경우에는 주의해야 합니다 - Boolean 캐스팅 규칙은 String보다 앞에 위치해야만 적용됩니다:
 
 <div class="composition-api">
 
 ```js
+// disabled는 true로 캐스팅됩니다
 defineProps({
   disabled: [Boolean, Number]
+})
+  
+// disabled는 true로 캐스팅됩니다
+defineProps({
+  disabled: [Boolean, String]
+})
+  
+// disabled는 true로 캐스팅됩니다
+defineProps({
+  disabled: [Number, Boolean]
+})
+  
+// disabled는 빈 문자열로 파싱됩니다 (disabled="")
+defineProps({
+  disabled: [String, Boolean]
 })
 ```
 
@@ -626,13 +642,33 @@ defineProps({
 <div class="options-api">
 
 ```js
+// disabled는 true로 캐스팅됩니다
 export default {
   props: {
     disabled: [Boolean, Number]
   }
 }
+  
+// disabled는 true로 캐스팅됩니다
+export default {
+  props: {
+    disabled: [Boolean, String]
+  }
+}
+  
+// disabled는 true로 캐스팅됩니다
+export default {
+  props: {
+    disabled: [Number, Boolean]
+  }
+}
+  
+// disabled는 빈 문자열로 파싱됩니다 (disabled="")
+export default {
+  props: {
+    disabled: [String, Boolean]
+  }
+}
 ```
 
 </div>
-
-만약 타입 배열에 `Boolean`이 포함되어 있다면, `Boolean`에 대한 형 변환 규칙이 적용됩니다. 그러나 이전에 `String`이 배열에 먼저 나타난 경우에는 `String`에 대한 규칙이 적용됩니다.
