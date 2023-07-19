@@ -356,11 +356,10 @@ function mutateDeeply() {
 ```js
 import { nextTick } from 'vue'
 
-function increment() {
+async function increment() {
   count.value++
-  nextTick(() => {
-    // 업데이트된 DOM에 접근 가능
-  })
+  await nextTick()
+  // 이제 DOM이 업데이트되었습니다.
 }
 ```
 
@@ -372,11 +371,10 @@ import { nextTick } from 'vue'
 
 export default {
   methods: {
-    increment() {
+    async increment() {
       this.count++
-      nextTick(() => {
-        // 업데이트된 DOM에 접근 가능
-      })
+      await nextTick()
+      // 이제 DOM이 업데이트되었습니다.
     }
   }
 }
