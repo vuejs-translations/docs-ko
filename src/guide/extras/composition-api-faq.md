@@ -154,7 +154,7 @@ Vue CLI의 GUI에서 폴더 탐색기 컴포넌트를 예로 들어 보겠습니
 Vue에서 옵션 API 관련 코드를 삭제하는 [컴파일 타임 플래그](https://github.com/vuejs/core/tree/main/packages/vue#bundler-build-feature-flags)를 통해 프로덕션 번들에서 몇 kb를 줄일 수 있습니다.
 이것은 의존성의 Vue 컴포넌트에도 영향을 미칩니다.
 
-### 두 API를 함께 사용할 수 있습니까? {#can-i-use-both-apis-together}
+### 동일한 컴포넌트에서 두 API를 모두 사용할 수 있습니까? {#can-i-use-both-apis-in-the-same-component}
 
 예. 옵션 API 컴포넌트에서 [`setup()`](/api/composition-api-setup) 옵션을 통해 컴포지션 API를 사용할 수 있습니다.
 
