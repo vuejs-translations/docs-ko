@@ -21,7 +21,7 @@
 
   `shallowRef`는 일반적으로 대규모 데이터 구조의 성능 최적화 또는 외부 상태 관리 시스템과의 통합에 사용됩니다.
 
-- **예제**:
+- **예제**
 
   ```js
   const state = shallowRef({ count: 1 })
@@ -48,7 +48,7 @@
   function triggerRef(ref: ShallowRef): void
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   const shallow = shallowRef({
@@ -95,7 +95,7 @@
   `trigger()`는 `set()` 내부에서 호출되어야 하지만,
   호출 조건 및 타이밍은 완전히 커스텀 제어 가능합니다.
 
-- **예제**:
+- **예제**
 
   최신 set 호출 후, 특정 시간 초과 후에만 값을 업데이트하는 디바운스된 ref 생성:
 
@@ -161,7 +161,7 @@
   중첩하여 사용하면 안됩니다.
   :::
 
-- **예제**:
+- **예제**
 
   ```js
   const state = shallowReactive({
@@ -205,7 +205,7 @@
   중첩하여 사용하면 안됩니다.
   :::
 
-- **예제**:
+- **예제**
 
   ```js
   const state = shallowReadonly({
@@ -243,7 +243,7 @@ Vue에서 만든 프락시의 원시 원본 객체를 반환합니다.
   원본 객체의 영구 참조를 유지하는 것은 **권장되지 않습니다**.
   주의해서 사용해야 합니다.
 
-- **예제**:
+- **예제**
 
   ```js
   const foo = {}
@@ -263,7 +263,7 @@ Vue에서 만든 프락시의 원시 원본 객체를 반환합니다.
   function markRaw<T extends object>(value: T): T
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   const foo = markRaw({})
@@ -329,7 +329,7 @@ Vue에서 만든 프락시의 원시 원본 객체를 반환합니다.
   }
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   const scope = effectScope()
@@ -370,7 +370,7 @@ Vue에서 만든 프락시의 원시 원본 객체를 반환합니다.
   function onScopeDispose(fn: () => void): void
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   const scope = effectScope()

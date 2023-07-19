@@ -34,7 +34,7 @@
 
   편의상 자식이 슬롯 객체가 아닌 경우 props 인자를 생략할 수 있습니다.
 
-- **예제**:
+- **예제**
 
   네이티브 앨리먼트 만들기:
   Creating native elements:
@@ -124,7 +124,7 @@
 
   병합 동작이 필요하지 않고 간단한 덮어쓰기를 원하는 경우 네이티브 객체 스프레드를 대신 사용할 수 있습니다.
 
-- **예제**:
+- **예제**
 
   ```js
   import { mergeProps } from 'vue'
@@ -168,7 +168,7 @@ Clones a vnode.
 
   V노드에는 특별한 내부 속성이 있으므로 복제하는 것은 객체 스프레드만큼 간단하지 않습니다. cloneVNode()`는 대부분의 내부 로직을 처리합니다.
 
-- **예제**:
+- **예제**
 
   ```js
   import { h, cloneVNode } from 'vue'
@@ -205,7 +205,7 @@ Clones a vnode.
 
   컴포넌트를 찾을 수 없는 경우 런타임 경고가 발생하고 이름 문자열이 반환됩니다.
 
-- **예제**:
+- **예제**
 
   <div class="composition-api">
 
@@ -296,7 +296,7 @@ For adding custom directives to vnodes.
 
   Wraps an existing vnode with custom directives. The second argument is an array of custom directives. Each custom directive is also represented as an array in the form of `[Directive, value, argument, modifiers]`. Tailing elements of the array can be omitted if not needed.
 
-- **예제**:
+- **예제**
 
   ```js
   import { h, withDirectives } from 'vue'
@@ -331,7 +331,7 @@ For adding built-in [`v-on` modifiers](/guide/essentials/event-handling.html#eve
   function withModifiers(fn: Function, modifiers: string[]): Function
   ```
 
-- **예제**:
+- **예제**
 
   ```js
   import { h, withModifiers } from 'vue'
