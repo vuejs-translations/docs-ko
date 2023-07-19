@@ -84,7 +84,8 @@ export default {
     <button @click="count++">
       당신은 {{ count }} 번 클릭했습니다.
     </button>`
-  // 또는 `template: '#my-template-element'`
+  // DOM 내의 템플릿을 대상으로 할 수도 있습니다:
+  // template: '#my-template-element'
 }
 ```
 
