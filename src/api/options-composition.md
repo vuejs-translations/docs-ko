@@ -205,9 +205,7 @@
   믹스인 훅은 제공된 순서대로 호출되며, 컴포넌트 자체 훅보다 먼저 호출됩니다.
 
   :::warning 더 이상 권장되지 않음
-  Vue 2에서 믹스인은 컴포넌트 로직의 재사용 가능한 청크를 생성하기 위한 기본 메커니즘이었습니다.
-  Vue 3에서 믹스인은 계속 지원되지만,
-  컴포넌트 간 코드 재사용을 위한 접근 방식으로 [컴포지션 API](/guide/reusability/composables)가 추천됩니다.
+- Vue 2에서는 mixins이 컴포넌트 로직의 재사용 가능한 청크를 생성하는 주요 메커니즘이었습니다. Vue 3에서도 mixins은 여전히 지원되지만, [Composition API를 사용한 컴포저블 함수](/guide/reusability/composables)는 이제 컴포넌트 간에 코드를 재사용하는 선호되는 방법입니다.
   :::
 
 - **예제**:
@@ -255,7 +253,7 @@
   주로 `mixins` 옵션은 기능 묶음을 구성하는데 사용되지만,
   `extens`는 상속과 관련됩니다.
 
-  `mixins`와 마찬가지로 `extends`의 모든 옵션은 관련 병합 로직을 사용하여 병합됩니다.
+  `mixins`와 마찬가지로, `setup()`을 제외한 다른 옵션들은 해당하는 병합 전략을 사용하여 병합됩니다.
 
 - **예제**:
 
@@ -271,3 +269,23 @@
     ...
   }
   ```
+
+  :::warning Composition API에 권장되지 않음
+  `extends`는 Options API를 위해 설계된 것으로, `setup()` 훅의 병합을 처리하지 않습니다.
+
+  Composition API에서는 로직 재사용에 대해 "상속(inheritance)"보다는 "조합(compose)"이 선호되는 개념 모델입니다. 다른 컴포넌트에서 재사용해야 할 로직이 있다면, 해당 로직을 [컴포저블(Composable)](/guide/reusability/composables#composables)로 추출하는 것을 고려해보세요.
+
+  Composition API를 사용하여 여전히 컴포넌트를 "확장(extend)"하려면, 확장하는 컴포넌트의 `setup()`에서 기본 컴포넌트의 `setup()`을 호출할 수 있습니다:
+
+  ```js
+  import Base from './Base.js'
+  export default {
+    setup(props, ctx) {
+      return {
+        ...Base.setup(props, ctx),
+        // 로컬 바인딩
+      }
+    }
+  }
+  ```
+  :::
