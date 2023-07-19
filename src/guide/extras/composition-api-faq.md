@@ -138,11 +138,9 @@ Vue CLI의 GUI에서 폴더 탐색기 컴포넌트를 예로 들어 보겠습니
 이와 관련하여 컴포지션 API는 더 나은 장기적인(거시적인) 확장성을 제공합니다.
 
 
-### 컴포지션 API는 모든 사용 사례를 포괄합니까? {#does-composition-api-cover-all-use-cases}
+### Composition API가 모든 사용 사례를 다루는가요? {#composition-api-use-cases}
 
-상태 저장 로직 측면에서 그렇습니다.
-컴포지션 API를 사용할 때 여전히 필요할 수 있는 옵션은 `props`, `emit`, `name` 및 `inheritAttrs`뿐입니다.
-`<script setup>`을 사용하는 경우 일반적으로 `inheritAttrs`가 별도의 일반 `<script>` 블록을 필요로 하는 유일한 옵션입니다.
+상태 로직에 관한 측면에서는 그렇습니다. Composition API를 사용할 때, `props`, `emits`, `name`, 그리고 `inheritAttrs`와 같은 몇 가지 옵션이 여전히 필요할 수 있습니다.
 
 :::tip
 

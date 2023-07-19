@@ -82,22 +82,17 @@ outline: deep
 
 ## 속성 상속 비활성화 {#disabling-attribute-inheritance}
 
-컴포넌트가 속성을 **자동으로 상속하지 않도록**하려면, 컴포넌트 옵션 중 `inheritAttrs: false`를 설정합니다.
+만약 컴포넌트가 속성을 자동으로 상속받지 않도록 하려면, 컴포넌트의 옵션에서 `inheritAttrs: false`를 설정하면 됩니다.
 
 <div class="composition-api">
 
-`<script setup>`을 사용하는 경우, 별도의 일반 `<script>` 블록을 사용하여 이 옵션을 선언해야 합니다:
+`<script setup>`을 사용하는 경우, [`defineOptions`](/api/sfc-script-setup#defineoptions) 매크로를 사용할 수 있습니다:
 
 ```vue
-<script>
-// 일반 <script>를 사용하여 옵션 선언
-export default {
-  inheritAttrs: false
-}
-</script>
-
 <script setup>
-// ...setup 로직
+defineOptions({
+  inheritAttrs: false
+})
 </script>
 ```
 
