@@ -6,7 +6,7 @@
 우리는 <a target="_blank" href="/api/built-in-special-attributes.html#ref">특별한 속성인 `ref`</a>를 사용하여 **템플릿 참조**를 요청할 수 있습니다:
 
 ```vue-html
-<p ref="p">안녕</p>
+<p ref="pElementRef">안녕</p>
 ```
 
 <div class="composition-api">
@@ -16,7 +16,7 @@
 <div class="sfc">
 
 ```js
-const p = ref(null)
+const pElementRef = ref(null)
 ```
 
 </div>
@@ -24,10 +24,10 @@ const p = ref(null)
 
 ```js
 setup() {
-  const p = ref(null)
+  const pElementRef = ref(null)
 
   return {
-    p
+    pElementRef
   }
 }
 ```
@@ -70,7 +70,7 @@ createApp({
 
 <div class="options-api">
 
-엘리먼트는 `this.$refs`에 `this.$refs.p`로 노출됩니다.
+엘리먼트는 `this.$refs`에 `this.$refs.pElementRef`로 노출됩니다.
 그러나 컴포넌트가 **마운트된 후**에만 접근할 수 있습니다.
 
 마운트된 후, 코드를 실행하려면 `mounted` 옵션을 사용해야 합니다:
