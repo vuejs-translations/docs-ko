@@ -1,29 +1,28 @@
-# Vue 및 웹 컴포넌트 {#vue-and-web-components}
+# Vue와 웹 컴포넌트 {#vue-and-web-components}
 
-[웹 컴포넌트](https://developer.mozilla.org/en-US/docs/Web/Web_Components)는 개발자가 재사용 가능한 사용자 정의 앨리먼트를 만들 수 있는 웹 네이티브 API 집합을 포괄적으로 지칭하는 용어입니다.
+[웹 컴포넌트](https://developer.mozilla.org/en-US/docs/Web/Web_Components)는 개발자가 재사용 가능한 사용자 정의 요소를 만들 수 있도록 하는 웹 네이티브 API의 집합을 가리키는 용어입니다.
 
-워드프레스닷컴은 Vue와 웹 컴포넌트를 주로 상호 보완적인 기술로 간주합니다. Vue는 사용자 정의 앨리먼트의 사용과 생성을 모두 훌륭하게 지원합니다. 사용자 지정 앨리먼트를 기존 Vue 애플리케이션에 통합하든, 사용자 지정 앨리먼트를 빌드하고 배포하는 데 Vue를 사용하든 관계없이 좋은 회사에서 사용할 수 있습니다.
+Vue와 웹 컴포넌트는 주로 보완적인 기술로 간주됩니다. Vue는 사용자 정의 요소를 소비하고 생성하는 데 탁월한 지원을 제공합니다. 기존 Vue 애플리케이션에 사용자 정의 요소를 통합하거나 Vue를 사용하여 사용자 정의 요소를 빌드하고 배포하는 경우 모두 좋은 선택입니다.
 
-## Vue에서 사용자 정의 앨리먼트 사용 {#using-custom-elements-in-vue}
+## Vue에서 사용자 정의 요소 사용 {#using-custom-elements-in-vue}
 
-Vue는 [사용자 정의 엘리먼트 에브리웨어 테스트에서 100% 만점을 받았습니다](https://custom-elements-everywhere.com/libraries/vue/results/results). Vue 애플리케이션 내에서 사용자 정의 앨리먼트를 사용하는 것은 기본 HTML 앨리먼트를 사용하는 것과 거의 동일하게 작동하지만 몇 가지 유의해야 할 사항이 있습니다:
+Vue는 [Custom Elements Everywhere 테스트](https://custom-elements-everywhere.com/libraries/vue/results/results.html)에서 완벽한 100% 점수를 받았습니다. Vue 애플리케이션에서 사용자 정의 요소를 사용하는 것은 네이티브 HTML 요소를 사용하는 것과 거의 동일하게 작동하지만 몇 가지 사항을 유념해야 합니다.
 
+### 컴포넌트 해결 건너뛰기 {#skipping-component-resolution}
 
-### 컴포넌트 리졸브 건너뛰기 {#skipping-component-resolution}
+기본적으로 Vue는 네이티브 HTML 태그가 아닌 태그를 레지스터된 Vue 컴포넌트로 해결하려고 시도한 후 사용자 정의 요소로 렌더링합니다. 개발 중에 Vue는 "컴포넌트를 해결하지 못했습니다"라는 경고 메시지를 발생시킵니다. 특정 요소를 사용자 정의 요소로 처리하고 컴포넌트 해결을 건너뛰도록 Vue에 알려주려면 [`compilerOptions.isCustomElement` 옵션](/api/application#app-config-compileroptions)을 지정할 수 있습니다.
 
-기본적으로 Vue는 네이티브가 아닌 HTML 태그를 사용자 정의 앨리먼트로 렌더링하기 전에 등록된 Vue 컴포넌트로 확인하려고 시도합니다. 이로 인해 Vue는 개발 중에 "컴포넌트를 확인하지 못했습니다"라는 경고를 표시합니다. 특정 앨리먼트를 사용자 정의 앨리먼트로 처리하고 컴포넌트 확인을 건너뛰어야 한다는 것을 Vue에 알리기 위해 [`compilerOptions.isCustomElement` 옵션](/api/application.html#app-config-compiler옵션)을 지정할 수 있습니다.
+빌드 설정을 사용하는 경우 컴파일 시간 옵션인 이 옵션은 빌드 구성을 통해 전달되어야 합니다.
 
-빌드 설정과 함께 Vue를 사용하는 경우 이 옵션은 컴파일 타임 옵션이므로 빌드 설정을 통해 전달해야 합니다.
-
-#### 브라우저 내 구성 예시 {#example-in-browser-config}
+#### 브라우저에서의 예시 구성 {#example-in-browser-config}
 
 ```js
-// 브라우저 내 컴파일을 사용하는 경우에만 작동합니다.
-// 빌드 도구를 사용하는 경우 아래 구성 예제를 참조하세요.
+// 브라우저에서 컴파일하는 경우에만 작동합니다.
+// 빌드 도구를 사용하는 경우 아래 구성 예시를 참조하세요.
 app.config.compilerOptions.isCustomElement = (tag) => tag.includes('-')
 ```
 
-#### Vite 구성 예시 {#example-vite-config}
+#### Vite에서의 예시 구성 {#example-vite-config}
 
 ```js
 // vite.config.js
@@ -34,7 +33,7 @@ export default {
     vue({
       template: {
         compilerOptions: {
-          // 대시가 있는 모든 태그를 사용자 지정 앨리먼트로 취급합니다.
+          // 하이픈을 포함하는 모든 태그를 사용자 정의 요소로 처리합니다.
           isCustomElement: (tag) => tag.includes('-')
         }
       }
@@ -43,7 +42,7 @@ export default {
 }
 ```
 
-#### Vue CLI 구성 예시 {#example-vue-cli-config}
+#### Vue CLI에서의 예시 구성 {#example-vue-cli-config}
 
 ```js
 // vue.config.js
@@ -55,7 +54,7 @@ module.exports = {
       .tap(options => ({
         ...options,
         compilerOptions: {
-          // ion-으로 시작하는 모든 태그를 사용자 지정 앨리먼트로 취급합니다.
+          // ion-으로 시작하는 모든 태그를 사용자 정의 요소로 처리합니다.
           isCustomElement: tag => tag.startsWith('ion-')
         }
       }))
@@ -65,26 +64,26 @@ module.exports = {
 
 ### DOM 속성 전달 {#passing-dom-properties}
 
-DOM 속성은 문자열만 가능하므로 복잡한 데이터를 사용자 정의 앨리먼트에 DOM 속성으로 전달해야 합니다. 사용자 정의 앨리먼트에 프로퍼티를 설정할 때 Vue 3는 `in` 연산자를 사용하여 DOM 속성 존재 여부를 자동으로 확인하고 키가 있는 경우 값을 DOM 속성으로 설정하는 것을 선호합니다. 즉, 대부분의 경우 사용자 정의 앨리먼트가 [권장 모범 사례](https://web.dev/custom-elements-best-practices/)를 따르는 경우 이에 대해 생각할 필요가 없습니다.
+DOM 속성은 항상 문자열만 될 수 있기 때문에 복잡한 데이터를 사용자 정의 요소에 전달하려면 DOM 속성으로 전달해야 합니다. Vue 3에서 사용자 정의 요소의 props를 설정할 때는 `in` 연산자를 사용하여 DOM 속성의 존재를 자동으로 확인하고, 키가 존재하는 경우 DOM 속성으로 값을 설정합니다. 대부분의 경우, 사용자 정의 요소가 [권장되는 최상의 방법](https://web.dev/custom-elements-best-practices/)을 따른다면 이에 대해 생각할 필요가 없습니다.
 
-그러나 드물게 데이터를 DOM 프로퍼티로 전달해야 하지만 사용자 정의 앨리먼트가 프로퍼티를 제대로 정의/반영하지 않는 경우(`in` 체크가 실패하는 경우)가 있을 수 있습니다. 이 경우 '.prop' 수정자를 사용하여 `v-bind` 바인딩이 DOM 속성으로 설정되도록 강제할 수 있습니다:
-
+그러나 드물게 데이터를 DOM 속성으로 전달해야 하지만 사용자 정의 요소가 속성을 제대로 정의하거나 반영하지 않는 경우가 있을 수 있습니다(이로 인해 `in` 검사가 실패함). 이 경우 `.prop` 수정자를 사용하여 `v-bind` 바인딩이 DOM 속성으로 설정되도록 강제할 수 있습니다:
 
 ```vue-html
 <my-element :user.prop="{ name: 'jack' }"></my-element>
 
-<!-- shorthand equivalent -->
+<!-- 축약형 표현 -->
 <my-element .user="{ name: 'jack' }"></my-element>
 ```
 
-## Vue로 사용자 정의 앨리먼트 구축 {#building-custom-elements-with-vue}
+## Vue로 사용자 정의 요소 빌드 {#building-custom-elements-with-vue}
 
-사용자 정의 앨리먼트의 주요 이점은 프레임워크와 함께 사용하거나 프레임워크 없이도 사용할 수 있다는 것입니다. 따라서 최종 소비자가 동일한 프론트엔드 스택을 사용하지 않을 수 있는 컴포넌트를 배포하거나 최종 애플리케이션을 사용하는 컴포넌트의 구현 세부 사항으로부터 격리하려는 경우에 이상적입니다.
+사용자 정의 요소의 주요 이점은 어떤 프레임워크나 프레임워크 없이 사용할 수 있다는 것입니다. 이는 최종 사용자가 동일한 프론트엔드 스택을 사용하지 않을 때 컴포넌트를 배포하는 데 이상적입니다. 또는 사용하는 컴포넌트의 구현 세부 정보를 최종 애플리케이션으로부터 격리하고 싶을 때 유용합니다.
 
 ### defineCustomElement {#definecustomelement}
 
-Vue는 [`defineCustomElement`](/api/general.html#definecustomelement) 메서드를 통해 정확히 동일한 Vue 컴포넌트 API를 사용하여 사용자 정의 앨리먼트를 생성할 수 있도록 지원합니다. 이 메서드는 [`defineComponent`](/api/general.html#definecomponent)와 동일한 인자를 허용하지만 대신 `HTMLElement`를 확장하는 사용자 정의 엘리먼트 생성자를 반환합니다:
+Vue는 [`defineCustomElement`](/api/general#definecustomelement) 메서드를 통해 동일한 Vue 컴포넌트 API를 사용하여 사용자 정의 요소를 생성하는 것을 지원합니다. 이 메서드는 [`defineComponent`](/api/general#definecomponent)와 동일한 인수를 받지만 `HTMLElement`를 확장하는 사용자 정의 요소 생성자
 
+를 반환합니다:
 
 ```vue-html
 <my-vue-element></my-vue-element>
@@ -94,50 +93,47 @@ Vue는 [`defineCustomElement`](/api/general.html#definecustomelement) 메서드�
 import { defineCustomElement } from 'vue'
 
 const MyVueElement = defineCustomElement({
-  // normal Vue component options here
+  // 여기에 일반적인 Vue 컴포넌트 옵션을 작성합니다.
   props: {},
   emits: {},
   template: `...`,
 
-  // defineCustomElement only: CSS to be injected into shadow root
-  styles: [`/* inlined css */`]
+  // defineCustomElement 전용: 쉐도우 루트에 주입될 CSS
+  styles: [`/* 내부 CSS */`]
 })
 
-// Register the custom element.
-// After registration, all `<my-vue-element>` tags
-// on the page will be upgraded.
+// 사용자 정의 요소를 등록합니다.
+// 등록 후 페이지의 모든 `<my-vue-element>` 태그가 업그레이드됩니다.
 customElements.define('my-vue-element', MyVueElement)
 
-// You can also programmatically instantiate the element:
-// (can only be done after registration)
+// 프로그래밍 방식으로 요소를 인스턴스화할 수도 있습니다:
+// (등록 후에만 가능합니다)
 document.body.appendChild(
   new MyVueElement({
-    // initial props (optional)
+    // 초기 props (선택 사항)
   })
 )
 ```
 
-#### 생명주기 {#lifecycle}
+#### 라이프사이클 {#lifecycle}
 
-- Vue 사용자 정의 앨리먼트는 앨리먼트의 [`connectedCallback`](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks)이 처음 호출될 때 섀도 루트 내부에 내부 Vue 컴포넌트 인스턴스를 마운트합니다.
+- Vue 사용자 정의 요소는 첫 번째로 호출된 `connectedCallback`에서 요소의 쉐도우 루트 내부에 Vue 컴포넌트 인스턴스를 마운트합니다.
 
-- 앨리먼트의 `disconnectedCallback`이 호출되면 Vue는 마이크로태스크 틱 후 앨리먼트가 문서에서 분리되었는지 여부를 확인합니다.
+- `disconnectedCallback`이 호출되면 Vue는 요소가 마이크로태스크 틱 이후에 문서에서 분리되었는지 여부를 확인합니다.
 
-  - 앨리먼트가 여전히 문서에 있으면 이동으로 간주되며 컴포넌트 인스턴스가 보존됩니다;
+  - 요소가 여전히 문서에 있는 경우 이동으로 간주되고 컴포넌트 인스턴스가 보존됩니다.
 
-  - 앨리먼트가 문서에서 분리되면 제거가 되고 컴포넌트 인스턴스가 마운트 해제됩니다.
-
+  - 요소가 문서에서 분리된 경우 제거로 간주되고 컴포넌트 인스턴스가 언마운트됩니다.
 
 #### Props {#props}
 
-- `prop` 옵션을 사용하여 선언된 모든 prop은 사용자 정의 앨리먼트에 속성으로 정의됩니다. Vue는 적절한 경우 속성/프로퍼티 간의 반영을 자동으로 처리합니다.
+- `props` 옵션을 사용하여 선언한 모든 props는 사용자 정의 요소의 속성으로 정의됩니다. Vue는 적절한 경우 속성/속성 간의 반영을 자동으로 처리합니다.
 
-  - 속성은 항상 해당 속성에 반영됩니다.
+  - 속성은 항상 해당하는 속성으로 반영됩니다.
 
-  - 기본값(`string`, `boolean` 또는 `number`)이 있는 속성은 속성으로 반영됩니다.
+  - 원시 값(`string`, `boolean` 또는 `number`)을 가진 속성은 속성으로 반영됩니다.
 
-- 또한 `부울` 또는 `숫자` 유형으로 선언된 프로퍼티는 속성으로 설정될 때(항상 문자열인) 원하는 유형으로 자동 형변환됩니다. 예를 들어 다음 props 선언이 있습니다:
-
+- Vue는 또한 `Boolean` 또는 `Number` 유형으로 선언된 props를 속성으로 설정할 때(속성은 항상 문자열입니다) 원하는 유형으로 자동 변환합니다. 예를 들어 다음과 같은 props 선언이 있다고 가정해 봅시다:
 
   ```js
   props: {
@@ -146,45 +142,45 @@ document.body.appendChild(
   }
   ```
 
-  그리고 사용자 정의 앨리먼트 사용법:
+  그리고 다음과 같이 사용자 정의 요소를 사용하는 경우:
 
   ```vue-html
   <my-element selected index="1"></my-element>
   ```
 
-  컴포넌트에서 `selected`는 `true`(부울)로 캐스팅되고 `index`는 `1`(숫자)로 캐스팅됩니다.
+  컴포넌트에서 `selected`는 `true`(boolean)로 변환되고 `index`는 `1`(number)로 변환됩니다.
 
 #### 이벤트 {#events}
 
-`this.$emit` 또는 설정 `emit`을 통해 전송된 이벤트는 사용자 정의 앨리먼트에서 기본 [CustomEvents](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#adding_custom_data_%E2%80%93_customevent)로 디스패치됩니다. 추가 이벤트 인자(페이로드)는 CustomEvent 객체의 `detail` 속성으로 배열로 노출됩니다.
-
+`this.$emit` 또는 설정 `emit`을 통해 발생한 이벤트는 사용자 정의 요소에서 네이티브 [CustomEvents](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#adding_custom_data_%E2%80%93_customevent)로 디스패치됩니다. 추가 이벤트 인수(페이로드)는 `detail` 속성으로 CustomEvent 개체의 배열로 노출됩니다.
 
 #### 슬롯 {#slots}
 
+컴포넌트 내부에서는 슬롯을 평소처럼 `<slot/>` 요소를 사용하여 렌더링할 수 있습니다. 그러나 생성된 요소를 사용할 때는 [원시 슬롯 구문](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots)만 사용할 수 있습니다:
 
-컴포넌트 내부에서 슬롯은 평소처럼 `<슬slot롯/>` 앨리먼트를 사용하여 렌더링할 수 있습니다. 하지만 결과 앨리먼트를 소비할 때는 [네이티브 슬롯 구문](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots)만 허용합니다:
+- [스코프드 슬롯](/guide/components/slots#scoped-slots)은 지원되지 않습니다.
 
-- [Scoped slots](/guide/components/slots.html#scoped-slots)는 지원하지 않습니다.
-
-- 명명된 슬롯을 전달할 때는 `v-slot` 지시어 대신 `슬롯` 속성을 사용하십시오:
+- 이름이 있는 슬롯을 전달할 때는 `v-slot` 지시문 대신 `slot` 속성을 사용하세요:
 
   ```vue-html
   <my-element>
-    <div slot="named">hello</div>
+    <div slot="named">안녕하세요</div>
   </my-element>
   ```
 
-#### Provide / Inject {#provide-inject}
+#### 제공 및 주입 {#provide-inject}
 
-The [Provide / Inject API](/guide/components/provide-inject.html#provide-inject) and its [Composition API equivalent](/api/composition-api-dependency-injection.html#provide) also work between Vue-defined custom elements. However, note that this works **only between custom elements**. i.e. a Vue-defined custom element won't be able to inject properties provided by a non-custom-element Vue component.
+[제공 및 주입 API](/guide/components/provide-inject#provide-inject) 및 [Composition API 버전](/api/composition-api-dependency-injection#provide)도 Vue로 정의된 사용자 정의 요소 간에 작동합니다. 그러나 이는 **사용자 정의 요소 간에만 작동**합니다. 즉, Vue로 정의된 사용자 정의 요소는 비사용자 정의 요소 Vue 컴포넌트가 제공하는 속성을 주입할 수 없습니다.
 
-### SFC as Custom Element {#sfc-as-custom-element}
+### SFC를 사용한 사용자 정의 요소 {#sfc-as-custom-element}
 
-`defineCustomElement` also works with Vue Single-File Components (SFCs). However, with the default tooling setup, the `<style>` inside the SFCs will still be extracted and merged into a single CSS file during production build. When using an SFC as a custom element, it is often desirable to inject the `<style>` tags into the custom element's shadow root instead.
+`defineCustomElement`은 Vue 단일 파일 컴포넌트(SFC)에서도 작동합니다. 그러나 기본 도구 설정에서 SFC 내부의 `<style>` 태그는 여전히 프로덕션 빌드 중에 단일 CSS 파일로 추출되고 병합됩니다. 사용자 정의 요소로 SFC를 사용할 때는 주로 `<style>` 태그를 사용자 정의 요소의 쉐도우 루트에 주입하는 것이 바람직합니다.
 
-The official SFC toolings support importing SFCs in "custom element mode" (requires `@vitejs/plugin-vue@^1.4.0` or `vue-loader@^16.5.0`). An SFC loaded in custom element mode inlines its `<style>` tags as strings of CSS and exposes them under the component's `styles` option. This will be picked up by `defineCustomElement` and injected into the element's shadow root when instantiated.
+공식적인 SFC 도구는 SFC를 "사용자 정의 요소 모드"로 가져오는 것을 지원합니다(`@vitejs/plugin-vue@^1.4.0` 또는 `vue-loader@^16.5.0`이 필요합니다). 사용자 정의 요소 모드로 로드된 SFC는 `<style>` 태그를 CSS 문자열로 인라인화하고 컴포넌트의 `styles` 옵션으로 노출합니다. 이는 `defineCustomElement`에서 가져와 인스턴스화될 때 요소의 쉐도우 루트에 주
 
-To opt-in to this mode, simply end your component file name with `.ce.vue`:
+입됩니다.
+
+이 모드를 사용하려면 컴포넌트 파일 이름을 `.ce.vue`로 끝내면 됩니다:
 
 ```js
 import { defineCustomElement } from 'vue'
@@ -192,25 +188,25 @@ import Example from './Example.ce.vue'
 
 console.log(Example.styles) // ["/* inlined css */"]
 
-// convert into custom element constructor
+// 사용자 정의 요소 생성자로 변환
 const ExampleElement = defineCustomElement(Example)
 
-// register
+// 등록
 customElements.define('my-example', ExampleElement)
 ```
 
-If you wish to customize what files should be imported in custom element mode (for example, treating _all_ SFCs as custom elements), you can pass the `customElement` option to the respective build plugins:
+사용자 정의 요소 모드로 가져올 파일을 사용자 정의 지정하려면(예: _모든_ SFC를 사용자 정의 요소로 처리), 해당 빌드 플러그인에 `customElement` 옵션을 전달할 수 있습니다:
 
 - [@vitejs/plugin-vue](https://github.com/vitejs/vite-plugin-vue/tree/main/packages/plugin-vue#using-vue-sfcs-as-custom-elements)
 - [vue-loader](https://github.com/vuejs/vue-loader/tree/next#v16-only-options)
 
-### Tips for a Vue Custom Elements Library {#tips-for-a-vue-custom-elements-library}
+### Vue 사용자 정의 요소 라이브러리 팁 {#tips-for-a-vue-custom-elements-library}
 
-When building custom elements with Vue, the elements will rely on Vue's runtime. There is a ~16kb baseline size cost depending on how many features are being used. This means it is not ideal to use Vue if you are shipping a single custom element - you may want to use vanilla JavaScript, [petite-vue](https://github.com/vuejs/petite-vue), or frameworks that specialize in small runtime size. However, the base size is more than justifiable if you are shipping a collection of custom elements with complex logic, as Vue will allow each component to be authored with much less code. The more elements you are shipping together, the better the trade-off.
+Vue로 사용자 정의 요소를 빌드할 때 요소는 Vue의 런타임에 의존합니다. 사용되는 기능의 수에 따라 약 16KB의 기준 크기 비용이 발생합니다. 이는 단일 사용자 정의 요소를 배포할 때 이상적이지 않으므로 원시 JavaScript, [petite-vue](https://github.com/vuejs/petite-vue) 또는 작은 런타임 크기에 특화된 프레임워크를 사용하는 것이 좋습니다. 그러나 요소를 복잡한 로직으로 구성한 컬렉션을 배포하는 경우, Vue를 사용하면 각 구성 요소를 훨씬 적은 코드로 작성할 수 있으므로 기준 크기는 충분히 정당화됩니다. 동시에 배포하는 요소가 많을수록 훌륭한 균형을 이룰 수 있습니다.
 
-If the custom elements will be used in an application that is also using Vue, you can choose to externalize Vue from the built bundle so that the elements will be using the same copy of Vue from the host application.
+사용자 정의 요소가 Vue를 사용하는 애플리케이션에서 사용될 경우, Vue를 내장된 번들에서 외부로 분리하여 요소가 호스트 애플리케이션과 동일한 Vue 사본을 사용하도록 할 수 있습니다.
 
-It is recommended to export the individual element constructors to give your users the flexibility to import them on-demand and register them with desired tag names. You can also export a convenience function to automatically register all elements. Here's an example entry point of a Vue custom element library:
+사용자가 필요에 따라 요소를 가져와 원하는 태그 이름으로 등록할 수 있도록 개별 요소 생성자를 내보내는 것이 좋습니다. 또한 모든 요소를 자동으로 등록하는 편리한 함수도 내보낼 수 있습니다. 다음은 Vue 사용자 정의 요소 라이브러리의 예시 진입점입니다:
 
 ```js
 import { defineCustomElement } from 'vue'
@@ -220,7 +216,7 @@ import Bar from './MyBar.ce.vue'
 const MyFoo = defineCustomElement(Foo)
 const MyBar = defineCustomElement(Bar)
 
-// export individual elements
+// 개별 요소 내보내기
 export { MyFoo, MyBar }
 
 export function register() {
@@ -229,30 +225,53 @@ export function register() {
 }
 ```
 
-If you have many components, you can also leverage build tool features such as Vite's [glob import](https://vitejs.dev/guide/features.html#glob-import) or webpack's [`require.context`](https://webpack.js.org/guides/dependency-management/#requirecontext) to load all components from a directory.
+요소가 많은 경우 Vite의 [글로브 가져오기](https://vitejs.dev/guide/features.html#glob-import) 또는 웹팩의 [`require.context`](https://webpack.js.org/guides/dependency-management/#requirecontext)와 같은 빌드 도구 기능을 활용하여 디렉토리에서 모든 구성 요소를 로드할 수도 있습니다.
 
-## Web Components vs. Vue Components {#web-components-vs-vue-components}
+### 웹 컴포넌트와 TypeScript {#web-components-and-typescript}
 
-Some developers believe that framework-proprietary component models should be avoided, and that exclusively using Custom Elements makes an application "future-proof". Here we will try to explain why we believe that this is an overly simplistic take on the problem.
+애플리케이션이나 라이브러리를 개발할 때 Vue 컴포넌트를 비롯한 사용자 정의 요소를 [타입 체크](/guide/scaling-up/tooling.html#typescript)하려는 경우에는 추가적인 작업이 필요합니다.
 
-There is indeed a certain level of feature overlap between Custom Elements and Vue Components: they both allow us to define reusable components with data passing, event emitting, and lifecycle management. However, Web Components APIs are relatively low-level and bare-bones. To build an actual application, we need quite a few additional capabilities which the platform does not cover:
+사용자 정의 요소는 네이티브 API를 사용하여 전역으로 등록되기 때문에 기본적으로 Vue 템플릿에서는 타입 추론이 제공되지 않습니다. Vue 컴포넌트로 등록된 사용자 정의 요소에 대한 타입 지원을 제공하려면 Vue 템플릿 및/또는 [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements)에서 전역 컴포넌트 타이핑을 등록할 수 있습니다.
 
-- A declarative and efficient templating system;
+```typescript
+import { defineCustomElement } from 'vue'
 
-- A reactive state management system that facilitates cross-component logic extraction and reuse;
+// vue SFC
+import CounterSFC from './src/components/counter.ce.vue'
 
-- A performant way to render the components on the server and hydrate them on the client (SSR), which is important for SEO and [Web Vitals metrics such as LCP](https://web.dev/vitals/). Native custom elements SSR typically involves simulating the DOM in Node.js and then serializing the mutated DOM, while Vue SSR compiles into string concatenation whenever possible, which is much more efficient.
+// 컴포넌트를 웹 컴포넌트로 변환
+export const Counter = defineCustomElement(CounterSFC)
 
-Vue's component model is designed with these needs in mind as a coherent system.
+// 전역 타이핑 등록
+declare module 'vue' {
+  export interface GlobalComponents {
+    'Counter': typeof Counter,
+  }
+}
+```
 
-With a competent engineering team, you could probably build the equivalent on top of native Custom Elements - but this also means you are taking on the long-term maintenance burden of an in-house framework, while losing out on the ecosystem and community benefits of a mature framework like Vue.
+## 웹 컴포넌트 vs. Vue 컴포넌트 {#web-components-vs-vue-components}
 
-There are also frameworks built using Custom Elements as the basis of their component model, but they all inevitably have to introduce their proprietary solutions to the problems listed above. Using these frameworks entails buying into their technical decisions on how to solve these problems - which, despite what may be advertised, doesn't automatically insulate you from potential future churns.
+일부 개발자는 특정 프레임워크-독점적인 컴포넌트 모델을 피해야 하며, 오직 웹 컴포넌트만을 사용하여 애플리케이션을 "미래지향적"으로 만들어야 한다고 믿고 있습니다. 이곳에서는 이러한 접근 방식이 문제에 대해 지나치게 단순한 것으로 여겨진다고 생각하는 이유를 설명하고자 합니다.
 
-There are also some areas where we find custom elements to be limiting:
+실제로 웹 컴포넌트와 Vue 컴포넌트 간에는 특정 수준의 기능 중복이 있습니다: 데이터 전달, 이벤트 발생 및 라이프사이클 관리와 같은 기능을 통해 재사용 가능한 컴포넌트를 정의할 수 있습니다. 그러나 웹 컴포넌트 API는 비교적 로우-레벨이며 기본적인 기능만 제공합니다. 실제 애플리케이션을 구축하기 위해서는 플랫폼에서 제공하지 않는 다양한 기능이 필요합니다:
 
-- Eager slot evaluation hinders component composition. Vue's [scoped slots](/guide/components/slots.html#scoped-slots) are a powerful mechanism for component composition, which can't be supported by custom elements due to native slots' eager nature. Eager slots also mean the receiving component cannot control when or whether to render a piece of slot content.
+- 선언적이고 효율적인 템플릿 시스템
+- 상태 관리 시스템으로서의 반응성
+- 서버에서 컴포넌트를 렌더링하고 클라이언트에서 하이드레이션하기 위한 성능 우수한 방법(SSR). 이는 SEO와 LCP와 같은 [Web Vitals 지표](https://web.dev/vitals/)에 중요합니다. 기본 웹 컴포넌트 SSR은 Node.js에서 DOM을 시뮬레이션한 다음 변경된 DOM을 직렬화하는 것을 포함합니다. 반면 Vue SSR은 가능한 경우 문자열 연결로 컴파일되므로 훨씬 효율적입니다.
 
-- Shipping custom elements with shadow DOM scoped CSS today requires embedding the CSS inside JavaScript so that they can be injected into shadow roots at runtime. They also result in duplicated styles in markup in SSR scenarios. There are [platform features](https://github.com/whatwg/html/pull/4898/) being worked on in this area - but as of now they are not yet universally supported, and there are still production performance / SSR concerns to be addressed. In the meanwhile, Vue SFCs provide [CSS scoping mechanisms](/api/sfc-css-features) that support extracting the styles into plain CSS files.
+Vue의 컴포넌트 모델은 이러한 요구 사항을 고려하여 설계되었습니다.
 
-Vue will always stay up to date with the latest standards in the web platform, and we will happily leverage whatever the platform provides if it makes our job easier. However, our goal is to provide solutions that work well and work today. That means we have to incorporate new platform features with a critical mindset - and that involves filling the gaps where the standards fall short while that is still the case.
+능력 있는 엔지니어링 팀이라면 기본 웹 컴포넌트 위에 동일한 기능을 구축할 수 있을 것입니다. 하지만 이는 독자적인 프레임워크의 장기적인 유지 보수 부담을 갖게되고, 성숙한 Vue와 같은 생태계 및 커뮤니티의 혜택을 잃게 됨을 의미합니다.
+
+또한 웹 컴포넌트를 기반으로 한 프레임워크도 있지만, 이러한 프레임워크는 위에서 언급한 문제에 대한 독자적인 솔루션을 도입해야 합니다. 이러한 프레임워크를 사용하면 이러한 문제를 해결하기 위한 기술적 결정에 따르게 되며, 앞으로 발생할 수 있는 잠재적인 변화로부터 자동으로 보호받을 수 있다는 것은 확신할 수 없습니다.
+
+웹 컴포넌트의 제한적인 측면도 있습니다:
+
+- 이른 시점 슬롯 평가는 컴포넌트 구성에 제약을 가합니다. Vue의 [scoped slots](/guide/components/slots#scoped-slots)는 컴포넌트 구성을 위한 강력한 메커니즘으로, 원시 슬롯의 이른 평가 특성으로 인해 웹 컴포넌트에서는 지원할 수 없습니다. 이른 슬롯은 수신 컴포넌트가 슬롯 콘텐츠를 렌더링할 시기나 여부를 제어할 수 없음을 의미합니다.
+
+- 현재 shadow DOM 범위 CSS를 사용하여 사용자 정의 요소를 배포하는 것은 JavaScript 내부에 CSS를 포함시켜 런타임에서
+
+shadow root에 주입해야 합니다. 또한 SSR 시나리오에서 마크업에 중복된 스타일이 결과됩니다. 이에 대한 [플랫폼 기능](https://github.com/whatwg/html/pull/4898/)들이 작업 중이지만, 현재로서는 보편적으로 지원되지 않으며, 제작 성능 및 SSR에 대한 고려 사항이 아직 처리되어야 합니다. 한편, Vue의 SFC는 [CSS 스코핑 메커니즘](/api/sfc-css-features)을 제공하여 스타일을 일반 CSS 파일로 추출하는 기능을 제공합니다.
+
+Vue는 항상 웹 플랫폼의 최신 표준을 따를 것이며, 플랫폼이 작업을 쉽게 할 수 있는 경우에는 가능한한 활용할 것입니다. 그러나 우리의 목표는 현재 잘 작동하는 솔루션을 제공하는 것입니다. 이는 표준이 여전히 부족한 부분을 채우는 것을 의미합니다.
