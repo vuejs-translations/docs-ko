@@ -86,17 +86,7 @@ outline: deep
 
 <div class="composition-api">
 
-`<script setup>`을 사용하는 경우, [`defineOptions`](/api/sfc-script-setup#defineoptions) 매크로를 사용할 수 있습니다:
-
-```vue
-<script setup>
-defineOptions({
-  inheritAttrs: false
-})
-</script>
-```
-
-3.3 버전부터 `<script setup>` 내에서 직접 `defineOptions`를 사용할 수도 있습니다:
+3.3 버전부터는 `<script setup>`에서 직접 [`defineOptions`](/api/sfc-script-setup#defineoptions)를 사용할 수도 있습니다.
 
 ```vue
 <script setup>
