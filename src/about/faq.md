@@ -16,8 +16,6 @@ Vue 3는 Vue의 최신 주 버전입니다. 여기에는 텔레포트, 서스펜
 
 - IE11을 지원해야 합니다. Vue 3는 최신 JavaScript 기능을 활용하며 IE11을 지원하지 않습니다.
 
-- Nuxt 또는 Vuetify와 같은 주요 에코시스템 프로젝트가 Vue 3의 안정적인 버전을 출시하기를 기다리고 있습니다. 베타 단계의 소프트웨어를 사용하고 싶지 않다면 이는 합리적인 선택입니다. 하지만 이미 안정된 다른 Vue 3 컴포넌트 라이브러리인 [Quasar](https://quasar.dev/), [Naive UI](https://www.naiveui.com/), [Element Plus](https://element-plus.org/)가 있다는 점에 유의하세요.
-
 기존 Vue 2 앱을 Vue 3로 마이그레이션하려는 경우 [마이그레이션 가이드](https://v3-migration.vuejs.org/)를 참조하세요.
 
 ## Vue 2가 계속 지원되나요? {#is-vue-2-still-supported}
