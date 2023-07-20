@@ -84,7 +84,7 @@
   import { inject } from 'vue'
   import { fooSymbol } from './injectionSymbols'
 
-  // 주입: 정적 값
+  // 주입: 기본 값이 없는 정적 값
   const foo = inject('foo')
 
   // 주입: 반응형 값

@@ -73,7 +73,7 @@ SSG는 정적 데이터, 즉 빌드 시 결정되어 배포 간에 변경되지 
 
 소수의 마케팅 페이지(예: `/`, `/about`, `/contact` 등)의 SEO를 개선하기 위해 SSR만 고려하고 있다면, SSG를 대안으로 추천합니다.
 SSG는 문서 사이트나 블로그와 같은 컨텐츠 기반 웹사이트에도 적합합니다.
-사실 지금 보고 있는 이 웹사이트는 Vue 기반 정적 사이트 생성기 [VitePress](https://vitepress.vuejs.org/)를 사용하여 정적으로 생성된 것입니다.
+사실 지금 보고 있는 이 웹사이트는 Vue 기반 정적 사이트 생성기 [VitePress](https://vitepress.dev/)를 사용하여 정적으로 생성된 것입니다.
 
 ## 기본 튜토리얼 {#basic-tutorial}
 
