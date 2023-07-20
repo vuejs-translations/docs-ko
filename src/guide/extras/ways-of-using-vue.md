@@ -69,7 +69,7 @@ SSG에는 단일 페이지와 다중 페이지의 두 가지 버전이 있습니
 
 사소하지 않은 상호 작용, 긴 세션 길이 또는 탐색 전반에 걸쳐 지속되는 요소/상태를 기대하는 경우 단일 페이지 SSG가 더 적합합니다. 그렇지 않은 경우 다중 페이지 SSG가 더 나은 선택입니다.
 
-Vue 팀은 또한 지금 읽고 있는 이 웹사이트를 구동하는 정적 사이트 생성기인 [VitePress](https://vitepress.vuejs.org/)를 관리합니다! VitePress는 두 가지 버전의 SSG를 모두 지원합니다. [Nuxt](https://nuxt.com/)도 SSG를 지원합니다. 동일한 Nuxt 앱에서 서로 다른 경로에 대해 SSR과 SSG를 혼합 할 수도 있습니다.
+Vue 팀은 또한 지금 읽고 있는 이 웹사이트를 구동하는 정적 사이트 생성기인 [VitePress](https://vitepress.dev/)를 관리합니다! VitePress는 두 가지 버전의 SSG를 모두 지원합니다. [Nuxt](https://nuxt.com/)도 SSG를 지원합니다. 동일한 Nuxt 앱에서 서로 다른 경로에 대해 SSR과 SSG를 혼합 할 수도 있습니다.
 
 ## 웹을 넘어서 {#beyond-the-web}
 
