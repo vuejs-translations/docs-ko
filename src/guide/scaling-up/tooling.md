@@ -92,6 +92,7 @@ Vue 브라우저 개발자 도구 확장 프로그램을 사용하면, Vue 앱�
 - [Vue 브라우저 개발자 도구 문서](https://devtools.vuejs.org/)
 - [Chrome 확장 프로그램](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
 - [Firefox 애드온](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
+- [Edge 확장 프로그램](https://microsoftedge.microsoft.com/addons/detail/vuejs-devtools/olofadcdnkkjdfgjcmjaadnlehnnihnl)
 - [독립형 Electron 앱](https://devtools.vuejs.org/guide/installation.html#standalone)
 
 ## 타입스크립트 {#typescript}
