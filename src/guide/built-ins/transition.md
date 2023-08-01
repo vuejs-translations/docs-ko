@@ -393,6 +393,8 @@ function onEnter(el, done) {
 
 // 진입 트랜지션이 완료되면 호출됩니다.
 function onAfterEnter(el) {}
+
+// 진입 트랜지션이 완료되기 전, 취소될 때 호출됩니다.
 function onEnterCancelled(el) {}
 
 // 진출 훅 전에 호출됩니다.
