@@ -254,8 +254,7 @@ For manually resolving a registered directive by name.
 
 - **세부 사항**:
 
-  **참고: 컴포넌트를 직접 임포트할 수 있는 경우에는 이 작업이 필요하지 않습니다.**
-  **Note: you do not need this if you can import the component directly.**
+  **참고: 직접 디렉티브를 가져올 수 있는 경우 이 작업이 필요하지 않습니다.**
 
   올바른 컴포넌트 컨텍스트에서 해결하려면 `resolveDirective()`를 `setup()` 또는 렌더링 함수 내부에서 호출해야 합니다.
 
