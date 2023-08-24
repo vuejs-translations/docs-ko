@@ -401,13 +401,18 @@ components/
 <h3>Bad</h3>
 
 ```vue-html
-<!-- In Single-File Components, string templates, and JSX -->
-<MyComponent></MyComponent>
+<!-- In Single-File Components and string templates -->
+<mycomponent/>
+```
+
+```vue-html
+<!-- In Single-File Components and string templates -->
+<myComponent/>
 ```
 
 ```vue-html
 <!-- In DOM templates -->
-<my-component/>
+<MyComponent></MyComponent>
 ```
 
 </div>
@@ -416,7 +421,7 @@ components/
 <h3>Good</h3>
 
 ```vue-html
-<!-- In Single-File Components, string templates, and JSX -->
+<!-- In Single-File Components and string templates -->
 <MyComponent/>
 ```
 
@@ -424,6 +429,14 @@ components/
 <!-- In DOM templates -->
 <my-component></my-component>
 ```
+
+OR
+
+```vue-html
+<!-- Everywhere -->
+<my-component></my-component>
+```
+
 
 </div>
 
