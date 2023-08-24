@@ -34,7 +34,7 @@ Vite 기반 설정을 사용하면 개발 서버와 번들러가 트랜스파일
 
     - [타입스크립트 Vue 플러그인](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) 은 TS 파일에서 `*.vue` 를 가져오기 위해 별도의 타입 지원이 필요합니다.
 
-- [WebStorm](https://www.jetbrains.com/webstorm/) 은 타입스크립트와 Vue 모두 기본적으로 지원합니다. 다른 JetBrains IDE도 [무료 플러그인](https://plugins.jetbrains.com/plugin/9442-vue-js) 설치를 통해 바로 사용 가능합니다.
+- [WebStorm](https://www.jetbrains.com/webstorm/) 은 타입스크립트와 Vue 모두 기본적으로 지원합니다. 다른 JetBrains IDE도 [무료 플러그인](https://plugins.jetbrains.com/plugin/9442-vue-js) 설치를 통해 바로 사용 가능합니다. 2023.2 버전을 기준으로, WebStorm과 Vue 플러그인은 Vue Language Server에 대한 내장 지원을 제공합니다. `세팅 > 언어 및 프레임워크 > TypeScript > Vue` 에서 모든 TypeScript 버전에 대해 Volar 통합을 사용하도록 Vue 서비스를 설정할 수 있습니다. 기본적으로 TypeScript 5.0 이상의 버전에 대해 Volar가 사용됩니다.
 
 ### `tsconfig.json` 설정 {#configuring-tsconfig-json}
 
