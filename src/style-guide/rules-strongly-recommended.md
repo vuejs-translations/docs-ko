@@ -401,50 +401,6 @@ components/
 <h3>Bad</h3>
 
 ```vue-html
-<!-- In Single-File Components, string templates, and JSX -->
-<MyComponent></MyComponent>
-```
-
-```vue-html
-<!-- In DOM templates -->
-<my-component/>
-```
-
-</div>
-
-<div class="style-example style-example-good">
-<h3>Good</h3>
-
-```vue-html
-<!-- In Single-File Components, string templates, and JSX -->
-<MyComponent/>
-```
-
-```vue-html
-<!-- In DOM templates -->
-<my-component></my-component>
-```
-
-</div>
-
-## JS/JSX의 컴포넌트 이름 대/소문자 {#component-name-casing-in-js-jsx}
-
-**JS/[JSX](/guide/extras/render-function.html#jsx-tsx)의 컴포넌트 이름은 항상 파스칼 케이스를 사용해야 하지만, `app.component`를 통한 전역 컴포넌트 등록만 사용하는 간단한 애플리케이션의 경우 문자열 내부에 케밥 케이스를 사용할 수 있습니다.**
-
-
-::: details 자세한 설명
-자바스크립트에서 파스칼케이스는 클래스 및 프로토타입 생성자, 즉 본질적으로 별개의 인스턴스를 가질 수 있는 모든 것에 대한 규칙입니다. Vue 컴포넌트에도 인스턴스가 있으므로 파스칼케이스도 사용하는 것이 합리적입니다. 추가적인 이점으로, JSX(및 템플릿) 내에서 파스칼케이스를 사용하면 코드 독자가 컴포넌트와 HTML 앨리먼트를 더 쉽게 구분할 수 있습니다.
-
-그러나 `app.component`를 통해 전역 컴포넌트 정의만 사용하는 애플리케이션의 경우 케밥 케이스를 사용하는 것이 좋습니다. 그 이유는 다음과 같습니다:
-
-- 자바스크립트에서 전역 컴포넌트를 참조하는 경우는 거의 없으므로 자바스크립트 규칙을 따르는 것이 덜 합리적입니다.
-- 이러한 애플리케이션에는 항상 많은 인-DOM 템플릿이 포함되며, 여기에는 [kebab-case **필수** 사용](#component-name-casing-in-templates)이 사용됩니다.
-  :::
-
-<div class="style-example style-example-bad">
-<h3>Bad</h3>
-
-```vue-html
 <!-- In Single-File Components and string templates -->
 <mycomponent/>
 ```
@@ -479,6 +435,77 @@ OR
 ```vue-html
 <!-- Everywhere -->
 <my-component></my-component>
+```
+
+</div>
+
+## JS/JSX의 컴포넌트 이름 대/소문자 {#component-name-casing-in-js-jsx}
+
+**JS/[JSX](/guide/extras/render-function.html#jsx-tsx)의 컴포넌트 이름은 항상 파스칼 케이스를 사용해야 하지만, `app.component`를 통한 전역 컴포넌트 등록만 사용하는 간단한 애플리케이션의 경우 문자열 내부에 케밥 케이스를 사용할 수 있습니다.**
+
+
+::: details 자세한 설명
+자바스크립트에서 파스칼케이스는 클래스 및 프로토타입 생성자, 즉 본질적으로 별개의 인스턴스를 가질 수 있는 모든 것에 대한 규칙입니다. Vue 컴포넌트에도 인스턴스가 있으므로 파스칼케이스도 사용하는 것이 합리적입니다. 추가적인 이점으로, JSX(및 템플릿) 내에서 파스칼케이스를 사용하면 코드 독자가 컴포넌트와 HTML 앨리먼트를 더 쉽게 구분할 수 있습니다.
+
+그러나 `app.component`를 통해 전역 컴포넌트 정의만 사용하는 애플리케이션의 경우 케밥 케이스를 사용하는 것이 좋습니다. 그 이유는 다음과 같습니다:
+
+- 자바스크립트에서 전역 컴포넌트를 참조하는 경우는 거의 없으므로 자바스크립트 규칙을 따르는 것이 덜 합리적입니다.
+- 이러한 애플리케이션에는 항상 많은 인-DOM 템플릿이 포함되며, 여기에는 [kebab-case **필수** 사용](#component-name-casing-in-templates)이 사용됩니다.
+  :::
+
+<div class="style-example style-example-bad">
+<h3>Bad</h3>
+
+```vue-html
+app.component('myComponent', {
+  // ...
+})
+```
+
+```vue-html
+import myComponent from './MyComponent.vue'
+```
+
+```vue-html
+export default {
+  name: 'myComponent'
+  // ...
+}
+```
+
+```vue-html
+export default {
+  name: 'my-component'
+  // ...
+}
+```
+
+</div>
+
+<div class="style-example style-example-good">
+<h3>Good</h3>
+
+```vue-html
+app.component('MyComponent', {
+  // ...
+})
+```
+
+```vue-html
+app.component('my-component', {
+  // ...
+})
+```
+
+```vue-html
+import MyComponent from './MyComponent.vue'
+```
+
+```vue-html
+export default {
+  name: 'MyComponent'
+  // ...
+}
 ```
 
 </div>
