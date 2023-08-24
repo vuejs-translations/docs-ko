@@ -177,11 +177,11 @@ React 훅은 컴포넌트가 업데이트될 때마다 반복적으로 호출됩
 또한 개발 경험에 심각한 영향을 줄 수 있는 성능 최적화 문제로 이어집니다.
 여기 몇 가지 예가 있습니다:
 
-- Hooks are call-order sensitive and cannot be conditional.
+- Hooks 는 호출 순서에 민감하여 조건부로 사용할 수 없습니다.
 
 - Variables declared in a React component can be captured by a hook closure and become "stale" if the developer fails to pass in the correct dependencies array. This leads to React developers relying on ESLint rules to ensure correct dependencies are passed. However, the rule is often not smart enough and over-compensates for correctness, which leads to unnecessary invalidation and headaches when edge cases are encountered.
 
-- Expensive computations require the use of `useMemo`, which again requires manually passing in the correct dependencies array.
+- 비용이 많이 드는 계산은 `useMemo` 사용을 필요로 하며, 이 역시 올바른 종속성 배열을 수동으로 전달해야 합니다.
 
 - Event handlers passed to child components cause unnecessary child updates by default, and require explicit `useCallback` as an optimization. This is almost always needed, and again requires a correct dependencies array. Neglecting this leads to over-rendering apps by default and can cause performance issues without realizing it.
 
