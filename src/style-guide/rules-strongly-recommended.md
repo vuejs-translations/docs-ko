@@ -437,7 +437,6 @@ OR
 <my-component></my-component>
 ```
 
-
 </div>
 
 ## JS/JSX의 컴포넌트 이름 대/소문자 {#component-name-casing-in-js-jsx}
@@ -458,18 +457,27 @@ OR
 <h3>Bad</h3>
 
 ```vue-html
-<!-- In Single-File Components and string templates -->
-<mycomponent/>
+app.component('myComponent', {
+  // ...
+})
 ```
 
 ```vue-html
-<!-- In Single-File Components and string templates -->
-<myComponent/>
+import myComponent from './MyComponent.vue'
 ```
 
 ```vue-html
-<!-- In DOM templates -->
-<MyComponent></MyComponent>
+export default {
+  name: 'myComponent'
+  // ...
+}
+```
+
+```vue-html
+export default {
+  name: 'my-component'
+  // ...
+}
 ```
 
 </div>
@@ -478,20 +486,26 @@ OR
 <h3>Good</h3>
 
 ```vue-html
-<!-- In Single-File Components and string templates -->
-<MyComponent/>
+app.component('MyComponent', {
+  // ...
+})
 ```
 
 ```vue-html
-<!-- In DOM templates -->
-<my-component></my-component>
+app.component('my-component', {
+  // ...
+})
 ```
 
-OR
+```vue-html
+import MyComponent from './MyComponent.vue'
+```
 
 ```vue-html
-<!-- Everywhere -->
-<my-component></my-component>
+export default {
+  name: 'MyComponent'
+  // ...
+}
 ```
 
 </div>
