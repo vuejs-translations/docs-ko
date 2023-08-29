@@ -456,24 +456,24 @@ OR
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
 
-```vue-html
+```js
 app.component('myComponent', {
   // ...
 })
 ```
 
-```vue-html
+```js
 import myComponent from './MyComponent.vue'
 ```
 
-```vue-html
+```js
 export default {
   name: 'myComponent'
   // ...
 }
 ```
 
-```vue-html
+```js
 export default {
   name: 'my-component'
   // ...
@@ -485,23 +485,23 @@ export default {
 <div class="style-example style-example-good">
 <h3>Good</h3>
 
-```vue-html
+```js
 app.component('MyComponent', {
   // ...
 })
 ```
 
-```vue-html
+```js
 app.component('my-component', {
   // ...
 })
 ```
 
-```vue-html
+```js
 import MyComponent from './MyComponent.vue'
 ```
 
-```vue-html
+```js
 export default {
   name: 'MyComponent'
   // ...
