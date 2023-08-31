@@ -81,7 +81,7 @@ SFC는 Vue를 프레임워크로 정의하며, 다음과 같이 Vue를 사용하
 
 SFC가 과도하다고 느껴질 수 있는 시나리오가 있다는 것을 알고 있습니다.
 이것이 Vue가 빌드 방식이 아닌 일반 JavaScript를 통해 계속 사용될 수도 있도록 유지되는 이유입니다.
-가벼운 상호 작용으로 정적인 HTML을 향상시키려는 대부분의 경우, 점진적 향상에 최적화된 6kb 크긱의 Vue 하위 집합인 [petite-vue](https://github.com/vuejs/petite-vue)를 확인할 수도 있습니다.
+가벼운 상호 작용으로 정적인 HTML을 향상시키려는 대부분의 경우, 점진적 향상에 최적화된 6kb 크기의 Vue 하위 집합인 [petite-vue](https://github.com/vuejs/petite-vue)를 확인할 수도 있습니다.
 
 ## 작동방식 {#how-it-works}
 
