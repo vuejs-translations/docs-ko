@@ -193,7 +193,7 @@ React 훅은 컴포넌트가 업데이트될 때마다 반복적으로 호출됩
 
 - Vue 의 런타임 반응성 시스템은 computed 속성과 watcher 에 사용되는 반응성 종속성을 자동으로 수집하므로 종속성을 수동으로 선언할 필요가 없습니다.
 
-- No need to manually cache callback functions to avoid unnecessary child updates. In general, Vue's fine-grained reactivity system ensures child components only update when they need to. Manual child-update optimizations are rarely a concern for Vue developers.
+- 불필요한 하위 컴포넌트의 업데이트를 피하기 위해 콜백 함수를 수동으로 캐시할 필요가 없습니다. 일반적으로 Vue의 세분화된 반응성 시스템은 필요할 때만 하위 컴포넌트가 업데이트되도록 합니다. 수동 하위 컴포넌트 업데이트 최적화는 Vue 개발자에게 거의 문제가 되지 않습니다.
 
 우리는 React 훅의 창의성을 인정하며 이는 컴포지션 API에 주요 영감의 원천입니다.
 그러나 위에서 언급한 문제는 설계에 존재하며,
