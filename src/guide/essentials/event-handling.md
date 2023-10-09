@@ -268,7 +268,7 @@ methods: {
 <div @scroll.passive="onScroll">...</div>
 ```
 
-`.passive` 수식어는 일반적으로 [모바일 장치의 성능 향상](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scrolling_performance_with_passive_listeners)을 위해 터치 이벤트 리스너와 함께 사용됩니다.
+`.passive` 수식어는 일반적으로 [모바일 장치의 성능 향상](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scroll_performance_using_passive_listeners)을 위해 터치 이벤트 리스너와 함께 사용됩니다.
 
 ::: tip
 `.passive`는 브라우저에게 이벤트의 _기본 동작을 방지(prevent)하지 않겠다_는 의도를 전달한 것입니다.

@@ -210,7 +210,7 @@ Clones a vnode.
   <div class="composition-api">
 
   ```js
-  const { h, resolveComponent } = Vue
+  import { h, resolveComponent } from 'vue'
 
   export default {
     setup() {
@@ -227,7 +227,7 @@ Clones a vnode.
   <div class="options-api">
 
   ```js
-  const { h, resolveComponent } = Vue
+  import { h, resolveComponent } from 'vue'
 
   export default {
     render() {

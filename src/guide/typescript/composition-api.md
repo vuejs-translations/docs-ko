@@ -348,6 +348,8 @@ onMounted(() => {
 </template>
 ```
 
+올바른 DOM 인터페이스를 얻기 위해서는 [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#technical_summary)과 같은 페이지를 확인할 수 있습니다.
+
 Strict한 타입 안전성을 위해서는 `el.value`에 접근할 때 옵셔널 체이닝 또는 타입 가드를 사용해야 합니다. 이는 초기 ref 값이 컴포넌트가 마운트될 때까지 `null`이며, 참조된 요소가 `v-if`에 의해 마운트 해제될 수도 있기 때문입니다.
 
 ## 컴포넌트 템플릿 Ref의 타이핑 {#typing-component-template-refs}

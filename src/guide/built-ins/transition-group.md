@@ -22,7 +22,7 @@ import ListStagger from './transition-demos/ListStagger.vue'
 
 
 :::tip
-[DOM 템플릿](/guide/essentials/component-basics.html#dom-template-parsing-caveats)에서 사용할 때 `<transition-group>`으로 참조해야 합니다.
+[in-DOM 템플릿](/guide/essentials/component-basics.html#in-dom-template-parsing-caveats)에서 사용할 때 `<transition-group>`으로 참조해야 합니다.
 :::
 
 ## 진입/진출 트랜지션 {#enter-leave-transitions}

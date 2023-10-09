@@ -106,7 +106,7 @@
   `is` 속성이 네이티브 HTML 엘리먼트에 사용되면,
   네이티브 웹 플랫폼 함수인 [커스터마이즈 빌트인 엘리먼트](https://html.spec.whatwg.org/multipage/custom-elements#custom-elements-customized-builtin-example)로 해석됩니다.
 
-  그러나 [DOM 템플릿 파싱 주의 사항](/guide/essentials/component-basics#dom-template-parsing-caveats)에 설명된 대로,
+  그러나 [in-DOM 템플릿 파싱 주의 사항](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에 설명된 대로,
   기본 엘리먼트를 Vue 컴포넌트로 교체하기 위해 Vue가 필요할 수 있는 사용 사례가 있습니다.
   Vue가 엘리먼트를 Vue 컴포넌트로 렌더링하도록 `is` 속성 값에 `vue:` 접두사를 붙일 수 있습니다:
 

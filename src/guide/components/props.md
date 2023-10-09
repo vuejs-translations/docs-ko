@@ -148,7 +148,7 @@ export default {
 <span>{{ greetingMessage }}</span>
 ```
 
-기술적으로 props를 자식 컴포넌트에 전달할 때 camelCase를 사용할 수도 있습니다([DOM 템플릿](/guide/essentials/component-basics.html#dom-template-parsing-caveats) 제외).
+기술적으로 props를 자식 컴포넌트에 전달할 때 camelCase를 사용할 수도 있습니다([in-DOM 템플릿](/guide/essentials/component-basics.html#in-dom-template-parsing-caveats) 제외).
 그러나 camelCase로 선언된 props 속성일지라도 관례적으로 HTML 속성 표기법과 동일하게 kebab-case로 표기해서 사용하도록 해야 합니다:
 
 ```vue-html
