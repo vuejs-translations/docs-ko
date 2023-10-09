@@ -235,15 +235,16 @@ export function useFetch(url) {
   const data = ref(null)
   const error = ref(null)
 
-  watchEffect(() => {
-    // 가져오기 전에 상태 재설정..
-    data.value = null
-    error.value = null
-    // toValue()는 잠재적 ref 또는 getter를 언래핑합니다
-    fetch(toValue(url))
+	const fetchData = (dt) => {
+			fetch(toValue(url))
       .then((res) => res.json())
       .then((json) => (data.value = json))
       .catch((err) => (error.value = err))
+	}
+
+  watchEffect(() => {
+    // reset state before fetching..
+    fetchData(url)
   })
 
   return { data, error }
