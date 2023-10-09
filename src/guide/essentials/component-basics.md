@@ -191,7 +191,7 @@ SFC에서는 네이티브 HTML 엘리먼트와 구별하기 위해 자식 컴포
 <button-counter></button-counter>
 ```
 
-자세한 내용은 [DOM 템플릿 파싱 주의 사항](#dom-template-parsing-caveats)을 참조하세요.
+자세한 내용은 [in-DOM 템플릿 파싱 주의 사항](#in-dom-template-parsing-caveats)을 참조하세요.
 
 ## Props 전달하기 {#passing-props}
 
@@ -579,7 +579,7 @@ HTML 엘리먼트와 마찬가지로 다음과 같이 컴포넌트에 컨텐츠�
 `<component :is="...">`를 사용하여 여러 컴포넌트 간에 전환할 때, 다른 컴포넌트로 전환되면 컴포넌트가 마운트 해제됩니다.
 내장된 [`<KeepAlive>` 컴포넌트](/guide/built-ins/keep-alive)를 사용하여 비활성 컴포넌트를 "활성" 상태로 유지하도록 강제할 수 있습니다.
 
-## DOM 템플릿 파싱 주의 사항 {#dom-template-parsing-caveats}
+## in-DOM 템플릿 파싱 주의 사항 {#in-dom-template-parsing-caveats}
 
 Vue 템플릿을 DOM에서 직접 작성하는 경우, Vue는 DOM에서 템플릿 문자열을 검색해야 합니다.
 이것은 브라우저의 기본 HTML 파싱 동작으로 인해 몇 가지 주의 사항으로 이어집니다.
@@ -624,7 +624,7 @@ const BlogPost = {
 
 Vue의 템플릿 파서는 유형에 관계없이 모든 태그를 닫으라는 표시로 `/>`를 허용하기 때문입니다.
 
-그러나 DOM 템플릿에서는 항상 명시적인 닫는 태그를 포함해야 합니다.
+그러나 in-DOM 템플릿에서는 항상 명시적인 닫는 태그를 포함해야 합니다.
 
 ```vue-html
 <my-component></my-component>
@@ -676,7 +676,7 @@ Vue의 템플릿 파서는 유형에 관계없이 모든 태그를 닫으라는 
 이는 기본 [맞춤형 내장 엘리먼트](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example)와의 혼동을 피하기 위해 필요합니다.
 :::
 
-이것이 현재로서는 Vue를 사용할 때 DOM 템플릿 파싱 경고에 대해 필수적으로 알아야 할 전부입니다.
+이것이 현재로서는 Vue를 사용할 때 in-DOM 템플릿 파싱 경고에 대해 필수적으로 알아야 할 전부입니다.
 축하합니다!
 아직 배울 것이 더 있지만 먼저 잠시 휴식을 취하며 Vue를 직접 다뤄보는 것이 좋습니다.
 재미있는 것을 빌드하거나 아직 [예제](/examples/) 중 일부를 확인하지 않은 경우, 확인하십시오.

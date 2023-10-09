@@ -48,7 +48,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 </div>
 
 :::tip
-[DOM 템플릿](/guide/essentials/component-basics.html#dom-template-parsing-caveats)에서 사용할 때 `<keep-alive>`로 참조해야 합니다.
+[in-DOM 템플릿](/guide/essentials/component-basics.html#in-dom-template-parsing-caveats)에서 사용할 때 `<keep-alive>`로 참조해야 합니다.
 :::
 
 ## Include / Exclude {#include-exclude}

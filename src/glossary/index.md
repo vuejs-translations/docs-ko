@@ -168,7 +168,7 @@ Vue 컨텍스트에서는 템플릿 컴파일러가 성능을 향상시키기 �
 
 자세한 내용은 다음을 참조하세요:
 - [가이드 - 애플리케이션 생성 - in-DOM 루트 컴포넌트 템플릿](/guide/essentials/application.html#in-dom-root-component-template)
-- [가이드 - 컴포넌트 기본 - DOM 템플릿 구문 분석 주의사항](/guide/essentials/component-basics.html#dom-template-parsing-caveats)
+- [가이드 - 컴포넌트 기본 - in-DOM 템플릿 구문 분석 주의사항](/guide/essentials/component-basics.html#in-dom-template-parsing-caveats)
 - [옵션: 렌더링 - template](/api/options-rendering.html#template)
 
 ## inject {#inject}
