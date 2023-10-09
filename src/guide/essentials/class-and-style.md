@@ -94,9 +94,13 @@ data() {
 <div :class="classObject"></div>
 ```
 
-이렇게 하면 동일한 결과가 렌더링됩니다.
-객체를 반환하는 [계산된 속성](./computed)으로 바인딩할 수도 있습니다.
-이것은 일반적이고 강력한 패턴입니다:
+그러면 다음이 렌더링됩니다:
+
+```vue-html
+<div class="active"></div>
+```
+
+객체를 반환하는 [계산된 속성](./computed)에 바인딩할 수도 있습니다. 이는 일반적이고 강력한 패턴입니다:
 
 <div class="composition-api">
 
