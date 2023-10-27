@@ -18,7 +18,7 @@ Vite 기반 설정을 사용하면 개발 서버와 번들러가 트랜스파일
 
 - 개발하는 동안 타입 에러에 대한 즉각적인 피드백을 위해 좋은 [IDE 설정](#ide-support) 에 의존하는 것을 추천합니다.
 
-- SFC를 사용하는 경우 command line 타입 확인 및 타입 선언 생성을 위해 [`vue-tsc`](https://github.com/vuejs/language-tools/tree/master/packages/vue-tsc) 유틸리티를 사용하십시오. `vue-tsc` 는 타입스크립트의 자체 command line 인터페이스인 `tsc`를 포함하고 있습니다. 타입스크립트 파일 외에도 Vue SFC를 지원한다는 점을 제외하면 `tsc` 와 거의 동일하게 작동합니다.
+- SFC를 사용하는 경우 command line 타입 확인 및 타입 선언 생성을 위해 [`vue-tsc`](https://github.com/vuejs/language-tools/tree/master/packages/tsc) 유틸리티를 사용하십시오. `vue-tsc` 는 타입스크립트의 자체 command line 인터페이스인 `tsc`를 포함하고 있습니다. 타입스크립트 파일 외에도 Vue SFC를 지원한다는 점을 제외하면 `tsc` 와 거의 동일하게 작동합니다.
 
 - Vue CLI는 타입스크립트를 지원 하지만 더 이상 권장되지 않습니다. 아래 사항을 [참고](#note-on-vue-cli-and-ts-loader) 하십시오.
 
