@@ -42,7 +42,7 @@ Vue는 위키미디어 재단, NASA, Apple, Google, Microsoft, GitLab, Zoom, Ten
 
 Vue 3는 가장 성능이 뛰어난 메인스트림 프론트엔드 프레임워크 중 하나이며 대부분의 웹 애플리케이션 사용 사례를 수동으로 최적화할 필요 없이 쉽게 처리합니다.
 
-스트레스 테스트 시나리오에서 Vue는 [js-framework-benchmark](https://rawgit.com/krausest/js-framework-benchmark/master/webdriver-ts-results/table)에서 React 및 Angular를 상당한 차이로 능가합니다. 또한 벤치마크에서 가장 빠른 프로덕션 수준의 비-Virtual-DOM 프레임워크와도 나란히 경쟁합니다.
+스트레스 테스트 시나리오에서 Vue는 [js-framework-benchmark](https://krausest.github.io/js-framework-benchmark/current.html)에서 React 및 Angular를 상당한 차이로 능가합니다. 또한 벤치마크에서 가장 빠른 프로덕션 수준의 비-Virtual-DOM 프레임워크와도 나란히 경쟁합니다.
 
 위와 같은 합성 벤치마크는 전용 최적화가 적용된 원시 렌더링 성능에 중점을 두므로 실제 성능 결과를 완전히 대표하지 못할 수 있습니다. 페이지 로드 성능에 대해 더 자세히 알고 싶으시다면 [WebPageTest](https://www.webpagetest.org/lighthouse) 또는 [PageSpeed Insights](https://pagespeed.web.dev/)를 사용하여 바로 이 웹사이트를 테스트해 보시기 바랍니다. 이 웹사이트는 SSG 사전 렌더링, 전체 페이지 하이드레이션 및 SPA 클라이언트 측 탐색 기능을 갖춘 Vue 자체로 구동됩니다. 느린 4G 네트워크에서 4배 CPU 스로틀링으로 에뮬레이트된 Moto G4에서 성능 100점을 받았습니다.
 
