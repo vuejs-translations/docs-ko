@@ -426,5 +426,5 @@ defineProps<{
 
 ## 제한사항 {#restrictions}
 
-* 모듈 실행 의미 체계의 차이로 인해 `<script setup>` 내부의 코드는 SFC의 컨텍스트에 의존합니다. 이를 외부 `.js` 또는 `.ts` 파일로 옮기면 개발자와 도구 모두에게 혼란을 초래할 수 있습니다. 따라서 **`<script setup>`**는 `src` 속성과 함께 사용할 수 없습니다.
+* 모듈 실행 의미 체계의 차이로 인해 `<script setup>` 내부의 코드는 SFC의 컨텍스트에 의존합니다. 이를 외부 `.js` 또는 `.ts` 파일로 옮기면 개발자와 도구 모두에게 혼란을 초래할 수 있습니다. 따라서 **`<script setup>`** 는 `src` 속성과 함께 사용할 수 없습니다.
 * `<script setup>`은 In-DOM Root Component Template을 지원하지 않습니다.([관련 토론](https://github.com/vuejs/core/issues/8391))
