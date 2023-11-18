@@ -180,7 +180,7 @@ form 엘리먼트에 `autocomplete='on'`을 포함하면 form의 모든 input에
 `for`와 `id` 속성을 사용하여 연결하여:
 
 ```vue-html
-<label for="name">이름</label>
+<label for="name">이름:</label>
 <input type="text" name="name" id="name" v-model="name" />
 ```
 
@@ -211,7 +211,7 @@ form 엘리먼트에 `autocomplete='on'`을 포함하면 form의 모든 input에
 [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label) 을 사용하여 input에 접근 가능한 이름을 지정할 수도 있습니다.
 
 ```vue-html
-<label for="name">이름</label>
+<label for="name">이름:</label>
 <input
   type="text"
   name="name"
@@ -274,7 +274,7 @@ form 엘리먼트에 `autocomplete='on'`을 포함하면 form의 모든 input에
 >
   <h1 id="billing">계산서</h1>
   <div class="form-item">
-    <label for="name">성명:</label>
+    <label for="name">이름:</label>
     <input
       type="text"
       name="name"
