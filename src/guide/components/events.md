@@ -59,7 +59,6 @@ export default {
 <MyComponent @some-event.once="callback" />
 ```
 
-
 컴포넌트 및 props와 마찬가지로 이벤트 이름은 자동 대소문자 변환을 제공합니다.
 우리는 camelCase 형식으로 이벤트를 발신했지만, 부모에서 kebab-case 표기로 리스너를 사용하여 이를 수신할 수 있습니다.
 [props 케이싱](/guide/components/props.html#prop-name-casing)과 마찬가지로 템플릿에서 kebab-case 형식의 이벤트 리스너를 사용하는 것이 좋습니다.
@@ -125,7 +124,6 @@ function increaseCount(n) {
 
 컴포넌트는 <span class="composition-api">[`defineEmits()`](/api/sfc-script-setup.html#defineprops-defineemits) 매크로를</span><span class="options-api">[`emits`](/api/options-state.html#emits) 옵션을</span> 사용하여 명시적으로 발신할 이벤트를 선언할 수 있습니다:
 
-
 <div class="composition-api">
 
 ```vue
@@ -182,8 +180,6 @@ export default {
 }
 ```
 
-
-
 다른 `setup()` 컨텍스트의 속성들 처럼, `emit` 역시 구조분해가 가능합니다.
 
 ```js
@@ -197,7 +193,7 @@ export default {
 
 </div>
 
-`emits` 옵션은 객체 구문도 지원하므로, 발신되는 이벤트의 전달 내용(payload)에 대한 런타임 유효성 검사를 수행할 수 있습니다:
+`emits` 옵션과 `defineEmits()` 매크로는 객체 문법도 지원하는데, 이를 통해 발생된 이벤트의 페이로드에 대한 런타임 검증을 수행할 수 있습니다:
 
 <div class="composition-api">
 
