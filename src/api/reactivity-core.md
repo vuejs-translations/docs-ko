@@ -44,7 +44,7 @@
   const count = ref(0)
   console.log(count.value) // 0
 
-  count.value++
+  count.value = 1
   console.log(count.value) // 1
   ```
 
