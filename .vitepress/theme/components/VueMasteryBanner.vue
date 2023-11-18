@@ -91,7 +91,7 @@ onMounted(() => {
 .vuemastery-banner-wrapper:before {
   content: '';
   background: url(/vuemastery/background-bubbles-vuemastery.svg) left
-    center no-repeat;
+  center no-repeat;
   background-size: cover;
   position: absolute;
   top: 0;
@@ -279,22 +279,7 @@ onMounted(() => {
 </style>
 
 <style>
-html.vuemastery-menu-fixed .VPNav {
-  top: 70px;
-}
-
 html.vuemastery-menu-fixed {
-  scroll-padding-top: 134px;
-  overflow: auto;
-}
-
-html.vuemastery-menu-fixed {
-  margin-top: 72px;
-}
-
-@media (max-width: 960px) {
-  html.vuemastery-menu-fixed .VPNav {
-    top: 0;
-  }
+  --vt-banner-height: 70px;
 }
 </style>
