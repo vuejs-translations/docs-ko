@@ -123,14 +123,14 @@
     - `v-html`
     - `v-text`
 
-##컴포넌트/인스턴스 옵션의 빈 줄 {#empty-lines-in-component-instance-options}
+## 컴포넌트/인스턴스 옵션의 빈 줄 {#empty-lines-in-component-instance-options}
 
 **여러 줄로 된 속성 사이에 빈 줄을 하나 추가하는 것이 좋습니다. 특히 스크롤하지 않으면 옵션이 화면에 더 이상 맞지 않는 경우**.
 
 컴포넌트가 비좁게 느껴지거나 읽기 어려운 경우 여러 줄의 속성 사이에 공백을 추가하면 다시 훑어보기가 쉬워집니다. Vim과 같은 일부 편집기에서는 이와 같은 서식 지정 옵션으로 키보드로 더 쉽게 탐색할 수 있습니다.
 
-<div class="style-example style-example-good">
-<h3>Good</h3>
+<div class="style-example style-example-bad">
+<h3>Bad</h3>
 
 ```js
 props: {
@@ -158,6 +158,10 @@ computed: {
   }
 }
 ```
+</div>
+
+<div class="style-example style-example-good">
+<h3>Good</h3>
 
 ```js
 // 컴포넌트가 여전히 읽기 쉽고 탐색하기 쉽다면 공백이 없어도 괜찮습니다.
