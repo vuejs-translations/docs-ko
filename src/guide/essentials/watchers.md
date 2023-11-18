@@ -14,7 +14,8 @@ export default {
   data() {
     return {
       question: '',
-      answer: '질문에는 일반적으로 물음표가 포함됩니다.'
+      answer: '질문에는 일반적으로 물음표가 포함됩니다.',
+      loading: false
     }
   },
   watch: {
@@ -27,12 +28,15 @@ export default {
   },
   methods: {
     async getAnswer() {
+      this.loading = true
       this.answer = '생각 중...'
       try {
         const res = await fetch('https://yesno.wtf/api')
         this.answer = (await res.json()).answer === 'yes' ? '네' : '아니오'
       } catch (error) {
         this.answer = '에러! API에 연결할 수 없습니다. ' + error
+      } finally {
+        this.loading = false
       }
     }
   }
@@ -42,12 +46,12 @@ export default {
 ```vue-html
 <p>
   예/아니오 질문:
-  <input v-model="question" />
+  <input v-model="question" :disabled="loading" />
 </p>
 <p>{{ answer }}</p>
 ```
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNptkkFr2zAUx7/Kf77IYa3NriFpyXGnbfdcTKwsHonsWUrTEAwtKyNrCkthWX1IIAOPbZBD6DrYIftCkfIdptixl7UFgfSepN977//ewKgFgXXSpUbZqPBG6AXiqM7oaeCHAi5tOt22wKDOANcRjlnKzkBIRTdkuQW87VIuPJ+VQchB7nQY79FQu9S3oVz8VjdjefkJaraSy1jNz9V0Jb9MIRcrNbvaXE/XyzNsPi42k+9y/EOOhnKUWCRjRdstSsE9RzRa5TyybWMHn91B/jxb3/6R4znk5Epq9yjR0e6giWoYb/FqlGw+fyjwGSPP3WS092p3PoDfdnOjqBrwmth/ZnnMpacvmiY5JiUc4fDZ3ltAtDxuvaailgphlvKbtJz/qupQ0fJdXtTl8D5rYO/rP2wKzaRFVWv7brZenkMl15aVy6Ufhf39RBo+40I3jesfTs/xBJpUy2iSlhABL9t2n3LmWz3RtJ3AI0Wi96OZ2WcNst5wrVipVNxVdS6aQnAMIi8Sgm3fJxdaaBUnRV4RGtv+waRh6IcPxdqrK07k1/gJai+f68GBulmub5ebyRy6ldp6ry5/7WYEBE+R8h7Vt870qtjFcGtD0E7QdgTVFlAJ0g1Q8dAuMt6NVTm7qngs6AqcHHZ8l7ardSOfmboBO6PYGUbTBoPd5COKMnfFLiIa0V++VFOi)
+[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9VEtP20AQ/itTX5yoYKviFgUQrTjQQ6GPoy+WvSamztr1rklQFAlUVKUEqSA1JQciUclVW4lDRKnUA/1D2c1/6PiZQBGSJe889pv55rEdZS0ItN2IKDWlzqzQDfiKQUk78EMONnHMyOPQMSiAbXKzUs3OACHhUUgLCeBdRBh3fVoDVV0olCZlLRKiSn7vics/8uxEHH0GOboR46G8OJDnN+LrOYjLGzk6np6eT8b7MP10OR38ECc/Rb8n+rE2A/N803bpdg0c02MkV3eTXzcVWia3GrUiI12HPOjoGsSv/cnVX3FyAWJwLFDdjzGLa8BIsjdMwsp+PP3ysQybYRScKpS0XubnBfA9uxDKagC4Dsy7aS61SXvTqairahVWYPHJnC8Ab7hM2yZ8LS1QpVpYUjq3WDUJb/g2K3mZbI9aMHd1BpuC5lWCZeBhRG6Zsm6gRZXvR5PxAcj4VNM0tXQK9+ZztHzKOPaZ4Q2zZbocHIIVrqgNzgNW0/U9wqivtbijm4GrlhzuRqtklxFI22FYzGq1tC1jLoiiwiqo4jBWIRmVwSH2QA7jMq8uWElroULC0A//r+Mcr2Esvg0fwdrWBs4ayLPx5Go8HVwAdhmlD/Lodz5WoMJjSPFmURyXmp53qwZ3SppO3r29Mih+db1cIBQ4aQaeyQlKAPUg/QHIYU8vKeYjWstMdZcGEYfdxaZvE2/ZUIr5MxTQMxQ9g0G0TiffLuh2M3VdLyMqCwpn2D/H3U5rjrudkjIUy28GrkfCzSABZoZSDpahIHm/9TzVJbOTbxjeaRDr7T36HdZOdIayhb0l4S4xlNLGzRBnNDOvv35B2ngujcgv8tD7AeMrwnwvysgnbk8jamPac35pthvN5J3C5rxh621OKCtIFcOfLZGh4AP37AHqs3SXtKWioUr3H/+H2xc=)
 
 `watch` 옵션은 점으로 구분된 경로도 지원합니다:
 
@@ -74,16 +78,20 @@ import { ref, watch } from 'vue'
 
 const question = ref('')
 const answer = ref('질문에는 일반적으로 물음표가 포함됩니다.')
+const loading = ref(false)
 
 // watch는 ref에서 직접 작동합니다
 watch(question, async (newQuestion, oldQuestion) => {
-  if (newQuestion.indexOf('?') > -1) {
+  if (newQuestion.includes('?')) {
+    loading.value = true
     answer.value = '생각 중...'
     try {
       const res = await fetch('https://yesno.wtf/api')
       answer.value = (await res.json()).answer === 'yes' ? '네' : '아니오'
     } catch (error) {
       answer.value = '에러! API에 연결할 수 없습니다. ' + error
+    } finally {
+      loading.value = false
     }
   }
 })
@@ -92,7 +100,7 @@ watch(question, async (newQuestion, oldQuestion) => {
 <template>
   <p>
     예/아니오 질문:
-    <input v-model="question" />
+    <input v-model="question" :disabled="loading" />
   </p>
   <p>{{ answer }}</p>
 </template>
@@ -266,9 +274,13 @@ export default {
 `immediate: true` 옵션을 전달하여 워처의 콜백이 즉시 실행되도록 강제할 수 있습니다:
 
 ```js
-watch(source, (newValue, oldValue) => {
-  // 즉시 실행된 다음 `source`가 변경되면 다시 실행됩니다.
-}, { immediate: true })
+watch(
+  source,
+  (newValue, oldValue) => {
+    // 즉시 실행된 다음 `source`가 변경되면 다시 실행됩니다.
+  },
+  { immediate: true }
+)
 ```
 
 </div>
@@ -278,49 +290,45 @@ watch(source, (newValue, oldValue) => {
 
 ## `watchEffect()` \*\* {#watcheffect}
 
-`watch()`는 게으르므로(lazy) 감시 소스가 변경될 때까지 콜백이 호출되지 않습니다.
-그러나 어떤 경우에는 동일한 콜백 로직이 열성적으로 실행되기를 원할 수 있습니다.
-예를 들어 초기 데이터를 가져온 다음 관련 상태가 변경될 때마다 데이터를 다시 가져오기를 원할 수 있습니다.
-다음과 같이 구현할 수 있습니다:
+워처 콜백이 소스와 정확히 동일한 반응형 상태를 사용하는 것은 일반적입니다. 예를 들어, 다음 코드를 고려해 보세요. 이 코드는 `todoId` ref가 변경될 때마다 원격 리소스를 로드하기 위해 워처를 사용합니다:
 
 ```js
-const url = ref('https://...')
+const todoId = ref(1)
 const data = ref(null)
 
-async function fetchData() {
-  const response = await fetch(url.value)
-  data.value = await response.json()
-}
-
-// 즉시 데이터 가져오기
-fetchData()
-// ...그런다음 url 변경을 감시하도록 watch를 실행합니다.
-watch(url, fetchData)
+watch(
+  todoId,
+  async () => {
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/todos/${todoId.value}`
+    )
+    data.value = await response.json()
+  },
+  { immediate: true }
+)
 ```
 
-위 구현 로직은 [`watchEffect()`](/api/reactivity-core.html#watcheffect)로 단순화할 수 있습니다.
-`watchEffect()`를 사용하면 반응형 의존성을 자동으로 감시하면서, 최초에 즉시 사이드 이펙트를 한 번 실행합니다.
-위의 예는 다음과 같이 다시 작성할 수 있습니다:
+특히 워처가 `todoId`를 소스로 한 번, 콜백 내에서 다시 한 번 사용하는 것에 주목하세요.
+
+이는 [`watchEffect()`](/api/reactivity-core#watcheffect)로 단순화될 수 있습니다. `watchEffect()`는 콜백의 반응형 종속성을 자동으로 추적할 수 있습니다. 위의 워처는 다음과 같이 다시 작성될 수 있습니다:
 
 ```js
-const url = ref('https://...')
-const data = ref(null)
-
 watchEffect(async () => {
-  const response = await fetch(url.value)
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/todos/${todoId.value}`
+  )
   data.value = await response.json()
 })
 ```
 
-이제 콜백이 최초에 즉시 한 번 실행됩니다.
-실행되는 동안에도 자동으로 의존성인 `url.value`를 추적합니다(계산된 속성과 유사).
-`url.value`가 변경될 때마다 콜백이 다시 실행됩니다.
+여기서, 콜백은 즉시 실행되며, `immediate: true`를 명시할 필요가 없습니다. 실행 중에 자동으로 `todoId.value`를 종속성으로 추적합니다(계산된 속성과 유사하게). `todoId.value`가 변경될 때마다 콜백이 다시 실행됩니다. `watchEffect()`를 사용하면 `todoId`를 소스 값으로 명시적으로 전달할 필요가 없습니다.
 
-`watchEffect`와 반응형 데이터 가져오기 동작에 대해 [이 예제](/examples/#fetching-data)에서 확인할 수 있습니다.
+`watchEffect()`와 반응형 데이터 가져오기가 작동하는 [이 예제](/examples/#fetching-data)를 확인해 보세요.
+
+이러한 예제에서, 단일 종속성만 있는 경우, `watchEffect()`의 이점은 상대적으로 작습니다. 그러나 여러 종속성을 가진 워처의 경우, `watchEffect()`를 사용하면 종속성 목록을 수동으로 유지하는 부담을 없앨 수 있습니다. 또한, 중첩된 데이터 구조에서 여러 속성을 감시해야 하는 경우, `watchEffect()`는 깊은 워처보다 더 효율적일 수 있습니다. 콜백에서 사용되는 속성만 추적하는 반면, 모든 속성을 재귀적으로 추적하는 것이 아니기 때문입니다.
 
 :::tip
-`watchEffect`는 **동기적** 실행 중에만 의존성을 추적합니다.
-비동기 콜백과 함께 사용할 때 첫 번째 `await` 틱 이전에 접근한 속성들만 추적합니다.
+`watchEffect`는 **동기적** 실행 중에만 종속성을 추적합니다. 비동기 콜백을 사용할 때는 첫 번째 `await` 틱 전에 접근한 속성만 추적됩니다.
 :::
 
 ### `watch` vs. `watchEffect` {#watch-vs-watcheffect}
