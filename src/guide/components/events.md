@@ -17,6 +17,7 @@ if (typeof window !== 'undefined') {
   }
 }
 </script>
+
 # 컴포넌트 이벤트 {#component-events}
 
 > 이 페이지에서는 [컴포넌트 기초](/guide/essentials/component-basics)를 이미 읽었다고 가정합니다.
@@ -193,14 +194,14 @@ export default {
 
 </div>
 
-`emits` 옵션과 `defineEmits()` 매크로는 객체 문법도 지원하는데, 이를 통해 발생된 이벤트의 페이로드에 대한 런타임 검증을 수행할 수 있습니다:
+`emits` 옵션과 `defineEmits()` 매크로도 객체 구문을 지원합니다. TypeScript를 사용하는 경우 인수의 유형을 지정할 수 있으며, 이를 통해 발생한 이벤트의 페이로드를 런타임에서 유효성 검사할 수 있습니다:
 
 <div class="composition-api">
 
 ```vue
 <script setup>
 const emit = defineEmits({
-  submit(payload) {
+  submit(payload: { email: string, password: string }) {
     // `true` 또는 `false` 값을 반환하여
     // 유효성 검사 통과/실패 여부를 알려줌
 
@@ -232,7 +233,7 @@ const emit = defineEmits<{
 ```js
 export default {
   emits: {
-    submit(payload) {
+    submit(payload: { email: string, password: string }) {
       // `true` 또는 `false` 값을 반환하여
       // 유효성 검사 통과/실패 여부를 알려줌
 

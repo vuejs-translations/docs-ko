@@ -616,31 +616,3 @@ export default {
 ```
 
 </div>
-
-<div class="composition-api">
-
-## 반응형 변환 <sup class="vt-badge experimental" /> \*\* {#reactivity-transform}
-
-JavaScript의 언어적 제약으로 인해 ref를 `.value`와 같이 사용해야 하는 단점이 있습니다.
-그러나 컴파일 시 변환을 사용해 적절한 위치에 `.value`를 자동으로 추가하여 개발간 편의성을 개선할 수 있습니다.
-Vue는 다음과 같이 "카운터" 예제를 작성할 수 있도록 컴파일 시 변환을 제공합니다:
-
-```vue
-<script setup>
-let count = $ref(0)
-
-function increment() {
-  // .value가 필요하지 않습니다.
-  count++
-}
-</script>
-
-<template>
-  <button @click="increment">{{ count }}</button>
-</template>
-```
-
-[반응형 변환](/guide/extras/reactivity-transform)에 대한 자세한 내용은 해당 섹션에서 확인할 수 있습니다.
-현재 아직 실험 단계이며 최종적으로 확정되기 전에 변경될 수 있습니다.
-
-</div>

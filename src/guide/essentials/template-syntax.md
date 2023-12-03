@@ -134,7 +134,7 @@ data() {
 지금까지는 템플릿의 간단한 속성 키에만 바인딩했습니다.
 그러나 Vue는 실제로 모든 데이터 바인딩 내에서 JavaScript 표현식의 모든 기능을 지원합니다:
 
-```vue-html
+```html
 {{ number + 1 }}
 
 {{ ok ? '예' : '아니오' }}
@@ -159,7 +159,7 @@ Vue 템플릿에서 JavaScript 표현식은 다음과 같은 위치에 사용할
 
 따라서 다음 코드들은 **작동하지 않습니다**:
 
-```vue-html
+```html
 <!-- 이것은 표현식이 아니라 선언식입니다: -->
 {{ var a = 1 }}
 
@@ -171,7 +171,7 @@ Vue 템플릿에서 JavaScript 표현식은 다음과 같은 위치에 사용할
 
 바인딩 표현식 내부에서 컴포넌트에서 노출하는 메서드를 호출할 수 있습니다:
 
-```vue-html
+```html
 <time :title="toTitleDate(date)" :datetime="date">
   {{ formatDate(date) }}
 </time>
