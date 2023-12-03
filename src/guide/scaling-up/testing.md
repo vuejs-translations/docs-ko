@@ -125,11 +125,7 @@ Vue 앱에 특별한 함수의 한 범주인 [컴포저블](/guide/reusability/c
 
 ### 다른 선택지 {#other-options}
 
-- [Peeky](https://peeky.dev/)는 최고의 Vite 통합 기능을 갖춘 또 다른 빠른 단위 테스트 러너입니다.
-  또한 Vue 핵심 팀 구성원이 만들고 GUI 기반 테스트 인터페이스를 제공합니다.
-
-- [Jest](https://jestjs.io/)는 인기 있는 단위 테스트 프레임워크이며, [vite-jest](https://github.com/sodatea/vite-jest) 패키지를 통해 Vite와 함께 작동하도록 만들 수 있습니다.
-  그러나 Vitest가 보다 원활한 통합과 더 나은 성능을 제공하므로 Vite 기반 프로젝트로 마이그레이션해야 하는 기존 Jest 테스트 제품군이 있는 경우에만 Jest를 권장합니다.
+- [Jest](https://jestjs.io/)는 인기 있는 단위 테스트 프레임워크입니다. 그러나 Vite 기반 프로젝트로 이전해야 하는 기존의 Jest 테스트 스위트가 있는 경우에만 Jest를 권장합니다. 왜냐하면 Vitest는 더 원활한 통합과 더 나은 성능을 제공하기 때문입니다.
 
 ## 컴포넌트 테스트 {#component-testing}
 
