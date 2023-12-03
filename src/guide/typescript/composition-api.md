@@ -145,6 +145,18 @@ export default defineComponent({
 // 런타임 선언
 const emit = defineEmits(['change', 'update'])
 
+// options 기반
+const emit = defineEmits({
+  change: (id: number) => {
+    // `true` 또는 `false` 값을 반환하여
+    // 유효성 검사 통과/실패 여부를 알려줌
+  },
+  update: (value: string) => {
+    // `true` 또는 `false` 값을 반환하여
+    // 유효성 검사 통과/실패 여부를 알려줌
+  }
+})
+
 // 타입 기반 선언
 const emit = defineEmits<{
   (e: 'change', id: number): void
