@@ -124,7 +124,8 @@ export default {
 아래 버튼을 클릭하고 브라우저의 개발자도구를 통해 `<body>` 태그를 확인해 봅시다:
 
 <script setup>
-let open = $ref(false)
+import { ref } from 'vue'
+const open = ref(false)
 </script>
 
 <div class="demo">
