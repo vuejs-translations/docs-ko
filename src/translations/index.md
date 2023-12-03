@@ -16,7 +16,9 @@ aside: false
 - [বাংলা / Bengali](https://bn.vuejs.org) [[source](https://github.com/vuejs-translations/docs-bn)]
 - [Italiano / Italian](https://it.vuejs.org) [[source](https://github.com/vuejs-translations/docs-it)]
 
-<!-- ## Work in Progress Languages {#work-in-progress-languages} -->
+## Work in Progress Languages {#work-in-progress-languages}
+
+- [فارسی / Persian](https://fa.vuejs.org/) [[source](https://github.com/vuejs-translations/docs-fa)]
 
 ## 번역 시작하기 {#starting-a-new-translation}
 
