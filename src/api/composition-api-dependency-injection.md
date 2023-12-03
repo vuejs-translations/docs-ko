@@ -14,8 +14,7 @@
 
   `provide()`는 "키가 될 문자열 또는 심볼(symbol)"과 "제공될 값" 두 가지 인자를 가집니다.
 
-  TypeScript를 사용할 때 키는 `InjectionKey`(Vue에서 제공하는 `Symbol`을 확장한 다용도 타입)로 캐스팅된 심볼일 수 있으며,
-  이것은 `provide()`와 `inject()` 간 값의 타입을 동기화하는 데 사용할 수 있습니다.
+  TypeScript를 사용할 때 키는 `InjectionKey`(Vue에서 제공하는 `Symbol`을 확장한 다용도 타입)로 캐스팅된 심볼일 수 있으며, 이것은 `provide()`와 `inject()` 간 값의 타입을 동기화하는 데 사용할 수 있습니다.
 
   생명 주기 훅을 등록하는 API와 유사하게 `provide()`는 컴포넌트의 `setup()` 단계에서 동기적으로 호출되어야 합니다.
 
@@ -24,17 +23,17 @@
   ```vue
   <script setup>
   import { ref, provide } from 'vue'
-  import { fooSymbol } from './injectionSymbols'
+  import { countSymbol } from './injectionSymbols'
 
   // 제공: 정적 값
-  provide('foo', 'bar')
+  provide('path', '/project/')
 
   // 제공: 반응형 값
   const count = ref(0)
   provide('count', count)
 
   // 제공: 심볼(Symbol) 키
-  provide(fooSymbol, count)
+  provide(countSymbol, count)
   </script>
   ```
 
@@ -82,19 +81,19 @@
   ```vue
   <script setup>
   import { inject } from 'vue'
-  import { fooSymbol } from './injectionSymbols'
+  import { countSymbol } from './injectionSymbols'
 
   // 주입: 기본 값이 없는 정적 값
-  const foo = inject('foo')
+  const path = inject('path')
 
   // 주입: 반응형 값
   const count = inject('count')
 
   // 주입: 심볼 키를 사용하여
-  const foo2 = inject(fooSymbol)
+  const count2 = inject(countSymbol)
 
   // 주입: 기본 값 제공을 하며 (제공되는 'foo'가 없는 경우 적용됨)
-  const bar = inject('foo', 'default value')
+  const bar = inject('path', '/default-path')
 
   // 함수 기본값을 사용하여 주입하기
   const fn = inject('function', () => {})
@@ -104,6 +103,16 @@
   </script>
   ```
 
-- **참고**:
+## hasInjectionContext() <sup class="vt-badge" data-text="3.3+" /> {#has-injection-context}
+
+만약 [inject()](#inject)를 `setup()` 바깥에서 호출하는 경우 경고 없이 사용할 수 있는지 여부를 확인하고 참(true)인 경우 true를 반환합니다. 이 메서드는 `inject()`를 끝 사용자에게 경고를 트리거하지 않고 내부에서 사용하려는 라이브러리에서 사용하도록 설계되었습니다.
+
+- **타입**
+
+  ```ts
+  function hasInjectionContext(): boolean
+  ```
+
+* **참고**:
   - [가이드 - Provide/Inject](/guide/components/provide-inject)
   - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api.html#typing-provide-inject) <sup class="vt-badge ts" />
