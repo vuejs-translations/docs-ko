@@ -30,7 +30,7 @@ Vite + Vue를 시작하려면 다음을 실행하기만 하면 됩니다:
 - Vite에 대한 자세한 내용은 [Vite 문서](https://vitejs.dev)를 확인하세요.
 - Vite 프로젝트에서 Vue 관련 동작을 구성하려면(예: Vue 컴파일러에 옵션 전달) [@vitejs/plugin-vue](https://github.com/vitejs/vite-plugin-vue/tree/main/packages/plugin-vue#readme) 문서를 확인하세요.
 
-위에서 언급한 두 온라인 연습장는 Vite 프로젝트 파일로 다운로드를 지원합니다.
+위에서 언급한 두 온라인 연습장은 Vite 프로젝트 파일로 다운로드를 지원합니다.
 
 ### Vue CLI {#vue-cli}
 
