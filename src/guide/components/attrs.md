@@ -164,7 +164,6 @@ defineOptions({
 
 <div class="composition-api">
 
-If needed, you can access a component's fallthrough attributes in `<script setup>` using the `useAttrs()` API:
 필요한 경우 `useAttrs()` API를 사용하여 `<script setup>`에서 컴포넌트의 폴스루 속성에 접근할 수 있습니다:
 
 ```vue
