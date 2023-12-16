@@ -70,9 +70,7 @@ export default {
 
 </div>
 
-**컴포넌트가 마운트된 후에만 ref에 접근할 수 있습니다.**
-<span class="options-api">`$refs.input`</span><span class="composition-api">`input`</span>이 템플릿 표현식에 있으면 첫 렌더링 시 `null`입니다.
-이는 첫 렌더링이 끝날 때까지 엘리먼트가 존재하지 않기 때문입니다!
+컴포넌트가 마운트된 **이후에만 ref에 접근할 수 있습니다.** 템플릿 표현식에서 <span class="options-api">`$refs.input`</span><span class="composition-api">`input`</span>에 접근하려고 하면, 첫 번째 렌더링에서는 <span class="options-api">`undefined`</span><span class="composition-api">`null`</span>이 됩니다. 이는 요소가 첫 번째 렌더링 이후에야 존재하기 때문입니다!
 
 <div class="composition-api">
 
