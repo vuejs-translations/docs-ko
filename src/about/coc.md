@@ -42,4 +42,6 @@
 
 본 행동 강령은 [기여자 규약][홈페이지] 버전 1.4, https://www.contributor-covenant.org/version/1/4/code-of-conduct.html 에서 확인할 수 있는 [기여자 규약]을 각색한 것입니다.
 
+이 행동 강령에 대한 일반적인 질문에 대한 답변은 https://www.contributor-covenant.org/faq 에서 확인할 수 있습니다.
+
 [홈페이지]: https://www.contributor-covenant.org
