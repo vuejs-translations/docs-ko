@@ -339,12 +339,6 @@ export default {
 `computed()` 함수는 일반적으로 컴포지션 API 컴포넌트에서 사용되지만 옵션 API의 특정 사용 사례를 보완하는 데 사용할 수도 있습니다.
 API 스타일 설정이 Composition API로 지정된 상태에서 [반응형 기초](/guide/essentials/reactivity-fundamentals) 및 [계산된 속성](/guide/essentials/computed) 가이드 문서를 읽으면 사용법에 대해 자세히 알아볼 수 있습니다.
 
-:::warning 환경 설정이 필요함
-위의 사용법은 주입되는 곳에서 계산된 refs를 자동으로 해제하기 위해 `app.config.unwrapInjectedRef = true`를 설정해야 합니다.
-이것은 Vue 3.3에서 기본 적용 값 이며, 이 환경 설정은 하위에서 상위 데이터를 변조시키는 동작을 피하기 위해 도입됩니다.
-3.3 버전 이상에서는 더 이상 필요하지 않습니다.
-:::
-
 </div>
 
 ## 심볼 키 사용하기 {#working-with-symbol-keys}
