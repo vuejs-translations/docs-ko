@@ -42,7 +42,7 @@ Vite 기반 설정을 사용하면 개발 서버와 번들러가 트랜스파일
 
 `tsconfig.json` 을 수동으로 구성할 때 몇 가지 알고 있으면 좋은 옵션들은 다음과 같습니다.
 
-- [`compilerOptions.isolatedModules`](https://www.typescriptlang.org/tsconfig#isolatedModules) 옵션은 `true`로 설정됩니다. 이는 Vite가 TypeScript를 변환하기 위해 [esbuild](https://esbuild.github.io/)를 사용하며, 단일 파일 변환 제한에 영향을 받기 때문입니다. [`compilerOptions.verbatimModuleSyntax`](https://www.typescriptlang.org/tsconfig#verbatimModuleSyntax)는 [`isolatedModules`](https://github.com/microsoft/TypeScript/issues/53601)의 상위 집합이며 좋은 선택이 될 수 있습니다 - 이것은 `[@vue/tsconfig](https://github.com/vuejs/tsconfig)`에서 사용하는 것입니다.
+- [`compilerOptions.isolatedModules`](https://www.typescriptlang.org/tsconfig#isolatedModules) 옵션은 `true`로 설정됩니다. 이는 Vite가 TypeScript를 변환하기 위해 [esbuild](https://esbuild.github.io/)를 사용하며, 단일 파일 변환 제한에 영향을 받기 때문입니다. [`compilerOptions.verbatimModuleSyntax`](https://www.typescriptlang.org/tsconfig#verbatimModuleSyntax)는 [`isolatedModules`](https://github.com/microsoft/TypeScript/issues/53601)의 상위 집합이며 좋은 선택이 될 수 있습니다 - 이것은 [`@vue/tsconfig`](https://github.com/vuejs/tsconfig)에서 사용하는 것입니다.
 
 - 옵션 API를 사용하는 경우 컴포넌트 옵션에서 <code>this</code> 타입 검사를 사용 하려면 [`compilerOptions.strict`](https://www.typescriptlang.org/tsconfig#strict) 를 <code>true</code> 로 설정해야 합니다(또는 `strict` 플래그의 일부인 [`compilerOptions.noImplicitThis`](https://www.typescriptlang.org/tsconfig#noImplicitThis) 활성화). 그렇지 않으면 `this`는  `any` 로 취급 됩니다.
 
