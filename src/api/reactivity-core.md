@@ -361,6 +361,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
     flush?: 'pre' | 'post' | 'sync' // 기본 값: 'pre'
     onTrack?: (event: DebuggerEvent) => void
     onTrigger?: (event: DebuggerEvent) => void
+    once?: boolean // 기본 값: false (3.4+)
   }
   ```
 
@@ -387,6 +388,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
   - **`deep`**: 소스가 객체인 경우, 깊은 변경사항에서도 콜백이 실행되도록 합니다. 참고: [깊은 감시자](/guide/essentials/watchers#deep-watchers).
   - **`flush`**: 콜백의 발생(flush) 타이밍을 조정합니다. 참고: [콜백 실행 타이밍](/guide/essentials/watchers#callback-flush-timing), [`watchEffect()`](/api/reactivity-core#watcheffect).
   - **`onTrack / onTrigger`**: 감시자의 의존성을 디버그합니다. 참고: [감시자 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging).
+  - **`once`**: 콜백을 한 번만 실행합니다. 감시자는 첫 번째 콜백 실행 후 자동으로 중지됩니다. <sup class="vt-badge" data-text="3.4+" />
 
   [`watchEffect()`](#watcheffect)와 비교하여 `watch()`를 사용하면 다음을 수행할 수 있습니다:
 
