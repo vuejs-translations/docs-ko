@@ -130,9 +130,7 @@ Vue에서 자식 컴포넌트는 수신된 props 중 하나 이상이 변경된 
 
 ```js
 const count = ref(0)
-const isEven = computed(() => {
-  return count.value % 2 === 0 ? true : false
-})
+const isEven = computed(() => count.value % 2 === 0)
 
 watchEffect(() => console.log(isEven.value)) // true
 
@@ -146,7 +144,7 @@ count.value = 4
 ```js
 const computedObj = computed(() => {
   return {
-    isEven: count.value % 2 === 0 ? true : false
+    isEven: count.value % 2 === 0
   }
 })
 ```
@@ -156,9 +154,9 @@ const computedObj = computed(() => {
 대신, 새로운 값과 오래된 값을 수동으로 비교하여, 변경되지 않았다는 것을 알고 있을 경우 오래된 값을 반환하도록 최적화할 수 있습니다:
 
 ```js
-const computedObj = computed(oldValue => {
+const computedObj = computed((oldValue) => {
   const newValue = {
-    isEven: count.value % 2 === 0 ? true : false
+    isEven: count.value % 2 === 0
   }
   if (oldValue && oldValue.isEven === newValue.isEven) {
     return oldValue
@@ -167,7 +165,7 @@ const computedObj = computed(oldValue => {
 })
 ```
 
-[Playground 예제](https://play.vuejs.org/#eNqlVMlu2zAQ/ZUBgSZ24UpuczMkd4MPLdAFadEeyh4UibKVSKRADm2jhv+9Q1KyDTRRXOQggJrlzeO8Ge7Y27aN1lawGUtMrqsWwQi07ZzLqmmVRtiBFuUEctW0FkUxgU2G+WpRliJH2EOpVQOXhHDJJZe5kgYp1kqE1CWOpuOjXfikayvNzwpXyuKXFqum+pNhpWQX/+s3JfQwoeT9wb13pOriR1ZbAekcdlwCwaDVMpwBKrNYCzkLpKK1j3wGryBNU5jCa0BNhhmUWW2Ey9hzuX+Q8/mEz2YbUqXYdOYn8KakEo4VLi6gP0cBzSf3pTrbuC/Yta1POWB29j6tb8/JGIxG48N1BjUO14haa1ajAXW7sI7ffxU8p9rjpUorcy+cbYsMBVXzpeLYLUc33qggA53JguZfuN5K29wIfSIpafkpw1VU1krpkT+GeMJ7Di+nbjVc8FFfEgde0Ec6ExUukzjsJG0j/aBo2pro0B/Abtfx2HuRkhuLSITf5HWV36WcBeaczcNhmHQSh3SPnLjldwPhegqbIA+o03mm4sO73JGKA9S/iI/APYiVxCdNYBOGhnpdVsvo1ihJb5iXiTOndlUL7XBIC85m/ZBzltW12nz0NrdCk96er0R+d4/91mydjbOvWhih19TTgw8zvRQY3Itvn8WWzgdnowpbU/SA81oYVVvHMYS9s7Ig2idxnu0H/xJXcvndLLYopOkv5Yj6PfXxnNEz/H7g6ke6V9FV/9ax/V8w4Rl9)
+[Playground 예제](https://play.vuejs.org/#eNqVVMtu2zAQ/JUFgSZK4UpuczMkow/40AJ9IC3aQ9mDIlG2EokUyKVt1PC/d0lKtoEminMQQC1nZ4c7S+7Yu66L11awGUtNoesOwQi03ZzLuu2URtiBFtUECtV2FkU5gU2OxWpRVaJA2EOlVQuXxHDJJZeFkgYJayVC5hKj6dUxLnzSjZXmV40rZfFrh3Vb/82xVrLH//5DCQNNKPkweNiNVFP+zBsrIJvDjksgGrRahjVAbRZrIWdBVLz2yBfwBrIsg6mD7LncPyryfIVnywupUmz68HOEEqqCI+XFBQzrOKR79MDdx66GCn1jhpQDZx8f0oZ+nBgdRVcH/aMuBt1xZ80qGvGvh/X6nlXwnGpPl6qsLLxTtitzFFTNl0oSN/79AKOCHHQuS5pw4XorbXsr9ImHZN7nHFdx1SilI78MeOJ7Ca+nbvgd+GgomQOv6CNjSQqXaRJuHd03+kHRdg3JoT+A3a7XsfcmpbcWkQS/LZq6uM84C8o5m4fFuOg0CemeOXXX2w2E6ylsgj2gTgeYio/f1l5UEqj+Z3yC7lGuNDlpApswNNTrql7Gd0ZJeqW8TZw5t+tGaMdDXnA2G4acs7xp1OaTj6G2YjLEi5Uo7h+I35mti3H2TQsj9Jp6etjDXC8Fhu3F9y9iS+vDZqtK2xB6ZPNGGNVYpzHA3ltZkuwTnFf70b+1tVz+MIstCmmGQzmh/p56PGf00H4YOfpR7nV8PTxubP8P2GAP9Q==)
 
 항상 오래된 값을 비교하고 반환하기 전에 전체 계산을 수행해야 하므로, 매번 실행될 때 동일한 의존성이 수집될 수 있습니다.
 
