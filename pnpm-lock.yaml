@@ -24,7 +24,7 @@ dependencies:
     specifier: 1.0.0-rc.31
     version: 1.0.0-rc.31(@types/node@20.10.2)(terser@5.24.0)
   vue:
-    specifier: ^3.4.0-beta.4
+    specifier: ^3.4.0-rc.2
     version: 3.4.3
 
 devDependencies:
