@@ -236,12 +236,12 @@ const props = withDefaults(defineProps<Props>(), {
 
 ```js
 // "modelValue" prop 선언, 부모에 의해 v-model을 통해 사용됨
-const modelValue = defineModel()
+const model = defineModel()
 // 또는: 옵션을 포함한 "modelValue" prop 선언
-const modelValue = defineModel({ type: String })
+const model = defineModel({ type: String })
 
 // 변형될 때 "update:modelValue" 이벤트 발생
-modelValue.value = 'hello'
+model.value = 'hello'
 
 // "count" prop 선언, 부모에 의해 v-model:count를 통해 사용됨
 const count = defineModel('count')
@@ -267,15 +267,17 @@ if (modelModifiers.trim) {
 }
 ```
 
-보통, 수정자가 존재할 때 부모로부터 읽은 값이나 동기화된 값을 조건부로 변환해야 합니다. 이를 위해 `get`과 `set` 변환 옵션을 사용할 수 있습니다:
+수정자가 존재할 때, 부모에게 값을 읽거나 동기화할 때 값을 변환할 필요가 있을 수 있습니다. 이를 위해 `get`과 `set` 변환기 옵션을 사용하여 이를 달성할 수 있습니다:
 
 ```js
 const [modelValue, modelModifiers] = defineModel({
-  // 여기서 get()은 필요 없으므로 생략
+  // 여기서는 get()이 필요하지 않으므로 생략
   set(value) {
+    // .trim 수정자가 사용되면, 공백을 제거한 값을 반환
     if (modelModifiers.trim) {
       return value.trim()
     }
+    // 그렇지 않으면, 값을 그대로 반환
     return value
   }
 })
