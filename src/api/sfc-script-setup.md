@@ -230,48 +230,71 @@ const props = withDefaults(defineProps<Props>(), {
 
 ## defineModel() <sup class="vt-badge" data-text="3.4+" /> {#definemodel}
 
-이 매크로는 부모 컴포넌트에서 `v-model`을 통해 사용할 수 있는 양방향 바인딩 prop을 선언하는 데 사용될 수 있으며, ref처럼 선언하고 변형할 수 있습니다. 이것은 동일한 이름의 prop과 해당하는 `update:propName` 이벤트를 선언합니다.
+이 매크로는 부모 컴포넌트에서 `v-model`을 통해 사용될 수 있는 양방향 바인딩 prop을 선언하는 데 사용될 수 있습니다. 예시 사용 방법은 [컴포넌트 `v-model`](/guide/components/v-model) 가이드에서도 논의되었습니다.
 
-첫 번째 인수가 리터럴 문자열인 경우, prop 이름으로 사용됩니다; 그렇지 않은 경우 prop 이름은 기본적으로 `"modelValue"`로 설정됩니다. 두 경우 모두 prop의 옵션으로 사용될 추가 객체를 전달할 수 있습니다.
+내부적으로, 이 매크로는 모델 prop과 해당하는 값 업데이트 이벤트를 선언합니다. 첫 번째 인수가 리터럴 문자열인 경우, 그것은 prop 이름으로 사용될 것입니다; 그렇지 않으면 prop 이름은 기본적으로 `"modelValue"`로 설정됩니다. 두 경우 모두 추가적인 객체를 전달할 수 있으며, 이는 prop의 옵션과 모델 ref의 값 변환 옵션을 포함할 수 있습니다.
 
-```vue
-<script setup>
+```js
+// "modelValue" prop 선언, 부모에 의해 v-model을 통해 사용됨
+const modelValue = defineModel()
+// 또는: 옵션을 포함한 "modelValue" prop 선언
 const modelValue = defineModel({ type: String })
+
+// 변형될 때 "update:modelValue" 이벤트 발생
 modelValue.value = 'hello'
 
-const count = defineModel('count', { default: 0 })
+// "count" prop 선언, 부모에 의해 v-model:count를 통해 사용됨
+const count = defineModel('count')
+// 또는: 옵션을 포함한 "count" prop 선언
+const count = defineModel('count', { type: Number, default: 0 })
+
 function inc() {
+  // 변형될 때 "update:count" 이벤트 발생
   count.value++
 }
-</script>
-
-<template>
-  <input v-model="modelValue" />
-  <button @click="inc">increment</button>
-</template>
 ```
 
-### Local mode
+### Modifiers and Transformers
 
-옵션 객체는 `local`이라는 추가 옵션을 지정할 수도 있습니다. `true`로 설정하면, 부모가 해당 `v-model`을 전달하지 않았더라도 ref를 로컬에서 변형할 수 있어, 모델을 선택적으로 만듭니다.
+`v-model` 지시문과 함께 사용되는 수정자에 접근하려면, `defineModel()`의 반환 값을 구조 분해하는 방식을 사용할 수 있습니다:
 
-```ts
-// 로컬에서 변형 가능한 모델, 부모가 해당하는 `v-model`을 전달하지 않았더라도
-// 로컬에서 변형할 수 있습니다.
-const count = defineModel('count', { local: true, default: 0 })
+```js
+const [modelValue, modelModifiers] = defineModel()
+
+// v-model.trim에 해당
+if (modelModifiers.trim) {
+  // ...
+}
 ```
 
-### Provide value type <sup class="vt-badge ts" /> {#provide-value-type}
+보통, 수정자가 존재할 때 부모로부터 읽은 값이나 동기화된 값을 조건부로 변환해야 합니다. 이를 위해 `get`과 `set` 변환 옵션을 사용할 수 있습니다:
 
-`defineProps` 및 `defineEmits`와 마찬가지로, `defineModel`도 모델 값의 유형을 지정하기 위해 유형 인수를 받을 수 있습니다:
+```js
+const [modelValue, modelModifiers] = defineModel({
+  // 여기서 get()은 필요 없으므로 생략
+  set(value) {
+    if (modelModifiers.trim) {
+      return value.trim()
+    }
+    return value
+  }
+})
+```
+
+### TypeScript와 함께 사용하기 <sup class="vt-badge ts" /> {#usage-with-typescript}
+
+`defineProps` 및 `defineEmits`와 마찬가지로, `defineModel`은 모델 값과 수정자의 유형을 지정하기 위해 타입 인수를 받을 수 있습니다:
 
 ```ts
 const modelValue = defineModel<string>()
 //    ^? Ref<string | undefined>
 
-// default model with options, required removes possible undefined values
+// 기본 모델 옵션, 'required'는 가능한 undefined 값을 제거함
 const modelValue = defineModel<string>({ required: true })
 //    ^? Ref<string>
+
+const [modelValue, modifiers] = defineModel<string, 'trim' | 'uppercase'>()
+//                 ^? Record<'trim' | 'uppercase', true | undefined>
 ```
 
 ## defineExpose() {#defineexpose}
