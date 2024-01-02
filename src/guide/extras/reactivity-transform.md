@@ -1,12 +1,9 @@
 # Reactivity Transform {#reactivity-transform}
 
-:::danger 실험적 기능 폐기됨
-Reactivity Transform은 실험적인 기능이었으며 폐기되었습니다. [여기](https://github.com/vuejs/rfcs/discussions/369#discussioncomment-5059028)에서 폐기된 이유에 대해 읽어보세요.
+:::danger 실험적 기능 제거
+Reactivity Transform은 실험적 기능이었으며, 최신 3.4 릴리스에서 제거되었습니다. [이유에 대해서는 여기에서 확인하십시오](https://github.com/vuejs/rfcs/discussions/369#discussioncomment-5059028).
 
-Vue 코어에서는 향후 마이너 릴리스에서 이 기능이 완전히 제거될 예정입니다.
-
-- 이를 이용한 마이그레이션을 위해 [이 명령줄 도구](https://github.com/edison1105/drop-reactivity-transform)를 확인해보세요.
-- 여전히 사용하려는 경우 [Vue Macros](https://vue-macros.sxzz.moe/features/reactivity-transform.html) 플러그인을 통해 사용할 수 있습니다.
+여전히 사용하고자 한다면, 이제 [Vue Macros](https://vue-macros.sxzz.moe/features/reactivity-transform.html) 플러그인을 통해 사용할 수 있습니다.
 :::
 
 :::tip Composition API에 특화됨
@@ -286,8 +283,8 @@ Vue는 이러한 매크로에 대한 타이핑을 제공합니다(전역으로 �
 
 ## 명시적으로 사용하기 {#explicit-opt-in}
 
-:::warning
-다음 내용은 Vue 3.3 버전 및 이하 버전에서만 적용됩니다. 3.4 버전 이상에서는 핵심 지원이 제거될 예정입니다. 변환을 계속 사용하려면 [Vue Macros](https://vue-macros.sxzz.moe/features/reactivity-transform.html)로 마이그레이션하십시오.
+:::danger 코어에서 지원 중단
+다음 내용은 Vue 버전 3.3 이하까지만 적용됩니다. Vue 코어 3.4 이상 및 `@vitejs/plugin-vue` 5.0 이상에서는 지원이 제거되었습니다. 변환을 계속 사용하려면 [Vue Macros](https://vue-macros.sxzz.moe/features/reactivity-transform.html)로 마이그레이션하는 것이 좋습니다.
 :::
 
 ### Vite {#vite}

@@ -158,36 +158,6 @@ components/
 
 </div>
 
-
-## 단일 인스턴스 컴포넌트 이름 {#single-instance-component-names}
-
-**활성 인스턴스가 하나만 있어야 하는 컴포넌트는 `The` 접두사로 시작하여 하나만 있을 수 있음을 나타내야 합니다.
-
-이는 컴포넌트가 단일 페이지에서만 사용된다는 뜻이 아니라 _페이지당_ 한 번만 사용된다는 뜻입니다. 이러한 컴포넌트는 앱 내 컨텍스트가 아닌 앱에 고유한 것이므로 어떤 prop도 허용하지 않습니다. prop을 추가해야 할 필요가 있다면, 이 컴포넌트가 실제로 페이지당 _현재_ 한 번만 사용되는 재사용 가능한 컴포넌트라는 것을 나타내는 좋은 신호입니다.
-
-
-<div class="style-example style-example-bad">
-<h3>Bad</h3>
-
-```
-components/
-|- Heading.vue
-|- MySidebar.vue
-```
-
-</div>
-
-<div class="style-example style-example-good">
-<h3>Good</h3>
-
-```
-components/
-|- TheHeading.vue
-|- TheSidebar.vue
-```
-
-</div>
-
 ## 긴밀하게 결합된 컴포넌트 이름 {#tightly-coupled-component-names}
 
 **부모 컴포넌트와 긴밀하게 결합된 자식 컴포넌트는 부모 컴포넌트 이름을 접두사로 포함해야 합니다.**

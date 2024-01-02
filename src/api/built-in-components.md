@@ -130,7 +130,7 @@ h(Transition, {
   </Transition>
   ```
 
-- **참고** [가이드 - `<Transition>`](/guide/built-ins/transition)
+- **참고** [가이드 - Transition](/guide/built-ins/transition)
 
 ## `<TransitionGroup>` {#transitiongroup}
 

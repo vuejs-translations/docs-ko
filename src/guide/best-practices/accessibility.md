@@ -541,7 +541,7 @@ W3C의 WAI-ARIA는 동적 컨텐츠 및 고급 사용자 인터페이스 제어�
   - [ChromeVox](https://chrome.google.com/webstore/detail/chromevox-classic-extensi/kgejglhpjiefppelpmljglcjbhoiplfn?hl=en)
 - 확대/축소 도구
   - [MAGic](https://www.freedomscientific.com/products/software/magic/)
-  - [ZoomText](https://www.zoomtext.com/)
+  - [ZoomText](https://www.freedomscientific.com/products/software/zoomtext/)
   - [Magnifier](https://support.microsoft.com/en-us/help/11542/windows-use-magnifier-to-make-things-easier-to-see)
 
 ### 테스트 {#testing}

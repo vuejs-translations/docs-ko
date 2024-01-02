@@ -23,20 +23,11 @@
 
 - **세부 사항**:
 
-  ref 객체는 반응형이며, `.value` 속성에 새 값을 할당할 수 있습니다.
-  즉, `.value`에 대한 모든 읽기 작업이 추적되고, 쓰기 작업은 관련 이펙트를 트리거합니다.
+  ref 객체는 반응형이며, `.value` 속성에 새 값을 할당할 수 있습니다. 즉, `.value`에 대한 모든 읽기 작업이 추적되고, 쓰기 작업은 관련 이펙트를 트리거합니다.
 
-  객체가 ref의 값(`.value`)으로 할당되면,
-  [reactive()](#reactive)로 내부 깊숙이(deeply) 반응하게 됩니다.
-  이러한 동작은 객체 내부 깊숙이 ref가 포함되어 있으면, 언래핑됨을 의미합니다.
+  객체가 ref의 값(`.value`)으로 할당되면, [reactive()](#reactive)로 내부 깊숙이(deeply) 반응하게 됩니다. 이러한 동작은 객체 내부 깊숙이 ref가 포함되어 있으면, 언래핑됨을 의미합니다.
 
   내부 깊숙이까지 변환되는 것을 방지하려면, [`shallowRef()`](./reactivity-advanced#shallowref)를 사용해야 합니다.
-
-  :::info 래핑, 언래핑의 개념이 혼란스러울 경우
-  어떤 값이 `ref`에 할당되어 있다고 가정합시다.
-
-  이 때, `.value`를 통해 할당된 값에 접근해야 한다면 "래핑"된 것이고, `.value` 없이 접근된다면 "언래핑"된 것이라고 이해할 수 있습니다.  
-  :::
 
 - **예제**
 
@@ -54,15 +45,14 @@
 
 ## computed() {#computed}
 
-getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 반응형 [ref](#ref) 객체로 반환합니다.
-`get`과 `set` 함수가 있는 객체를 사용하면, 쓰기 가능한 ref 객체를 반환합니다.
+getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 반응형 [ref](#ref) 객체로 반환합니다. `get`과 `set` 함수가 있는 객체를 사용하면, 쓰기 가능한 ref 객체를 반환합니다.
 
 - **타입**:
 
   ```ts
   // 읽기 전용
   function computed<T>(
-    getter: () => T,
+    getter: (oldValue: T | undefined) => T,
     // 아래의 "계산된 속성 디버깅" 링크를 참고하세요
     debuggerOptions?: DebuggerOptions
   ): Readonly<Ref<Readonly<T>>>
@@ -70,7 +60,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
   // 쓰기 가능
   function computed<T>(
     options: {
-      get: () => T
+      get: (oldValue: T | undefined) => T
       set: (value: T) => void
     },
     debuggerOptions?: DebuggerOptions
@@ -122,6 +112,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
   - [가이드 - 계산된 속성](/guide/essentials/computed)
   - [가이드 - 계산된 속성 디버깅](/guide/extras/reactivity-in-depth#computed-debugging)
   - [가이드 - `computed()`에 타입 지정하기](/guide/typescript/composition-api#typing-computed) <sup class="vt-badge ts" />
+  - [가이드 - 성능 - Computed Stability](/guide/best-practices/performance#computed-stability) <sup class="vt-badge" data-text="3.4+" />
 
 ## reactive() {#reactive}
 
@@ -135,16 +126,13 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
 
 - **세부 사항**:
 
-  반응형 변환은 "내부 깊숙이 있는(deep)" 모든 중첩 속성에 영향을 줍니다.
-  또한, 반응형 객체는 내부 깊숙이 있는 모든 [refs](#ref) 속성의 반응형을 유지하면서 언래핑합니다.
+  반응형 변환은 "내부 깊숙이 있는(deep)" 모든 중첩 속성에 영향을 줍니다. 또한, 반응형 객체는 내부 깊숙이 있는 모든 [refs](#ref) 속성의 반응형을 유지하면서 언래핑합니다.
 
   그러나 `Map` 같은 네이티브 컬렉션 타입 또는 반응형 배열의 요소인 ref로 접근할 때는 언래핑 되지 않음에 유의해야 합니다.
 
   내부 깊은 곳까지의 변환은 피하고 루트 수준에서만 반응형을 유지하려면, [shallowReactive()](./reactivity-advanced#shallowreactive)를 사용해야 합니다.
 
-  반환된 객체와 중첩된 객체는 [프락시(Proxy)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)로 래핑되므로,
-  원본 객체와 **동일하지 않습니다**.
-  그러므로 반응형 프락시로만 작업하고, 원본 객체에 의존하지 않는 것이 좋습니다.
+  반환된 객체와 중첩된 객체는 [프락시(Proxy)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)로 래핑되므로, 원본 객체와 **동일하지 않습니다**. 그러므로 반응형 프락시로만 작업하고, 원본 객체에 의존하지 않는 것이 좋습니다.
 
 - **예제**
 
@@ -217,8 +205,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
 
 - **세부 사항**:
 
-  읽기 전용 프락시는 접근하게 될 모든 중첩 속성 깊숙이까지 읽기 전용입니다.
-  또한 `reactive()`처럼 ref를 언래핑하며, 언래핑 값도 읽기 전용으로 변환됩니다.
+  읽기 전용 프락시는 접근하게 될 모든 중첩 속성 깊숙이까지 읽기 전용입니다. 또한 `reactive()`처럼 ref를 언래핑하며, 언래핑 값도 읽기 전용으로 변환됩니다.
 
   내부 깊은 곳까지의 변환을 피하려면, [shallowReadonly()](./reactivity-advanced#shallowreadonly)를 사용해야 합니다.
 
@@ -266,14 +253,9 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
 
 - **세부 사항**:
 
-  첫 번째 인자는 실행할 이펙트 함수입니다.
-  이펙트 함수는 인자로 클린업(cleanup) 콜백을 등록해 실행할 수 있는 함수를 받습니다.
-  클린업 콜백은 다음에 이펙트가 다시 실행되기 직전에 호출되며,
-  무효화된 사이드 이펙트를 정리하는 데 사용할 수 있습니다.
-  예를들어 비동기 요청의 결과 대기중(pending)에 사용할 수 있습니다.(아래 예제 참고)
+  첫 번째 인자는 실행할 이펙트 함수입니다. 이펙트 함수는 인자로 클린업(cleanup) 콜백을 등록해 실행할 수 있는 함수를 받습니다. 클린업 콜백은 다음에 이펙트가 다시 실행되기 직전에 호출되며, 무효화된 사이드 이펙트를 정리하는 데 사용할 수 있습니다. 예를들어 비동기 요청의 결과 대기중(pending)에 사용할 수 있습니다.(아래 예제 참고)
 
-  두 번째 인자는 이펙트의 발생(flush) 타이밍을 조정하거나,
-  이펙트의 의존성을 디버그하는 데 사용할 수 있는 선택적 옵션 객체입니다.
+  두 번째 인자는 이펙트의 발생(flush) 타이밍을 조정하거나, 이펙트의 의존성을 디버그하는 데 사용할 수 있는 선택적 옵션 객체입니다.
 
   기본적으로 와처는 컴포넌트 렌더링 직전에 실행됩니다. `flush: 'post'`를 설정하면 컴포넌트 렌더링 이후까지 와처가 지연됩니다. 자세한 내용은 [콜백 플러시 타이밍](/guide/essentials/watchers#callback-flush-timing)을 참조하세요. 드물지만 캐시 무효화와 같이 반응형 의존성이 변경될 때 즉시 와처를 트리거해야 하는 경우가 있을 수 있습니다. 이는 `flush: 'sync'`를 사용하여 수행할 수 있습니다. 그러나 이 설정은 여러 프로퍼티가 동시에 업데이트되는 경우 성능 및 데이터 일관성 문제를 일으킬 수 있으므로 주의해서 사용해야 합니다.
 
@@ -379,6 +361,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
     flush?: 'pre' | 'post' | 'sync' // 기본 값: 'pre'
     onTrack?: (event: DebuggerEvent) => void
     onTrigger?: (event: DebuggerEvent) => void
+    once?: boolean // 기본 값: false (3.4+)
   }
   ```
 
@@ -386,35 +369,26 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
 
 - **세부 사항**:
 
-  `watch()`는 기본적으로 개으릅니다(lazy).
-  그러므로 콜백은 감시된 소스가 변경되었을 때만 호출됩니다.
+  `watch()`는 기본적으로 개으릅니다(lazy). 그러므로 콜백은 감시된 소스가 변경되었을 때만 호출됩니다.
 
-  첫 번째 인자는 감시될 **소스**입니다.
-  소스는 다음 중 하나일 수 있습니다:
+  첫 번째 인자는 감시될 **소스**입니다. 소스는 다음 중 하나일 수 있습니다:
 
   - 값을 반환하는 getter 함수
   - ref
   - 반응형 객체
   - 또는 위에 나열한 것들의 배열
 
-  두 번째 인자는 소스가 변경될 때 호출될 콜백입니다.
-  콜백은 "변경된 값", "이전 값", "사이드 이펙트 클린업 콜백을 등록하기 위한 함수" 이렇게 세 가지 인자를 받습니다.
-  클린업 콜백은 다음에 이펙트가 다시 실행되기 직전에 호출되며,
-  무효화된 사이드 이펙트를 정리하는 데 사용할 수 있습니다.
-  예를들어 비동기 요청의 결과 대기중(pending)에 사용할 수 있습니다.
+  두 번째 인자는 소스가 변경될 때 호출될 콜백입니다. 콜백은 "변경된 값", "이전 값", "사이드 이펙트 클린업 콜백을 등록하기 위한 함수" 이렇게 세 가지 인자를 받습니다. 클린업 콜백은 다음에 이펙트가 다시 실행되기 직전에 호출되며, 무효화된 사이드 이펙트를 정리하는 데 사용할 수 있습니다. 예를들어 비동기 요청의 결과 대기중(pending)에 사용할 수 있습니다.
 
   여러 소스를 감시할 때, 콜백은 소스 배열에 해당하는 변경된 값 배열, 이전 값 배열 두 개를 수신합니다.
 
   세 번째 인자는 선택적이며, 다음을 지원하는 옵션 객체입니다:
 
-  - **`immediate`**: 감시자가 생성되는 즉시 콜백이 호출됩니다.
-    최초 호출 시, 이전 값은 `undefined`입니다.
-  - **`deep`**: 소스가 객체인 경우, 깊은 변경사항에서도 콜백이 실행되도록 합니다.
-    참고: [깊은 감시자](/guide/essentials/watchers#deep-watchers).
-  - **`flush`**: 콜백의 발생(flush) 타이밍을 조정합니다.
-    참고: [콜백 실행 타이밍](/guide/essentials/watchers#callback-flush-timing), [`watchEffect()`](/api/reactivity-core#watcheffect).
-  - **`onTrack / onTrigger`**: 감시자의 의존성을 디버그합니다.
-    참고: [감시자 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging).
+  - **`immediate`**: 감시자가 생성되는 즉시 콜백이 호출됩니다. 최초 호출 시, 이전 값은 `undefined`입니다.
+  - **`deep`**: 소스가 객체인 경우, 깊은 변경사항에서도 콜백이 실행되도록 합니다. 참고: [깊은 감시자](/guide/essentials/watchers#deep-watchers).
+  - **`flush`**: 콜백의 발생(flush) 타이밍을 조정합니다. 참고: [콜백 실행 타이밍](/guide/essentials/watchers#callback-flush-timing), [`watchEffect()`](/api/reactivity-core#watcheffect).
+  - **`onTrack / onTrigger`**: 감시자의 의존성을 디버그합니다. 참고: [감시자 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging).
+  - **`once`**: 콜백을 한 번만 실행합니다. 감시자는 첫 번째 콜백 실행 후 자동으로 중지됩니다. <sup class="vt-badge" data-text="3.4+" />
 
   [`watchEffect()`](#watcheffect)와 비교하여 `watch()`를 사용하면 다음을 수행할 수 있습니다:
 
@@ -453,9 +427,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
   })
   ```
 
-  getter 소스를 사용할 때, 감시자는 getter의 반환 값이 변경된 경우에만 실행됩니다.
-  깊은 변경사항에서도 콜백을 실행하려면, `{ deep: true }`를 사용하여 감시자를 딥 모드로 설정해야 합니다.
-  딥 모드에서 콜백이 깊은 변경사항으로 트리거된 경우, 새 값과 이전 값은 동일한 객체입니다.
+  getter 소스를 사용할 때, 감시자는 getter의 반환 값이 변경된 경우에만 실행됩니다. 깊은 변경사항에서도 콜백을 실행하려면, `{ deep: true }`를 사용하여 감시자를 딥 모드로 설정해야 합니다. 딥 모드에서 콜백이 깊은 변경사항으로 트리거된 경우, 새 값과 이전 값은 동일한 객체입니다.
 
   ```js
   const state = reactive({ count: 0 })

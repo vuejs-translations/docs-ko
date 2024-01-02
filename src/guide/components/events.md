@@ -317,15 +317,3 @@ export default {
 ```
 
 </div>
-
-## 이벤트를 속성으로 {#events-props}
-
-또한, 대문자로 된 이벤트 이름 앞에 `on`을 접두사로 붙여 `events`를 `props`으로 선언하고 전달할 수 있습니다.
-
-`props.onEvent`를 사용하는 것은 `emit('event')`를 사용하는 것과 다른 동작을 가지며, 전자는 속성 기반 리스너(`@event` 또는 `:on-event`)만을 처리합니다.
-
-:::warning
-`:onEvent`와 `@event` 둘 다 전달될 경우 `props.onEvent`는 `함수` 대신 `함수의 배열`이 될 수 있으며, 이 동작은 안정적이지 않고 미래에 변경될 수 있습니다.
-:::
-
-이 때문에, 이벤트를 방출할 때 `props.onEvent` 대신 `emit('event')`를 사용하는 것이 권장됩니다.

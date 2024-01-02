@@ -77,7 +77,7 @@ Vue는 주로 웹 앱을 구축하기 위해 설계되었지만,
 브라우저에만 국한되지는 않습니다.
 다음을 수행할 수 있습니다:
 
-- [Electron](https://www.electronjs.org/) 또는 [Tauri](https://tauri.studio/en/)로 데스톱 앱 생성.
+- [Electron](https://www.electronjs.org/) 또는 [Tauri](https://tauri.app)로 데스톱 앱 생성.
 - [Ionic Vue](https://ionicframework.com/docs/vue/overview)로 모바일 앱 생성.
 - 동일한 코드를 기반으로 [Quasar](https://quasar.dev/)를 사용하여 데스크톱 및 모바일 앱 생성.
 - Vue의 [Custom Renderer API](/api/custom-renderer)를 사용하여 [WebGL](https://troisjs.github.io/) 또는 [터미널](https://github.com/ycmjason/vuminal)을 대상으로 하는 커스텀 렌더러를 생성할 수 있습니다!

@@ -16,6 +16,7 @@ const nav: ThemeConfig['nav'] = [
       { text: '시작하기', link: '/guide/quick-start' },
       // { text: 'Style Guide', link: '/style-guide/' },
       { text: '용어 사전', link: '/glossary/' },
+      { text: '애러 참고', link: '/error-reference/' },
       {
         text: 'Vue 2 문서',
         link: 'https://v2.ko.vuejs.org'
@@ -419,7 +420,8 @@ export const sidebar: ThemeConfig['sidebar'] = {
         { text: '렌더 함수', link: '/api/render-function' },
         { text: '서버 사이드 렌더링', link: '/api/ssr' },
         { text: 'TypeScript 유틸리티 타입', link: '/api/utility-types' },
-        { text: '커스텀 렌더러', link: '/api/custom-renderer' }
+        { text: '커스텀 렌더러', link: '/api/custom-renderer' },
+        { text: '컴파일 타임 플래그', link: '/api/compile-time-flags' }
       ]
     }
   ],
@@ -569,15 +571,25 @@ export default defineConfigWithTheme<ThemeConfig>({
 
   head: [
     ['meta', { name: 'theme-color', content: '#3c8772' }],
-    ['meta', { name: 'twitter:site', content: '@vuejs' }],
-    ['meta', { name: 'twitter:card', content: 'summary' }],
+    ['meta', { property: 'og:url', content: 'https://vuejs.org/' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:title', content: 'Vue.js' }],
     [
       'meta',
       {
-        name: 'twitter:image',
+        property: 'og:description',
+        content: 'Vue.js - The Progressive JavaScript Framework'
+      }
+    ],
+    [
+      'meta',
+      {
+        property: 'og:image',
         content: 'https://vuejs.org/images/logo.png'
       }
     ],
+    ['meta', { name: 'twitter:site', content: '@vuejs' }],
+    ['meta', { name: 'twitter:card', content: 'summary' }],
     [
       'link',
       {
@@ -695,6 +707,7 @@ export default defineConfigWithTheme<ThemeConfig>({
   markdown: {
     config(md) {
       md.use(headerPlugin)
+      // .use(textAdPlugin)
     }
   },
 
