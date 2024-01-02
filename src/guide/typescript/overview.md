@@ -48,6 +48,8 @@ Vite 기반 설정을 사용하면 개발 서버와 번들러가 트랜스파일
 
 - 빌드 도구에서 resolver aliases를 설정한 경우(예: `create-vue` 프로젝트에서 기본적으로 설정된 `@/*` ) 타입스크립트 [`compilerOptions.paths`](https://www.typescriptlang.org/tsconfig#paths) 설정도 필요합니다.
 
+- Vue와 함께 TSX를 사용하려는 경우, [`compilerOptions.jsx`](https://www.typescriptlang.org/tsconfig#jsx)를 `"preserve"`로 설정하고, [`compilerOptions.jsxImportSource`](https://www.typescriptlang.org/tsconfig#jsxImportSource)를 `"vue"`로 설정하세요.
+
 참고항목
 
 - [공식 타입스크립트 컴파일러 옵션 문서](https://www.typescriptlang.org/docs/handbook/compiler-options)
@@ -127,7 +129,8 @@ export default defineComponent({
 })
 ```
 
-참고사항: 
+참고사항:
+
 - [웹팩에서 트리쉐이킹](/api/general.html#note-on-webpack-treeshaking)
 - [`defineComponent`를 위한 타입 테스트](https://github.com/vuejs/core/blob/main/test-dts/defineComponent.test-d.tsx)
 

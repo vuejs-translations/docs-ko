@@ -43,7 +43,8 @@ h('div', { class: 'bar', innerHTML: 'hello' })
 // 접두사인 `.`와 `^`를 사용하여 추가합니다.
 h('div', { '.name': 'some-name', '^width': '100' })
 
-// class와 style은 템플릿과 동일한 객체/배열 값을 지원합니다.
+// class와 style은 템플릿과 동일한
+// 객체/배열 값을 지원합니다.
 h('div', { class: [foo, { bar }], style: { color: 'red' } })
 
 // 이벤트 리스너는 onXxx로 전달해야 합니다.
@@ -240,11 +241,23 @@ Vue의 타입 정의는 TSX 사용에 대한 타입 추론을 제공합니다. T
 
 ### JSX 타입 추론 {#jsx-type-inference}
 
-JSX를 변환하는 것과 동일한 방식으로 Vue의 JSX도 다른 타입 정의가 필요합니다. 현재 Vue의 타입은 자동으로 Vue의 JSX 타입을 전역으로 등록합니다. 이는 전역 JSX 네임스페이스가 존재하는 것에 의존하는 코드와 충돌을 일으킬 수 있으므로, 특히 React와 같이 JSX 타입 추론이 필요한 다른 라이브러리와 함께 사용할 때 문제가 될 수 있습니다. 3.3 버전부터 Vue는 TypeScript의 [jsxImportSource](https://www.typescriptlang.org/tsconfig#jsxImportSource) 옵션을 통해 JSX 네임스페이스를 지정할 수 있는 기능을 지원합니다. 3.4 버전에서는 기본적인 전역 JSX 네임스페이스 등록을 제거할 예정입니다.
+Vue의 JSX도 변환과 마찬가지로 다른 타입 정의가 필요합니다.
 
-TSX 사용자의 경우, 3.3 버전으로 업그레이드한 후에 `tsconfig.json`에서 [jsxImportSource](https://www.typescriptlang.org/tsconfig#jsxImportSource)를 `'vue'`로 설정하는 것이 좋습니다. 이렇게 하면 새로운 동작으로 전환할 수 있으며, 3.4 버전이 출시될 때 원활하게 업그레이드할 수 있습니다.
+Vue 3.4부터 Vue는 더 이상 전역 `JSX` 네임스페이스를 암시적으로 등록하지 않습니다. TypeScript에 Vue의 JSX 타입 정의를 사용하도록 지시하려면 `tsconfig.json`에 다음을 포함시켜야 합니다:
 
-전역 `JSX` 네임스페이스의 존재에 의존하는 코드가 있는 경우 `vue/jsx`를 명시적으로 참조하여 정확한 3.4 버전 이전의 전역 동작을 유지할 수 있습니다.
+```json
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "vue"
+    // ...
+  }
+}
+```
+
+파일 상단에 `/* @jsxImportSource vue */` 주석을 추가하여 파일별로 선택적으로 사용할 수도 있습니다.
+
+전역 `JSX` 네임스페이스의 존재에 의존하는 코드가 있다면, 프로젝트에서 `vue/jsx`를 명시적으로 가져오거나 참조하여 3.4 이전의 정확한 전역 동작을 유지할 수 있습니다. 이는 전역 `JSX` 네임스페이스를 등록합니다.
 
 ## 렌더 함수 레시피 {#render-function-recipes}
 
