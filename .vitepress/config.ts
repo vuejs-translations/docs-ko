@@ -420,7 +420,8 @@ export const sidebar: ThemeConfig['sidebar'] = {
         { text: '렌더 함수', link: '/api/render-function' },
         { text: '서버 사이드 렌더링', link: '/api/ssr' },
         { text: 'TypeScript 유틸리티 타입', link: '/api/utility-types' },
-        { text: '커스텀 렌더러', link: '/api/custom-renderer' }
+        { text: '커스텀 렌더러', link: '/api/custom-renderer' },
+        { text: '컴파일 타임 플래그', link: '/api/compile-time-flags' }
       ]
     }
   ],
