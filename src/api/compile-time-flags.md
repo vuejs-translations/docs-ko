@@ -14,19 +14,19 @@ Compile-time 플래그는 Vue의 `esm-bundler` 빌드를 사용할 때만 적용
 
 빌드 도구에 따라 이들을 어떻게 설정하는지에 대해서는 [설정 가이드](#configuration-guides)를 참조하세요.
 
-## `__VUE_OPTIONS_API__`
+## `__VUE_OPTIONS_API__` {#VUE_OPTIONS_API}
 
 - **기본값:** `true`
 
   옵션 API 지원 활성화 / 비활성화. 이를 비활성화하면 번들 크기가 줄어들지만, 옵션 API에 의존하는 제3자 라이브러리와의 호환성에 영향을 미칠 수 있습니다.
 
-## `__VUE_PROD_DEVTOOLS__`
+## `__VUE_PROD_DEVTOOLS__` {#VUE_PROD_DEVTOOLS}
 
 - **기본값:** `false`
 
   프로덕션 빌드에서 devtools 지원 활성화 / 비활성화. 이로 인해 번들에 더 많은 코드가 포함될 수 있으므로, 디버깅 목적으로만 이를 활성화하는 것이 권장됩니다.
 
-## `__VUE_PROD_HYDRATION_MISMATCH_DETAILS__` <sup class="vt-badge" data-text="3.4+" />
+## `__VUE_PROD_HYDRATION_MISMATCH_DETAILS__` <sup class="vt-badge" data-text="3.4+" /> {#VUE_PROD_HYDRATATION_MISMATCH_DETAILS}
 
 - **기본값:** `false`
 
@@ -34,7 +34,7 @@ Compile-time 플래그는 Vue의 `esm-bundler` 빌드를 사용할 때만 적용
 
 ## 설정 가이드 {#configuration-guides}
 
-### Vite
+### Vite {#vite}
 
 `@vitejs/plugin-vue`는 이러한 플래그들에 대해 자동으로 기본값을 제공합니다. 기본값을 변경하려면 Vite의 [`define` 구성 옵션](https://vitejs.dev/config/shared-options.html#define)을 사용하세요:
 
@@ -50,7 +50,7 @@ export default defineConfig({
 })
 ```
 
-### vue-cli
+### vue-cli {#vue-cli}
 
 `@vue/cli-service`는 이러한 플래그들 중 일부에 대해 자동으로 기본값을 제공합니다. 값을 설정/변경하려면:
 
@@ -70,7 +70,7 @@ module.exports = {
 }
 ```
 
-### webpack
+### webpack {#webpack}
 
 플래그는 webpack의 [DefinePlugin](https://webpack.js.org/plugins/define-plugin/)을 사용하여 정의해야 합니다:
 
@@ -88,7 +88,7 @@ module.exports = {
 }
 ```
 
-### Rollup
+### Rollup {#rollup}
 
 플래그는 [@rollup/plugin-replace](https://github.com/rollup/plugins/tree/master/packages/replace)를 사용하여 정의해야 합니다:
 

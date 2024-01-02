@@ -254,7 +254,7 @@ function inc() {
 }
 ```
 
-### Modifiers and Transformers
+### Modifiers and Transformers {#modifiers-and-transformers}
 
 `v-model` 지시문과 함께 사용되는 수정자에 접근하려면, `defineModel()`의 반환 값을 구조 분해하는 방식을 사용할 수 있습니다:
 
