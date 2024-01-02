@@ -287,7 +287,7 @@
 
 ## app.runWithContext()<sup class="vt-badge" data-text="3.3+" /> {#app-runwithcontext}
 
-Execute a callback with the current app as injection context.
+현재 앱을 인젝션(injection) 컨텍스트로 사용하여 콜백을 실행합니다.
 
 - **Type**
 
@@ -299,7 +299,7 @@ Execute a callback with the current app as injection context.
 
 - **Details**
 
-  Expects a callback function and runs the callback immediately. During the synchronous call of the callback,  `inject()` calls are able to look up injections from the values provided by the current app, even when there is no current active component instance. The return value of the callback will also be returned.
+  콜백 함수를 기대하고 즉시 콜백을 실행합니다. 콜백의 동기 호출 중에 `inject()` 호출은 현재 활성 컴포넌트 인스턴스가 없는 경우에도 현재 앱에서 제공하는 값에서 주입(provide)을 조회할 수 있습니다. 콜백의 반환 값도 반환됩니다.
 
 - **Example**
 
@@ -389,6 +389,10 @@ console.log(app.config)
   - 감시자
   - 커스텀 디렉티브 훅
   - 트랜지션 훅
+
+  :::tip
+  프로덕션에서는 3번째 인수(`info`)가 전체 정보 문자열 대신 축약된 코드로 제공됩니다. 코드와 문자열 매핑은 [프로덕션 오류 코드 참조](/error-reference/#runtime-errors)에서 확인할 수 있습니다.
+  :::
 
 - **예제**
 
