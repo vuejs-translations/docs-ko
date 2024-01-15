@@ -239,7 +239,7 @@ Vue 템플릿에서 JavaScript 표현식은 다음과 같은 위치에 사용할
 <a v-on:[eventName]="doSomething"> ... </a>
 
 <!-- 단축 문법 -->
-<a @[eventName]="doSomething">
+<a @[eventName]="doSomething"> ... </a>
 ```
 
 이 예에서 `eventName`의 값이 `"focus"`인 경우, `v-on:[eventName]`은 `v-on:focus`와 같습니다.
