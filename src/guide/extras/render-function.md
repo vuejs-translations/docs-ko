@@ -578,6 +578,41 @@ JSX 동등 코드:
 
 슬롯을 함수로 전달하면 자식 컴포넌트에서 지연 호출될 수 있습니다. 이를 통해 슬롯의 종속성은 부모가 아닌 자식에 의해 추적되며, 더 정확하고 효율적인 업데이트가 이루어집니다.
 
+### 범위 지정 슬롯 {#scoped-slots}
+
+부모 컴포넌트에서 범위 지정 슬롯을 렌더링하려면, 자식 컴포넌트에 슬롯이 전달됩니다. 이제 슬롯이 `text`라는 매개변수를 가지고 있음에 주목하세요. 이 슬롯은 자식 컴포넌트에서 호출되며 자식 컴포넌트의 데이터가 부모 컴포넌트로 전달됩니다.
+
+```js
+// 부모 컴포넌트
+export default {
+  setup() {
+    return () => h(MyComp, null, {
+      default: ({ text }) => h('p', text)
+    })
+  }
+}
+```
+
+슬롯이 속성(props)으로 취급되지 않도록 `null`을 전달하는 것을 잊지 마세요.
+
+```js
+// 자식 컴포넌트
+export default {
+  setup(props, { slots }) {
+    const text = ref('hi')
+    return () => h('div', null, slots.default({ text: text.value }))
+  }
+}
+```
+
+JSX와 동등:
+
+```jsx
+<MyComponent>{{
+  default: ({ text }) => <p>{ text }</p>
+}}</MyComponent>
+```
+
 ### 내장 컴포넌트 {#built-in-components}
 
 `<KeepAlive>`, `<Transition>`, `<TransitionGroup>`, `<Teleport>`, `<Suspense>`과 같은 [내장 컴포넌트](/api/built-in-components)는 렌더 함수에서 사용하기 위해 가져와야 합니다:
