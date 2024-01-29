@@ -256,8 +256,9 @@ methods: {
 `.capture`, `.once` 및 `.passive` 수식어는 [네이티브 `addEventListener` 메서드의 옵션](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#options)을 반영합니다:
 
 ```vue-html
-<!-- 이벤트 리스너를 추가할 때 캡처 모드 사용 -->
-<!-- 내부 엘리먼트에서 클릭 이벤트 핸들러가 실행되기 전에, 여기에서 먼저 핸들러가 실행됩니다. -->
+<!-- 이벤트 리스너를 추가할 때 캡처 모드 사용           -->
+<!-- 내부 엘리먼트에서 클릭 이벤트 핸들러가 실행되기 전에, -->
+<!-- 여기에서 먼저 핸들러가 실행됩니다.                -->
 <div @click.capture="doThis">...</div>
 
 <!-- 클릭 이벤트는 단 한 번만 실행됩니다. -->

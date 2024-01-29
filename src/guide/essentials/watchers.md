@@ -351,14 +351,17 @@ watchEffect(async () => {
 
 반응형 상태를 변경하면 Vue 컴포넌트 업데이트와 사용자가 만든 감시자 콜백이 모두 실행됩니다.
 
-기본적으로 개발자가 생성한 감시자 콜백은 Vue 컴포넌트가 **업데이트되기 전**에 실행됩니다.
-따라서 감시자 콜백 내에서 DOM에 접근하면 DOM이 Vue에 의해 업데이트되기 전의 상태입니다.
+컴포넌트 업데이트와 유사하게, 사용자가 만든 감시자(watcher) 콜백은 중복 호출을 방지하기 위해 일괄 처리됩니다. 예를 들어, 감시하고 있는 배열에 동기적으로 천 개의 항목을 푸시할 때 감시자가 천 번 실행되는 것을 원하지 않을 것입니다.
 
-Vue에 의해 업데이트된 후 의 DOM을 감시자 콜백에서 접근하려면, `flush: 'post'` 옵션을 지정해야 합니다:
+기본적으로, 감시자의 콜백은 부모 컴포넌트 업데이트가 있을 경우 **이후에** 호출되고, 소유 컴포넌트의 DOM 업데이트 **이전에** 호출됩니다. 이는 감시자 콜백 내에서 소유 컴포넌트의 DOM에 접근하려고 할 때, DOM이 업데이트 전 상태에 있을 것임을 의미합니다.
+
+### 후처리 감시자 {#post-watchers}
+
+Vue가 업데이트한 후에 감시자 콜백에서 소유 컴포넌트의 DOM에 접근하고자 한다면, `flush: 'post'` 옵션을 지정해야 합니다:
 
 <div class="options-api">
 
-```js
+```js{6}
 export default {
   // ...
   watch: {
@@ -374,7 +377,7 @@ export default {
 
 <div class="composition-api">
 
-```js
+```js{2,6}
 watch(source, callback, {
   flush: 'post'
 })
@@ -452,9 +455,57 @@ count.value++
 
 </div>
 
+### 동기적 감시자 {#sync-watchers}
+
+Vue에서 동기적으로 실행되는 감시자(watcher)를 만드는 것도 가능합니다. 이 감시자는 Vue가 관리하는 업데이트 이전에 동기적으로 발동됩니다:
+
 <div class="options-api">
 
-## `this.$watch()` \*
+```js{6}
+export default {
+  // ...
+  watch: {
+    key: {
+      handler() {},
+      flush: 'sync'
+    }
+  }
+}
+```
+
+</div>
+
+<div class="composition-api">
+
+```js{2,6}
+watch(source, callback, {
+  flush: 'sync'
+})
+
+watchEffect(callback, {
+  flush: 'sync'
+})
+```
+
+동기적 `watchEffect()`는 또한 `watchSyncEffect()`라는 편리한 별칭도 가지고 있습니다:
+
+```js
+import { watchSyncEffect } from 'vue'
+
+watchSyncEffect(() => {
+  /* 반응형 데이터 변경 시 동기적으로 실행됨 */
+})
+```
+
+</div>
+
+:::warning 주의해서 사용하세요
+동기적 감시자는 배치 처리가 없으며, 반응형 변경이 감지될 때마다 트리거됩니다. 간단한 boolean 값들을 감시하는 데 사용하는 것은 괜찮지만, 예를 들어 배열과 같이 동기적으로 여러 번 변경될 수 있는 데이터 소스에는 사용을 피해야 합니다.
+:::
+
+<div class="options-api">
+
+## `this.$watch()` \* #{#this-watch}
 
 [`$watch()` 인스턴스 메서드](/api/component-instance.html#watch)를 사용하여 감시자를 선언적으로 생성할 수도 있습니다.
 
