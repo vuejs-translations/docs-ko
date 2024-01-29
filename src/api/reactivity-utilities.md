@@ -43,16 +43,16 @@
 
 ## toRef() {#toref}
 
-Can be used to normalize values / refs / getters into refs (3.3+).
+값 / ref / getter 들을 정규화하는 데 사용할 수 있습니다 (3.3+).
 
-반응형 객체의 속성에 대한 ref를 만드는 데 사용할 수 있습니다.
+또는 반응형 객체의 속성에 대한 ref를 만드는 데 사용할 수도 있습니다.
 생성된 ref는 소스 속성과 동기화됩니다.
 소스 속성을 변경하면 ref가 업데이트되고 그 반대의 경우도 마찬가지입니다.
 
 - **타입**:
 
   ```ts
-  // normalization signature (3.3+)
+  // 정규화 시그니처 (3.3+)
   function toRef<T>(
     value: T
   ): T extends () => infer R
@@ -61,7 +61,7 @@ Can be used to normalize values / refs / getters into refs (3.3+).
     ? T
     : Ref<UnwrapRef<T>>
 
-  // object property signature
+  // 객체 속성 시그니처
   function toRef<T extends object, K extends keyof T>(
     object: T,
     key: K,
@@ -73,21 +73,21 @@ Can be used to normalize values / refs / getters into refs (3.3+).
 
 - **예제**
 
-  Normalization signature (3.3+):
+  정규화 시그니처 (3.3+):
 
   ```js
-  // returns existing refs as-is
+  //  기존 참조를 있는 그대로 반환함
   toRef(existingRef)
 
-  // creates a readonly ref that calls the getter on .value access
+  // .value로 접근했을 때 getter를 호출하는 읽기 전용 ref를 만듦
   toRef(() => props.foo)
 
-  // creates normal refs from non-function values
-  // equivalent to ref(1)
+  // 함수가 아닌 값으로부터 일반적인 ref들을 만듦
+  // ref(1) 과 동일
   toRef(1)
   ```
 
-  Object property signature:
+  객체 속성 시그니처:
 
   ```js
   const state = reactive({
@@ -95,7 +95,7 @@ Can be used to normalize values / refs / getters into refs (3.3+).
     bar: 2
   })
 
-  // a two-way ref that syncs with the original property
+  // 원래 속성과 동기화되는 양방향 ref
   const fooRef = toRef(state, 'foo')
 
   // ref를 변경하면 원본도 업데이트 됨
@@ -127,7 +127,7 @@ Can be used to normalize values / refs / getters into refs (3.3+).
   // `props.foo`를 ref로 변환한 다음 컴포저블 함수에 전달
   useSomeFeature(toRef(props, 'foo'))
   
-  // getter syntax - recommended in 3.3+
+  // getter 문법 - 3.3 이상 버전에서 권장됨
   useSomeFeature(toRef(() => props.foo))
   </script>
   ```
@@ -138,7 +138,7 @@ Can be used to normalize values / refs / getters into refs (3.3+).
   이런 경우에는 [`computed()`](./reactivity-core.html#computed)에 `get`과 `set`을 선언하여 사용하는 것으로 구현할 수 있습니다.
   자세한 내용은 [컴포넌트를 `v-model`과 함께 사용하기](/guide/components/v-model) 가이드 참고.
 
-  When using the object property signature, `toRef()` will return a usable ref even if the source property doesn't currently exist. This makes it possible to work with optional properties, which wouldn't be picked up by [`toRefs`](#torefs).
+  객체 속성 시그니처를 사용할 때, `toRef()`는 원본 속성이 현재 존재하지 않더라도 사용 가능한 ref를 반환합니다. 이를 통해 [`toRefs`](#torefs)에서 감지되지 않는 선택적 속성들을 처리할 수 있게 됩니다.
 
 ## toValue() <sup class="vt-badge" data-text="3.3+" /> {#tovalue}
 
