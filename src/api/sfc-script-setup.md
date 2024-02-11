@@ -254,6 +254,23 @@ function inc() {
 }
 ```
 
+:::warning
+`defineModel` prop에 `default` 값을 설정하고, 부모 컴포넌트에서 이 prop에 대한 값을 제공하지 않으면, 부모와 자식 컴포넌트 간의 동기화 문제가 발생할 수 있습니다. 아래 예시에서, 부모의 `myRef`는 값이 정의되지 않았지만(`undefined`) 자식의 `model`은 1 입니다:
+
+```js
+// 자식 컴포넌트:
+const model = defineModel({ default: 1 })
+
+// 부모 컴포넌트:
+const myRef = ref()
+```
+
+```html
+<Child v-model="myRef"></Child>
+```
+
+:::
+
 ### Modifiers and Transformers {#modifiers-and-transformers}
 
 `v-model` 지시문과 함께 사용되는 수정자에 접근하려면, `defineModel()`의 반환 값을 구조 분해하는 방식을 사용할 수 있습니다:
