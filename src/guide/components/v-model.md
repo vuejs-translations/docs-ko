@@ -204,12 +204,16 @@ const title = defineModel('title', { required: true })
 ```
 
 <details>
-<summary>Pre 3.4 Usage</summary>
+<summary>3.4 이전 사용법</summary>
 
 ```vue
 <!-- MyComponent.vue -->
 <script setup>
-defineProps(['title'])
+defineProps({
+  title: {
+    required: true
+  }
+})
 defineEmits(['update:title'])
 </script>
 
@@ -282,7 +286,7 @@ const lastName = defineModel('lastName')
 [Try it in the Playground](https://play.vuejs.org/#eNqFkstuwjAQRX/F8iZUAqKKHQpIfbAoUmnVx86bKEzANLEt26FUkf+9Y4MDSAg2UWbu9fjckVv6oNRw2wAd08wUmitLDNhGTZngtZLakpZoKIkjpZY1SdCadNK3Ab3IazhowzQ2/ES0MVFIYSwpucbvxA/qJXO5FsldlKr8qDxL8EKW7kEQAQsLtapyC1gRkq3vp217mOccwf8wwLksRSlYIoMvCNkOarmEahyODAT2J4yGgtFzhx8UDf5/r6c4NEs7CNqnpxkvbO0kcVjNhCyh5AJe/SW9pBPOV3DJGvu3dsKFaiyxf8qTW9gheQwVs4Z90BDm5oF47cF/Ht4aZC75argxUmD61g9ktJC14hXoN2U5ZmJ0TILitbyq5O889KxuoB/7xRqKnwv9jdn5HqPvGnDVWwTpNJvrFSCul2efi4DeiRigqdB9RfwAI6vGM+5tj41YIvaJL9C+hOfNxerLzHYWhImhPKh3uuBnFJ/A05XoR9zRcBTOMeGo+wcs+yse)
 
 <details>
-<summary>Pre 3.4 Usage</summary>
+<summary>3.4 이전 사용법</summary>
 
 ```vue
 <script setup>
@@ -391,7 +395,7 @@ const [model, modifiers] = defineModel({
 [Try it in the Playground](https://play.vuejs.org/#eNp9UsFu2zAM/RVClzhY5mzoLUgHdEUPG9Bt2LLTtIPh0Ik6WxIkyosb5N9LybFrFG1OkvgeyccnHsWNtXkbUKzE2pdOWQKPFOwnqVVjjSM4gsMKTlA508CMqbMRuu9uDd80ajrD+XISi3WZDCB1abQnaLoNHgiuY8VsNptLvV72TbkdPwgbWxeE/ALY7JUHpW0gKAurqKjVI3rAFl1He6V30JkA3AbdKvLXUzXt+8Zssc6fM6+l6NtLAUtusF6O3cRCvFB9yY2SiYFw+8KSYcY/qfEC+FCVQuf/8rxbrJTG+4hkxyiWq2ZtUQecQ3oDqAqyMWeieyQAu0bBaUh5ebkv3A1lH+Y5md/WorstPGZzeHfGfa1KzD6yxzH11B/TCjHC4dPlX1j3P0CdjQ5S79/Z3WhpPF91lDz7Uald/uCNZj/TFFJE91SN7rslxX5JsRrmk6Koa/P/a4qRC7gY4uUey3+vxB/8Icak+OHQo2tRihGjwu2QtUb47te3pHsEWXWomX0B/Ine1CFq7Gmfg96y7Akvqf2StoKXcePvDoTaD0NFocnhxJeClyRu2FujP8u9yq+GnxGnJxSEO+M=)
 
 <details>
-<summary>Pre 3.4 Usage</summary>
+<summary>3.4 이전 사용법</summary>
 
 ```vue{11-13}
 <script setup>
@@ -531,7 +535,7 @@ console.log(lastNameModifiers) // { uppercase: true}
 ```
 
 <details>
-<summary>Pre 3.4 Usage</summary>
+<summary>3.4 이전 사용법</summary>
 
 ```vue{5,6,10,11}
 <script setup>
