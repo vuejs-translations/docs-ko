@@ -505,7 +505,7 @@ watchSyncEffect(() => {
 
 <div class="options-api">
 
-## `this.$watch()` \* #{#this-watch}
+## `this.$watch()` * {#this-watch}
 
 [`$watch()` 인스턴스 메서드](/api/component-instance.html#watch)를 사용하여 감시자를 선언적으로 생성할 수도 있습니다.
 
