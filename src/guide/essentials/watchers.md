@@ -236,7 +236,7 @@ watch(
 성능에 영향을 주는지 고려해서 필요한 경우에만 사용하십시오.
 :::
 
-## 열성적인 감시자 \* {#eager-watchers}
+## 열성적인 감시자 {#eager-watchers}
 
 `watch`는 기본적으로 게으릅니다(lazy).
 콜백은 감시된 소스가 변경되기 전까지 호출되지 않습니다.
@@ -505,7 +505,7 @@ watchSyncEffect(() => {
 
 <div class="options-api">
 
-## `this.$watch()` \* #{#this-watch}
+## `this.$watch()` * {#this-watch}
 
 [`$watch()` 인스턴스 메서드](/api/component-instance.html#watch)를 사용하여 감시자를 선언적으로 생성할 수도 있습니다.
 
