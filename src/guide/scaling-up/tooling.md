@@ -148,7 +148,7 @@ Vue 팀은 SFC별 린팅 규칙을 지원하는 [ESLint](https://eslint.org/) �
 
 ## Formatting {#formatting}
 
-- VSCode 확장 [Volar](https://github.com/johnsoncodehk/volar)는 Vue SFC에 대한 포멧팅을 즉시 제공합니다.
+- VSCode 확장 [Volar](https://github.com/johnsoncodehk/volar)는 Vue SFC에 대한 포매팅을 즉시 제공합니다.
 
 - 또는 [Prettier](https://prettier.io/)는 빌트인 Vue SFC 형식 지원을 제공합니다.
 
