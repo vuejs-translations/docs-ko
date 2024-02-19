@@ -10,7 +10,7 @@ Vue의 핵심 기능은 **선언적 렌더링**입니다: HTML을 확장하는 �
 
 <div class="composition-api">
 
-변경 시, 업데이트를 트리거할 수 있는 상태는 **반응형**으로 간주됩니다. Vue의 `reactive()` API를 사용하여 반응형 상태를 선언할 수 있습니다. `reactive()`로 생성된 객체는 일반 객체처럼 작동하는 JavaScript [프락시](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)입니다:
+변경될 때 업데이트를 트리거할 수 있는 상태는 **반응형**으로 간주됩니다. Vue의 `reactive()` API를 사용하여 반응형 상태를 선언할 수 있습니다. `reactive()`로 생성된 객체들은 일반 객체처럼 작동하는 JavaScript [프록시(Proxies)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)입니다:
 
 ```js
 import { reactive } from 'vue'
