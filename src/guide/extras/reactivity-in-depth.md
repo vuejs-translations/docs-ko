@@ -16,11 +16,9 @@ Vue의 가장 독특한 기능 중 하나는 눈에 거슬리지 않는 반응�
 
 <SpreadSheet />
 
-여기서 A2 셀은 `= A0 + A1`의 수식을 통해 정의되므로(A2를 클릭하여 수식을 보거나 편집할 수 있음) 스프레드시트는 우리에게 3을 제공합니다.
-그리고 A0 또는 A1을 업데이트하면, A2도 자동으로 업데이트됨을 알 수 있습니다.
+여기서 A2 셀은 `= A0 + A1`의 수식을 통해 정의되므로(A2를 클릭하여 수식을 보거나 편집할 수 있음) 스프레드시트는 우리에게 3을 제공합니다. 그리고 A0 또는 A1을 업데이트하면, A2도 자동으로 업데이트됨을 알 수 있습니다.
 
-JavaScript는 일반적으로 이렇게 작동하지 않습니다.
-JavaScript에서 비슷한 것을 작성한다면:
+JavaScript는 일반적으로 이렇게 작동하지 않습니다. JavaScript에서 비슷한 것을 작성한다면:
 
 ```js
 let A0 = 1
@@ -35,8 +33,7 @@ console.log(A2) // 여전히 3
 
 `A0`을 변경한다고 `A2`가 자동으로 변경되지 않습니다.
 
-그러면 JavaScript에서 이것을 어떻게 해야 할까요?
-먼저 `A2`를 업데이트하는 코드를 다시 실행하기 위해 다음과 같이 함수로 래핑합니다:
+그러면 JavaScript에서 이것을 어떻게 해야 할까요? 먼저 `A2`를 업데이트하는 코드를 다시 실행하기 위해 다음과 같이 함수로 래핑합니다:
 
 ```js
 let A2
@@ -50,8 +47,7 @@ function update() {
 
 - `update()` 함수는 프로그램의 상태를 수정하기 때문에 "**사이드 이팩트**" 줄여서 "**이팩트**"를 생성합니다.
 
-- `A0` 및 `A1`은 해당 값이 이팩트를 수행하는 데 사용되므로 이팩트의 "**의존성**"(dependency)으로 간주됩니다.
-  그 이팩트는 의존성에 대한 "**구독자**"(subscriber)라고 합니다.
+- `A0` 및 `A1`은 해당 값이 이팩트를 수행하는 데 사용되므로 이팩트의 "**의존성**"(dependency)으로 간주됩니다. 그 이팩트는 의존성에 대한 "**구독자**"(subscriber)라고 합니다.
 
 우리에게 필요한 것은 `A0` 또는 `A1`(**의존성**)이 변경될 때마다 `update()`(**이팩트**)를 호출할 수 있는 함수입니다:
 
@@ -61,25 +57,17 @@ whenDepsChange(update)
 
 이 `whenDepsChange()` 함수에는 다음과 같은 작업이 있습니다:
 
-1. 변수가 읽힐 때를 추적합니다.
-   예를 들어 `A0 + A1` 표현식을 평가할 때 `A0`과 `A1`이 모두 읽힙니다.
+1. 변수가 읽힐 때를 추적합니다. 예를 들어 `A0 + A1` 표현식을 평가할 때 `A0`과 `A1`이 모두 읽힙니다.
 
-2. 현재 실행 중인 이팩트가 있을 때 변수를 읽으면,
-   해당 이팩트를 해당 변수의 구독자로 만듭니다.
-   예를 들어 `A0`과 `A1`은 `update()`가 실행될 때 읽히기 때문에 `update()`는 첫 번째 호출 이후에 `A0`과 `A1`의 구독자가 됩니다.
+2. 현재 실행 중인 이팩트가 있을 때 변수를 읽으면, 해당 이팩트를 해당 변수의 구독자로 만듭니다. 예를 들어 `A0`과 `A1`은 `update()`가 실행될 때 읽히기 때문에 `update()`는 첫 번째 호출 이후에 `A0`과 `A1`의 구독자가 됩니다.
 
-3. 변수가 언제 변이되는지 감지합니다.
-   예를 들어 `A0`에 새 값이 할당되면,
-   모든 구독자 이팩트에 다시 실행하도록 알립니다.
+3. 변수가 언제 변이되는지 감지합니다. 예를 들어 `A0`에 새 값이 할당되면, 모든 구독자 이팩트에 다시 실행하도록 알립니다.
 
 ## Vue에서 반응형 작동 방식 {#how-reactivity-works-in-vue}
 
 예제에서처럼 로컬 변수의 읽기 및 쓰기를 추적할 수는 없습니다. 바닐라 자바스크립트에는 이를 수행할 수 있는 메커니즘이 없기 때문입니다. 하지만 우리가 할 수 있는 것은 **객체 속성**의 읽기 및 쓰기를 가로채는 것입니다.
 
-JavaScript에서 속성 접근을 가로채는 방법에는 [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) / [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set) 및 [프록시](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)의 두 가지가 있습니다.
-Vue 2는 브라우저 지원 제한으로 인해 단독으로 getter/setter를 사용했습니다.
-Vue 3에서 프록시는 반응형 객체에 사용되며 getter/setter는 참조에 사용됩니다.
-다음은 작동 방식을 보여주는 유사 코드입니다:
+JavaScript에서 속성 접근을 가로채는 방법에는 [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) / [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set) 및 [프록시](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)의 두 가지가 있습니다. Vue 2는 브라우저 지원 제한으로 인해 단독으로 getter/setter를 사용했습니다. Vue 3에서 프록시는 반응형 객체에 사용되며 getter/setter는 참조에 사용됩니다. 다음은 작동 방식을 보여주는 유사 코드입니다:
 
 ```js{4,9,17,22}
 function reactive(obj) {
@@ -120,8 +108,7 @@ function ref(value) {
 
 - `reactive()`에서 반환된 프록시는 원본과 동일하게 동작하지만 `===` 연산자를 사용하여 원본과 비교하면 다른 ID를 갖습니다.
 
-`track()` 내부에서 현재 실행 중인 이팩트가 있는지 확인합니다.
-존재하는 경우, 추적 중인 속성에 대한 구독자 이팩트(Set에 저장됨)를 조회하고 이팩트를 Set에 추가합니다.
+`track()` 내부에서 현재 실행 중인 이팩트가 있는지 확인합니다. 존재하는 경우, 추적 중인 속성에 대한 구독자 이팩트(Set에 저장됨)를 조회하고 이팩트를 Set에 추가합니다.
 
 ```js
 // 이팩트가 실행되기 직전에 설정됩니다.
@@ -136,13 +123,9 @@ function track(target, key) {
 }
 ```
 
-이팩트 구독은 전역 `WeakMap<target, Map<key, Set<effect>>>` 데이터 구조에 저장됩니다.
-속성에 대한 구독 이팩트 Set이 발견되지 않은 경우(처음 추적 시) 생성됩니다.
-이것이 `getSubscribersForProperty()` 함수가 하는 일입니다.
-간단하게 하기 위해 자세한 내용은 건너뛰겠습니다.
+이팩트 구독은 전역 `WeakMap<target, Map<key, Set<effect>>>` 데이터 구조에 저장됩니다. 속성에 대한 구독 이팩트 Set이 발견되지 않은 경우(처음 추적 시) 생성됩니다. 이것이 `getSubscribersForProperty()` 함수가 하는 일입니다. 간단하게 하기 위해 자세한 내용은 건너뛰겠습니다.
 
-`trigger()` 내부에서 속성에 대한 구독자 이팩트를 다시 조회합니다.
-그러나 이번에는 우리가 그것들을 대신 호출합니다:
+`trigger()` 내부에서 속성에 대한 구독자 이팩트를 다시 조회합니다. 그러나 이번에는 우리가 그것들을 대신 호출합니다:
 
 ```js
 function trigger(target, key) {
@@ -164,15 +147,11 @@ function whenDepsChange(update) {
 }
 ```
 
-실제 업데이트를 실행하기 전에 자신을 현재 활성 이팩트로 설정하는 이팩트에 로우(raw) `업데이트` 함수를 래핑합니다.
-이것은 현재 활성 이팩트를 찾기 위해 업데이트 동안 `track()` 호출을 활성화합니다.
+실제 업데이트를 실행하기 전에 자신을 현재 활성 이팩트로 설정하는 이팩트에 로우(raw) `업데이트` 함수를 래핑합니다. 이것은 현재 활성 이팩트를 찾기 위해 업데이트 동안 `track()` 호출을 활성화합니다.
 
-이 시점에서 의존성을 자동으로 추적하고 의존성이 변경될 때마다 다시 실행하는 이팩트를 만들었습니다.
-우리는 이것을 **반응 이팩트**(Reactive Effect)라고 부릅니다.
+이 시점에서 의존성을 자동으로 추적하고 의존성이 변경될 때마다 다시 실행하는 이팩트를 만들었습니다. 우리는 이것을 **반응 이팩트**(Reactive Effect)라고 부릅니다.
 
-Vue는 반응 이팩트를 생성할 수 있는 [`watchEffect()`](/api/reactivity-core.html#watcheffect) API를 제공합니다.
-사실, 예제의 `whenDepsChange()`와 매우 유사하게 작동한다는 것을 눈치채셨을 것입니다.
-이제 실제 Vue API를 사용하여 원래 예제를 다시 작업할 수 있습니다:
+Vue는 반응 이팩트를 생성할 수 있는 [`watchEffect()`](/api/reactivity-core.html#watcheffect) API를 제공합니다. 사실, 예제의 `whenDepsChange()`와 매우 유사하게 작동한다는 것을 눈치채셨을 것입니다. 이제 실제 Vue API를 사용하여 원래 예제를 다시 작업할 수 있습니다:
 
 ```js
 import { ref, watchEffect } from 'vue'
@@ -190,8 +169,7 @@ watchEffect(() => {
 A0.value = 2
 ```
 
-반응 이팩트를 사용하여 ref를 변경하는 것이 가장 흥미로운 사용 사례는 아닙니다.
-계산된 속성을 사용하면 더 선언적입니다:
+반응 이팩트를 사용하여 ref를 변경하는 것이 가장 흥미로운 사용 사례는 아닙니다. 계산된 속성을 사용하면 더 선언적입니다:
 
 ```js
 import { ref, computed } from 'vue'
@@ -205,9 +183,7 @@ A0.value = 2
 
 내부적으로 `computed`는 무효화 및 재계산을 반응 이팩트를 사용하여 관리합니다.
 
-그렇다면 일반적이고 유용한 반응 이팩트의 예는 무엇일까요?
-DOM을 업데이트 하는 것입니다!
-다음과 같이 간단한 "반응형 렌더링"을 구현할 수 있습니다:
+그렇다면 일반적이고 유용한 반응 이팩트의 예는 무엇일까요? DOM을 업데이트 하는 것입니다! 다음과 같이 간단한 "반응형 렌더링"을 구현할 수 있습니다:
 
 ```js
 import { ref, watchEffect } from 'vue'
@@ -222,17 +198,11 @@ watchEffect(() => {
 count.value++
 ```
 
-사실 이것은 Vue 컴포넌트가 상태와 DOM을 동기화 상태로 유지하는 방법과 매우 유사합니다.
-각 컴포넌트 인스턴스는 DOM을 렌더링하고 업데이트하는 반응 이팩트를 생성합니다.
-물론 Vue 컴포넌트는 `innerHTML`보다 훨씬 더 효율적인 방법으로 DOM을 업데이트합니다.
-이것은 [렌더링 메커니즘](./rendering-mechanism)에서 논의됩니다.
+사실 이것은 Vue 컴포넌트가 상태와 DOM을 동기화 상태로 유지하는 방법과 매우 유사합니다. 각 컴포넌트 인스턴스는 DOM을 렌더링하고 업데이트하는 반응 이팩트를 생성합니다. 물론 Vue 컴포넌트는 `innerHTML`보다 훨씬 더 효율적인 방법으로 DOM을 업데이트합니다. 이것은 [렌더링 메커니즘](./rendering-mechanism)에서 논의됩니다.
 
 <div class="options-api">
 
-`ref()`, `computed()` 및 `watchEffect()` API는 모두 컴포지션 API의 일부입니다.
-지금까지 Vue에서 옵션 API만 사용했다면, 컴포지션 API가 Vue의 반응형 시스템 작동 방식에 더 가깝다는 것을 알 수 있습니다.
-사실, Vue 3에서 옵션 API는 컴포지션 API 위에 구현됩니다.
-컴포넌트 인스턴스(`this`)에 대한 모든 속성 접근은 반응형 추적을 위해 getter/setter를 트리거하고 `watch` 및 `computed`와 같은 옵션은 내부적으로 해당 컴포지션 API를 호출합니다.
+`ref()`, `computed()` 및 `watchEffect()` API는 모두 컴포지션 API의 일부입니다. 지금까지 Vue에서 옵션 API만 사용했다면, 컴포지션 API가 Vue의 반응형 시스템 작동 방식에 더 가깝다는 것을 알 수 있습니다. 사실, Vue 3에서 옵션 API는 컴포지션 API 위에 구현됩니다. 컴포넌트 인스턴스(`this`)에 대한 모든 속성 접근은 반응형 추적을 위해 getter/setter를 트리거하고 `watch` 및 `computed`와 같은 옵션은 내부적으로 해당 컴포지션 API를 호출합니다.
 
 </div>
 
@@ -250,9 +220,7 @@ Vue의 반응성 시스템이 종속성을 자동으로 추적하는 것은 훌�
 
 ### 컴포넌트 디버깅 훅 {#component-debugging-hooks}
 
-컴포넌트의 렌더링 중에 사용되는 의존성과 <span class="options-api">`renderTracked`</span><span class="composition-api">`onRenderTracked`</span> 및 <span class="options-api">`renderTriggered`</span><span class="composition-api">`onRenderTriggered`</span> 생명 주기 훅을 사용하여 업데이트를 트리거하는 의존성을 디버그할 수 있습니다.
-두 훅 모두 해당 의존성에 대한 정보가 포함된 디버거 이벤트를 수신합니다.
-의존성을 대화식으로 검사하기 위해 콜백에 `debugger` 문을 배치하는 것이 좋습니다:
+컴포넌트의 렌더링 중에 사용되는 의존성과 <span class="options-api">`renderTracked`</span><span class="composition-api">`onRenderTracked`</span> 및 <span class="options-api">`renderTriggered`</span><span class="composition-api">`onRenderTriggered`</span> 생명 주기 훅을 사용하여 업데이트를 트리거하는 의존성을 디버그할 수 있습니다. 두 훅 모두 해당 의존성에 대한 정보가 포함된 디버거 이벤트를 수신합니다. 의존성을 대화식으로 검사하기 위해 콜백에 `debugger` 문을 배치하는 것이 좋습니다:
 
 <div class="composition-api">
 
@@ -374,25 +342,15 @@ watchEffect(callback, {
 
 ## 외부 상태 시스템과의 통합 {#integration-with-external-state-systems}
 
-Vue의 반응형 시스템은 일반 JavaScript 객체를 반응형 프록시로 깊이 변환하여 작동합니다.
-깊은 변환은 외부 상태 관리 시스템과 통합할 때 필요하지 않거나 때때로 원하지 않을 수 있습니다(예: 외부 솔루션도 프록시를 사용하는 경우).
+Vue의 반응형 시스템은 일반 JavaScript 객체를 반응형 프록시로 깊이 변환하여 작동합니다. 깊은 변환은 외부 상태 관리 시스템과 통합할 때 필요하지 않거나 때때로 원하지 않을 수 있습니다(예: 외부 솔루션도 프록시를 사용하는 경우).
 
-Vue의 반응형 시스템을 외부 상태 관리 솔루션과 통합하는 일반적인 아이디어는 외부 상태를 [`shallowRef`](/api/reactivity-advanced.html#shallowref)에 유지하는 것입니다.
-얕은 참조는 `.value` 속성에 접근할 때만 반응합니다.
-내부 값은 그대로 유지됩니다.
-외부 상태가 변경되면 ref 값을 교체하여 업데이트를 트리거합니다.
+Vue의 반응형 시스템을 외부 상태 관리 솔루션과 통합하는 일반적인 아이디어는 외부 상태를 [`shallowRef`](/api/reactivity-advanced.html#shallowref)에 유지하는 것입니다. 얕은 참조는 `.value` 속성에 접근할 때만 반응합니다. 내부 값은 그대로 유지됩니다. 외부 상태가 변경되면 ref 값을 교체하여 업데이트를 트리거합니다.
 
 ### 불변 데이터 {#immutable-data}
 
-실행 취소/다시 실행 기능을 구현하는 경우, 사용자가 편집할 때마다 앱 상태의 스냅샷을 찍고 싶을 것입니다.
-그러나 Vue의 변경 가능한 반응형 시스템은 상태 트리가 큰 경우 적합하지 않습니다.
-모든 업데이트에서 전체 상태 객체를 직렬화하는 것은 CPU 및 메모리 비용 측면에서 비용이 많이 들 수 있기 때문입니다.
+실행 취소/다시 실행 기능을 구현하는 경우, 사용자가 편집할 때마다 앱 상태의 스냅샷을 찍고 싶을 것입니다. 그러나 Vue의 변경 가능한 반응형 시스템은 상태 트리가 큰 경우 적합하지 않습니다. 모든 업데이트에서 전체 상태 객체를 직렬화하는 것은 CPU 및 메모리 비용 측면에서 비용이 많이 들 수 있기 때문입니다.
 
-[불변 데이터 구조](https://en.wikipedia.org/wiki/Persistent_data_structure)는 상태 객체를 변경하지 않음으로써 이 문제를 해결합니다.
-대신 이전 객체와 동일하고 변경되지 않은 부분을 공유하는 새 객체를 생성합니다.
-JavaScript에서 변경할 수 없는 데이터를 사용하는 방법에는 여러 가지가 있지만,
-Vue와 함께 [Immer](https://immerjs.github.io/immer/)를 사용하는 것이 좋습니다.
-왜냐하면 보다 인체 공학적이고 변경 가능한 문법을 유지하면서 변경할 수 없는 데이터를 사용할 수 있기 때문입니다.
+[불변 데이터 구조](https://en.wikipedia.org/wiki/Persistent_data_structure)는 상태 객체를 변경하지 않음으로써 이 문제를 해결합니다. 대신 이전 객체와 동일하고 변경되지 않은 부분을 공유하는 새 객체를 생성합니다. JavaScript에서 변경할 수 없는 데이터를 사용하는 방법에는 여러 가지가 있지만, Vue와 함께 [Immer](https://immerjs.github.io/immer/)를 사용하는 것이 좋습니다. 왜냐하면 보다 인체 공학적이고 변경 가능한 문법을 유지하면서 변경할 수 없는 데이터를 사용할 수 있기 때문입니다.
 
 간단한 컴포넌트를 통해 Immer를 Vue와 통합할 수 있습니다:
 
@@ -414,11 +372,9 @@ export function useImmer(baseState) {
 
 ### 상태 머신 (State Machine) {#state-machines}
 
-[상태 머신](https://en.wikipedia.org/wiki/Finite-state_machine)은 앱이 어떤 상태에 있을 수 있는 모든 가능한 상태와 한 상태에서 다른 상태로 전환할 수 있는 모든 가능한 방법을 설명하기 위한 모델입니다.
-단순한 컴포넌트에는 과도할 수 있지만, 복잡한 상태 흐름을 보다 강력하고 관리하기 쉽게 만드는 데 도움이 될 수 있습니다.
+[상태 머신](https://en.wikipedia.org/wiki/Finite-state_machine)은 앱이 어떤 상태에 있을 수 있는 모든 가능한 상태와 한 상태에서 다른 상태로 전환할 수 있는 모든 가능한 방법을 설명하기 위한 모델입니다. 단순한 컴포넌트에는 과도할 수 있지만, 복잡한 상태 흐름을 보다 강력하고 관리하기 쉽게 만드는 데 도움이 될 수 있습니다.
 
-JavaScript에서 가장 널리 사용되는 상태 머신 구현 중 하나는 [XState](https://xstate.js.org/)입니다.
-다음은 이를 통합하는 컴포저블입니다:
+JavaScript에서 가장 널리 사용되는 상태 머신 구현 중 하나는 [XState](https://xstate.js.org/)입니다. 다음은 이를 통합하는 컴포저블입니다:
 
 ```js
 import { createMachine, interpret } from 'xstate'
