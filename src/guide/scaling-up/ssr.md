@@ -309,11 +309,11 @@ SSR 동안 각 리퀘스트 URL은 앱이 원하는 상태로 매핑됩니다.
 동적 업데이트가 없기 때문에 <span class="options-api">`mounted`</span><span class="composition-api">`onMounted`</span> 또는 <span class="options-api">`updated`</span><span class="composition-api">`onUpdated`</span>과 같은 생명 주기 훅은 SSR 중에 호출되지 않고 클라이언트에서만 실행됩니다.
 <span class="options-api">SSR 동안 호출되는 유일한 훅은 `beforeCreate` 및 `created`입니다.</span>
 
-<span class="options-api">`beforeCreate`과 `created`</span><span class="composition-api">`setup()` 또는 `<script setup>`의 루트 범위</span> 에서 정리가 필요한 사이드 이팩트을 생성하는 코드를 피해야 합니다.
-이러한 사이드 이팩트의 예는 `setInterval`로 타이머를 설정하는 것입니다.
+<span class="options-api">`beforeCreate`과 `created`</span><span class="composition-api">`setup()` 또는 `<script setup>`의 루트 범위</span> 에서 정리가 필요한 사이드 이펙트을 생성하는 코드를 피해야 합니다.
+이러한 사이드 이펙트의 예는 `setInterval`로 타이머를 설정하는 것입니다.
 클라이언트 측 전용 코드에서 타이머를 설정한 다음 <span class="options-api">`beforeUnmount`</span><span class="composition-api">`onBeforeUnmount`</span> 또는 <span class="options-api">`unmounted`</span><span class="composition-api">`onUnmounted`</span>에서 해제할 수 있습니다.
 그러나 마운트 해제 훅은 SSR 중에 호출되지 않기 때문에 타이머는 영원히 유지됩니다.
-이를 피하려면 사이드 이팩트 코드를 <span class="options-api">`mounted`</span><span class="composition-api">`onMounted`</span>로 이동하십시오.
+이를 피하려면 사이드 이펙트 코드를 <span class="options-api">`mounted`</span><span class="composition-api">`onMounted`</span>로 이동하십시오.
 
 ### 플랫폼별 API에 대한 접근 {#access-to-platform-specific-apis}
 
