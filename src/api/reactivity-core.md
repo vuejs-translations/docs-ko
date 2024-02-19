@@ -116,7 +116,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
 
 ## reactive() {#reactive}
 
-객체의 반응형 프락시(proxy)를 반환합니다.
+객체의 반응형 프록시(proxy)를 반환합니다.
 
 - **타입**:
 
@@ -132,7 +132,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
 
   내부 깊은 곳까지의 변환은 피하고 루트 수준에서만 반응형을 유지하려면, [shallowReactive()](./reactivity-advanced#shallowreactive)를 사용해야 합니다.
 
-  반환된 객체와 중첩된 객체는 [프락시(Proxy)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)로 래핑되므로, 원본 객체와 **동일하지 않습니다**. 그러므로 반응형 프락시로만 작업하고, 원본 객체에 의존하지 않는 것이 좋습니다.
+  반환된 객체와 중첩된 객체는 [프록시(Proxy)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)로 래핑되므로, 원본 객체와 **동일하지 않습니다**. 그러므로 반응형 프록시로만 작업하고, 원본 객체에 의존하지 않는 것이 좋습니다.
 
 - **예제**
 
@@ -193,7 +193,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
 
 ## readonly() {#readonly}
 
-객체(반응형 또는 일반) 또는 [ref](#ref)를 가져와서 원본에 대한 읽기 전용 프락시를 반환합니다.
+객체(반응형 또는 일반) 또는 [ref](#ref)를 가져와서 원본에 대한 읽기 전용 프록시를 반환합니다.
 
 - **타입**:
 
@@ -205,7 +205,7 @@ getter 함수를 사용하며, getter로부터 반환된 값을 읽기 전용 �
 
 - **세부 사항**:
 
-  읽기 전용 프락시는 접근하게 될 모든 중첩 속성 깊숙이까지 읽기 전용입니다. 또한 `reactive()`처럼 ref를 언래핑하며, 언래핑 값도 읽기 전용으로 변환됩니다.
+  읽기 전용 프록시는 접근하게 될 모든 중첩 속성 깊숙이까지 읽기 전용입니다. 또한 `reactive()`처럼 ref를 언래핑하며, 언래핑 값도 읽기 전용으로 변환됩니다.
 
   내부 깊은 곳까지의 변환을 피하려면, [shallowReadonly()](./reactivity-advanced#shallowreadonly)를 사용해야 합니다.
 

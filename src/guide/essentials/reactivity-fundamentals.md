@@ -17,7 +17,7 @@ outline: deep
 옵션 API에서는 `data` 옵션을 사용하여 컴포넌트의 반응형 상태를 선언합니다.
 옵션 값은 객체를 반환하는 함수여야 합니다.
 Vue는 새 컴포넌트 인스턴스를 만들 때 함수를 호출하고, 반환된 객체를 반응형 시스템에 래핑합니다.
-이 객체 내 모든 속성은 해당 컴포넌트 인스턴스(메서드 및 생명 주기 훅에서 `this`)에서 최상위에 프락시(proxy)되어 노출됩니다.
+이 객체 내 모든 속성은 해당 컴포넌트 인스턴스(메서드 및 생명 주기 훅에서 `this`)에서 최상위에 프록시(proxy)되어 노출됩니다.
 
 ```js{2-6}
 export default {
@@ -71,7 +71,7 @@ export default {
 }
 ```
 
-`newObject` 객체를 `this.someObject`에 할당 후 접근할 경우, 이 값은 원본을 반응형으로 재정의한 프락시 객체입니다.
+`newObject` 객체를 `this.someObject`에 할당 후 접근할 경우, 이 값은 원본을 반응형으로 재정의한 프록시 객체입니다.
 **Vue 2와 달리 원본 `newObject` 객체는 그대로 유지되며, 반응형으로 변하지 않습니다.
 항상 `this`를 통해 반응형 상태의 속성에 접근해야 합니다.**
 
@@ -410,7 +410,7 @@ const state = reactive({ count: 0 })
 
 ### 반응형 재정의 vs. 원본 \*\* {#reactive-proxy-vs-original-1}
 
-`reactive()`의 반환 값은 원본 객체와 같지 않고 원본 객체를 재정의한 [프락시](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)(Proxy)라는 점을 유의하는 것이 중요합니다.
+`reactive()`의 반환 값은 원본 객체와 같지 않고 원본 객체를 재정의한 [프록시](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)(Proxy)라는 점을 유의하는 것이 중요합니다.
 
 ```js
 const raw = {}
@@ -420,22 +420,22 @@ const proxy = reactive(raw)
 console.log(proxy === raw) // false
 ```
 
-프락시만 반응형입니다.
+프록시만 반응형입니다.
 원본 객체를 변경해도 업데이트가 트리거되지 않습니다.
-따라서 객체를 Vue의 반응형 시스템으로 작업할 때 가장 좋은 방법은 **상태를 재정의한 프락시만 사용**하는 것입니다.
+따라서 객체를 Vue의 반응형 시스템으로 작업할 때 가장 좋은 방법은 **상태를 재정의한 프록시만 사용**하는 것입니다.
 
-프락시에 대한 일관된 접근을 보장하기 위해, 원본 객체를 `reactive()` 한 프락시와 프락시를 `reactive()` 한 프락시는 동일한 프락시를 반환하도록 동작합니다.
+프록시에 대한 일관된 접근을 보장하기 위해, 원본 객체를 `reactive()` 한 프록시와 프록시를 `reactive()` 한 프록시는 동일한 프록시를 반환하도록 동작합니다.
 
 ```js
-// 객체를 reactive() 한 반환 값과 프락시는 동일합니다.
+// 객체를 reactive() 한 반환 값과 프록시는 동일합니다.
 console.log(reactive(raw) === proxy) // true
 
-// 프락시를 reactive()한 반환 값과 프락시는 동일합니다.
+// 프록시를 reactive()한 반환 값과 프록시는 동일합니다.
 console.log(reactive(proxy) === proxy) // true
 ```
 
 이 규칙은 중첩된 객체에도 적용됩니다.
-내부 깊숙이까지 반응형이므로 반응형 객체 내부의 중첩된 객체도 프락시입니다:
+내부 깊숙이까지 반응형이므로 반응형 객체 내부의 중첩된 객체도 프록시입니다:
 
 ```js
 const proxy = reactive({})
