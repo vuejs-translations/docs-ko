@@ -396,5 +396,89 @@ export function useMachine(options) {
 
 ### RxJS {#rxjs}
 
-[RxJS](https://rxjs.dev/)는 비동기 이벤트 스트림 작업을 위한 라이브러리입니다.
-[VueUse](https://vueuse.org/) 라이브러리는 RxJS 스트림을 Vue의 반응형 시스템과 연결하기 위한 [`@vueuse/rxjs`](https://vueuse.org/rxjs/readme) 추가 기능을 제공합니다.
+[RxJS](https://rxjs.dev/)는 비동기 이벤트 스트림을 다루기 위한 라이브러리입니다. [VueUse](https://vueuse.org/) 라이브러리는 Vue의 반응성 시스템과 RxJS 스트림을 연결하기 위한 [`@vueuse/rxjs`](https://vueuse.org/rxjs/readme.html) 애드온을 제공합니다.
+
+## 신호 연결 {#connection-to-signals}
+
+Vue의 Composition API에서 refs와 유사한 반응성 기본 요소를 "신호(signals)"라는 용어로 소개한 다른 프레임워크가 꽤 있습니다:
+
+- [Solid 신호](https://www.solidjs.com/docs/latest/api#createsignal)
+- [Angular 신호](https://angular.io/guide/signals)
+- [Preact 신호](https://preactjs.com/guide/v10/signals/)
+- [Qwik 신호](https://qwik.builder.io/docs/components/state/#usesignal)
+
+기본적으로, 신호는 Vue refs와 같은 종류의 반응성 기본 요소입니다. 접근 시 주입(provide) 추적 및 변화(mutation) 시 사이드 이펙트 트리거링을 제공하는 값 컨테이너입니다. 이 반응성 기본 요소 기반 패러다임은 프론트엔드 세계에서 특히 새로운 개념이 아닙니다: [Knockout 관찰가능 객체](https://knockoutjs.com/documentation/observables.html)와 [Meteor Tracker](https://docs.meteor.com/api/tracker.html)와 같은 구현으로 10년 이상 전으로 거슬러 올라갑니다. Vue Options API와 React 상태 관리 라이브러리 [MobX](https://mobx.js.org/)도 같은 원칙에 기반하지만, 기본 요소를 객체 속성 뒤에 숨깁니다.
+
+신호가 신호로 분류되기 위한 필수적 특성은 아니지만, 오늘날 이 개념은 종종 세밀한 구독을 통해 업데이트가 수행되는 렌더링 모델과 함께 논의됩니다. 가상 DOM의 사용으로 인해 Vue는 현재 [컴파일러를 통해 비슷한 최적화를 달성하는 데 의존합니다](/guide/extras/rendering-mechanism#compiler-informed-virtual-dom). 그러나 우리는 가상 DOM에 의존하지 않고 Vue의 내장 반응성 시스템을 더 활용하는 새로운 Solid 영감의 컴파일 전략(Vapor Mode)도 탐색하고 있습니다.
+
+### API 디자인의 절충 {#api-design-trade-offs}
+
+Preact와 Qwik의 신호 디자인은 Vue의 [shallowRef](/api/reactivity-advanced#shallowref)와 매우 유사합니다: 모두 `.value` 속성을 통해 변경 가능한 인터페이스를 제공합니다. 우리는 Solid와 Angular 신호에 대한 논의에 초점을 맞출 것입니다.
+
+#### Solid 신호 {#solid-signals}
+
+Solid의 `createSignal()` API 디자인은 읽기 / 쓰기 분리를 강조합니다. 신호는 읽기 전용 getter와 별도의 setter로 노출됩니다:
+
+```js
+const [count, setCount] = createSignal(0)
+
+count() // 값에 접근
+setCount(1) // 값 업데이트
+```
+
+`count` 신호가 setter 없이 전달될 수 있다는 점을 주목하세요. 이는 setter가 명시적으로 노출되지 않는 한 상태가 결코 변경될 수 없다는 것을 보장합니다. 이 안전 보장이 더 장황한 구문을 정당화하는지 여부는 프로젝트의 요구 사항과 개인의 취향에 따라 다를 수 있지만, 이 API 스타일을 선호하는 경우 Vue에서 쉽게 복제할 수 있습니다:
+
+```js
+import { shallowRef, triggerRef } from 'vue'
+
+export function createSignal(value, options) {
+  const r = shallowRef(value)
+  const get = () => r.value
+  const set = (v) => {
+    r.value = typeof v === 'function' ? v(r.value) : v
+    if (options?.equals === false) triggerRef(r)
+  }
+  return [get, set]
+}
+```
+
+[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNpdUk1TgzAQ/Ss7uQAjgr12oNXxH+ix9IAYaDQkMV/qMPx3N6G0Uy9Msu/tvn2PTORJqcI7SrakMp1myoKh1qldI9iopLYwQadpa+krG0TLYYZeyxGSojSSs/d7E8vFh0ka0YhOCmPh0EknbB4mPYfTEeqbIelD1oiqXPRQCS+WjoojAW8A1Wmzm1A39KYZzHNVYiUib85aKeCx46z7rBuySqQe6h14uINN1pDIBWACVUcqbGwtl17EqvIiR3LyzwcmcXFuTi3n8vuF9jlYzYaBajxfMsDcomv6E/m9E51luN2NV99yR3OQKkAmgykss+SkMZerxMLEZFZ4oBYJGAA600VEryAaD6CPaJwJKwnr9ldR2WMedV1Dsi6WwB58emZlsAV/zqmH9LzfvqBfruUmNvZ4QN7VearjenP4aHwmWsABt4x/+tiImcx/z27Jqw==)
+
+#### Angular 신호 {#angular-signals}
+
+Angular는 더티 체크(dirty-checking)를 포기하고 자체 반응성 기본 요소의 구현을 도입함으로써 일부 근본적인 변화를 겪고 있습니다. Angular 신호 API는 다음과 같습니다:
+
+```js
+const count = signal(0)
+
+count() // 값에 접근
+count.set(1) // 새로운 값 설정
+count.update((v) => v + 1) // 이전 값에 기반한 업데이트
+```
+
+다시 한번, 우리는 Vue에서 API를 쉽게 복제할 수 있습니다:
+
+```js
+import { shallowRef } from 'vue'
+
+export function signal(initialValue) {
+  const r = shallowRef(initialValue)
+  const s = () => r.value
+  s.set = (value) => {
+    r.value = value
+  }
+  s.update = (updater) => {
+    r.value = updater(r.value)
+  }
+  return s
+}
+```
+
+[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9Ul1v0zAU/SuWX9ZCSRh7m9IKGHuAB0AD8WQJZclt6s2xLX+ESlH+O9d2krbr1Df7nnPu17k9/aR11nmgt7SwleHaEQvO6w2TvNXKONITyxtZihWpVKu9g5oMZGtUS66yvJSNF6V5lyjZk71ikslKSeuQ7qUj61G+eL+cgFr5RwGITAkXiyVZb5IAn2/IB+QWeeoHO8GPg1aL0gH+CCl215u7mJ3bW9L3s3IYihyxifMlFRpJqewL1qN3TknysRK8el4zGjNlXtdYa9GFrjryllwvGY18QrisDLQgXZTnSX8pF64zzD7pDWDghbbI5/Hoip7tFL05eLErhVD/HmB75Edpyd8zc9DUaAbso3TrZeU4tjfawSV3vBR/SuFhSfrQUXLHBMvmKqe8A8siK7lmsi5gAbJhWARiIGD9hM7BIfHSgjGaHljzlDyGF2MEPQs6g5dpcAIm8Xs+2XxODTgUn0xVYdJ5RxPhKOd4gdMsA/rgLEq3vEEHlEQPYrbgaqu5APNDh6KWUTyuZC2jcWvfYswZD6spXu2gen4l/mT3Icboz3AWpgNGZ8yVBttM8P2v77DH9wy2qvYC2RfAB7BK+NBjon32ssa2j3ix26/xsrhsftv7vQNpp6FCo4E5RD6jeE93F0Y/tHuT3URd2OLwHyXleRY=)
+
+Vue refs와 비교할 때, Solid와 Angular의 getter 기반 API 스타일은 Vue 컴포넌트에서 사용될 때 몇 가지 흥미로운 절충을 제공합니다:
+
+- `()`는 `.value`보다 약간 덜 장황하지만, 값을 업데이트하는 것은 더 장황합니다.
+- ref-언래핑이 없습니다: 값을 접근할 때 항상 `()`이 필요합니다. 이는 모든 곳에서 값 접근을 일관되게 합니다. 이는 또한 원시 신호를 컴포넌트 props로 내려보낼 수 있음을 의미합니다.
+
+이러한 API 스타일이 여러분에게 맞는지는 어느 정도 주관적입니다. 우리의 목표는 이러한 다른 API 디자인 간의 근본적 유사성과 절충을 보여주는 것입니다. 또한 Vue가 유연하다는 것을 보여주고 싶습니다: 실제로 기존 API에 완전히 묶여 있지 않습니다. 필요한 경우, 더 구체적인 요구 사항에 맞게 자체 반응성 기본 요소 API를 만들 수 있습니다.
