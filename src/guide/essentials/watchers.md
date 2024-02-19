@@ -285,6 +285,40 @@ watch(
 
 </div>
 
+## 일회성 감시자 <sup class="vt-badge" data-text="3.4+" /> {#once-watchers}
+
+감시하는 소스가 변경될 때마다 감시자의 콜백이 실행됩니다. 소스가 변경될 때 콜백이 한 번만 트리거되길 원한다면, `once: true` 옵션을 사용해야 합니다.
+
+<div class="options-api">
+
+```js
+export default {
+  watch: {
+    source: {
+      handler(newValue, oldValue) {
+        // `source`가 변경될 때, 한 번만 트리거됨
+      },
+      once: true
+    }
+  }
+}
+```
+
+</div>
+
+<div class="composition-api">
+
+```js
+watch(
+  source,
+  (newValue, oldValue) => {
+    // `source`가 변경될 때, 한 번만 트리거됨
+  },
+  { once: true }
+)
+```
+
+</div>
 
 <div class="composition-api">
 
