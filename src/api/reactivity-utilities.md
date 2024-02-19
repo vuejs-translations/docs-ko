@@ -244,7 +244,7 @@ This can be used in [Composables](/guide/reusability/composables.html) to normal
 
 ## isProxy() {#isproxy}
 
-객체가 [`reactive()`](./reactivity-core.html#reactive), [`readonly()`](./reactivity-core.html#readonly), [`shallowReactive()`](./reactivity-advanced.html#shallowreactive) 또는 [`shallowReadonly()`](./reactivity-advanced.html#shallowreadonly)에 의해 생성된 프락시인지 확인합니다.
+객체가 [`reactive()`](./reactivity-core.html#reactive), [`readonly()`](./reactivity-core.html#readonly), [`shallowReactive()`](./reactivity-advanced.html#shallowreactive) 또는 [`shallowReadonly()`](./reactivity-advanced.html#shallowreadonly)에 의해 생성된 프록시인지 확인합니다.
 
 - **타입**:
 
@@ -254,7 +254,7 @@ This can be used in [Composables](/guide/reusability/composables.html) to normal
 
 ## isReactive() {#isreactive}
 
-객체가 [`reactive()`](./reactivity-core.html#reactive) 또는 [`shallowReactive()`](./reactivity-advanced.html#shallowreactive)에 의해 생성된 프락시인지 확인합니다.
+객체가 [`reactive()`](./reactivity-core.html#reactive) 또는 [`shallowReactive()`](./reactivity-advanced.html#shallowreactive)에 의해 생성된 프록시인지 확인합니다.
 
 - **타입**:
 

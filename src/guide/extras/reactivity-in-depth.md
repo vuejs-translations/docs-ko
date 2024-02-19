@@ -76,9 +76,9 @@ whenDepsChange(update)
 
 예제에서처럼 로컬 변수의 읽기 및 쓰기를 추적할 수는 없습니다. 바닐라 자바스크립트에는 이를 수행할 수 있는 메커니즘이 없기 때문입니다. 하지만 우리가 할 수 있는 것은 **객체 속성**의 읽기 및 쓰기를 가로채는 것입니다.
 
-JavaScript에서 속성 접근을 가로채는 방법에는 [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) / [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set) 및 [프락시](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)의 두 가지가 있습니다.
+JavaScript에서 속성 접근을 가로채는 방법에는 [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) / [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set) 및 [프록시](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)의 두 가지가 있습니다.
 Vue 2는 브라우저 지원 제한으로 인해 단독으로 getter/setter를 사용했습니다.
-Vue 3에서 프락시는 반응형 객체에 사용되며 getter/setter는 참조에 사용됩니다.
+Vue 3에서 프록시는 반응형 객체에 사용되며 getter/setter는 참조에 사용됩니다.
 다음은 작동 방식을 보여주는 유사 코드입니다:
 
 ```js{4,9,17,22}
@@ -118,7 +118,7 @@ function ref(value) {
 
 - 반응형 객체의 속성을 로컬 변수에 할당하거나 해체할 때, 해당 변수에 접근하거나 할당하는 것은 비반응형(non-reactive)입니다. 이는 소스 객체의 get/set 프록시 트랩을 더 이상 트리거하지 않기 때문입니다. 이러한 "끊김(disconnect)"은 변수 바인딩에만 영향을 미칩니다. 변수가 객체와 같은 원시 타입이 아닌 값을 가리키는 경우, 해당 객체를 수정하는 것은 여전히 반응형으로 동작합니다.
 
-- `reactive()`에서 반환된 프락시는 원본과 동일하게 동작하지만 `===` 연산자를 사용하여 원본과 비교하면 다른 ID를 갖습니다.
+- `reactive()`에서 반환된 프록시는 원본과 동일하게 동작하지만 `===` 연산자를 사용하여 원본과 비교하면 다른 ID를 갖습니다.
 
 `track()` 내부에서 현재 실행 중인 이팩트가 있는지 확인합니다.
 존재하는 경우, 추적 중인 속성에 대한 구독자 이팩트(Set에 저장됨)를 조회하고 이팩트를 Set에 추가합니다.
@@ -374,8 +374,8 @@ watchEffect(callback, {
 
 ## 외부 상태 시스템과의 통합 {#integration-with-external-state-systems}
 
-Vue의 반응형 시스템은 일반 JavaScript 객체를 반응형 프락시로 깊이 변환하여 작동합니다.
-깊은 변환은 외부 상태 관리 시스템과 통합할 때 필요하지 않거나 때때로 원하지 않을 수 있습니다(예: 외부 솔루션도 프락시를 사용하는 경우).
+Vue의 반응형 시스템은 일반 JavaScript 객체를 반응형 프록시로 깊이 변환하여 작동합니다.
+깊은 변환은 외부 상태 관리 시스템과 통합할 때 필요하지 않거나 때때로 원하지 않을 수 있습니다(예: 외부 솔루션도 프록시를 사용하는 경우).
 
 Vue의 반응형 시스템을 외부 상태 관리 솔루션과 통합하는 일반적인 아이디어는 외부 상태를 [`shallowRef`](/api/reactivity-advanced.html#shallowref)에 유지하는 것입니다.
 얕은 참조는 `.value` 속성에 접근할 때만 반응합니다.
