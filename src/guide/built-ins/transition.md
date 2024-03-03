@@ -630,6 +630,8 @@ Vue의 컴포넌트 시스템을 통해 트랜지션을 재사용할 수 있습�
 
 예를 들어, 이 카운터 컴포넌트를 봅시다.
 
+<div class="composition-api">
+
 ```vue
 <script setup>
 import { ref } from 'vue';
@@ -645,9 +647,50 @@ setInterval(() => count.value++, 1000);
 </template>
 ```
 
+</div>
+<div class="options-api">
+
+```vue
+<script>
+export default {
+  data() {
+    return {
+      count: 1,
+      interval: null 
+    }
+  },
+  mounted() {
+    this.interval = setInterval(() => {
+      this.count++;
+    }, 1000)
+  },
+  beforeDestroy() {
+    clearInterval(this.interval)
+  }
+}
+</script>
+
+<template>
+  <Transition>
+    <span :key="count">{{ count }}</span>
+  </Transition>
+</template>
+```
+
+</div>
+
 `key` 속성(attribute)을 생략했다면, 텍스트 노드만 업데이트되고 트렌지션이 발생하지 않았을 것입니다. 그러나 `key` 속성을 사용함으로써, Vue는 `count`가 변경될 때마다 새로운 `span` 엘리먼트를 생성하고 `Transition` 컴포넌트는 두 개의 다른 엘리먼트 사이에서 트렌지션을 할 수 있습니다.
 
+<div class="composition-api">
+
 [온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9UsFu2zAM/RVCl6Zo4nhYd/GcAtvQQ3fYhq1HXTSFydTKkiDJbjLD/z5KMrKgLXoTHx/5+CiO7JNz1dAja1gbpFcuQsDYuxtuVOesjzCCxx1MsPO2gwuiXnzkhhtpTYggbW8ibBJlUV/mBJXfmYh+EHqxuITNDYzcQGFWBPZ4dUXEaQnv6jrXtOuiTJoUROycFhEpAmi3agCpRQgbzp68cA49ZyV174UJKiprckxIcMJA84hHImc9oo7jPOQ0kQ4RSvH6WXW7JiV6teszfQpDPGqEIK3DLSGpQbazsyaugvqLDVx77JIhbqp5wsxwtrRvPFI7NWDhEGtYYVrQSsgELzOiUQw4I2Vh8TRgA9YJqeIR6upDABQh9TpTAPE7WN3HlxLp084Foi3N54YN1KWEVpOMkkO2ZJHsmp3aVw/BGjqMXJE22jml0X93STRw1pReKSe0tk9fMxZ9nzwVXP5B+fgK/hAOCePsh8dAt4KcnXJR+D3S16X07a9veKD3KdnZba+J/UbyJ+Zl0IyF9rk3Wxr7jJenvcvnrcz+PtweItKuZ1Np0MScMp8zOvkvb1j/P+776jrX0UbZ9A+fYSTP)
+
+</div>
+<div class="options-api">
+
+[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9U8tu2zAQ/JUFTwkSyw6aXlQ7QB85pIe2aHPUhZHWDhOKJMiVYtfwv3dJSpbbBgEMWJydndkdUXvx0bmi71CUYhlqrxzdVAa3znqCBtey0wT7ygA0kuTZeX4G8EidN+MJoLadoRKuLkdAGULfS12C6bSGDB/i3yFx2tiAzaRIjyoUYxesICDdDaczZq1uJrNETY4XFx8G5Uu4WiwW55PBA66txy8YyNvdZFNrlP4o/Jdpbq4M/5bzYxZ8IGydloR8Alg2qmcVGcKqEi9eOoe+EqnExXsvTVCkrBkQxoKTBspn3HFDmprp+32ODA4H9mLCKDD/R2E5Zz9+Ws5PpuBjoJ1GCLV12DASJdKGa2toFtRvLOHaY8vx8DrFMGdiOJvlS48sp3rMHGb1M4xRzGQdYU6REY6rxwHJGdJxwBKsk7WiHSyK9wFQhqh14gDyIVjd0f8Wa2/bUwOyWXwQLGGRWzicuChvKC4F8bpmrTbFU7CGL2zqiJm2Tmn03100DZUox5ddCam1ffmaMPJd3Cnj9SPWz6/gT2EbsUr88Bj4VmAljjWSfoP88mL59tc33PLzsdjaptPMfqP4E1MYPGOmfepMw2Of8NK0d238+JTZ3IfbLSFnPSwVB53udyX4q/38xurTuO+K6/Fqi8MffqhR/A==)
+
+</div>
 
 ---
 
