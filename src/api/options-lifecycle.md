@@ -18,9 +18,11 @@
 
 - **세부 사항**:
 
-  인스턴스가 초기화된 다음 props가 처리된 후, `data()` 또는 `computed`와 같은 다른 옵션을 처리하기 전에 호출됩니다.
+  인스턴스가 초기화 되고 props가 해결될 때 즉시 호출됩니다.
 
-  컴포지션 API의 `setup()` 훅은 옵션 API의 어떤 훅보다 먼저 (`beforeCreate()` 훅보다 빨리) 호출됩니다.
+  그런 다음 props는 반응형 속성으로 정의되고 `data()` 또는 `computed`와 같은 상태가 설정됩니다.
+
+  Composition API의 `setup()` 훅은 `beforeCreate()`조차도 모든 Options API 훅(hook)보다 먼저 호출된다는 점에 주의하세요.
 
 ## created {#created}
 
@@ -218,8 +220,6 @@
 컴포넌트의 렌더 이펙트에 의해 반응형 의존성이 추적됐을 때, 호출됩니다.
 
 **이 훅은 개발 모드 전용이며 서버 측 렌더링 중에는 호출되지 않습니다.**
-
-**This hook is development-mode-only and not called during server-side rendering.**
 
 - **타입**:
 
