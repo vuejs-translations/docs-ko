@@ -16,14 +16,11 @@ Vue는 상태 변화에 대응하기 위해 트랜지션 및 애니메이션 작
 
 - 엘리먼트 또는 컴포넌트가 `v-for` 리스트에 삽입, 제거 또는 이동할 때 애니메이션을 적용하기 위한 `<TransitionGroup>`. 이것은 [다음 장](/guide/built-ins/transition-group)에서 다룹니다.
 
-이 두 가지 컴포넌트 외에도 CSS 클래스 트랜지션 또는 스타일 바인딩을 통한 상태 기반 애니메이션과 같은 기술을 사용하여 Vue에서 애니메이션을 적용할 수도 있습니다.
-이러한 추가 기술은 [애니메이션 기법](/guide/extras/animation) 장에서 다룹니다.
+이 두 가지 컴포넌트 외에도 CSS 클래스 트랜지션 또는 스타일 바인딩을 통한 상태 기반 애니메이션과 같은 기술을 사용하여 Vue에서 애니메이션을 적용할 수도 있습니다. 이러한 추가 기술은 [애니메이션 기법](/guide/extras/animation) 장에서 다룹니다.
 
 ## `<Transition>` 컴포넌트 {#the-transition-component}
 
-`<Transition>`은 빌트인 컴포넌트이므로 등록하지 않고도 컴포넌트의 템플릿에서 사용할 수 있습니다.
-기본 슬롯을 통해 전달된 엘리먼트 또는 컴포넌트에 진입(enter) 및 진출(leave) 애니메이션을 적용하는 데 사용할 수 있습니다.
-해당 애니메이션은 다음 중 하나의 조건에 충족하면 발생합니다:
+`<Transition>`은 빌트인 컴포넌트이므로 등록하지 않고도 컴포넌트의 템플릿에서 사용할 수 있습니다. 기본 슬롯을 통해 전달된 엘리먼트 또는 컴포넌트에 진입(enter) 및 진출(leave) 애니메이션을 적용하는 데 사용할 수 있습니다. 해당 애니메이션은 다음 중 하나의 조건에 충족하면 발생합니다:
 
 - `v-if`를 통한 조건부 렌더링
 - `v-show`를 통한 조건부 표시
@@ -66,14 +63,12 @@ Vue는 상태 변화에 대응하기 위해 트랜지션 및 애니메이션 작
 </div>
 
 :::tip
-`<Transition>`은 슬롯 컨텐츠로 단일 엘리먼트 또는 컴포넌트만 지원합니다.
-컨텐츠가 컴포넌트인 경우, 컴포넌트에는 단일 루트 엘리먼트만 있어야 합니다.
+`<Transition>`은 슬롯 컨텐츠로 단일 엘리먼트 또는 컴포넌트만 지원합니다. 컨텐츠가 컴포넌트인 경우, 컴포넌트에는 단일 루트 엘리먼트만 있어야 합니다.
 :::
 
 `<Transition>` 컴포넌트 안에 엘리먼트가 삽입되거나 제거되면 다음과 같은 일이 일어납니다:
 
-1. Vue는 대상 엘리먼트에 CSS 트랜지션 또는 애니메이션이 적용되었는지 여부를 자동으로 감지합니다.
-   그리고 적절한 타이밍에 여러 [CSS 트랜지션 클래스](#transition-classes)가 추가/제거됩니다.
+1. Vue는 대상 엘리먼트에 CSS 트랜지션 또는 애니메이션이 적용되었는지 여부를 자동으로 감지합니다. 그리고 적절한 타이밍에 여러 [CSS 트랜지션 클래스](#transition-classes)가 추가/제거됩니다.
 
 2. [JavaScript 훅](#javascript-hook)에 대한 리스너가 있는 경우, 이 훅은 적절한 타이밍에 호출됩니다.
 
@@ -87,33 +82,21 @@ Vue는 상태 변화에 대응하기 위해 트랜지션 및 애니메이션 작
 
 ![Transition Diagram](./images/transition-classes.png)
 
-<!-- https://www.figma.com/file/rlOv0ZKJFFNA9hYmzdZv3S/Transition-Classes -->
-<!-- https://www.figma.com/file/N6zVa8Wiw0R8i3dGOeJySs/Transition-Classes-(ko-kr) -->
+<!-- https://www.figma.com/file/rlOv0ZKJFFNA9hYmzdZv3S/Transition-Classes --><!-- https://www.figma.com/file/N6zVa8Wiw0R8i3dGOeJySs/Transition-Classes-(ko-kr) -->
 
-1. `v-enter-from`: 진입 시작 상태.
-   엘리먼트가 삽입되기 전에 추가되고, 엘리먼트가 삽입되고 1 프레임 후 제거됩니다.
+1. `v-enter-from`: 진입 시작 상태. 엘리먼트가 삽입되기 전에 추가되고, 엘리먼트가 삽입되고 1 프레임 후 제거됩니다.
 
-2. `v-enter-active`: 진입 활성 상태.
-   모든 진입 상태에 적용됩니다.
-   엘리먼트가 삽입되기 전에 추가되고, 트랜지션/애니메이션이 완료되면 제거됩니다.
-   이 클래스는 진입 트랜지션에 대한 지속 시간, 딜레이 및 이징(easing) 곡선을 정의하는 데 사용할 수 있습니다.
+2. `v-enter-active`: 진입 활성 상태. 모든 진입 상태에 적용됩니다. 엘리먼트가 삽입되기 전에 추가되고, 트랜지션/애니메이션이 완료되면 제거됩니다. 이 클래스는 진입 트랜지션에 대한 지속 시간, 딜레이 및 이징(easing) 곡선을 정의하는 데 사용할 수 있습니다.
 
-3. `v-enter-to`: 진입 종료 상태.
-   엘리먼트가 삽입된 후 1 프레임 후 추가되고(동시에 `v-enter-from`이 제거됨), 트랜지션/애니메이션이 완료되면 제거됩니다.
+3. `v-enter-to`: 진입 종료 상태. 엘리먼트가 삽입된 후 1 프레임 후 추가되고(동시에 `v-enter-from`이 제거됨), 트랜지션/애니메이션이 완료되면 제거됩니다.
 
-4. `v-leave-from`: 진출 시작 상태.
-   진출 트랜지션이 트리거되면 즉시 추가되고 1 프레임 후 제거됩니다.
+4. `v-leave-from`: 진출 시작 상태. 진출 트랜지션이 트리거되면 즉시 추가되고 1 프레임 후 제거됩니다.
 
-5. `v-leave-active`: 진출 활성 상태.
-   모든 진출 상태에 적용됩니다.
-   진출 트랜지션이 트리거되면 즉시 추가되고, 트랜지션/애니메이션이 완료되면 제거됩니다.
-   이 클래스는 진출 트랜지션에 대한 지속 시간, 딜레이 및 이징 곡선을 정의하는 데 사용할 수 있습니다.
+5. `v-leave-active`: 진출 활성 상태. 모든 진출 상태에 적용됩니다. 진출 트랜지션이 트리거되면 즉시 추가되고, 트랜지션/애니메이션이 완료되면 제거됩니다. 이 클래스는 진출 트랜지션에 대한 지속 시간, 딜레이 및 이징 곡선을 정의하는 데 사용할 수 있습니다.
 
-6. `v-leave-to`: 진출 종료 상태.
-   진출 트랜지션이 트리거된 후 1 프레임이 추가되고(동시에 `v-leave-from`이 제거됨), 트랜지션/애니메이션이 완료되면 제거됩니다.
+6. `v-leave-to`: 진출 종료 상태. 진출 트랜지션이 트리거된 후 1 프레임이 추가되고(동시에 `v-leave-from`이 제거됨), 트랜지션/애니메이션이 완료되면 제거됩니다.
 
-`v-enter-active` 및 `v-leave-active`는 진입/진출 트랜지션에 대해 다른 이징 곡선을 지정할 수 있는 기능을 제공합니다.
-이에 대한 예는 다음 섹션에서 볼 수 있습니다.
+`v-enter-active` 및 `v-leave-active`는 진입/진출 트랜지션에 대해 다른 이징 곡선을 지정할 수 있는 기능을 제공합니다. 이에 대한 예는 다음 섹션에서 볼 수 있습니다.
 
 ### 트랜지션 이름 지정하기 {#named-transitions}
 
@@ -125,9 +108,7 @@ Vue는 상태 변화에 대응하기 위해 트랜지션 및 애니메이션 작
 </Transition>
 ```
 
-이름이 지정된 트랜지션의 경우, 트랜지션 클래스에는 `v` 대신 이름이 접두사로 붙습니다.
-예를 들어 위의 트랜지션에 적용된 클래스는 `v-enter-active` 대신 `fade-enter-active`가 됩니다.
-페이드 트랜지션을 위한 CSS는 다음과 같아야 합니다:
+이름이 지정된 트랜지션의 경우, 트랜지션 클래스에는 `v` 대신 이름이 접두사로 붙습니다. 예를 들어 위의 트랜지션에 적용된 클래스는 `v-enter-active` 대신 `fade-enter-active`가 됩니다. 페이드 트랜지션을 위한 CSS는 다음과 같아야 합니다:
 
 ```css
 .fade-enter-active,
@@ -143,8 +124,7 @@ Vue는 상태 변화에 대응하기 위해 트랜지션 및 애니메이션 작
 
 ### CSS 트랜지션 {#css-transitions}
 
-위의 기본 예제에서 볼 수 있듯이 일반적으로 `<Transition>`은 [네이티브 CSS 트랜지션](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions)과 함께 사용됩니다.
-`transition` CSS 속성은 애니메이션을 적용해야 하는 속성, 트랜지션 기간 및 [이징 곡선](https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function)을 포함하여 트랜지션 관련된 여러 속성을 지정할 수 있게 해주는 약칭입니다.
+위의 기본 예제에서 볼 수 있듯이 일반적으로 `<Transition>`은 [네이티브 CSS 트랜지션](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions)과 함께 사용됩니다. `transition` CSS 속성은 애니메이션을 적용해야 하는 속성, 트랜지션 기간 및 [이징 곡선](https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function)을 포함하여 트랜지션 관련된 여러 속성을 지정할 수 있게 해주는 약칭입니다.
 
 다음은 다양한 진입/진출 트랜지션/애니메이션을 구현하기 위해 지속 시간 및 이징 곡선을 사용하는 고급 예제입니다:
 
@@ -189,11 +169,9 @@ Vue는 상태 변화에 대응하기 위해 트랜지션 및 애니메이션 작
 
 ### CSS 애니메이션 {#css-animations}
 
-[네이티브 CSS 애니메이션](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations)은 CSS 트랜지션과 동일한 방식으로 적용되지만,
-엘리먼트가 삽입된 직후에 `*-enter-from`이 제거되지 않고, `animationend` 이벤트에서 제거된다는 차이점이 있습니다.
+[네이티브 CSS 애니메이션](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations)은 CSS 트랜지션과 동일한 방식으로 적용되지만, 엘리먼트가 삽입된 직후에 `*-enter-from`이 제거되지 않고, `animationend` 이벤트에서 제거된다는 차이점이 있습니다.
 
-대부분의 CSS 애니메이션의 경우 `*-enter-active` 및 `*-leave-active` 클래스에서 간단히 선언할 수 있습니다.
-다음은 예제입니다:
+대부분의 CSS 애니메이션의 경우 `*-enter-active` 및 `*-leave-active` 클래스에서 간단히 선언할 수 있습니다. 다음은 예제입니다:
 
 ```vue-html
 <Transition name="bounce">
@@ -247,8 +225,7 @@ Vue는 상태 변화에 대응하기 위해 트랜지션 및 애니메이션 작
 - `leave-active-class`
 - `leave-to-class`
 
-이들은 기존의 클래스 이름을 재정의합니다.
-이는 Vue의 트랜지션 시스템을 [Animate.css](https://daneden.github.io/animate.css/)와 같은 기존 CSS 애니메이션 라이브러리와 결합하려는 경우에 특히 유용합니다.
+이들은 기존의 클래스 이름을 재정의합니다. 이는 Vue의 트랜지션 시스템을 [Animate.css](https://daneden.github.io/animate.css/)와 같은 기존 CSS 애니메이션 라이브러리와 결합하려는 경우에 특히 유용합니다.
 
 ```vue-html
 <!-- Animate.css가 페이지에 포함되어 있다고 가정합니다. -->
@@ -274,12 +251,9 @@ Vue는 상태 변화에 대응하기 위해 트랜지션 및 애니메이션 작
 
 ### 트랜지션과 애니메이션을 같이 사용하기 {#using-transitions-and-animations-together}
 
-Vue는 트랜지션이 종료된 시점을 알기 위해 이벤트 리스너를 연결해야 합니다.
-리스너는 적용된 CSS 규칙 유형에 따라 `transitionend` 또는 `animationend`가 될 수 있습니다.
-둘 중 하나만 사용하는 경우, Vue는 올바른 유형을 자동으로 감지할 수 있습니다.
+Vue는 트랜지션이 종료된 시점을 알기 위해 이벤트 리스너를 연결해야 합니다. 리스너는 적용된 CSS 규칙 유형에 따라 `transitionend` 또는 `animationend`가 될 수 있습니다. 둘 중 하나만 사용하는 경우, Vue는 올바른 유형을 자동으로 감지할 수 있습니다.
 
-그러나 경우에 따라 하나의 엘리먼트에 Vue에 의해 트리거된 CSS 애니메이션과 hover에 대한 CSS 트랜지션 효과가 같이 있을 수 있습니다.
-이러한 경우에는 `type` prop을 사용하여 `animation` 또는 `transition` 값을 전달하여 Vue에서 처리할 유형을 명시적으로 선언해야 합니다:
+그러나 경우에 따라 하나의 엘리먼트에 Vue에 의해 트리거된 CSS 애니메이션과 hover에 대한 CSS 트랜지션 효과가 같이 있을 수 있습니다. 이러한 경우에는 `type` prop을 사용하여 `animation` 또는 `transition` 값을 전달하여 Vue에서 처리할 유형을 명시적으로 선언해야 합니다:
 
 ```vue-html
 <Transition type="animation">...</Transition>
@@ -287,8 +261,7 @@ Vue는 트랜지션이 종료된 시점을 알기 위해 이벤트 리스너를 
 
 ### 중첩된 트랜지션과 지속시간 설정하기 {#nested-transitions-and-explicit-transition-durations}
 
-트랜지션 클래스는 `<Transition>`의 직접적인 자식 엘리먼트에만 적용되지만,
-중첩된 CSS 선택기를 사용하여 중첩된 엘리먼트를 트랜지션할 수 있습니다:
+트랜지션 클래스는 `<Transition>`의 직접적인 자식 엘리먼트에만 적용되지만, 중첩된 CSS 선택기를 사용하여 중첩된 엘리먼트를 트랜지션할 수 있습니다:
 
 ```vue-html
 <Transition name="nested">
@@ -312,6 +285,7 @@ Vue는 트랜지션이 종료된 시점을 알기 위해 이벤트 리스너를 
   transform: translateX(30px);
   opacity: 0;
 }
+
 /* ... 다른 필요한 CSS들은 생략합니다... */
 ```
 
@@ -324,12 +298,9 @@ Vue는 트랜지션이 종료된 시점을 알기 위해 이벤트 리스너를 
 }
 ```
 
-그러나 이것은 작은 문제를 만듭니다.
-기본적으로 `<Transition>` 컴포넌트는 루트 트랜지션 엘리먼트에서 첫 번째 `transitionend` 또는 `animationend` 이벤트를 수신하여 트랜지션이 완료된 시점을 자동으로 파악하려고 시도합니다.
-중첩 트랜지션을 사용하면 모든 내부 엘리먼트의 트랜지션이 완료될 때까지 원하는 동작이 대기해야 합니다.
+그러나 이것은 작은 문제를 만듭니다. 기본적으로 `<Transition>` 컴포넌트는 루트 트랜지션 엘리먼트에서 첫 번째 `transitionend` 또는 `animationend` 이벤트를 수신하여 트랜지션이 완료된 시점을 자동으로 파악하려고 시도합니다. 중첩 트랜지션을 사용하면 모든 내부 엘리먼트의 트랜지션이 완료될 때까지 원하는 동작이 대기해야 합니다.
 
-이러한 경우 `<transition>` 컴포넌트의 `duration` prop을 사용하여 명시적 트랜지션 지속 시간(밀리초 단위)을 지정할 수 있습니다.
-총 지속 시간은 딜레이에 내부 엘리먼트의 트랜지션 지속 시간을 더한 값과 일치해야 합니다:
+이러한 경우 `<transition>` 컴포넌트의 `duration` prop을 사용하여 명시적 트랜지션 지속 시간(밀리초 단위)을 지정할 수 있습니다. 총 지속 시간은 딜레이에 내부 엘리먼트의 트랜지션 지속 시간을 더한 값과 일치해야 합니다:
 
 ```vue-html
 <Transition :duration="550">...</Transition>
@@ -347,15 +318,13 @@ Vue는 트랜지션이 종료된 시점을 알기 위해 이벤트 리스너를 
 
 ### 성능 고려사항 {#performance-considerations}
 
-위에 표시된 애니메이션은 대부분 `transform` 및 `opacity`와 같은 속성을 사용하고 있음을 알 수 있습니다.
-이러한 속성은 다음과 같은 이유로 애니메이션에 효율적입니다:
+위에 표시된 애니메이션은 대부분 `transform` 및 `opacity`와 같은 속성을 사용하고 있음을 알 수 있습니다. 이러한 속성은 다음과 같은 이유로 애니메이션에 효율적입니다:
 
 1. 애니메이션 진행중에 문서 레이아웃에 영향을 미치지 않으므로 모든 애니메이션 프레임에서 값비싼 CSS 레이아웃 계산을 트리거하지 않습니다.
 
 2. 대부분의 최신 브라우저는 `transform`에 애니메이션을 적용할 때 GPU 하드웨어 가속을 활용할 수 있습니다.
 
-이에 비해 `height` 또는 `margin`과 같은 속성은 CSS 레이아웃을 트리거하므로 애니메이션을 적용하는 데 훨씬 더 많은 비용이 소요되므로 주의해서 사용해야 합니다.
-[CSS-Triggers](https://csstriggers.com/)와 같은 리소스를 확인하여 애니메이션을 적용하면 레이아웃을 트리거하는 속성을 확인할 수 있습니다.
+이에 비해 `height` 또는 `margin`과 같은 속성은 CSS 레이아웃을 트리거하므로 애니메이션을 적용하는 데 훨씬 더 많은 비용이 소요되므로 주의해서 사용해야 합니다. [CSS-Triggers](https://csstriggers.com/)와 같은 리소스를 확인하여 애니메이션을 적용하면 레이아웃을 트리거하는 속성을 확인할 수 있습니다.
 
 ## JavaScript 훅 {#javascript-hooks}
 
@@ -394,7 +363,7 @@ function onEnter(el, done) {
 // 진입 트랜지션이 완료되면 호출됩니다.
 function onAfterEnter(el) {}
 
-// 진입 트랜지션이 완료되기 전, 취소될 때 호출됩니다.
+// 진입 트랜지션 취소가 완료되기 전 호출됩니다.
 function onEnterCancelled(el) {}
 
 // 진출 훅 전에 호출됩니다.
@@ -438,6 +407,8 @@ export default {
 
     // 진입 트랜지션이 완료되면 호출됩니다.
     onAfterEnter(el) {},
+
+    // 진입 트랜지션 취소가 완료되기 전 호출됩니다.
     onEnterCancelled(el) {},
 
     // 진출 훅 전에 호출됩니다.
@@ -466,9 +437,7 @@ export default {
 
 이 훅은 CSS 트랜지션/애니메이션과 함께 사용하거나 단독으로 사용할 수 있습니다.
 
-JavaScript 전용 트랜지션을 사용할 때 일반적으로 `:css="false"` prop을 추가하는 것이 좋습니다.
-이것은 Vue가 CSS 트랜지션을 자동으로 감지하는 것을 건너뛰도록 명시적으로 지시합니다.
-성능이 약간 향상되는 것 외에도 CSS 규칙이 실수로 트랜지션을 방해하는 것을 방지합니다.
+JavaScript 전용 트랜지션을 사용할 때 일반적으로 `:css="false"` prop을 추가하는 것이 좋습니다. 이것은 Vue가 CSS 트랜지션을 자동으로 감지하는 것을 건너뛰도록 명시적으로 지시합니다. 성능이 약간 향상되는 것 외에도 CSS 규칙이 실수로 트랜지션을 방해하는 것을 방지합니다.
 
 ```vue-html{3}
 <Transition
@@ -479,12 +448,9 @@ JavaScript 전용 트랜지션을 사용할 때 일반적으로 `:css="false"` p
 </Transition>
 ```
 
-`:css="false"`를 사용하면 트랜지션이 끝나는 시점 제어에 대한 전적인 책임을 가집니다.
-이 경우 `@enter` 및 `@leave` 훅에 `done` 콜백이 필요합니다.
-그렇지 않으면 훅이 동기적으로 호출되고 트랜지션이 즉시 완료됩니다.
+`:css="false"`를 사용하면 트랜지션이 끝나는 시점 제어에 대한 전적인 책임을 가집니다. 이 경우 `@enter` 및 `@leave` 훅에 `done` 콜백이 필요합니다. 그렇지 않으면 훅이 동기적으로 호출되고 트랜지션이 즉시 완료됩니다.
 
-다음은 [GreenSock 라이브러리](https://greensock.com/)를 사용하여 애니메이션을 수행하는 데모입니다.
-물론 [Anime.js](https://animejs.com/) 또는 [Motion One](https://motion.dev/)과 같이 원하는 다른 애니메이션 라이브러리를 사용할 수 있습니다.
+다음은 [GreenSock 라이브러리](https://greensock.com/)를 사용하여 애니메이션을 수행하는 데모입니다. 물론 [Anime.js](https://animejs.com/) 또는 [Motion One](https://motion.dev/)과 같이 원하는 다른 애니메이션 라이브러리를 사용할 수 있습니다.
 
 <JsHooks />
 
@@ -501,8 +467,7 @@ JavaScript 전용 트랜지션을 사용할 때 일반적으로 `:css="false"` p
 
 ## 재사용 가능한 트랜지션 {#reusable-transitions}
 
-Vue의 컴포넌트 시스템을 통해 트랜지션을 재사용할 수 있습니다.
-재사용 가능한 트랜지션을 만들기 위해 `<Transition>` 컴포넌트를 래핑하고 슬롯 컨텐츠를 전달하는 컴포넌트를 만들 수 있습니다:
+Vue의 컴포넌트 시스템을 통해 트랜지션을 재사용할 수 있습니다. 재사용 가능한 트랜지션을 만들기 위해 `<Transition>` 컴포넌트를 래핑하고 슬롯 컨텐츠를 전달하는 컴포넌트를 만들 수 있습니다:
 
 ```vue{5}
 <!-- MyTransition.vue -->
@@ -567,10 +532,7 @@ Vue의 컴포넌트 시스템을 통해 트랜지션을 재사용할 수 있습�
 
 이전 예제에서 진입 시 엘리먼트와 진출 시 엘리먼트는 동시에 애니메이션되며 두 엘리먼트가 DOM에 있을 때 레이아웃 문제를 피하기 위해 `position: absolute`로 만들어야 했습니다.
 
-그러나 어떤 경우에는 이것이 선택가능한 옵션이 아니거나, 원하는 동작이 아닐수 있습니다.
-진출 시 엘리먼트가 먼저 애니메이션 처리되고 진입 시 엘리먼트가 **진출 애니메이션이 완료된 이후에 삽입**되기를 원할 수 있습니다.
-이러한 애니메이션을 수동으로 조정하는 것은 매우 복잡합니다.
-운 좋게도 `<Transition>`에 `mode` prop을 전달하여 이 동작을 활성화할 수 있습니다.
+그러나 어떤 경우에는 이것이 선택가능한 옵션이 아니거나, 원하는 동작이 아닐수 있습니다. 진출 시 엘리먼트가 먼저 애니메이션 처리되고 진입 시 엘리먼트가 **진출 애니메이션이 완료된 이후에 삽입**되기를 원할 수 있습니다. 이러한 애니메이션을 수동으로 조정하는 것은 매우 복잡합니다. 운 좋게도 `<Transition>`에 `mode` prop을 전달하여 이 동작을 활성화할 수 있습니다.
 
 ```vue-html
 <Transition mode="out-in">
@@ -609,8 +571,7 @@ Vue의 컴포넌트 시스템을 통해 트랜지션을 재사용할 수 있습�
 
 ## 동적 트랜지션 {#dynamic-transitions}
 
-`<Transition>` `name`과 같은 prop도 동적일 수 있습니다!
-이를 통해 상태 변경에 따라 다른 트랜지션을 동적으로 적용할 수 있습니다:
+`<Transition>` `name`과 같은 prop도 동적일 수 있습니다! 이를 통해 상태 변경에 따라 다른 트랜지션을 동적으로 적용할 수 있습니다:
 
 ```vue-html
 <Transition :name="transitionName">
@@ -620,9 +581,7 @@ Vue의 컴포넌트 시스템을 통해 트랜지션을 재사용할 수 있습�
 
 이것은 Vue의 트랜지션 클래스 규칙을 사용하여 CSS 트랜지션/애니메이션을 정의하고 둘 사이를 트랜지션하려는 경우에 유용할 수 있습니다.
 
-컴포넌트의 현재 상태를 기반으로 JavaScript 트랜지션 훅에서 다른 동작을 적용할 수도 있습니다.
-마지막으로, 동적 트랜지션을 만드는 궁극적인 방법은 사용할 트랜지션의 특성을 변경하기 위해 prop을 허용하는 [재사용 가능한 트랜지션 컴포넌트](#reusable-transitions)를 사용하는 것입니다.
-진부하게 들릴지 모르지만, 실제로 한계는 당신의 상상력뿐입니다.
+컴포넌트의 현재 상태를 기반으로 JavaScript 트랜지션 훅에서 다른 동작을 적용할 수도 있습니다. 마지막으로, 동적 트랜지션을 만드는 궁극적인 방법은 사용할 트랜지션의 특성을 변경하기 위해 prop을 허용하는 [재사용 가능한 트랜지션 컴포넌트](#reusable-transitions)를 사용하는 것입니다. 진부하게 들릴지 모르지만, 실제로 한계는 당신의 상상력뿐입니다.
 
 ## key 속성을 사용한 트렌지션 {#transitions-with-the-key-attribute}
 
