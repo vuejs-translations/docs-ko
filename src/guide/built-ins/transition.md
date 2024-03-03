@@ -624,6 +624,31 @@ Vue의 컴포넌트 시스템을 통해 트랜지션을 재사용할 수 있습�
 마지막으로, 동적 트랜지션을 만드는 궁극적인 방법은 사용할 트랜지션의 특성을 변경하기 위해 prop을 허용하는 [재사용 가능한 트랜지션 컴포넌트](#reusable-transitions)를 사용하는 것입니다.
 진부하게 들릴지 모르지만, 실제로 한계는 당신의 상상력뿐입니다.
 
+## key 속성을 사용한 트렌지션 {#transitions-with-the-key-attribute}
+
+때로는 트렌지션을 발생시키기 위해 DOM 엘리먼트를 강제로 다시 렌더링해야 할 필요가 있습니다.
+
+예를 들어, 이 카운터 컴포넌트를 봅시다.
+
+```vue
+<script setup>
+import { ref } from 'vue';
+const count = ref(0);
+
+setInterval(() => count.value++, 1000);
+</script>
+
+<template>
+  <Transition>
+    <span :key="count">{{ count }}</span>
+  </Transition>
+</template>
+```
+
+`key` 속성(attribute)을 생략했다면, 텍스트 노드만 업데이트되고 트렌지션이 발생하지 않았을 것입니다. 그러나 `key` 속성을 사용함으로써, Vue는 `count`가 변경될 때마다 새로운 `span` 엘리먼트를 생성하고 `Transition` 컴포넌트는 두 개의 다른 엘리먼트 사이에서 트렌지션을 할 수 있습니다.
+
+[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9UsFu2zAM/RVCl6Zo4nhYd/GcAtvQQ3fYhq1HXTSFydTKkiDJbjLD/z5KMrKgLXoTHx/5+CiO7JNz1dAja1gbpFcuQsDYuxtuVOesjzCCxx1MsPO2gwuiXnzkhhtpTYggbW8ibBJlUV/mBJXfmYh+EHqxuITNDYzcQGFWBPZ4dUXEaQnv6jrXtOuiTJoUROycFhEpAmi3agCpRQgbzp68cA49ZyV174UJKiprckxIcMJA84hHImc9oo7jPOQ0kQ4RSvH6WXW7JiV6teszfQpDPGqEIK3DLSGpQbazsyaugvqLDVx77JIhbqp5wsxwtrRvPFI7NWDhEGtYYVrQSsgELzOiUQw4I2Vh8TRgA9YJqeIR6upDABQh9TpTAPE7WN3HlxLp084Foi3N54YN1KWEVpOMkkO2ZJHsmp3aVw/BGjqMXJE22jml0X93STRw1pReKSe0tk9fMxZ9nzwVXP5B+fgK/hAOCePsh8dAt4KcnXJR+D3S16X07a9veKD3KdnZba+J/UbyJ+Zl0IyF9rk3Wxr7jJenvcvnrcz+PtweItKuZ1Np0MScMp8zOvkvb1j/P+776jrX0UbZ9A+fYSTP)
+
 ---
 
 **관련 문서**
