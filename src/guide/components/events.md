@@ -199,7 +199,7 @@ export default {
 <div class="composition-api">
 
 ```vue
-<script setup>
+<script setup lang="ts">
 const emit = defineEmits({
   submit(payload: { email: string, password: string }) {
     // `true` 또는 `false` 값을 반환하여
