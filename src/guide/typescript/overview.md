@@ -26,13 +26,11 @@ Vite 기반 설정을 사용하면 개발 서버와 번들러가 트랜스파일
 
 - [Visual Studio Code](https://code.visualstudio.com/) (VSCode)는 기본적으로 타입스크립트를 훌륭하게 지원하고 있기에 강력하게 권장합니다.
 
-    - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) 는 다른 많은 훌륭한 기능과 함께 Vue SFC 내에서 타입스크립트를 지원하는 공식 VSCode extension 입니다.
+  - [Vue - 공식](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (이전 Volar)은 Vue SFC 내에서 TypeScript 지원을 제공하는 공식 VSCode 확장 기능으로, 많은 훌륭한 기능들을 함께 제공합니다.
 
-        :::tip 
-        Volar는 Vue2용 공식 VSCode extension인 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) 를 대체합니다. 현재 Vetur가 설치되어 있는 경우 Vue3 프로젝트에서 비활성화해야 합니다. 
-        :::
-
-    - [타입스크립트 Vue 플러그인](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) 은 TS 파일에서 `*.vue` 를 가져오기 위해 별도의 타입 지원이 필요합니다.
+    :::tip
+    Vue - 공식 확장은 이전에 Vue 2용 공식 VSCode 확장 기능이었던 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)을 대체합니다. 현재 Vetur를 설치한 경우, Vue 3 프로젝트에서는 비활성화해야 합니다. 
+    :::
 
 - [WebStorm](https://www.jetbrains.com/webstorm/) 은 타입스크립트와 Vue 모두 기본적으로 지원합니다. 다른 JetBrains IDE도 [무료 플러그인](https://plugins.jetbrains.com/plugin/9442-vue-js) 설치를 통해 바로 사용 가능합니다. 2023.2 버전을 기준으로, WebStorm과 Vue 플러그인은 Vue Language Server에 대한 내장 지원을 제공합니다. `세팅 > 언어 및 프레임워크 > TypeScript > Vue` 에서 모든 TypeScript 버전에 대해 Volar 통합을 사용하도록 Vue 서비스를 설정할 수 있습니다. 기본적으로 TypeScript 5.0 이상의 버전에 대해 Volar가 사용됩니다.
 
@@ -54,24 +52,6 @@ Vite 기반 설정을 사용하면 개발 서버와 번들러가 트랜스파일
 
 - [공식 타입스크립트 컴파일러 옵션 문서](https://www.typescriptlang.org/docs/handbook/compiler-options)
 - [esbuild 타입스크립트 컴파일 주의 사항](https://esbuild.github.io/content-types/#typescript-caveats)
-
-### Volar Takeover Mode {#volar-takeover-mode}
-
-> 이 섹션은 VSCode + Volar에만 적용됩니다.
-
-Vue SFC와 타입스크립트가 함께 작동하도록 하기 위해 Volar는 Vue 전용으로 패치된 별도의 TS 언어 서비스 인스턴스를 만들고 Vue SFC에서 사용합니다. 동시에 일반 TS 파일은 VSCode의 내장 TS 언어 서비스에서 처리됩니다. 그러므로 TS 파일에서 Vue SFC를 호출하기 위해 [타입스크립트 Vue 플러그인](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) 이 필요합니다. 이 설정은 기본적으로 작동하지만 각 프로젝트에 대해 Volar에서 하나, VSCode의 기본 제공 서비스에서 하나씩 두 개의 TS 언어 서비스 인스턴스를 실행합니다. 이것은 약간 비효율적이며 대규모 프로젝트에서 성능 문제를 일으킬 수 있습니다.
-
-Volar는 성능 향상을 위해 "Takeover Mode"라는 기능을 제공합니다. Takeover 모드에서 Volar는 단일 TS 언어 서비스 인스턴스를 사용하여 Vue 및 TS 파일 모두 지원합니다.
-
-Takeover 모드를 활성화 하기 위해서, 다음단계를 통해 VSCode에서 기본적으로 제공해주는 TS 언어 서비스를 **&nbsp;당신의 프로젝트 작업공간** 에서 비활성화 시켜야 합니다.
-
-1. 프로젝트 작업 공간에서 `Ctrl + Shift + P` (macOS: `Cmd + Shift + P` )를 사용하여 명령 팔레트를 불러옵니다.
-2. `built` 를 입력하고 "확장: 기본 제공 확장 표시(Extensions: Show Built-in Extensions)"를 선택합니다.
-3. 확장 검색 상자에 `typescript` 를 입력합니다( `@builtin` 접두사를 제거하지 마십시오).
-4. "TypeScript 및 JavaScript 언어 기능"의 작은 톱니바퀴 아이콘을 클릭하고 "사용 안 함(작업 공간)"을 선택합니다.
-5. 작업 공간을 다시 로드합니다. Vue 또는 TS 파일을 열면 Takeover 모드가 활성화됩니다.
-
-<img src="./images/takeover-mode.png" width="590" height="426" style="margin:0px auto;border-radius:8px">
 
 ### Vue CLI 및 `ts-loader` 에 대한 참고 사항 {#note-on-vue-cli-and-ts-loader}
 
