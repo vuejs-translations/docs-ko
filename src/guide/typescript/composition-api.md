@@ -146,9 +146,7 @@ export default defineComponent({
 
 ## 컴포넌트 이벤트의 타이핑 {#typing-component-emits}
 
-`<script setup>`에서 `emit` 함수도 런타임 선언이나 타입 선언을 통해 타이핑할
-
-수 있습니다:
+`<script setup>`에서 `emit` 함수도 런타임 선언이나 타입 선언을 통해 타이핑할 수 있습니다:
 
 ```vue
 <script setup lang="ts">
@@ -311,9 +309,7 @@ function handleChange(event) {
 </template>
 ```
 
-타입 주석을 사용하지 않으면 `event` 인수는 암묵적으로 `any` 타입이 됩니다. 이는 `tsconfig.json`에서 `"strict": true` 또는 `"noImplicitAny": true`를 사용하는 경우 TS 에러로 이어집니다. 따라서 이벤트 핸들러의 인수를 명시적으로 주석으로 지정하는 것이 권장됩니다. 또한, `event`의 속성에
-
-접근할 때 타입 어설션(type assertion)을 사용해야 할 수도 있습니다:
+타입 주석을 사용하지 않으면 `event` 인수는 암묵적으로 `any` 타입이 됩니다. 이는 `tsconfig.json`에서 `"strict": true` 또는 `"noImplicitAny": true`를 사용하는 경우 TS 에러로 이어집니다. 따라서 이벤트 핸들러의 인수를 명시적으로 주석으로 지정하는 것이 권장됩니다. 또한, `event`의 속성에 접근할 때 타입 어설션(type assertion)을 사용해야 할 수도 있습니다:
 
 ```ts
 function handleChange(event: Event) {
@@ -323,7 +319,7 @@ function handleChange(event: Event) {
 
 ## `provide`/`inject`의 타이핑 {#typing-provide-inject}
 
-`provide`와 `inject`은 일반적으로 별도의 컴포넌트에서 수행됩니다. 주입된 값을 올바르게 타이핑하기 위해 Vue는 제네릭 타입으로 `InjectionKey` 인터페이스를 제공합니다. 이 인터페이스는 `Symbol`을 확장하는 제네릭 타입입니다. 이를 통해 제공자와 소비자 간에 주입된 값의 타입을 동기화할 수 있습니다:
+`provide`와 `inject`는 보통 서로 다른 컴포넌트에서 수행됩니다. 주입된(inject) 값의 타입을 적절히 지정하기 위해 Vue는 `InjectionKey` 인터페이스를 제공하는데, 이는 `Symbol`을 확장하는 제네릭 타입입니다. 이를 사용하여 제공자와 소비자 간에 주입된 값의 타입을 동기화할 수 있습니다:
 
 ```ts
 import { provide, inject } from 'vue'
@@ -331,20 +327,28 @@ import type { InjectionKey } from 'vue'
 
 const key = Symbol() as InjectionKey<string>
 
-provide(key, 'foo') // 문자열이 아닌 값을 제공하면 오류가 발생합니다.
+provide(key, 'foo') // 문자열이 아닌 값을 제공하면 오류 발생
 
 const foo = inject(key) // foo의 타입: string | undefined
 ```
 
-주입 키를 별도의 파일에 위치시키는 것이 권장됩니다. 이렇게 하면 여러 컴포넌트에서 가져올 수 있습니다.
+주입 키를 별도의 파일에 위치시켜 여러 컴포넌트에서 임포트할 수 있도록 하는 것이 좋습니다.
 
-문자열 주입 키를 사용하는 경우, 주입된 값의 타입은 `unknown`이 되며, 제네릭 타입 인수를 통해 명시적으로 선언해야 합니다:
+문자열 주입 키를 사용할 때, 주입된 값의 타입은 `unknown`이 될 것이며, 제네릭 타입 인자를 통해 명시적으로 선언해야 합니다:
 
 ```ts
 const foo = inject<string>('foo') // 타입: string | undefined
 ```
 
-주입된 값이 항상 제공되는 것을 확신한다면, 값을 강제로 캐스트할 수도 있습니다:
+주입된 값은 런타임에 제공자가 이 값을 제공한다는 보장이 없기 때문에 여전히 `undefined`일 수 있습니다.
+
+`undefined` 타입은 기본값을 제공함으로써 제거할 수 있습니다:
+
+```ts
+const foo = inject<string>('foo', 'bar') // 타입: string
+```
+
+값이 항상 제공된다고 확신한다면, 값을 강제로 캐스팅할 수도 있습니다:
 
 ```ts
 const foo = inject('foo') as string
@@ -406,8 +410,6 @@ const openModal = () => {
 }
 </script>
 ```
-
-참고로, Vue SFC 대신 TypeScript 파일에서 이 기법을 사용하려면 Volar의 [Takeover Mode](./overview#volar-takeover-mode)를 활성화해야 합니다.
 
 컴포넌트의 정확한 유형이 사용 불가능하거나 중요하지 않은 경우에는 `ComponentPublicInstance`를 사용할 수도 있습니다. 이는 `$el`과 같은 모든 컴포넌트에서 공유하는 속성만 포함합니다:
 
