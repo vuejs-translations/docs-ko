@@ -26,7 +26,7 @@ Compile-time 플래그는 Vue의 `esm-bundler` 빌드를 사용할 때만 적용
 
   프로덕션 빌드에서 devtools 지원 활성화 / 비활성화. 이로 인해 번들에 더 많은 코드가 포함될 수 있으므로, 디버깅 목적으로만 이를 활성화하는 것이 권장됩니다.
 
-## `__VUE_PROD_HYDRATION_MISMATCH_DETAILS__` <sup class="vt-badge" data-text="3.4+" /> {#VUE_PROD_HYDRATATION_MISMATCH_DETAILS}
+## `__VUE_PROD_HYDRATION_MISMATCH_DETAILS__` <sup class="vt-badge" data-text="3.4+" /> {#VUE_PROD_HYDRATION_MISMATCH_DETAILS}
 
 - **기본값:** `false`
 
