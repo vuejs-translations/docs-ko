@@ -20,7 +20,6 @@ import ListStagger from './transition-demos/ListStagger.vue'
 
 - CSS 트랜지션 클래스는 그룹/컨테이너 자체가 아닌 **목록의 개별 엘리먼트에 적용**됩니다.
 
-
 :::tip
 [in-DOM 템플릿](/guide/essentials/component-basics.html#in-dom-template-parsing-caveats)에서 사용할 때 `<transition-group>`으로 참조해야 합니다.
 :::
@@ -53,9 +52,7 @@ import ListStagger from './transition-demos/ListStagger.vue'
 
 ## 이동 트랜지션 {#move-transitions}
 
-위의 데모에는 몇 가지 명백한 결함이 있습니다.
-항목을 삽입하거나 제거할 때 주변 항목이 부드럽게 움직이지 않고 제자리에 즉시 "점프"합니다.
-몇 가지 추가 CSS 규칙을 추가하여 이 문제를 해결할 수 있습니다:
+위의 데모에는 몇 가지 명백한 결함이 있습니다. 항목을 삽입하거나 제거할 때 주변 항목이 부드럽게 움직이지 않고 제자리에 즉시 "점프"합니다. 몇 가지 추가 CSS 규칙을 추가하여 이 문제를 해결할 수 있습니다:
 
 ```css{1,13-17}
 .list-move, /* 움직이는 엘리먼트에 트랜지션 적용 */
@@ -77,8 +74,7 @@ import ListStagger from './transition-demos/ListStagger.vue'
 }
 ```
 
-이제 훨씬 좋아 보입니다.
-전체 목록이 섞일 때 부드럽게 애니메이션이 적용됩니다.
+이제 훨씬 좋아 보입니다. 전체 목록이 섞일 때 부드럽게 애니메이션이 적용됩니다.
 
 <ListMove />
 
@@ -86,9 +82,7 @@ import ListStagger from './transition-demos/ListStagger.vue'
 
 ## 시차가 있는 목록 트랜지션 {#staggering-list-transitions}
 
-데이터 속성을 통해 JavaScript 트랜지션과 통신함으로써 목록에서 트랜지션을 시차가 있게 할 수도 있습니다.
-먼저 목록의 인덱스를 DOM 엘리먼트의 `data-` 속성으로 렌더링합니다:
-
+데이터 속성을 통해 JavaScript 트랜지션과 통신함으로써 목록에서 트랜지션을 시차가 있게 할 수도 있습니다. 먼저 목록의 인덱스를 DOM 엘리먼트의 `data-` 속성으로 렌더링합니다:
 
 ```vue-html{11}
 <TransitionGroup
@@ -108,7 +102,7 @@ import ListStagger from './transition-demos/ListStagger.vue'
 </TransitionGroup>
 ```
 
-그런 다음 JavaScript 훅에서 `data-` 속성을 기반으로 딜레이를 사용하여 엘리먼트에 애니메이션을 적용합니다. 다음 예제는 애니메이션을 위해  [GreenSock 라이브러리](https://greensock.com/)를 사용합니다.: 
+그런 다음 JavaScript 훅에서 `data-` 속성을 기반으로 딜레이를 사용하여 엘리먼트에 애니메이션을 적용합니다. 다음 예제는 애니메이션을 위해  [GSAP 라이브러리](https://gsap.com/)를 사용합니다.: 
 
 ```js{5}
 function onEnter(el, done) {

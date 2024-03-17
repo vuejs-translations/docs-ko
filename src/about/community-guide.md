@@ -21,9 +21,9 @@ Vue의 커뮤니티는 놀랍도록 빠르게 성장하고 있으며 이 글을 
 - [RFC 토론](https://github.com/vuejs/rfcs)을 팔로우하세요.
 - [공식 블로그](https://blog.vuejs.org/)를 구독하세요.
 
-### 지원 받기 {##get-support}
+### 지원 받기 {#get-support}
 
-- [Discord 채팅](https://chat.vuejs.org/): Vue 개발자들이 실시간으로 만나서 채팅할 수 있는 공간입니다.
+- [Discord 채팅](https://discord.com/invite/vue): Vue 개발자들이 실시간으로 만나서 채팅할 수 있는 공간입니다.
 - [포럼](https://forum.vuejs.org/): Vue와 그 에코시스템에 대해 질문하고 답변을 얻을 수 있는 최고의 장소입니다.
 - [DEV Community](https://dev.to/t/vue): Dev.to에서 Vue 관련 주제를 공유하고 토론합니다.
 - [밋업](https://events.vuejs.org/meetups): 나와 같은 지역 Vue 애호가를 찾고 싶으신가요? 커뮤니티 리더가 되고 싶으신가요? 필요한 도움과 지원이 바로 여기에 있습니다!

@@ -263,9 +263,7 @@ Vue 3.4부터 Vue는 더 이상 전역 `JSX` 네임스페이스를 암시적으�
 
 다음에서는 몇 가지 일반적인 템플릿 기능을 렌더 함수 / JSX의 동등한 형태로 구현하는 몇 가지 레시피를 제공합니다.
 
-### `v-if`
-
-{#v-if}
+### `v-if` {#v-if}
 
 템플릿:
 
@@ -554,7 +552,8 @@ JSX 동등 코드:
 h(MyComponent, () => 'hello')
 
 // 네임드 슬롯
-// 슬롯 객체가 props로 처리되지 않도록 `null`을 전달해야 함에 유의하세요.
+// 슬롯 객체가 props로 처리되지 않도록
+// `null`을 전달해야 함에 유의하세요.
 h(MyComponent, null, {
   default: () => 'default slot',
   foo: () => h('div', 'foo'),
@@ -788,7 +787,7 @@ MyComponent.inheritAttrs = false
 
 ### 함수형 컴포넌트에 대한 타이핑<sup class="vt-badge ts" /> {#typing-functional-components}
 
-기명 또는 익명인 함수형 컴포넌트에 대해 타입을 지정할 수 있습니다. Volar는 SFC 템플릿에서 제대로 입력된 함수형 컴포넌트를 사용할 때 타입 검사를 지원합니다.
+함수형 컴포넌트는 이름이 있는지 또는 익명인지에 따라 타입 지정될 수 있습니다. [Vue - 공식 확장](https://github.com/vuejs/language-tools)은 SFC 템플릿에서 사용할 때 적절히 타입이 지정된 함수형 컴포넌트의 타입 체킹도 지원합니다.
 
 **기명 함수형 컴포넌트**
 

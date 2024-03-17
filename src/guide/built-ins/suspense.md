@@ -132,3 +132,9 @@ resolved 상태에서 `<Suspense>` 는 `#default` 슬롯의 루트 노드가 교
 ```
 
 Vue 라우터에는 동적 import를 사용하여 [컴포넌트를 lazy load하는](https://router.vuejs.kr/guide/advanced/lazy-loading) 기능이 내장되어 있습니다. 이들은 비동기 컴포넌트와 구분되며 현재 `<Suspense>` 를 트리거하지 않습니다. 그러나 여전히 비동기 컴포넌트를 하위 항목으로 가질 수 있으며 일반적인 방식으로 `<Suspense>` 를 트리거할 수 있습니다.
+
+---
+
+**관련 문서**
+
+- [`<Suspense>` API 참고](/api/built-in-components#suspense)

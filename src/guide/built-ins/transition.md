@@ -450,7 +450,7 @@ JavaScript 전용 트랜지션을 사용할 때 일반적으로 `:css="false"` p
 
 `:css="false"`를 사용하면 트랜지션이 끝나는 시점 제어에 대한 전적인 책임을 가집니다. 이 경우 `@enter` 및 `@leave` 훅에 `done` 콜백이 필요합니다. 그렇지 않으면 훅이 동기적으로 호출되고 트랜지션이 즉시 완료됩니다.
 
-다음은 [GreenSock 라이브러리](https://greensock.com/)를 사용하여 애니메이션을 수행하는 데모입니다. 물론 [Anime.js](https://animejs.com/) 또는 [Motion One](https://motion.dev/)과 같이 원하는 다른 애니메이션 라이브러리를 사용할 수 있습니다.
+다음은 [GSAP 라이브러리](https://gsap.com/)를 사용하여 애니메이션을 수행하는 데모입니다. 물론 [Anime.js](https://animejs.com/)나 [Motion One](https://motion.dev/)과 같은 다른 애니메이션 라이브러리를 사용할 수도 있습니다.
 
 <JsHooks />
 
