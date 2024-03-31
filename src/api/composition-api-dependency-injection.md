@@ -102,6 +102,10 @@
   const baz = inject('factory', () => new ExpensiveObject(), true)
   </script>
   ```
+  
+- **참고**:
+  - [가이드 - Provide/Inject](/guide/components/provide-inject)
+  - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
 
 ## hasInjectionContext() <sup class="vt-badge" data-text="3.3+" /> {#has-injection-context}
 
@@ -112,7 +116,3 @@
   ```ts
   function hasInjectionContext(): boolean
   ```
-
-* **참고**:
-  - [가이드 - Provide/Inject](/guide/components/provide-inject)
-  - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api.html#typing-provide-inject) <sup class="vt-badge ts" />

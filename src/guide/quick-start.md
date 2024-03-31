@@ -21,7 +21,7 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 :::tip 전제 조건
 
 - 명령줄에 대한 친숙함
-- [Node.js](https://nodejs.org/) 버전 18.0 이상 설치
+- [Node.js](https://nodejs.org/) 버전 18.3 이상 설치
   :::
 
 이 섹션에서는 로컬 컴퓨터에서 Vue [싱글 페이지 애플리케이션](/guide/extras/ways-of-using-vue.html#single-page-application-spa)을 스캐폴드하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vitejs.dev)를 기반으로 빌드 설정을 사용하고 Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc)(SFC)를 사용할 수 있도록 합니다.
@@ -79,8 +79,8 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 <VTCodeGroup>
   <VTCodeGroupTab label="npm">
 
-  ```sh
-  $ cd <your-project-name>
+  ```sh-vue
+  $ cd {{'<your-project-name>'}}
   $ npm install
   $ npm run dev
   ```
@@ -88,8 +88,8 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
   </VTCodeGroupTab>
   <VTCodeGroupTab label="pnpm">
 
-  ```sh
-  $ cd <your-project-name>
+  ```sh-vue
+  $ cd {{'<your-project-name>'}}
   $ pnpm install
   $ pnpm run dev
   ```
@@ -97,8 +97,8 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
   </VTCodeGroupTab>
   <VTCodeGroupTab label="yarn">
 
-  ```sh
-  $ cd <your-project-name>
+  ```sh-vue
+  $ cd {{'<your-project-name>'}}
   $ yarn
   $ yarn dev
   ```
@@ -106,8 +106,8 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
   </VTCodeGroupTab>
   <VTCodeGroupTab label="bun">
 
-  ```sh
-  $ cd <your-project-name>
+  ```sh-vue
+  $ cd {{'<your-project-name>'}}
   $ bun install
   $ bun run dev
   ```
@@ -420,7 +420,7 @@ export default {
 
 로컬 HTTP 서버를 시작하려면 먼저 [Node.js](https://nodejs.org/en/)가 설치되어 있는지 확인한 다음 명령줄에서 HTML 파일이 있는 동일한 디렉토리에서 `npx serve`를 실행하십시오. 또는 올바른 MIME 유형으로 정적 파일을 서비스할 수 있는 다른 HTTP 서버를 사용할 수도 있습니다.
 
-가져온 컴포넌트의 템플릿이 JavaScript 문자열로 인라인으로 포함되어 있는 것을 알아챘을 것입니다. VSCode를 사용하는 경우 [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) 확장을 설치하고 문자열을 `/*html*/` 주석으로 접두사를 붙여 문법 강조 효과를 얻을 수 있습니다.
+가져온 컴포넌트의 템플릿이 JavaScript 문자열로 인라인으로 포함되어 있는 것을 알아챘을 것입니다. VS Code를 사용하는 경우 [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) 확장을 설치하고 문자열을 `/*html*/` 주석으로 접두사를 붙여 문법 강조 효과를 얻을 수 있습니다.
 
 ## Next Steps {#next-steps}
 
