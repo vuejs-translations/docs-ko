@@ -1,12 +1,16 @@
 # 클래스와 스타일 바인딩 {#class-and-style-bindings}
 
-일반적으로 엘리먼트에 데이터를 바인딩하는 이유는 클래스 목록과 해당 인라인 스타일을 조작하기 위함입니다.
-`class`, `style` 둘 다 속성이므로 다른 속성과 마찬가지로 `v-bind`를 사용하여 문자열 값을 동적으로 할당할 수 있습니다.
-그러나 연결된 문자열을 사용하여 이러한 값을 생성하려고 하면 성가시고 오류가 발생하기 쉽습니다.
-이러한 이유로 Vue는 `v-bind`가 `class` 및 `style`과 함께 사용될 때 특별한 향상을 제공합니다.
-문자열 외에도 표현식은 객체 또는 배열로 평가될 수 있습니다.
+일반적으로 엘리먼트에 데이터를 바인딩하는 이유는 클래스 목록과 해당 인라인 스타일을 조작하기 위함입니다. `class`, `style` 둘 다 속성이므로 다른 속성과 마찬가지로 `v-bind`를 사용하여 문자열 값을 동적으로 할당할 수 있습니다. 그러나 연결된 문자열을 사용하여 이러한 값을 생성하려고 하면 성가시고 오류가 발생하기 쉽습니다. 이러한 이유로 Vue는 `v-bind`가 `class` 및 `style`과 함께 사용될 때 특별한 향상을 제공합니다. 문자열 외에도 표현식은 객체 또는 배열로 평가될 수 있습니다.
 
 ## HTML 클래스 바인딩 {#binding-html-classes}
+
+<div class="options-api">
+  <VueSchoolLink href="https://vueschool.io/lessons/dynamic-css-classes-with-vue-3" title="Free Vue.js Dynamic CSS Classes Lesson"/>
+</div>
+
+<div class="composition-api">
+  <VueSchoolLink href="https://vueschool.io/lessons/vue-fundamentals-capi-dynamic-css-classes-with-vue" title="Free Vue.js Dynamic CSS Classes Lesson"/>
+</div>
 
 ### 객체로 바인딩 하기 {#binding-to-objects}
 
@@ -18,9 +22,7 @@
 
 위의 구문은 `isActive` 데이터 속성의 [truthiness](https://developer.mozilla.org/en-US/docs/Glossary/Truthy)에 의해 `active` 클래스의 존재 여부가 결정됨을 의미합니다.
 
-객체에 더 많은 필드를 사용하여 여러 클래스를 토글할 수 있습니다.
-또한 `:class` 디렉티브는 일반 `class` 속성과 공존할 수도 있습니다.
-따라서 다음과 같은 상황이 주어지고:
+객체에 더 많은 필드를 사용하여 여러 클래스를 토글할 수 있습니다. 또한 `:class` 디렉티브는 일반 `class` 속성과 공존할 수도 있습니다. 따라서 다음과 같은 상황이 주어지고:
 
 <div class="composition-api">
 
@@ -59,8 +61,7 @@ data() {
 <div class="static active"></div>
 ```
 
-`isActive` 또는 `hasError`가 변경되면 그에 따라 클래스 목록이 업데이트됩니다.
-예를 들어 `hasError`가 `true`가 되면 클래스 목록은 `"static active text-danger"`가 됩니다.
+`isActive` 또는 `hasError`가 변경되면 그에 따라 클래스 목록이 업데이트됩니다. 예를 들어 `hasError`가 `true`가 되면 클래스 목록은 `"static active text-danger"`가 됩니다.
 
 바인딩된 객체는 인라인일 필요가 없습니다:
 
@@ -185,11 +186,10 @@ data() {
 
 위 코드는 `errorClass`를 항상 적용하지만, `activeClass`는 `isActive`가 truthy 일 때만 적용됩니다.
 
-그러나 조건부 클래스가 여러 개인 경우 다소 장황할 수 있습니다.
-이러한 이유로 배열 구문 내에서 객체 구문을 사용할 수도 있습니다:
+그러나 조건부 클래스가 여러 개인 경우 다소 장황할 수 있습니다. 이러한 이유로 배열 구문 내에서 객체 구문을 사용할 수도 있습니다:
 
 ```vue-html
-<div :class="[{ active: isActive }, errorClass]"></div>
+<div :class="[{ activeClass: isActive }, errorClass]"></div>
 ```
 
 ### 컴포넌트에서 사용하기 {#with-components}
@@ -230,8 +230,7 @@ data() {
 <p class="foo bar active">안녕!</p>
 ```
 
-여러 개의 최상위 엘리먼트로 컴포넌트가 구성되어 있는 경우, 클래스를 적용할 엘리먼트를 정의해야 합니다.
-`$attrs` 컴포넌트 속성을 사용하여 이 작업을 수행할 수 있습니다.
+여러 개의 최상위 엘리먼트로 컴포넌트가 구성되어 있는 경우, 클래스를 적용할 엘리먼트를 정의해야 합니다. `$attrs` 컴포넌트 속성을 사용하여 이 작업을 수행할 수 있습니다.
 
 ```vue-html
 <!-- MyComponent 템플릿에서 $attrs 속성을 사용 -->
@@ -284,8 +283,7 @@ data() {
 <div :style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
 ```
 
-`:style`에 사용될 CSS 속성에 해당하는 키 문자열은 camelCase가 권장되지만, kebab-cased(실제 CSS에서 사용되는 방식)도 지원합니다:
-예를 들면 다음과 같습니다:
+`:style`에 사용될 CSS 속성에 해당하는 키 문자열은 camelCase가 권장되지만, kebab-cased(실제 CSS에서 사용되는 방식)도 지원합니다. 예를 들면 다음과 같습니다:
 
 ```vue-html
 <div :style="{ 'font-size': fontSize + 'px' }"></div>
@@ -327,8 +325,7 @@ data() {
 
 ### 배열로 바인딩 하기 {#binding-to-arrays-1}
 
-스타일 객체 여러 개로 이루어진 배열을 `:style`에 바인딩할 수 있습니다.
-객체들은 병합되어 엘리먼트에 적용됩니다:
+스타일 객체 여러 개로 이루어진 배열을 `:style`에 바인딩할 수 있습니다. 객체들은 병합되어 엘리먼트에 적용됩니다:
 
 ```vue-html
 <div :style="[baseStyles, overridingStyles]"></div>
@@ -336,17 +333,14 @@ data() {
 
 ### 접두사 자동완성 {#auto-prefixing}
 
-Vue가 실행되고 있을 때, 해당 브라우저에서 지원되지 않는 CSS 속성이 `:style`에 사용되면,
-자동으로 해당 속성과 [벤더 접두사](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix)가 조합된 여러 개의 특수한 속성을 테스트하고 지원되는 속성을 찾아서 추가합니다.
+Vue가 실행되고 있을 때, 해당 브라우저에서 지원되지 않는 CSS 속성이 `:style`에 사용되면, 자동으로 해당 속성과 [벤더 접두사](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix)가 조합된 여러 개의 특수한 속성을 테스트하고 지원되는 속성을 찾아서 추가합니다.
 
 ### 다중 값 {#multiple-values}
 
-스타일 속성에 다중 값을 배열로 제공할 수 있습니다.
-예를 들면 다음과 같습니다:
+스타일 속성에 다중 값을 배열로 제공할 수 있습니다. 예를 들면 다음과 같습니다:
 
 ```vue-html
 <div :style="{ display: ['flex', '-webkit-box', '-ms-flexbox'] }"></div>
 ```
 
-이 경우, 브라우저가 지원하는 배열 내 마지막 값을 렌더링합니다.
-이 예제에서 브라우저가 `flex`와 `-webkit-box` 속성만 지원한다면, `flex`라는 표준 속성 값이 있음에도 `display: -webkit-box`를 렌더링 합니다.
+이 경우, 브라우저가 지원하는 배열 내 마지막 값을 렌더링합니다. 이 예제에서 브라우저가 `flex`와 `-webkit-box` 속성만 지원한다면, `flex`라는 표준 속성 값이 있음에도 `display: -webkit-box`를 렌더링 합니다.
