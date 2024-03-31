@@ -21,7 +21,7 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 :::tip 전제 조건
 
 - 명령줄에 대한 친숙함
-- [Node.js](https://nodejs.org/) 버전 18.0 이상 설치
+- [Node.js](https://nodejs.org/) 버전 18.3 이상 설치
   :::
 
 이 섹션에서는 로컬 컴퓨터에서 Vue [싱글 페이지 애플리케이션](/guide/extras/ways-of-using-vue.html#single-page-application-spa)을 스캐폴드하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vitejs.dev)를 기반으로 빌드 설정을 사용하고 Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc)(SFC)를 사용할 수 있도록 합니다.
