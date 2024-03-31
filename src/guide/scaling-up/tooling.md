@@ -86,10 +86,10 @@ SFC의 모든 템플릿이 미리 컴파일되어 있기 때문에 기본 도구
 
 ## IDE 지원 {#ide-support}
 
-- 권장 IDE 설정은 [VSCode](https://code.visualstudio.com/) + [Volar](https://github.com/johnsoncodehk/volar)입니다. Volar는 문법 강조 표시, TypeScript 지원, 템플릿 표현식 및 컴포넌트 props에 대한 인텔리센스를 제공합니다.
+- 권장 IDE 설정은 [VS Code](https://code.visualstudio.com/) + [Volar](https://github.com/johnsoncodehk/volar)입니다. Volar는 문법 강조 표시, TypeScript 지원, 템플릿 표현식 및 컴포넌트 props에 대한 인텔리센스를 제공합니다.
 
   :::tip
-  Volar는 Vue 2 전용 공식 VSCode 확장인 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)를 대체합니다. 현재 Vetur가 설치되어 있는 경우 Vue 3 프로젝트에서 비활성화해야 합니다.
+  Volar는 Vue 2 전용 공식 VS Code 확장인 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)를 대체합니다. 현재 Vetur가 설치되어 있는 경우 Vue 3 프로젝트에서 비활성화해야 합니다.
   :::
 
 - [WebStorm](https://www.jetbrains.com/webstorm/)은 Vue SFC에 대한 지원을 기본적으로 제공하며 매우 훌륭합니다.
@@ -103,6 +103,8 @@ SFC의 모든 템플릿이 미리 컴파일되어 있기 때문에 기본 도구
   - emacs: [lsp-mode](https://emacs-lsp.github.io/lsp-mode/page/lsp-volar/)
 
 ## 브라우저 개발자 도구 {#browser-devtools}
+
+<VueSchoolLink href="https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3" title="Free Vue.js Devtools Lesson"/>
 
 Vue 브라우저 개발자 도구 확장 프로그램을 사용하면, Vue 앱의 컴포넌트 트리를 탐색하고 개별 컴포넌트의 상태를 검사하고 상태 관리 이벤트 및 프로필 성능을 추적할 수 있습니다.
 
@@ -140,7 +142,7 @@ Vue 팀은 SFC별 린팅 규칙을 지원하는 [ESLint](https://eslint.org/) �
 
 1. `npm install -D eslint eslint-plugin-vue`를 실행한 다음 `eslint-plugin-vue`의 [설정 가이드](https://eslint.vuejs.org/user-guide/#usage)를 따릅니다.
 
-2. [VSCode용 ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)와 같은 IDE 확장 ESLint를 설정하면, 개발 중에 편집기에서 바로 린터 피드백을 얻을 수 있습니다. 이것은 개발 서버를 시작할 때 불필요한 Linting 비용을 방지합니다.
+2. [VS Code용 ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)와 같은 IDE 확장 ESLint를 설정하면, 개발 중에 편집기에서 바로 린터 피드백을 얻을 수 있습니다. 이것은 개발 서버를 시작할 때 불필요한 Linting 비용을 방지합니다.
 
 3. 프로덕션 빌드 명령의 일부로 ESLint를 실행하여 프로덕션으로 빌드 실행하기 전에 전체 린터 피드백을 받습니다.
 
@@ -148,7 +150,7 @@ Vue 팀은 SFC별 린팅 규칙을 지원하는 [ESLint](https://eslint.org/) �
 
 ## Formatting {#formatting}
 
-- VSCode 확장 [Volar](https://github.com/johnsoncodehk/volar)는 Vue SFC에 대한 포매팅을 즉시 제공합니다.
+- VS Code 확장 [Volar](https://github.com/johnsoncodehk/volar)는 Vue SFC에 대한 포매팅을 즉시 제공합니다.
 
 - 또는 [Prettier](https://prettier.io/)는 빌트인 Vue SFC 형식 지원을 제공합니다.
 
