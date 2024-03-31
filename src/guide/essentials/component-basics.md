@@ -298,7 +298,7 @@ const posts = ref([
 
 </div>
 
-`v-for`가 동적 prop 값을 전달하는 데 어떻게 사용되는지 주목하세요. 이것은 미리 렌더링할 정확한 콘텐츠를 모를 때 특히 유용합니다.
+[`v-bind` 구문](/api/built-in-directives#v-bind) (`:title="post.title"`)이 동적 prop 값을 전달하는 데 사용되는 것에 주목하세요. 이는 미리 정확히 렌더링할 내용을 모를 때 특히 유용합니다.
 
 지금은 이것이 `props`에 대해 알아야 할 전부입니다. 하지만 이 페이지를 다 읽고 내용에 익숙해지면 나중에 다시 돌아와 [Props](/guide/components/props)의 전체 가이드를 읽는 것이 좋습니다.
 
