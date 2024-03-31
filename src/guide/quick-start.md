@@ -79,8 +79,8 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 <VTCodeGroup>
   <VTCodeGroupTab label="npm">
 
-  ```sh
-  $ cd <your-project-name>
+  ```sh-vue
+  $ cd {{'<your-project-name>'}}
   $ npm install
   $ npm run dev
   ```
@@ -88,8 +88,8 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
   </VTCodeGroupTab>
   <VTCodeGroupTab label="pnpm">
 
-  ```sh
-  $ cd <your-project-name>
+  ```sh-vue
+  $ cd {{'<your-project-name>'}}
   $ pnpm install
   $ pnpm run dev
   ```
@@ -97,8 +97,8 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
   </VTCodeGroupTab>
   <VTCodeGroupTab label="yarn">
 
-  ```sh
-  $ cd <your-project-name>
+  ```sh-vue
+  $ cd {{'<your-project-name>'}}
   $ yarn
   $ yarn dev
   ```
@@ -106,8 +106,8 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
   </VTCodeGroupTab>
   <VTCodeGroupTab label="bun">
 
-  ```sh
-  $ cd <your-project-name>
+  ```sh-vue
+  $ cd {{'<your-project-name>'}}
   $ bun install
   $ bun run dev
   ```
