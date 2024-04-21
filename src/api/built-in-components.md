@@ -5,12 +5,9 @@ pageClass: api
 # 빌트인 컴포넌트 {#built-in-components}
 
 :::info 등록과 사용법
+빌트인 컴포넌트는 등록할 필요 없이 템플릿에서 직접 사용할 수 있습니다. 이것은 트리 쉐이킹되므로 사용되는 경우에만 빌드에 포함됩니다.
 
-빌트인 컴포넌트는 등록할 필요 없이 템플릿에서 직접 사용할 수 있습니다.
-이것은 트리 쉐이킹되므로 사용되는 경우에만 빌드에 포함됩니다.
-
-[렌더 함수](/guide/extras/render-function)에서 사용할 때는 명시적으로 `import` 해야합니다.
-예를 들어:
+[렌더 함수](/guide/extras/render-function)에서 사용할 때는 명시적으로 `import` 해야합니다. 예를 들어:
 
 ```js
 import { h, Transition } from 'vue'
@@ -67,8 +64,7 @@ h(Transition, {
 
     /**
      * 트랜지션 클래스를 커스텀하기 위한 props.
-     * 템플릿에서 kebab-case를 사용해야 함.
-     * 예: enter-from-class="xxx"
+     * 템플릿에서 kebab-case를 사용해야 함. 예: enter-from-class="xxx"
      */
     enterFromClass?: string
     enterActiveClass?: string
@@ -147,9 +143,8 @@ h(Transition, {
      */
     tag?: string
     /**
-     * 이동중 트랜지션에 적용될 CSS 클래스를 커스텀.
-     * 템플릿에서 kebab-case를 사용해야 함.
-     * 예: enter-from-class="xxx"
+     * 이동 전환 중에 적용되는 CSS 클래스를 사용자 정의합니다.
+     * 템플릿에서 kebab-case를 사용해야 함. 예: move-class="xxx"
      */
     moveClass?: string
   }
@@ -165,11 +160,7 @@ h(Transition, {
 
   애니메이션이 제대로 작동하려면 `<transition-group>`의 모든 자식이 [**고유 키**](/guide/essentials/list#maintaining-state-with-key)를 가져야 합니다.
 
-  `<TransitionGroup>`은 CSS `transform`으로 이동 트랜지션을 지원합니다.
-  업데이트 후 화면에서 자식의 위치가 변경되면,
-  움직이는 CSS 클래스가 적용됩니다(`name` 속성에서 자동 생성되거나 `move-class` prop으로 구성됨).
-  이동 클래스가 적용될 때 CSS의 `transform` 속성이 "트랜지션 가능"이면,
-  [FLIP 기술](https://aerotwist.com/blog/flip-your-animations/)을 사용하여 엘리먼트가 목적지까지 부드럽게 애니메이션됩니다.
+  `<TransitionGroup>`은 CSS `transform`으로 이동 트랜지션을 지원합니다. 업데이트 후 화면에서 자식의 위치가 변경되면, 움직이는 CSS 클래스가 적용됩니다(`name` 속성에서 자동 생성되거나 `move-class` prop으로 구성됨). 이동 클래스가 적용될 때 CSS의 `transform` 속성이 "트랜지션 가능"이면, [FLIP 기술](https://aerotwist.com/blog/flip-your-animations/)을 사용하여 엘리먼트가 목적지까지 부드럽게 애니메이션됩니다.
 
 - **예제**
 
@@ -192,11 +183,13 @@ h(Transition, {
   ```ts
   interface KeepAliveProps {
     /**
-     * `include`와 이름이 일치하는 컴포넌트만 캐시됨.
+     * `include`와 이름이 일치하는
+     * 컴포넌트만 캐시됨.
      */
     include?: MatchPattern
     /**
-     * `exclude`와 이름이 일치하는 컴포넌트는 캐시되지 않음.
+     * `exclude`와 이름이 일치하는
+     * 컴포넌트는 캐시되지 않음.
      */
     exclude?: MatchPattern
     /**
@@ -210,14 +203,11 @@ h(Transition, {
 
 - **세부 사항**:
 
-  `<KeepAlive>`로 래핑된 동적 컴포넌트는 비활성화 되면,
-  컴포넌트 인스턴스가 파괴되지 않고 캐시됩니다.
+  `<KeepAlive>`로 래핑된 동적 컴포넌트는 비활성화 되면, 컴포넌트 인스턴스가 파괴되지 않고 캐시됩니다.
 
   `<KeepAlive>`에는 언제나 활성화된 직계 자식의 컴포넌트 인스턴스가 하나만 있을 수 있습니다.
 
-  컴포넌트가 `<KeepAlive>` 내에서 토글되면,
-  `mounted` 및 `unmounted` 대신 `activated` 및 `deactivated` 생명 주기 훅이 호출됩니다.
-  이는 `<KeepAlive>`의 직계 자식과 모든 하위 항목에 적용됩니다.
+  컴포넌트가 `<KeepAlive>` 내에서 토글되면, `mounted` 및 `unmounted` 대신 `activated` 및 `deactivated` 생명 주기 훅이 호출됩니다. 이는 `<KeepAlive>`의 직계 자식과 모든 하위 항목에 적용됩니다.
 
 - **예제**
 
@@ -229,8 +219,7 @@ h(Transition, {
   </KeepAlive>
   ```
 
-  `v-if` / `v-else`를 사용할 때,
-  한 번에 하나의 컴포넌트만 렌더링되어야 합니다:
+  `v-if` / `v-else`를 사용할 때, 한 번에 하나의 컴포넌트만 렌더링되어야 합니다:
 
   ```vue-html
   <KeepAlive>
@@ -329,6 +318,7 @@ h(Transition, {
   ```ts
   interface SuspenseProps {
     timeout?: string | number
+    suspensible?: boolean
   }
   ```
 
@@ -340,11 +330,11 @@ h(Transition, {
 
 - **세부 사항**:
 
-  `<Suspense>`는 `#default` 슬롯과 `#fallback` 슬롯이라는 두 개의 슬롯을 사용합니다.
-  메모리에서 기본 슬롯을 렌더링하는 동안,
-  폴백 슬롯의 대체 컨텐츠를 노출합니다.
+  `<Suspense>`는 `#default` 슬롯과 `#fallback` 슬롯이라는 두 개의 슬롯을 사용합니다. 메모리에서 기본 슬롯을 렌더링하는 동안, 폴백 슬롯의 대체 컨텐츠를 노출합니다.
 
-  기본 슬롯을 렌더링하는 동안 비동기 의존성([비동기 컴포넌트](/guide/components/async) 및 [`async setup()`](/guide/built-ins/suspense#async-setup)이 있는 컴포넌트)을 만나면,
-  기본 슬롯을 표시하기 전에 모든 것이 해결될 때까지 대기합니다.
+  기본 슬롯을 렌더링하는 동안 비동기 의존성([비동기 컴포넌트](/guide/components/async) 및 [`async setup()`](/guide/built-ins/suspense#async-setup)이 있는 컴포넌트)을 만나면, 기본 슬롯을 표시하기 전에 모든 것이 해결될 때까지 대기합니다.
+
+  Suspense를 `suspensible`로 설정함으로써 모든 비동기 의존성 처리는 부모 Suspense에 의해 처리될 것입니다.
+  [구현 세부 사항](https://github.com/vuejs/core/pull/6736)을 참조하세요.
 
 - **참고** [가이드 - Suspense](/guide/built-ins/suspense)

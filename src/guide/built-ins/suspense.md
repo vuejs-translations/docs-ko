@@ -133,6 +133,40 @@ resolved 상태에서 `<Suspense>` 는 `#default` 슬롯의 루트 노드가 교
 
 Vue 라우터에는 동적 import를 사용하여 [컴포넌트를 lazy load하는](https://router.vuejs.kr/guide/advanced/lazy-loading) 기능이 내장되어 있습니다. 이들은 비동기 컴포넌트와 구분되며 현재 `<Suspense>` 를 트리거하지 않습니다. 그러나 여전히 비동기 컴포넌트를 하위 항목으로 가질 수 있으며 일반적인 방식으로 `<Suspense>` 를 트리거할 수 있습니다.
 
+## 중첩 Suspense {#nested-suspense}
+
+여러 비동기 컴포넌트(중첩 또는 레이아웃 기반 라우트에 일반적임)를 다음과 같이 가질 때:
+
+```vue-html
+<Suspense>
+  <component :is="DynamicAsyncOuter">
+    <component :is="DynamicAsyncInner" />
+  </component>
+</Suspense>
+```
+
+`<Suspense>`는 예상대로 트리 아래의 모든 비동기 컴포넌트를 해결하는 경계를 생성합니다.
+그러나 `DynamicAsyncOuter`를 변경하면 `<Suspense>`가 이를 올바르게 기다립니다. 그러나 `DynamicAsyncInner`를 변경하면
+중첩된 `DynamicAsyncInner`는 해결될 때까지 (이전 노드 또는 대체 슬롯 대신) 빈 노드를 렌더링합니다.
+
+이 문제를 해결하기 위해서는, 중첩된 컴포넌트를 위한 패치를 처리하기 위해 중첩 suspense를 가질 수 있습니다:
+
+```vue-html
+<Suspense>
+  <component :is="DynamicAsyncOuter">
+    <Suspense suspensible> <!-- 이것 -->
+      <component :is="DynamicAsyncInner" />
+    </Suspense>
+  </component>
+</Suspense>
+```
+
+`suspensible` prop을 설정하지 않으면, 내부의 `<Suspense>`는 부모 `<Suspense>`에 의해 동기 컴포넌트처럼 다뤄집니다.
+이는 자체적인 fallback(대체) 슬롯을 가지고 있으며, 만약 두 `Dynamic` 컴포넌트가 동시에 변경되는 경우,
+자식 `<Suspense>`가 자체 의존성 트리를 로드하는 동안 빈 노드가 있을 수 있고 여러 패치 사이클이 발생할 수 있으며,
+이는 바람직하지 않을 수 있습니다. 설정되었을 때, 모든 비동기 의존성 처리는 부모 `<Suspense>`에게 주어집니다(발생하는 이벤트 포함)
+그리고 내부 `<Suspense>`는 의존성 해결과 패치를 위한 또 다른 경계로만 작용합니다.
+
 ---
 
 **관련 문서**
