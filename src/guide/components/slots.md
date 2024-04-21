@@ -296,6 +296,35 @@ function BaseLayout(slots) {
 }
 ```
 
+## 조건부 슬롯 {#conditional-slots}
+
+때때로 슬롯이 있는지 여부에 따라 무언가를 렌더링하고 싶을 수 있습니다.
+
+[$slots](https://vuejs.org/api/component-instance.html#slots) 속성과 [v-if](https://vuejs.org/guide/essentials/conditional.html#v-if)를 결합하여 이를 실현할 수 있습니다.
+
+아래 예시에서는 `header`와 `footer`라는 두 개의 조건부 슬롯을 가진 Card 컴포넌트를 정의합니다.
+헤더/푸터가 있을 때 추가 스타일링을 제공하기 위해 이를 감싸고자 합니다:
+
+```vue-html
+<template>
+  <div class="card">
+    <div v-if="$slots.header" class="card-header">
+      <slot name="header" />
+    </div>
+    
+    <div class="card-content">
+      <slot />
+    </div>
+    
+    <div v-if="$slots.footer" class="card-footer">
+      <slot name="footer" />
+    </div>
+  </div>
+</template>
+```
+
+[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqFVD1v2zAQ/SsEWyBLIjVoJlcN0AYZ2qEt2oxaaOkkMaZIgqRcGYH/e4+kqFi26wAejvfevfu0XugXrbPtAHRFC1sZrh2x4AZ9X0rea2UceWCmJo1RPbnKcv/w9KtSFnnkIxMfDnotmAN8EVJ4WrDQTgh51wGrwUx+RLrb+6eOW4I/1wGJcJGjewrND1RP1Gpo2CB8+klOL9QqJR1IV+S+lbfVGqXcYW3QL9QiXOToPqPmn1PLCz+9ps5iIQ1vs2erJA75xbNLWqlecwHmp3ZcSVvSFQmIx5gQ6u/34HNmgOvkrzqoNmf8z3b0vpL+MmDBbKGkM+aYacFF+PHPDxjRnsFe1YNA9gXwN1glBl9jpH0dZI1lH/BCtd/CqXDZPtnHEcduU1O+UM/cB35J8XQeLrT+Wu7H7C7ElXKPU0xn5690Ofeab0klmLWfcUDIKmlakEe2N7xB4L0VytksHlhJFwE3yfu6e88mkvWAlDkmnxePwpN9kGkhOd3eieYbGstq48kdV5u856udY04zJevob1BYtxNxlplPkHaxVgb7XpFbPRI8AV6TtWDV5lNENatr3PaKfAgO3NIsMM1z1sGg1ig8G5yKUKhoN7u1GOBY6U6Pp1rTIJPYZXJs/v+JBW871xq2u5g6fNjCTOj+H/sTpqs=)
+
 ## 동적인 슬롯 이름 {#dynamic-slot-names}
 
 [동적인 디렉티브의 인자](/guide/essentials/template-syntax.html#dynamic-arguments)는 `v-slot`에서도 작동하므로 동적 슬롯 이름을 정의할 수 있습니다:
