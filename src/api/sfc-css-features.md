@@ -141,7 +141,7 @@ PostCSS를 사용하여 다음을 변환함으로써 달성됩니다:
 결과적인 클래스는 충돌을 피하기 위해 해시되어,
 CSS 범위를 현재 컴포넌트로만 지정하는 것과 동일한 효과를 얻습니다.
 
-[전역 예외](https://github.com/css-modules/css-modules#exceptions), [구성](https://github.com/css-modules/css-modules#composition) 등의 자세한 사항은 [CSS 모듈 스팩](https://github.com/css-modules/css-modules)을 참고하십시오.
+[전역 예외](https://github.com/css-modules/css-modules/blob/master/docs/composition.md#exceptions), [컴포지션](https://github.com/css-modules/css-modules/blob/master/docs/composition.md#composition) 등의 자세한 사항은 [CSS 모듈 스팩](https://github.com/css-modules/css-modules)을 참고하십시오.
 
 ### 커스텀 이름 삽입 {#custom-inject-name}
 
