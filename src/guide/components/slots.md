@@ -300,7 +300,7 @@ function BaseLayout(slots) {
 
 때때로 슬롯이 있는지 여부에 따라 무언가를 렌더링하고 싶을 수 있습니다.
 
-[$slots](https://vuejs.org/api/component-instance.html#slots) 속성과 [v-if](https://vuejs.org/guide/essentials/conditional.html#v-if)를 결합하여 이를 실현할 수 있습니다.
+[$slots](/api/component-instance.html#slots) 속성과 [v-if](/guide/essentials/conditional.html#v-if)를 결합하여 이를 실현할 수 있습니다.
 
 아래 예시에서는 `header`와 `footer`라는 두 개의 조건부 슬롯을 가진 Card 컴포넌트를 정의합니다.
 헤더/푸터가 있을 때 추가 스타일링을 제공하기 위해 이를 감싸고자 합니다:
