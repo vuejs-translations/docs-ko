@@ -47,7 +47,7 @@ onMounted(() => {
 ```
 
 함수 구성에 기반한 API 스타일에도 불구하고 **컴포지션 API는 함수형 프로그래밍이 아닙니다**.
-컴포지션 API는 Vue의 변경 가능하고 세분화된 반응성 패러다임을 기반으로 하는 반면 기능적 프로그래밍은 불변성을 강조합니다.
+컴포지션 API는 Vue의 변경 가능하고 세분화된 반응성 패러다임을 기반으로 하는 반면 함수형 프로그래밍은 불변성을 강조합니다.
 
 Vue를 컴포지션 API와 함께 사용하는 방법을 배우고 싶다면 왼쪽 사이드바 상단의 토글을 사용하여 사이트 전체 API 환경 설정을 컴포지션 API로 설정한 다음 처음부터 가이드를 살펴보세요.
 
@@ -179,17 +179,17 @@ React 훅은 컴포넌트가 업데이트될 때마다 반복적으로 호출됩
 
 - Hooks 는 호출 순서에 민감하여 조건부로 사용할 수 없습니다.
 
-- Variables declared in a React component can be captured by a hook closure and become "stale" if the developer fails to pass in the correct dependencies array. This leads to React developers relying on ESLint rules to ensure correct dependencies are passed. However, the rule is often not smart enough and over-compensates for correctness, which leads to unnecessary invalidation and headaches when edge cases are encountered.
+- 리액트 컴포넌트 내에 선언된 변수들은 훅 클로저에 포함되고 개발자가 올바른 의존성 배열을 넘기지 않으면 “낡은” 상태가 될 수 있습니다. 이로 인해 리액트 개발자들은 ESLint 규칙에 의존하여 의존성 배열이 잘못되지 않았는지 확인해야합니다. 하지만 이 규칙이 충분히 똑똑하지 않아서 종종 정확도를 과하게 요구하여 불필요한 무효화를 발생시키거나, 엣지케이스를 만났을때 두통을 일으키곤 합니다.
 
 - 비용이 많이 드는 계산은 `useMemo` 사용을 필요로 하며, 이 역시 올바른 종속성 배열을 수동으로 전달해야 합니다.
 
-- Event handlers passed to child components cause unnecessary child updates by default, and require explicit `useCallback` as an optimization. This is almost always needed, and again requires a correct dependencies array. Neglecting this leads to over-rendering apps by default and can cause performance issues without realizing it.
+- 자식 컴포넌트에게 전달된 이벤트 핸들러는 불필요한 자식 컴포넌트의 업데이트를 발생시키고, 최적화를 위해 명시적인 `useCallback` 사용을 요구합니다. 이는 거의 대부분의 경우에 필요하고, 또 다시 정확한 의존성 배열을 요구합니다. 이를 소홀히 하면 앱을 오버 렌더링하여 눈치채지 못한 채로 성능 이슈를 발생시킬 수도 있습니다.
 
-- The stale closure problem, combined with Concurrent features, makes it difficult to reason about when a piece of hooks code is run, and makes working with mutable state that should persist across renders (via `useRef`) cumbersome.
+- 낡은 클로저 문제와 동시성 기능이 합쳐지면, 훅의 코드가 언제 그리고 왜 실행되는지 파악하기 어려워지며, 여러번의 렌더에서 영속되어야 하는 변경 가능한 상태(`useRef`를 활용한)와 관련된 작업하는 것을 번거롭게 만듭니다.
 
 이에 비해 Vue 컴포지션 API는 다음과 같습니다:
 
-- Invokes `setup()` or `<script setup>` code only once. This makes the code align better with the intuitions of idiomatic JavaScript usage as there are no stale closures to worry about. Composition API calls are also not sensitive to call order and can be conditional.
+- `setup()` 함수 호출이나 `<script setup>` 호출 모두 단 한번만 발생합니다. 이로 인해 낡은 클로저 문제에 대해 걱정할 필요가 없기 때문에, 직관적인 기존의 자바스크립트와 코드가 더 잘 어울립니다. 컴포지션 API는 호출 순서에 민감하지 않고, 조건부로 호출될 수도 있습니다.
 
 - Vue 의 런타임 반응성 시스템은 computed 속성과 watcher 에 사용되는 반응성 종속성을 자동으로 수집하므로 종속성을 수동으로 선언할 필요가 없습니다.
 
