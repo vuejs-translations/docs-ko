@@ -469,6 +469,7 @@ HTML 엘리먼트와 마찬가지로 다음과 같이 컴포넌트에 컨텐츠�
 이것은 Vue의 사용자 정의 `<slot>` 엘리먼트를 사용하여 달성할 수 있습니다.
 
 ```vue{4}
+<!-- AlertBox.vue -->
 <template>
   <div class="alert-box">
     <strong>이것은 데모용 에러입니다.</strong>
