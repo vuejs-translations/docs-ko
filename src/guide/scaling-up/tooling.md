@@ -86,10 +86,10 @@ SFC의 모든 템플릿이 미리 컴파일되어 있기 때문에 기본 도구
 
 ## IDE 지원 {#ide-support}
 
-- 권장 IDE 설정은 [VS Code](https://code.visualstudio.com/) + [Volar](https://github.com/johnsoncodehk/volar)입니다. Volar는 문법 강조 표시, TypeScript 지원, 템플릿 표현식 및 컴포넌트 props에 대한 인텔리센스를 제공합니다.
+- 권장 IDE 설정은 [VS Code](https://code.visualstudio.com/) + [Vue - Official extension](https://marketplace.visualstudio.com/items?itemName=Vue.volar)입니다. Vue - Official extension은 문법 강조 표시, TypeScript 지원, 템플릿 표현식 및 컴포넌트 props에 대한 인텔리센스를 제공합니다.
 
   :::tip
-  Volar는 Vue 2 전용 공식 VS Code 확장인 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)를 대체합니다. 현재 Vetur가 설치되어 있는 경우 Vue 3 프로젝트에서 비활성화해야 합니다.
+  Vue - Official extension은 Vue 2 전용 공식 VS Code 확장인 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)를 대체합니다. 현재 Vetur가 설치되어 있는 경우 Vue 3 프로젝트에서 비활성화해야 합니다.
   :::
 
 - [WebStorm](https://www.jetbrains.com/webstorm/)은 Vue SFC에 대한 지원을 기본적으로 제공하며 매우 훌륭합니다.
