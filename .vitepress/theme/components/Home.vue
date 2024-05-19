@@ -11,7 +11,6 @@ onMounted(load)
 
 <template>
   <section id="hero">
-    <img id="uwu" src="/logo-uwu.svg" alt="Vue.js Kawaii Logo by @icarusgkx" width="145" height="91" />
     <h1 class="tagline">
 
       <span class="accent">프로그레시브</span>
@@ -304,14 +303,5 @@ html:not(.dark) .accent,
   .tagline {
     font-size: 36px;
   }
-}
-
-:global(.uwu #uwu) {
-  display: block;
-  width: 100%;
-  max-width: 580px;
-  margin: -80px auto -20px;
-  aspect-ratio: 145 / 91;
-  content: url(/logo-uwu.svg);
 }
 </style>
