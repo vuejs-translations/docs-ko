@@ -111,7 +111,7 @@ methods: {
 </div>
 
 메서드 핸들러는 이를 트리거하는 네이티브 DOM 이벤트 객체를 자동으로 수신합니다.
-위의 예에서 `event.target.tagName`을 통해 이벤트를 전달하는 엘리먼트에 접근할 수 있습니다.
+위의 예에서 `event.target`을 통해 이벤트를 전달하는 엘리먼트에 접근할 수 있습니다.
 
 <div class="composition-api">
 
