@@ -567,7 +567,7 @@ export default {
 
 Vue는 ``instanceof Person`를 사용하여 `author` prop의 값이 실제로 `Person` 클래스의 인스턴스인지 확인합니다.
 
-### Nullable Type
+### Nullable Type {#nullable-type}
 
 타입이 필수이지만 널 허용인 경우, `null`을 포함한 배열 구문을 사용할 수 있습니다:
 
