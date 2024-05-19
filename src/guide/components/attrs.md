@@ -4,16 +4,13 @@ outline: deep
 
 # 폴스루 속성 {#fallthrough-attributes}
 
-> 이 페이지에서는 [컴포넌트 기초](/guide/essentials/component-basics)를 이미 읽었다고 가정합니다.
-컴포넌트를 처음 사용하는 경우, 그 문서를 먼저 읽으십시오.
+> 이 페이지에서는 [컴포넌트 기초](/guide/essentials/component-basics)를 이미 읽었다고 가정합니다. 컴포넌트를 처음 사용하는 경우, 그 문서를 먼저 읽으십시오.
 
 ## 속성 상속 {#attribute-inheritance}
 
-"폴스루(fallthrough: 대체) 속성"은 컴포넌트에 전달되는 속성 또는 `v-on` 이벤트 리스너 이지만, 이것을 받는 컴포넌트의 [props](./props) 또는 [emits](./events.html#declaring-emitted-events)에서 명시적으로 선언되지 않은 속성입니다.
-일반적인 예로는 `class`, `style`, `id` 속성이 있습니다.
+"폴스루(fallthrough: 대체) 속성"은 컴포넌트에 전달되는 속성 또는 `v-on` 이벤트 리스너 이지만, 이것을 받는 컴포넌트의 [props](./props) 또는 [emits](./events.html#declaring-emitted-events)에서 명시적으로 선언되지 않은 속성입니다. 일반적인 예로는 `class`, `style`, `id` 속성이 있습니다.
 
-컴포넌트가 싱글 루트 엘리먼트를 렌더링하면 폴스루 속성이 루트 엘리먼트의 속성에 자동으로 추가됩니다.
-예를 들어 `<MyButton>` 템플릿이 있는 컴포넌트가 있다고 가정합니다:
+컴포넌트가 싱글 루트 엘리먼트를 렌더링하면 폴스루 속성이 루트 엘리먼트의 속성에 자동으로 추가됩니다. 예를 들어 `<MyButton>` 템플릿이 있는 컴포넌트가 있다고 가정합니다:
 
 ```vue-html
 <!-- <MyButton>의 템플릿 -->
@@ -36,8 +33,7 @@ outline: deep
 
 ### `class`와 `style`의 병합 {#class-and-style-merging}
 
-자식 컴포넌트의 루트 엘리먼트에 이미 `class` 또는 `style` 속성이 있는 경우, 상위 엘리먼트에서 상속된 `class` 또는 `style` 값과 병합됩니다.
-이전 예에서 `<MyButton>`의 템플릿을 다음과 같이 변경한다면:
+자식 컴포넌트의 루트 엘리먼트에 이미 `class` 또는 `style` 속성이 있는 경우, 상위 엘리먼트에서 상속된 `class` 또는 `style` 값과 병합됩니다. 이전 예에서 `<MyButton>`의 템플릿을 다음과 같이 변경한다면:
 
 ```vue-html
 <!-- <MyButton>의 템플릿 -->
@@ -58,9 +54,7 @@ outline: deep
 <MyButton @click="onClick" />
 ```
 
-`click` 리스너는 `<MyButton>`의 루트 엘리먼트인 `<button>` 엘리먼트에 추가됩니다.
-`<button>`을 클릭하면 부모 컴포넌트의 `onClick` 메서드가 트리거됩니다.
-`<button>`에 이미 `v-on`으로 바인딩된 `click` 리스너가 있는 경우 두 리스너가 모두 트리거됩니다.
+`click` 리스너는 `<MyButton>`의 루트 엘리먼트인 `<button>` 엘리먼트에 추가됩니다. `<button>`을 클릭하면 부모 컴포넌트의 `onClick` 메서드가 트리거됩니다. `<button>`에 이미 `v-on`으로 바인딩된 `click` 리스너가 있는 경우 두 리스너가 모두 트리거됩니다.
 
 ### 중첩된 컴포넌트 상속 {#nested-component-inheritance}
 
@@ -75,8 +69,7 @@ outline: deep
 
 참고:
 
-1. 전달되는 속성이 `<MyButton>`에서 `props`로 선언되었거나 `emit`으로 등록된 핸들러일 경우, `<BaseButton>`으로 전달되지 않습니다.
-   `<MyButton>` 에서 명시적으로 선언되어 "사로잡혔기(consumed)" 때문입니다.
+1. 전달되는 속성이 `<MyButton>`에서 `props`로 선언되었거나 `emit`으로 등록된 핸들러일 경우, `<BaseButton>`으로 전달되지 않습니다. `<MyButton>` 에서 명시적으로 선언되어 "사로잡혔기(consumed)" 때문입니다.
 
 2. 그러나 전달되는 속성이 `<MyButton>`의 템플릿에서 다시 선언된 경우, `props`나 핸들러로 허용될 수 있습니다.
 
@@ -99,8 +92,7 @@ defineOptions({
 
 </div>
 
-속성 상속을 비활성화하는 일반적인 시나리오는 루트 노드 이외의 다른 엘리먼트에 속성을 적용해야 하는 경우입니다.
-`inheritAttrs` 옵션을 `false`로 설정하면 폴스루 속성을 적용해야 하는 위치를 완전히 제어할 수 있습니다.
+속성 상속을 비활성화하는 일반적인 시나리오는 루트 노드 이외의 다른 엘리먼트에 속성을 적용해야 하는 경우입니다. `inheritAttrs` 옵션을 `false`로 설정하면 폴스루 속성을 적용해야 하는 위치를 완전히 제어할 수 있습니다.
 
 이러한 폴스루 속성은 템플릿 표현식에서 `$attrs`로 직접 접근할 수 있습니다:
 
@@ -124,8 +116,7 @@ defineOptions({
 </div>
 ```
 
-여기서 `class` 및 `v-on` 리스너와 같은 폴스루 속성이 외부 `<div>`가 아닌 내부 `<button>`에 적용되기를 원할 수 있습니다.
-`inheritAttrs: false`로 설정하고, `v-bind="$attrs"`로 이를 구현할 수 있습니다:
+여기서 `class` 및 `v-on` 리스너와 같은 폴스루 속성이 외부 `<div>`가 아닌 내부 `<button>`에 적용되기를 원할 수 있습니다. `inheritAttrs: false`로 설정하고, `v-bind="$attrs"`로 이를 구현할 수 있습니다:
 
 ```vue-html{2}
 <div class="btn-wrapper">
@@ -137,8 +128,7 @@ defineOptions({
 
 ## 다중 루트 노드에서 속성 상속 {#attribute-inheritance-on-multiple-root-nodes}
 
-단일 루트 노드가 있는 컴포넌트와 달리 여러 루트 노드가 있는 컴포넌트에는 자동 속성 폴스루 동작이 없습니다.
-`$attrs`가 명시적으로 바인딩되지 않은 경우 런타임 경고가 발행됩니다.
+단일 루트 노드가 있는 컴포넌트와 달리 여러 루트 노드가 있는 컴포넌트에는 자동 속성 폴스루 동작이 없습니다. `$attrs`가 명시적으로 바인딩되지 않은 경우 런타임 경고가 발행됩니다.
 
 ```vue-html
 <CustomLayout id="custom-layout" @click="changeValue" />
@@ -186,7 +176,6 @@ export default {
 ```
 
 여기서 `attrs` 객체는 항상 최신 폴스루 속성을 반영하지만 (성능상의 이유로) 반응하지 않습니다. 감시자를 사용하여 변경 사항을 관찰할 수 없습니다. 반응성이 필요하다면 prop를 사용하세요. 또는 `onUpdated()`를 사용하여 업데이트할 때마다 최신 `attrs`로 부작용을 수행할 수 있습니다.
-
 
 </div>
 
