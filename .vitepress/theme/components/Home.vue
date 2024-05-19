@@ -11,7 +11,7 @@ onMounted(load)
 
 <template>
   <section id="hero">
-    <img id="uwu" />
+    <img id="uwu" src="/logo-uwu.svg" alt="Vue.js Kawaii Logo by @icarusgkx" width="145" height="91" />
     <h1 class="tagline">
 
       <span class="accent">프로그레시브</span>
