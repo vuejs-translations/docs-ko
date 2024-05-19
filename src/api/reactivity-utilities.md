@@ -249,7 +249,7 @@ This can be used in [Composables](/guide/reusability/composables.html) to normal
 - **타입**:
 
   ```ts
-  function isProxy(value: unknown): boolean
+  function isProxy(value: any): boolean
   ```
 
 ## isReactive() {#isreactive}
