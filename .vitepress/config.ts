@@ -109,6 +109,7 @@ const nav: ThemeConfig['nav'] = [
         link: '/about/community-guide'
       },
       { text: '행동 강령', link: '/about/coc' },
+      { text: '개인정보 보호정책', link: '/about/privacy' },
       {
         text: '다큐멘터리',
         link: 'https://www.youtube.com/watch?v=OrxmtDw4pVI'
