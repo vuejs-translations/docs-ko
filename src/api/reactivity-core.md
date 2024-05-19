@@ -45,7 +45,7 @@
 
 ## computed() {#computed}
 
-[getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set#description)를 받아서 getter로부터 반환된 값에 대한 읽기 전용 반응형 [ref](#ref) 객체를 반환합니다. 또한, `get` 및 `set` 함수가 있는 객체를 받아 쓰기 가능한 ref 객체를 생성할 수 있습니다.
+[getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description)를 받아서 getter로부터 반환된 값에 대한 읽기 전용 반응형 [ref](#ref) 객체를 반환합니다. 또한, `get` 및 `set` 함수가 있는 객체를 받아 쓰기 가능한 ref 객체를 생성할 수 있습니다.
 
 - **타입**:
 
