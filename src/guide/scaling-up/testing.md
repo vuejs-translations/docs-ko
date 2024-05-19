@@ -315,7 +315,7 @@ E2E 테스트는 종종 앱이 제대로 작동하는지 여부에 대한 신뢰
 
 ### 다른 선택지 {#other-options-2}
 
-- [Playwright](https://playwright.dev/) 역시 훌륭한 E2E 테스트 솔루션입니다. Playwright는 WebKit을 지원하지만, Electron은 실험적 상태로 표시되어 있습니다. 자세한 내용은 [Why Playwright](https://playwright.dev/docs/why-playwright) 페이지를 참조하세요.
+- [Playwright](https://playwright.dev/) 역시 모든 최신 렌더링 엔진을 지원하는 훌륭한 E2E 테스트 솔루션입니다. Chromium, WebKit, Firefox를 포함한 모든 최신 렌더링 엔진을 지원합니다. Windows, Linux, macOS에서 로컬 또는 CI에서, 헤드리스 또는 헤드 모드에서, Android용 Google Chrome과 모바일 Safari의 네이티브 모바일 에뮬레이션으로 테스트할 수 있습니다.
 
 - [Nightwatch](https://nightwatchjs.org/)는 [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver)를 기반으로 한 E2E 테스트 솔루션입니다. 이는 네이티브 모바일 테스트를 포함한 가장 넓은 브라우저 지원 범위를 제공합니다. Selenium 기반 솔루션은 Playwright나 Cypress보다 느립니다.
 
