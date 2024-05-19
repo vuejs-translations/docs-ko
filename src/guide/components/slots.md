@@ -303,7 +303,7 @@ function BaseLayout(slots) {
 [$slots](/api/component-instance.html#slots) 속성과 [v-if](/guide/essentials/conditional.html#v-if)를 결합하여 이를 실현할 수 있습니다.
 
 아래 예시에서는 `header`와 `footer`라는 두 개의 조건부 슬롯을 가진 Card 컴포넌트를 정의합니다.
-헤더/푸터가 있을 때 추가 스타일링을 제공하기 위해 이를 감싸고자 합니다:
+헤더/푸터가 있을 때 추가 스타일을 제공하기 위해 이를 래핑하고자 합니다:
 
 ```vue-html
 <template>
