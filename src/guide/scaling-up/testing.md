@@ -311,15 +311,13 @@ E2E 테스트는 종종 앱이 제대로 작동하는지 여부에 대한 신뢰
 
 - [Cypress](https://www.cypress.io/)
 
-  전반적으로 우리는 Cypress가 유익한 UI, 뛰어난 디버깅 가능성, 빌트인 검증 및 stubs, 내결함성, 병렬화 및 스냅샷과 같은 기능을 갖춘 가장 완벽한 E2E 솔루션을 제공한다고 믿습니다.
-  위에서 언급했듯이 [컴포넌트 테스트](https://docs.cypress.io/guides/component-testing/introduction)도 지원합니다.
-  그러나 Chromium 기반 브라우저와 Firefox만 지원합니다.
+  전반적으로, Cypress는 정보 제공이 뛰어난 그래픽 인터페이스, 우수한 디버그 기능, 내장된 어설션, 스텁, 플레이크 저항성, 병렬 처리, 스냅샷과 같은 기능을 갖춘 가장 완벽한 E2E 솔루션을 제공한다고 믿습니다. 위에서 언급한 것처럼, [컴포넌트 테스트](https://docs.cypress.io/guides/component-testing/introduction)에 대한 지원도 제공합니다. Chromium 기반 브라우저, Firefox, Electron을 지원합니다. WebKit 지원도 가능하지만 실험적 상태로 표시되어 있습니다.
 
 ### 다른 선택지 {#other-options-2}
 
-- [Playwright](https://playwright.dev/)는 다양한 브라우저 지원(주로 WebKit)을 가진 우수한 E2E 테스팅 솔루션입니다. 자세한 내용은 [Why Playwright](https://playwright.dev/docs/why-playwright)를 참조하세요.
+- [Playwright](https://playwright.dev/) 역시 모든 최신 렌더링 엔진을 지원하는 훌륭한 E2E 테스트 솔루션입니다. Chromium, WebKit, Firefox를 포함한 모든 최신 렌더링 엔진을 지원합니다. Windows, Linux, macOS에서 로컬 또는 CI에서, 헤드리스 또는 헤드 모드에서, Android용 Google Chrome과 모바일 Safari의 네이티브 모바일 에뮬레이션으로 테스트할 수 있습니다.
 
-- [Nightwatch](https://nightwatchjs.org/)는 [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver)를 기반으로 한 E2E 테스팅 솔루션입니다. 이를 통해 가장 넓은 브라우저 지원 범위를 제공합니다.
+- [Nightwatch](https://nightwatchjs.org/)는 [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver)를 기반으로 한 E2E 테스트 솔루션입니다. 이는 네이티브 모바일 테스트를 포함한 가장 넓은 브라우저 지원 범위를 제공합니다. Selenium 기반 솔루션은 Playwright나 Cypress보다 느립니다.
 
 - [WebdriverIO](https://webdriver.io/)는 WebDriver 프로토콜을 기반으로 한 웹 및 모바일 테스트 자동화 프레임워크입니다.
 

@@ -334,7 +334,6 @@ h(Transition, {
 
   기본 슬롯을 렌더링하는 동안 비동기 의존성([비동기 컴포넌트](/guide/components/async) 및 [`async setup()`](/guide/built-ins/suspense#async-setup)이 있는 컴포넌트)을 만나면, 기본 슬롯을 표시하기 전에 모든 것이 해결될 때까지 대기합니다.
 
-  Suspense를 `suspensible`로 설정함으로써 모든 비동기 의존성 처리는 부모 Suspense에 의해 처리될 것입니다.
-  [구현 세부 사항](https://github.com/vuejs/core/pull/6736)을 참조하세요.
+  Suspense를 `suspensible`로 설정하면 모든 비동기 종속성 처리가 부모 Suspense에 의해 처리됩니다. [구현 세부 사항](https://github.com/vuejs/core/pull/6736)을 참조하세요.
 
 - **참고** [가이드 - Suspense](/guide/built-ins/suspense)

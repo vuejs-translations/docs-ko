@@ -192,7 +192,7 @@ webpack에서 Vue SFC 지원을 제공하는 공식 로더입니다. Vue CLI를 
 
 - [VueUse 연습장](https://play.vueuse.org)
 - [Repl.it(Vue + Vite)](https://replit.com/@templates/VueJS-with-Vite)
-- [CodeSandbox](https://codesandbox.io/s/vue-3)
+- [CodeSandbox](https://codesandbox.io/p/devbox/github/codesandbox/sandbox-templates/tree/main/vue-vite)
 - [Codepen](https://codepen.io/pen/editor/vue)
 - [Components.studio](https://components.studio/create/vue3)
 - [WebComponents.dev](https://webcomponents.dev/create/cevue)

@@ -130,7 +130,7 @@ const publishedBooksMessage = computed(() => {
 
 [온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp1kM1Kw0AUhV/lkE1aqI2oq5BGWgRBqCsRxLhIk9sm2MwMmUmhhECRCoIbH0DFheC20rdq8xDO1LYr3c2d+3O+c0qrK0R7UpDlWp6M8lQoSFKF8AOWZoLnCiVyCiOVTqiFiGeiUBSjwjDnGWy9aQcsYBFnUiEsVMJzdPYbjTJgAAszcmFf8IThjJPdMp8Dzu+li1vzBuzrgnCEA3TjScgirXBepPF2dNs+1u1eKNPoj96J7l0lhP5UKsqnmgm4C1jVNHCOg9VyXj8s1i+vGm24wxXFYJzKhOKeYemTlOGINP3OZaPRRMfHxkOuQ8nZ1mF7A98eExupBD4OcQr7hqQNbfOSa3Uj7Dm/geoodaEoE+NQka4AT/j192P9NsdqMau/ZqvlB+r3p/Xzp+s5Jns9IkXI/LL8h7Kq9HkzYXT2t63qB4hTpdc=)
 
-여기에서 계산된 속성 `publishedBooksMessage`를 선언했습니다. `computed()` 함수에는 getter로 사용될 함수가 전달돼야 하며, 반환되는 값은 **computed ref**입니다. 일반 ref와 유사하게 계산된 결과를 `publishedBooksMessage.value`로 접근할 수 있습니다. 계산된 ref는 템플릿에서 자동으로 언래핑되므로, 템플릿 표현식에서 `.value` 없이 참조할 수 있습니다.
+여기에서 우리는 `publishedBooksMessage`라는 계산된 속성을 선언했습니다. `computed()` 함수는 [getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description)를 전달받기를 기대하며, 반환된 값은 **계산된 ref**입니다. 일반적인 ref와 유사하게, 계산된 결과에 `publishedBooksMessage.value`로 접근할 수 있습니다. 계산된 ref는 템플릿에서 자동으로 풀리기 때문에 템플릿 표현식에서 `.value` 없이 참조할 수 있습니다.
 
 계산된 속성은 의존된 반응형을 자동으로 추적합니다. Vue는 `publishedBooksMessage`의 값이 `author.books`에 의존한다는 것을 알고 있으므로, `author.books`가 변경되면 `publishedBooksMessage`를 바인딩해 의존하는 모든 것을 업데이트합니다.
 

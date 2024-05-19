@@ -379,43 +379,48 @@ Props에 유효성 검사를 지정하려면, <span class="composition-api">`def
 
 ```js
 defineProps({
-  // 기본 타입 체크
-  //  (`null`과 `undefined`는 모든 타입에서 허용됩니다)
+  // 기본 타입 검사
+  // (`null` 및 `undefined` 값은 모든 타입을 허용)
   propA: Number,
-  // 여러 타입 허용
+  // 여러 가지 가능한 타입
   propB: [String, Number],
-  // 문자열 필수
+  // 필수 문자열
   propC: {
     type: String,
     required: true
   },
-  // 기본 값을 가지는 숫자형
+  // 필수이지만 널 허용 문자열
   propD: {
+    type: [String, null],
+    required: true
+  },
+  // 기본값이 있는 숫자
+  propE: {
     type: Number,
     default: 100
   },
-  // 기본 값을 가지는 객체
-  propE: {
+  // 기본값이 있는 객체
+  propF: {
     type: Object,
-    // 객체 또는 배열 기본값은 팩토리 함수에서 반환되어야 합니다.
-    // 함수는 컴포넌트에서 받은 rawProps를 인자로 받습니다.
-    // (rawProps: 부모 컴포넌트에게 받은 props 전체 객체)
+    // 객체 또는 배열 기본값은
+    // 팩토리 함수에서 반환되어야 합니다. 이 함수는
+    // 컴포넌트가 받은 원시 props를 인수로 받습니다.
     default(rawProps) {
       return { message: '안녕!' }
     }
   },
-  // 사용자 정의 유효성 검사 함수
-  // 3.4+ 부터는 모든 props가 두 번째 인수로 전달 됨
-  propF: {
+  // 사용자 정의 검증 함수
+  // 3.4+ 버전에서는 전체 props가 두 번째 인수로 전달됨
+  propG: {
     validator(value, props) {
-      // 값은 다음 문자열 중 하나와 일치해야 합니다.
+      // 값은 이 문자열 중 하나와 일치해야 합니다
       return ['성공', '경고', '위험'].includes(value)
     }
   },
   // 기본값이 있는 함수
-  propG: {
+  propH: {
     type: Function,
-    // 기본값 객체나 배열을 정의하는 팩토리 함수가 아니라
+    // 객체 또는 배열 기본값과 달리, 이는 팩토리 함수가 아닌
     // 기본값으로 사용할 함수입니다.
     default() {
       return 'Default function'
@@ -434,43 +439,48 @@ defineProps({
 ```js
 export default {
   props: {
-    // 기본 타입 체크
-    //  (`null`과 `undefined`는 모든 타입에서 허용됩니다)
+    // 기본 타입 검사
+    // (`null` 및 `undefined` 값은 모든 타입을 허용)
     propA: Number,
-    // 여러 타입 허용
+    // 여러 가지 가능한 타입
     propB: [String, Number],
-    // 문자열 필수
+    // 필수 문자열
     propC: {
       type: String,
       required: true
     },
-    // 기본 값을 가지는 숫자형
+    // 필수이지만 널 허용 문자열
     propD: {
+      type: [String, null],
+      required: true
+    },
+    // 기본값이 있는 숫자
+    propE: {
       type: Number,
       default: 100
     },
-    // 기본 값을 가지는 객체
-    propE: {
+    // 기본값이 있는 객체
+    propF: {
       type: Object,
-      // 객체 또는 배열 기본값은 팩토리 함수에서 반환되어야 합니다.
-      // 함수는 컴포넌트에서 받은 rawProps를 인자로 받습니다.
-      // (rawProps: 부모 컴포넌트에게 받은 props 전체 객체)
+      // 객체 또는 배열 기본값은
+      // 팩토리 함수에서 반환되어야 합니다. 이 함수는
+      // 컴포넌트가 받은 원시 props를 인수로 받습니다.
       default(rawProps) {
         return { message: '안녕!' }
       }
     },
-    // 사용자 정의 유효성 검사 함수
-    // 3.4+ 부터는 모든 props가 두 번째 인수로 전달 됨
-    propF: {
+    // 사용자 정의 검증 함수
+    // 3.4+ 버전에서는 전체 props가 두 번째 인수로 전달됨
+    propG: {
       validator(value, props) {
-        // 값은 다음 문자열 중 하나와 일치해야 합니다.
+        // 값은 이 문자열 중 하나와 일치해야 합니다
         return ['성공', '경고', '위험'].includes(value)
       }
     },
     // 기본값이 있는 함수
-    propG: {
+    propH: {
       type: Function,
-      // 기본값 객체나 배열을 정의하는 팩토리 함수가 아니라
+      // 객체 또는 배열 기본값과 달리, 이는 팩토리 함수가 아닌
       // 기본값으로 사용할 함수입니다.
       default() {
         return 'Default function'
@@ -556,6 +566,39 @@ export default {
 </div>
 
 Vue는 ``instanceof Person`를 사용하여 `author` prop의 값이 실제로 `Person` 클래스의 인스턴스인지 확인합니다.
+
+### Nullable Type {#nullable-type}
+
+타입이 필수이지만 널 허용인 경우, `null`을 포함한 배열 구문을 사용할 수 있습니다:
+
+<div class="composition-api">
+
+```js
+defineProps({
+  id: {
+    type: [String, null],
+    required: true
+  }
+})
+```
+
+</div>
+<div class="options-api">
+
+```js
+export default {
+  props: {
+    id: {
+      type: [String, null],
+      required: true
+    }
+  }
+}
+```
+
+</div>
+
+`type`이 배열 구문 없이 `null`만인 경우, 모든 타입을 허용한다는 점에 유의하세요.
 
 ## 불리언 캐스팅 {#boolean-casting}
 

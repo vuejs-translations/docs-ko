@@ -434,7 +434,7 @@ const post = await fetch(`/api/post/1`).then((r) => r.json())
 또한 이러한 표현식은 `await` 이후의 현재 컴포넌트 인스턴스 컨텍스트를 유지하는 형식으로 자동 컴파일됩니다.
 
 :::warning 참고
-`async setup()`은 현재 실험적인 기능인 `Suspense`와 함께 사용해야 합니다. 향후 릴리스에서 이를 마무리하고 문서화할 계획입니다. 하지만 지금 궁금한 점은 [테스트](https://github.com/vuejs/core/blob/main/packages/runtime-core/__tests__/components/Suspense.spec.ts)를 참고하여 작동 방식을 확인할 수 있습니다.
+`async setup()`은 현재 실험적인 기능인 [`Suspense`](/guide/built-ins/suspense.html)와 함께 사용해야 합니다. 향후 릴리스에서 이를 마무리하고 문서화할 계획입니다. 하지만 지금 궁금한 점은 [테스트](https://github.com/vuejs/core/blob/main/packages/runtime-core/__tests__/components/Suspense.spec.ts)를 참고하여 작동 방식을 확인할 수 있습니다.
 :::
 
 ## Generics <sup class="vt-badge ts" />  {#generics}

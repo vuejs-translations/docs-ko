@@ -275,7 +275,7 @@ Vue의 문맥에서 반응성은 여러 기능을 설명하는 데 사용됩니�
 
 반응성 시스템은 다양한 방식으로 구현될 수 있습니다. 예를 들어, 코드의 종속성을 정적 분석하여 수행할 수 있습니다. 그러나 Vue는 그러한 형태의 반응성 시스템을 사용하지 않습니다.
 
-대신, Vue의 반응성 시스템은 런타임에서 속성 접근을 추적합니다. 이를 위해 Proxy 래퍼와 getter/setter 함수를 사용합니다.
+대신 Vue의 반응성 시스템은 런타임에 속성 접근을 추적합니다. 이는 Proxy 래퍼와 속성을 위한 [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description)/[setter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set#description) 함수를 사용하여 수행됩니다.
 
 자세한 내용은 다음을 참조하세요:
 - [가이드 - 반응성 기본](/guide/essentials/reactivity-fundamentals.html)

@@ -99,7 +99,8 @@ Vue는 컴포넌트 인스턴스의 데이터를 서술적으로 렌더링된 DO
 ```js
 const objectOfAttrs = {
   id: 'container',
-  class: 'wrapper'
+  class: 'wrapper',
+  style: 'background-color:green'
 }
 ```
 

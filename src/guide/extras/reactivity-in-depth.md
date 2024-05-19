@@ -67,7 +67,7 @@ whenDepsChange(update)
 
 예제에서처럼 로컬 변수의 읽기 및 쓰기를 추적할 수는 없습니다. 바닐라 자바스크립트에는 이를 수행할 수 있는 메커니즘이 없기 때문입니다. 하지만 우리가 할 수 있는 것은 **객체 속성**의 읽기 및 쓰기를 가로채는 것입니다.
 
-JavaScript에서 속성 접근을 가로채는 방법에는 [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) / [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set) 및 [프록시](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)의 두 가지가 있습니다. Vue 2는 브라우저 지원 제한으로 인해 단독으로 getter/setter를 사용했습니다. Vue 3에서 프록시는 반응형 객체에 사용되며 getter/setter는 참조에 사용됩니다. 다음은 작동 방식을 보여주는 유사 코드입니다:
+JavaScript에서 속성 접근을 가로채는 두 가지 방법이 있습니다: [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description) / [setter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set#description)와 [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)입니다. Vue 2는 브라우저 지원 제한으로 인해 getter / setter만 사용했습니다. Vue 3에서는 반응형 객체에 Proxy를 사용하고, ref에 getter / setter를 사용합니다. 다음은 그들이 어떻게 작동하는지를 보여주는 의사 코드입니다:
 
 ```js{4,9,17,22}
 function reactive(obj) {
@@ -409,7 +409,7 @@ Vue의 Composition API에서 refs와 유사한 반응성 기본 요소를 "신�
 
 기본적으로, 신호는 Vue refs와 같은 종류의 반응성 기본 요소입니다. 접근 시 주입(provide) 추적 및 변화(mutation) 시 사이드 이펙트 트리거링을 제공하는 값 컨테이너입니다. 이 반응성 기본 요소 기반 패러다임은 프론트엔드 세계에서 특히 새로운 개념이 아닙니다: [Knockout 관찰가능 객체](https://knockoutjs.com/documentation/observables.html)와 [Meteor Tracker](https://docs.meteor.com/api/tracker.html)와 같은 구현으로 10년 이상 전으로 거슬러 올라갑니다. Vue Options API와 React 상태 관리 라이브러리 [MobX](https://mobx.js.org/)도 같은 원칙에 기반하지만, 기본 요소를 객체 속성 뒤에 숨깁니다.
 
-신호가 신호로 분류되기 위한 필수적 특성은 아니지만, 오늘날 이 개념은 종종 세밀한 구독을 통해 업데이트가 수행되는 렌더링 모델과 함께 논의됩니다. 가상 DOM의 사용으로 인해 Vue는 현재 [컴파일러를 통해 비슷한 최적화를 달성하는 데 의존합니다](/guide/extras/rendering-mechanism#compiler-informed-virtual-dom). 그러나 우리는 가상 DOM에 의존하지 않고 Vue의 내장 반응성 시스템을 더 활용하는 새로운 Solid 영감의 컴파일 전략(Vapor Mode)도 탐색하고 있습니다.
+신호로 간주되기 위해 필수적인 특성은 아니지만, 오늘날 이 개념은 종종 세밀한 구독을 통해 업데이트가 수행되는 렌더링 모델과 함께 논의됩니다. Virtual DOM을 사용하기 때문에 Vue는 현재 [유사한 최적화를 달성하기 위해 컴파일러에 의존](/guide/extras/rendering-mechanism#compiler-informed-virtual-dom)합니다. 그러나 우리는 Virtual DOM에 의존하지 않고 Vue의 내장된 반응성 시스템을 더 활용하는 Solid에서 영감을 받은 새로운 컴파일 전략인 [Vapor Mode](https://github.com/vuejs/core-vapor)도 탐구하고 있습니다.
 
 ### API 디자인의 절충 {#api-design-trade-offs}
 
