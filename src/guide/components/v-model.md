@@ -59,6 +59,7 @@ const model = defineModel()
 3.4 이전에 위와 같은 자식 컴포넌트를 구현하는 방법은 다음과 같습니다:
 
 ```vue
+<!-- Child.vue -->
 <script setup>
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
@@ -70,6 +71,16 @@ const emit = defineEmits(['update:modelValue'])
     @input="emit('update:modelValue', $event.target.value)"
   />
 </template>
+```
+
+그런 다음, 부모 컴포넌트에서 `v-model="modelValue"`는 다음과 같이 컴파일됩니다:
+
+```vue-html
+<!-- Parent.vue -->
+<Child
+  :modelValue="foo"
+  @update:modelValue="$event => (foo = $event)"
+/>
 ```
 
 보시다시피, 이것은 훨씬 더 장황합니다. 하지만 내부에서 무슨 일이 일어나는지 이해하는 것이 도움이 됩니다.
