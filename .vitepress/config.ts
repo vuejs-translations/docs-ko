@@ -46,7 +46,7 @@ const nav: ThemeConfig['nav'] = [
           { text: '파트너', link: '/partners/' },
           { text: '테마', link: '/ecosystem/themes' },
           { text: 'UI 컴포넌트', link: 'https://ui-libs.vercel.app/' },
-          { text: '자격증', link: 'https://certification.vuejs.org/?ref=vuejs-nav' },
+          { text: '자격증', link: 'https://certificates.dev/vuejs/?ref=vuejs-nav' },
           { text: '일자리', link: 'https://vuejobs.com/?ref=vuejs' },
           { text: 'T-셔츠샵', link: 'https://vue.threadless.com/' }
         ]
