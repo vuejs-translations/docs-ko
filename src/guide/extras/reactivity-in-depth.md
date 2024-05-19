@@ -67,7 +67,7 @@ whenDepsChange(update)
 
 예제에서처럼 로컬 변수의 읽기 및 쓰기를 추적할 수는 없습니다. 바닐라 자바스크립트에는 이를 수행할 수 있는 메커니즘이 없기 때문입니다. 하지만 우리가 할 수 있는 것은 **객체 속성**의 읽기 및 쓰기를 가로채는 것입니다.
 
-JavaScript에서 속성 접근을 가로채는 방법에는 [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) / [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set) 및 [프록시](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)의 두 가지가 있습니다. Vue 2는 브라우저 지원 제한으로 인해 단독으로 getter/setter를 사용했습니다. Vue 3에서 프록시는 반응형 객체에 사용되며 getter/setter는 참조에 사용됩니다. 다음은 작동 방식을 보여주는 유사 코드입니다:
+JavaScript에서 속성 접근을 가로채는 두 가지 방법이 있습니다: [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description) / [setter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set#description)와 [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)입니다. Vue 2는 브라우저 지원 제한으로 인해 getter / setter만 사용했습니다. Vue 3에서는 반응형 객체에 Proxy를 사용하고, ref에 getter / setter를 사용합니다. 다음은 그들이 어떻게 작동하는지를 보여주는 의사 코드입니다:
 
 ```js{4,9,17,22}
 function reactive(obj) {

@@ -218,7 +218,7 @@ const { data, error } = useFetch(url)
 url.value = '/new-url'
 ```
 
-또는 `getter` 함수를 수락합니다:
+또는 [getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description)를 받아들입니다:
 
 ```js
 // props.id가 변경되면 re-fetch 됩니다.

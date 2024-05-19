@@ -109,7 +109,7 @@ watch(question, async (newQuestion, oldQuestion) => {
 
 ### Watch 소스 타입 {#watch-source-types}
 
-`watch`의 첫 번째 인수는 다양한 유형의 반응형 "소스"가 될 수 있습니다: ref(계산된 ref 포함), 반응형 객체, getter 함수, 또는 여러 소스의 배열일 수 있습니다:
+`watch`의 첫 번째 인수는 다양한 유형의 반응형 "소스"가 될 수 있습니다: ref(계산된 ref 포함), 반응형 객체, [getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description), 또는 여러 소스의 배열이 될 수 있습니다:
 
 ```js
 const x = ref(0)
