@@ -25,6 +25,6 @@ onMounted(() => {
 
 ## 컴파일러 에러 {#compiler-errors}
 
-다음 표는 프로덕션 컴파일러 오류 코드와 원래 메시지 간의 매핑을 제공합니다.
+다음 표는 프로덕션 컴파일러 오류 코드와 메시지 간의 매핑을 제공합니다.
 
 <ErrorsTable kind="compiler" :errors="data.compiler" :highlight="highlight" />
