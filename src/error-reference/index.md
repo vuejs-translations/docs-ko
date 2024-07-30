@@ -9,22 +9,22 @@ onMounted(() => {
 })
 </script>
 
-# Production Error Code Reference {#error-reference}
+# 프로덕션 에러 코드 참조 {#error-reference}
 
-## Runtime Errors {#runtime-errors}
+## 런타임 에러 {#runtime-errors}
 
-In production builds, the 3rd argument passed to the following error handler APIs will be a short code instead of the full information string:
+프로덕션 빌드에서는 에러 핸들러 API의 세 번째 인자에 전체 정보 문자열 대신 짧은 코드가 전달됩니다.
 
 - [`app.config.errorHandler`](/api/application#app-config-errorhandler)
 - [`onErrorCaptured`](/api/composition-api-lifecycle#onerrorcaptured) (Composition API)
 - [`errorCaptured`](/api/options-lifecycle#errorcaptured) (Options API)
 
-The following table maps the codes to their original full information strings.
+다음 표는 코드와 원래의 전체 정보 문자열을 매핑합니다.
 
 <ErrorsTable kind="runtime" :errors="data.runtime" :highlight="highlight" />
 
-## Compiler Errors {#compiler-errors}
+## 컴파일러 에러 {#compiler-errors}
 
-The following table provides a mapping of the production compiler error codes to their original messages.
+다음 표는 프로덕션 컴파일러 오류 코드와 메시지 간의 매핑을 제공합니다.
 
 <ErrorsTable kind="compiler" :errors="data.compiler" :highlight="highlight" />
