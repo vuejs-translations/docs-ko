@@ -229,7 +229,7 @@ const myRef = {
 
 refs의 또 다른 좋은 특성은 일반 변수와 달리 최신 값과 반응성 연결에 대한 액세스를 유지하면서 refs를 함수에 전달할 수 있다는 것입니다. 이는 복잡한 논리를 재사용 가능한 코드로 리팩터링할 때 특히 유용합니다.
 
-반응성 시스템은 [깊은 반응성](/guide/extras/reactivity-in-depth) 섹션에서 자세히 설명합니다.
+반응성 시스템은 [반응형 심화](/guide/extras/reactivity-in-depth) 섹션에서 자세히 설명합니다.
 
 </div>
 
@@ -315,7 +315,7 @@ export default {
 
 <div class="composition-api">
 
-Refs는 깊게 중첩된 개체, 배열 또는 `Map`과 같은 JavaScript 내장 데이터 구조를 포함하여 모든 값 유형을 보유할 수 있습니다.
+Refs는 깊게 중첩된 객체, 배열 또는 `Map`과 같은 JavaScript 내장 데이터 구조를 포함하여 모든 값 유형을 보유할 수 있습니다.
 
 ref는 값을 깊이 반응하게 만듭니다. 즉, 중첩된 객체나 배열을 변경하더라도 변경 사항이 감지될 것으로 예상할 수 있습니다:
 
