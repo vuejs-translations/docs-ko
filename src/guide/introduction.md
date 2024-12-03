@@ -168,7 +168,7 @@ Vue 컴포넌트는 **옵션(Options) API**와 **컴포지션(Composition) API**
 
 ### 옵션 API {#options-api}
 
-옵션 API를 사용하여 옵션의  `data`, `methods` 및 `mounted` 같은 객체를 사용하여 컴포넌트의 로직를 정의합니다. 옵션으로 정의된 속성은 컴포넌트 인스턴스를 가리키는 함수 내부의 `this`에 노출됩니다:
+옵션 API를 사용하여 옵션의  `data`, `methods` 및 `mounted` 같은 객체를 사용하여 컴포넌트의 로직을 정의합니다. 옵션으로 정의된 속성은 컴포넌트 인스턴스를 가리키는 함수 내부의 `this`에 노출됩니다:
 
 ```vue
 <script>
