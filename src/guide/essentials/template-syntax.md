@@ -120,7 +120,7 @@ data() {
 
 </div>
 
-인자 없이 `v-bind`를 사용하여 단일 엘리먼트에에 바인딩할 수 있습니다:
+인자 없이 `v-bind`를 사용하여 단일 엘리먼트에 바인딩할 수 있습니다:
 
 ```vue-html
 <div v-bind="objectOfAttrs"></div>
