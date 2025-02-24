@@ -8,7 +8,7 @@
 
 ## $data {#data}
 
-[`data`](./options-state.html#data) 옵션에서 반환된 객체로 컴포넌트에 의해 반응형이 됩니다. 컴포넌트 인스턴스는 데이터 객체의 속성 접근을 프록시합니다. 예를들면, 컴포넌트 인스턴스는 데이터 객체의 속성 `this.$data.a`를 `this.a`와 같이 바로 접근할 수 있도록 합니다.
+[`data`](./options-state#data) 옵션에서 반환된 객체로 컴포넌트에 의해 반응형이 됩니다. 컴포넌트 인스턴스는 데이터 객체의 속성 접근을 프록시합니다. 예를들면, 컴포넌트 인스턴스는 데이터 객체의 속성 `this.$data.a`를 `this.a`와 같이 바로 접근할 수 있도록 합니다.
 
 
 - **타입**:
@@ -33,7 +33,7 @@
 
 - **세부 사항**:
 
-  [`props`](./options-state.html#props) 옵션을 통해 선언된 props만 포함됩니다. 컴포넌트 인스턴스는 props 객체의 속성 접근을 프록시합니다.
+  [`props`](./options-state#props) 옵션을 통해 선언된 props만 포함됩니다. 컴포넌트 인스턴스는 props 객체의 속성 접근을 프록시합니다.
 
 ## $el {#el}
 
@@ -43,7 +43,7 @@
 
   ```ts
   interface ComponentPublicInstance {
-    $el: Node | undefined
+    $el: any
   }
   ```
 
@@ -90,7 +90,7 @@
   })
   ```
 
-- **참고**: [`app.config.optionMergeStrategies`](/api/application.html#app-config-optionmergestrategies)
+- **참고**: [`app.config.optionMergeStrategies`](/api/application#app-config-optionmergestrategies)
 
 ## $parent {#parent}
 
@@ -136,9 +136,9 @@
 
   `this.$slots`는 각 슬롯의 이름에 해당하는 함수가 노출되며, vnode(가상노드)로 구성된 배열을 반환합니다. 기본 슬롯은 `this.$slots.default`로 표시됩니다.
 
-  슬롯이 [범위가 지정된 슬롯](/guide/components/slots.html#scoped-slots)이면, 슬롯 함수에 전달된 인자를 슬롯 prop으로 사용할 수 있습니다.
+  슬롯이 [범위가 지정된 슬롯](/guide/components/slots#scoped-slots)이면, 슬롯 함수에 전달된 인자를 슬롯 prop으로 사용할 수 있습니다.
 
-- **참고**: [Render Functions - Rendering Slots](/guide/extras/render-function.html#rendering-slots)
+- **참고**: [Render Functions - Rendering Slots](/guide/extras/render-function#rendering-slots)
 
 ## $refs {#refs}
 
@@ -173,7 +173,7 @@
 
   [폴스루 속성](/guide/components/attrs)은 부모 컴포넌트에서 전달한 속성 및 이벤트 핸들러이지만, 자식의 prop 또는 내보낼(emit) 이벤트로 선언하지 않습니다.
 
-  기본적으로 `$attrs`의 모든 항목은 싱글 루트 엘리먼트만 있는 경우, 컴포넌트의 루트 엘리먼트로 자동 상속됩니다. [`inheritAttrs`](./options-misc.html#inheritattrs) 옵션을 사용하여 명시적으로 비활성화할 수 있으며, 컴포넌트에 여러 루트 노드가 있는 경우에도 비활성화 됩니다.
+  기본적으로 `$attrs`의 모든 항목은 싱글 루트 엘리먼트만 있는 경우, 컴포넌트의 루트 엘리먼트로 자동 상속됩니다. [`inheritAttrs`](./options-misc#inheritattrs) 옵션을 사용하여 명시적으로 비활성화할 수 있으며, 컴포넌트에 여러 루트 노드가 있는 경우에도 비활성화 됩니다.
 
 - **참고**:
 
@@ -218,9 +218,9 @@
   두 번째 인자는 콜백 함수입니다. 콜백은 감시된 소스의 새 값과 이전 값을 인자로 받습니다.
 
   - **`immediate`**: 감시자가 생성되는 즉시 콜백이 호출됩니다. 최초 호출 시, 이전 값은 `undefined`입니다.
-  - **`deep`**: 소스가 객체인 경우, 깊은 변경사항에서도 콜백이 실행되도록 합니다. 참고: [깊은 감시자](/guide/essentials/watchers.html#deep-watchers).
-  - **`flush`**: 콜백의 발생(flush) 타이밍을 조정합니다. 참고: [콜백 실행 타이밍](/guide/essentials/watchers.html#callback-flush-timing),  [`watchEffect()`](/api/reactivity-core.html#watcheffect).
-  - **`onTrack / onTrigger`**: 감시자의 의존성을 디버그합니다. 참고: [감시자 디버깅](/guide/extras/reactivity-in-depth.html#watcher-debugging).
+  - **`deep`**: 소스가 객체인 경우, 깊은 변경사항에서도 콜백이 실행되도록 합니다. 참고: [깊은 감시자](/guide/essentials/watchers#deep-watchers).
+  - **`flush`**: 콜백의 발생(flush) 타이밍을 조정합니다. 참고: [콜백 실행 타이밍](/guide/essentials/watchers#callback-flush-timing),  [`watchEffect()`](/api/reactivity-core#watcheffect).
+  - **`onTrack / onTrigger`**: 감시자의 의존성을 디버그합니다. 참고: [감시자 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging).
 
 - **예제**
 
@@ -259,7 +259,7 @@
   ```
 
 - **참고**:
-  - [옵션 - `watch`](/api/options-state.html#watch)
+  - [옵션 - `watch`](/api/options-state#watch)
   - [가이드 - 감시자](/guide/essentials/watchers)
 
 ## $emit() {#emit}
@@ -290,7 +290,7 @@
 - **참고**:
 
   - [가이드 - 컴포넌트 이벤트](/guide/components/events)
-  - [옵션 - `emits`](./options-state.html#emits)
+  - [옵션 - `emits`](./options-state#emits)
 
 ## $forceUpdate() {#forceupdate}
 
@@ -310,7 +310,7 @@
 
 ## $nextTick() {#nexttick}
 
-전역 [`nextTick()`](./general.html#nexttick)가 인스턴스에 바인딩된 버전.
+전역 [`nextTick()`](./general#nexttick)가 인스턴스에 바인딩된 버전.
 
 - **타입**:
 
@@ -324,4 +324,4 @@
 
   전역 `nextTick()`과의 유일한 차이점은 `this.$nextTick()`에 전달된 콜백이 현재 컴포넌트 인스턴스에 바인딩된 `this` 컨텍스트를 갖는다는 것입니다.
 
-- **참고**: [`nextTick()`](./general.html#nexttick)
+- **참고**: [`nextTick()`](./general#nexttick)

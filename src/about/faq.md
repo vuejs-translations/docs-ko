@@ -30,7 +30,7 @@ Vue는 [MIT 라이선스](https://opensource.org/licenses/MIT)에 따라 공개�
 
 ## Vue는 어떤 브라우저를 지원하나요? {#what-browsers-does-vue-support}
 
-최신 버전의 Vue(3.x)는 [기본 ES2015를 지원하는 브라우저](https://caniuse.com/es6)만 지원합니다. IE11은 제외됩니다. Vue 3.x는 레거시 브라우저에서 폴리필링할 수 없는 ES2015 기능을 사용하므로 레거시 브라우저를 지원해야 하는 경우 대신 Vue 2.x를 사용해야 합니다.
+최신 버전의 Vue(3.x)는 [기본 ES2016를 지원하는 브라우저](https://caniuse.com/es2016)만 지원합니다. IE11은 제외됩니다. Vue 3.x는 레거시 브라우저에서 폴리필링할 수 없는 ES2015 기능을 사용하므로 레거시 브라우저를 지원해야 하는 경우 대신 Vue 2.x를 사용해야 합니다.
 
 ## Vue는 신뢰할 수 있나요? {#is-vue-reliable}
 
@@ -77,7 +77,7 @@ Svelte와 같은 일부 프레임워크는 단일 컴포넌트 시나리오에�
 
 ## 옵션 API와 컴포지션 API 중 어떤 것을 사용해야 하나요? {#should-i-use-options-api-or-composition-api}
 
-Vue를 처음 사용하는 경우 두 스타일 간의 개략적인 비교를 제공합니다 [여기](/guide/introduction.html#which-to-chose).
+Vue를 처음 사용하는 경우 두 스타일 간의 개략적인 비교를 제공합니다 [여기](/guide/introduction#which-to-chose).
 
 이전에 옵션 API를 사용했고 현재 컴포지션 API를 평가 중인 경우 [이 FAQ](/guide/extras/composition-api-faq)를 확인하세요.
 

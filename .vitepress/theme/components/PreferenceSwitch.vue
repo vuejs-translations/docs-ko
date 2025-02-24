@@ -75,7 +75,7 @@ function useToggleFn(
     <div id="preference-switches" :hidden="!isOpen" :aria-hidden="!isOpen">
       <div class="switch-container">
         <label class="options-label" @click="toggleCompositionAPI(false)"
-        >Options</label
+          >Options</label
         >
         <VTSwitch
           class="api-switch"
@@ -86,14 +86,14 @@ function useToggleFn(
         <label
           class="composition-label"
           @click="toggleCompositionAPI(true)"
-        >Composition</label
+          >Composition</label
         >
         <a
           class="switch-link"
           title="About API preference"
           href="/guide/introduction.html#api-styles"
           @click="closeSideBar"
-        >?</a
+          >?</a
         >
         <PreferenceTooltip />
       </div>
@@ -111,7 +111,7 @@ function useToggleFn(
           title="About SFC"
           href="/guide/scaling-up/sfc.html"
           @click="closeSideBar"
-        >?</a
+          >?</a
         >
       </div>
     </div>

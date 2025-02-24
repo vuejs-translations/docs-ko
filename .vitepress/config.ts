@@ -44,6 +44,7 @@ const nav: ThemeConfig['nav'] = [
         text: '리소스',
         items: [
           { text: '파트너', link: '/partners/' },
+          { text: '개발자', link: '/developers/' },
           { text: '테마', link: '/ecosystem/themes' },
           { text: 'UI 컴포넌트', link: 'https://ui-libs.vercel.app/' },
           { text: '자격증', link: 'https://certificates.dev/vuejs/?ref=vuejs-nav' },
@@ -121,9 +122,13 @@ const nav: ThemeConfig['nav'] = [
     link: '/sponsor/'
   },
   {
-    text: '파트너',
-    link: '/partners/',
-    activeMatch: `^/partners/`
+    text: '전문가',
+    badge: { text: 'NEW' },
+    activeMatch: `^/(partners|developers)/`,
+    items: [
+      { text: 'Partners', link: '/partners/' },
+      { text: 'Developers', link: '/developers/', badge: { text: 'NEW' } }
+    ]
   }
 ]
 
@@ -172,16 +177,17 @@ export const sidebar: ThemeConfig['sidebar'] = {
           link: '/guide/essentials/event-handling'
         },
         { text: 'Form 입력 바인딩', link: '/guide/essentials/forms' },
-        {
-          text: '생명주기 훅',
-          link: '/guide/essentials/lifecycle'
-        },
+        
         { text: '감시자', link: '/guide/essentials/watchers' },
         { text: '템플릿 참조', link: '/guide/essentials/template-refs' },
         {
           text: '컴포넌트 기초',
           link: '/guide/essentials/component-basics'
-        }
+        },
+        {
+          text: '생명주기 훅',
+          link: '/guide/essentials/lifecycle'
+        },
       ]
     },
     {
@@ -318,10 +324,6 @@ export const sidebar: ThemeConfig['sidebar'] = {
         {
           text: '애니메이션 기법',
           link: '/guide/extras/animation'
-        },
-        {
-          text: '반응형 변환',
-          link: '/guide/extras/reactivity-transform'
         }
         // {
         //   text: 'Building a Library for Vue',
@@ -369,6 +371,10 @@ export const sidebar: ThemeConfig['sidebar'] = {
         {
           text: '종속성 주입',
           link: '/api/composition-api-dependency-injection'
+        },
+        {
+          text: 'Helpers',
+          link: '/api/composition-api-helpers'
         }
       ]
     },
@@ -418,6 +424,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
     {
       text: '고급 APIs',
       items: [
+        { text: 'Custom Elements', link: '/api/custom-elements' },
         { text: '렌더 함수', link: '/api/render-function' },
         { text: '서버 사이드 렌더링', link: '/api/ssr' },
         { text: 'TypeScript 유틸리티 타입', link: '/api/utility-types' },
@@ -563,6 +570,9 @@ export const sidebar: ThemeConfig['sidebar'] = {
 
 export default defineConfigWithTheme<ThemeConfig>({
   extends: baseConfig,
+  sitemap: {
+    hostname: 'https://vuejs.org'
+  },
 
   lang: 'ko-KR',
   title: 'Vue.js',
@@ -595,8 +605,16 @@ export default defineConfigWithTheme<ThemeConfig>({
       'link',
       {
         rel: 'preconnect',
-        href: 'https://sponsors.vuejs.org'
+        href: 'https://automation.vuejs.org'
       }
+    ],
+    [
+      'script',
+      {},
+      fs.readFileSync(
+        path.resolve(__dirname, './inlined-scripts/uwu.js'),
+        'utf-8'
+      )
     ],
     [
       'script',
@@ -621,6 +639,13 @@ export default defineConfigWithTheme<ThemeConfig>({
         'data-site': 'XNOLWPLB',
         'data-spa': 'auto',
         defer: ''
+      }
+    ],
+    [
+      'script',
+      {
+        src: 'https://vueschool.io/banner.js?affiliate=vuejs&type=top',
+        async: 'true'
       }
     ]
   ],
@@ -658,6 +683,11 @@ export default defineConfigWithTheme<ThemeConfig>({
         repo: 'https://github.com/vuejs-translations/docs-fr'
       },
       {
+        link: 'https://ko.vuejs.org',
+        text: '한국어',
+        repo: 'https://github.com/vuejs-translations/docs-ko'
+      },
+      {
         link: 'https://pt.vuejs.org',
         text: 'Português',
         repo: 'https://github.com/vuejs-translations/docs-pt'
@@ -686,6 +716,11 @@ export default defineConfigWithTheme<ThemeConfig>({
         link: 'https://cs.vuejs.org',
         text: 'Čeština',
         repo: 'https://github.com/vuejs-translations/docs-cs'
+      },
+      {
+        link: 'https://zh-hk.vuejs.org',
+        text: '繁體中文',
+        repo: 'https://github.com/vuejs-translations/docs-zh-hk'
       },
       {
         link: '/translations/',
@@ -729,6 +764,7 @@ export default defineConfigWithTheme<ThemeConfig>({
   },
 
   markdown: {
+    theme: 'github-dark',
     config(md) {
       md.use(headerPlugin)
       // .use(textAdPlugin)
@@ -755,15 +791,10 @@ export default defineConfigWithTheme<ThemeConfig>({
       }
     },
     build: {
-      minify: 'terser',
       chunkSizeWarningLimit: Infinity
     },
     json: {
       stringify: true
     }
-  },
-
-  vue: {
-    reactivityTransform: true
   }
 })

@@ -286,6 +286,10 @@ h(Transition, {
      * 동적으로 변경할 수 있음.
      */
     disabled?: boolean
+    /**
+     * `true`이면 텔레포트는 대상을 확인하기 전에 애플리케이션의 다른 부분이 마운트될 때까지 지연됩니다. (3.5+)
+     */
+    defer?: boolean
   }
   ```
 
@@ -305,6 +309,15 @@ h(Transition, {
   <Teleport to="#popup" :disabled="displayVideoInline">
     <video src="./my-movie.mp4">
   </Teleport>
+  ```
+
+  텔레포트 대상 지연(Defered) 확인 <sup class="vt-badge" data-text="3.5+" />:
+
+  ```vue-html
+  <Teleport defer to="#late-div">...</Teleport>
+
+  <!-- 이 안의 내용이 나중에 채워짐 -->
+  <div id="late-div"></div>
   ```
 
 - **참고** [가이드 - Teleport](/guide/built-ins/teleport)

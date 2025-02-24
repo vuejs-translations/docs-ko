@@ -1,6 +1,6 @@
 # Vue Docs Writing Guide
 
-Writing documentation is an exercise in empathy. We're not describing an objective reality - the source code already does that. Our job is to help shape the relationship between users and the Vue ecosystem. This ever-evolving guide provides some rules and recommendations on how to do that consistently within the Vue ecosystem.
+문서 작성은 공감의 운동입니다.우리는 객관적인 현실을 설명하지 않습니다. 소스 코드는 이미 그렇게합니다.우리의 임무는 사용자와 VUE 생태계의 관계를 형성하는 데 도움이됩니다.이 진화하는이 안내서는 VUE 생태계 내에서 일관되게 수행하는 방법에 대한 몇 가지 규칙과 권장 사항을 제공합니다.
 
 ## Principles
 

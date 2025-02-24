@@ -65,13 +65,13 @@
 
   ```vue
   <script setup>
-  import { ref } from 'vue'
+  import { useTemplateRef } from 'vue'
 
-  const p = ref()
+  const pRef = useTemplateRef('p')
   </script>
 
   <template>
-    <p ref="p">안녕!</p>
+    <p ref="p">hello</p>
   </template>
   ```
 
@@ -101,7 +101,8 @@
 
 - **요구되는 값**: `string | Component`
 
-- **네이티브 엘리먼트에 사용** <sup class="vt-badge">3.1+</sup>
+- **네이티브 엘리먼트에 사용**
+  - 3.1+ 버전에서 지원. 
 
   `is` 속성이 네이티브 HTML 엘리먼트에 사용되면,
   네이티브 웹 플랫폼 함수인 [커스터마이즈 빌트인 엘리먼트](https://html.spec.whatwg.org/multipage/custom-elements#custom-elements-customized-builtin-example)로 해석됩니다.

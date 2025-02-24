@@ -268,9 +268,8 @@
 - **수식어:**
 
   - `.camel` - kebab-case 속성 이름을 camelCase로 변환.
-  - `.prop` - 바인딩을 [DOM 속성(property: 이하 프로퍼티)](https://developer.mozilla.org/en-US/docs/Web/API/Element#properties)으로 강제 설정. <sup class="vt-badge">3.2+</sup>
-  - `.attr` - 바인딩을 [DOM 속성(attribute)](https://developer.mozilla.org/en-US/docs/Glossary/Attribute)으로 강제 설정. <sup class="vt-badge">3.2+</sup>
-
+  - `.prop` - 바인딩을 [DOM 속성(property: 이하 프로퍼티)](https://developer.mozilla.org/en-US/docs/Web/API/Element#properties)으로 강제 설정.  (3.2+).
+  - `.attr` - 바인딩을 [DOM 속성(attribute)](https://developer.mozilla.org/en-US/docs/Glossary/Attribute)으로 강제 설정. (3.2+).
 - **사용법**:
 
   `class` 또는 `style` 속성을 바인딩하는 데 사용되는 경우, `v-bind`는 배열 또는 객체와 같이 값을 추가할 수 있는 타입을 지원합니다. 자세한 내용은 아래 링크된 가이드 섹션을 참고합시다.
@@ -343,7 +342,7 @@
 
 - **참고**:
   - [가이드 - 클래스와 스타일 바인딩](/guide/essentials/class-and-style)
-  - [가이드 - Props: Props 전달에 관한 심화](/guide/components/props.html#prop-passing-details)
+  - [가이드 - Props: Props 전달에 관한 심화](/guide/components/props#prop-passing-details)
 
 ## v-model {#v-model}
 
@@ -360,9 +359,9 @@
 
 - **수식어:**
 
-  - [`.lazy`](/guide/essentials/forms.html#lazy) - `input` 대신 `change` 이벤트를 수신함.
-  - [`.number`](/guide/essentials/forms.html#number) - 유효한 입력 문자열을 숫자로 변환하여 전달.
-  - [`.trim`](/guide/essentials/forms.html#trim) - 사용자 입력의 공백을 트리밍.
+  - [`.lazy`](/guide/essentials/forms#lazy) - `input` 대신 `change` 이벤트를 수신함.
+  - [`.number`](/guide/essentials/forms#number) - 유효한 입력 문자열을 숫자로 변환하여 전달.
+  - [`.trim`](/guide/essentials/forms#trim) - 사용자 입력의 공백을 트리밍.
 
 - **참고**:
 
@@ -382,7 +381,7 @@
 - **다음으로 제한됨**:
 
   - `<template>`
-  - [컴포넌트](/guide/components/slots.html#scoped-slots) (props를 수신할 기본 슬롯만 있는 경우)
+  - [컴포넌트](/guide/components/slots#scoped-slots) (props를 수신할 기본 슬롯만 있는 경우)
 
 - **예제**
 
@@ -468,7 +467,8 @@
   - [가이드 - 템플릿 문법: 텍스트 보간법](/guide/essentials/template-syntax.html#text-interpolation)
   - [v-memo](#v-memo)
 
-## v-memo <sup class="vt-badge" data-text="3.2+" /> {#v-memo}
+## v-memo {#v-memo}
+- 3.2+ 버전 이상에서만 지원합니다.
 
 - **요구되는 값**: `any[]`
 

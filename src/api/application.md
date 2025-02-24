@@ -95,6 +95,18 @@
   }
   ```
 
+## app.onUnmount() <sup class="vt-badge" data-text="3.5+" /> {#app-onunmount}
+
+앱이 언마운트될때 호출된 콜백을 등록합니다.
+
+- **Type**
+
+  ```ts
+  interface App {
+    onUnmount(callback: () => any): void
+  }
+  ```
+
 ## app.component() {#app-component}
 
 이름(문자열)과 컴포넌트정의를 모두 전달하는 경우, 전역 컴포넌트를 등록합니다.
@@ -637,3 +649,42 @@ Vue에서 런타임 경고 발생 시, 트리거 될 커스텀 핸들러를 정�
   ```
 
 - **참고** [컴포넌트 인스턴스 - `$options`](/api/component-instance#options)
+
+
+## app.config.idPrefix <sup class="vt-badge" data-text="3.5+" /> {#app-config-idprefix}
+
+어플리케이션에서 [useId()](/api/composition-api-helpers.html#useid) 를 이용해 만들어지는 모든 ID에서 사용할 prefix를 설정할수 있습니다. 
+
+- **Type:** `string`
+
+- **Default:** `undefined`
+
+- **Example**
+
+  ```js
+  app.config.idPrefix = 'myApp'
+  ```
+
+  ```js
+  // in a component:
+  const id1 = useId() // 'myApp:0'
+  const id2 = useId() // 'myApp:1'
+  ```
+
+## app.config.throwUnhandledErrorInProduction <sup class="vt-badge" data-text="3.5+" /> {#app-config-throwunhandlederrorinproduction}
+
+프로덕션 모드에서 처리되지 않은 오류가 강제로 발생하도록 합니다.
+
+- **Type:** `boolean`
+
+- **Default:** `false`
+
+- **Details**
+
+  기본적으로 Vue 애플리케이션 내에서 발생했지만 명시적으로 처리되지 않은 오류는 개발 모드와 프로덕션 모드 간에 서로 다른 동작을 갖습니다:
+
+  - 개발 중에 오류가 발생하여 애플리케이션이 충돌할 수 있습니다. 이는 개발 중에 오류를 발견하고 수정할 수 있도록 오류를 더 눈에 잘 띄게 하기 위한 것입니다.
+
+  - 프로덕션 환경에서는 최종 사용자에게 미치는 영향을 최소화하기 위해 오류는 콘솔에만 기록됩니다. 그러나 이렇게 하면 프로덕션에서만 발생하는 오류가 오류 모니터링 서비스에서 포착되지 않을 수 있습니다.
+
+  app.config.throwUnhandledErrorInProduction`을 `true`로 설정하면 프로덕션 모드에서도 처리되지 않은 오류가 발생하게 됩니다.
