@@ -1,0 +1,23 @@
+name: yuki-no
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Every hour
+  workflow_dispatch: # Manual trigger (Optional)
+
+jobs:
+  yuki-no:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Gumball12/yuki-no@v1
+        with:
+          # GitHub access token. Required.
+          access-token: ${{ secrets.GITHUB_TOKEN }}
+
+          # The head repo to track. This is the repository you want to
+          # take a diff. Required.
+          head-repo: https://github.com/vuejs/docs
+
+          # The git commit sha of head repo to start tracking. Yuki-no will
+          # only track commit from this hash. Required.
+          track-from: 64bae646c6b5c3427ac6c0e87fc07c6df9ecadf7
