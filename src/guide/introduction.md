@@ -168,7 +168,7 @@ Vue 컴포넌트는 **옵션(Options) API**와 **컴포지션(Composition) API**
 
 ### 옵션 API {#options-api}
 
-옵션 API를 사용하여 옵션의  `data`, `methods` 및 `mounted` 같은 객체를 사용하여 컴포넌트의 로직를 정의합니다. 옵션으로 정의된 속성은 컴포넌트 인스턴스를 가리키는 함수 내부의 `this`에 노출됩니다:
+옵션 API를 사용하여 옵션의  `data`, `methods` 및 `mounted` 같은 객체를 사용하여 컴포넌트의 로직을 정의합니다. 옵션으로 정의된 속성은 컴포넌트 인스턴스를 가리키는 함수 내부의 `this`에 노출됩니다:
 
 ```vue
 <script>
@@ -207,7 +207,7 @@ export default {
 
 ### 컴포지션 API {#composition-api}
 
-컴포지션 API를 사용하는 경우, `import`해서 가져온 API 함수들을 사용하여 컴포넌트의 로직를 정의합니다. SFC에서 컴포지션 API는 일반적으로 [`<script setup>`](/api/sfc-script-setup)과 함께 사용됩니다. `setup` 속성은 Vue가 더 적은 코드 문맥으로 컴포지션 API를 사용하고, 컴파일 시 의도한대로 올바르게 동작할 수 있게 코드를 변환하도록 하는 힌트입니다. 예를 들어 `<script setup>`에 `import` 되어 가져온 객체들과 선언된 최상위 변수 및 함수는 템플릿에서 직접 사용할 수 있습니다.
+컴포지션 API를 사용하는 경우, `import`해서 가져온 API 함수들을 사용하여 컴포넌트의 로직을 정의합니다. SFC에서 컴포지션 API는 일반적으로 [`<script setup>`](/api/sfc-script-setup)과 함께 사용됩니다. `setup` 속성은 Vue가 더 적은 코드 문맥으로 컴포지션 API를 사용하고, 컴파일 시 의도한대로 올바르게 동작할 수 있게 코드를 변환하도록 하는 힌트입니다. 예를 들어 `<script setup>`에 `import` 되어 가져온 객체들과 선언된 최상위 변수 및 함수는 템플릿에서 직접 사용할 수 있습니다.
 
 아래 예제는 위 예제와 완전히 동일한 템플릿을 사용하는 동일한 컴포넌트 이지만, Composition API와 `<script setup>`을 사용했습니다:
 
