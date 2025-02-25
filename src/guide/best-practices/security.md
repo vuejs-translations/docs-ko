@@ -155,7 +155,7 @@ Vue 템플릿은 JavaScript로 컴파일되고 템플릿 내부의 표현식은 
 ```
 
 사용자를 클릭 재킹으로부터 완전히 보호하려면 샌드박스 처리된 iframe 내에서 CSS에 대한 제어만 허용하는 것이 좋습니다.
-또는 스타일 바인딩을 통해 사용자 제어를 제공할 때 [객체 구문](/guide/essentials/class-and-style.html#binding-to-objects)을 사용하고,
+또는 스타일 바인딩을 통해 사용자 제어를 제공할 때 [객체 구문](/guide/essentials/class-and-style#binding-to-objects)을 사용하고,
 다음과 같이 사용자가 제어하기에 안전한 특정 속성에 대한 값만 제공하도록 허용하는 것이 좋습니다:
 
 ```vue-html

@@ -8,7 +8,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 
 ## 기본 사용법 {#basic-usage}
 
-컴포넌트 기초의 [동적 컴포넌트](/guide/essentials/component-basics.html#dynamic-components) 장에서 특별한 `<component>` 엘리먼트를 사용하는 문법을 소개했습니다:
+컴포넌트 기초의 [동적 컴포넌트](/guide/essentials/component-basics#dynamic-components) 장에서 특별한 `<component>` 엘리먼트를 사용하는 문법을 소개했습니다:
 
 ```vue-html
 <component :is="activeComponent" />
@@ -48,7 +48,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 </div>
 
 :::tip
-[in-DOM 템플릿](/guide/essentials/component-basics.html#in-dom-template-parsing-caveats)에서 사용할 때 `<keep-alive>`로 참조해야 합니다.
+[in-DOM 템플릿](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에서 사용할 때 `<keep-alive>`로 참조해야 합니다.
 :::
 
 ## Include / Exclude {#include-exclude}
@@ -74,7 +74,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 </KeepAlive>
 ```
 
-컴포넌트의 [`name`](/api/options-misc.html#name) 옵션과 일치하는지 확인하므로, `KeepAlive`에 의해 조건부로 캐시되어야 하는 컴포넌트는 명시적으로 `name` 옵션을 선언해야 합니다.
+컴포넌트의 [`name`](/api/options-misc#name) 옵션과 일치하는지 확인하므로, `KeepAlive`에 의해 조건부로 캐시되어야 하는 컴포넌트는 명시적으로 `name` 옵션을 선언해야 합니다.
 
 :::tip
 버전 3.2.34부터 `<script setup>`을 사용하는 싱글 파일 컴포넌트는 파일명을 기반으로 `name` 옵션을 자동으로 추론하므로 이름을 수동으로 선언할 필요가 없습니다.
@@ -101,7 +101,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 
 <div class="composition-api">
 
-kept-alive 컴포넌트는 [`onActivated()`](/api/composition-api-lifecycle.html#onactivated) 및 [`onDeactivated()`](/api/composition-api-lifecycle.html#ondeactivated)를 사용하여 이 두 가지 상태에 대한 생명 주기 훅을 등록할 수 있습니다:
+kept-alive 컴포넌트는 [`onActivated()`](/api/composition-api-lifecycle#onactivated) 및 [`onDeactivated()`](/api/composition-api-lifecycle#ondeactivated)를 사용하여 이 두 가지 상태에 대한 생명 주기 훅을 등록할 수 있습니다:
 
 ```vue
 <script setup>
@@ -122,7 +122,7 @@ onDeactivated(() => {
 </div>
 <div class="options-api">
 
-Keeped-alive 컴포넌트는 [`activated`](/api/options-lifecycle.html#activated) 및 [`deactivated`](/api/options-lifecycle.html#deactivated) 훅을 사용하여, 이 두 가지 상태에 대한 생명 주기 훅을 등록할 수 있습니다:
+Keeped-alive 컴포넌트는 [`activated`](/api/options-lifecycle#activated) 및 [`deactivated`](/api/options-lifecycle#deactivated) 훅을 사용하여, 이 두 가지 상태에 대한 생명 주기 훅을 등록할 수 있습니다:
 
 ```js
 export default {
@@ -148,4 +148,4 @@ export default {
 
 **관련 문서**
 
-- [`<KeepAlive>` API 참고](/api/built-in-components.html#keepalive)
+- [`<KeepAlive>` API 참고](/api/built-in-components#keepalive)

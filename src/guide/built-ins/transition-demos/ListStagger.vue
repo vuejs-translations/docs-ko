@@ -13,7 +13,7 @@ const list = [
 const query = ref('')
 
 const computedList = computed(() => {
-  return list.filter((item) => item.msg.toLowerCase().includes(query.value))
+  return list.filter((item) => item.msg.toLowerCase().includes(query.value.toLowerCase()))
 })
 
 function onBeforeEnter(el) {
@@ -39,7 +39,6 @@ function onLeave(el, done) {
   })
 }
 </script>
-
 <template>
   <div class="demo" style="height: 265px">
     <input v-model="query" style="margin-bottom: 20px" />

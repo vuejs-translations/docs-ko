@@ -101,7 +101,7 @@ resolved 상태에서 `<Suspense>` 는 `#default` 슬롯의 루트 노드가 교
 
 ## 에러 처리 {#error-handling}
 
-`<Suspense>` 는 현재 컴포넌트 자체를 통해 에러를 처리하지 않습니다. 그러나 [`errorCaptured`](/api/options-lifecycle.html#errorcaptured) 옵션 또는 [`onErrorCaptured()`](/api/composition-api-lifecycle.html#onerrorcaptured) 훅을 사용하여 `<Suspense>` 의 부모 컴포넌트에서 비동기 에러를 캡처하고 처리할 수 있습니다.
+`<Suspense>` 는 현재 컴포넌트 자체를 통해 에러를 처리하지 않습니다. 그러나 [`errorCaptured`](/api/options-lifecycle#errorcaptured) 옵션 또는 [`onErrorCaptured()`](/api/composition-api-lifecycle#onerrorcaptured) 훅을 사용하여 `<Suspense>` 의 부모 컴포넌트에서 비동기 에러를 캡처하고 처리할 수 있습니다.
 
 ## 다른 컴포넌트와 결합 {#combining-with-other-components}
 
@@ -135,6 +135,9 @@ Vue 라우터에는 동적 import를 사용하여 [컴포넌트를 lazy load하�
 
 ## 중첩 Suspense {#nested-suspense}
 
+- 3.3+ 버전에서 지원됨
+
+`<Suspense>` 는 중첩될 수 있습니다. 이는 
 여러 비동기 컴포넌트(중첩 또는 레이아웃 기반 라우트에 일반적임)를 다음과 같이 가질 때:
 
 ```vue-html

@@ -548,7 +548,7 @@ Vue의 컴포넌트 시스템을 통해 트랜지션을 재사용할 수 있습�
 
 ## 컴포넌트 간 트랜지션 {#transition-between-components}
 
-`<Transition>`은 [동적 컴포넌트](/guide/essentials/component-basics.html#dynamic-components)에서도 사용할 수 있습니다:
+`<Transition>`은 [동적 컴포넌트](/guide/essentials/component-basics#dynamic-components)에서도 사용할 수 있습니다:
 
 ```vue-html
 <Transition name="fade" mode="out-in">
@@ -655,4 +655,4 @@ export default {
 
 **관련 문서**
 
-- [`<Transition>` API 참고](/api/built-in-components.html#transition)
+- [`<Transition>` API 참고](/api/built-in-components#transition)

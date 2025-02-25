@@ -1,19 +1,32 @@
 <script setup>
-import { reactive } from 'vue'
-
-const items = reactive([1, 2, 3, 4, 5])
-let nextNum = items.length + 1
+import { ref } from 'vue'
+const items = ref([1, 2, 3, 4, 5])
+let nextNum = items.value.length + 1
 
 function add() {
-  items.splice(randomIndex(), 0, nextNum++)
+  items.value.splice(randomIndex(), 0, nextNum++)
 }
 
 function remove() {
-  items.splice(randomIndex(), 1)
+  items.value.splice(randomIndex(), 1)
 }
 
 function randomIndex() {
-  return Math.floor(Math.random() * items.length)
+  return Math.floor(Math.random() * items.value.length)
+}
+
+function shuffle(array) {
+  let currentIndex = array.length
+  let randomIndex
+  while (currentIndex != 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex--
+    ;[array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex]
+    ]
+  }
+  return array
 }
 </script>
 
