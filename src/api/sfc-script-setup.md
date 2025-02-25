@@ -305,15 +305,21 @@ const [modelValue, modelModifiers] = defineModel({
 `defineProps` 및 `defineEmits`와 마찬가지로, `defineModel`은 모델 값과 수정자의 유형을 지정하기 위해 타입 인수를 받을 수 있습니다:
 
 ```ts
-const modelValue = defineModel<string>()
-//    ^? Ref<string | undefined>
+const props = defineProps<{
+  foo: string
+  bar?: number
+}>()
 
-// 기본 모델 옵션, 'required'는 가능한 undefined 값을 제거함
-const modelValue = defineModel<string>({ required: true })
-//    ^? Ref<string>
+const emit = defineEmits<{
+  (e: 'change', id: number): void
+  (e: 'update', value: string): void
+}>()
 
-const [modelValue, modifiers] = defineModel<string, 'trim' | 'uppercase'>()
-//                 ^? Record<'trim' | 'uppercase', true | undefined>
+// 3.3+: 더 간결한 대안 문법
+const emit = defineEmits<{
+  change: [id: number] // named tuple syntax
+  update: [value: string]
+}>()
 ```
 
 ## defineExpose() {#defineexpose}
@@ -340,6 +346,8 @@ defineExpose({
 
 ## defineOptions() {#defineoptions}
 
+- 3.3+에서만 지원됩니다.
+
 이 매크로는 별도의 `<script>` 블록을 사용하지 않고 `<script setup>` 내에서 직접 컴포넌트 옵션을 선언하는 데 사용될 수 있습니다:
 
 ```vue
@@ -352,9 +360,6 @@ defineOptions({
 })
 </script>
 ```
-
-- 3.3+에서만 지원됩니다.
-- 이것은 매크로입니다. 옵션은 모듈 범위로 상향 조정되며 `<script setup>`의 리터럴 상수가 아닌 로컬 변수에 접근할 수 없습니다.
 
 ## defineSlots()<sup class="vt-badge ts"/> {#defineslots}
 
@@ -434,12 +439,12 @@ const post = await fetch(`/api/post/1`).then((r) => r.json())
 또한 이러한 표현식은 `await` 이후의 현재 컴포넌트 인스턴스 컨텍스트를 유지하는 형식으로 자동 컴파일됩니다.
 
 :::warning 참고
-`async setup()`은 현재 실험적인 기능인 [`Suspense`](/guide/built-ins/suspense.html)와 함께 사용해야 합니다. 향후 릴리스에서 이를 마무리하고 문서화할 계획입니다. 하지만 지금 궁금한 점은 [테스트](https://github.com/vuejs/core/blob/main/packages/runtime-core/__tests__/components/Suspense.spec.ts)를 참고하여 작동 방식을 확인할 수 있습니다.
+`async setup()`은 현재 실험적인 기능인 [`Suspense`](/guide/built-ins/suspense)와 함께 사용해야 합니다. 향후 릴리스에서 이를 마무리하고 문서화할 계획입니다. 하지만 지금 궁금한 점은 [테스트](https://github.com/vuejs/core/blob/main/packages/runtime-core/__tests__/components/Suspense.spec.ts)를 참고하여 작동 방식을 확인할 수 있습니다.
 :::
 
-## Generics <sup class="vt-badge ts" />  {#generics}
+## 제네릭 <sup class="vt-badge ts" />  {#generics}
 
-일반 유형 매개변수는 `<script>` 태그의 `generic` 속성을 사용하여 선언할 수 있습니다:
+제네릭 유형 매개변수는 `<script>` 태그의 `generic` 속성을 사용하여 선언할 수 있습니다:
 
 ```vue
 <script setup lang="ts" generic="T">
@@ -464,6 +469,26 @@ defineProps<{
   list: U[]
 }>()
 </script>
+```
+
+
+제네릭 컴포넌트에 대한 참조를 `ref`에서 사용하려면 [`vue-component-type-helpers`](https://www.npmjs.com/package/vue-component-type-helpers)  라이브러리를 사용해야 합니다. `InstanceType`은 이를 처리할 수 없습니다.
+
+
+```vue
+<script
+  setup
+  lang="ts"
+>
+import componentWithoutGenerics from '../component-without-generics.vue';
+import genericComponent from '../generic-component.vue';
+
+import type { ComponentExposed } from 'vue-component-type-helpers';
+
+// Works for a component without generics
+ref<InstanceType<typeof componentWithoutGenerics>>();
+
+ref<ComponentExposed<typeof genericComponent>>();
 ```
 
 ## 제한사항 {#restrictions}

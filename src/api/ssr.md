@@ -7,7 +7,7 @@
 
 - **Exported from `vue/server-renderer`**
 
-- **타입**:
+- **타입**
 
   ```ts
   function renderToString(
@@ -50,7 +50,7 @@
 
   Most other SSR APIs on this page also optionally accept a context object. The context object can be accessed in component code via the [useSSRContext](#usessrcontext) helper.
 
-- **참고**: [가이드 - Server-Side Rendering](/guide/scaling-up/ssr)
+- **참고** [가이드 - Server-Side Rendering](/guide/scaling-up/ssr)
 
 ## renderToNodeStream() {#rendertonodestream}
 
@@ -60,7 +60,7 @@ Renders input as a [Node.js Readable stream](https://nodejs.org/api/stream#strea
 
 - **Exported from `vue/server-renderer`**
 
-- **타입**:
+- **타입**
 
   ```ts
   function renderToNodeStream(
@@ -92,7 +92,7 @@ Render and pipe to an existing [Node.js Writable stream](https://nodejs.org/api/
 
 - **Exported from `vue/server-renderer`**
 
-- **타입**:
+- **타입**
 
   ```ts
   function pipeToNodeWritable(
@@ -117,7 +117,7 @@ Renders input as a [Web ReadableStream](https://developer.mozilla.org/en-US/docs
 
 - **Exported from `vue/server-renderer`**
 
-- **타입**:
+- **타입**
 
   ```ts
   function renderToWebStream(
@@ -148,7 +148,7 @@ Render and pipe to an existing [Web WritableStream](https://developer.mozilla.or
 
 - **Exported from `vue/server-renderer`**
 
-- **타입**:
+- **타입**
 
   ```ts
   function pipeToWebWritable(
@@ -184,7 +184,7 @@ Renders input in streaming mode using a simple readable interface.
 
 - **Exported from `vue/server-renderer`**
 
-- **타입**:
+- **타입**
 
   ```ts
   function renderToSimpleStream(
@@ -230,7 +230,7 @@ Renders input in streaming mode using a simple readable interface.
 
 A runtime API used to retrieve the context object passed to `renderToString()` or other server render APIs.
 
-- **타입**:
+- **타입**
 
   ```ts
   function useSSRContext<T = Record<string, any>>(): T | undefined
@@ -254,3 +254,25 @@ A runtime API used to retrieve the context object passed to `renderToString()` o
   }
   </script>
   ```
+
+# data-allow-mismatch <sup class="vt-badge" data-text="3.5+" /> {#data-allow-mismatch}
+
+[하이드레이션 불일치(hydration mismatch)](/guide/scaling-up/ssr#hydration-mismatch) 경고를 억제하는 데 사용할 수 있는 특수 속성입니다.
+
+A special attribute that can be used to suppress [hydration mismatch](/guide/scaling-up/ssr#hydration-mismatch) warnings.
+
+- **Example**
+
+  ```html
+  <div data-allow-mismatch="text">{{ data.toLocaleString() }}</div>
+  ```
+
+  이 값은 허용할 불일치 유형을 특정 타입으로 제한할 수 있습니다. 사용할 수 있는 값은 다음과 같습니다:
+
+  - `text`
+  - `children` (직접적인 자식 요소에 대해서만 불일치를 허용합니다.)
+  - `class`
+  - `style`
+  - `attribute`
+
+  값을 제공하지 않으면 모든 유형의 불일치를 허용합니다.

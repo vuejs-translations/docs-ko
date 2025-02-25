@@ -4,7 +4,7 @@
 
 하위 컴포넌트에 주입(Inject)할 수 있도록 값을 제공(Provide)합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -12,7 +12,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   부모 컴포넌트가 값을 제공하면,
   컴포넌트 계층 구조의 깊이와 관계없이 모든 자식 컴포넌트에서 선택적으로 의존성을 주입받을 수 있도록,
@@ -55,16 +55,16 @@
   ```
 
   위 예제에서 제공된 `msg`는 반응형이 아닙니다.
-  자세한 내용은 [반응형으로 만들기](/guide/components/provide-inject.html#working-with-reactivity)를 참고하십시오.
+  자세한 내용은 [반응형으로 만들기](/guide/components/provide-inject#working-with-reactivity)를 참고하십시오.
 
-- **참고**: [Provide / Inject](/guide/components/provide-inject)
+- **참고** [Provide / Inject](/guide/components/provide-inject)
 
 ## inject {#inject}
 
-상위 컴포넌트 또는 [`app.provide()`](/api/application.html#app-provide)를 통해 앱에서 제공(Provide)된 값 중,
+상위 컴포넌트 또는 [`app.provide()`](/api/application#app-provide)를 통해 앱에서 제공(Provide)된 값 중,
 주입(Inject)할 속성을 선언합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -81,7 +81,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `inject` 옵션은 다음 중 하나입니다:
 
@@ -100,7 +100,7 @@
   이것은 의도적입니다.
   그러나 주입된 값이 반응형 객체인 경우,
   해당 객체의 속성은 반응형으로 유지됩니다.
-  자세한 내용은 [반응형으로 만들기](/guide/components/provide-inject.html#working-with-reactivity)를 참고하십시오.
+  자세한 내용은 [반응형으로 만들기](/guide/components/provide-inject#working-with-reactivity)를 참고하십시오.
 
 - **예제**
 
@@ -180,13 +180,13 @@
   }
   ```
 
-- **참고**: [Provide / Inject](/guide/components/provide-inject)
+- **참고** [Provide / Inject](/guide/components/provide-inject)
 
 ## mixins {#mixins}
 
 현재 컴포넌트에 혼합할 옵션 객체의 배열입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -194,7 +194,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `mixins` 옵션은 믹스인 객체로 이루어진 배열입니다.
   믹스인 객체는 일반 인스턴스 객체와 같은 옵션을 포함할 수 있으며,
@@ -234,7 +234,7 @@
 
 현재 컴포넌트를 확장(extend)할 "클래스 기반" 컴포넌트입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -242,7 +242,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   B 컴포넌트 확장에 A 컴포넌트를 사용하면, A 컴포넌트의 옵션을 상속받을 수 있습니다.
 

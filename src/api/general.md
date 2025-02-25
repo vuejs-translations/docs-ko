@@ -100,7 +100,7 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
 타입 추론으로 Vue 컴포넌트를 정의하기 위한 타입 핼퍼입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   // options 문법
@@ -133,9 +133,11 @@ Vue의 현재 버전(문자열)을 반환합니다.
   type FooInstance = InstanceType<typeof Foo>
   ```
 
-  ### Function Signature <sup class="vt-badge" data-text="3.3+" /> {#function-signature}
+  ### Function Signature {#function-signature}
 
-  `defineComponent()` also has an alternative signature that is meant to be used with Composition API and [render functions or JSX](/guide/extras/render-function.html).
+  - 3.3+ 버전에서만 지원됩니다.
+
+  `defineComponent()` also has an alternative signature that is meant to be used with the Composition API and [render functions or JSX](/guide/extras/render-function.html).
 
   Instead of passing in an options object, a function is expected instead. This function works the same as the Composition API [`setup()`](/api/composition-api-setup.html#composition-api-setup) function: it receives the props and the setup context. The return value should be a render function - both `h()` and JSX are supported:
 
@@ -187,19 +189,13 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
   `defineComponent()`는 함수 호출이기 때문에 웹팩과 같은 일부 빌드 도구에 부작용(Side-effect)을 일으키는 것처럼 보일 수 있습니다. 이렇게 하면 컴포넌트가 전혀 사용되지 않는 경우에도 트리가 흔들리는 것을 방지할 수 있습니다.
 
-  Because `defineComponent()` is a function call, it could look like that it would produce side-effects to some build tools, e.g. webpack. This will prevent the component from being tree-shaken even when the component is never used.
-
   이 함수 호출이 트리 셰이크해도 안전하다는 것을 웹팩에 알리려면 함수 호출 앞에 `/*#__PURE__*/` 주석 표기법을 추가하면 됩니다:
-
-  To tell webpack that this function call is safe to be tree-shaken, you can add a `/*#__PURE__*/` comment notation before the function call:
 
   ```js
   export default /*#__PURE__*/ defineComponent(/* ... */)
   ```
 
   롤업(Vite에서 사용하는 기본 프로덕션 번들러)은 수동 어노테이션 없이도 `defineComponent()`가 실제로 부작용이 없는지 판단할 수 있을 만큼 똑똑하기 때문에 Vite를 사용하는 경우 이 작업이 필요하지 않습니다.
-
-  Note this is not necessary if you are using Vite, because Rollup (the underlying production bundler used by Vite) is smart enough to determine that `defineComponent()` is in fact side-effect-free without the need for manual annotations.
 
 - **참고**: [가이드 - Vue에서 타입스크립트 사용하기](/guide/typescript/overview#general-usage-notes)
 
@@ -234,48 +230,3 @@ Vue의 현재 버전(문자열)을 반환합니다.
   ```
 
 - **참고**: [가이드 - 비동기 컴포넌트](/guide/components/async)
-
-## defineCustomElement() {#definecustomelement}
-
-이 메서드는 [`defineComponent`](#definecomponent)와 동일한 인자를 사용하지만,
-네이티브 [커스텀 엘리먼트](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) 클래스 생성자를 반환합니다.
-
-- **타입**:
-
-  ```ts
-  function defineCustomElement(
-    component:
-      | (ComponentOptions & { styles?: string[] })
-      | ComponentOptions['setup']
-  ): {
-    new (props?: object): HTMLElement
-  }
-  ```
-
-  > 타입은 가독성을 위해 단순화되었습니다.
-
-- **세부 사항**:
-
-  `defineCustomElement()`는 일반 컴포넌트 옵션 외에도 추가로 엘리먼트의 [섀도우 루트](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)에 삽입되어야 하는 CSS를 제공하기 위해,
-  인라인 CSS 문자열을 배열로 감싼 특수 옵션 `styles`도 지원합니다.
-
-  반환 값은 [`customElements.define()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define)을 사용하여 등록할 수 있는 커스텀 엘리먼트 생성자입니다.
-
-- **예제**
-
-  ```js
-  import { defineCustomElement } from 'vue'
-
-  const MyVueElement = defineCustomElement({
-    /* 컴포넌트 옵션 */
-  })
-
-  // 커스텀 엘리먼트를 등록함
-  customElements.define('my-vue-element', MyVueElement)
-  ```
-
-- **참고**:
-
-  - [가이드 - Vue로 커스텀 엘리먼트 만들기](/guide/extras/web-components#building-custom-elements-with-vue)
-
-  - `defineCustomElement()`는 싱글 파일 컴포넌트와 함께 사용할 때, [특별한 설정](/guide/extras/web-components#sfc-as-custom-element)이 필요합니다.

@@ -11,7 +11,7 @@
 - **타입**:
 
   ```ts
-  function onMounted(callback: () => void): void
+  function onMounted(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
 - **세부 사항**:
@@ -53,14 +53,14 @@
 - **타입**:
 
   ```ts
-  function onUpdated(callback: () => void): void
+  function onUpdated(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
 - **세부 사항**:
 
   부모 컴포넌트의 updated 훅은 자식 컴포넌트의 훅 이후에 호출됩니다.
-
-  이 훅은 컴포넌트의 DOM 업데이트 후에 호출됩니다. 이는 다양한 상태 변경으로 인해 발생할 수 있습니다. 여러 상태 변경은 성능상의 이유로 단일 렌더 주기로 묶일 수 있습니다. 특정 상태 변경 이후에 업데이트된 DOM에 접근해야 한다면, 대신에 [nextTick()](/api/general#nexttick)을 사용하세요.
+- 
+  이 훅은 컴포넌트의 DOM이 업데이트된 후 호출됩니다. 이러한 업데이트는 다양한 상태 변경에 의해 발생할 수 있으며, 성능상의 이유로 여러 상태 변경이 하나의 렌더링 사이클로 배치될 수도 있습니다. 특정 상태 변경 후 업데이트된 DOM에 접근해야 하는 경우에는 [nextTick()](/api/general#nexttick)을 대신 사용하세요.
 
   **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
@@ -96,7 +96,7 @@
 - **타입**:
 
   ```ts
-  function onUnmounted(callback: () => void): void
+  function onUnmounted(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
 - **세부 사항**:
@@ -135,7 +135,7 @@
 - **타입**:
 
   ```ts
-  function onBeforeMount(callback: () => void): void
+  function onBeforeMount(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
 - **세부 사항**:
@@ -151,7 +151,7 @@
 - **타입**:
 
   ```ts
-  function onBeforeUpdate(callback: () => void): void
+  function onBeforeUpdate(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
 - **세부 사항**:
@@ -167,7 +167,7 @@
 - **타입**:
 
   ```ts
-  function onBeforeUnmount(callback: () => void): void
+  function onBeforeUnmount(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
 - **세부 사항**:
@@ -216,7 +216,7 @@
 
   **에러 전파 규칙**
 
-  - 기본적으로 모든 에러는 단계적으로 전파되며, [`app.config.errorHandler`](/api/application.html#app-config-errorhandler)가 정의된 경우, 최종적으로 이곳으로 전파되므로 한 곳에서 서비스 분석 및 보고 작업을 할 수 있습니다.
+  - 기본적으로 모든 에러는 단계적으로 전파되며, [`app.config.errorHandler`](/api/application#app-config-errorhandler)가 정의된 경우, 최종적으로 이곳으로 전파되므로 한 곳에서 서비스 분석 및 보고 작업을 할 수 있습니다.
 
   - 컴포넌트의 상속 체인 또는 부모 체인에 여러 개의 `errorCaptured` 후크가 존재하는 경우, 모든 후크는 동일한 오류에 대해 아래에서 위로 순서대로 호출됩니다. 이는 네이티브 DOM 이벤트의 버블링 메커니즘과 유사합니다.
 
@@ -282,10 +282,10 @@
 - **타입**:
 
   ```ts
-  function onActivated(callback: () => void): void
+  function onActivated(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
-- **참고**: [가이드 - 캐시된 인스턴스의 생명 주기](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
+- **참고**: [가이드 - 캐시된 인스턴스의 생명 주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
 
 ## onDeactivated()  {#ondeactivated}
 
@@ -296,10 +296,10 @@
 - **타입**:
 
   ```ts
-  function onDeactivated(callback: () => void): void
+  function onDeactivated(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
-- **참고**: [가이드 - 캐시된 인스턴스의 생명 주기](/guide/built-ins/keep-alive.html#lifecycle-of-cached-instance)
+- **참고**: [가이드 - 캐시된 인스턴스의 생명 주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
 
 ## onServerPrefetch() <sup class="vt-badge" data-text="SSR 전용" /> {#onserverprefetch}
 

@@ -4,13 +4,13 @@
 
 하위 컴포넌트에 주입(Inject)할 수 있도록 값을 제공(Provide)합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function provide<T>(key: InjectionKey<T> | string, value: T): void
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `provide()`는 "키가 될 문자열 또는 심볼(symbol)"과 "제공될 값" 두 가지 인자를 가집니다.
 
@@ -37,7 +37,7 @@
   </script>
   ```
 
-- **참고**:
+- **참고**
   - [가이드 - Provide/Inject](/guide/components/provide-inject)
   - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
 
@@ -45,7 +45,7 @@
 
 상위 컴포넌트 또는 [`app.provide()`](/api/application#app-provide)를 통해 앱에서 제공(Provide)된 값을 주입(Inject)합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   // 기본 값 없음
@@ -103,7 +103,7 @@
   </script>
   ```
   
-- **참고**:
+- **참고**
   - [가이드 - Provide/Inject](/guide/components/provide-inject)
   - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
 

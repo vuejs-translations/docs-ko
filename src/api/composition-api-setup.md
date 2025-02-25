@@ -1,17 +1,15 @@
 # 컴포지션 API: setup() {#composition-api-setup}
 
-:::info Note
-이 페이지는 컴포넌트의 `setup` 옵션 사용법을 설명합니다.
-싱글 파일 컴포넌트에 컴포지션 API를 사용하는 경우,
-보다 간결하고 인체공학적인 문법을 위해 [`<script setup>`](/api/sfc-script-setup) 사용을 권장합니다.
-:::
+## 기본 사용법 {#basic-usage}
 
 `setup()` 훅은 다음과 같은 경우, 컴포넌트에서 컴포지션 API 사용을 위한 진입점 역할을 합니다:
 
 1. 빌드 과정 없이 컴포지션 API 사용.
 2. 옵션 API 컴포넌트에서 컴포지션 API 기반 코드와 통합.
 
-## 기본 사용법 {#basic-usage}
+:::info Note
+싱글 파일 컴포넌트에서 Composition API를 사용하는 경우, 보다 간결하고 효율적인 문법을 위해 <script setup>의 사용을 강력히 권장합니다.
+:::
 
 [반응형 API](./reactivity-core)를 사용하여 반응형 상태를 선언하고 `setup()`에서 객체를 반환하여 템플릿에 노출할 수 있습니다.
 반환된 객체의 속성은 컴포넌트 인스턴스에서 사용할 수 있습니다(옵션 API가 사용되는 경우):

@@ -8,7 +8,7 @@
 
 인스턴스가 초기화된 후 호출됩니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -16,7 +16,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   인스턴스가 초기화 되고 props가 해결될 때 즉시 호출됩니다.
 
@@ -28,7 +28,7 @@
 
 인스턴스가 모든 상태 관련 옵션 처리를 완료한 후 호출됩니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -36,7 +36,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   반응형 데이터, 계산된 속성, 메서드 및 감시자가 설정된 후, 이 훅이 호출되면 됩니다. 그러나 마운팅 단계가 시작되지 않았으므로, `$el` 속성을 아직 사용할 수 없습니다.
 
@@ -44,7 +44,7 @@
 
 컴포넌트가 마운트되기 직전 호출됩니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -52,7 +52,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   반응형 상태 설정이 완료되면 이 훅이 호출되지만, 아직 DOM 노드가 생성되지는 않았으며, 첫 DOM 렌더 이펙트를 실행하려고 합니다.
 
@@ -62,7 +62,7 @@
 
 컴포넌트가 마운트된 후 호출됩니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -70,7 +70,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   컴포넌트가 마운트된 것으로 간주되는 경우:
 
@@ -86,7 +86,7 @@
 
 반응형 상태 변경에 의한 컴포넌트 DOM 트리 업데이트 직전 호출됩니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -94,7 +94,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   이 훅은 Vue가 DOM을 업데이트하기 전, DOM 상태에 접근하는 데 사용할 수 있습니다. 이 훅 내부에서 컴포넌트 상태를 수정하는 것도 안전합니다.
 
@@ -104,7 +104,7 @@
 
 반응형 상태 변경에 의한 컴포넌트 DOM 트리 업데이트 후 호출됩니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -112,7 +112,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   부모 컴포넌트의 `updated` 훅은 자식 컴포넌트의 `updated` 훅 이후에 호출됩니다.
 
@@ -128,7 +128,7 @@
 
 컴포넌트 인스턴스가 마운트 해제되기 직전 호출됩니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -136,7 +136,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   이 훅이 호출된 경우에도 컴포넌트 인스턴스는 여전히 온전히 작동합니다.
 
@@ -146,7 +146,7 @@
 
 컴포넌트가 마운트 해제된 후 호출됩니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -154,7 +154,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   컴포넌트가 언마운트된 것으로 간주되는 경우:
 
@@ -170,7 +170,7 @@
 
 자식 컴포넌트에서 전파된 에러가 캡쳐되었을 때 호출됩니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -183,7 +183,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   다음과 같은 출처의 에러를 캡처할 수 있습니다:
 
@@ -214,14 +214,19 @@
   - `errorCaptured` 훅 자체에서 에러가 발생하면, 이 에러와 원래 캡처된 에러가 모두 `app.config.errorHandler`로 전송됩니다.
 
   - `errorCaptured` 훅에서 `false`를 반환하면 더 이상 에러가 전파되지 않습니다. 이것은 본질적으로 "이 에러는 처리되었으므로 무시되어야 합니다."를 의미합니다. 따라서 이후 단계적으로 전파되어야 할 `errorCaptured` 훅 또는 `app.config.errorHandler`에 이 에러로 인한 호출 동작은 없습니다.
+  
+  **에러캡쳐 유의사항**
+  - 비동기 `setup()` 함수(상위 수준의 `await` 포함)를 사용하는 컴포넌트에서는, `setup()`에서 오류가 발생하더라도 Vue는 항상 컴포넌트 템플릿을 렌더링하려고 시도합니다. 이로 인해 추가적인 오류가 발생할 가능성이 있습니다. 특히, 렌더링 과정에서 실패한 `setup()` 컨텍스트의 존재하지 않는 속성에 접근하려 할 수 있기 때문입니다. 이러한 컴포넌트에서 오류를 캡처할 때는, 실패한 비동기 `setup()`에서 발생하는 오류(항상 먼저 발생함)와 렌더링 실패로 인한 오류를 모두 처리할 준비가 필요합니다.
 
+  - <sup class="vt-badge" data-text="SSR only"></sup> 부모 컴포넌트 내부의 `<Suspense>` 깊숙한 곳에서 오류가 발생한 자식 컴포넌트를 교체하면, SSR(서버 사이드 렌더링)에서 hydration 불일치가 발생할 수 있습니다. 대신, 오류가 발생할 가능성이 있는 로직을 자식 컴포넌트의 `setup()`에서 분리하여 별도의 함수로 만들고, 이를 부모 컴포넌트의 `setup()`에서 실행하는 것이 좋습니다. 이렇게 하면 try/catch를 활용하여 안전하게 실행 과정을 제어하고, 실제 자식 컴포넌트를 렌더링하기 전에 필요한 경우 교체할 수 있습니다.
+  
 ## renderTracked <sup class="vt-badge dev-only" /> {#rendertracked}
 
 컴포넌트의 렌더 이펙트에 의해 반응형 의존성이 추적됐을 때, 호출됩니다.
 
 **이 훅은 개발 모드 전용이며 서버 측 렌더링 중에는 호출되지 않습니다.**
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -236,13 +241,13 @@
   }
   ```
 
-- **참고**: [가이드 - 반응형 심화](/guide/extras/reactivity-in-depth)
+- **참고** [가이드 - 반응형 심화](/guide/extras/reactivity-in-depth)
 
 ## renderTriggered <sup class="vt-badge dev-only" /> {#rendertriggered}
 
 컴포넌트의 렌더 이펙트가 반응형 의존성에 의해 다시 실행되도록 트리거된 경우, 호출됩니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -260,7 +265,7 @@
   }
   ```
 
-- **참고**: [가이드 - 반응형 심화](/guide/extras/reactivity-in-depth)
+- **참고** [가이드 - 반응형 심화](/guide/extras/reactivity-in-depth)
 
 ## activated {#activated}
 
@@ -269,7 +274,7 @@
 
 **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -277,7 +282,7 @@
   }
   ```
 
-- **참고**: [가이드 - 캐시된 인스턴스의 생명주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
+- **참고** [가이드 - 캐시된 인스턴스의 생명주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
 
 ## deactivated {#deactivated}
 
@@ -285,7 +290,7 @@
 
 **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -293,13 +298,13 @@
   }
   ```
 
-- **참고**: [가이드 - 캐시된 인스턴스의 생명주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
+- **참고** [가이드 - 캐시된 인스턴스의 생명주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
 
 ## serverPrefetch <sup class="vt-badge" data-text="SSR 전용" /> {#serverprefetch}
 
 컴포넌트 인스턴스가 서버에서 렌더링 되기 전에 완료(resolve)되어야 하는 비동기 함수입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -307,7 +312,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   훅이 Promise를 반환하면, 서버 렌더러는 컴포넌트를 렌더링하기 전 Promise가 해결될 때까지 기다립니다.
 
@@ -339,4 +344,4 @@
   }
   ```
 
-- **참고**: [가이드 - 서버 사이드 렌더링 (SSR)](/guide/scaling-up/ssr)
+- **참고** [가이드 - 서버 사이드 렌더링 (SSR)](/guide/scaling-up/ssr)

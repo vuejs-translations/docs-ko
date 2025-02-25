@@ -34,13 +34,13 @@
 
 ## MaybeRef\<T> {#mayberef}
 
-`T | Ref<T>`의 별칭입니다. [컴포저블](/guide/reusability/composables.html)의 인자를 주석 처리하는 데 유용합니다.
+`T | Ref<T>`의 별칭입니다. [컴포저블](/guide/reusability/composables)의 인자를 주석 처리하는 데 유용합니다.
 
 - 3.3+에서만 지원됩니다.
 
 ## MaybeRefOrGetter\<T> {#maybereforgetter}
 
-`T | Ref<T> | (() => T)`의 별칭입니다. [컴포저블](/guide/reusability/composables.html)의 인자를 주석 처리하는 데 유용합니다.
+`T | Ref<T> | (() => T)`의 별칭입니다. [컴포저블](/guide/reusability/composables)의 인자를 주석 처리하는 데 유용합니다.
 
 - 3.3+에서만 지원됩니다.
 

@@ -102,7 +102,10 @@
   </div>
 
 - **참고** [전달 속성](/guide/components/attrs)
+  <div class="composition-api">
 
+  - [보통은 `<script>` 에서  `inheritAttrs`을 사용합니다](/api/sfc-script-setup#usage-alongside-normal-script)
+  </div>
 ## components {#components}
 
 컴포넌트 인스턴스에서 사용 가능하도록 컴포넌트를 등록하는 객체입니다.
@@ -166,4 +169,7 @@
   <input v-focus>
   ```
 
+  컴포넌트 인스턴스에서 사용할 수 있도록 제공되는 디렉티브의 해시 객체입니다.
+
 - **참고** [사용자 정의 지시자](/guide/reusability/custom-directives)
+
