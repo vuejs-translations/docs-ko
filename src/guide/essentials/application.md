@@ -88,6 +88,9 @@ app.mount('#app')
 
 최상위 컴포넌트에 아직 `template` 옵션이 없으면 Vue는 자동으로 컨테이너의 `innerHTML`을 템플릿으로 사용합니다.
 
+IN-DOM 템플릿은 주로 [빌드 단계](/guide/quick-start.html#using-vue-from-cdn)를 거치지 않고 Vue를 사용하는 경우에 활용됩니다. 또한, 서버에서 동적으로 루트 템플릿을 생성하는 서버 사이드 프레임워크와 함께 사용할 수도 있습니다.
+
+
 ## 앱 환경설정 {#app-configurations}
 
 앱 인스턴스는 몇 가지 앱 레벨의 옵션을 구성할 수 있는 `.config` 객체를 노출합니다.

@@ -30,7 +30,7 @@ props만 있으면 전체 부모 체인에 동일한 prop을 전달해야 합니
 
 <div class="composition-api">
 
-컴포넌트의 하위 항목에 데이터를 제공하려면 [`provide()`](/api/composition-api-dependency-injection.html#provide) 함수를 사용하세요:
+컴포넌트의 하위 항목에 데이터를 제공하려면 [`provide()`](/api/composition-api-dependency-injection#provide) 함수를 사용하세요:
 
 ```vue
 <script setup>
@@ -73,7 +73,7 @@ provide('key', count)
 
 <div class="options-api">
 
-컴포넌트의 하위 항목에 데이터를 제공하려면 [`provide`](/api/options-composition.html#provide) 옵션을 사용하세요:
+컴포넌트의 하위 항목에 데이터를 제공하려면 [`provide`](/api/options-composition#provide) 옵션을 사용하세요:
 
 ```js
 export default {
@@ -127,7 +127,7 @@ app.provide(/* 키 */ 'message', /* 값 */ '안녕!')
 
 <div class="composition-api">
 
-부모 컴포넌트에서 제공하는 데이터를 주입하려면 [`inject()`](/api/composition-api-dependency-injection.html#inject) 함수를 사용하세요:
+부모 컴포넌트에서 제공하는 데이터를 주입하려면 [`inject()`](/api/composition-api-dependency-injection#inject) 함수를 사용하세요:
 
 ```vue
 <script setup>
@@ -159,7 +159,7 @@ export default {
 
 <div class="options-api">
 
-부모 컴포넌트에서 제공하는 데이터를 주입하려면 [`inject`](/api/options-composition.html#inject) 옵션을 사용하세요:
+부모 컴포넌트에서 제공하는 데이터를 주입하려면 [`inject`](/api/options-composition#inject) 옵션을 사용하세요:
 
 ```js
 export default {
@@ -183,6 +183,8 @@ export default {
   }
 }
 ```
+
+여러 부모가 동일한 키로 데이터를 제공하는 경우, inject는 부모 체인에서 가장 가까운 부모의 데이터를 참조하게 됩니다.
 
 [반응형으로 작동하는 provide 및 inject의 전체 예제 보기](https://play.vuejs.org/#eNqNkc9KxDAQxl9l6CUKy+ZegiAefAjrobSzGmnTkKaLUAoeVEQ99LBFDyLexKuPZeM7mLS73S0u7EJI+OYP8/sypXcs5XReoOd7LI8Ul/ooEDyVmdJwcsmTGGYqS4FMaadcKQlEIPC6K4lxFhaJhjIQAFFm+wQKnftQLrurictIlc15jAeHfSGAQl0osVIAKeZ5eIE+ENM8tHeNneHClXvsZQ+jA54VGlOZhBqtAmD9KGoFo0PGm3gD8jZ3pyoU8djiOrS/zx503bkf8cbw/9hjjBH7NhwurjDSPpyR5S+S853zZfcAmPvavNfmpf75fgbzcfvbvLaPC2i/FubpzXzeWIPlajlQdetg1DVvEld/VD/UvA==)
 
@@ -298,7 +300,7 @@ const { location, updateLocation } = inject('location')
 ```
 
 마지막으로, `provide`를 통해 전달된 데이터가 주입된 컴포넌트에 의해 변경될 수 없도록 하려면,
-제공된 값을 [`readonly()`](/api/reactivity-core.html#readonly)로 래핑할 수 있습니다.
+제공된 값을 [`readonly()`](/api/reactivity-core#readonly)로 래핑할 수 있습니다.
 
 ```vue
 <script setup>
@@ -314,7 +316,7 @@ provide('read-only-count', readonly(count))
 <div class="options-api">
 
 제공자로부터 반응형으로 연결된 주입을 만들기 위해,
-[computed()](/api/reactivity-core.html#computed) 함수를 사용하여 계산된 속성을 제공해야 합니다:
+[computed()](/api/reactivity-core#computed) 함수를 사용하여 계산된 속성을 제공해야 합니다:
 
 ```js{10}
 import { computed } from 'vue'
@@ -375,7 +377,7 @@ import { myInjectionKey } from './keys.js'
 const injected = inject(myInjectionKey)
 ```
 
-참고: [Provide / Inject 타입 지정하기](/guide/typescript/composition-api.html#typing-provide-inject) <sup class="vt-badge ts" />
+참고: [Provide / Inject 타입 지정하기](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
 
 </div>
 

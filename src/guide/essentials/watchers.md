@@ -224,6 +224,8 @@ watch(
 
 </div>
 
+Vue 3.5+에서는 `deep` 옵션이 숫자로 설정될 수도 있으며, 이는 최대 탐색 깊이(depth)를 의미합니다. 즉, Vue가 객체의 중첩된 속성을 몇 단계까지 탐색할지를 지정할 수 있습니다.
+
 :::warning 주의해서 사용
 깊은 감시는 감시된 객체의 모든 중첩된 속성을 순회해야 하므로, 대규모 데이터 구조에서 사용할 경우 비용이 많이 들 수 있습니다. 필요할 때만 사용하고 성능에 미치는 영향을 주의하십시오.
 :::
@@ -362,6 +364,132 @@ watchEffect(async () => {
 - `watchEffect`는 종속성 추적과 부수 효과를 하나의 단계로 결합합니다. 동기적 실행 동안 접근한 모든 반응형 속성을 자동으로 추적합니다. 이는 더 편리하며 일반적으로 더 간결한 코드를 작성할 수 있게 해주지만, 반응형 종속성이 덜 명확합니다.
 
 </div>
+
+
+## 부작용 정리 {#side-effect-cleanup}
+
+때때로 watcher에서 비동기 요청과 같은 부작용(side effects)을 수행할 수 있습니다:
+
+<div class="composition-api">
+
+```js
+watch(id, (newId) => {
+  fetch(`/api/${newId}`).then(() => {
+    // callback logic
+  })
+})
+```
+
+</div>
+<div class="options-api">
+
+```js
+export default {
+  watch: {
+    id(newId) {
+      fetch(`/api/${newId}`).then(() => {
+        // callback logic
+      })
+    }
+  }
+}
+```
+
+</div>
+
+하지만 요청이 완료되기 전에 `id`가 변경되면 어떻게 될까요? 이전 요청이 완료되었을 때, 이미 오래된(stale) `id` 값을 가진 상태에서 콜백이 실행될 것입니다. 이상적으로는 `id`가 새로운 값으로 변경될 때, 이전의 유효하지 않은 요청을 취소할 수 있어야 합니다.
+
+이를 위해, [`onWatcherCleanup()`](/api/reactivity-core#onwatchercleanup) <sup class="vt-badge" data-text="3.5+" /> API를 사용하여, watcher가 무효화(invalidate)되고 다시 실행되기 전에 호출될 정리(cleanup) 함수를 등록할 수 있습니다:
+
+<div class="composition-api">
+
+```js {10-13}
+import { watch, onWatcherCleanup } from 'vue'
+
+watch(id, (newId) => {
+  const controller = new AbortController()
+
+  fetch(`/api/${newId}`, { signal: controller.signal }).then(() => {
+    // callback logic
+  })
+
+  onWatcherCleanup(() => {
+    // abort stale request
+    controller.abort()
+  })
+})
+```
+
+</div>
+<div class="options-api">
+
+```js {12-15}
+import { onWatcherCleanup } from 'vue'
+
+export default {
+  watch: {
+    id(newId) {
+      const controller = new AbortController()
+
+      fetch(`/api/${newId}`, { signal: controller.signal }).then(() => {
+        // callback logic
+      })
+
+      onWatcherCleanup(() => {
+        // abort stale request
+        controller.abort()
+      })
+    }
+  }
+}
+```
+
+</div>
+
+참고로, `onWatcherCleanup`은 Vue 3.5+에서만 지원되며, `watchEffect`의 이펙트 함수 또는 `watch`의 콜백 함수가 동기적으로 실행되는 동안에만 호출할 수 있습니다.
+
+즉, 비동기 함수 내에서 `await` 문 이후에 호출할 수 없습니다.
+
+대안으로, watch 콜백 함수의 세 번째 인자로 `onCleanup` 함수가 전달되며, 
+<span class="composition-api">watchEffect의 경우, 이펙트 함수의 첫 번째 인자로 전달됩니다.</span>
+
+<div class="composition-api">
+
+```js
+watch(id, (newId, oldId, onCleanup) => {
+  // ...
+  onCleanup(() => {
+    // cleanup logic
+  })
+})
+
+watchEffect((onCleanup) => {
+  // ...
+  onCleanup(() => {
+    // cleanup logic
+  })
+})
+```
+
+</div>
+<div class="options-api">
+
+```js
+export default {
+  watch: {
+    id(newId, oldId, onCleanup) {
+      // ...
+      onCleanup(() => {
+        // cleanup logic
+      })
+    }
+  }
+}
+```
+
+</div>
+
+이 방법은 버전 3.5 이전에서도 동작합니다. 추가로, 함수 인자로 전달되는 `onCleanup`은 watcher 인스턴스에 바인딩되므로, `onWatcherCleanup`과 달리 **동기 실행 제한(synchronous constraint)**을 받지 않습니다.
 
 ## 콜백 플러시 타이밍 {#callback-flush-timing}
 

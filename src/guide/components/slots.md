@@ -300,7 +300,7 @@ function BaseLayout(slots) {
 
 때때로 슬롯이 있는지 여부에 따라 무언가를 렌더링하고 싶을 수 있습니다.
 
-[$slots](/api/component-instance.html#slots) 속성과 [v-if](/guide/essentials/conditional.html#v-if)를 결합하여 이를 실현할 수 있습니다.
+[$slots](/api/component-instance#slots) 속성과 [v-if](/guide/essentials/conditional#v-if)를 결합하여 이를 실현할 수 있습니다.
 
 아래 예제에서는 세 가지 조건부 슬롯인 `header`, `footer`, 그리고 `default`를 가진 Card 컴포넌트를 정의합니다.
 header / footer / default가 있을 때 추가 스타일을 제공하기 위해 이를 감싸기를 원합니다:
@@ -327,7 +327,7 @@ header / footer / default가 있을 때 추가 스타일을 제공하기 위해 
 
 ## 동적인 슬롯 이름 {#dynamic-slot-names}
 
-[동적인 디렉티브의 인자](/guide/essentials/template-syntax.html#dynamic-arguments)는 `v-slot`에서도 작동하므로 동적 슬롯 이름을 정의할 수 있습니다:
+[동적인 디렉티브의 인자](/guide/essentials/template-syntax#dynamic-arguments)는 `v-slot`에서도 작동하므로 동적 슬롯 이름을 정의할 수 있습니다:
 
 ```vue-html
 <base-layout>

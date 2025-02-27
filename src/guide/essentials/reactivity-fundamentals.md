@@ -12,7 +12,7 @@ outline: deep
 
 <div class="options-api">
 
-## 반응형 상태 설정 {#declaring-reactive-state}
+## 반응형 상태 설정 \* {#declaring-reactive-state}
 
 옵션 API에서는 `data` 옵션을 사용하여 컴포넌트의 반응형 상태를 선언합니다.
 옵션 값은 객체를 반환하는 함수여야 합니다.
@@ -349,7 +349,7 @@ function mutateDeeply() {
 
 반응 상태를 변경하면 DOM이 자동으로 업데이트됩니다. 하지만 DOM 업데이트는 동기적으로 적용되지 않는다는 점에 유의해야 합니다. 대신 Vue는 업데이트 주기의 "다음 틱"까지 버퍼링하여 얼마나 많은 상태 변경을 수행하든 각 컴포넌트가 한 번만 업데이트되도록 합니다.
 
-상태 변경 후, DOM 업데이트가 완료될 때까지 기다리려면 [nextTick()](/api/general.html#nexttick) 전역 API를 사용할 수 있습니다:
+상태 변경 후, DOM 업데이트가 완료될 때까지 기다리려면 [nextTick()](/api/general#nexttick) 전역 API를 사용할 수 있습니다:
 
 <div class="composition-api">
 
@@ -510,7 +510,7 @@ console.log(count.value) // 1
 ```
 
 ref의 언래핑은 깊은 반응형 객체 내부에 중첩된 경우에만 발생합니다.
-[얕은 반응형 객체](/api/reactivity-advanced.html#shallowreactive)의 속성으로 접근하는 경우에는 적용되지 않습니다.
+[얕은 반응형 객체](/api/reactivity-advanced#shallowreactive)의 속성으로 접근하는 경우에는 적용되지 않습니다.
 
 ### 배열 및 컬렉션의 주의 사항 \*\* {#caveat-in-arrays-and-collections}
 

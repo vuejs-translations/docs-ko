@@ -97,7 +97,7 @@ export default {
 
 일반 속성처럼 템플릿의 계산된 속성에 데이터를 바인딩할 수 있습니다. Vue는 `publishedBooksMessage`의 값이 `author.books`에 의존한다는 것을 알고 있으므로, `author.books`가 변경되면 `publishedBooksMessage`를 바인딩해 의존하는 모든 것을 업데이트합니다.
 
-참고: [계산된 속성에 타입 지정하기](/guide/typescript/options-api.html#typing-computed-properties) <sup class="vt-badge ts" />
+참고: [계산된 속성에 타입 지정하기](/guide/typescript/options-api#typing-computed-properties) <sup class="vt-badge ts" />
 
 </div>
 
@@ -134,7 +134,7 @@ const publishedBooksMessage = computed(() => {
 
 계산된 속성은 의존된 반응형을 자동으로 추적합니다. Vue는 `publishedBooksMessage`의 값이 `author.books`에 의존한다는 것을 알고 있으므로, `author.books`가 변경되면 `publishedBooksMessage`를 바인딩해 의존하는 모든 것을 업데이트합니다.
 
-참고: [computed 타입 지정하기](/guide/typescript/composition-api.html#typing-computed) <sup class="vt-badge ts" />
+참고: [computed 타입 지정하기](/guide/typescript/composition-api#typing-computed) <sup class="vt-badge ts" />
 
 </div>
 
@@ -258,6 +258,117 @@ const fullName = computed({
 이제 `fullName.value = 'John Doe'`를 실행하면 setter가 호출되고, 그에 따라 `firstName`과 `lastName`이 업데이트됩니다.
 
 </div>
+
+
+## 이전 값을 가져오기 {#previous}
+
+- 3.4+ 이상에서만 지원
+
+
+필요한 경우, computed 속성이 반환했던 이전 값을 가져올 수 있으며, 이는 getter의 첫 번째 인자로 접근할 수 있습니다.
+
+<div class="options-api">
+
+```js
+export default {
+  data() {
+    return {
+      count: 2
+    }
+  },
+  computed: {
+    // 이 computed 속성은 count 값이 3 이하일 때 해당 값을 반환합니다.  
+    // count가 4 이상이 되면, 조건을 마지막으로 만족했던 값이 반환되며,  
+    // count가 다시 3 이하로 감소할 때까지 유지됩니다.
+    alwaysSmall(previous) {
+      if (this.count <= 3) {
+        return this.count
+      }
+
+      return previous
+    }
+  }
+}
+```
+</div>
+
+<div class="composition-api">
+
+```vue
+<script setup>
+import { ref, computed } from 'vue'
+
+const count = ref(2)
+
+// 이 computed 속성은 count 값이 3 이하일 때 해당 값을 반환합니다.  
+// count가 4 이상이 되면, 마지막으로 조건을 만족했던 값이 반환되며,  
+// count가 다시 3 이하로 내려갈 때까지 유지됩니다.
+const alwaysSmall = computed((previous) => {
+  if (count.value <= 3) {
+    return count.value
+  }
+
+  return previous
+})
+</script>
+```
+</div>
+
+In case you're using a writable computed:
+
+<div class="options-api">
+
+```js
+export default {
+  data() {
+    return {
+      count: 2
+    }
+  },
+  computed: {
+    alwaysSmall: {
+      get(previous) {
+        if (this.count <= 3) {
+          return this.count
+        }
+
+        return previous;
+      },
+      set(newValue) {
+        this.count = newValue * 2
+      }
+    }
+  }
+}
+```
+
+</div>
+<div class="composition-api">
+
+```vue
+<script setup>
+import { ref, computed } from 'vue'
+
+const count = ref(2)
+
+const alwaysSmall = computed({
+  get(previous) {
+    if (count.value <= 3) {
+      return count.value
+    }
+
+    return previous
+  },
+  set(newValue) {
+    count.value = newValue * 2
+  }
+})
+</script>
+```
+
+</div>
+
+
 
 ## 모범 사례 {#best-practices}
 
