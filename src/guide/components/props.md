@@ -22,7 +22,7 @@ console.log(props.foo)
 </script>
 ```
 
-`<script setup>`를 사용하지 않는 컴포넌트에서 props는 [`props`](/api/options-state.html#props) 옵션을 사용하여 선언합니다:
+`<script setup>`를 사용하지 않는 컴포넌트에서 props는 [`props`](/api/options-state#props) 옵션을 사용하여 선언합니다:
 
 ```js
 export default {
@@ -40,7 +40,7 @@ export default {
 
 <div class="options-api">
 
-props는 [`props`](/api/options-state.html#props) 옵션을 사용하여 선언됩니다:
+props는 [`props`](/api/options-state#props) 옵션을 사용하여 선언됩니다:
 
 ```js
 export default {
@@ -96,7 +96,7 @@ export default {
 
 <div class="options-api">
 
-참고: [컴포넌트 props에 타입 지정하기](/guide/typescript/options-api.html#typing-component-props) <sup class="vt-badge ts" />
+참고: [컴포넌트 props에 타입 지정하기](/guide/typescript/options-api#typing-component-props) <sup class="vt-badge ts" />
 
 </div>
 
@@ -113,7 +113,73 @@ defineProps<{
 </script>
 ```
 
-참고: [컴포넌트 props에 타입 지정하기](/guide/typescript/composition-api.html#typing-component-props) <sup class="vt-badge ts" />
+참고: [컴포넌트 props에 타입 지정하기](/guide/typescript/composition-api#typing-component-props) <sup class="vt-badge ts" />
+
+</div>
+
+<div class="composition-api">
+
+## 반응형 속성 구조분해 <sup class="vt-badge" data-text="3.5+" /> \*\* {#reactive-props-destructure}
+
+Vue의 반응형 시스템은 속성 접근을 기반으로 상태 사용을 추적합니다. 예를 들어, computed의 getter나 watcher에서 `props.foo`에 접근하면 `foo` 속성이 의존성으로 추적됩니다.
+
+그래서 다음코드를 보면:
+
+```js
+const { foo } = defineProps(['foo'])
+
+watchEffect(() => {
+  // 3.5 이전에는 한번만 실행됨
+  // 3.5+에서는"foo" 속성이 변경될때마다 실행 됨
+  console.log(foo)
+})
+```
+
+버전 3.4 이하에서는 `foo`가 실제 상수로 간주되며 변경되지 않습니다. 하지만 버전 3.5 이상에서는 같은 `<script setup>` 블록 내에서 `defineProps`에서 구조 분해된 변수를 접근할 때, Vue의 컴파일러가 자동으로 `props.`를 앞에 추가합니다. 따라서 위 코드와 아래 코드는 동일한 동작을 하게 됩니다:
+
+```js {5}
+const props = defineProps(['foo'])
+
+watchEffect(() => {
+  // `foo` 는 컴파일러에 의해 `props.foo` 로 변형됩니다. 
+  console.log(props.foo)
+})
+```
+
+또한, JavaScript의 기본값(default value) 문법을 사용하여 props의 기본값을 선언할 수 있습니다. 이는 특히 타입 기반 props 선언을 사용할 때 유용합니다:
+
+
+```ts
+const { foo = 'hello' } = defineProps<{ foo?: string }>()
+```
+
+구조 분해된 props와 일반 변수를 IDE에서 더 명확하게 구분하고 싶다면, Vue의 VSCode 확장에서 구조 분해된 props에 대한 인레이 힌트(inlay-hints)를 활성화하는 설정을 제공합니다.
+
+### 구조 분해된 Props를 함수에 전달하기 {#passing-destructured-props-into-functions}
+
+구조 분해된 Props를 함수에 전달할 때, 예를 들어:
+
+```js
+const { foo } = defineProps(['foo'])
+
+watch(foo, /* ... */)
+```
+
+이 방법은 예상대로 동작하지 않습니다. 이는 `watch(props.foo, ...)` 와 동일한 동작을 하며, `watch`에 반응형 데이터 소스가 아닌 값 자체를 전달하는 것이기 때문입니다. 실제로 Vue의 컴파일러는 이러한 경우를 감지하고 경고를 발생시킵니다.
+
+일반 props를 `watch(() => props.foo, ...)` 방식으로 감시할 수 있는 것과 마찬가지로, 구조 분해된 props도 getter로 감싸서 감시할 수 있습니다.
+
+```js
+watch(() => foo, /* ... */)
+```
+
+또한, 구조 분해된 props를 외부 함수에 전달하면서 반응형 상태를 유지해야 할 때, 이 방법이 권장됩니다:
+
+```js
+useComposable(() => foo)
+```
+
+외부 함수는 제공된 props의 변화를 추적해야 할 때, 해당 getter를 호출하거나 [toValue](/api/reactivity-utilities#tovalue))를 사용하여 값을 정규화할 수 있습니다. 예를 들어, computed 또는 watcher의 getter에서 이를 활용할 수 있습니다.
 
 </div>
 
@@ -148,13 +214,13 @@ export default {
 <span>{{ greetingMessage }}</span>
 ```
 
-기술적으로 props를 자식 컴포넌트에 전달할 때 camelCase를 사용할 수도 있습니다([in-DOM 템플릿](/guide/essentials/component-basics.html#in-dom-template-parsing-caveats) 제외). 그러나 camelCase로 선언된 props 속성일지라도 관례적으로 HTML 속성 표기법과 동일하게 kebab-case로 표기해서 사용하도록 해야 합니다:
+기술적으로 props를 자식 컴포넌트에 전달할 때 camelCase를 사용할 수도 있습니다([in-DOM 템플릿](/guide/essentials/component-basics#in-dom-template-parsing-caveats) 제외). 그러나 camelCase로 선언된 props 속성일지라도 관례적으로 HTML 속성 표기법과 동일하게 kebab-case로 표기해서 사용하도록 해야 합니다:
 
 ```vue-html
 <MyComponent greeting-message="안녕!" />
 ```
 
-기본 엘리먼트와 Vue 컴포넌트를 쉽게 구별하여 템플릿 가독성을 향상하기 위해 되도록 컴포넌트는 [PascalCase](/guide/components/registration.html#component-name-casing)를 사용합니다. 그러나 props를 전달할 때 camelCase를 사용하면 실질적인 이점이 많지 않으므로 각 언어의 규칙을 따르기로 했습니다.
+기본 엘리먼트와 Vue 컴포넌트를 쉽게 구별하여 템플릿 가독성을 향상하기 위해 되도록 컴포넌트는 [PascalCase](/guide/components/registration#component-name-casing)를 사용합니다. 그러나 props를 전달할 때 camelCase를 사용하면 실질적인 이점이 많지 않으므로 각 언어의 규칙을 따르기로 했습니다.
 
 ### 정적 vs. 동적 Props {#static-vs-dynamic-props}
 
@@ -232,7 +298,7 @@ export default {
 
 ### 객체로 여러 속성 바인딩하기 {#binding-multiple-properties-using-an-object}
 
-객체의 모든 속성을 props로 전달하려면 [인자 없이 `v-bind`](/guide/essentials/template-syntax.html#dynamically-binding-multiple-attributes)를 사용할 수 있습니다. 예를 들어, `post` 객체가 주어지면:
+객체의 모든 속성을 props로 전달하려면 [인자 없이 `v-bind`](/guide/essentials/template-syntax#dynamically-binding-multiple-attributes)를 사용할 수 있습니다. 예를 들어, `post` 객체가 주어지면:
 
 <div class="options-api">
 

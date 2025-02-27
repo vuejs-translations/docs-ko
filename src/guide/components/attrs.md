@@ -8,7 +8,7 @@ outline: deep
 
 ## 속성 상속 {#attribute-inheritance}
 
-"폴스루(fallthrough: 대체) 속성"은 컴포넌트에 전달되는 속성 또는 `v-on` 이벤트 리스너 이지만, 이것을 받는 컴포넌트의 [props](./props) 또는 [emits](./events.html#declaring-emitted-events)에서 명시적으로 선언되지 않은 속성입니다. 일반적인 예로는 `class`, `style`, `id` 속성이 있습니다.
+"폴스루(fallthrough: 대체) 속성"은 컴포넌트에 전달되는 속성 또는 `v-on` 이벤트 리스너 이지만, 이것을 받는 컴포넌트의 [props](./props) 또는 [emits](./events#declaring-emitted-events)에서 명시적으로 선언되지 않은 속성입니다. 일반적인 예로는 `class`, `style`, `id` 속성이 있습니다.
 
 컴포넌트가 싱글 루트 엘리먼트를 렌더링하면 폴스루 속성이 루트 엘리먼트의 속성에 자동으로 추가됩니다. 예를 들어 `<MyButton>` 템플릿이 있는 컴포넌트가 있다고 가정합니다:
 
@@ -124,7 +124,7 @@ defineOptions({
 </div>
 ```
 
-[인자없는 `v-bind`](/guide/essentials/template-syntax.html#dynamically-binding-multiple-attributes)는 객체의 모든 속성을 대상 엘리먼트의 속성으로 묶는다는 것을 기억하세요.
+[인자없는 `v-bind`](/guide/essentials/template-syntax#dynamically-binding-multiple-attributes)는 객체의 모든 속성을 대상 엘리먼트의 속성으로 묶는다는 것을 기억하세요.
 
 ## 다중 루트 노드에서 속성 상속 {#attribute-inheritance-on-multiple-root-nodes}
 
