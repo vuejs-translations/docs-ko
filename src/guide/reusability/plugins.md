@@ -28,11 +28,11 @@ const myPlugin = {
 
 플러그인에 대해 엄격하게 정의된 범위는 없지만 플러그인이 유용한 일반적인 시나리오는 다음과 같습니다:
 
-1. [`app.component()`](/api/application.html#app-component) 및 [`app.directive()`](/api/application.html#app-directive)를 사용하여 하나 이상의 전역 컴포넌트 또는 커스텀 디렉티브를 등록합니다.
+1. [`app.component()`](/api/application#app-component) 및 [`app.directive()`](/api/application#app-directive)를 사용하여 하나 이상의 전역 컴포넌트 또는 커스텀 디렉티브를 등록합니다.
 
-2. [`app.provide()`](/api/application.html#app-provide)를 호출하여 앱 전체에 리소스를 [주입 가능](/guide/components/provide-inject)하게 만듭니다.
+2. [`app.provide()`](/api/application#app-provide)를 호출하여 앱 전체에 리소스를 [주입 가능](/guide/components/provide-inject)하게 만듭니다.
 
-3. 일부 전역 인스턴스 속성 또는 메서드를 [`app.config.globalProperties`](/api/application.html#app-config-globalproperties)에 첨부하여 추가합니다.
+3. 일부 전역 인스턴스 속성 또는 메서드를 [`app.config.globalProperties`](/api/application#app-config-globalproperties)에 첨부하여 추가합니다.
 
 4. 위 목록의 몇 가지를 조합해 무언가를 수행해야 하는 라이브러리(예: [vue-router](https://github.com/vuejs/vue-router-next)).
 
@@ -98,7 +98,7 @@ app.use(i18nPlugin, {
 <h1>{{ $translate('greetings.hello') }}</h1>
 ```
 
-참고: [전역 속성 타입 보완하기](/guide/typescript/options-api.html#augmenting-global-properties) <sup class="vt-badge ts" />
+참고: [전역 속성 타입 보완하기](/guide/typescript/options-api#augmenting-global-properties) <sup class="vt-badge ts" />
 
 :::tip
 왠만하면 전역 속성은 사용하지 마십시오.
@@ -146,3 +146,8 @@ export default {
 ```
 
 </div>
+
+### NPM 을 위한 번들
+
+플러그인을 더 개발하고 배포하여 다른 사람들이 사용할 수 있도록 하려면, [Vite의 라이브러리 모드(Library Mode)](https://vitejs.dev/guide/build.html#library-mode) 섹션을 참고하세요.
+
