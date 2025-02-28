@@ -61,7 +61,7 @@ TypeScript를 사용할 경우, [`defineSlots()`](/api/sfc-script-setup#definesl
   }
   ```
 
-- **Details**
+- **세부 사항**
 
   `useModel()`은 SFC가 아닌 컴포넌트에서도 사용할 수 있으며, 예를 들어, `setup()` 함수를 직접 사용할 때 활용할 수 있습니다. 첫 번째 인자로 `props` 객체를, 두 번째 인자로 모델 이름을 전달해야 합니다. 선택적인 세 번째 인자는 반환된 모델 ref에 대한 사용자 정의 getter와 setter를 선언하는 데 사용할 수 있습니다.  단, `defineModel()`과는 달리 `props` 및 `emits`를 직접 선언해야 한다는 점에 유의해야 합니다.
 
@@ -95,7 +95,7 @@ TypeScript를 사용할 경우, [`defineSlots()`](/api/sfc-script-setup#definesl
   </template>
   ```
 
-- **참조**
+- **참고**
   - [가이드 - Template Refs](/guide/essentials/template-refs)
   - [가이드 - Typing Template Refs](/guide/typescript/composition-api#typing-template-refs) <sup class="vt-badge ts" />
   - [가이드 - Typing Component Template Refs](/guide/typescript/composition-api#typing-component-template-refs) <sup class="vt-badge ts" />
@@ -127,7 +127,7 @@ TypeScript를 사용할 경우, [`defineSlots()`](/api/sfc-script-setup#definesl
   </template>
   ```
 
-- **상세**
+- **세부 사항**
 
   `useId()`로 생성된 ID는 애플리케이션 내에서 고유합니다. 이 함수는 폼 요소 및 접근성 속성에 사용할 ID를 생성하는 데 사용할 수 있습니다. 동일한 컴포넌트 내에서 여러 번 호출하면 각각 다른 ID가 생성되며, 동일한 컴포넌트의 여러 인스턴스가 `useId()`를 호출하더라도 서로 다른 ID가 부여됩니다.
 

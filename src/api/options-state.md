@@ -45,7 +45,7 @@
   data: (vm) => ({ a: vm.myProp })
   ```
 
-- **참고**: [반응형 심화](/guide/extras/reactivity-in-depth)
+- **참고** [반응형 심화](/guide/extras/reactivity-in-depth)
 
 ## props {#props}
 

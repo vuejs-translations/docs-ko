@@ -78,7 +78,7 @@ h(Transition, {
   }
   ```
 
-- **이벤트**:
+- **이벤트**
 
   - `@before-enter`
   - `@before-leave`
@@ -150,11 +150,11 @@ h(Transition, {
   }
   ```
 
-- **이벤트**:
+- **이벤트**
 
   `<TransitionGroup>`은 `<Transition>`과 동일한 이벤트를 발생시킵니다.
 
-- **세부 사항**:
+- **세부 사항**
 
   기본적으로 `<TransitionGroup>`은 래퍼 DOM 엘리먼트를 렌더링하지 않지만 `tag` prop을 통해 정의할 수 있습니다.
 
@@ -201,7 +201,7 @@ h(Transition, {
   type MatchPattern = string | RegExp | (string | RegExp)[]
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `<KeepAlive>`로 래핑된 동적 컴포넌트는 비활성화 되면, 컴포넌트 인스턴스가 파괴되지 않고 캐시됩니다.
 
@@ -335,13 +335,13 @@ h(Transition, {
   }
   ```
 
-- **이벤트**:
+- **이벤트**
 
   - `@resolve`
   - `@pending`
   - `@fallback`
 
-- **세부 사항**:
+- **세부 사항**
 
   `<Suspense>`는 `#default` 슬롯과 `#fallback` 슬롯이라는 두 개의 슬롯을 사용합니다. 메모리에서 기본 슬롯을 렌더링하는 동안, 폴백 슬롯의 대체 컨텐츠를 노출합니다.
 

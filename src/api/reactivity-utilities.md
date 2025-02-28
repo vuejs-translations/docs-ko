@@ -149,13 +149,13 @@
 
 이 기능은  [Composables](/guide/reusability/composables)에서 인수를 값, ref, 또는 getter 중 어떤 형태로든 받을 수 있도록 정규화할 때 사용할 수 있습니다.
 
-- **Type**
+- **타입**
 
   ```ts
   function toValue<T>(source: T | Ref<T> | (() => T)): T
   ```
 
-- **Example**
+- **예제**
 
   ```js
   toValue(1) //       --> 1

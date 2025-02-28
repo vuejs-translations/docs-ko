@@ -8,13 +8,13 @@
 
 컴포넌트가 마운트된 후 호출될 콜백을 등록합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onMounted(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   컴포넌트가 마운트 되었다고 간주하는 조건은 다음과 같습니다:
 
@@ -50,13 +50,13 @@
 
 반응형 상태 변경으로 컴포넌트의 DOM 트리가 업데이트된 후 호출될 콜백을 등록합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onUpdated(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   부모 컴포넌트의 updated 훅은 자식 컴포넌트의 훅 이후에 호출됩니다.
 - 
@@ -93,13 +93,13 @@
 
 컴포넌트가 마운트 해제된 후 호출될 콜백을 등록합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onUnmounted(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   컴포넌트가 마운트 해제되었다고 간주하는 조건은 다음과 같습니다:
 
@@ -132,13 +132,13 @@
 
 컴포넌트가 마운트되기 직전에 호출될 훅을 등록합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onBeforeMount(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   이 훅은 컴포넌트의 반응형 상태 설정이 완료된 후 호출되지만, 아직 DOM 노드가 생성되지 않은 단계입니다. 첫 DOM 렌더 이펙트를 실행하려고 합니다.
 
@@ -148,13 +148,13 @@
 
 반응형 상태 변경으로 컴포넌트의 DOM 트리를 업데이트하기 직전에 호출될 콜백을 등록합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onBeforeUpdate(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   이 훅은 Vue가 DOM을 업데이트하기 전에 DOM 상태에 접근하는 데 사용할 수 있습니다. 이 훅 내부에서 컴포넌트 상태를 수정하는 것도 안전합니다.
 
@@ -164,13 +164,13 @@
 
 컴포넌트 인스턴스가 마운트 해제되기 직전에 호출될 콜백을 등록합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onBeforeUnmount(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   이 훅이 호출될 때, 여전히 컴포넌트 인스턴스는 완전히 동작하는 상태입니다.
 
@@ -180,7 +180,7 @@
 
 자식 컴포넌트에서 전파된 에러가 캡쳐되었을 때 호출될 콜백을 등록합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onErrorCaptured(callback: ErrorCapturedHook): void
@@ -192,7 +192,7 @@
   ) => boolean | void
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   다음과 같은 출처의 에러를 캡처할 수 있습니다:
 
@@ -230,7 +230,7 @@
 
 **이 훅은 개발 모드 전용이며, 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onRenderTracked(callback: DebuggerHook): void
@@ -245,7 +245,7 @@
   }
   ```
 
-- **참고**: [반응형 심화](/guide/extras/reactivity-in-depth)
+- **참고** [반응형 심화](/guide/extras/reactivity-in-depth)
 
 ## onRenderTriggered() <sup class="vt-badge dev-only" /> {#onrendertriggered}
 
@@ -253,7 +253,7 @@
 
 **이 훅은 개발 모드 전용이며, 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onRenderTriggered(callback: DebuggerHook): void
@@ -271,7 +271,7 @@
   }
   ```
 
-- **참고**: [반응형 심화](/guide/extras/reactivity-in-depth)
+- **참고** [반응형 심화](/guide/extras/reactivity-in-depth)
 
 ## onActivated() {#onactivated}
 
@@ -279,13 +279,13 @@
 
 **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onActivated(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
-- **참고**: [가이드 - 캐시된 인스턴스의 생명 주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
+- **참고** [가이드 - 캐시된 인스턴스의 생명 주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
 
 ## onDeactivated()  {#ondeactivated}
 
@@ -293,25 +293,25 @@
 
 **이 훅은 서버 사이드 렌더링 중에 호출되지 않습니다**.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onDeactivated(callback: () => void, target?: ComponentInternalInstance | null): void
   ```
 
-- **참고**: [가이드 - 캐시된 인스턴스의 생명 주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
+- **참고** [가이드 - 캐시된 인스턴스의 생명 주기](/guide/built-ins/keep-alive#lifecycle-of-cached-instance)
 
 ## onServerPrefetch() <sup class="vt-badge" data-text="SSR 전용" /> {#onserverprefetch}
 
 컴포넌트 인스턴스가 서버에서 렌더링 되기 전에 완료(resolve)되어야 하는 비동기 함수를 등록합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function onServerPrefetch(callback: () => Promise<any>): void
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   콜백이 Promise를 반환하면, 서버 렌더러는 컴포넌트를 렌더링하기 전 Promise가 해결될 때까지 기다립니다.
 
@@ -343,4 +343,4 @@
   </script>
   ```
 
-- **참고**: [서버 사이드 렌더링](/guide/scaling-up/ssr)
+- **참고** [서버 사이드 렌더링](/guide/scaling-up/ssr)

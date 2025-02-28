@@ -4,9 +4,9 @@
 
 특수 속성 `key`는 Vue의 가상 DOM 알고리즘이 이전 목록과 새 노드 목록을 비교할 때 vnode를 식별하는 힌트로 주로 사용됩니다.
 
-- **요구되는 값**: `number | string | symbol`
+- **요구되는 값** `number | string | symbol`
 
-- **세부 사항**:
+- **세부 사항**
 
   키가 없으면 Vue는 엘리먼트 이동을 최소화하고 동일한 유형의 엘리먼트를 가능한 한 제자리에서 패치/재사용하는 알고리즘을 사용합니다.
   키를 사용하면 키의 순서 변경에 따라 엘리먼트를 재정렬하고 더 이상 존재하지 않는 키가 있는 엘리먼트는 항상 제거/파기됩니다.
@@ -38,15 +38,15 @@
 
   `text`가 변경되면 `<span>`이 패치 대신 항상 교체되므로 트랜지션이 트리거됩니다.
 
-- **참고**: [가이드 - 리스트 렌더링: `key`를 통한 상태유지](/guide/essentials/list#maintaining-state-with-key)
+- **참고** [가이드 - 리스트 렌더링: `key`를 통한 상태유지](/guide/essentials/list#maintaining-state-with-key)
 
 ## ref {#ref}
 
 [템플릿 참조](/guide/essentials/template-refs)를 의미합니다.
 
-- **요구되는 값**: `string | Function`
+- **요구되는 값** `string | Function`
 
-- **세부 사항**:
+- **세부 사항**
 
   `ref` is used to register a reference to an element or a child component.
 
@@ -90,7 +90,7 @@
 
   `this.$refs`도 반응형이 아니므로 데이터 바인딩을 위한 템플릿에서 사용하면 안됩니다.
 
-- **참고**: 
+- **참고** 
   - [가이드 - 템플릿 refs](/guide/essentials/template-refs)
   - [Guide - 템플릿 Refs에 타입 적용하기Typing Template Refs](/guide/typescript/composition-api#typing-template-refs) <sup class="vt-badge ts" />
   - [Guide - 컴포넌트 템플릿 Refs에 타입 적용하기](/guide/typescript/composition-api#typing-component-template-refs) <sup class="vt-badge ts" />
@@ -99,7 +99,7 @@
 
 [동적 컴포넌트](/guide/essentials/component-basics#dynamic-components) 바인딩에 사용합니다.
 
-- **요구되는 값**: `string | Component`
+- **요구되는 값** `string | Component`
 
 - **네이티브 엘리먼트에 사용**
   - 3.1+ 버전에서 지원. 
@@ -117,7 +117,7 @@
   </table>
   ```
 
-- **참고**:
+- **참고**
 
   - [API - 특수 엘리먼트: `<component>`](/api/built-in-special-elements#component)
   - [가이드 - 컴포넌트 기초: 동적 컴포넌트](/guide/essentials/component-basics#dynamic-components)

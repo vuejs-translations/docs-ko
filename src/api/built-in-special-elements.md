@@ -20,7 +20,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `is`라는 prop의 값으로 렌더링할 실제 컴포넌트가 결정됩니다:
 
@@ -118,7 +118,7 @@
   실제로는 기본 양식(form) 필드가 일반적으로 실제 앱의 컴포넌트에 래핑되기 때문에 이러한 예외적인 경우는 일반적이지 않습니다.
   네이티브 엘리먼트를 직접 사용해야 하는 경우, `v-model`을 속성과 이벤트로 수동으로 분할할 수 있습니다.
 
-- **참고**: [가이드 - 컴포넌트 기초: 동적 컴포넌트](/guide/essentials/component-basics#dynamic-components)
+- **참고** [가이드 - 컴포넌트 기초: 동적 컴포넌트](/guide/essentials/component-basics#dynamic-components)
 
 ## `<slot>` {#slot}
 
@@ -140,7 +140,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `<slot>` 엘리먼트는 `name` 속성을 사용하여 슬롯 이름을 지정할 수 있습니다.
   `name`을 지정하지 않으면 기본 슬롯으로 렌더링됩니다.
@@ -150,7 +150,7 @@
 
   Vue 템플릿의 `<slot>` 엘리먼트는 JavaScript로 컴파일되므로 [네이티브 `<slot>` 엘리먼트](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot)와 혼동하면 안됩니다.
 
-- **참고**: [가이드 - 슬롯](/guide/components/slots)
+- **참고** [가이드 - 슬롯](/guide/components/slots)
 
 ## `<template>` {#template}
 
@@ -171,7 +171,7 @@ The `<template>` tag is used as a placeholder when we want to use a built-in dir
   
   싱글 파일 컴포넌트는 [최상위 `<template>` 태그](/api/sfc-spec#language-blocks)를 사용하여 전체 템플릿을 래핑합니다. 그 사용법은 위에서 설명한 `<template>`의 사용과는 별개입니다. 해당 최상위 태그는 템플릿 자체의 일부가 아니며 지시문과 같은 템플릿 문법을 지원하지 않습니다.
 
-- **See also:**
+- **참고**
   - [가이드 - `v-if` on `<template>`](/guide/essentials/conditional#v-if-on-template) 
   - [가이드 - `v-for` on `<template>`](/guide/essentials/list#v-for-on-template) 
   - [가이드 - Named slots](/guide/components/slots#named-slots) 

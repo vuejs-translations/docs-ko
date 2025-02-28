@@ -4,9 +4,9 @@
 
 엘리먼트의 텍스트 컨텐츠를 업데이트합니다.
 
-- **요구되는 값**: `string`
+- **요구되는 값** `string`
 
-- **세부 사항**:
+- **세부 사항**
 
   `v-text`는 엘리먼트의 [텍스트 컨텐츠](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) 속성을 설정하므로, 엘리먼트 내부의 기존 컨텐츠를 덮어씁니다. `텍스트 컨텐츠`의 일부를 업데이트해야 하는 경우, [이중 중괄호](/guide/essentials/template-syntax#text-interpolation)를 사용해야 합니다.
 
@@ -18,15 +18,15 @@
   <span>{{msg}}</span>
   ```
 
-- **참고**: [템플릿 문법 - 텍스트 보간법](/guide/essentials/template-syntax#text-interpolation)
+- **참고** [템플릿 문법 - 텍스트 보간법](/guide/essentials/template-syntax#text-interpolation)
 
 ## v-html {#v-html}
 
 엘리먼트의 [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)을 업데이트합니다.
 
-- **요구되는 값**: `string`
+- **요구되는 값** `string`
 
-- **세부 사항**:
+- **세부 사항**
 
   `v-html`의 내용은 Vue 템플릿 문법을 처리하지 않고 일반 HTML로 삽입됩니다. `v-html`을 사용하여 템플릿을 작성하려고 한다면, 이 방법 대신 컴포넌트를 사용하여 해결하는 방법을 고민해봐야 합니다.
 
@@ -42,27 +42,27 @@
   <div v-html="html"></div>
   ```
 
-- **참고**: [템플릿 문법 - HTML 출력](/guide/essentials/template-syntax#raw-html)
+- **참고** [템플릿 문법 - HTML 출력](/guide/essentials/template-syntax#raw-html)
 
 ## v-show {#v-show}
 
 표현식의 [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) 값을 기반으로 엘리먼트의 가시성을 전환합니다.
 
-- **요구되는 값**: `any`
+- **요구되는 값** `any`
 
-- **세부 사항**:
+- **세부 사항**
 
   `v-show`는 인라인 스타일을 통해 `display` CSS 속성을 설정하며, 엘리먼트가 표시될 때 초기 `display` 값을 설정하려고 시도합니다. 또한 조건이 변경될 때 전환을 트리거합니다.
 
-- **참고**: [조건부 렌더링 - v-show](/guide/essentials/conditional#v-show)
+- **참고** [조건부 렌더링 - v-show](/guide/essentials/conditional#v-show)
 
 ## v-if {#v-if}
 
 표현식의 truthy 값을 기반으로 엘리먼트 또는 템플릿 일부를 조건부로 렌더링합니다.
 
-- **요구되는 값**: `any`
+- **요구되는 값** `any`
 
-- **세부 사항**:
+- **세부 사항**
 
   `v-if` 엘리먼트가 토글되면, 엘리먼트와 여기에 포함된 디렉티브/컴포넌트가 파괴되고 재구성됩니다. 초기 조건 값이 falsy이면, 내부 컨텐츠가 전혀 렌더링되지 않습니다.
 
@@ -72,7 +72,7 @@
 
   `v-for`와 함께 사용하는 경우, `v-if`의 우선 순위가 높습니다. 하나의 엘리먼트에 이 두 디렉티브을 함께 사용하는 것은 권장되지 않습니다. 자세한 내용은 [리스트 렌더링](/guide/essentials/list#v-for-with-v-if)을 참고하세요.
 
-- **참고**: [조건부 렌더링 - v-if](/guide/essentials/conditional#v-if)
+- **참고** [조건부 렌더링 - v-if](/guide/essentials/conditional#v-if)
 
 ## v-else {#v-else}
 
@@ -80,7 +80,7 @@
 
 - **표현식을 허용하지 않습니다**.
 
-- **세부 사항**:
+- **세부 사항**
 
   - 제한사항: 이전 형제 엘리먼트에 `v-if` 또는 `v-else-if`가 있어야 합니다.
 
@@ -97,15 +97,15 @@
   </div>
   ```
 
-- **참고**: [조건부 렌더링 - v-else](/guide/essentials/conditional#v-else)
+- **참고** [조건부 렌더링 - v-else](/guide/essentials/conditional#v-else)
 
 ## v-else-if {#v-else-if}
 
 `v-if`에 대한 `else if` 블록을 나타냅니다. `v-else-if`는 계속 이어서 사용할 수 있습니다.
 
-- **요구되는 값**: `any`
+- **요구되는 값** `any`
 
-- **세부 사항**:
+- **세부 사항**
 
   - 제한사항: 이전 형제 엘리먼트에 `v-if` 또는 `v-else-if`가 있어야 합니다.
 
@@ -128,15 +128,15 @@
   </div>
   ```
 
-- **참고**: [조건부 렌더링 - v-else-if](/guide/essentials/conditional#v-else-if)
+- **참고** [조건부 렌더링 - v-else-if](/guide/essentials/conditional#v-else-if)
 
 ## v-for {#v-for}
 
 소스 데이터를 기반으로 엘리먼트 또는 템플릿 블록을 여러 번 렌더링합니다.
 
-- **요구되는 값**: `Array | Object | number | string | Iterable`
+- **요구되는 값** `Array | Object | number | string | Iterable`
 
-- **세부 사항**:
+- **세부 사항**
 
   디렉티브는 반복되는 과정의 현재 값에 별칭을 제공하기 위해, 특수 문법인 `alias in expression`(표현식 내 별칭)을 사용해야 합니다:
 
@@ -164,7 +164,7 @@
 
   `v-for`는 네이티브 `Map`,`Set`과 더불어 [Iterable Protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)을 구현한 값에서도 작동합니다.
 
-- **참고**:
+- **참고**
   - [가이드 - 리스트 렌더링](/guide/essentials/list)
 
 ## v-on {#v-on}
@@ -173,7 +173,7 @@
 
 - **단축 문법:** `@`
 
-- **요구되는 값**: `Function | Inline Statement | Object (without argument)`
+- **요구되는 값** `Function | Inline Statement | Object (without argument)`
 
 - **인자:** `event` (선택사항: 객체 문법을 사용하는 경우)
 
@@ -190,7 +190,7 @@
   - `.middle` - 마우스 중앙(힐 클릭) 버튼으로만 이벤트가 트리거 됨.
   - `.passive` - `{ passive: true }` 옵션으로 DOM 이벤트를 등록.
 
-- **세부 사항**:
+- **세부 사항**
 
   이벤트 타입은 인자로 표시됩니다. 표현식은 메서드 이름 또는 인라인 명령문이거나, 수식어가 있는 경우 생략될 수 있습니다.
 
@@ -249,7 +249,7 @@
   <MyComponent @my-event="handleThis(123, $event)" />
   ```
 
-- **참고**:
+- **참고**
   - [이벤트 핸들링](/guide/essentials/event-handling)
   - [컴포넌트 - 이벤트 청취하기](/guide/essentials/component-basics#listening-to-events)
 
@@ -261,7 +261,7 @@
   - `:` 또는 `.`(`.prop` 수식어를 사용할 때)
   - 속성(attribute)과 바인딩된 값이 같은 이름을 가질 경우 값을 생략할 수 있음 <sup class="vt-badge">3.4+</sup>
 
-- **요구되는 값**: `any (인자 있이) | Object (인자 없이)`
+- **요구되는 값** `any (인자 있이) | Object (인자 없이)`
 
 - **인자:** `attrOrProp (optional)`
 
@@ -270,7 +270,7 @@
   - `.camel` - kebab-case 속성 이름을 camelCase로 변환.
   - `.prop` - 바인딩을 [DOM 속성(property: 이하 프로퍼티)](https://developer.mozilla.org/en-US/docs/Web/API/Element#properties)으로 강제 설정.  (3.2+).
   - `.attr` - 바인딩을 [DOM 속성(attribute)](https://developer.mozilla.org/en-US/docs/Glossary/Attribute)으로 강제 설정. (3.2+).
-- **사용법**:
+- **사용법**
 
   `class` 또는 `style` 속성을 바인딩하는 데 사용되는 경우, `v-bind`는 배열 또는 객체와 같이 값을 추가할 수 있는 타입을 지원합니다. 자세한 내용은 아래 링크된 가이드 섹션을 참고합시다.
 
@@ -340,7 +340,7 @@
 
   문자열 템플릿을 사용하거나 템플릿을 빌드 과정으로 미리 컴파일하는 경우에는 `.camel`이 필요하지 않습니다.
 
-- **참고**:
+- **참고**
   - [가이드 - 클래스와 스타일 바인딩](/guide/essentials/class-and-style)
   - [가이드 - Props: Props 전달에 관한 심화](/guide/components/props#prop-passing-details)
 
@@ -348,7 +348,7 @@
 
 사용자 입력을 받는 폼(form) 엘리먼트 또는 컴포넌트에 양방향 바인딩을 만듭니다.
 
-- **요구되는 값**: 사용자 입력을 받는 폼 엘리먼트 또는 컴포넌트의 출력 값에 따라 다름.
+- **요구되는 값** 사용자 입력을 받는 폼 엘리먼트 또는 컴포넌트의 출력 값에 따라 다름.
 
 - **다음으로 제한됨**:
 
@@ -363,7 +363,7 @@
   - [`.number`](/guide/essentials/forms#number) - 유효한 입력 문자열을 숫자로 변환하여 전달.
   - [`.trim`](/guide/essentials/forms#trim) - 사용자 입력의 공백을 트리밍.
 
-- **참고**:
+- **참고**
 
   - [가이드 - Form 입력 바인딩](/guide/essentials/forms)
   - [가이드 - 이벤트: `v-model`과 함께 사용하기](/guide/components/v-model)
@@ -374,7 +374,7 @@
 
 - **단축 문법:** `#`
 
-- **요구되는 값**: JavaScript expression that is valid in a function argument position, including support for destructuring. Optional - only needed if expecting props to be passed to the slot.
+- **요구되는 값** JavaScript expression that is valid in a function argument position, including support for destructuring. Optional - only needed if expecting props to be passed to the slot.
 
 - **인자:** 슬롯 이름 (선택적, 기본값은 `default`)
 
@@ -416,7 +416,7 @@
   </Mouse>
   ```
 
-- **참고**:
+- **참고**
   - [가이드 - 슬롯](/guide/components/slots)
 
 ## v-pre {#v-pre}
@@ -425,7 +425,7 @@
 
 - **표현식을 허용하지 않습니다**.
 
-- **세부 사항**:
+- **세부 사항**
 
   `v-pre`가 있는 엘리먼트 내에서 모든 Vue 템플릿 구문은 그대로 유지되고 렌더링됩니다. 가장 일반적인 사용 사례는 이중 중괄호 태그를 표시하는 것입니다.
 
@@ -441,7 +441,7 @@
 
 - **표현식을 허용하지 않습니다**.
 
-- **세부 사항**:
+- **세부 사항**
 
   이후 다시 렌더링할 때 엘리먼트/컴포넌트 및 모든 자식들은 정적 컨텐츠로 처리되어 생략됩니다. 이것은 업데이트 성능을 최적화하는 데 사용할 수 있습니다.
 
@@ -463,16 +463,16 @@
 
   3.2부터는 [`v-memo`](#v-memo)를 사용하여 무효화 조건으로 템플릿의 일부를 메모화할 수도 있습니다.
 
-- **참고**:
+- **참고**
   - [가이드 - 템플릿 문법: 텍스트 보간법](/guide/essentials/template-syntax.html#text-interpolation)
   - [v-memo](#v-memo)
 
 ## v-memo {#v-memo}
 - 3.2+ 버전 이상에서만 지원합니다.
 
-- **요구되는 값**: `any[]`
+- **요구되는 값** `any[]`
 
-- **세부 사항**:
+- **세부 사항**
 
   템플릿의 하위 트리를 메모합니다. 엘리먼트와 컴포넌트 모두에 사용할 수 있습니다. 디렉티브는 메모이제이션을 위해 비교할 의존성 값의 고정된 길이의 배열을 요구합니다. 배열의 모든 값이 마지막 렌더링과 같으면 전체 하위 트리에 대한 업데이트를 생략합니다. 예를 들어:
 
@@ -505,7 +505,7 @@
 
   `v-memo`는 자식 컴포넌트 업데이트 확인이 최적화되지 않은 특정 엣지 케이스에서 원치 않는 업데이트를 수동으로 방지하기 위해 컴포넌트에 사용할 수도 있습니다. 그러나 필요한 업데이트를 건너뛰지 않도록 올바른 의존성 배열을 지정하는 것은 개발자의 책임입니다.
 
-- **참고**:
+- **참고**
   - [v-once](#v-once)
 
 ## v-cloak {#v-cloak}
@@ -514,7 +514,7 @@
 
 - **표현식을 허용하지 않습니다**.
 
-- **세부 사항**:
+- **세부 사항**
 
   **이 디렉티브는 빌드 과정이 없는 설정에서만 필요합니다**.
 

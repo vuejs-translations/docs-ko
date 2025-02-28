@@ -28,11 +28,11 @@
 
   > 가독성을 위해 타입은 간략화 했습니다. 
 
-- **상세**
+- **세부 사항**
 
   `defineCustomElement()`은 일반적인 컴포넌트 옵션 외에도 커스텀 엘리먼트 전용 옵션을 추가로 지원합니다:
 
-  - **`styles`**: 요소의 shadow root에 주입할 CSS를 포함하는 인라인 CSS 문자열 배열입니다.
+  - **`styles`** 요소의 shadow root에 주입할 CSS를 포함하는 인라인 CSS 문자열 배열입니다.
 
   - **`configureApp`** <sup class="vt-badge" data-text="3.5+"/>: 커스텀 엘리먼트용 Vue 애플리케이션 인스턴스를 설정하는 데 사용할 수 있는 함수입니다.
 
@@ -68,7 +68,7 @@
   customElements.define('my-vue-element', MyVueElement)
   ```
 
-- **참조**
+- **참고**
 
   - [가이드 - Vue로 커스텀 앨리먼트 만들기](/guide/extras/web-components#building-custom-elements-with-vue)
 

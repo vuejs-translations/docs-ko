@@ -568,7 +568,7 @@
 
 현재 감시자가 다시 실행되기 직전에 실행될 정리(cleanup) 함수를 등록합니다. 이 함수는 `watchEffect`의 효과 함수(effect function) 또는 `watch`의 콜백 함수가 동기적으로 실행되는 동안에만 호출할 수 있습니다. 즉, 비동기 함수 내에서 `await` 문 이후에는 호출할 수 없습니다.
 
-- **Type**
+- **타입**
 
   ```ts
   function onWatcherCleanup(
@@ -577,7 +577,7 @@
   ): void
   ```
 
-- **Example**
+- **예제**
 
   ```ts
   import { watch, onWatcherCleanup } from 'vue'

@@ -4,7 +4,7 @@
 
 Vue의 현재 버전(문자열)을 반환합니다.
 
-- **타입**: `string`
+- **타입:** `string`
 
 - **예제**
 
@@ -18,13 +18,13 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
 다음 DOM 업데이트 발생을 기다리는 유틸리티입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function nextTick(callback?: () => void): Promise<void>
   ```
 
-- **세부 사항**:
+- **세부 사항**
   반응형 상태를 변경한 결과는 동기적으로 DOM에 업데이트되지 않습니다.
   대신, 이것은 상태를 얼마나 많이 변경했는지에 관계없이 "다음 틱"까지 버퍼링하여, 각 컴포넌트가 한 번만 업데이트 되었음을 보장합니다.
 
@@ -94,7 +94,7 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
   </div>
 
-- **참고**: [`this.$nextTick()`](/api/component-instance#nexttick)
+- **참고** [`this.$nextTick()`](/api/component-instance#nexttick)
 
 ## defineComponent() {#definecomponent}
 
@@ -117,7 +117,7 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
   > 타입은 가독성을 위해 단순화되었습니다.
 
-- **세부 사항**:
+- **세부 사항**
 
   첫 번째 인자로 컴포넌트 옵션 객체가 필요합니다.
   이 함수는 본질적으로 타입 추론 목적이므로, 동일한 옵션 객체를 반환하며, 런타임에 작동하지 않습니다.
@@ -199,14 +199,14 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
   롤업(Vite에서 사용하는 기본 프로덕션 번들러)은 수동 어노테이션 없이도 `defineComponent()`가 실제로 부작용이 없는지 판단할 수 있을 만큼 똑똑하기 때문에 Vite를 사용하는 경우 이 작업이 필요하지 않습니다.
 
-- **참고**: [가이드 - Vue에서 타입스크립트 사용하기](/guide/typescript/overview#general-usage-notes)
+- **참고** [가이드 - Vue에서 타입스크립트 사용하기](/guide/typescript/overview#general-usage-notes)
 
 ## defineAsyncComponent() {#defineasynccomponent}
 
 렌더링될 때 지연 로드되는 비동기 컴포넌트를 정의합니다.
 인자는 로더 함수이거나 로드 동작의 고급 제어를 위한 옵션 객체일 수 있습니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function defineAsyncComponent(
@@ -231,4 +231,4 @@ Vue의 현재 버전(문자열)을 반환합니다.
   }
   ```
 
-- **참고**: [가이드 - 비동기 컴포넌트](/guide/components/async)
+- **참고** [가이드 - 비동기 컴포넌트](/guide/components/async)

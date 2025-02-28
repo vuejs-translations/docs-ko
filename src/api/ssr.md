@@ -228,7 +228,7 @@
 
 [하이드레이션 불일치(hydration mismatch)](/guide/scaling-up/ssr#hydration-mismatch) 경고를 억제하는 데 사용할 수 있는 특수 속성입니다.
 
-- **Example**
+- **예제**
 
   ```html
   <div data-allow-mismatch="text">{{ data.toLocaleString() }}</div>
