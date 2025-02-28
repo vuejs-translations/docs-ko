@@ -102,7 +102,7 @@ function ref(value) {
 여기와 아래의 코드 스니펫은 가능한 한 간단한 형태로 핵심 개념을 설명하기 위한 것이기 때문에 많은 세부 사항은 생략되고 예외적인 케이스는 무시됩니다.
 :::
 
-아래는 우리가 기초 섹션에서 논의한 몇 가지 [반응형의 제한 사항](/guide/essentials/reactivity-fundamentals.html#limitations-of-reactive)입니다:
+아래는 우리가 기초 섹션에서 논의한 몇 가지 [반응형의 제한 사항](/guide/essentials/reactivity-fundamentals#limitations-of-reactive)입니다:
 
 - 반응형 객체의 속성을 로컬 변수에 할당하거나 해체할 때, 해당 변수에 접근하거나 할당하는 것은 비반응형(non-reactive)입니다. 이는 소스 객체의 get/set 프록시 트랩을 더 이상 트리거하지 않기 때문입니다. 이러한 "끊김(disconnect)"은 변수 바인딩에만 영향을 미칩니다. 변수가 객체와 같은 원시 타입이 아닌 값을 가리키는 경우, 해당 객체를 수정하는 것은 여전히 반응형으로 동작합니다.
 
@@ -151,7 +151,7 @@ function whenDepsChange(update) {
 
 이 시점에서 의존성을 자동으로 추적하고 의존성이 변경될 때마다 다시 실행하는 이펙트를 만들었습니다. 우리는 이것을 **반응 이펙트**(Reactive Effect)라고 부릅니다.
 
-Vue는 반응 이펙트를 생성할 수 있는 [`watchEffect()`](/api/reactivity-core.html#watcheffect) API를 제공합니다. 사실, 예제의 `whenDepsChange()`와 매우 유사하게 작동한다는 것을 눈치채셨을 것입니다. 이제 실제 Vue API를 사용하여 원래 예제를 다시 작업할 수 있습니다:
+Vue는 반응 이펙트를 생성할 수 있는 [`watchEffect()`](/api/reactivity-core#watcheffect) API를 제공합니다. 사실, 예제의 `whenDepsChange()`와 매우 유사하게 작동한다는 것을 눈치채셨을 것입니다. 이제 실제 Vue API를 사용하여 원래 예제를 다시 작업할 수 있습니다:
 
 ```js
 import { ref, watchEffect } from 'vue'
@@ -344,7 +344,7 @@ watchEffect(callback, {
 
 Vue의 반응형 시스템은 일반 JavaScript 객체를 반응형 프록시로 깊이 변환하여 작동합니다. 깊은 변환은 외부 상태 관리 시스템과 통합할 때 필요하지 않거나 때때로 원하지 않을 수 있습니다(예: 외부 솔루션도 프록시를 사용하는 경우).
 
-Vue의 반응형 시스템을 외부 상태 관리 솔루션과 통합하는 일반적인 아이디어는 외부 상태를 [`shallowRef`](/api/reactivity-advanced.html#shallowref)에 유지하는 것입니다. 얕은 참조는 `.value` 속성에 접근할 때만 반응합니다. 내부 값은 그대로 유지됩니다. 외부 상태가 변경되면 ref 값을 교체하여 업데이트를 트리거합니다.
+Vue의 반응형 시스템을 외부 상태 관리 솔루션과 통합하는 일반적인 아이디어는 외부 상태를 [`shallowRef`](/api/reactivity-advanced#shallowref)에 유지하는 것입니다. 얕은 참조는 `.value` 속성에 접근할 때만 반응합니다. 내부 값은 그대로 유지됩니다. 외부 상태가 변경되면 ref 값을 교체하여 업데이트를 트리거합니다.
 
 ### 불변 데이터 {#immutable-data}
 

@@ -47,15 +47,15 @@ export default {
 ```js
 // vue.config.js
 module.exports = {
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     config.module
       .rule('vue')
       .use('vue-loader')
-      .tap(options => ({
+      .tap((options) => ({
         ...options,
         compilerOptions: {
           // ion-으로 시작하는 모든 태그를 사용자 정의 요소로 처리합니다.
-          isCustomElement: tag => tag.startsWith('ion-')
+          isCustomElement: (tag) => tag.startsWith('ion-')
         }
       }))
   }
@@ -81,9 +81,7 @@ DOM 속성은 항상 문자열만 될 수 있기 때문에 복잡한 데이터�
 
 ### defineCustomElement {#definecustomelement}
 
-Vue는 [`defineCustomElement`](/api/general#definecustomelement) 메서드를 통해 동일한 Vue 컴포넌트 API를 사용하여 사용자 정의 요소를 생성하는 것을 지원합니다. 이 메서드는 [`defineComponent`](/api/general#definecomponent)와 동일한 인수를 받지만 `HTMLElement`를 확장하는 사용자 정의 요소 생성자
-
-를 반환합니다:
+Vue는 [`defineCustomElement`](/api/custom-elements#definecustomelement) 메서드를 통해 동일한 Vue 컴포넌트 API를 사용하여 사용자 정의 요소를 생성하는 것을 지원합니다. 이 메서드는 [`defineComponent`](/api/general#definecomponent)와 동일한 인수를 받지만 `HTMLElement`를 확장하는 사용자 정의 요소 생성자를 반환합니다:
 
 ```vue-html
 <my-vue-element></my-vue-element>
@@ -172,6 +170,21 @@ document.body.appendChild(
 
 [제공 및 주입 API](/guide/components/provide-inject#provide-inject) 및 [Composition API 버전](/api/composition-api-dependency-injection#provide)도 Vue로 정의된 사용자 정의 요소 간에 작동합니다. 그러나 이는 **사용자 정의 요소 간에만 작동**합니다. 즉, Vue로 정의된 사용자 정의 요소는 비사용자 정의 요소 Vue 컴포넌트가 제공하는 속성을 주입할 수 없습니다.
 
+
+#### 어플리케이션 레벨 설정 <sup class="vt-badge" data-text="3.5+" /> {#app-level-config}
+
+Vue 커스텀 엘리먼트의 앱 인스턴스를 구성하려면 `configureApp` 옵션을 사용할 수 있습니다.:
+
+```js
+defineCustomElement(MyComponent, {
+  configureApp(app) {
+    app.config.errorHandler = (err) => {
+      /* ... */
+    }
+  }
+})
+```
+
 ### SFC를 사용한 사용자 정의 요소 {#sfc-as-custom-element}
 
 `defineCustomElement`은 Vue 단일 파일 컴포넌트(SFC)에서도 작동합니다. 그러나 기본 도구 설정에서 SFC 내부의 `<style>` 태그는 여전히 프로덕션 빌드 중에 단일 CSS 파일로 추출되고 병합됩니다. 사용자 정의 요소로 SFC를 사용할 때는 주로 `<style>` 태그를 사용자 정의 요소의 쉐도우 루트에 주입하는 것이 바람직합니다.
@@ -209,6 +222,8 @@ Vue로 사용자 정의 요소를 빌드할 때 요소는 Vue의 런타임에 �
 사용자가 필요에 따라 요소를 가져와 원하는 태그 이름으로 등록할 수 있도록 개별 요소 생성자를 내보내는 것이 좋습니다. 또한 모든 요소를 자동으로 등록하는 편리한 함수도 내보낼 수 있습니다. 다음은 Vue 사용자 정의 요소 라이브러리의 예시 진입점입니다:
 
 ```js
+// elements.js
+
 import { defineCustomElement } from 'vue'
 import Foo from './MyFoo.ce.vue'
 import Bar from './MyBar.ce.vue'
@@ -225,11 +240,284 @@ export function register() {
 }
 ```
 
-요소가 많은 경우 Vite의 [글로브 가져오기](https://vitejs.dev/guide/features.html#glob-import) 또는 웹팩의 [`require.context`](https://webpack.js.org/guides/dependency-management/#requirecontext)와 같은 빌드 도구 기능을 활용하여 디렉토리에서 모든 구성 요소를 로드할 수도 있습니다.
+
+사용자는 Vue 파일에서 해당 요소들을 사용할 수 있습니다:
+
+```vue
+<script setup>
+import { register } from 'path/to/elements.js'
+register()
+</script>
+
+<template>
+  <my-foo ...>
+    <my-bar ...></my-bar>
+  </my-foo>
+</template>
+```
+
+또는 JSX를 사용하는 프레임워크 등에서 커스텀 이름과 함께 요소를 사용할 수도 있습니다.
+
+```jsx
+import { MyFoo, MyBar } from 'path/to/elements.js'
+
+customElements.define('some-foo', MyFoo)
+customElements.define('some-bar', MyBar)
+
+export function MyComponent() {
+  return <>
+    <some-foo ... >
+      <some-bar ... ></some-bar>
+    </some-foo>
+  </>
+}
+```
+
+### Vue 기반 웹 컴포넌트와 TypeScript {#web-components-and-typescript}
+
+Vue 단일 파일 컴포넌트(SFC) 템플릿을 작성할 때, [타입 검사](/guide/scaling-up/tooling.html#typescript)를 수행하여 Vue 컴포넌트를 확인하고, 커스텀 엘리먼트로 정의된 경우에도 이를 적용하고 싶을 수 있습니다.
+
+커스텀 엘리먼트는 브라우저의 기본 API를 사용하여 전역적으로 등록되므로, 기본적으로 Vue 템플릿 내에서 타입 추론이 자동으로 적용되지 않습니다.
+
+Vue 템플릿에서 커스텀 엘리먼트로 등록된 Vue 컴포넌트에 대한 타입 지원을 제공하려면, [`GlobalComponents` 인터페이스](https://github.com/vuejs/language-tools/wiki/Global-Component-Types)를 확장하여 전역 컴포넌트 타입을 등록할 수 있습니다.
+
+(JSX를 사용하는 경우, Vue 템플릿과 달리 [`JSX.IntrinsicElements`](https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements) 타입을 확장하여 타입 지원을 추가할 수 있습니다. 여기서는 JSX 예제는 포함되지 않습니다.)
+
+다음은 Vue를 사용하여 만든 커스텀 엘리먼트의 타입을 정의하는 방법입니다:
+
+```typescript
+import { defineCustomElement } from 'vue'
+
+// Vue 컴포넌트를 가져오려면 다음과 같이 import 문을 사용합니다.
+import SomeComponent from './src/components/SomeComponent.ce.vue'
+
+// Vue 컴포넌트를 커스텀 엘리먼트(Custom Element) 클래스로 변환하려면 defineCustomElement API를 사용할 수 있습니다.
+export const SomeElement = defineCustomElement(SomeComponent)
+
+// 브라우저에서 사용할 수 있도록 커스텀 엘리먼트 클래스를 반드시 등록해야 합니다.
+customElements.define('some-element', SomeElement)
+
+// Vue의 GlobalComponents 타입을 확장하여 새 커스텀 엘리먼트 타입을 추가
+declare module 'vue' {
+  interface GlobalComponents {
+    // 여기에는 Vue 컴포넌트 타입을 전달해야 합니다.  
+    // (SomeElement가 아니라 SomeComponent를 사용해야 합니다.)  
+    // 커스텀 엘리먼트는 이름에 하이픈(-)이 필요하므로,  
+    // 하이픈이 포함된 엘리먼트 이름을 사용하세요.
+    'some-element': typeof SomeComponent
+  }
+}
+```
+
+## Vue가 아닌 웹 컴포넌트와 TypeScript {#non-vue-web-components-and-typescript}
+
+다음은 Vue로 제작되지 않은 커스텀 엘리먼트의 SFC 템플릿에서 타입 검사를 활성화하는 권장 방법입니다.
+
+> [!참고]
+> 이 방법은 한 가지 가능한 방식이며, 사용하는 프레임워크에 따라 구현 방식이 다를 수 있습니다.
+
+
+예를 들어, some-lib이라는 라이브러리에서 제공하는 JS 속성과 이벤트가 정의된 커스텀 엘리먼트가 있다고 가정해 보겠습니다:
+
+```ts
+// file: some-lib/src/SomeElement.ts
+
+// 타입이 지정된 JS 속성을 포함하는 클래스를 정의
+export class SomeElement extends HTMLElement {
+  foo: number = 123
+  bar: string = 'blah'
+
+  lorem: boolean = false
+
+  // 이 메서드는 템플릿 타입에서 노출되지 않아야 합니다.
+  someMethod() {
+    /* ... */
+  }
+
+  // ... 구현은 생략 ...
+  // ... 해당 엘리먼트가 "apple-fell"이라는 이름의 이벤트를 디스패치한다고 가정합니다. ...
+}
+
+customElements.define('some-element', SomeElement)
+
+// 이것은 `SomeElement`의 속성 목록으로, 프레임워크 템플릿(예: Vue SFC 템플릿)에서  
+// 타입 검사를 수행할 속성들만 선택됩니다.  
+// 이 목록에 포함되지 않은 다른 속성들은 노출되지 않습니다.
+export type SomeElementAttributes = 'foo' | 'bar'
+
+// `SomeElement`가 디스패치하는 이벤트 타입을 정의합니다.
+export type SomeElementEvents = {
+  'apple-fell': AppleFellEvent
+}
+
+export class AppleFellEvent extends Event {
+  /* ... 상세 생략 ... */
+}
+```
+
+구현 세부 사항은 생략되었지만, 중요한 점은 두 가지 타입 정의(속성 타입과 이벤트 타입)를 포함하고 있다는 것입니다.
+
+이제 Vue에서 커스텀 엘리먼트 타입 정의를 쉽게 등록할 수 있도록 타입 헬퍼를 만들어 보겠습니다.
+
+```ts
+// file: some-lib/src/DefineCustomElement.ts
+
+// 이 타입 헬퍼는 정의해야 할 각 커스텀 엘리먼트에 대해 재사용할 수 있습니다.
+type DefineCustomElement<
+  ElementType extends HTMLElement,
+  Events extends EventMap = {},
+  SelectedAttributes extends keyof ElementType = keyof ElementType
+> = new () => ElementType & {
+  // `$props`를 사용하여 템플릿 타입 검사에서 노출할 속성을 정의합니다.  
+  // Vue는 `$props` 타입에서 속성 정의를 읽어오므로,  
+  // 요소의 속성을 전역 HTML 속성과 Vue의 특수 속성과 결합합니다.
+
+  /** @deprecated 커스텀 엘리먼트 참조(ref)에서 `$props` 속성을 사용하지 마세요.
+   이는 템플릿의 prop 타입 정의에만 사용됩니다. */
+  $props: HTMLAttributes &
+    Partial<Pick<ElementType, SelectedAttributes>> &
+    PublicProps
+
+  // `$emit`을 사용하여 이벤트 타입을 명확하게 정의합니다.  
+  // Vue는 `$emit` 타입에서 이벤트 타입을 읽어옵니다.  
+  // `$emit`은 특정한 형식을 기대하므로, `Events` 타입을 이에 맞게 매핑해야 합니다.
+  /** @deprecated 커스텀 엘리먼트 참조(ref)에서 `$props` 속성을 사용하지 마세요.
+   이는 템플릿의 prop 타입 정의에만 사용됩니다. */
+  $emit: VueEmit<Events>
+}
+
+type EventMap = {
+  [event: string]: Event
+}
+
+// 이것은 `EventMap`을 Vue의 `$emit` 타입이 기대하는 형식으로 매핑합니다.
+type VueEmit<T extends EventMap> = EmitFn<{
+  [K in keyof T]: (event: T[K]) => void
+}>
+```
+
+> [!참고]
+> 우리는 $props와 $emit을 **deprecated(사용 중단)**으로 표시했습니다.
+> 이는 커스텀 엘리먼트의 ref를 가져왔을 때,실제로 존재하지 않는 속성들을 실수로 사용하지 않도록 하기 위함입니다.
+> $props와 $emit은 커스텀 엘리먼트의 타입 검사 전용 속성이며, 실제 커스텀 엘리먼트 인스턴스에는 존재하지 않습니다.
+
+이제 타입 헬퍼를 사용하여 Vue 템플릿에서 타입 검사를 수행할 JS 속성들을 선택할 수 있습니다:
+
+```ts
+// file: some-lib/src/SomeElement.vue.ts
+
+import {
+  SomeElement,
+  SomeElementAttributes,
+  SomeElementEvents
+} from './SomeElement.js'
+import type { Component } from 'vue'
+import type { DefineCustomElement } from './DefineCustomElement'
+
+// 새로운 커스텀 엘리먼트 타입을 Vue의 `GlobalComponents` 타입에 추가합니다.
+declare module 'vue' {
+  interface GlobalComponents {
+    'some-element': DefineCustomElement<
+      SomeElement,
+      SomeElementAttributes,
+      SomeElementEvents
+    >
+  }
+}
+```
+
+`some-lib`이 TypeScript 소스 파일을 `dist/` 폴더로 빌드한다고 가정해 보겠습니다.그러면 `some-lib`의 사용자는 `SomeElement`를 가져와 Vue SFC에서 다음과 같이 사용할 수 있습니다:
+
+```vue
+<script setup lang="ts">
+// 이것은 커스텀 엘리먼트를 생성하고 브라우저에 등록합니다.
+import 'some-lib/dist/SomeElement.js'
+
+// TypeScript와 Vue를 사용하는 사용자는 추가적으로  
+// Vue 전용 타입 정의를 가져와야 합니다.  
+// (다른 프레임워크를 사용하는 경우, 해당 프레임워크에 맞는  
+// 타입 정의를 가져와야 합니다.)
+import type {} from 'some-lib/dist/SomeElement.vue.js'
+
+import { useTemplateRef, onMounted } from 'vue'
+
+const el = useTemplateRef('el')
+
+onMounted(() => {
+  console.log(
+    el.value!.foo,
+    el.value!.bar,
+    el.value!.lorem,
+    el.value!.someMethod()
+  )
+
+  // 이 props는 사용하지 마세요. 값이 `undefined`입니다.  
+  // IDE에서는 이 속성들이 취소선이 그어진 상태로 표시될 것입니다.
+  el.$props
+  el.$emit
+})
+</script>
+
+<template>
+  <!-- 이제 타입 검사가 적용된 상태에서 커스텀 엘리먼트를 사용할 수 있습니다. -->
+  <some-element
+    ref="el"
+    :foo="456"
+    :blah="'hello'"
+    @apple-fell="
+      (event) => {
+        // 여기서 `event`의 타입은 `AppleFellEvent`로 자동 추론됩니다.
+      }
+    "
+  ></some-element>
+</template>
+```
+
+타입 정의가 없는 요소의 경우, 속성과 이벤트의 타입을 직접 정의할 수 있습니다:
+
+```vue
+<script setup lang="ts">
+  // `some-lib`이 타입 정의가 없는 순수 JavaScript 라이브러리라고 가정하고,  
+  // TypeScript가 타입을 자동으로 추론할 수 없는 경우:
+import { SomeElement } from 'some-lib'
+
+// Add the new element type to Vue's GlobalComponents type.
+import { DefineCustomElement } from './DefineCustomElement'
+
+type SomeElementProps = { foo?: number; bar?: string }
+type SomeElementEvents = { 'apple-fell': AppleFellEvent }
+interface AppleFellEvent extends Event {
+  /* ... */
+}
+
+// 새로운 커스텀 엘리먼트 타입을 Vue의 `GlobalComponents` 타입에 추가합니다.
+declare module 'vue' {
+  interface GlobalComponents {
+    'some-element': DefineCustomElement<
+      SomeElementProps,
+      SomeElementEvents
+    >
+  }
+}
+
+// ... 이전과 동일하게, 엘리먼트에 대한 참조를 사용합니다 ...
+</script>
+
+<template>
+  <!-- ... 이전과 동일하게, 템플릿에서 해당 요소를 사용합니다 ... -->
+</template>
+```
+
+커스텀 엘리먼트의 작성자는 프레임워크별 커스텀 엘리먼트 타입 정의를 라이브러리에서 자동으로 내보내지(export) 않아야 합니다.
+
+예를 들어, 라이브러리의 다른 모듈들과 함께 `index.ts`에서 프레임워크별 타입 정의를 내보내면 안 됩니다.
+그렇지 않으면, 사용자가 예기치 않은 모듈 확장(module augmentation) 오류를 겪을 수 있습니다.
+
+사용자는 필요한 프레임워크별 타입 정의 파일을 직접 가져와야 합니다.
 
 ### 웹 컴포넌트와 TypeScript {#web-components-and-typescript}
 
-애플리케이션이나 라이브러리를 개발할 때 Vue 컴포넌트를 비롯한 사용자 정의 요소를 [타입 체크](/guide/scaling-up/tooling.html#typescript)하려는 경우에는 추가적인 작업이 필요합니다.
+애플리케이션이나 라이브러리를 개발할 때 Vue 컴포넌트를 비롯한 사용자 정의 요소를 [타입 체크](/guide/scaling-up/tooling#typescript)하려는 경우에는 추가적인 작업이 필요합니다.
 
 사용자 정의 요소는 네이티브 API를 사용하여 전역으로 등록되기 때문에 기본적으로 Vue 템플릿에서는 타입 추론이 제공되지 않습니다. Vue 컴포넌트로 등록된 사용자 정의 요소에 대한 타입 지원을 제공하려면 Vue 템플릿 및/또는 [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements)에서 전역 컴포넌트 타이핑을 등록할 수 있습니다.
 
