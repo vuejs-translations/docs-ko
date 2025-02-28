@@ -207,7 +207,7 @@ Props 전달() 및 이벤트 발신(emit)은 계속 동일한 방식으로 작�
 </div>
 ```
 
-##   지연된 텔레포트 <sup class="vt-badge" data-text="3.5+" /> {#deferred-tedeferred-teleport}
+##   지연된 텔레포트 <sup class="vt-badge" data-text="3.5+"/> {#deferred-teleport}
 
 Vue 3.5 이상에서는 defer 속성을 사용하여 Teleport의 대상 요소 해결(target resolving)을 애플리케이션의 다른 부분이 마운트될 때까지 지연할 수 있습니다. 이를 통해 Teleport가 Vue에 의해 렌더링되지만, 컴포넌트 트리의 후반부에 생성되는 컨테이너 요소를 대상으로 지정할 수 있습니다.
 
@@ -218,7 +218,7 @@ Vue 3.5 이상에서는 defer 속성을 사용하여 Teleport의 대상 요소 �
 <div id="late-div"></div>
 ```
 
-대상 요소는 Teleport와 동일한 마운트/업데이트 틱 내에서 렌더링되어야 합니다. 즉, <div>가 한참 뒤에 마운트된다면, Teleport는 여전히 오류를 발생시킵니다. defer는 mounted 라이프사이클 훅과 유사한 방식으로 작동합니다.
+대상 요소는 Teleport와 동일한 마운트/업데이트 틱 내에서 렌더링되어야 합니다. 즉, `<div>`가 한참 뒤에 마운트된다면, Teleport는 여전히 오류를 발생시킵니다. `defer`는 mounted 라이프사이클 훅과 유사한 방식으로 작동합니다.
 
 ---
 

@@ -8,7 +8,7 @@
 2. 옵션 API 컴포넌트에서 컴포지션 API 기반 코드와 통합.
 
 :::info Note
-싱글 파일 컴포넌트에서 Composition API를 사용하는 경우, 보다 간결하고 효율적인 문법을 위해 <script setup>의 사용을 강력히 권장합니다.
+싱글 파일 컴포넌트에서 Composition API를 사용하는 경우, 보다 간결하고 효율적인 문법을 위해 `<script setup>`의 사용을 강력히 권장합니다.
 :::
 
 [반응형 API](./reactivity-core)를 사용하여 반응형 상태를 선언하고 `setup()`에서 객체를 반환하여 템플릿에 노출할 수 있습니다.

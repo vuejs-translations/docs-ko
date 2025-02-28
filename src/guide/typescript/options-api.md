@@ -222,8 +222,6 @@ export default defineComponent({
 
 ## 전역 속성 확장 {#augmenting-global-properties}
 
-Some plugins install globally available properties to all component instances via [`app.config.globalProperties`](/api/application#app-config-globalproperties). For example, we may install `this.$http` for data-fetching or `this.$translate` for internationalization. To make this play well with TypeScript, Vue exposes a `ComponentCustomProperties` interface designed to be augmented via [TypeScript module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation):
-
 일부 플러그인은 [`app.config.globalProperties`](/api/application#app-config-globalproperties)를 통해 모든 컴포넌트 인스턴스에 전역적으로 사용 가능한 프로퍼티를 설치합니다. 예를 들어, 데이터 불러오기를 위해 `this.$http`를 설치하거나 국제화를 위해 `this.$translate`를 설치할 수 있습니다. 이를 타입스크립트에서 잘 작동하도록 하기 위해 Vue는 [타입스크립트 모듈 증강](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)을 통해 증강되도록 설계된 `ComponentCustomProperties` 인터페이스를 노출합니다:
 
 ```ts
@@ -300,4 +298,4 @@ declare module 'vue' {
 
 참고:
 
-- [TypeScript unit tests for component type extensions](https://github.com/vuejs/core/blob/main/packages/dts-test/componentTypeExtensions.test-d.tsx)
+- [컴포넌트 타입 확장을 위한 TypeScript 단위 테스트](https://github.com/vuejs/core/blob/main/packages/dts-test/componentTypeExtensions.test-d.tsx)

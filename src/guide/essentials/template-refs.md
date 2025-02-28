@@ -173,9 +173,7 @@ onMounted(() => console.log(itemRefs.value))
   </ul>
 </template>
 ```
-
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNpFjs1qwzAQhF9l0CU2uDZtb8UOlJ576bXqwaQyCGRJyCsTEHr3rGwnOehnd2e+nSQ+vW/XqMSH6JdL0J6wKIr+LK2evQuEhKCmBs5+u2hJ/SNjCm7GiV0naaW9OLsQjOZrKNrq97XBW4P3v/o51qTmHzUtd8k+e0CrqsZwRpIWGI0KVN0N7TqaqNp59JUuEt2SutKXY5elmimZT9/t2Tk1F+z0ZiTFFdBHs738Mxrry+TCIEWhQ9sttRQl0tEsK6U4HEBKW3LkfDA6o3dst3H77rFM5BtTfm/P)
-
+</details>
 </div>
 <div class="options-api">
 
@@ -248,7 +246,7 @@ onMounted(() => {
 ```
 
 <details>
-<summary>Usage before 3.5</summary>
+<summary>버전 3.5 이전 사용법</summary>
 
 ```vue
 <script setup>

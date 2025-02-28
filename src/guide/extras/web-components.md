@@ -515,29 +515,6 @@ declare module 'vue' {
 
 사용자는 필요한 프레임워크별 타입 정의 파일을 직접 가져와야 합니다.
 
-### 웹 컴포넌트와 TypeScript {#web-components-and-typescript}
-
-애플리케이션이나 라이브러리를 개발할 때 Vue 컴포넌트를 비롯한 사용자 정의 요소를 [타입 체크](/guide/scaling-up/tooling#typescript)하려는 경우에는 추가적인 작업이 필요합니다.
-
-사용자 정의 요소는 네이티브 API를 사용하여 전역으로 등록되기 때문에 기본적으로 Vue 템플릿에서는 타입 추론이 제공되지 않습니다. Vue 컴포넌트로 등록된 사용자 정의 요소에 대한 타입 지원을 제공하려면 Vue 템플릿 및/또는 [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements)에서 전역 컴포넌트 타이핑을 등록할 수 있습니다.
-
-```typescript
-import { defineCustomElement } from 'vue'
-
-// vue SFC
-import CounterSFC from './src/components/counter.ce.vue'
-
-// 컴포넌트를 웹 컴포넌트로 변환
-export const Counter = defineCustomElement(CounterSFC)
-
-// 전역 타이핑 등록
-declare module 'vue' {
-  export interface GlobalComponents {
-    'Counter': typeof Counter,
-  }
-}
-```
-
 ## 웹 컴포넌트 vs. Vue 컴포넌트 {#web-components-vs-vue-components}
 
 일부 개발자는 특정 프레임워크-독점적인 컴포넌트 모델을 피해야 하며, 오직 웹 컴포넌트만을 사용하여 애플리케이션을 "미래지향적"으로 만들어야 한다고 믿고 있습니다. 이곳에서는 이러한 접근 방식이 문제에 대해 지나치게 단순한 것으로 여겨진다고 생각하는 이유를 설명하고자 합니다.

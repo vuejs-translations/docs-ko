@@ -137,24 +137,25 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
   - 3.3+ 버전에서만 지원됩니다.
 
-  `defineComponent()` also has an alternative signature that is meant to be used with the Composition API and [render functions or JSX](/guide/extras/render-function.html).
+  `defineComponent()`은 Composition API 및 [렌더 함수 또는 JSX](/guide/extras/render-function)와 함께 사용할 수 있도록 설계된 또 다른 형태의 시그니처를 제공합니다.
 
-  Instead of passing in an options object, a function is expected instead. This function works the same as the Composition API [`setup()`](/api/composition-api-setup.html#composition-api-setup) function: it receives the props and the setup context. The return value should be a render function - both `h()` and JSX are supported:
+  옵션 객체를 전달하는 대신, 함수를 전달해야 합니다. 이 함수는 Composition API의 [`setup()`](/api/composition-api-setup#composition-api-setup) 함수와 동일한 방식으로 동작하며, props와 setup 컨텍스트를 매개변수로 받습니다. 반환값은 렌더 함수여야 하며, `h()`와 JSX를 모두 지원합니다.
+
 
   ```js
   import { ref, h } from 'vue'
 
   const Comp = defineComponent(
     (props) => {
-      // use Composition API here like in <script setup>
+      // 여기에서는 `<script setup>`에서와 같이 Composition API를 사용하세요.
       const count = ref(0)
 
       return () => {
-        // render function or JSX
+        // 렌더 함수 또는 JSX
         return h('div', count.value)
       }
     },
-    // extra options, e.g. declare props and emits
+    // 추가 옵션(예: props 및 emits 선언)
     {
       props: {
         /* ... */
@@ -163,27 +164,28 @@ Vue의 현재 버전(문자열)을 반환합니다.
   )
   ```
 
-  The main use case for this signature is with TypeScript (and in particular with TSX), as it supports generics:
+  이 시그니처의 주요 사용 사례는 TypeScript(특히 TSX)와 함께 사용하는 경우로, 제네릭을 지원하기 때문입니다.:
+
 
   ```tsx
   const Comp = defineComponent(
     <T extends string | number>(props: { msg: T; list: T[] }) => {
-      // use Composition API here like in <script setup>
+      // 여기에서는 `<script setup>`에서와 같이 Composition API를 사용하세요.
       const count = ref(0)
 
       return () => {
-        // render function or JSX
+        // 렌더 함수 또는 JSX
         return <div>{count.value}</div>
       }
     },
-    // manual runtime props declaration is currently still needed.
-    {
+    //현재는 수동으로 런타임 props 선언이 여전히 필요합니다.
+  {
       props: ['msg', 'list']
     }
   )
   ```
 
-  In the future, we plan to provide a Babel plugin that automatically infers and injects the runtime props (like for `defineProps` in SFCs) so that the runtime props declaration can be omitted.
+향후에는 Babel 플러그인을 제공하여 런타임 props를 자동으로 추론하고 주입할 수 있도록 할 계획입니다. (`defineProps`가 SFC에서 동작하는 방식과 유사) 이를 통해 런타임 props 선언을 생략할 수 있게 될 것입니다.
 
   ### Note on webpack Treeshaking {#note-on-webpack-treeshaking}
 

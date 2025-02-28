@@ -3,9 +3,7 @@
 
 ## createRenderer() {#createrenderer}
 
-사용자 정의 렌더러를 생성합니다. 플랫폼별 노드 생성 및 조작 API를 제공함으로써 Vue의 핵심 런타임을 활용하여 비 DOM 환경을 타겟팅할 수 있습니다.
-
-Creates a custom renderer. By providing platform-specific node creation and manipulation APIs, you can leverage Vue's core runtime to target non-DOM environments.
+사용자 정의 렌더러를 생성합니다. 플랫폼별 노드 생성 및 조작 API를 제공함으로써, Vue의 코어 런타임을 활용하여 DOM이 아닌 환경을 대상으로 렌더링할 수 있습니다.
 
 - **타입**
 

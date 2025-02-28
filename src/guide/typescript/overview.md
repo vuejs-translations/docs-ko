@@ -195,14 +195,14 @@ Vue CLI 또는 웹팩 기반 설정을 사용하는 경우 타입스크립트 �
 
 Vue는 JSX/TSX로 컴포넌트 제작을 지원합니다. 자세한 내용은 [Render Function & JSX](/guide/extras/render-function#jsx-tsx) 가이드에서 다룹니다.
 
-## Generic Components {#generic-components}
+## 제네릭 컴포넌트 {#generic-components}
 
-Generic components are supported in two cases:
+제네릭 컴포넌트는 다음 두 가지 경우에 지원됩니다:
 
 - In SFCs: [`<script setup>` with the `generic` attribute](/api/sfc-script-setup#generics)
-- Render function / JSX components: [`defineComponent()`'s function signature](/api/general#function-signature)
+- 렌더 함수 / JSX 컴포넌트: [`defineComponent()`'s function signature](/api/general#function-signature)
 
-## API-Specific Recipes {#api-specific-recipes}
+## API별 활용 예제 {#api-specific-recipes}
 
 - [TS와 Composition API](./composition-api)
 - [TS와 Options API](./options-api)

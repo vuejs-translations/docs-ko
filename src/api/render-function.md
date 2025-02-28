@@ -260,10 +260,6 @@ For manually resolving a registered directive by name.
 
   지시어를 찾을 수 없으면 런타임 경고가 발생하고 함수는 `undefined`을 반환합니다.
 
-  `resolveDirective()` must be called inside<span class="composition-api"> either `setup()` or</span> the render function in order to resolve from the correct component context.
-
-  If the directive is not found, a runtime warning will be emitted, and the function returns `undefined`.
-
 - **참고** [가이드 - Render Functions - Custom Directives](/guide/extras/render-function#custom-directives)
 
 ## withDirectives() {#withdirectives}
@@ -292,8 +288,6 @@ For adding custom directives to vnodes.
 - **세부 사항**
 
   기존 vnode를 사용자 정의 지시어로 래핑합니다. 두 번째 인자는 사용자지시어의 배열입니다. 각 사용자 정의 지시어는 `[지시어, 값, 인자, 수정자]` 형식의 배열로 표현됩니다. 배열의 꼬리 앨리먼트는 필요하지 않은 경우 생략할 수 있습니다.
-
-  Wraps an existing vnode with custom directives. The second argument is an array of custom directives. Each custom directive is also represented as an array in the form of `[Directive, value, argument, modifiers]`. Tailing elements of the array can be omitted if not needed.
 
 - **예제**
 
