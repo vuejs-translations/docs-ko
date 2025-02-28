@@ -90,7 +90,12 @@ const count = ref(0)
 이미 Vue에 대해 궁금한 점이 있을 수 있으나 조급해하지 마세요. 이후 문서에서 모든 세부 사항을 다 다룰 것입니다. 지금은 Vue가 제공하는 것에 대한 기본적인 수준의 이해를 할 수 있도록 따라 읽어보시기를 바랍니다.
 
 :::tip 전제조건
-나머지 문서는 HTML, CSS, JavaScript에 대한 기본적인 지식을 가정합니다. 프론트엔드 개발이 처음이라면, 첫 단계로 프레임워크에 바로 뛰어드는 것은 좋지 않을 수 있습니다 - 기본을 익힌 다음 돌아오세요! 필요한 경우 [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript), [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML), [CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps)에 대한 이 개요를 통해 지식 수준을 확인할 수 있습니다. 다른 프레임워크에 대한 경험은 도움이 되지만 필수는 아닙니다.
+이 문서의 나머지 부분은 기본적인 HTML, CSS, JavaScript에 대한 이해를 전제로 작성되었습니다. 만약 프론트엔드 개발이 완전히 처음이라면, 첫 단계로 프레임워크를 바로 배우는 것은 최선의 선택이 아닐 수 있습니다. 기초 개념을 먼저 익힌 후 다시 돌아오는 것이 좋습니다! 필요하다면 아래 개요를 통해 자신의 지식을 확인해 보세요:
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript)
+- [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML)
+- [CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps)
+
+다른 프레임워크를 사용해 본 경험이 있다면 도움이 되겠지만, 필수 사항은 아닙니다.
 :::
 
 ## 프로그레시브 프레임워크 {#the-progressive-framework}

@@ -70,7 +70,7 @@ SFC 사용을 위해서는 빌드 방식을 따라야 하지만 다음과 같은
 - [컴포넌트 범위 CSS](/api/sfc-css-features)
 - [컴포지션 API로 작업할 때 더욱 인체공학적인 문법](/api/sfc-script-setup)
 - 템플릿과 스크립트를 교차 분석하여 컴파일 시간을 더욱 더최적화
-- 템플릿 표현식을 [지원하는 IDE](/guide/scaling-up/tooling.html#ide-support)의 자동 완성 및 유형 검사
+- 템플릿 표현식을 [지원하는 IDE](/guide/scaling-up/tooling#ide-support)의 자동 완성 및 유형 검사
 - 즉시 사용 가능한 핫 모듈 교체(Hot-Module Replacement: HMR) 지원
 
 SFC는 Vue를 프레임워크로 정의하며, 다음과 같이 Vue를 사용하는 데 권장되는 접근 방식입니다.
@@ -120,5 +120,5 @@ Vue는 가능한 한 빨리 SFC를 시작할 수 있도록 공식 스캐폴딩 �
 컴포넌트 내부의 템플릿, 로직 및 스타일은 본질적으로 "동일한 사용 목적"으로 결합되어 있으며, 실제로 컴포넌트가 더 응집력 있고 유지 관리가 용이해집니다.
 
 싱글 파일 컴포넌트 아이디어가 마음에 들지 않는다면,
-JavaScript와 CSS를 별도의 파일로 분리하여 [Src Imports](/api/sfc-spec.html#src-imports) 방식으로 사용하여도 무관하며,
+JavaScript와 CSS를 별도의 파일로 분리하여 [Src Imports](/api/sfc-spec#src-imports) 방식으로 사용하여도 무관하며,
 핫 리로딩 및 사전 컴파일 기능의 이점은 계속 활용할(누릴) 수 있습니다.

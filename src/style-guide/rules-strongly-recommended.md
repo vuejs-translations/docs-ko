@@ -1,5 +1,9 @@
 # 우선순위 B 규칙: 강력히 권장 {#priority-b-rules-strongly-recommended}
 
+::: warning 주의  
+이 Vue.js 스타일 가이드는 오래된 내용이므로 검토가 필요합니다. 질문이나 제안 사항이 있다면 [이슈를 등록](https://github.com/vuejs/docs/issues/new)해 주세요.  
+:::
+
 이 규칙은 대부분의 프로젝트에서 가독성 및/또는 개발자 경험을 개선하는 것으로 밝혀졌습니다. 이 규칙을 위반해도 코드는 계속 실행되지만 위반하는 경우는 드물고 정당한 이유가 있어야 합니다.
 
 ## 컴포넌트 파일 {#component-files}
@@ -316,7 +320,7 @@ components/
 
 ## 셀프 클로징 컴포넌트 {#self-closing-components}
 
-**콘텐츠가 없는 컴포넌트는 [싱글 파일 컴포넌트](/guide/scaling-up/sfc), 문자열 템플릿, [JSX](/guide/extras/render-function.html#jsx-tsx)에서 자체 닫혀야 하지만, in-DOM 템플릿에서는 절대 자체 닫혀서는 안 됩니다.**
+**콘텐츠가 없는 컴포넌트는 [싱글 파일 컴포넌트](/guide/scaling-up/sfc), 문자열 템플릿, [JSX](/guide/extras/render-function#jsx-tsx)에서 자체 닫혀야 하지만, in-DOM 템플릿에서는 절대 자체 닫혀서는 안 됩니다.**
 
 자체 닫히는 컴포넌트는 콘텐츠가 없을 뿐만 아니라 콘텐츠가 없는 것으로 **의미**된다는 것을 알립니다. 책에서 빈 페이지와 "이 페이지는 의도적으로 비워 두었습니다."라고 표시된 페이지의 차이입니다. 불필요한 닫는 태그가 없는 코드도 더 깔끔해집니다.
 
@@ -411,7 +415,7 @@ OR
 
 ## JS/JSX의 컴포넌트 이름 대/소문자 {#component-name-casing-in-js-jsx}
 
-**JS/[JSX](/guide/extras/render-function.html#jsx-tsx)의 컴포넌트 이름은 항상 파스칼 케이스를 사용해야 하지만, `app.component`를 통한 전역 컴포넌트 등록만 사용하는 간단한 애플리케이션의 경우 문자열 내부에 케밥 케이스를 사용할 수 있습니다.**
+**JS/[JSX](/guide/extras/render-function#jsx-tsx)의 컴포넌트 이름은 항상 파스칼 케이스를 사용해야 하지만, `app.component`를 통한 전역 컴포넌트 등록만 사용하는 간단한 애플리케이션의 경우 문자열 내부에 케밥 케이스를 사용할 수 있습니다.**
 
 
 ::: details 자세한 설명
@@ -510,7 +514,7 @@ components/
 
 ## prop 이름 대소문자 {#prop-name-casing}
 
-**prop 이름은 선언 시 항상 대/소문자를 구분해야 합니다. in-DOM 템플릿 내에서 사용하는 경우 prop은 케밥 케이스를 사용해야 합니다. 싱글 파일 컴포넌트 템플릿과 [JSX](/guide/extras/render-function.html#jsx-tsx)는 케밥 케이스 또는 캠멜 케이스 프로퍼티를 사용할 수 있습니다. 대소문자는 일관성을 유지해야 합니다. camelCase prop을 사용하기로 선택한 경우 애플리케이션에서 케밥 케이스 prop을 사용하지 않아야 합니다**
+**prop 이름은 선언 시 항상 대/소문자를 구분해야 합니다. in-DOM 템플릿 내에서 사용하는 경우 prop은 케밥 케이스를 사용해야 합니다. 싱글 파일 컴포넌트 템플릿과 [JSX](/guide/extras/render-function#jsx-tsx)는 케밥 케이스 또는 캠멜 케이스 프로퍼티를 사용할 수 있습니다. 대소문자는 일관성을 유지해야 합니다. camelCase prop을 사용하기로 선택한 경우 애플리케이션에서 케밥 케이스 prop을 사용하지 않아야 합니다**
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -584,7 +588,7 @@ const props = defineProps({
 
 **여러 속성을 가진 앨리먼트는 여러 줄에 걸쳐 있어야 하며, 한 줄당 하나의 속성을 사용해야 합니다.**
 
-자바스크립트에서는 여러 속성을 가진 객체를 여러 줄에 걸쳐 분할하는 것이 훨씬 읽기 쉽기 때문에 좋은 관습으로 널리 알려져 있습니다. 워드프레스닷컴의 템플릿과 [JSX](/guide/extras/render-function.html#jsx-tsx)도 이와 동일하게 고려할 가치가 있습니다.
+자바스크립트에서는 여러 속성을 가진 객체를 여러 줄에 걸쳐 분할하는 것이 훨씬 읽기 쉽기 때문에 좋은 관습으로 널리 알려져 있습니다. 워드프레스닷컴의 템플릿과 [JSX](/guide/extras/render-function#jsx-tsx)도 이와 동일하게 고려할 가치가 있습니다.
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>

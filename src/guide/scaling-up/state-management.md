@@ -71,7 +71,7 @@ export default {
 2. 서로 다른 뷰의 기능이 동일한 상태를 변경시킬 필요가 있을 수 있습니다.
 
 사례 1의 경우, 가능한 해결 방법은 공유 상태를 공통 조상 컴포넌트로 "끌어올린" 다음 props로 전달하는 것입니다.
-그러나 이것은 깊은 계층 구조를 가진 컴포넌트 트리에서 비효율적이 되며 [Prop 드릴링](/guide/components/provide-inject.html#prop-drilling)으로 알려진 또 다른 문제로 이어집니다.
+그러나 이것은 깊은 계층 구조를 가진 컴포넌트 트리에서 비효율적이 되며 [Prop 드릴링](/guide/components/provide-inject#prop-drilling)으로 알려진 또 다른 문제로 이어집니다.
 
 사례 2의 경우, 템플릿 refs를 통해 직접적인 부모/자식 인스턴스에 도달하거나,
 발송(emit)된 이벤트를 통해 상태의 여러 복사본을 변경 및 동기화하려는 것과 같은 솔루션에 의존하는 경우가 많습니다.
@@ -85,11 +85,11 @@ export default {
 <div class="options-api">
 
 옵션 API에서 반응형 데이터는 `data()` 옵션을 사용하여 선언됩니다.
-내부적으로 `data()`에 의해 반환된 객체는 [`reactive()`](/api/reactivity-core.html#reactive) 함수를 통해 반응형으로 만들어지며, 공개 API로 사용할 수도 있습니다.
+내부적으로 `data()`에 의해 반환된 객체는 [`reactive()`](/api/reactivity-core#reactive) 함수를 통해 반응형으로 만들어지며, 공개 API로 사용할 수도 있습니다.
 
 </div>
 
-여러 인스턴스에서 공유해야 하는 상태가 있는 경우, [`reactive()`](/api/reactivity-core.html#reactive)를 사용하여 반응형 객체를 만든 다음 여러 컴포넌트에서 가져갈 수 있습니다.
+여러 인스턴스에서 공유해야 하는 상태가 있는 경우, [`reactive()`](/api/reactivity-core#reactive)를 사용하여 반응형 객체를 만든 다음 여러 컴포넌트에서 가져갈 수 있습니다.
 
 ```js
 // store.js

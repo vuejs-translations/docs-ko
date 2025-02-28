@@ -68,10 +68,20 @@ const props = defineProps<Props>()
 
 ### Props 기본값 {#props-default-values}
 
-타입 기반 선언을 사용할 때, Props에 대한 기본값을 선언할 수 없습니다. 이는 `withDefaults` 컴파일러 매크로를 사용하여 해결할 수 있습니다:
+타입 기반 선언(Type-based declaration)을 사용할 경우, props의 기본값을 선언하는 기능을 잃게 됩니다. 이를 해결하려면 [반응형 props 구조 분해(Reactive Props Destructure)](/guide/components/props#reactive-props-destructure) <sup class="vt-badge" data-text="3.5+" />를 사용할 수 있습니다:
 
 ```ts
-export interface Props {
+interface Props {
+  msg?: string
+  labels?: string[]
+}
+
+const { msg = 'hello', labels = ['one', 'two'] } = defineProps<Props>()
+```
+버전 3.4 이하에서는 반응형 props 구조 분해(Reactive Props Destructure)가 기본적으로 활성화되어 있지 않습니다.대안으로, `withDefaults` 컴파일러 매크로를 사용할 수 있습니다:
+
+```ts
+interface Props {
   msg?: string
   labels?: string[]
 }
@@ -82,7 +92,11 @@ const props = withDefaults(defineProps<Props>(), {
 })
 ```
 
-이것은 동등한 런타임 props `default` 옵션으로 컴파일됩니다. 또한, `withDefaults` 헬퍼는 기본값에 대한 타입 체크를 제공하며, 기본값이 선언된 속성에 대한 선택적 플래그가 제거된 반환된 `props` 타입을 보장합니다.
+이 코드는 런타임에서 props의 default 옵션과 동일한 동작을 하도록 컴파일됩니다. 추가적으로, withDefaults 헬퍼는 기본값에 대한 타입 검사를 수행하며, 기본값이 선언된 속성의 경우, props 타입에서 optional 플래그를 제거하도록 보장합니다.
+
+:::info
+기본값으로 배열(Array) 또는 객체(Object)와 같은 변경 가능한 참조 타입을 사용할 경우, withDefaults를 사용할 때 반드시 함수로 감싸야 합니다. 이렇게 하면 실수로 기본값을 수정하거나, 외부 부작용이 발생하는 것을 방지할 수 있습니다. 또한, 각 컴포넌트 인스턴스가 독립적인 기본값을 가지게 됩니다. 반면, 구조 분해(Destructure) 방식을 사용할 때는 이러한 처리가 필요하지 않습니다.
+:::
 
 ### `<script setup>`을 사용하지 않는 경우 {#without-script-setup}
 
@@ -309,7 +323,7 @@ function handleChange(event) {
 </template>
 ```
 
-타입 주석을 사용하지 않으면 `event` 인수는 암묵적으로 `any` 타입이 됩니다. 이는 `tsconfig.json`에서 `"strict": true` 또는 `"noImplicitAny": true`를 사용하는 경우 TS 에러로 이어집니다. 따라서 이벤트 핸들러의 인수를 명시적으로 주석으로 지정하는 것이 권장됩니다. 또한, `event`의 속성에 접근할 때 타입 어설션(type assertion)을 사용해야 할 수도 있습니다:
+타입 주석(Type annotation)이 없으면, `event` 인수의 타입이 암시적으로 `any`가 됩니다. 또한, `tsconfig.json`에서 `"strict": true` 또는 `"noImplicitAny": true` 옵션이 활성화된 경우, TypeScript 오류가 발생할 수 있습니다. 따라서, 이벤트 핸들러의 인수는 명시적으로 타입을 지정하는 것이 권장됩니다. 추가적으로, `event`의 속성에 접근할 때는 **타입 단언(Type assertion)**을 사용해야 할 수도 있습니다.
 
 ```ts
 function handleChange(event: Event) {
@@ -356,6 +370,17 @@ const foo = inject('foo') as string
 
 ## 템플릿 Ref의 타이핑 {#typing-template-refs}
 
+Vue 3.5 및 @vue/language-tools 2.1(IDE 언어 서비스 및 `vue-tsc` 지원)에서는, SFC에서 `useTemplateRef()`를 사용하여 생성된 ref의 타입이 **자동으로 추론**될 수 있습니다. 이는 정적(static) ref의 경우, 해당 `ref` 속성이 사용된 요소를 기준으로 타입을 추론하는 방식입니다.
+
+그러나 자동 추론이 불가능한 경우, 제네릭 인자를 사용하여 템플릿 ref를 명시적인 타입으로 변환(cast)할 수 있습니다.
+
+```ts
+const el = useTemplateRef<HTMLInputElement>('el')
+```
+
+<details>
+<summary>3.5 이전</summary>
+
 템플릿 ref는 명시적인 제네릭 타입 인수와 `null`을 초기 값으로 사용하여 생성해야 합니다:
 
 ```vue
@@ -374,48 +399,83 @@ onMounted(() => {
 </template>
 ```
 
+</details>
+
 올바른 DOM 인터페이스를 얻기 위해서는 [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#technical_summary)과 같은 페이지를 확인할 수 있습니다.
 
 Strict한 타입 안전성을 위해서는 `el.value`에 접근할 때 옵셔널 체이닝 또는 타입 가드를 사용해야 합니다. 이는 초기 ref 값이 컴포넌트가 마운트될 때까지 `null`이며, 참조된 요소가 `v-if`에 의해 마운트 해제될 수도 있기 때문입니다.
 
 ## 컴포넌트 템플릿 Ref의 타이핑 {#typing-component-template-refs}
 
-자식 컴포넌트에 대한 템플릿 ref를 주석으로 지정하여 공개 메서드를 호출하기 위한 템플릿 ref를 타입으로 지정할 수도 있습니다. 예를 들어, `MyModal` 자식 컴포넌트가 모달을 열기 위한 메서드를 가지고 있다고 가정해보겠습니다:
+Vue 3.5 및 `@vue/language-tools` 2.1(IDE 언어 서비스 및 `vue-tsc` 지원)에서는, SFC에서 `useTemplateRef()`를 사용하여 생성된 ref의 타입이 **자동으로 추론**될 수 있습니다. 이는 정적(static) ref의 경우, 해당 ref 속성이 사용된 요소 또는 컴포넌트를 기준으로 타입을 추론하는 방식입니다.
 
-```vue
-<!-- MyModal.vue -->
-<script setup lang="ts">
-import { ref } from 'vue'
+자동 추론이 불가능한 경우 (예: SFC가 아닌 환경에서 사용하거나 동적 컴포넌트에 ref를 할당하는 경우) 제네릭 인자를 사용하여 template ref의 타입을 명시적으로 지정할 수 있습니다.
 
-const isContentShown = ref(false)
-const open = () => (isContentShown.value = true)
-
-defineExpose({
-  open
-})
-</script>
-```
-
-`MyModal`의 인스턴스 타입을 가져오기 위해 `typeof`를 통해 해당 컴포넌트의 유형을 먼저 얻은 다음, TypeScript의 내장 `InstanceType` 유틸리티를 사용하여 해당 인스턴스 타입을 추출해야 합니다:
+가져온(imported) 컴포넌트의 인스턴스 타입을 얻으려면, 먼저 `typeof`를 사용하여 해당 컴포넌트의 타입을 가져온 뒤, TypeScript의 내장 유틸리티 타입인 `InstanceType`을 사용하여 인스턴스 타입을 추출해야 합니다:
 
 ```vue{5}
 <!-- App.vue -->
 <script setup lang="ts">
-import MyModal from './MyModal.vue'
+import { useTemplateRef } from 'vue'
+import Foo from './Foo.vue'
+import Bar from './Bar.vue'
 
-const modal = ref<InstanceType<typeof MyModal> | null>(null)
+type FooType = InstanceType<typeof Foo>
+type BarType = InstanceType<typeof Bar>
+
+const compRef = useTemplateRef<FooType | BarType>('comp')
+</script>
+
+<template>
+  <component :is="Math.random() > 0.5 ? Foo : Bar" ref="comp" />
+</template>
+```
+
+구체적인 컴포넌트 타입을 알 수 없거나 중요하지 않은 경우에는 `ComponentPublicInstance`를 대신 사용할 수 있습니다. 이는 `$el`과 같이 모든 컴포넌트에서 공유되는 속성만 포함합니다:
+
+```ts
+import { useTemplateRef } from 'vue'
+import type { ComponentPublicInstance } from 'vue'
+
+const child = useTemplateRef<ComponentPublicInstance>('child')
+```
+
+참조된 컴포넌트가 [제네릭 컴포넌트](/guide/typescript/overview.html#generic-components)인 경우, 예를 들어 `MyGenericModal`과 같은 경우:
+
+```vue
+<!-- MyGenericModal.vue -->
+<script setup lang="ts" generic="ContentType extends string | number">
+  import { ref } from 'vue'
+
+  const content = ref<ContentType | null>(null)
+
+  const open = (newContent: ContentType) => (content.value = newContent)
+
+  defineExpose({
+    open
+  })
+</script>
+```
+
+It needs to be referenced using `ComponentExposed` from the [`vue-component-type-helpers`](https://www.npmjs.com/package/vue-component-type-helpers) library as `InstanceType` won't work.
+
+`InstanceType`은 사용할 수 없으므로 [`vue-component-type-helpers`](https://www.npmjs.com/package/vue-component-type-helpers) 라이브러리의 `ComponentExposed`를 사용하여 참조해야 합니다.
+
+
+
+```vue
+<!-- App.vue -->
+<script setup lang="ts">
+import { useTemplateRef } from 'vue'
+import MyGenericModal from './MyGenericModal.vue'
+import type { ComponentExposed } from 'vue-component-type-helpers'
+
+const modal = useTemplateRef<ComponentExposed<typeof MyGenericModal>>('modal')
 
 const openModal = () => {
-  modal.value?.open()
+  modal.value?.open('newValue')
 }
 </script>
 ```
 
-컴포넌트의 정확한 유형이 사용 불가능하거나 중요하지 않은 경우에는 `ComponentPublicInstance`를 사용할 수도 있습니다. 이는 `$el`과 같은 모든 컴포넌트에서 공유하는 속성만 포함합니다:
-
-```ts
-import { ref } from 'vue'
-import type { ComponentPublicInstance } from 'vue'
-
-const child = ref<ComponentPublicInstance | null>(null)
-```
+`@vue/language-tools` 2.1+ 버전에서는 정적 템플릿 ref의 타입이 자동으로 추론될 수 있으며, 위와 같은 처리는 극단적인 경우에만 필요합니다.

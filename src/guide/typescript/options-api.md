@@ -206,7 +206,7 @@ export default defineComponent({
 </template>
 ```
 
-타입 어노테이션이 없으면 `event` 인자는 암묵적으로 `any` 타입을 갖습니다. `"strict": true` 또는 `"noImplicitAny": true` 가 `tsconfig.json` 에서 사용되는 경우에 TS 에러가 발생합니다. 따라서 이벤트 핸들러의 전달인자에 어노테이팅 하는 것을 권장합니다. 또한 `event` 에 대한 속성을 캐스팅해야 할 수도 있습니다: 
+타입 주석이 없으면 `event` 인자는 암시적으로 `any` 타입을 갖게 됩니다. 또한, `tsconfig.json`에서 `"strict": true` 또는 `"noImplicitAny": true`가 설정된 경우 TypeScript 오류가 발생할 수 있습니다. 따라서 이벤트 핸들러의 인자는 명시적으로 타입을 지정하는 것이 권장됩니다. 추가적으로, `event`의 속성에 접근할 때 타입 단언(type assertion)이 필요할 수도 있습니다.
 
 ```ts
 import { defineComponent } from 'vue'
@@ -222,9 +222,9 @@ export default defineComponent({
 
 ## 전역 속성 확장 {#augmenting-global-properties}
 
-Some plugins install globally available properties to all component instances via [`app.config.globalProperties`](/api/application.html#app-config-globalproperties). For example, we may install `this.$http` for data-fetching or `this.$translate` for internationalization. To make this play well with TypeScript, Vue exposes a `ComponentCustomProperties` interface designed to be augmented via [TypeScript module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation):
+Some plugins install globally available properties to all component instances via [`app.config.globalProperties`](/api/application#app-config-globalproperties). For example, we may install `this.$http` for data-fetching or `this.$translate` for internationalization. To make this play well with TypeScript, Vue exposes a `ComponentCustomProperties` interface designed to be augmented via [TypeScript module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation):
 
-일부 플러그인은 [`app.config.globalProperties`](/api/application.html#app-config-globalproperties)를 통해 모든 컴포넌트 인스턴스에 전역적으로 사용 가능한 프로퍼티를 설치합니다. 예를 들어, 데이터 불러오기를 위해 `this.$http`를 설치하거나 국제화를 위해 `this.$translate`를 설치할 수 있습니다. 이를 타입스크립트에서 잘 작동하도록 하기 위해 Vue는 [타입스크립트 모듈 증강](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)을 통해 증강되도록 설계된 `ComponentCustomProperties` 인터페이스를 노출합니다:
+일부 플러그인은 [`app.config.globalProperties`](/api/application#app-config-globalproperties)를 통해 모든 컴포넌트 인스턴스에 전역적으로 사용 가능한 프로퍼티를 설치합니다. 예를 들어, 데이터 불러오기를 위해 `this.$http`를 설치하거나 국제화를 위해 `this.$translate`를 설치할 수 있습니다. 이를 타입스크립트에서 잘 작동하도록 하기 위해 Vue는 [타입스크립트 모듈 증강](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)을 통해 증강되도록 설계된 `ComponentCustomProperties` 인터페이스를 노출합니다:
 
 ```ts
 import axios from 'axios'
@@ -241,7 +241,7 @@ declare module 'vue' {
 
 - [컴포넌트 타입 확장을 위한 타입스크립트 유닛 테스트](https://github.com/vuejs/core/blob/main/packages/dts-test/componentTypeExtensions.test-d.tsx)
 
-### 타입 배치 증강 {#type-argumentation-placement}
+### 타입 배치 증강 {#type-augmentation-placement}
 
 타입 확장을 `.ts` 파일이나 프로젝트의 `*.d.ts` 파일에 넣을 수 있습니다. 어느 쪽이든 `tsconfig.json` 에 포함되어 있는지 확인하십시오. 라이브러리/플러그인 작성자의 경우 이 파일을`package.json` 의 `types` 속성에 작성해야합니다.
 

@@ -115,7 +115,7 @@ renderToString(app).then((html) => {
 <button>1</button>
 ```
 
-[`renderToString()`](/api/ssr.html#rendertostring)은 Vue 앱 인스턴스를 사용하여 앱의 렌더링된 HTML로 해결되는 Promise를 반환합니다.
+[`renderToString()`](/api/ssr#rendertostring)은 Vue 앱 인스턴스를 사용하여 앱의 렌더링된 HTML로 해결되는 Promise를 반환합니다.
 [Node.js Stream API](https://nodejs.org/api/stream.html) 또는 [Web Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)를 사용하여 스트리밍 렌더링도 가능합니다.
 자세한 내용은 [SSR API](/api/ssr)를 확인하세요.
 
@@ -176,7 +176,7 @@ server.listen(3000, () => {
 클라이언트 측 앱을 대화형으로 만들기 위해 Vue는 **하이드레이트** 단계를 수행해야 합니다.
 하이드레이트하는 동안 서버에서 실행된 것과 동일한 Vue 앱을 만들고 제어해야 하는 DOM 노드에 각 컴포넌트를 일치시키고 DOM 이벤트 핸들러를 연결합니다.
 
-앱을 하이드레이트 모드로 마운트하려면 `createApp()` 대신 [`createSSRApp()`](/api/application.html#createssrapp)를 사용해야 합니다:
+앱을 하이드레이트 모드로 마운트하려면 `createApp()` 대신 [`createSSRApp()`](/api/application#createssrapp)를 사용해야 합니다:
 
 ```js{2}
 // 이것은 브라우저에서 실행됩니다
@@ -336,7 +336,7 @@ Node.js에서 실행할 때 에러가 발생하고,
 
 ### 교차 요청 상태 오염(Cross-Request State Pollution) {#cross-request-state-pollution}
 
-상태 관리 문서에서 [반응성 API를 통한 간단한 상태 관리 패턴](state-management.html#simple-state-management-with-reactivity-api)을 소개했습니다.
+상태 관리 문서에서 [반응성 API를 통한 간단한 상태 관리 패턴](state-management#simple-state-management-with-reactivity-api)을 소개했습니다.
 SSR 컨텍스트에서 이 패턴은 몇 가지 추가 조정이 필요합니다.
 
 패턴은 JavaScript 모듈의 루트 범위에서 공유 상태를 선언합니다.
@@ -353,7 +353,7 @@ SSR 컨텍스트에서 이 패턴은 몇 가지 추가 조정이 필요합니다
 그러나 JavaScript 모듈을 초기화하는 것은 비용이 많이 들 수 있으므로 서버 성능에 상당한 영향을 미칠 수 있습니다.
 
 권장되는 솔루션은 각 요청에 대해 라우터 및 전역 저장소를 포함한 전체 앱의 새 인스턴스를 만드는 것입니다.
-그런 다음 컴포넌트에서 직접 가져오는 대신 [앱 수준 provide](/guide/components/provide-inject.html#app-level-provide)를 사용하여 공유 상태를 제공하고,
+그런 다음 컴포넌트에서 직접 가져오는 대신 [앱 수준 provide](/guide/components/provide-inject#app-level-provide)를 사용하여 공유 상태를 제공하고,
 이를 필요로 하는 컴포넌트에 주입합니다.
 
 ```js

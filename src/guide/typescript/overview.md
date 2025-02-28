@@ -32,7 +32,8 @@ Vite 기반 설정을 사용하면 개발 서버와 번들러가 트랜스파일
     Vue - 공식 확장은 이전에 Vue 2용 공식 VS Code 확장 기능이었던 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)을 대체합니다. 현재 Vetur를 설치한 경우, Vue 3 프로젝트에서는 비활성화해야 합니다. 
     :::
 
-- [WebStorm](https://www.jetbrains.com/webstorm/) 은 타입스크립트와 Vue 모두 기본적으로 지원합니다. 다른 JetBrains IDE도 [무료 플러그인](https://plugins.jetbrains.com/plugin/9442-vue-js) 설치를 통해 바로 사용 가능합니다. 2023.2 버전을 기준으로, WebStorm과 Vue 플러그인은 Vue Language Server에 대한 내장 지원을 제공합니다. `세팅 > 언어 및 프레임워크 > TypeScript > Vue` 에서 모든 TypeScript 버전에 대해 Volar 통합을 사용하도록 Vue 서비스를 설정할 수 있습니다. 기본적으로 TypeScript 5.0 이상의 버전에 대해 Volar가 사용됩니다.
+- [WebStorm](https://www.jetbrains.com/webstorm/)은 TypeScript와 Vue에 대한 기본 지원을 제공합니다. 또한, 다른 JetBrains IDE에서도 기본적으로 지원하거나 [무료 플러그인](https://plugins.jetbrains.com/plugin/9442-vue-js)을 통해 사용할 수 있습니다. 2023.2 버전부터 WebStorm과 Vue 플러그인은 Vue Language Server에 대한 기본 지원을 제공합니다. 설정에서 **Settings > Languages & Frameworks > TypeScript > Vue**로 이동하여 Vue 서비스를 Volar 통합을 사용하도록 설정할 수 있으며, 이는 모든 TypeScript 버전에서 적용됩니다. 기본적으로 TypeScript 5.0 이상에서는 Volar가 사용됩니다.
+
 
 ### `tsconfig.json` 설정 {#configuring-tsconfig-json}
 
@@ -40,7 +41,7 @@ Vite 기반 설정을 사용하면 개발 서버와 번들러가 트랜스파일
 
 `tsconfig.json` 을 수동으로 구성할 때 몇 가지 알고 있으면 좋은 옵션들은 다음과 같습니다.
 
-- [`compilerOptions.isolatedModules`](https://www.typescriptlang.org/tsconfig#isolatedModules) 옵션은 `true`로 설정됩니다. 이는 Vite가 TypeScript를 변환하기 위해 [esbuild](https://esbuild.github.io/)를 사용하며, 단일 파일 변환 제한에 영향을 받기 때문입니다. [`compilerOptions.verbatimModuleSyntax`](https://www.typescriptlang.org/tsconfig#verbatimModuleSyntax)는 [`isolatedModules`](https://github.com/microsoft/TypeScript/issues/53601)의 상위 집합이며 좋은 선택이 될 수 있습니다 - 이것은 [`@vue/tsconfig`](https://github.com/vuejs/tsconfig)에서 사용하는 것입니다.
+- [`compilerOptions.isolatedModules`](https://www.typescriptlang.org/tsconfig#isolatedModules)는 `true`로 설정됩니다. 이는 Vite가 TypeScript를 트랜스파일할 때 [esbuild](https://esbuild.github.io/)를 사용하며, 단일 파일 트랜스파일의 제한을 받기 때문입니다. [`compilerOptions.verbatimModuleSyntax`](https://www.typescriptlang.org/tsconfig#verbatimModuleSyntax)는 [`isolatedModules`](https://github.com/microsoft/TypeScript/issues/53601)의 상위 개념이며, 좋은 선택지가 될 수 있습니다. 실제로 [`@vue/tsconfig`](https://github.com/vuejs/tsconfig)에서도 이를 사용하고 있습니다.
 
 - 옵션 API를 사용하는 경우 컴포넌트 옵션에서 <code>this</code> 타입 검사를 사용 하려면 [`compilerOptions.strict`](https://www.typescriptlang.org/tsconfig#strict) 를 <code>true</code> 로 설정해야 합니다(또는 `strict` 플래그의 일부인 [`compilerOptions.noImplicitThis`](https://www.typescriptlang.org/tsconfig#noImplicitThis) 활성화). 그렇지 않으면 `this`는  `any` 로 취급 됩니다.
 
@@ -69,7 +70,7 @@ Vue CLI와 같은 웹팩 기반 설정에서는 `ts-loader` 와 같이 모듈 �
 
 ### `defineComponent()` {#definecomponent}
 
-타입스크립트가 컴포넌트 옵션 내에서 타입을 올바르게 추론할 수 있도록 하려면 [`defineComponent()`](/api/general.html#definecomponent) 를 사용하여 컴포넌트를 정의해야 합니다.
+타입스크립트가 컴포넌트 옵션 내에서 타입을 올바르게 추론할 수 있도록 하려면 [`defineComponent()`](/api/general#definecomponent) 를 사용하여 컴포넌트를 정의해야 합니다.
 
 ```ts
 import { defineComponent } from 'vue'
@@ -111,8 +112,8 @@ export default defineComponent({
 
 참고사항:
 
-- [웹팩에서 트리쉐이킹](/api/general.html#note-on-webpack-treeshaking)
-- [`defineComponent`를 위한 타입 테스트](https://github.com/vuejs/core/blob/main/test-dts/defineComponent.test-d.tsx)
+- [웹팩에서 트리쉐이킹](/api/general#note-on-webpack-treeshaking)
+- [`defineComponent`를 위한 타입 테스트](https://github.com/vuejs/core/blob/main/packages-private/dts-test/defineComponent.test-d.tsx)
 
 :::tip 
 `defineComponent()` 는 일반 JavaScript로 정의된 컴포넌트에 대한 타입 추론을 가능하게 합니다. 
@@ -192,14 +193,14 @@ Vue CLI 또는 웹팩 기반 설정을 사용하는 경우 타입스크립트 �
 
 ### TSX와 함께 사용하기 {#usage-with-tsx}
 
-Vue는 JSX/TSX로 컴포넌트 제작을 지원합니다. 자세한 내용은 [Render Function & JSX](/guide/extras/render-function.html#jsx-tsx) 가이드에서 다룹니다.
+Vue는 JSX/TSX로 컴포넌트 제작을 지원합니다. 자세한 내용은 [Render Function & JSX](/guide/extras/render-function#jsx-tsx) 가이드에서 다룹니다.
 
 ## Generic Components {#generic-components}
 
 Generic components are supported in two cases:
 
-- In SFCs: [`<script setup>` with the `generic` attribute](/api/sfc-script-setup.html#generics)
-- Render function / JSX components: [`defineComponent()`'s function signature](/api/general.html#function-signature)
+- In SFCs: [`<script setup>` with the `generic` attribute](/api/sfc-script-setup#generics)
+- Render function / JSX components: [`defineComponent()`'s function signature](/api/general#function-signature)
 
 ## API-Specific Recipes {#api-specific-recipes}
 

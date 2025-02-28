@@ -1,6 +1,29 @@
 <script setup>
 import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 </script>
+<style>
+.lambdatest {
+  background-color: var(--vt-c-bg-soft);
+  border-radius: 8px;
+  padding: 12px 16px 12px 12px;
+  font-size: 13px;
+  a {
+    display: flex;
+    color: var(--vt-c-text-2);
+  }
+  img {
+    background-color: #fff;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-right: 24px;
+  }
+  .testing-partner {
+    color: var(--vt-c-text-1);
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+</style>
 
 # 테스트 {#testing}
 
@@ -52,7 +75,7 @@ Vue 앱의 테스트 전략을 설계할 때는 다음 테스트 유형을 활�
 
 ```js
 // helpers.js
-export function increment (current, max = 10) {
+export function increment(current, max = 10) {
   if (current < max) {
     return current + 1
   }
@@ -309,18 +332,25 @@ E2E 테스트는 종종 앱이 제대로 작동하는지 여부에 대한 신뢰
 
 ### 추천 {#recommendation-2}
 
-- [Cypress](https://www.cypress.io/)
+- [Playwright](https://playwright.dev/)는 Chromium, WebKit, Firefox를 지원하는 강력한 E2E(End-to-End) 테스트 솔루션입니다. Windows, Linux, macOS에서 로컬(local) 또는 CI 환경에서 실행할 수 있으며, 헤드리스(headless) 모드와 UI를 표시하는 모드(headed)를 모두 지원합니다. 또한 Android용 Google Chrome 및 Mobile Safari의 네이티브 모바일 에뮬레이션 기능도 제공합니다. Playwright는 직관적인 UI, 뛰어난 디버깅 기능, 내장된 어설션(assertions), 병렬 실행, 트레이스(traces) 기능을 갖추고 있으며, 불안정한 테스트(flaky tests)를 최소화하도록 설계되었습니다. 컴포넌트 테스트도 지원하지만, 현재 실험적(experimental) 기능으로 제공됩니다. Playwright는 오픈 소스 프로젝트이며, Microsoft에서 유지 관리하고 있습니다.
 
-  전반적으로, Cypress는 정보 제공이 뛰어난 그래픽 인터페이스, 우수한 디버그 기능, 내장된 어설션, 스텁, 플레이크 저항성, 병렬 처리, 스냅샷과 같은 기능을 갖춘 가장 완벽한 E2E 솔루션을 제공한다고 믿습니다. 위에서 언급한 것처럼, [컴포넌트 테스트](https://docs.cypress.io/guides/component-testing/introduction)에 대한 지원도 제공합니다. Chromium 기반 브라우저, Firefox, Electron을 지원합니다. WebKit 지원도 가능하지만 실험적 상태로 표시되어 있습니다.
+- [Cypress](https://www.cypress.io/)는 직관적인 그래픽 인터페이스(GUI), 뛰어난 디버깅 기능, 내장된 어설션(assertions), 스텁(stubs), 플레이크 방지(flake-resistance), 스냅샷(snapshot) 기능을 제공합니다.  앞서 언급한 것처럼, **컴포넌트 테스트**에 대해 안정적인 지원을 제공합니다. Chromium 기반 브라우저, Firefox, Electron을 지원하며, WebKit 지원도 제공되지만, 현재 실험적(experimental) 기능으로 제공됩니다. Cypress는 MIT 라이선스로 제공되지만, 병렬 실행(parallelization)과 같은 일부 기능은 Cypress Cloud 구독이 필요합니다.
+
+<div class="lambdatest">
+  <a href="https://lambdatest.com" target="_blank">
+    <img src="/images/lambdatest.svg">
+    <div>
+      <div class="testing-partner">Testing Sponsor</div>
+      <div>Lambdatest는 모든 주요 브라우저와 실제 디바이스에서 E2E(End-to-End) 테스트, 접근성 테스트, 시각적 리그레션 테스트를 실행할 수 있는 클라우드 플랫폼입니다. 또한, AI를 활용한 테스트 생성 기능도 제공합니다!</div>
+    </div>
+  </a>
+</div>
 
 ### 다른 선택지 {#other-options-2}
 
-- [Playwright](https://playwright.dev/) 역시 모든 최신 렌더링 엔진을 지원하는 훌륭한 E2E 테스트 솔루션입니다. Chromium, WebKit, Firefox를 포함한 모든 최신 렌더링 엔진을 지원합니다. Windows, Linux, macOS에서 로컬 또는 CI에서, 헤드리스 또는 헤드 모드에서, Android용 Google Chrome과 모바일 Safari의 네이티브 모바일 에뮬레이션으로 테스트할 수 있습니다.
-
-- [Nightwatch](https://nightwatchjs.org/)는 [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver)를 기반으로 한 E2E 테스트 솔루션입니다. 이는 네이티브 모바일 테스트를 포함한 가장 넓은 브라우저 지원 범위를 제공합니다. Selenium 기반 솔루션은 Playwright나 Cypress보다 느립니다.
+- [Nightwatch](https://nightwatchjs.org/)는 [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) 기반의 E2E(End-to-End) 테스트 솔루션입니다. 이를 통해 가장 넓은 범위의 브라우저를 지원하며, 네이티브 모바일 테스트도 가능합니다. 다만, Selenium 기반 솔루션은 Playwright 또는 Cypress보다 실행 속도가 느릴 수 있습니다.
 
 - [WebdriverIO](https://webdriver.io/)는 WebDriver 프로토콜을 기반으로 한 웹 및 모바일 테스트 자동화 프레임워크입니다.
-
 
 ## 레시피 {#recipes}
 

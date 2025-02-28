@@ -1,5 +1,9 @@
 # 우선 순위 A 규칙: 필수 {#priority-a-rules-essential}
 
+::: warning 주의  
+이 Vue.js 스타일 가이드는 오래된 내용이므로 검토가 필요합니다. 질문이나 제안 사항이 있다면 [이슈를 등록](https://github.com/vuejs/docs/issues/new)해 주세요.  
+:::
+
 이 규칙들은 오류를 방지하는 데 도움이 되므로, 반드시 숙지하고 따라야 합니다. 예외는 있을 수 있지만, JavaScript와 Vue에 대한 전문 지식을 가진 사람만이 드물게 만들어야 합니다.
 
 ## 멀티 워드 컴포넌트 이름 사용 {#use-multi-word-component-names}
