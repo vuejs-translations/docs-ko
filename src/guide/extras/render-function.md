@@ -645,7 +645,7 @@ export default {
 
 ### `v-model` {#v-model}
 
-`v-model` 지시자는 템플릿 컴파일 중에 `modelValue`와 `onUpdate:modelValue` 프롭으로 확장되며, 이 프롭을 직접 제공해야 합니다:
+`v-model` 디렉티브는 템플릿 컴파일 중에 `modelValue`와 `onUpdate:modelValue` 프롭으로 확장되며, 이 프롭을 직접 제공해야 합니다:
 
 <div class="composition-api">
 

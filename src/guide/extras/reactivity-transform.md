@@ -1,6 +1,6 @@
 # Reactivity Transform {#reactivity-transform}
 
-:::danger 실험적 기능 제거
+:::danger 제거된 실험적 기능
 Reactivity Transform은 실험적 기능이었으며, 최신 3.4 릴리스에서 제거되었습니다. [이유에 대해서는 여기에서 확인하십시오](https://github.com/vuejs/rfcs/discussions/369#discussioncomment-5059028).
 
 여전히 사용하고자 한다면, 이제 [Vue Macros](https://vue-macros.sxzz.moe/features/reactivity-transform.html) 플러그인을 통해 사용할 수 있습니다.

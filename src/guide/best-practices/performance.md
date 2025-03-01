@@ -32,8 +32,8 @@ Vue는 수동 최적화가 크게 필요하지 않은 가장 일반적인 사용
 로컬 개발 중 성능 프로파일링:
 
 - [크롬 개발자도구 성능(Performance) 패널](https://developer.chrome.com/docs/devtools/evaluate-performance/)
-  - [`app.config.performance`](/api/application.html#app-config-performance)는 크롬 개발자도구의 성능 타임라인에서 Vue 관련 성능 마커를 활성화합니다.
-- [Vue 개발자도구 확장](/guide/scaling-up/tooling.html#browser-devtools)은 성능 프로파일링 기능도 제공합니다.
+  - [`app.config.performance`](/api/application#app-config-performance)는 크롬 개발자도구의 성능 타임라인에서 Vue 관련 성능 마커를 활성화합니다.
+- [Vue 개발자도구 확장](/guide/scaling-up/tooling#browser-devtools)은 성능 프로파일링 기능도 제공합니다.
 
 ## 페이지 로드 최적화 {#page-load-optimizations}
 
@@ -41,7 +41,7 @@ Vue는 수동 최적화가 크게 필요하지 않은 가장 일반적인 사용
 
 ### 올바른 아키텍처 선택 {#choosing-the-right-architecture}
 
-사용 사례가 페이지 로드 성능에 민감한 경우 순수한 클라이언트 측 SPA로 전송하지 마세요. 사용자가 보고자 하는 콘텐츠가 포함된 HTML을 서버가 직접 전송해야 합니다. 순수 클라이언트 측 렌더링은 콘텐츠에 도달하는 시간이 느립니다. [서버 측 렌더링(SSR)](/guide/extras/ways-of-using-vue.html#fullstack-ssr) 또는 [정적 사이트 생성(SSG)](/guide/extras/ways-of-using-vue.html#jamstack-ssg)을 사용하면 이를 완화할 수 있습니다. [SSR 가이드](/guide/scaling-up/ssr)를 확인하여 Vue로 SSR을 수행하는 방법에 대해 알아보세요. 앱에 풍부한 인터랙티브 요구 사항이 없는 경우 기존 백엔드 서버를 사용하여 HTML을 렌더링하고 클라이언트에서 Vue를 사용하여 향상시킬 수도 있습니다.
+사용 사례가 페이지 로드 성능에 민감한 경우 순수한 클라이언트 측 SPA로 전송하지 마세요. 사용자가 보고자 하는 콘텐츠가 포함된 HTML을 서버가 직접 전송해야 합니다. 순수 클라이언트 측 렌더링은 콘텐츠에 도달하는 시간이 느립니다. [서버 측 렌더링(SSR)](/guide/extras/ways-of-using-vue#fullstack-ssr) 또는 [정적 사이트 생성(SSG)](/guide/extras/ways-of-using-vue#jamstack-ssg)을 사용하면 이를 완화할 수 있습니다. [SSR 가이드](/guide/scaling-up/ssr)를 확인하여 Vue로 SSR을 수행하는 방법에 대해 알아보세요. 앱에 풍부한 인터랙티브 요구 사항이 없는 경우 기존 백엔드 서버를 사용하여 HTML을 렌더링하고 클라이언트에서 Vue를 사용하여 향상시킬 수도 있습니다.
 
 기본 애플리케이션이 SPA여야 하지만 마케팅 페이지(랜딩, 정보, 블로그)가 있는 경우 마케팅 페이지를 별도로 제공하세요! 마케팅 페이지는 SSG를 사용하여 최소한의 JS가 포함된 정적 HTML로 배포하는 것이 이상적입니다.
 
@@ -118,11 +118,11 @@ Vue에서 자식 컴포넌트는 수신된 props 중 하나 이상이 변경된 
 
 ### `v-once` {#v-once}
 
-`v-once`는 런타임 데이터에 의존하지만, 업데이트할 필요가 없는 컨텐츠를 렌더링하는 데 사용할 수 있는 내장 디렉티브입니다. 이것을 사용하는 컴포넌트 내 전체 하위 트리는 이후 모든 업데이트를 건너뜁니다. 자세한 내용은 [API 레퍼런스](/api/built-in-directives.html#v-once)를 참고하세요.
+`v-once`는 런타임 데이터에 의존하지만, 업데이트할 필요가 없는 컨텐츠를 렌더링하는 데 사용할 수 있는 내장 디렉티브입니다. 이것을 사용하는 컴포넌트 내 전체 하위 트리는 이후 모든 업데이트를 건너뜁니다. 자세한 내용은 [API 레퍼런스](/api/built-in-directives#v-once)를 참고하세요.
 
 ### `v-memo` {#v-memo}
 
-`v-memo`는 큰 하위 트리 또는 `v-for` 목록의 업데이트를 조건부로 건너뛰는 데 사용할 수 있는 내장 디렉티브입니다. 자세한 내용은 [API 레퍼런스](/api/built-in-directives.html#v-memo)를 참고하세요.
+`v-memo`는 큰 하위 트리 또는 `v-for` 목록의 업데이트를 조건부로 건너뛰는 데 사용할 수 있는 내장 디렉티브입니다. 자세한 내용은 [API 레퍼런스](/api/built-in-directives#v-memo)를 참고하세요.
 
 ### 계산된 안정성 <sup class="vt-badge" data-text="3.4+" /> {#computed-stability}
 
@@ -189,7 +189,7 @@ const computedObj = computed((oldValue) => {
 
 Vue의 반응형 시스템은 기본적으로 깊습니다. 이러면 상태 관리가 직관적이지만, 데이터 크기가 클 경우 특정 수준의 오버헤드가 발생하는데, 이것은 모든 속성 접근이 의존성 추적을 수행하는 프록시 트랩을 트리거하기 때문입니다. 이것은 일반적으로 깊이 중첩된 객체의 큰 배열을 처리할 때, 단일 렌더가 100,000개 이상의 속성에 접근하는 경우 눈에 띄게 나타나므로, 매우 특정한 사용 사례에만 영향을 미칩니다.
 
-Vue는 [`shallowRef()`](/api/reactivity-advanced.html#shallowref) 및 [`shallowReactive()`](/api/reactivity-advanced.html#shallowreactive)를 사용하여, 깊은 반응형을 opt-out하는 탈출구를 제공합니다. 얕은 API는 루트 수준에서만 반응하는 상태를 생성하고, 모든 중첩된 객체를 그대로 노출합니다. 이렇게 하면 중첩된 속성에 빠르게 접근할 수 있으며, 모든 중첩된 객체는 변경할 수 없는 것처럼 처리해야 하고, 루트 상태를 교체해야만 업데이트가 트리거될 수 있습니다:
+Vue는 [`shallowRef()`](/api/reactivity-advanced#shallowref) 및 [`shallowReactive()`](/api/reactivity-advanced#shallowreactive)를 사용하여, 깊은 반응형을 opt-out하는 탈출구를 제공합니다. 얕은 API는 루트 수준에서만 반응하는 상태를 생성하고, 모든 중첩된 객체를 그대로 노출합니다. 이렇게 하면 중첩된 속성에 빠르게 접근할 수 있으며, 모든 중첩된 객체는 변경할 수 없는 것처럼 처리해야 하고, 루트 상태를 교체해야만 업데이트가 트리거될 수 있습니다:
 
 ```js
 const shallowArray = shallowRef([
@@ -215,6 +215,6 @@ shallowArray.value = [
 
 ### 불필요한 컴포넌트 추상화 방지 {#avoid-unnecessary-component-abstractions}
 
-때때로 더 나은 추상화 또는 코드 구성을 위해 [렌더링 없는 컴포넌트](/guide/components/slots.html#renderless-components) 또는 상위 컴포넌트(즉, 추가 프로퍼티가 있는 다른 컴포넌트를 렌더링하는 컴포넌트)를 만들 수 있습니다. 이것이 잘못된 것은 아니지만 컴포넌트 인스턴스는 일반 DOM 노드보다 훨씬 비싸고 추상화 패턴으로 인해 너무 많이 생성하면 성능 비용이 발생할 수 있다는 점을 명심하세요.
+때때로 더 나은 추상화 또는 코드 구성을 위해 [렌더링 없는 컴포넌트](/guide/components/slots#renderless-components) 또는 상위 컴포넌트(즉, 추가 프로퍼티가 있는 다른 컴포넌트를 렌더링하는 컴포넌트)를 만들 수 있습니다. 이것이 잘못된 것은 아니지만 컴포넌트 인스턴스는 일반 DOM 노드보다 훨씬 비싸고 추상화 패턴으로 인해 너무 많이 생성하면 성능 비용이 발생할 수 있다는 점을 명심하세요.
 
 몇 개의 인스턴스만 줄이는 것은 눈에 띄는 효과가 없으므로, 컴포넌트가 앱에서 몇 번만 렌더링되는 경우, 이것을 불필요하게 추상화하지 않아도 됩니다. 이 최적화를 고려하는 가장 좋은 시나리오는 "**큰 목록**"입니다. 100개의 아이템 목록이 있고, 각 아이템 컴포넌트에 많은 하위 컴포넌트가 포함되어 있다고 상상해 보십시오. 여기서 불필요한 컴포넌트 추상화 하나를 제거하면, 수백 개의 컴포넌트 인스턴스가 줄어들 수 있습니다.

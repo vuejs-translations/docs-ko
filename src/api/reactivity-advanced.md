@@ -4,7 +4,7 @@
 
 [`ref()`](./reactivity-core#ref)의 얕은 버전입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function shallowRef<T>(value: T): ShallowRef<T>
@@ -14,7 +14,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `ref()`와 달리 `shallowRef()`의 내부 값은 있는 그대로 저장되고 노출되며 내부 깊숙이까지 반응형으로 동작하지는 않습니다.
   `.value` 접근만 반응형입니다.
@@ -33,7 +33,7 @@
   state.value = { count: 2 }
   ```
 
-- **참고**:
+- **참고**
   - [가이드 - 큰 불변 구조에 대한 반응형 오버헤드 감소](/guide/best-practices/performance#reduce-reactivity-overhead-for-large-immutable-structures)
   - [가이드 - 외부 상태 시스템과의 통합](/guide/extras/reactivity-in-depth#integration-with-external-state-systems)
 
@@ -42,7 +42,7 @@
 [`shallowRef()`](#shallowref)의 강제 트리거 이펙트.
 이것은 일반적으로 `shallowRef` 내부 깊숙한 곳의 값을 변경 후, 관련 이펙트를 강제로 트리거 하기위해 사용합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function triggerRef(ref: ShallowRef): void
@@ -71,7 +71,7 @@
 
 의존성 추적 및 업데이트 트리거를 명시적으로 제어하기 위한 커스텀 ref를 만듭니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function customRef<T>(factory: CustomRefFactory<T>): Ref<T>
@@ -85,7 +85,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `customRef()`는 인자로 펙토리 함수를 받습니다.
   이 함수는 `track`와 `trigger`를 인자로 수신하며,
@@ -141,13 +141,13 @@
 
 [`reactive()`](./reactivity-core#reactive)의 얕은 버전입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function shallowReactive<T extends object>(target: T): T
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `reactive()`와 달리 내부 깊숙한 곳의 변경이 반응형으로 작동하지 않고,
   얕게 루트 수준의 속성 변경에 대해서만 반응형인 객체입니다.
@@ -185,13 +185,13 @@
 
 [`readonly()`](./reactivity-core#readonly)의 얕은 버전입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function shallowReadonly<T extends object>(target: T): Readonly<T>
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `readonly()`와 달리 내부 깊숙이까지 변환하지 않고,
   루트 수준 속성만 읽기 전용으로 만들어집니다.
@@ -229,13 +229,13 @@
 
 Vue에서 만든 프록시의 원시 원본 객체를 반환합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function toRaw<T>(proxy: T): T
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `toRaw()`는 [`reactive()`](./reactivity-core#reactive), [`readonly()`](./reactivity-core#readonly), [`shallowReactive()`](#shallowreactive), [`shallowReadonly()`](#shallowreadonly)로 생성된 프록시에서 원본 객체를 반환합니다.
 
@@ -257,7 +257,7 @@ Vue에서 만든 프록시의 원시 원본 객체를 반환합니다.
 객체가 프록시로 변환되지 않도록 마크(mark)합니다.
 객체 자체를 반환합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function markRaw<T extends object>(value: T): T
@@ -318,7 +318,7 @@ Vue에서 만든 프록시의 원시 원본 객체를 반환합니다.
 
 이 API의 자세한 사용 사례 참고: [RFC](https://github.com/vuejs/rfcs/blob/master/active-rfcs/0041-reactivity-effect-scope.md)
 
-- **타입**:
+- **타입**
 
   ```ts
   function effectScope(detached?: boolean): EffectScope
@@ -350,7 +350,7 @@ Vue에서 만든 프록시의 원시 원본 객체를 반환합니다.
 
 현재 활성 [effectScope](#effectscope)가 있는 경우, 이를 반환합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function getCurrentScope(): EffectScope | undefined
@@ -364,22 +364,10 @@ Vue에서 만든 프록시의 원시 원본 객체를 반환합니다.
 각 Vue 컴포넌트의 `setup()` 함수도 effectScope에서 호출되기 때문에,
 비-컴포넌트-결합(non-component-coupled)에서 재사용 가능한 컴포지션 함수인 `onUnmounted`의 대체로 사용할 수 있습니다.
 
-- **타입**:
+이 함수가 활성 효과 범위(effect scope) 없이 호출되면 경고가 발생합니다. 버전 3.5 이상에서는 두 번째 인수로 true를 전달하여 이 경고를 억제할 수 있습니다.
+
+- **타입**
 
   ```ts
-  function onScopeDispose(fn: () => void): void
-  ```
-
-- **예제**
-
-  ```js
-  const scope = effectScope()
-
-  scope.run(() => {
-    onScopeDispose(() => {
-      console.log('effectScope가 중지됨!')
-    })
-  })
-
-  scope.stop() // 로그: 'effectScope가 중지됨!'
+  function onScopeDispose(fn: () => void, failSilently?: boolean): void
   ```

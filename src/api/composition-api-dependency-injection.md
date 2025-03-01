@@ -4,13 +4,13 @@
 
 하위 컴포넌트에 주입(Inject)할 수 있도록 값을 제공(Provide)합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function provide<T>(key: InjectionKey<T> | string, value: T): void
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `provide()`는 "키가 될 문자열 또는 심볼(symbol)"과 "제공될 값" 두 가지 인자를 가집니다.
 
@@ -37,15 +37,15 @@
   </script>
   ```
 
-- **참고**:
+- **참고**
   - [가이드 - Provide/Inject](/guide/components/provide-inject)
-  - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api.html#typing-provide-inject) <sup class="vt-badge ts" />
+  - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
 
 ## inject() {#inject}
 
-상위 컴포넌트 또는 [`app.provide()`](/api/application.html#app-provide)를 통해 앱에서 제공(Provide)된 값을 주입(Inject)합니다.
+상위 컴포넌트 또는 [`app.provide()`](/api/application#app-provide)를 통해 앱에서 제공(Provide)된 값을 주입(Inject)합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   // 기본 값 없음
@@ -103,12 +103,12 @@
   </script>
   ```
   
-- **참고**:
+- **참고**
   - [가이드 - Provide/Inject](/guide/components/provide-inject)
   - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
 
-## hasInjectionContext() <sup class="vt-badge" data-text="3.3+" /> {#has-injection-context}
-
+## hasInjectionContext() {#has-injection-context}
+- 3.3+ 버전에서만 지원
 만약 [inject()](#inject)를 `setup()` 바깥에서 호출하는 경우 경고 없이 사용할 수 있는지 여부를 확인하고 참(true)인 경우 true를 반환합니다. 이 메서드는 `inject()`를 끝 사용자에게 경고를 트리거하지 않고 내부에서 사용하려는 라이브러리에서 사용하도록 설계되었습니다.
 
 - **타입**

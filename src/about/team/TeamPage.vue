@@ -36,47 +36,40 @@ shuffleMembers(membersPartnerData as Member[])
 <template>
   <div class="TeamPage">
     <TeamHero>
-      <template #title>Meet the Team</template>
+      <template #title>팀을 만나 보세요</template>
       <template #lead>
-        The development of Vue and its ecosystem is guided by an
-        international team, some of whom have chosen to be
-        <span class="nowrap">featured below.</span>
+        Vue와 그 생태계의 개발은 국제적인 팀에 의해 이루어지며, 그중 일부 팀원들은 <span class="nowrap">아래에 소개되었습니다.</span>
       </template>
 
       <template #action>
         <VTLink
           href="https://github.com/vuejs/governance/blob/master/Team-Charter.md"
         >
-          Learn more about teams
+          팀에 대해 더 알아보기
         </VTLink>
       </template>
     </TeamHero>
 
     <TeamList :members="(membersCoreData as Member[])">
-      <template #title>Core Team Members</template>
+      <template #title>핵심 팀 멤버</template>
       <template #lead>
-        Core team members are those who are actively involved in the
-        maintenance of one or more core projects. They have made
-        significant contributions to the Vue ecosystem, with a long term
-        commitment to the success of the project and its users.
+        핵심 팀 멤버(Core Team Members)는 하나 이상의 핵심 프로젝트를 적극적으로 유지 관리하는 사람들입니다.
+        이들은 Vue 생태계에 중요한 기여를 했으며, 프로젝트와 사용자들의 성공을 위해 장기적인 헌신을 이어가고 있습니다.
       </template>
     </TeamList>
 
     <TeamList :members="(membersEmeritiData as Member[])">
       <template #title>Core Team Emeriti</template>
       <template #lead>
-        Here we honor some no-longer-active core team members who have made
-        valuable contributions in the past.
+        여기에서는 과거에 소중한 기여를 했지만 현재는 더 이상 활동하지 않는 핵심 팀 멤버들을 기립니다.
       </template>
     </TeamList>
 
     <TeamList :members="(membersPartnerData as Member[])">
-      <template #title>Community Partners</template>
+      <template #title>커뮤니티 파트너</template>
       <template #lead>
-        Some members of the Vue community have so enriched it, that they
-        deserve special mention. We've developed a more intimate
-        relationship with these key partners, often coordinating with them
-        on upcoming features and news.
+        Vue 커뮤니티의 일부 멤버들은 커뮤니티를 더욱 풍성하게 만드는 데 큰 기여를 하였으며, 특별한 언급이 필요할 정도로 중요한 역할을 해왔습니다.
+        우리는 이러한 핵심 파트너들과 더욱 긴밀한 관계를 구축해 왔으며, 종종 새로운 기능이나 소식을 조율하는 과정에서 협력하고 있습니다.
       </template>
     </TeamList>
   </div>

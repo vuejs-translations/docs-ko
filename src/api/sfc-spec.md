@@ -37,7 +37,7 @@ export default {
 
 ### `<template>`
 
-- 각 `*.vue` 파일은 최상위 `<template>` 블록을 하나만 포함할 수 있습니다.
+- 각 `*.vue` 파일은 최상위 `<template>` 블록을 한번에 하나만 포함할 수 있습니다.
 
 - 컨텐츠는 추출되어 `@vue/compiler-dom`으로 전달되고,
   JavaScript 렌더 함수로 사전 컴파일되며,
@@ -152,6 +152,14 @@ p {{ msg }}
 <unit-test src="./unit-test.js">
 </unit-test>
 ```
+
+:::warning Note
+`src`에서 별칭(alias)을 사용할 때, `~`로 시작하지 마세요. `~` 이후의 내용은 모듈 요청으로 해석됩니다. 이를 활용하면 Node 모듈 내부의 애셋을 참조할 수 있습니다.
+```vue
+<img src="~some-npm-package/foo.png">
+```
+:::
+
 
 ## 주석 {#comments}
 

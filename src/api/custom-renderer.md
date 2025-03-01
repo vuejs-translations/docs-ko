@@ -3,11 +3,9 @@
 
 ## createRenderer() {#createrenderer}
 
-사용자 정의 렌더러를 생성합니다. 플랫폼별 노드 생성 및 조작 API를 제공함으로써 Vue의 핵심 런타임을 활용하여 비 DOM 환경을 타겟팅할 수 있습니다.
+사용자 정의 렌더러를 생성합니다. 플랫폼별 노드 생성 및 조작 API를 제공함으로써, Vue의 코어 런타임을 활용하여 DOM이 아닌 환경을 대상으로 렌더링할 수 있습니다.
 
-Creates a custom renderer. By providing platform-specific node creation and manipulation APIs, you can leverage Vue's core runtime to target non-DOM environments.
-
-- **타입**:
+- **타입**
 
   ```ts
   function createRenderer<HostNode, HostElement>(
@@ -25,24 +23,16 @@ Creates a custom renderer. By providing platform-specific node creation and mani
       key: string,
       prevValue: any,
       nextValue: any,
-      // 나머지는 대부분의 커스텀 렌더러에 사용되지 않습니다.
-      isSVG?: boolean,
-      prevChildren?: VNode<HostNode, HostElement>[],
+      namespace?: ElementNamespace,
       parentComponent?: ComponentInternalInstance | null,
-      parentSuspense?: SuspenseBoundary | null,
-      unmountChildren?: UnmountChildrenFn
     ): void
-    insert(
-      el: HostNode,
-      parent: HostElement,
-      anchor?: HostNode | null
-    ): void
+    insert(el: HostNode, parent: HostElement, anchor?: HostNode | null): void
     remove(el: HostNode): void
     createElement(
       type: string,
-      isSVG?: boolean,
+      namespace?: ElementNamespace,
       isCustomizedBuiltIn?: string,
-      vnodeProps?: (VNodeProps & { [key: string]: any }) | null
+      vnodeProps?: (VNodeProps & { [key: string]: any }) | null,
     ): HostElement
     createText(text: string): HostNode
     createComment(text: string): HostNode
@@ -50,8 +40,6 @@ Creates a custom renderer. By providing platform-specific node creation and mani
     setElementText(node: HostElement, text: string): void
     parentNode(node: HostNode): HostElement | null
     nextSibling(node: HostNode): HostNode | null
-
-    // optional, DOM-specific
     querySelector?(selector: string): HostElement | null
     setScopeId?(el: HostElement, id: string): void
     cloneNode?(node: HostNode): HostNode
@@ -59,7 +47,9 @@ Creates a custom renderer. By providing platform-specific node creation and mani
       content: string,
       parent: HostElement,
       anchor: HostNode | null,
-      isSVG: boolean
+      namespace: ElementNamespace,
+      start?: HostNode | null,
+      end?: HostNode | null,
     ): [HostNode, HostNode]
   }
   ```

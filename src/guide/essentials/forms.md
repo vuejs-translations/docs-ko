@@ -40,7 +40,7 @@ const multiSelected = ref([])
 ::: tip 참고
 `v-model`은 모든 폼 엘리먼트에서 감지되는 초기 `value`, `checked` 또는 `selected` 속성 값을 무시합니다.
 항상 현재 바인딩된 JavaScript 상태를 유효한 값으로 취급합니다.
-<span class="options-api">[`data`](/api/options-state.html#data) 옵션을</span><span class="composition-api">[reactivity API](/api/reactivity-core.html#reactivity-api-core)를</span> 사용하여 JavaScript에서 초기 값을 선언해야 합니다.
+<span class="options-api">[`data`](/api/options-state#data) 옵션을</span><span class="composition-api">[reactivity API](/api/reactivity-core#reactivity-api-core)를</span> 사용하여 JavaScript에서 초기 값을 선언해야 합니다.
 :::
 
 ## 기본 사용법 {#basic-usage}

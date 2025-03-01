@@ -225,7 +225,7 @@ url.value = '/new-url'
 const { data, error } = useFetch(() => `/posts/${props.id}`)
 ```
 
-우리는 [`watchEffect()`](/api/reactivity-core.html#watcheffect)와 [`toValue()`](/api/reactivity-utilities.html#tovalue) API를 이용하여 기존의 구현을 리팩토링 할 수 있습니다:
+우리는 [`watchEffect()`](/api/reactivity-core#watcheffect)와 [`toValue()`](/api/reactivity-utilities#tovalue) API를 이용하여 기존의 구현을 리팩토링 할 수 있습니다:
 
 ```js{8,13}
 // fetch.js
@@ -254,7 +254,7 @@ export function useFetch(url) {
 }
 ```
 
-`toValue()`는 3.3 버전에서 추가된 API로, ref나 getter를 값으로 정규화하는 데 사용됩니다. 인자가 ref인 경우 ref의 값을 반환하고, 인자가 함수인 경우 함수를 호출하고 그 반환값을 반환합니다. 그 외의 경우에는 인자를 그대로 반환합니다. 이는 [`unref()`](/api/reactivity-utilities.html#unref)와 유사하게 작동하지만, 함수에 대한 특별한 처리가 있습니다.
+`toValue()`는 3.3 버전에서 추가된 API로, ref나 getter를 값으로 정규화하는 데 사용됩니다. 인자가 ref인 경우 ref의 값을 반환하고, 인자가 함수인 경우 함수를 호출하고 그 반환값을 반환합니다. 그 외의 경우에는 인자를 그대로 반환합니다. 이는 [`unref()`](/api/reactivity-utilities#unref)와 유사하게 작동하지만, 함수에 대한 특별한 처리가 있습니다.
 
 `toValue(url)`이 `watchEffect` 콜백 내부에서 호출되는 것에 주목하세요. 이는 `toValue()` 정규화 과정 중에 접근한 모든 리액티브 의존성이 watcher에 의해 추적되도록 보장합니다.
 
@@ -384,7 +384,7 @@ export default {
 
 ### vs. Mixins {#vs-mixins}
 
-Vue 2를 사용한 개발자는 [mixins](/api/options-composition.html#mixins) 옵션에 익숙할 것입니다.
+Vue 2를 사용한 개발자는 [mixins](/api/options-composition#mixins) 옵션에 익숙할 것입니다.
 이 옵션을 사용해 컴포넌트 로직을 재사용 가능한 단위로 추출할 수도 있습니다.
 mixins에는 세 가지 주요 단점이 있습니다:
 
@@ -406,7 +406,7 @@ mixins에는 세 가지 주요 단점이 있습니다:
 
 ### vs. 렌더리스 컴포넌트 {#vs-renderless-components}
 
-컴포넌트 심화의 슬롯 챕터에서는 범위가 지정된 슬롯을 기반으로 하는 [렌더리스 컴포넌트](/guide/components/slots.html#renderless-components) 패턴에 대해 논의했습니다.
+컴포넌트 심화의 슬롯 챕터에서는 범위가 지정된 슬롯을 기반으로 하는 [렌더리스 컴포넌트](/guide/components/slots#renderless-components) 패턴에 대해 논의했습니다.
 렌더리스 컴포넌트를 사용하여 동일한 마우스 추적 데모도 구현했습니다.
 
 렌더리스 컴포넌트에 비해 컴포저블의 주요 이점은 컴포저블이 추가적인 컴포넌트 인스턴스 오버헤드를 발생시키지 않는다는 것입니다.
@@ -427,6 +427,6 @@ React에 대한 경험이 있다면 이것이 커스텀 React 훅과 매우 유�
 
 - [상태 관리](/guide/scaling-up/state-management): 여러 컴포넌트가 공유하는 상태를 관리하는 패턴입니다.
 
-- [테스팅 컴포저블](/guide/scaling-up/testing.html#testing-composables): 단위 테스트 컴포저블에 대한 팁.
+- [테스팅 컴포저블](/guide/scaling-up/testing#testing-composables): 단위 테스트 컴포저블에 대한 팁.
 
 - [VueUse](https://vueuse.org/): 계속 증가하는 Vue 컴포저블 컬렉션입니다. 또한 소스 코드는 훌륭한 학습 자료입니다.

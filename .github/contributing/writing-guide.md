@@ -1,109 +1,144 @@
-# Vue Docs Writing Guide
+# Vue 문서 작성 가이드
 
-Writing documentation is an exercise in empathy. We're not describing an objective reality - the source code already does that. Our job is to help shape the relationship between users and the Vue ecosystem. This ever-evolving guide provides some rules and recommendations on how to do that consistently within the Vue ecosystem.
+문서 작성은 공감의 운동입니다.우리는 객관적인 현실을 설명하지 않습니다. 소스 코드는 이미 그렇게합니다.우리의 임무는 사용자와 VUE 생태계의 관계를 형성하는 데 도움이됩니다.이 진화하는이 안내서는 VUE 생태계 내에서 일관되게 수행하는 방법에 대한 몇 가지 규칙과 권장 사항을 제공합니다.
 
-## Principles
+## 원칙
 
-- **A feature doesn't exist until it's well documented.**
-- **Respect users' cognitive capacity (i.e. brain power).** When a user starts reading, they begin with a certain amount of limited brain power and when they run out, they stop learning.
-  - Cognitive capacity is **depleted faster** by complex sentences, having to learn more than one concept at a time, and abstract examples that don't directly relate to a user's work.
-  - Cognitive capacity is **depleted more slowly** when we help them feel consistently smart, powerful, and curious. Breaking things down into digestible pieces and minding the flow of the document can help keep them in this state.
-- **Always try to see from the user's perspective.** When we understand something thoroughly, it becomes obvious to us. This is called _the curse of knowledge_. In order to write good documentation, try to remember what you first needed to know when learning this concept. What jargon did you need to learn? What did you misunderstand? What took a long time to really grasp? Good documentation meets users where they are. It can be helpful to practice explaining the concept to people in person before.
-- **Describe the _problem_ first, then the solution.** Before showing how a feature works, it's important to explain why it exists. Otherwise, users won't have the context to know if this information is important to them (is it a problem they experience?) or what prior knowledge/experience to connect it to.
-- **While writing, don't be afraid to ask questions**, _especially_ if you're afraid that your questions might be "foolish". Being vulnerable is hard, but it's the only way for us to more fully understand what we need to explain.
-- **Be involved in feature discussions.** The best APIs come from documentation-driven development, where we build features that are easy to explain, rather than trying to figure out how to explain them later. Asking questions (especially "foolish" questions) earlier often helps reveal confusions, inconsistencies, and problematic behavior before a breaking change would be required to fix them.
+- **기능은 잘 문서화되기 전까지는 존재하지 않는 것과 같다.**
+- **사용자의 인지적 용량(즉, 두뇌 능력)을 존중하라.** 사용자가 문서를 읽기 시작할 때는 제한된 두뇌 용량을 가지고 있으며, 이 용량이 소진되면 학습을 멈춘다.
+  - 복잡한 문장, 한 번에 여러 개의 개념을 학습해야 하는 상황, 그리고 사용자의 실제 업무와 직접적으로 관련되지 않은 추상적인 예제는 인지적 용량을 **더 빨리 소진시킨다.**
+  - 반대로, 사용자가 지속적으로 똑똑하고, 능력 있으며, 호기심이 많다고 느낄 수 있도록 도와주면 인지적 용량이 **더 천천히 소진된다.** 개념을 소화하기 쉬운 단위로 나누고, 문서의 흐름을 신경 쓰는 것이 이러한 상태를 유지하는 데 도움이 된다.
+- **항상 사용자의 관점에서 바라보라.** 우리가 어떤 개념을 완전히 이해하면, 그것이 너무나 당연하게 느껴진다. 이를 _지식의 저주(The Curse of Knowledge)_라고 한다. 좋은 문서를 작성하려면, 처음 이 개념을 배울 때 무엇을 먼저 알아야 했는지 떠올려 보라. 어떤 전문 용어를 배워야 했는가? 무엇을 오해했는가? 이해하는 데 오랜 시간이 걸린 것은 무엇인가? 좋은 문서는 사용자의 현재 상태에 맞춰 제공되어야 한다. 문서를 작성하기 전에 직접 사람들에게 개념을 설명해보는 것도 큰 도움이 된다.
+- **먼저 _문제_를 설명한 다음, 해결 방법을 제시하라.** 기능이 어떻게 작동하는지 설명하기 전에, 왜 이 기능이 존재하는지를 설명하는 것이 중요하다. 그렇지 않으면 사용자는 이 정보가 자신에게 중요한지(이것이 자신이 겪는 문제인가?), 그리고 어떤 선행 지식이나 경험과 연결해야 하는지를 파악하기 어려워진다.
+- **문서를 작성하면서 질문하는 것을 두려워하지 마라.** 특히 그 질문이 "어리석은 질문"처럼 느껴질 때. 취약함을 드러내는 것은 어렵지만, 우리가 무엇을 설명해야 하는지를 더 깊이 이해할 수 있는 유일한 방법이다.
+- **기능 논의에 적극적으로 참여하라.** 가장 좋은 API는 문서 중심 개발 방식에서 나온다. 즉, 기능을 먼저 쉽게 설명할 수 있도록 만들고, 나중에 설명 방법을 고민하는 것이 아니라는 뜻이다. 질문(특히 "어리석은 질문")을 일찍 던지는 것이 혼란, 일관성 부족, 문제 있는 동작을 초기에 발견하는 데 도움이 되며, 나중에 이를 수정하기 위해 기능을 크게 변경해야 하는 상황을 방지할 수 있다.
 
-## Organization
 
-- **Installation/Integration**: Provide a thorough overview of how to integrate the software into as many different kinds of projects as necessary.
-- **Introduction/Getting Started**:
-  - Provide a less than 10 minute overview of the problems the project solves and why it exists.
-  - Provide a less than 30 minute overview of the problems the project solves and how, including when and why to use the project and some simple code examples. At the end, link to both the Installation page and the beginning of the Essentials Guide.
-- **Guide**: Make users feel smart, powerful, and curious, then maintain this state so that users maintain the motivation and cognitive capacity to keep learning more. Guide pages are meant to be read sequentially, so should generally be ordered from the highest to lowest power/effort ratio.
-  - **Essentials**: It should take no longer than 5 hours to read the Essentials, though shorter is better. Its goal is to provide the 20% of knowledge that will help users handle 80% of use cases. Essentials can link to more advanced guides and the API, though, in most cases, you should avoid such links. When they are provided, you need also provide a context so users are aware if they should follow this link on their first reading. Otherwise, many users end up exhausting their cognitive capacity link-hopping, trying to fully learn every aspect of a feature before moving on, and as a result, never finish that first read-through of the Essentials. Remember that a smooth read is more important than being thorough. We want to give people the information they need to avoid a frustrating experience, but they can always come back and read further, or Google a less common problem when they encounter it.
-  - **Advanced**: While the Essentials helps people handle ~80% of use cases, subsequent guides help get users to 95% of use cases, plus more detailed information on non-essential features (e.g. transitions, animations), more complex convenience features (e.g. mixins, custom directives), and dev experience improvements (e.g. JSX, plugins). The final 5% of use cases that are more niche, complex, and/or prone to abuse will be left to the cookbook and API reference, which can be linked to from these advanced guides.
-- **Reference/API**: Provide a complete list of features, including type information, descriptions of the problem each solves, examples of every combination of options, and links to guides, cookbook recipes, and other internal resources providing more detail. Unlike other pages, this one is not meant to be read top-to-bottom, so plenty of detail can be provided. These references must also be more easily skimmable than the guides, so the format should be closer to dictionary entries than the story-telling format of the guides.
-- **Migrations**:
-  - **Versions**: When important changes are made, it's useful to include a full list of changes, including a detailed explanation of why the change was made and how to migrate their projects.
-  - **From other projects**: How does this software compare to similar software? This is important to help users understand what additional problems we might solve or create for them, and to what extent they can transfer knowledge they already have.
-- **Style Guide**: There are necessarily some key pieces in development that need a decision, but are not core to the API. The style guide provides educated, opinionated recommendations to help guide these decisions. They shouldn't be followed blindly, but can help teams save time by being aligned on smaller details.
-- **Cookbook**: Recipes in the cookbook are written with some assumption of familiarity with Vue and its ecosystem. Each is a highly structured document that walks through some common implementation details that a Vue dev might encounter.
+## 구성
+- **설치/통합(Installation/Integration)**: 소프트웨어를 다양한 유형의 프로젝트에 통합하는 방법을 철저하게 설명한다.
+- **소개/빠른 시작(Introduction/Getting Started):**
+  - 프로젝트가 해결하는 문제와 존재 이유에 대한 개요를 10분 이내로 제공한다.
+  - 프로젝트가 해결하는 문제와 그 해결 방법에 대한 개요를 30분 이내로 제공하며, 언제 그리고 왜 이 프로젝트를 사용해야 하는지 설명하고 간단한 코드 예제를 포함한다. 마지막에는 설치 페이지와 기본 가이드(Essentials Guide) 시작 부분에 대한 링크를 제공한다.
+- **가이드(Guide)**: 사용자가 스스로 똑똑하고, 강력하며, 호기심이 많다고 느낄 수 있도록 유도한 후, 이러한 상태를 유지할 수 있도록 한다. 이를 통해 사용자가 학습에 대한 동기와 인지적 용량을 유지할 수 있도록 돕는다. 가이드 페이지는 순차적으로 읽는 것을 염두에 두고 작성되므로, 일반적으로 가장 적은 노력으로 가장 큰 효과를 얻을 수 있는 순서대로 배열해야 한다.
+  - **기본 가이드(Essentials)**: 기본 가이드를 읽는 데 5시간을 넘지 않도록 한다. 짧을수록 더 좋다. 목표는 전체 사용 사례의 80%를 다룰 수 있도록 하는 핵심 20%의 지식을 제공하는 것이다. 기본 가이드는 고급 가이드나 API 문서로 링크될 수 있지만, 가능하면 이러한 링크를 최소화해야 한다. 링크를 제공하는 경우, 독자가 첫 번째 읽기에서 해당 링크를 따라가야 할지 여부를 알 수 있도록 충분한 맥락을 제공해야 한다. 그렇지 않으면 많은 사용자가 링크를 따라가며 모든 세부사항을 한 번에 이해하려고 시도하다가 인지적 용량을 소진하고, 결국 기본 가이드를 끝까지 읽지 못하게 된다. 철저한 설명보다 부드러운 읽기 경험이 더 중요하다. 사용자가 좌절하지 않도록 필요한 정보를 제공하지만, 부족한 부분은 나중에 다시 찾아보거나 특정 문제 발생 시 검색할 수 있다.
+  - **고급 가이드(Advanced)**: 기본 가이드는 약 80%의 사용 사례를 해결하는 데 초점을 맞추지만, 이후의 고급 가이드는 사용 사례 범위를 95%까지 확장한다. 또한 필수적이지 않은 기능(예: 전환, 애니메이션), 보다 복잡한 편의 기능(예: 믹스인, 사용자 정의 디렉티브), 개발 경험 개선 요소(예: JSX, 플러그인)에 대한 자세한 정보를 제공한다. 나머지 5%의 복잡하고 특수한 사용 사례는 요리책(Cookbook)과 API 참조 문서에서 다루며, 이 고급 가이드에서 해당 문서로 링크할 수 있다.
+- **참조/API(Reference/API)**: 모든 기능의 완전한 목록을 제공하며, 각 기능이 해결하는 문제의 설명, 유형 정보, 모든 옵션 조합의 예제, 더 자세한 내용을 담고 있는 가이드, 요리책 레시피, 기타 내부 리소스 링크를 포함한다. 다른 페이지와 달리, 이 문서는 처음부터 끝까지 읽도록 설계된 것이 아니므로, 가능한 한 많은 세부 정보를 포함할 수 있다. 또한 가이드보다 쉽게 훑어볼 수 있도록 작성해야 하며, 문서 형식은 이야기 형식의 가이드보다는 사전 항목에 가까운 형태가 되어야 한다.
+- **마이그레이션(Migrations)**:
+  - **버전 간 마이그레이션(Versions)**: 중요한 변경 사항이 있을 때, 전체 변경 목록을 포함하여 변경이 이루어진 이유와 프로젝트를 마이그레이션하는 방법을 자세히 설명하는 것이 유용하다.
+  - **다른 프로젝트에서 전환(From other projects)**: 이 소프트웨어가 유사한 소프트웨어와 어떻게 다른지를 설명한다. 이를 통해 사용자는 우리가 해결하거나 새롭게 발생시킬 수 있는 문제를 이해하고, 기존에 가지고 있던 지식을 어느 정도까지 전환할 수 있는지를 파악할 수 있다.
+- **스타일 가이드(Style Guide)**: 개발 과정에서 필수적인 결정 사항은 아니지만, 일관성을 위해 정해져야 하는 몇 가지 중요한 요소들이 있다. 스타일 가이드는 이러한 결정을 돕기 위한 교육적인 권장 사항을 제공한다. 무조건 따라야 하는 것은 아니지만, 팀이 세부적인 사항에 대한 논의를 줄이고 시간을 절약하는 데 도움이 될 수 있다.
+- **요리책(Cookbook)**: 요리책의 레시피는 Vue와 그 생태계에 대한 기본적인 이해를 전제로 작성된다. 각 레시피는 체계적으로 구성된 문서이며, Vue 개발자가 자주 마주할 수 있는 일반적인 구현 세부 사항을 단계별로 설명한다.
 
-## Writing & Grammar
+## 작성 및 문법
 
-### Style
+### 스타일
+- **제목은 해결책이 아닌 문제를 설명해야 한다.** 예를 들어, "Props 사용하기"라는 제목은 해결책을 설명하기 때문에 덜 효과적이다. 반면, "Props를 사용하여 자식 컴포넌트에 데이터 전달하기"는 props가 해결하는 문제의 맥락을 제공하므로 더 나은 제목이다. 사용자는 특정 기능을 언제, 왜 사용하는지에 대한 이해가 있을 때 비로소 설명에 집중하기 시작한다.
 
-- **Headings should describe problems**, not solutions. For example, a less effective heading might be "Using props", because it describes a solution. A better heading might be "Passing Data to Child Components with Props", because it provides the context of the problem props solve. Users won't really start paying attention to the explanation of a feature until they have some idea of why/when they'd use it.
-- **When you assume knowledge, declare it** at the beginning and link to resources for less common knowledge that you're expecting.
-- **Introduce only one new concept at a time whenever possible** (including both text and code examples). Even if many people are able to understand when you introduce more than one, there are also many who will become lost - and even those who don't become lost will have depleted more of their cognitive capacity.
-- **Avoid special content blocks for tips and caveats when possible.** It's generally preferable to blend these more naturally into the main content, e.g. by building on examples to demonstrate an edge case.
-- **Don't include more than two interwoven tips and caveats per page.** If you find that more than two tips are needed in a page, consider adding a caveats section to address these issues. The guide is meant to be read straight through, and tips and caveats can be overwhelming or distracting to someone trying to understand the base concepts.
-- **Avoid appeals to authority** (e.g. "you should do X, because that's a best practice" or "X is best because it gives you full separation of concerns"). Instead, demonstrate with examples the specific human problems caused and/or solved by a pattern.
-- **When deciding what to teach first, think of what knowledge will provide the best power/effort ratio.** That means teaching whatever will help users solve the greatest pains or greatest number of problems, with the relatively least effort to learn. This helps learners feel smart, powerful, and curious, so their cognitive capacity will drain more slowly.
-- **Unless the context assumes a string template or build system, only write code that works in any environment by the software (e.g. Vue, Vuex, etc).**
-- **Show, don't tell.** For example, "To use Vue on a page, you can add this to your HTML" (then show the script tag), instead of "To use Vue on a page, you can add a script element with a src attribute, the value of which should be a link to Vue's compiled source".
-- **Almost always avoid humor (for English docs)**, especially sarcasm and pop culture references, as it doesn't translate well across cultures.
-- **Never assume a more advanced context than you have to.**
-- **In most cases, prefer links between sections of the docs over repeating the same content in multiple sections.** Some repetition in content is unavoidable and even essential for learning. However, too much repetition also makes the docs more difficult to maintain, because a change in the API will require changes in many places and it's easy to miss something. This is a difficult balance to strike.
-- **Specific is better than generic.** For example, a `<BlogPost>` component example is better than `<ComponentA>`.
-- **Relatable is better than obscure.** For example, a `<BlogPost>` component example is better than `<CurrencyExchangeSettings>`.
-- **Be emotionally relevant.** Explanations and examples that relate to something people have experience with and care about will always be more effective.
-- **Always prefer simpler, plainer language over complex or jargony language.** For example:
-  - "you can use Vue with a script element" instead of "in order to initiate the usage of Vue, one possible option is to actually inject it via a script HTML element"
-  - "function that returns a function" instead of "higher order function"
-- **Avoid language that invalidate struggle**, such as "easy", "just", "obviously", etc. For reference, see [Words To Avoid in Educational Writing](https://css-tricks.com/words-avoid-educational-writing/).
+- **지식을 전제할 경우, 명확히 선언해야 한다.** 문서의 초반에 독자가 알아야 할 배경 지식을 명시하고, 일반적이지 않은 개념에 대해서는 참고할 수 있는 리소스를 제공해야 한다.
 
-### Grammar
+- **가능한 한 한 번에 하나의 개념만 소개하라 (텍스트와 코드 예제 모두 포함).** 여러 개의 개념을 동시에 소개해도 이해하는 사람이 많을 수 있지만, 그로 인해 혼란스러워하는 독자도 많다. 또한, 이해한 사람이라도 인지적 용량을 더 많이 소진하게 된다.
 
-- **Avoid abbreviations** in writing and code examples (e.g. `attribute` is better than `attr`, `message` is better than `msg`), unless you are specifically referencing an abbreviation in an API (e.g. `$attrs`). Abbreviation symbols included on standard keyboards (e.g. `@`, `#`, `&`) are OK.
-- **When referencing a directly following example, use a colon (`:`) to end a sentence**, rather than a period (`.`).
-- **Use the Oxford comma** (e.g. "a, b, and c" instead of "a, b and c"). ![Why the Oxford comma is important](./oxford-comma.jpg)
-  - Source: [The Serial (Oxford) Comma: When and Why To Use It](https://www.inkonhand.com/2015/10/the-serial-oxford-comma-when-and-why-to-use-it/)
-- **When referencing the name of a project, use the name that the project refers to itself as.** For example, "webpack" and "npm" should both use lowercase as that's how their documentation refers to them.
-- **Use Title Case for headings** - at least for now, since it's what we use through the rest of the docs. There's research suggesting that sentence case (only first word of the heading starts with a capital) is actually superior for legibility and also reduces the cognitive overhead for documentation writers, since they don't have to try to remember whether to capitalize words like "and", "with", and "about".
-- **Don't use emojis (except in discussions).** Emojis are cute and friendly, but they can be a distraction in documentation and some emojis even convey different meanings in different cultures.
+- **가능하면 팁이나 주의사항을 별도의 블록으로 나누지 말고 자연스럽게 본문에 녹여라.** 예제의 확장을 통해 엣지 케이스를 보여주는 방식이 더 효과적일 수 있다.
 
-## Iteration & Communication
+- **한 페이지에서 두 개 이상의 팁이나 주의사항을 섞어 넣지 마라.** 만약 두 개 이상이 필요하다면, 별도의 "주의사항" 섹션을 추가하는 것이 좋다. 가이드는 순차적으로 읽히는 것을 전제로 작성되므로, 지나치게 많은 팁과 주의사항이 포함되면 학습 흐름을 방해할 수 있다.
 
-- **Excellence comes from iteration.** First drafts are always bad, but writing them is a vital part of the process. It's extremely difficult to avoid the slow progression of Bad -> OK -> Good -> Great -> Inspiring -> Transcendent.
-- **Only wait until something is "Good" before publishing.** The community will help you push it further down the chain.
-- **Try not to get defensive when receiving feedback.** Our writing can be very personal to us, but if we get upset with the people who help us make it better, they will either stop giving feedback or start limiting the kind of feedback they give.
-- **Proof-read your own work before showing it to others.** If you show someone work with a lot of spelling/grammar mistakes, you'll get feedback about spelling grammar/mistakes instead of more valuable notes about whether the writing is achieving your goals.
-- **When you ask people for feedback, tell reviewers what:**
-  - **you're trying to do**
-  - **your fears are**
-  - **balances you're trying to strike**
-- **When someone reports a problem, there is almost always a problem**, even if the solution they proposed isn't quite right. Keep asking follow-up questions to learn more.
-- People need to feel safe asking questions when contributing/reviewing content. Here's how you can do that:
-  - **Thank people for their contributions/reviews, even if you're feeling grumpy.** For example:
-    - "Great question!"
-    - "Thanks for taking the time to explain. 🙂"
-    - "This is actually intentional, but thanks for taking the time to contribute. 😊"
-  - **Listen to what people are saying and mirror if you're not sure you're understanding correctly.** This can help validate people's feelings and experiences, while also understanding if _you're_ understanding _them_ correctly.
-  - **Use a lot of positive and empathetic emojis.** It's always better to seem a little strange than mean or impatient.
-  - **Kindly communicate rules/boundaries.** If someone behaves in a way that's abusive/inappropriate, respond only with kindness and maturity, but also make it clear that this behavior is not acceptable and what will happen (according to the code of conduct) if they continue behaving poorly.
+- **권위에 호소하는 표현을 피하라.** 예를 들어, "X를 해야 합니다. 왜냐하면 이것이 모범 사례이기 때문입니다." 또는 "X가 최선입니다. 왜냐하면 완벽한 관심사 분리를 제공하기 때문입니다."와 같은 표현을 사용하지 말고, 특정 패턴이 야기하는 문제와 해결하는 문제를 예제로 직접 보여주는 것이 더 효과적이다.
 
-### Tips, Callouts, Alerts, and Line Highlights
+- **어떤 개념을 먼저 가르칠지 결정할 때는, 노력 대비 효과가 가장 큰 지식을 우선적으로 전달하라.** 즉, 사용자가 가장 큰 어려움을 해결하거나, 가장 많은 문제를 해결할 수 있도록 하면서도 상대적으로 적은 노력으로 학습할 수 있는 개념을 먼저 가르치는 것이 좋다. 이를 통해 학습자가 똑똑하고 강력하며 호기심이 많다고 느낄 수 있으며, 인지적 용량이 더 천천히 소진된다.
 
-We have some dedicated styles to denote something that's worth highlighting in a particular way. These are captured [on this page](https://vitepress.dev/guide/markdown#custom-containers). **They are to be used sparingly.**
+- **문맥이 문자열 템플릿이나 빌드 시스템을 전제로 하지 않는 한, 특정 환경(Vue, Vuex 등)에서만 동작하는 코드 대신 어디서나 동작하는 코드를 작성하라**
 
-There is a certain temptation to abuse these styles, as one can simply add a change inside a callout. However, this breaks up the flow of reading for the user and should only be used in special circumstances. Wherever possible, we should attempt to create a narrative and flow within the page to respect the reader's cognitive load.
+- **설명하기보다 보여줘라.** 예를 들어,
 
-Under no circumstances should two alerts be used next to one another, it's a sign that we're not able to explain context well enough.
+  ❌ "Vue를 페이지에서 사용하려면, `<script>` 요소를 추가하면 됩니다." (설명 위주) 
 
-### Contributing
+  ✅ "Vue를 페이지에서 사용하려면, 아래와 같이 HTML에 추가하면 됩니다." (그 후 `<script>` 태그를 보여줌)
 
-We appreciate small, focused PRs. If you'd like to make an extremely large change, please communicate with team members prior to a pull request. Here's a [writeup that details why this is so critical](https://www.netlify.com/blog/2020/03/31/how-to-scope-down-prs/) for us to work well on this team. Please understand that though we always appreciate contributions, ultimately we have to prioritize what works best for the project as a whole.
+- **영어 문서에서는 유머를 거의 항상 피하라.** 특히, 풍자적 표현이나 대중문화 references는 문화적 차이로 인해 잘 전달되지 않을 수 있다.
 
-## Resources
+- **불필요하게 높은 수준의 문맥을 가정하지 마라.** 독자가 반드시 알아야 할 개념만을 전제로 해야 한다.
 
-### Software
+- **문서의 여러 섹션에서 동일한 내용을 반복하기보다 링크를 활용하는 것이 좋다.** 일부 반복은 불가피하고, 학습에 도움이 될 수도 있지만, 과도한 반복은 문서 유지보수를 어렵게 만든다. 특히, API가 변경될 경우 여러 곳에서 수정해야 하며, 이를 놓치기 쉬운 문제가 발생할 수 있다. 적절한 균형을 유지하는 것이 중요하다.
 
-- [Grammarly](https://www.grammarly.com/): Desktop app and browser extension for checking spelling and grammar (though grammar checking doesn't catch everything and occasionally shows a false positive).
-- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker): An extension for VS Code to help you check spelling within markdown and code examples.
+- **구체적인 것이 일반적인 것보다 낫다.** 예를 들어, `<ComponentA>`보다는 `<BlogPost>`라는 예제가 더 좋다.
 
-### Books
+- **이해하기 쉬운 것이 난해한 것보다 낫다.** 예를 들어, `<CurrencyExchangeSettings>`보다는 `<BlogPost>`가 더 친숙한 예제이다.
 
-- [On Writing Well](https://www.amazon.com/Writing-Well-30th-Anniversary-Nonfiction-ebook/dp/B0090RVGW0) (see [popular quotes](https://www.goodreads.com/work/quotes/1139032-on-writing-well-the-classic-guide-to-writing-nonfiction))
-- [Bird by Bird](https://www.amazon.com/Bird-Some-Instructions-Writing-Life/dp/0385480016) (see [popular quotes](https://www.goodreads.com/work/quotes/841198-bird-by-bird-some-instructions-on-writing-and-life))
-- [Cognitive Load Theory](https://www.amazon.com/Cognitive-Explorations-Instructional-Performance-Technologies/dp/144198125X/)
+- **감정적으로 공감할 수 있는 예제를 사용하라.** 독자가 경험하거나 관심을 가질 수 있는 내용과 연결된 설명과 예제는 항상 더 효과적이다.
+
+- **가능한 한 단순하고 명확한 표현을 사용하고, 복잡한 전문 용어는 피하라.** 예를 들어,
+
+  ✅ "Vue는 `<script>` 요소를 사용하여 추가할 수 있습니다."
+  ❌ "Vue를 사용하기 위해서는, HTML `<script>` 요소를 통해 실제로 이를 주입하는 것이 가능한 한 가지 방법입니다."
+  ✅ "함수를 반환하는 함수"
+  ❌ "고차 함수(higher order function)"
+
+- **사용자의 어려움을 무시하는 표현을 피하라.** "쉽습니다(easy)", "그냥(just)", "분명합니다(obviously)" 등의 표현은 독자가 어려움을 느낄 때 좌절감을 줄 수 있다. 관련 자료로 [교육 글쓰기에서 피해야 할 단어](https://css-tricks.com/words-avoid-educational-writing/)들을 참고할 수 있다.
+
+### 문법
+
+- **줄임말(Abbreviations)을 사용하지 마라.** 글쓰기와 코드 예제에서 `attr`보다는 `attribute`, `msg`보다는 `message`처럼 전체 단어를 사용하는 것이 좋다. 단, API에서 이미 줄임말이 사용되고 있는 경우(예: `$attrs`)는 예외로 한다. 일반적인 키보드에서 제공되는 기호(`@`, `#`, `&` 등)는 사용해도 괜찮다.
+
+- **직후에 이어지는 예제를 언급할 때는 문장을 마침표(`.`)가 아닌 콜론(`:`)으로 끝내라.**
+
+- **Oxford 콤마를 사용하라.** 예를 들어, "a, b, and c"처럼 마지막 요소 앞에 콤마를 추가하는 것이 "a, b and c"보다 바람직하다. ![Why the Oxford comma is important](./oxford-comma.jpg)
+  - 출처: [The Serial (Oxford) Comma: When and Why To Use It](https://www.inkonhand.com/2015/10/the-serial-oxford-comma-when-and-why-to-use-it/)
+
+- **프로젝트의 이름을 언급할 때는 해당 프로젝트가 스스로 사용하는 표기를 따라라.** 예를 들어, "webpack"과 "npm"은 공식 문서에서 소문자로 표기되므로 그대로 소문자로 사용해야 한다.
+
+- **제목에는 Title Case를 사용하라.** 현재 문서 전체에서 Title Case를 사용하고 있으므로 이를 유지해야 한다. 다만, 연구에 따르면 문장의 첫 단어만 대문자로 시작하는 Sentence Case가 가독성이 더 좋으며, 문서 작성자가 "and", "with", "about" 같은 단어를 대문자로 써야 할지 고민할 필요가 없어 인지적 부담이 줄어든다고 한다.
+
+- **문서에서는 이모지를 사용하지 마라 (토론에서는 사용 가능).** 이모지는 친근한 느낌을 줄 수 있지만, 문서에서는 주의를 분산시킬 수 있으며, 문화에 따라 의미가 다르게 해석될 수도 있다.
+
+## 반복 & 대화
+
+- **탁월함은 반복적인 개선에서 나온다.** 첫 번째 초안은 항상 형편없지만, 그것을 작성하는 과정 자체가 매우 중요하다. "형편없음(Bad) → 괜찮음(OK) → 좋음(Good) → 훌륭함(Great) → 영감을 주는 수준(Inspiring) → 초월적(Transcendent)"의 느린 발전 과정을 피하는 것은 극도로 어렵다.
+
+- **"좋음(Good)" 단계에 도달하면 공개하라.** 커뮤니티가 추가적인 개선을 도와줄 것이다.
+
+- **피드백을 받을 때 방어적으로 반응하지 않도록 하라.** 우리가 작성한 글은 개인적인 의미가 클 수 있지만, 개선을 도와주는 사람들에게 화를 내면 그들은 피드백을 주지 않거나, 피드백의 범위를 제한하게 된다.
+
+- **다른 사람에게 보여주기 전에 반드시 자신의 글을 검토하라.** 맞춤법이나 문법 실수가 많은 글을 보여주면, 독자는 글의 목표 달성 여부보다 철자와 문법 오류에 대한 피드백을 주는 데 집중하게 된다.
+
+- **피드백을 요청할 때, 리뷰어에게 다음을 알려주어라:** 
+  - **무엇을 하려고 하는지**
+  - **어떤 부분이 걱정되는지**
+  - **어떤 균형을 맞추려 하는지**
+- **누군가 문제를 제기하면, 거의 항상 실제 문제가 존재한다.** 비록 그들이 제안한 해결책이 완벽하지 않더라도, 계속 후속 질문을 하면서 더 깊이 파악해야 한다.
+
+- **문서에 기여하거나 리뷰할 때, 사람들이 편안하게 질문할 수 있어야 한다. 이를 위한 방법은 다음과 같다:**
+  - **기여자와 리뷰어에게 감사 인사를 전하라, 심지어 기분이 좋지 않더라도.** 예를 들어:
+    - "좋은 질문이에요!"
+    - "설명해 주셔서 감사합니다. 🙂"
+    - "이건 의도된 부분이지만, 기여해 주셔서 감사합니다. 😊"
+  - **상대가 무슨 말을 하는지 경청하고, 이해가 확실하지 않다면 반복해서 확인하라.** 이렇게 하면 상대방의 감정과 경험을 존중하면서도, 자신이 올바르게 이해하고 있는지 검증할 수 있다.
+  - **긍정적이고 공감 어린 이모티콘을 많이 사용하라.**
+  - **약간 이상하게 보이더라도, 불친절하거나 참을성이 없어 보이는 것보다 낫다.**
+  - **규칙과 경계를 친절하게 전달하라.** 누군가가 부적절하거나 공격적인 행동을 했을 경우, 친절하고 성숙한 태도로 대응하되, 해당 행동이 용납되지 않으며, 계속될 경우 행동 강령(Code of Conduct)에 따라 어떤 조치가 취해질 것인지 명확히 전달해야 한다.
+
+### 팁, 강조 표시, 경고, 그리고 코드 줄 강조
+
+우리는 특정 내용을 강조할 때 사용할 수 있는 전용 스타일을 제공합니다. 이러한 스타일은 [이 페이지](https://vitepress.dev/guide/markdown#custom-containers)에서 확인할 수 있습니다. 하지만, **이를 과도하게 사용하지 않아야 합니다.**
+
+이 스타일을 남용하고 싶은 유혹이 있을 수 있습니다. 예를 들어, 단순히 강조 블록 안에 변경 사항을 추가하면 쉽게 강조할 수 있습니다. 그러나 이는 독자의 읽기 흐름을 방해할 수 있으므로 특별한 경우에만 사용해야 합니다. 가능하면 문서 내에서 자연스러운 서술과 흐름을 만들어, 독자의 인지적 부담을 최소화하는 것이 바람직합니다.
+
+절대로 두 개의 경고(Alert)를 연속으로 사용해서는 안 됩니다. 이는 우리가 문맥을 충분히 잘 설명하지 못하고 있다는 신호일 수 있습니다.
+
+### 기여하기
+
+우리는 작고 집중된 PR을 환영합니다. 만약 매우 큰 변경 사항을 제안하고 싶다면, PR을 제출하기 전에 팀원들과 먼저 소통해 주세요. 왜 이것이 중요한지에 대한 자세한 설명은 [이 글](https://www.netlify.com/blog/2020/03/31/how-to-scope-down-prs/)에서 확인할 수 있습니다.
+
+기여해 주시는 모든 내용을 항상 감사하게 생각하지만, 궁극적으로는 프로젝트 전체에 가장 적합한 사항을 우선적으로 반영해야 한다는 점을 이해해 주시길 바랍니다.
+
+## 자원
+
+### 소프트웨어
+
+- [Grammarly](https://www.grammarly.com/): 맞춤법 및 문법을 검사할 수 있는 데스크톱 앱 및 브라우저 확장 프로그램입니다. 하지만 문법 검사 기능이 모든 오류를 잡아내지는 못하며, 때때로 잘못된 오류를 감지할 수도 있습니다.
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker):VS Code에서 마크다운과 코드 예제 내의 철자를 검사하는 데 도움을 주는 확장 프로그램입니다.
+
+### 서적
+
+- [On Writing Well](https://www.amazon.com/Writing-Well-30th-Anniversary-Nonfiction-ebook/dp/B0090RVGW0) ([popular quotes](https://www.goodreads.com/work/quotes/1139032-on-writing-well-the-classic-guide-to-writing-nonfiction) 참고)
+- [Bird by Bird](https://www.amazon.com/Bird-Some-Instructions-Writing-Life/dp/0385480016) ([popular quotes](https://www.goodreads.com/work/quotes/841198-bird-by-bird-some-instructions-on-writing-and-life)  참고)
+- [인지 부하 이론](https://www.amazon.com/Cognitive-Explorations-Instructional-Performance-Technologies/dp/144198125X/)

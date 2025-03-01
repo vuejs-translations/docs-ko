@@ -377,7 +377,7 @@ export default {
 
 ## `v-model` 수정자 처리하기 {#handling-v-model-modifiers}
 
-Form 양식 입력 바인딩에 대해 배울 때 `v-model`에 `.trim`, `.number` 및 `.lazy`와 같은 [내장 수정자](/guide/essentials/forms.html#modifiers)가 있다는 것을 알았습니다. 경우에 따라 사용자 정의 입력 컴포넌트에서 `v-model`이 사용자 정의 수정자를 지원하도록 할 수도 있습니다.
+Form 양식 입력 바인딩에 대해 배울 때 `v-model`에 `.trim`, `.number` 및 `.lazy`와 같은 [내장 수정자](/guide/essentials/forms#modifiers)가 있다는 것을 알았습니다. 경우에 따라 사용자 정의 입력 컴포넌트에서 `v-model`이 사용자 정의 수정자를 지원하도록 할 수도 있습니다.
 
 `v-model` 바인딩에서 제공하는 문자열의 첫 글자를 대문자로 표시하는 사용자 지정 수정자 예제인 `capitalize`를 만들어 보겠습니다:
 

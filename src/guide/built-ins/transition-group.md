@@ -14,14 +14,14 @@ import ListStagger from './transition-demos/ListStagger.vue'
 
 - 기본적으로 래퍼 엘리먼트를 렌더링하지 않습니다. 그러나 `tag` prop으로 렌더링할 엘리먼트를 지정할 수 있습니다.
 
-- [트랜지션 모드](./transition.html#transition-mode)는 더 이상 상호 배타적인 엘리먼트를 사용하지 않기 때문에 사용할 수 없습니다.
+- [트랜지션 모드](./transition#transition-mode)는 더 이상 상호 배타적인 엘리먼트를 사용하지 않기 때문에 사용할 수 없습니다.
 
 - 내부 엘리먼트는 고유한 `key` 속성을 **필수로 가져야** 합니다.
 
 - CSS 트랜지션 클래스는 그룹/컨테이너 자체가 아닌 **목록의 개별 엘리먼트에 적용**됩니다.
 
 :::tip
-[in-DOM 템플릿](/guide/essentials/component-basics.html#in-dom-template-parsing-caveats)에서 사용할 때 `<transition-group>`으로 참조해야 합니다.
+[in-DOM 템플릿](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에서 사용할 때 `<transition-group>`으로 참조해야 합니다.
 :::
 
 ## 진입/진출 트랜지션 {#enter-leave-transitions}
@@ -80,6 +80,12 @@ import ListStagger from './transition-demos/ListStagger.vue'
 
 [전체 예제](/examples/#list-transition)
 
+
+###  커스텀 Custom TransitionGroup classes {#custom-transitiongroup-classes}
+
+`<TransitionGroup>`에 `moveClass` 속성을 전달하여 이동하는 요소에 대한 사용자 지정 전환 클래스를 지정할 수도 있습니다. 이는 [`<Transition>`에서의 사용자 지정 전환 클래스](/guide/built-ins/transition.html#custom-transition-classes)와 동일한 방식으로 동작합니다.
+
+
 ## 시차가 있는 목록 트랜지션 {#staggering-list-transitions}
 
 데이터 속성을 통해 JavaScript 트랜지션과 통신함으로써 목록에서 트랜지션을 시차가 있게 할 수도 있습니다. 먼저 목록의 인덱스를 DOM 엘리먼트의 `data-` 속성으로 렌더링합니다:
@@ -132,4 +138,4 @@ function onEnter(el, done) {
 
 **관련 문서**
 
-- [`<TransitionGroup>` API 참고](/api/built-in-components.html#transitiongroup)
+- [`<TransitionGroup>` API 참고](/api/built-in-components#transitiongroup)

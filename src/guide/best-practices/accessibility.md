@@ -13,6 +13,7 @@
 일반적으로 이것은 모든 페이지의 첫 번째 포커스 가능한 엘리먼트가 되기 때문에 `App.vue` 상단에서 수행됩니다:
 
 ```vue-html
+<span ref="backToTop" tabindex="-1" />
 <ul class="skip-links">
   <li>
     <a href="#main" ref="skipLink">주요 컨텐츠로 건너뛰기</a>
@@ -23,6 +24,9 @@
 아래 스타일을 추가해 포커스가 되지 않은 링크를 숨길 수 있습니다:
 
 ```css
+.skip-links {
+  list-style: none;
+}
 .skipLink {
   white-space: nowrap;
   margin: 1em auto;
@@ -40,7 +44,7 @@
 }
 ```
 
-사용자가 경로를 변경하면 건너뛰기 링크로 포커스를 다시 가져옵니다. 이것은 템플릿 ref의 건너뛰기 링크에 포커스를 호출하여 구현할 수 있습니다(`vue-router` 사용 가정):
+사용자가 라우트를 변경하면 페이지의 맨 처음, 즉 스킵 링크 바로 앞부분으로 포커스를 이동시킵니다. 이는 backToTop 템플릿 ref에 focus를 호출함으로써 구현할 수 있습니다. (`vue-router`를 사용하는 경우를 가정):
 
 <div class="options-api">
 
@@ -49,7 +53,7 @@
 export default {
   watch: {
     $route() {
-      this.$refs.skipLink.focus()
+      this.$refs.backToTop.focus()
     }
   }
 }
@@ -65,12 +69,12 @@ import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const skipLink = ref()
+const backToTop = ref()
 
 watch(
   () => route.path,
   () => {
-    skipLink.value.focus()
+    backToTop.value.focus()
   }
 )
 </script>

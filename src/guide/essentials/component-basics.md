@@ -180,7 +180,7 @@ SFC에서는 네이티브 HTML 엘리먼트와 구별하기 위해 자식 컴포
 
 블로그를 구축하는 경우 블로그 게시물을 나타내는 컴포넌트가 필요할 수 있습니다. 우리는 모든 블로그 게시물이 동일한 시각적 레이아웃을 공유하기를 원하지만 컨텐츠는 다릅니다. 이러한 곳에 사용할 컴포넌트는 표시하려는 특정 게시물의 제목 및 컨텐츠와 같은 데이터를 전달할 수 없으면 유용하지 않습니다. `props`가 필요한 건 바로 이때입니다.
 
-`props`은 컴포넌트에 등록할 수 있는 사용자 정의 속성입니다. 블로그 게시물 제목을 컴포넌트에 전달하려면, <span class="options-api">[`props`](/api/options-state.html#props) 옵션</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup.html#defineprops-defineemits) 메크로</span>를 사용해야 합니다:
+`props`은 컴포넌트에 등록할 수 있는 사용자 정의 속성입니다. 블로그 게시물 제목을 컴포넌트에 전달하려면, <span class="options-api">[`props`](/api/options-state#props) 옵션</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup#defineprops-defineemits) 메크로</span>를 사용해야 합니다:
 
 <div class="options-api">
 
@@ -220,7 +220,7 @@ const props = defineProps(['title'])
 console.log(props.title)
 ```
 
-참고: [컴포넌트 Props 타입 지정하기](/guide/typescript/composition-api.html#typing-component-props) <sup class="vt-badge ts" />
+참고: [컴포넌트 Props 타입 지정하기](/guide/typescript/composition-api#typing-component-props) <sup class="vt-badge ts" />
 
 `<script setup>`을 사용하지 않는 경우, `props` 옵션을 선언해서 사용해야 하며, `props` 객체는 `setup()`에 첫 번째 인자로 전달됩니다:
 
@@ -367,7 +367,7 @@ const postFontSize = ref(1)
  />
 ```
 
-그런 다음 자식 컴포넌트는 빌트인 [**`$emit`** 메서드](/api/component-instance.html#emit)를 호출하고 이벤트 이름을 전달하여 자체적으로 이벤트를 생성할 수 있습니다:
+그런 다음 자식 컴포넌트는 빌트인 [**`$emit`** 메서드](/api/component-instance#emit)를 호출하고 이벤트 이름을 전달하여 자체적으로 이벤트를 생성할 수 있습니다:
 
 ```vue{5}
 <!-- BlogPost.vue의 <script> 생략 -->
@@ -392,7 +392,7 @@ const postFontSize = ref(1)
 
 </div>
 
-<span class="options-api">[`emits`](/api/options-state.html#emits) 옵션을</span><span class="composition-api">[`defineEmits`](/api/sfc-script-setup.html#defineprops-defineemits) 매크로를</span> 사용하여 원하는 이벤트를 선언할 수 있습니다.:
+<span class="options-api">[`emits`](/api/options-state#emits) 옵션을</span><span class="composition-api">[`defineEmits`](/api/sfc-script-setup#defineprops-defineemits) 매크로를</span> 사용하여 원하는 이벤트를 선언할 수 있습니다.:
 
 <div class="options-api">
 
@@ -419,7 +419,7 @@ defineEmits(['enlarge-text'])
 
 </div>
 
-이것은 컴포넌트가 내보내는 모든 이벤트를 문서화하고 선택적으로 [유효성 검사](/guide/components/events.html#events-validation)를 합니다. 또한 Vue가 자식 컴포넌트의 루트 엘리먼트에 암시적으로 네이티브 리스너가 적용되는 것을 방지할 수 있습니다.
+이것은 컴포넌트가 내보내는 모든 이벤트를 문서화하고 선택적으로 [유효성 검사](/guide/components/events#events-validation)를 합니다. 또한 Vue가 자식 컴포넌트의 루트 엘리먼트에 암시적으로 네이티브 리스너가 적용되는 것을 방지할 수 있습니다.
 
 <div class="composition-api">
 
@@ -433,7 +433,7 @@ emit('enlarge-text')
 </script>
 ```
 
-참고: [컴포넌트 emit 타입 지정하기](/guide/typescript/composition-api.html#typing-component-emits) <sup class="vt-badge ts" />
+참고: [컴포넌트 emit 타입 지정하기](/guide/typescript/composition-api#typing-component-emits) <sup class="vt-badge ts" />
 
 `<script setup>`을 사용하지 않는 경우, `emits` 옵션을 사용하여 내보낼 이벤트를 선언할 수 있습니다. setup 컨텍스트의 속성으로 `emit` 함수에 접근할 수 있습니다(`setup()`의 두 번째 인자로 전달됨):
 
@@ -590,7 +590,7 @@ Vue의 템플릿 파서는 유형에 관계없이 모든 태그를 닫으라는 
 <my-component></my-component>
 ```
 
-이는 HTML 사양에서 [몇 가지 특정 엘리먼트](https://html.spec.whatwg.org/multipage/syntax.html#void-elements)가 닫는 태그를 생략할 수 있도록 허용하기 때문입니다. 가장 일반적인 것은 `<input>` 및 `<img>`입니다. 다른 모든 엘리먼트의 경우, 닫는 태그를 생략하면 기본 HTML 파서는 사용자가 여는 태그를 종료하지 않은 것으로 간주합니다. 예를 들어, 스니펫은 다음과 같습니다:
+이는 HTML 사양에서 [몇 가지 특정 엘리먼트](https://html.spec.whatwg.org/multipage/syntax#void-elements)가 닫는 태그를 생략할 수 있도록 허용하기 때문입니다. 가장 일반적인 것은 `<input>` 및 `<img>`입니다. 다른 모든 엘리먼트의 경우, 닫는 태그를 생략하면 기본 HTML 파서는 사용자가 여는 태그를 종료하지 않은 것으로 간주합니다. 예를 들어, 스니펫은 다음과 같습니다:
 
 ```vue-html
 <my-component /> <!-- 우리는 여기서 태그를 닫으려 했습니다... -->
@@ -617,7 +617,7 @@ Vue의 템플릿 파서는 유형에 관계없이 모든 태그를 닫으라는 
 </table>
 ```
 
-사용자 정의 컴포넌트 `<blog-post-row>`는 잘못된 컨텐츠로 호이스트(hoisted)되어 최종적으로 렌더링된 출력에서 에러를 발생시킵니다. 특별한 [`is` 속성](/api/built-in-special-attributes.html#is)을 해결 방법으로 사용할 수 있습니다:
+사용자 정의 컴포넌트 `<blog-post-row>`는 잘못된 컨텐츠로 호이스트(hoisted)되어 최종적으로 렌더링된 출력에서 에러를 발생시킵니다. 특별한 [`is` 속성](/api/built-in-special-attributes#is)을 해결 방법으로 사용할 수 있습니다:
 
 ```vue-html
 <table>
@@ -626,7 +626,7 @@ Vue의 템플릿 파서는 유형에 관계없이 모든 태그를 닫으라는 
 ```
 
 :::tip
-기본 HTML 엘리먼트에 사용되는 경우, `is` 값은 Vue 컴포넌트로 해석되기 위해 `vue:` 접두사를 사용해야 합니다. 이는 기본 [맞춤형 내장 엘리먼트](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example)와의 혼동을 피하기 위해 필요합니다.
+기본 HTML 엘리먼트에 사용되는 경우, `is` 값은 Vue 컴포넌트로 해석되기 위해 `vue:` 접두사를 사용해야 합니다. 이는 기본 [맞춤형 내장 엘리먼트](https://html.spec.whatwg.org/multipage/custom-elements#custom-elements-customized-builtin-example)와의 혼동을 피하기 위해 필요합니다.
 :::
 
 이것이 현재로서는 Vue를 사용할 때 in-DOM 템플릿 파싱 경고에 대해 필수적으로 알아야 할 전부입니다. 축하합니다! 아직 배울 것이 더 있지만 먼저 잠시 휴식을 취하며 Vue를 직접 다뤄보는 것이 좋습니다. 재미있는 것을 빌드하거나 아직 확인하지 않았다면 몇 가지 [예제](/examples/)를 확인해보세요.

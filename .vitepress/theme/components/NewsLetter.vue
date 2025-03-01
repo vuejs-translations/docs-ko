@@ -46,7 +46,7 @@ import { VTLink } from '@vue/theme'
           no-icon
         >news.vuejs.org</VTLink> 에서 이전 발행물을 보고 팟캐스트를 들을수 있습니다.
 
-        또한 <VTLink class="link" href="https://twitter.com/vuejs" no-icon>Twitter</VTLink>에서 소셜 활동을 하시거나 <VTLink class="link" href="https://discord.com/invite/vue" no-icon>Discord</VTLink>에서 저희 홈에 가입하실 수도 있습니다.
+        또한 <VTLink class="link" href="https://discord.com/invite/vue" no-icon>Twitter</VTLink>에서 소셜 활동을 하시거나 <VTLink class="link" href="https://discord.com/invite/vue" no-icon>Discord</VTLink>에서 저희 홈에 가입하실 수도 있습니다.
       </p>
     </div>
   </section>

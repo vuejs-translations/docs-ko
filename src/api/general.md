@@ -4,7 +4,7 @@
 
 Vue의 현재 버전(문자열)을 반환합니다.
 
-- **타입**: `string`
+- **타입:** `string`
 
 - **예제**
 
@@ -18,13 +18,13 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
 다음 DOM 업데이트 발생을 기다리는 유틸리티입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function nextTick(callback?: () => void): Promise<void>
   ```
 
-- **세부 사항**:
+- **세부 사항**
   반응형 상태를 변경한 결과는 동기적으로 DOM에 업데이트되지 않습니다.
   대신, 이것은 상태를 얼마나 많이 변경했는지에 관계없이 "다음 틱"까지 버퍼링하여, 각 컴포넌트가 한 번만 업데이트 되었음을 보장합니다.
 
@@ -94,13 +94,13 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
   </div>
 
-- **참고**: [`this.$nextTick()`](/api/component-instance#nexttick)
+- **참고** [`this.$nextTick()`](/api/component-instance#nexttick)
 
 ## defineComponent() {#definecomponent}
 
 타입 추론으로 Vue 컴포넌트를 정의하기 위한 타입 핼퍼입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   // options 문법
@@ -117,7 +117,7 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
   > 타입은 가독성을 위해 단순화되었습니다.
 
-- **세부 사항**:
+- **세부 사항**
 
   첫 번째 인자로 컴포넌트 옵션 객체가 필요합니다.
   이 함수는 본질적으로 타입 추론 목적이므로, 동일한 옵션 객체를 반환하며, 런타임에 작동하지 않습니다.
@@ -133,26 +133,29 @@ Vue의 현재 버전(문자열)을 반환합니다.
   type FooInstance = InstanceType<typeof Foo>
   ```
 
-  ### Function Signature <sup class="vt-badge" data-text="3.3+" /> {#function-signature}
+  ### Function Signature {#function-signature}
 
-  `defineComponent()` also has an alternative signature that is meant to be used with Composition API and [render functions or JSX](/guide/extras/render-function.html).
+  - 3.3+ 버전에서만 지원됩니다.
 
-  Instead of passing in an options object, a function is expected instead. This function works the same as the Composition API [`setup()`](/api/composition-api-setup.html#composition-api-setup) function: it receives the props and the setup context. The return value should be a render function - both `h()` and JSX are supported:
+  `defineComponent()`은 Composition API 및 [렌더 함수 또는 JSX](/guide/extras/render-function)와 함께 사용할 수 있도록 설계된 또 다른 형태의 시그니처를 제공합니다.
+
+  옵션 객체를 전달하는 대신, 함수를 전달해야 합니다. 이 함수는 Composition API의 [`setup()`](/api/composition-api-setup#composition-api-setup) 함수와 동일한 방식으로 동작하며, props와 setup 컨텍스트를 매개변수로 받습니다. 반환값은 렌더 함수여야 하며, `h()`와 JSX를 모두 지원합니다.
+
 
   ```js
   import { ref, h } from 'vue'
 
   const Comp = defineComponent(
     (props) => {
-      // use Composition API here like in <script setup>
+      // 여기에서는 `<script setup>`에서와 같이 Composition API를 사용하세요.
       const count = ref(0)
 
       return () => {
-        // render function or JSX
+        // 렌더 함수 또는 JSX
         return h('div', count.value)
       }
     },
-    // extra options, e.g. declare props and emits
+    // 추가 옵션(예: props 및 emits 선언)
     {
       props: {
         /* ... */
@@ -161,37 +164,34 @@ Vue의 현재 버전(문자열)을 반환합니다.
   )
   ```
 
-  The main use case for this signature is with TypeScript (and in particular with TSX), as it supports generics:
+  이 시그니처의 주요 사용 사례는 TypeScript(특히 TSX)와 함께 사용하는 경우로, 제네릭을 지원하기 때문입니다.:
+
 
   ```tsx
   const Comp = defineComponent(
     <T extends string | number>(props: { msg: T; list: T[] }) => {
-      // use Composition API here like in <script setup>
+      // 여기에서는 `<script setup>`에서와 같이 Composition API를 사용하세요.
       const count = ref(0)
 
       return () => {
-        // render function or JSX
+        // 렌더 함수 또는 JSX
         return <div>{count.value}</div>
       }
     },
-    // manual runtime props declaration is currently still needed.
-    {
+    //현재는 수동으로 런타임 props 선언이 여전히 필요합니다.
+  {
       props: ['msg', 'list']
     }
   )
   ```
 
-  In the future, we plan to provide a Babel plugin that automatically infers and injects the runtime props (like for `defineProps` in SFCs) so that the runtime props declaration can be omitted.
+향후에는 Babel 플러그인을 제공하여 런타임 props를 자동으로 추론하고 주입할 수 있도록 할 계획입니다. (`defineProps`가 SFC에서 동작하는 방식과 유사) 이를 통해 런타임 props 선언을 생략할 수 있게 될 것입니다.
 
   ### Note on webpack Treeshaking {#note-on-webpack-treeshaking}
 
   `defineComponent()`는 함수 호출이기 때문에 웹팩과 같은 일부 빌드 도구에 부작용(Side-effect)을 일으키는 것처럼 보일 수 있습니다. 이렇게 하면 컴포넌트가 전혀 사용되지 않는 경우에도 트리가 흔들리는 것을 방지할 수 있습니다.
 
-  Because `defineComponent()` is a function call, it could look like that it would produce side-effects to some build tools, e.g. webpack. This will prevent the component from being tree-shaken even when the component is never used.
-
   이 함수 호출이 트리 셰이크해도 안전하다는 것을 웹팩에 알리려면 함수 호출 앞에 `/*#__PURE__*/` 주석 표기법을 추가하면 됩니다:
-
-  To tell webpack that this function call is safe to be tree-shaken, you can add a `/*#__PURE__*/` comment notation before the function call:
 
   ```js
   export default /*#__PURE__*/ defineComponent(/* ... */)
@@ -199,16 +199,14 @@ Vue의 현재 버전(문자열)을 반환합니다.
 
   롤업(Vite에서 사용하는 기본 프로덕션 번들러)은 수동 어노테이션 없이도 `defineComponent()`가 실제로 부작용이 없는지 판단할 수 있을 만큼 똑똑하기 때문에 Vite를 사용하는 경우 이 작업이 필요하지 않습니다.
 
-  Note this is not necessary if you are using Vite, because Rollup (the underlying production bundler used by Vite) is smart enough to determine that `defineComponent()` is in fact side-effect-free without the need for manual annotations.
-
-- **참고**: [가이드 - Vue에서 타입스크립트 사용하기](/guide/typescript/overview#general-usage-notes)
+- **참고** [가이드 - Vue에서 타입스크립트 사용하기](/guide/typescript/overview#general-usage-notes)
 
 ## defineAsyncComponent() {#defineasynccomponent}
 
 렌더링될 때 지연 로드되는 비동기 컴포넌트를 정의합니다.
 인자는 로더 함수이거나 로드 동작의 고급 제어를 위한 옵션 객체일 수 있습니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   function defineAsyncComponent(
@@ -233,49 +231,4 @@ Vue의 현재 버전(문자열)을 반환합니다.
   }
   ```
 
-- **참고**: [가이드 - 비동기 컴포넌트](/guide/components/async)
-
-## defineCustomElement() {#definecustomelement}
-
-이 메서드는 [`defineComponent`](#definecomponent)와 동일한 인자를 사용하지만,
-네이티브 [커스텀 엘리먼트](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) 클래스 생성자를 반환합니다.
-
-- **타입**:
-
-  ```ts
-  function defineCustomElement(
-    component:
-      | (ComponentOptions & { styles?: string[] })
-      | ComponentOptions['setup']
-  ): {
-    new (props?: object): HTMLElement
-  }
-  ```
-
-  > 타입은 가독성을 위해 단순화되었습니다.
-
-- **세부 사항**:
-
-  `defineCustomElement()`는 일반 컴포넌트 옵션 외에도 추가로 엘리먼트의 [섀도우 루트](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)에 삽입되어야 하는 CSS를 제공하기 위해,
-  인라인 CSS 문자열을 배열로 감싼 특수 옵션 `styles`도 지원합니다.
-
-  반환 값은 [`customElements.define()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define)을 사용하여 등록할 수 있는 커스텀 엘리먼트 생성자입니다.
-
-- **예제**
-
-  ```js
-  import { defineCustomElement } from 'vue'
-
-  const MyVueElement = defineCustomElement({
-    /* 컴포넌트 옵션 */
-  })
-
-  // 커스텀 엘리먼트를 등록함
-  customElements.define('my-vue-element', MyVueElement)
-  ```
-
-- **참고**:
-
-  - [가이드 - Vue로 커스텀 엘리먼트 만들기](/guide/extras/web-components#building-custom-elements-with-vue)
-
-  - `defineCustomElement()`는 싱글 파일 컴포넌트와 함께 사용할 때, [특별한 설정](/guide/extras/web-components#sfc-as-custom-element)이 필요합니다.
+- **참고** [가이드 - 비동기 컴포넌트](/guide/components/async)

@@ -8,6 +8,17 @@ const vFocus = {
 }
 </script>
 
+<style>
+.vt-doc p.is-highlight {
+  margin-bottom: 0;
+}
+
+.is-highlight {
+  background-color: yellow;
+  color: black;
+}
+</style>
+
 ## 소개 {#introduction}
 
 코어에 포함된 기본 디렉티브 세트(예: `v-model` 또는 `v-show`) 외에도 Vue를 사용하면 커스텀 디렉티브를 정의할 수 있습니다.
@@ -20,7 +31,97 @@ const vFocus = {
 
 ```vue
 <script setup>
-// 템플릿에서 v-focus로 활성화 가능
+// 템플릿에서 v-highlight로 활성화 가능
+const vHighlight = {
+  mounted: (el) => {
+    el.classList.add('is-highlight')
+  }
+}
+</script>
+
+<template>
+  <p v-highlight>This sentence is important!</p>
+</template>
+```
+
+</div>
+
+<div class="options-api">
+
+```js
+const highlight = {
+  mounted: (el) => el.classList.add('is-highlight')
+}
+
+export default {
+  directives: {
+    // 템플릿에서 v-highlight로 활성화 가능
+    highlight
+  }
+}
+```
+
+```vue-html
+<p v-highlight>This sentence is important!</p>
+```
+
+</div>
+
+<div class="demo">
+  <p v-highlight>이 문장은 중요합니다!</p>
+</div>
+
+<div class="composition-api">
+
+`<script setup>`에서 `v` 접두사로 시작하는 모든 camelCase 변수를 커스텀 디렉티브로 사용할 수 있습니다. 위의 예에서 `vhighlight`는 템플릿에서 `v-highlight`로 사용할 수 있습니다.
+
+`<script setup>`을 사용하지 않는 경우, `directives` 옵션을 사용하여 커스텀 디렉티브를 등록할 수 있습니다:
+
+```js
+export default {
+  setup() {
+    /*...*/
+  },
+  directives: {
+    // 템플릿에서 v-highlight로 활성화 가능
+    highlight: {
+      /* ... */
+    }
+  }
+}
+```
+
+</div>
+
+<div class="options-api">
+
+컴포넌트와 마찬가지로 커스텀 디렉티브는 템플릿에서 사용할 수 있도록 등록해야 합니다. 위의 예에서는 `directives` 옵션을 통해 로컬 등록을 사용하고 있습니다.
+
+</div>
+
+앱 수준에서 커스텀 디렉티브를 전역적으로 등록하는 것도 일반적입니다:
+
+```js
+const app = createApp({})
+
+// 모든 컴포넌트에서 v-highlight를 사용할 수 있도록 합니다.
+app.directive('highlight', {
+  /* ... */
+})
+```
+
+
+## 언제 사용자 정의 디렉티브를 사용하나요 {#when-to-use}
+
+커스텀 디렉티브는 원하는 기능이 직접적인 DOM 조작을 통해서만 구현될 수 있을 때만 사용해야 합니다.
+
+대표적인 예로, 요소에 포커스를 맞추는 `v-focus` 커스텀 디렉티브가 있습니다.
+
+<div class="composition-api">
+
+```vue
+<script setup>
+// 템플릿에서  v-focus 를 활성화
 const vFocus = {
   mounted: (el) => el.focus()
 }
@@ -42,7 +143,7 @@ const focus = {
 
 export default {
   directives: {
-    // 템플릿에서 v-focus로 활성화 가능
+    // 템플릿에서  v-focus 를 활성화
     focus
   }
 }
@@ -54,54 +155,10 @@ export default {
 
 </div>
 
-<div class="demo">
-  <input v-focus placeholder="포커스 되어야 함" />
-</div>
+이 디렉티브는 `autofocus` 속성보다 더 유용합니다. 그 이유는 페이지가 로드될 때뿐만 아니라, Vue가 요소를 동적으로 삽입할 때도 작동하기 때문입니다!
 
-페이지의 다른 곳을 클릭하지 않았다고 가정하면, 위의 인풋은 자동으로 포커스 되어야 합니다. 이 디렉티브는 페이지 로드 시 뿐만 아니라, Vue에서 동적으로 엘리먼트를 삽입할 때도 작동하기 때문에 `autofocus` 속성보다 더 유용합니다.
+가능한 경우, `v-bind`와 같은 내장 디렉티브를 활용한 선언적 템플릿 작성이 권장됩니다.이 방식이 더 효율적이며 서버 사이드 렌더링(SSR)에도 적합하기 때문입니다.
 
-<div class="composition-api">
-
-`<script setup>`에서 `v` 접두사로 시작하는 모든 camelCase 변수를 커스텀 디렉티브로 사용할 수 있습니다. 위의 예에서 `vFocus`는 템플릿에서 `v-focus`로 사용할 수 있습니다.
-
-`<script setup>`을 사용하지 않는 경우, `directives` 옵션을 사용하여 커스텀 디렉티브를 등록할 수 있습니다:
-
-```js
-export default {
-  setup() {
-    /*...*/
-  },
-  directives: {
-    // 템플릿에서 v-focus로 활성화 가능
-    focus: {
-      /* ... */
-    }
-  }
-}
-```
-
-</div>
-
-<div class="options-api">
-
-컴포넌트와 마찬가지로 커스텀 디렉티브는 템플릿에서 사용할 수 있도록 등록해야 합니다. 위의 예에서는 `directives` 옵션을 통해 로컬 등록을 사용하고 있습니다.
-
-</div>
-
-앱 수준에서 커스텀 디렉티브를 전역적으로 등록하는 것도 일반적입니다:
-
-```js
-const app = createApp({})
-
-// 모든 컴포넌트에서 v-focus를 사용할 수 있도록 합니다.
-app.directive('focus', {
-  /* ... */
-})
-```
-
-:::tip
-커스텀 디렉티브는 원하는 기능을 직접 DOM 조작을 통해서만 달성할 수 있는 경우에만 사용해야 합니다. 가능하면 `v-bind`와 같은 내장 디렉티브를 사용하여 선언적 템플릿을 사용하는 것이 더 효율적이고 서버 렌더링에 친숙하기 때문입니다.
-:::
 
 ## 디렉티브 훅 {#directive-hooks}
 
@@ -111,23 +168,23 @@ app.directive('focus', {
 const myDirective = {
   // 바인딩된 엘리먼트의 속성 또는
   // 이벤트 리스너가 적용되기 전에 호출됩니다.
-  created(el, binding, vnode, prevVnode) {
+  created(el, binding, vnode) {
     // 인자에 대한 자세한 내용은 아래를 참고.
   },
   // 엘리먼트가 DOM에 삽입되기 직전에 호출됩니다.
-  beforeMount(el, binding, vnode, prevVnode) {},
+  beforeMount(el, binding, vnode) {},
   // 바인딩된 엘리먼트의 부모 컴포넌트 및
   // 모든 자식 컴포넌트의 mounted 이후에 호출됩니다.
-  mounted(el, binding, vnode, prevVnode) {},
+  mounted(el, binding, vnode) {},
   // 부모 컴포넌트의 updated 전에 호출됩니다.
   beforeUpdate(el, binding, vnode, prevVnode) {},
   // 바인딩된 엘리먼트의 부모 컴포넌트 및
   // 모든 자식 컴포넌트의 updated 이후에 호출됩니다.
   updated(el, binding, vnode, prevVnode) {},
   // 부모 컴포넌트의 beforeUnmount 이후에 호출됩니다.
-  beforeUnmount(el, binding, vnode, prevVnode) {},
+  beforeUnmount(el, binding, vnode) {},
   // 부모 컴포넌트의 unmounted 전에 호출됩니다.
-  unmounted(el, binding, vnode, prevVnode) {}
+  unmounted(el, binding, vnode) {}
 }
 ```
 
@@ -228,4 +285,4 @@ app.directive('demo', (el, binding) => {
 </div>
 ```
 
-컴포넌트는 잠재적으로 하나 이상의 루트 노드를 가질 수 있습니다. 다중 루트 컴포넌트에 적용될 때, 디렉티브는 무시되고 경고가 발생합니다. 속성과 달리, 디렉티브는 `v-bind="$attrs"`로 다른 요소에 전달될 수 없습니다.
+컴포넌트는 잠재적으로 하나 이상의 루트 노드를 가질 수 있습니다. 다중 루트 컴포넌트에 적용될 때, 디렉티브는 무시되고 경고가 발생합니다. 속성과 달리, 디렉티브는 `v-bind="$attrs"`로 다른 요소에 전달될 수 없습니다. 일반적으로 컴포넌트에서 커스텀 디렉티브를 사용하는 것은 권장되지 **않습니다**.

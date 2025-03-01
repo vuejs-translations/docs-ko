@@ -323,6 +323,22 @@ data() {
 
 일반적으로 인라인 스타일에 바인딩 하는 경우, 객체를 반환하는 계산된 속성을 사용합니다.
 
+`:style` 디렉티브는 `:class`와 마찬가지로 일반 스타일 속성과 함께 사용할 수도 있습니다.
+
+
+템플릿:
+
+```vue-html
+<h1 style="color: red" :style="'font-size: 1em'">hello</h1>
+```
+
+다음처럼 렌더링 됩니다:
+
+```vue-html
+<h1 style="color: red; font-size: 1em;">hello</h1>
+```
+
+
 ### 배열로 바인딩 하기 {#binding-to-arrays-1}
 
 스타일 객체 여러 개로 이루어진 배열을 `:style`에 바인딩할 수 있습니다. 객체들은 병합되어 엘리먼트에 적용됩니다:

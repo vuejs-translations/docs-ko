@@ -24,7 +24,7 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 - [Node.js](https://nodejs.org/) 버전 18.3 이상 설치
   :::
 
-이 섹션에서는 로컬 컴퓨터에서 Vue [싱글 페이지 애플리케이션](/guide/extras/ways-of-using-vue.html#single-page-application-spa)을 스캐폴드하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vitejs.dev)를 기반으로 빌드 설정을 사용하고 Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc)(SFC)를 사용할 수 있도록 합니다.
+이 섹션에서는 로컬 컴퓨터에서 Vue [싱글 페이지 애플리케이션](/guide/extras/ways-of-using-vue#single-page-application-spa)을 스캐폴드하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vitejs.dev)를 기반으로 빌드 설정을 사용하고 Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc)(SFC)를 사용할 수 있도록 합니다.
 
 최신 버전의 [Node.js](https://nodejs.org/)가 설치되어 있고 현재 작업 디렉터리가 프로젝트를 만들려는 디렉터리인지 확인하세요. 명령줄에서 다음 명령을 실행합니다(`$` 기호 제외):
 
@@ -61,6 +61,7 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 
 이 명령은 공식 Vue 프로젝트 스캐폴딩 도구인 [create-vue](https://github.com/vuejs/create-vue)를 설치 및 실행합니다. TypeScript 및 테스트 지원과 같은 몇 가지 선택적 기능에 대한 프롬프트가 표시됩니다:
 
+
 <div class="language-sh"><pre><code><span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Project name: <span style="color:#888;">… <span style="color:#89DDFF;">&lt;</span><span style="color:#888;">your-project-name</span><span style="color:#89DDFF;">&gt;</span></span></span>
 <span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add TypeScript? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
 <span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add JSX Support? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
@@ -74,6 +75,7 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 <span></span>
 <span style="color:#A6ACCD;">Scaffolding project in ./<span style="color:#89DDFF;">&lt;</span><span style="color:#888;">your-project-name</span><span style="color:#89DDFF;">&gt;</span>...</span>
 <span style="color:#A6ACCD;">Done.</span></code></pre></div>
+
 
 옵션에 대해 확신이 서지 않는다면 일단 엔터키를 눌러 `No`를 선택하면 됩니다. 프로젝트가 생성되면 지침에 따라 종속 요소를 설치하고 개발 서버를 시작합니다:
 
@@ -116,9 +118,9 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
   </VTCodeGroupTab>
 </VTCodeGroup>
 
-이제 첫 번째 Vue 프로젝트가 실행 중일 것입니다! 생성된 프로젝트의 예제 컴포넌트는 [Options API](/guide/introduction.html#composition-api) 대신  `<script setup>`과 [Composition API](/guide/introduction.html#options-api)를 사용하여 작성되었음을 유의하세요. 다음은 몇 가지 추가 팁입니다:
+이제 첫 번째 Vue 프로젝트가 실행 중일 것입니다! 생성된 프로젝트의 예제 컴포넌트는 [Options API](/guide/introduction#composition-api) 대신  `<script setup>`과 [Composition API](/guide/introduction#options-api)를 사용하여 작성되었음을 유의하세요. 다음은 몇 가지 추가 팁입니다:
 
-- 권장 IDE 설정은 [Visual Studio Code](https://code.visualstudio.com/) + [Volar extension](https://marketplace.visualstudio.com/items?itemName=Vue.volar)입니다. 다른 편집기를 사용하는 경우 [IDE 지원 섹션](/guide/scaling-up/tooling.html#ide-support)을 확인하세요.
+- 권장 IDE 설정은 [Visual Studio Code](https://code.visualstudio.com/) + [Vue - Official extension](https://marketplace.visualstudio.com/items?itemName=Vue.volar)입니다. 다른 편집기를 사용하는 경우 [IDE 지원 섹션](/guide/scaling-up/tooling#ide-support)을 확인하세요.
 - 백엔드 프레임워크와의 통합을 포함한 자세한 툴링 내용은 [툴링 가이드](/guide/scaling-up/tooling)에서 확인할 수 있습니다.
 - 기본 빌드 도구인 Vite에 대해 자세히 알아보려면 [Vite 문서](https://vitejs.dev)를 확인하세요.
 - 타입스크립트를 사용하기로 선택한 경우 [타입스크립트 사용 가이드](typescript/overview)를 확인하세요.
@@ -365,7 +367,7 @@ import { createApp } from 'vue'
 :::
 
 :::warning 운영 환경에서 사용
-지금까지의 예제는 Vue의 개발 빌드를 사용한 것으로, 프로덕션 환경에서 CDN의 Vue를 사용하려면 [프로덕션 배포 가이드](/guide/best-practices/production-deployment.html#without-build-tools)를 확인하시기 바랍니다.
+지금까지의 예제는 Vue의 개발 빌드를 사용한 것으로, 프로덕션 환경에서 CDN의 Vue를 사용하려면 [프로덕션 배포 가이드](/guide/best-practices/production-deployment#without-build-tools)를 확인하시기 바랍니다.
 
 빌드 시스템 없이 Vue를 사용할 수는 있지만, 고려할 수 있는 대안적 접근 방법은 과거에 [`jquery/jquery`](https://github.com/jquery/jquery)가 사용되었거나 현재 [`alpinejs/alpine`](https://github.com/alpinejs/alpine)이 사용될 수 있는 컨텍스트에 더 적합할 수 있는 [`vuejs/petite-vue`](https://github.com/vuejs/petite-vue)를 사용하는 것입니다.
 :::
@@ -415,13 +417,13 @@ export default {
 
 </div>
 
-위의 `index.html` 파일을 직접 브라우저에서 열면 ES 모듈이 `file://` 프로토콜 위에서 작동하지 않아 오류가 발생합니다. 로컬 파일을 열 때 브라우저가 사용하는 프로토콜이기 때문입니다.
+위의 `index.html` 파일을 브라우저에서 직접 열면 오류가 발생하는 것을 확인할 수 있습니다. 이는 ES 모듈이 `file://` 프로토콜에서는 동작하지 않기 때문입니다. 로컬 파일을 열 때 브라우저는 `file://` 프로토콜을 사용하므로, ES 모듈이 정상적으로 실행되지 않습니다.
 
-보안상의 이유로 ES 모듈은 웹 페이지를 열 때 브라우저가 사용하는 `http://` 프로토콜에서만 작동할 수 있습니다. 로컬 컴퓨터에서 ES 모듈이 작동하려면 로컬 HTTP 서버를 사용하여 `index.html`을 `http://` 프로토콜로 서비스해야 합니다.
+보안상의 이유로, ES 모듈은 `http://` 프로토콜에서만 동작합니다. 이는 브라우저가 웹 페이지를 열 때 사용하는 프로토콜입니다. 따라서 로컬 환경에서 ES 모듈을 실행하려면, `index.html` 파일을 `http://` 프로토콜을 통해 제공해야 하며, 이를 위해 로컬 HTTP 서버를 실행해야 합니다.
 
-로컬 HTTP 서버를 시작하려면 먼저 [Node.js](https://nodejs.org/en/)가 설치되어 있는지 확인한 다음 명령줄에서 HTML 파일이 있는 동일한 디렉토리에서 `npx serve`를 실행하십시오. 또는 올바른 MIME 유형으로 정적 파일을 서비스할 수 있는 다른 HTTP 서버를 사용할 수도 있습니다.
+로컬 HTTP 서버를 시작하려면, 먼저 [Node.js](https://nodejs.org/en/)가 설치되어 있는지 확인한 후, HTML 파일이 있는 동일한 디렉터리에서 명령줄을 열고 `npx serve`를 실행하세요. 또는, 정적 파일을 올바른 MIME 타입으로 제공할 수 있는 다른 HTTP 서버를 사용할 수도 있습니다.
 
-가져온 컴포넌트의 템플릿이 JavaScript 문자열로 인라인으로 포함되어 있는 것을 알아챘을 것입니다. VS Code를 사용하는 경우 [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) 확장을 설치하고 문자열을 `/*html*/` 주석으로 접두사를 붙여 문법 강조 효과를 얻을 수 있습니다.
+또한, 가져온 컴포넌트의 템플릿이 JavaScript 문자열로 인라인되어 있는 것을 볼 수 있습니다. 만약 VS Code를 사용 중이라면, [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) 확장 프로그램을 설치하고 문자열 앞에 `/*html*/` 주석을 추가하면, 구문 강조(syntax highlighting)를 사용할 수 있습니다.
 
 ## Next Steps {#next-steps}
 

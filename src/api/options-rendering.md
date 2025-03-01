@@ -4,7 +4,7 @@
 
 컴포넌트의 문자열 템플릿입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -12,7 +12,7 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `template` 옵션을 통해 제공된 템플릿은 런타임에서 즉시 컴파일되지만,
   템플릿 컴파일러가 포함된 Vue 빌드를 사용할 때만 지원됩니다.
@@ -31,14 +31,14 @@
   :::warning 보안 참고 사항
   신뢰할 수 있는 템플릿 소스만 사용해야 합니다.
   사용자가 제공한 컨텐츠를 템플릿으로 사용하면 안됩니다.
-  자세한 내용은 [가이드 - 보안](/guide/best-practices/security.html#rule-no-1-never-use-non-trusted-templates) 참고.
+  자세한 내용은 [가이드 - 보안](/guide/best-practices/security#rule-no-1-never-use-non-trusted-templates) 참고.
   :::
 
 ## render {#render}
 
 컴포넌트의 가상 DOM 트리를 프로그래밍 방식으로 반환하는 함수입니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -59,7 +59,7 @@
   type VNodeArrayChildren = (VNodeArrayChildren | VNodeChildAtom)[]
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `render`는 문자열 템플릿의 대안으로,
   템플릿 전체를 JavaScript 프로그래밍 능력을 활용하여,
@@ -70,7 +70,7 @@
   컴포넌트에 `render`와 `template`이 모두 있는 경우,
   `render`가 더 높은 우선 순위를 갖습니다.
 
-- **참고**:
+- **참고**
   - [가이드 - 렌더링 메커니즘](/guide/extras/rendering-mechanism)
   - [가이드 - Render Functions](/guide/extras/render-function)
 
@@ -78,7 +78,7 @@
 
 컴포넌트의 템플릿의 런타임 컴파일러 옵션을 구성합니다.
 
-- **타입**:
+- **타입**
 
   ```ts
   interface ComponentOptions {
@@ -91,21 +91,22 @@
   }
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   이 환경설정(config) 옵션은 전체 빌드(예: 브라우저에서 템플릿을 컴파일할 수 있는 독립 실행형 `vue.js`)를 사용할 때만 적용됩니다.
-  앱 레벨의 [app.config.compilerOptions](/api/application.html#app-config-compileroptions)와 동일한 옵션을 지원하며,
+  앱 레벨의 [app.config.compilerOptions](/api/application#app-config-compileroptions)와 동일한 옵션을 지원하며,
   현재 컴포넌트가 더 높은 우선 순위를 갖습니다.
 
-- **참고**: [app.config.compilerOptions](/api/application.html#app-config-compileroptions)
+- **참고** [app.config.compilerOptions](/api/application#app-config-compileroptions)
 
 ## slots<sup class="vt-badge ts"/> {#slots}
 
-An option to assist with type inference when using slots programmatically in render functions. Only supported in 3.3+.
+렌더 함수에서 슬롯을 프로그래밍 방식으로 사용할 때 타입 추론을 돕는 옵션입니다. 버전 3.3 이상에서만 지원됩니다.
 
-- **Details**
+- **세부 사항**
 
-  This option's runtime value is not used. The actual types should be declared via type casting using the `SlotsType` type helper:
+  이 옵션의 런타임 값은 사용되지 않습니다. 실제 타입은 `SlotsType` 타입 헬퍼를 사용하여 타입 캐스팅을 통해 선언해야 합니다:
+  
 
   ```ts
   import { SlotsType } from 'vue'

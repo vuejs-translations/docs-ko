@@ -104,11 +104,9 @@ SFC의 모든 템플릿이 미리 컴파일되어 있기 때문에 기본 도구
 
 ## 브라우저 개발자 도구 {#browser-devtools}
 
-<VueSchoolLink href="https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3" title="Free Vue.js Devtools Lesson"/>
-
 Vue 브라우저 개발자 도구 확장 프로그램을 사용하면, Vue 앱의 컴포넌트 트리를 탐색하고 개별 컴포넌트의 상태를 검사하고 상태 관리 이벤트 및 프로필 성능을 추적할 수 있습니다.
 
-![devtools screenshot](https://raw.githubusercontent.com/vuejs/devtools/main/media/screenshot-shadow.png)
+![devtools screenshot](./images/devtools.png)
 
 - [Vue 브라우저 개발자 도구 문서](https://devtools.vuejs.org/)
 - [Chrome 확장 프로그램](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
@@ -120,9 +118,9 @@ Vue 브라우저 개발자 도구 확장 프로그램을 사용하면, Vue 앱�
 
 주요 내용: [TypeScript로 Vue 사용하기](/guide/typescript/overview).
 
-- [Volar](https://github.com/johnsoncodehk/volar)는 템플릿 표현식 및 교차 컴포넌트 props 유효성 검사를 포함하여 `<script lang="ts">` 블록을 사용하여 SFC에 대한 유형 검사를 제공합니다.
+- [Vue - Official extension](https://github.com/vuejs/language-tools)는 템플릿 표현식 및 교차 컴포넌트 props 유효성 검사를 포함하여 `<script lang="ts">` 블록을 사용하여 SFC에 대한 유형 검사를 제공합니다.
 
-- 명령줄에서 동일한 유형 검사를 수행하거나 SFC용 `d.ts` 파일을 생성하려면 [`vue-tsc`](https://github.com/johnsoncodehk/volar/tree/master/vue-language-tools/vue-tsc)를 사용합니다.
+- 명령줄에서 동일한 유형 검사를 수행하거나 SFC용 `d.ts` 파일을 생성하려면 [`vue-tsc`](https://github.com/vuejs/language-tools/tree/master/packages/tsc)를 사용합니다.
 
 ## 테스팅 {#testing}
 
@@ -150,7 +148,7 @@ Vue 팀은 SFC별 린팅 규칙을 지원하는 [ESLint](https://eslint.org/) �
 
 ## Formatting {#formatting}
 
-- VS Code 확장 [Volar](https://github.com/johnsoncodehk/volar)는 Vue SFC에 대한 포매팅을 즉시 제공합니다.
+- VS Code 확장 [Vue - Official](https://github.com/vuejs/language-tools)는 Vue SFC에 대한 포매팅을 즉시 제공합니다.
 
 - 또는 [Prettier](https://prettier.io/)는 빌트인 Vue SFC 형식 지원을 제공합니다.
 
@@ -194,7 +192,6 @@ webpack에서 Vue SFC 지원을 제공하는 공식 로더입니다. Vue CLI를 
 - [Repl.it(Vue + Vite)](https://replit.com/@templates/VueJS-with-Vite)
 - [CodeSandbox](https://codesandbox.io/p/devbox/github/codesandbox/sandbox-templates/tree/main/vue-vite)
 - [Codepen](https://codepen.io/pen/editor/vue)
-- [Components.studio](https://components.studio/create/vue3)
 - [WebComponents.dev](https://webcomponents.dev/create/cevue)
 
 <!-- TODO ## Backend Framework Integrations -->

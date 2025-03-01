@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Repl, useStore, useVueImportMap } from '@vue/repl'
 import CodeMirror from '@vue/repl/codemirror-editor'
-import { inject, watch, version, Ref, ref, computed, nextTick } from 'vue'
+import { inject, watch, Ref, ref, computed, nextTick } from 'vue'
 import { data } from './tutorial.data'
 import {
   resolveSFCExample,
@@ -166,15 +166,15 @@ layout="vertical"
   position: relative;
 }
 
-  .instruction {
+.instruction {
   width: 45%;
-    height: var(--height);
-    padding: 0 32px 24px;
-    border-right: 1px solid var(--vt-c-divider-light);
-    font-size: 15px;
-    overflow-y: auto;
-    position: relative;
-    --vt-nav-height: 40px;
+  height: var(--height);
+  padding: 0 32px 24px;
+  border-right: 1px solid var(--vt-c-divider-light);
+  font-size: 15px;
+  overflow-y: auto;
+  position: relative;
+  --vt-nav-height: 40px;
 }
 
 .vue-repl {

@@ -115,12 +115,12 @@ methods: {
 
 <div class="composition-api">
 
-참고: [이벤트 핸들러 타입 지정하기](/guide/typescript/composition-api.html#typing-event-handlers) <sup class="vt-badge ts" />
+참고: [이벤트 핸들러 타입 지정하기](/guide/typescript/composition-api#typing-event-handlers) <sup class="vt-badge ts" />
 
 </div>
 <div class="options-api">
 
-참고: [이벤트 핸들러 타입 지정하기](/guide/typescript/options-api.html#typing-event-handlers) <sup class="vt-badge ts" />
+참고: [이벤트 핸들러 타입 지정하기](/guide/typescript/options-api#typing-event-handlers) <sup class="vt-badge ts" />
 
 </div>
 
@@ -362,3 +362,11 @@ Symbolics 키보드에서 메타는 "META" 또는 "Meta"로 표시됩니다.
 - `.middle`
 
 특정 마우스 버튼에 의해 이벤트가 트리거 되도록 제한하고 싶을 때 사용합니다.
+
+그러나 `.left`, `.right`, `.middle` 수정자(modifier) 이름은 일반적인 오른손잡이용 마우스 레이아웃을 기준으로 한 것이지만, 실제로는 각각 "주(main)", "보조(secondary)", "보조(auxiliary)" 포인팅 장치 이벤트 트리거를 의미하며, 물리적인 버튼 자체를 나타내지는 않습니다.
+
+예를 들어, 왼손잡이용 마우스 레이아웃에서는 "주(main)" 버튼이 물리적으로 오른쪽 버튼일 수도 있지만, 여전히 `.left` 수정자 핸들러가 실행됩니다.
+
+또한, 트랙패드에서는 한 손가락 탭이 `.left` 핸들러를, 두 손가락 탭이 `.right` 핸들러를, 세 손가락 탭이 `.middle` 핸들러를 트리거할 수 있습니다.
+
+이와 유사하게, "마우스" 이벤트를 생성하는 다른 장치나 이벤트 소스도 "왼쪽(left)" 또는 "오른쪽(right)"과 직접적인 관련이 없는 방식으로 트리거될 수 있습니다.

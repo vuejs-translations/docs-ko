@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import gsap from 'gsap'
 
-let show = ref(true)
+const show = ref(true)
 
 function onBeforeEnter(el) {
   gsap.set(el, {

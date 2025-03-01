@@ -18,7 +18,7 @@ Vue는 컴포넌트 인스턴스의 데이터를 서술적으로 렌더링된 DO
 
 ## HTML 출력 {#raw-html}
 
-이중 중괄호는 데이터를 HTML이 아닌 일반 텍스트로 해석합니다. 실제 HTML을 출력하려면 [`v-html` 디렉티브](/api/built-in-directives.html#v-html)을 사용해야 합니다:
+이중 중괄호는 데이터를 HTML이 아닌 일반 텍스트로 해석합니다. 실제 HTML을 출력하려면 [`v-html` 디렉티브](/api/built-in-directives#v-html)을 사용해야 합니다:
 
 ```vue-html
 <p>텍스트 보간법 사용: {{ rawHtml }}</p>
@@ -44,7 +44,7 @@ Vue는 컴포넌트 인스턴스의 데이터를 서술적으로 렌더링된 DO
 
 ## 속성 바인딩 {#attribute-bindings}
 
-이중 중괄호는 HTML 속성(attribute) 내에서 사용할 수 없습니다. 대신 [`v-bind` 디렉티브](/api/built-in-directives.html#v-bind)를 사용하세요:
+이중 중괄호는 HTML 속성(attribute) 내에서 사용할 수 없습니다. 대신 [`v-bind` 디렉티브](/api/built-in-directives#v-bind)를 사용하세요:
 
 ```vue-html
 <div v-bind:id="dynamicId"></div>
@@ -80,7 +80,7 @@ Vue는 컴포넌트 인스턴스의 데이터를 서술적으로 렌더링된 DO
 
 ### 불리언(Boolean) 속성 {#boolean-attributes}
 
-[불리언 속성](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes)은 엘리먼트에 표기했는지 여부로 참/거짓 값을 나타내는 속성입니다. 예를 들어, [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled)는 가장 일반적으로 사용되는 불리언 속성 중 하나입니다.
+[불리언 속성](https://html.spec.whatwg.org/multipage/common-microsyntaxes#boolean-attributes)은 엘리먼트에 표기했는지 여부로 참/거짓 값을 나타내는 속성입니다. 예를 들어, [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled)는 가장 일반적으로 사용되는 불리언 속성 중 하나입니다.
 
 `v-bind`는 이러한 경우 약간 다르게 작동합니다:
 
@@ -179,13 +179,13 @@ Vue 템플릿에서 JavaScript 표현식은 다음과 같은 위치에 사용할
 
 템플릿 표현식은 샌드박스 처리되어 [제한된 전역 리스트](https://github.com/vuejs/core/blob/main/packages/shared/src/globalsAllowList.ts#L3)에만 접근할 수 있습니다. 이 목록은 `Math` 및 `Date` 등 일반적으로 사용되는 기본 제공 전역 객체를 표시합니다.
 
-리스트에 명시적으로 포함되지 않은 `window`와 같은 전역 속성은 템플릿 표현식에서 접근할 수 없습니다. 그러나 [`app.config.globalProperties`](/api/application.html#app-config-globalproperties)에 추가하여, Vue 내부의 모든 표현식에서 전역 속성에 접근 할 수 있도록 명시적으로 정의할 수 있습니다.
+리스트에 명시적으로 포함되지 않은 `window`와 같은 전역 속성은 템플릿 표현식에서 접근할 수 없습니다. 그러나 [`app.config.globalProperties`](/api/application#app-config-globalproperties)에 추가하여, Vue 내부의 모든 표현식에서 전역 속성에 접근 할 수 있도록 명시적으로 정의할 수 있습니다.
 
 ## 디렉티브 {#directives}
 
 `v-` 접두사가 있는 특수한 속성을 디렉티브라 합니다. Vue는 위에서 소개한 `v-html`과 `v-bind`를 포함하여 [빌트인 디렉티브](/api/built-in-directives)를 제공합니다.
 
-디렉티브 속성 값은 단일 JavaScript 표현식이어야 합니다(나중에 해당 섹션에서 설명할 `v-for`, `v-on` 및 `v-slot` 제외). 디렉티브의 역할은 표현식 값이 변경될 때 DOM에 반응적으로 업데이트를 적용하는 것입니다. [`v-if`](/api/built-in-directives.html#v-if)를 예로 들어 보겠습니다.
+디렉티브 속성 값은 단일 JavaScript 표현식이어야 합니다(나중에 해당 섹션에서 설명할 `v-for`, `v-on` 및 `v-slot` 제외). 디렉티브의 역할은 표현식 값이 변경될 때 DOM에 반응적으로 업데이트를 적용하는 것입니다. [`v-if`](/api/built-in-directives#v-if)를 예로 들어 보겠습니다.
 
 ```vue-html
 <p v-if="seen">이제 이것을 볼 수 있습니다.</p>
@@ -276,7 +276,7 @@ DOM 내 템플릿(HTML 파일에 직접 작성된 템플릿)을 사용할 때, �
 <form @submit.prevent="onSubmit">...</form>
 ```
 
-추후 이러한 기능에 대해 찾아볼 때, [`v-on`](./event-handling.html#event-modifiers) 또는 [`v-model`](./forms.html#modifiers) 전용의 다른 수식어에 대한 예제를 접할 수 있습니다.
+추후 이러한 기능에 대해 찾아볼 때, [`v-on`](./event-handling#event-modifiers) 또는 [`v-model`](./forms#modifiers) 전용의 다른 수식어에 대한 예제를 접할 수 있습니다.
 
 마지막으로 다음은 전체적인 디렉티브 문법을 시각화한 것입니다:
 

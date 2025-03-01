@@ -11,14 +11,18 @@ pnpm i
 pnpm run dev
 ```
 
-이 프로젝트는 코드에서 선택적 체이닝과 같은 새로운 JavaScript 기능을 사용하기 때문에 Node.js가 `v14.0.0` 이상이어야 합니다.
+이 프로젝트는 코드에서 선택적 체이닝과 같은 새로운 JavaScript 기능을 사용하기 때문에 Node.js가 `v18` 이상이어야 합니다.  코어팩을 활성화하는 것이 좋습니다:
+
+```bash
+corepack enable
+```
 
 
 ## 콘텐츠 작업
 
 - 지원되는 [마크다운 확장](https://vitepress.dev/guide/markdown) 및 [마크다운 내에서 Vue 구문 사용](https://vitepress.dev/guide/using-vue) 기능에 대한 VitePress 문서를 참조하세요.
 
-- 문서 콘텐츠 작성 및 유지 관리에 대한 규칙과 권장 사항은 [문서 작성 가이드](https://github.com/vuejs/docs/blob/main/.github/contributing/writing-guide.md)를 참조하세요.
+- 문서 콘텐츠 작성 및 유지 관리에 대한 규칙과 권장 사항은 [문서 작성 가이드](https://github.com/vuejs-translations/docs-ko/blob/main/.github/contributing/writing-guide.md)를 참조하세요.
 
 
 ## 테마 작업

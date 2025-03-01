@@ -78,7 +78,7 @@ h(Transition, {
   }
   ```
 
-- **이벤트**:
+- **이벤트**
 
   - `@before-enter`
   - `@before-leave`
@@ -150,11 +150,11 @@ h(Transition, {
   }
   ```
 
-- **이벤트**:
+- **이벤트**
 
   `<TransitionGroup>`은 `<Transition>`과 동일한 이벤트를 발생시킵니다.
 
-- **세부 사항**:
+- **세부 사항**
 
   기본적으로 `<TransitionGroup>`은 래퍼 DOM 엘리먼트를 렌더링하지 않지만 `tag` prop을 통해 정의할 수 있습니다.
 
@@ -201,7 +201,7 @@ h(Transition, {
   type MatchPattern = string | RegExp | (string | RegExp)[]
   ```
 
-- **세부 사항**:
+- **세부 사항**
 
   `<KeepAlive>`로 래핑된 동적 컴포넌트는 비활성화 되면, 컴포넌트 인스턴스가 파괴되지 않고 캐시됩니다.
 
@@ -286,6 +286,10 @@ h(Transition, {
      * 동적으로 변경할 수 있음.
      */
     disabled?: boolean
+    /**
+     * `true`이면 텔레포트는 대상을 확인하기 전에 애플리케이션의 다른 부분이 마운트될 때까지 지연됩니다. (3.5+)
+     */
+    defer?: boolean
   }
   ```
 
@@ -307,6 +311,15 @@ h(Transition, {
   </Teleport>
   ```
 
+  텔레포트 대상 지연(Defered) 확인 <sup class="vt-badge" data-text="3.5+" />:
+
+  ```vue-html
+  <Teleport defer to="#late-div">...</Teleport>
+
+  <!-- 이 안의 내용이 나중에 채워짐 -->
+  <div id="late-div"></div>
+  ```
+
 - **참고** [가이드 - Teleport](/guide/built-ins/teleport)
 
 ## `<Suspense>` <sup class="vt-badge experimental" /> {#suspense}
@@ -322,13 +335,13 @@ h(Transition, {
   }
   ```
 
-- **이벤트**:
+- **이벤트**
 
   - `@resolve`
   - `@pending`
   - `@fallback`
 
-- **세부 사항**:
+- **세부 사항**
 
   `<Suspense>`는 `#default` 슬롯과 `#fallback` 슬롯이라는 두 개의 슬롯을 사용합니다. 메모리에서 기본 슬롯을 렌더링하는 동안, 폴백 슬롯의 대체 컨텐츠를 노출합니다.
 

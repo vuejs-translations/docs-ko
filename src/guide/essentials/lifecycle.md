@@ -34,7 +34,7 @@ export default {
 </div>
 
 인스턴스 생명 주기의 여러 단계에서 호출되는 다른 훅도 있으며,
-가장 일반적으로 사용되는 것은 <span class="composition-api">[`onMounted`](/api/composition-api-lifecycle.html#onmounted), [`onUpdated`](/api/composition-api-lifecycle.html#onupdated), [`onUnmounted`](/api/composition-api-lifecycle.html#onunmounted)가 있습니다.</span><span class="options-api">[`mounted`](/api/options-lifecycle.html#mounted), [`updated`](/api/options-lifecycle.html#updated), [`unmounted`](/api/options-lifecycle.html#unmounted)가 있습니다.</span>
+가장 일반적으로 사용되는 것은 <span class="composition-api">[`onMounted`](/api/composition-api-lifecycle#onmounted), [`onUpdated`](/api/composition-api-lifecycle#onupdated), [`onUnmounted`](/api/composition-api-lifecycle#onunmounted)가 있습니다.</span><span class="options-api">[`mounted`](/api/options-lifecycle#mounted), [`updated`](/api/options-lifecycle#updated), [`unmounted`](/api/options-lifecycle#unmounted)가 있습니다.</span>
 
 <div class="options-api">
 

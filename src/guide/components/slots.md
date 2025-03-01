@@ -300,7 +300,7 @@ function BaseLayout(slots) {
 
 때때로 슬롯이 있는지 여부에 따라 무언가를 렌더링하고 싶을 수 있습니다.
 
-[$slots](/api/component-instance.html#slots) 속성과 [v-if](/guide/essentials/conditional.html#v-if)를 결합하여 이를 실현할 수 있습니다.
+[$slots](/api/component-instance#slots) 속성과 [v-if](/guide/essentials/conditional#v-if)를 결합하여 이를 실현할 수 있습니다.
 
 아래 예제에서는 세 가지 조건부 슬롯인 `header`, `footer`, 그리고 `default`를 가진 Card 컴포넌트를 정의합니다.
 header / footer / default가 있을 때 추가 스타일을 제공하기 위해 이를 감싸기를 원합니다:
@@ -327,7 +327,7 @@ header / footer / default가 있을 때 추가 스타일을 제공하기 위해 
 
 ## 동적인 슬롯 이름 {#dynamic-slot-names}
 
-[동적인 디렉티브의 인자](/guide/essentials/template-syntax.html#dynamic-arguments)는 `v-slot`에서도 작동하므로 동적 슬롯 이름을 정의할 수 있습니다:
+[동적인 디렉티브의 인자](/guide/essentials/template-syntax#dynamic-arguments)는 `v-slot`에서도 작동하므로 동적 슬롯 이름을 정의할 수 있습니다:
 
 ```vue-html
 <base-layout>
@@ -441,7 +441,7 @@ function MyComponent(slots) {
 
 슬롯의 `name`은 예약되어 있기 때문에 props에 포함되지 않습니다. 따라서 `headerProps`의 결과는 `{ message: '안녕' }`이 됩니다.
 
-명명된 슬롯과 기본 범위 슬롯을 혼합하는 경우, 기본 슬롯에 명시적인 `<template>` 태그를 사용해야 합니다. 컴포넌트에 `v-slot` 지시어를 직접 배치하려고 하면 컴파일 오류가 발생합니다. 이는 기본 슬롯의 prop 범위에 대한 모호함을 피하기 위한 것입니다. 예를 들어
+명명된 슬롯과 기본 범위 슬롯을 혼합하는 경우, 기본 슬롯에 명시적인 `<template>` 태그를 사용해야 합니다. 컴포넌트에 `v-slot` 디렉티브를 직접 배치하려고 하면 컴파일 오류가 발생합니다. 이는 기본 슬롯의 prop 범위에 대한 모호함을 피하기 위한 것입니다. 예를 들어
 
 ```vue-html
 <!-- <MyComponent> template -->

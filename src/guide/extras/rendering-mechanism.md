@@ -110,8 +110,8 @@ Vue 템플릿 컴파일러가 수행하는 몇 가지 주요 최적화에 대해
 
 ```vue-html{2-3}
 <div>
-  <div>foo</div> <!-- 호이스트(hoist) 됨 -->
-  <div>bar</div> <!-- 호이스트 됨 -->
+  <div>foo</div> <!-- 캐시됨 -->
+  <div>bar</div> <!-- 캐시됨 -->
   <div>{{ dynamic }}</div>
 </div>
 ```
@@ -230,7 +230,7 @@ div (block root)
   <div>
     <div v-if> <!-- if 블록 -->
       ...
-    <div>
+    </div>
   </div>
 </div>
 ```
@@ -240,7 +240,7 @@ div (block root)
 
 ### SSR 하이드레이션(hydration)에서의 영향 {#impact-on-ssr-hydration}
 
-패치 플래그와 트리 병합은 Vue의 [SSR 하이드레이션](/guide/scaling-up/ssr.html#client-hydration) 성능도 크게 향상시킵니다.
+패치 플래그와 트리 병합은 Vue의 [SSR 하이드레이션](/guide/scaling-up/ssr#client-hydration) 성능도 크게 향상시킵니다.
 
 - 단일 엘리먼트 하이드레이션은 해당 vnode의 패치 플래그를 기반으로 빠른 경로를 취할 수 있습니다.
 

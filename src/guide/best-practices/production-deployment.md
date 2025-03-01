@@ -6,7 +6,7 @@
 
 - 일반적인 에러 및 위험에 대한 경고
 - props/이벤트 유효성 검사
-- [반응성 디버깅 훅](/guide/extras/reactivity-in-depth.html#reactivity-debugging)
+- [반응성 디버깅 훅](/guide/extras/reactivity-in-depth#reactivity-debugging)
 - Devtools 통합
 
 그러나 이러한 기능은 프로덕션에선 필요 없습니다. 일부 경고 확인은 약간의 성능 오버헤드를 유발할 수도 있습니다. 프로덕션에 배포할 때 더 작은 페이로드 크기와 더 나은 성능을 위해 사용되지 않는 개발 전용 코드 분기를 모두 삭제해야 합니다.
@@ -38,7 +38,7 @@ CDN 또는 자체 호스팅 스크립트에서 로드하여 빌드 도구 없이
 
 ## 런타임 에러 추적 {#tracking-runtime-errors}
 
-[앱 수준 에러 핸들러](/api/application.html#app-config-errorhandler)를 사용하여 에러 보고를 추적 제공할 수 있습니다:
+[앱 수준 에러 핸들러](/api/application#app-config-errorhandler)를 사용하여 에러 보고를 추적 제공할 수 있습니다:
 
 ```js
 import { createApp } from 'vue'

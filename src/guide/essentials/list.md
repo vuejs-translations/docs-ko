@@ -222,10 +222,6 @@ data() {
 
 ## `v-if`에 `v-for` 사용하기 {#v-for-with-v-if}
 
-:::warning 참고
-`v-if`와 `v-for`를 함께 사용하는 것은 **권장되지 않습니다**.
-:::
-
 이것들이 같은 노드에 존재할 때 `v-if`가 `v-for`보다 우선순위가 높기 때문에 `v-if` 조건문에서 `v-for` 변수에 접근할 수 없습니다:
 
 ```vue-html
@@ -246,6 +242,18 @@ data() {
   </li>
 </template>
 ```
+
+
+
+:::warning Note
+v-if와 v-for를 같은 요소에 사용하는 것은 **암묵적인 우선순위 문제** 때문에 권장되지 않습니다.
+
+다음과 같은 두 가지 일반적인 경우에서 이를 사용하고 싶을 수 있습니다: 업데이트합니다.
+
+- 리스트에서 항목을 필터링하는 경우(예: `v-for="user in users" v-if="user.isActive"`). 이러한 경우 `users`를 반환하는 새로운 계산된 속성으로 바꿔서 필터링된 리스트를 반환하십시오(예: `activeUsers`).
+
+- 리스트를 숨기려는 경우(예: `v-for="user in users" v-if="shouldShowUsers"`). 이러한 경우 `v-if`를 컨테이너 엘리먼트(예: `ul`, `ol`)로 이동하십시오.
+:::
 
 ## `key`를 통한 상태유지 {#maintaining-state-with-key}
 
@@ -286,10 +294,10 @@ DOM Node의 위치가 변경되면 DOM Tree구조가 변경 되었기 때문에 
 [객체에 `v-for` 사용하기](#v-for-with-an-object)에서 언급하는 두 번째 별칭인 key와 혼동해서는 안 됩니다.
 :::
 
-반복되는 DOM 컨텐츠가 단순하거나(컴포넌트도 없고, 상태를 가지는 DOM 앨리먼트도 없을때), 의도적으로 기본 리스트 렌더링 동작을 통해 성능 향샹을 꾀하는 경우가 아니라면, 가능한 한 언제나 `v-for`는 `key` 속성과 함께 사용하는 것을 [권장합니다](/style-guide/rules-essential.html#use-keyed-v-for). 
+반복되는 DOM 컨텐츠가 단순하거나(컴포넌트도 없고, 상태를 가지는 DOM 앨리먼트도 없을때), 의도적으로 기본 리스트 렌더링 동작을 통해 성능 향샹을 꾀하는 경우가 아니라면, 가능한 한 언제나 `v-for`는 `key` 속성과 함께 사용하는 것을 [권장합니다](/style-guide/rules-essential#use-keyed-v-for). 
 
 `key`에는 문자열, 숫자, 심볼 형식의 값만 바인딩해야 합니다.
-`key` 속성의 자세한 사용법은 [`key` API 문서](/api/built-in-special-attributes.html#key)를 참조하세요.
+`key` 속성의 자세한 사용법은 [`key` API 문서](/api/built-in-special-attributes#key)를 참조하세요.
 
 ## 컴포넌트에 `v-for` 사용하기 {#v-for-with-a-component}
 
