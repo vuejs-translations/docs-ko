@@ -22,7 +22,7 @@ corepack enable
 
 - 지원되는 [마크다운 확장](https://vitepress.dev/guide/markdown) 및 [마크다운 내에서 Vue 구문 사용](https://vitepress.dev/guide/using-vue) 기능에 대한 VitePress 문서를 참조하세요.
 
-- 문서 콘텐츠 작성 및 유지 관리에 대한 규칙과 권장 사항은 [문서 작성 가이드](https://github.com/vuejs/docs/blob/main/.github/contributing/writing-guide.md)를 참조하세요.
+- 문서 콘텐츠 작성 및 유지 관리에 대한 규칙과 권장 사항은 [문서 작성 가이드](https://github.com/vuejs-translations/docs-ko/blob/main/.github/contributing/writing-guide.md)를 참조하세요.
 
 
 ## 테마 작업
