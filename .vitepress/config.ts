@@ -37,7 +37,7 @@ const nav: ThemeConfig['nav'] = [
     link: 'https://play.vuejs.org'
   },
   {
-    text: 'Ecosystem',
+    text: '생태계',
     activeMatch: `^/ecosystem/`,
     items: [
       {
@@ -47,7 +47,7 @@ const nav: ThemeConfig['nav'] = [
           { text: '개발자', link: '/developers/' },
           { text: '테마', link: '/ecosystem/themes' },
           { text: 'UI 컴포넌트', link: 'https://ui-libs.vercel.app/' },
-          { text: '자격증', link: 'https://certificates.dev/vuejs/?ref=vuejs-nav' },
+          { text: 'Vue.js 공인 인증', link: 'https://certificates.dev/vuejs/?ref=vuejs-nav' },
           { text: '일자리', link: 'https://vuejobs.com/?ref=vuejs' },
           { text: 'T-셔츠샵', link: 'https://vue.threadless.com/' }
         ]
@@ -99,7 +99,7 @@ const nav: ThemeConfig['nav'] = [
     ]
   },
   {
-    text: '정보',
+    text: '소개',
     activeMatch: `^/about/`,
     items: [
       { text: '자주 묻는 질문', link: '/about/faq' },
@@ -126,8 +126,8 @@ const nav: ThemeConfig['nav'] = [
     badge: { text: 'NEW' },
     activeMatch: `^/(partners|developers)/`,
     items: [
-      { text: 'Partners', link: '/partners/' },
-      { text: 'Developers', link: '/developers/', badge: { text: 'NEW' } }
+      { text: '파트너', link: '/partners/' },
+      { text: '개발자', link: '/developers/', badge: { text: 'NEW' } }
     ]
   }
 ]
@@ -582,14 +582,14 @@ export default defineConfigWithTheme<ThemeConfig>({
 
   head: [
     ['meta', { name: 'theme-color', content: '#3c8772' }],
-    ['meta', { property: 'og:url', content: 'https://vuejs.org/' }],
+    ['meta', { property: 'og:url', content: 'https://ko.vuejs.org/' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'Vue.js' }],
     [
       'meta',
       {
         property: 'og:description',
-        content: 'Vue.js - The Progressive JavaScript Framework'
+        content: 'Vue.js - 프로그래시브 자바스트립트 프레임워크'
       }
     ],
     [
@@ -729,6 +729,7 @@ export default defineConfigWithTheme<ThemeConfig>({
       }
     ],
 
+    /** 주의: 한극 문서 사이트를 위한 설정입니다. 영어 원본 값을 사용하면 않됩니다.  **/
     algolia: {
       indexName: 'vuejs-korea',
       appId: 'MEIERGO63D',
