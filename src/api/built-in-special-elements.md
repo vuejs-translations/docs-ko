@@ -169,7 +169,7 @@ The `<template>` tag is used as a placeholder when we want to use a built-in dir
   `v-for`가 있는 `<template>`은 [`key` 속성](/api/built-in-special-attributes#key)도 가질 수 있습니다. 다른 모든 속성과 디렉티브는 해당 엘리먼트가가 없으면 의미가 없으므로 버려집니다.
 
   
-  싱글 파일 컴포넌트는 [최상위 `<template>` 태그](/api/sfc-spec#language-blocks)를 사용하여 전체 템플릿을 래핑합니다. 그 사용법은 위에서 설명한 `<template>`의 사용과는 별개입니다. 해당 최상위 태그는 템플릿 자체의 일부가 아니며 지시문과 같은 템플릿 문법을 지원하지 않습니다.
+  싱글 파일 컴포넌트는 [최상위 `<template>` 태그](/api/sfc-spec#language-blocks)를 사용하여 전체 템플릿을 래핑합니다. 그 사용법은 위에서 설명한 `<template>`의 사용과는 별개입니다. 해당 최상위 태그는 템플릿 자체의 일부가 아니며 디렉티브과 같은 템플릿 문법을 지원하지 않습니다.
 
 - **참고**
   - [가이드 - `v-if` on `<template>`](/guide/essentials/conditional#v-if-on-template) 

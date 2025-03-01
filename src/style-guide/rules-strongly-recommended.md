@@ -46,7 +46,7 @@ components/
 
 ## 싱글 파일 컴포넌트 파일명 대/소문자 {#single-file-component-filename-casing}
 
-**[싱글 파일 컴포넌트](/guide/scaling-up/sfc)의 파일명은 항상 파스칼 케이스이거나 항상 케밥 케이스여야 합니다.**
+**[싱글 파일 컴포넌트](/guide/scaling-up/sfc)의 파일명은 항상 파스칼 케이스(PascalCase)이거나 항상 케밥 케이스(kebab-case)여야 합니다.**
 
 파스칼 케이스는 코드 편집기의 자동 완성 기능에서 가장 잘 작동하며, 가능한 경우 JSX 및 템플릿에서 컴포넌트를 참조하는 방식과 일치하기 때문입니다. 그러나 대소문자를 구분하지 않는 파일 시스템에서는 대소문자가 혼합된 파일 이름으로 인해 문제가 발생할 수 있으므로 케밥 케이스도 완벽하게 사용할 수 있습니다.
 
@@ -248,13 +248,13 @@ components/
 
 자연스러운 영어에서는 형용사 및 기타 설명어가 명사 앞에 오는 것이 일반적이지만, 예외적으로 연결어가 필요합니다. 예를 들어
 
-- 커피 _와_ 우유
-- 수프 _오늘의_ 수프
-- 박물관 _방문자
+- 커피 _와_ 우유(Coffee _with_ milk)
+- 오늘 _의_ 수프(Soup _of the_ day)
+- 박물관 _으로 가는_ 방문자(Visitor _to the_ museum)
 
 원한다면 이러한 연결어를 컴포넌트 이름에 포함할 수 있지만 순서는 여전히 중요합니다.
 
-또한 "최상위 수준"으로 간주되는 것은 앱의 컨텍스트에 따라 달라질 수 있습니다**. 예를 들어 검색 양식이 있는 앱을 상상해 보세요. 이 앱에는 다음과 같은 컴포넌트가 포함될 수 있습니다:
+또한 **"최상위 수준"으로 간주되는 것은 앱의 컨텍스트에 따라 달라질 수 있습니다**. 예를 들어 검색 양식이 있는 앱을 상상해 보세요. 이 앱에는 다음과 같은 컴포넌트가 포함될 수 있습니다:
 
 ```
 components/
@@ -284,8 +284,6 @@ components/
 - 일반적으로 단일 `components` 디렉터리를 스크롤하는 것보다 중첩된 하위 디렉터리를 탐색하는 데 더 많은 시간이 걸립니다.
 - 이름 충돌(예: 여러 개의 `ButtonDelete.vue` 컴포넌트)로 인해 코드 편집기에서 특정 컴포넌트로 빠르게 이동하기가 더 어려워집니다.
 - 찾기 및 바꾸기만으로는 이동된 컴포넌트에 대한 상대 참조를 업데이트하기에 충분하지 않은 경우가 많으므로 리팩터링이 더 어려워집니다.
-
-
   :::
 
 <div class="style-example style-example-bad">
@@ -357,9 +355,9 @@ components/
 
 </div>
 
-## 템플릿 내 컴포넌트 이름 대/소문자 구분 {#component-name-casing-in-templates}
+## 템플릿에서의 컴포넌트 이름 표기법 {#component-name-casing-in-templates}
 
-**대부분의 프로젝트에서 컴포넌트 이름은 [싱글 파일 컴포넌트](/guide/scaling-up/sfc)와 문자열 템플릿에서는 항상 파스칼 케이스를 사용해야 하지만, in-DOM 템플릿에서는 케밥 케이스를 사용해야 합니다.**
+**대부분의 프로젝트에서 컴포넌트 이름은 [싱글 파일 컴포넌트](/guide/scaling-up/sfc)와 문자열 템플릿에서는 항상 파스칼 케이스(PascalCase)를 사용해야 하지만, in-DOM 템플릿에서는 케밥 케이스(kebab-case)를 사용해야 합니다.**
 
 파스칼케이스는 케밥케이스에 비해 몇 가지 장점이 있습니다:
 
@@ -413,9 +411,9 @@ OR
 
 </div>
 
-## JS/JSX의 컴포넌트 이름 대/소문자 {#component-name-casing-in-js-jsx}
+## JS/JSX에서의 컴포넌트 이름 표기법 {#component-name-casing-in-js-jsx}
 
-**JS/[JSX](/guide/extras/render-function#jsx-tsx)의 컴포넌트 이름은 항상 파스칼 케이스를 사용해야 하지만, `app.component`를 통한 전역 컴포넌트 등록만 사용하는 간단한 애플리케이션의 경우 문자열 내부에 케밥 케이스를 사용할 수 있습니다.**
+**JS/[JSX](/guide/extras/render-function#jsx-tsx)의 컴포넌트 이름은 항상 파스칼 케이스(PascalCase)를 사용해야 하지만, `app.component`를 통한 전역 컴포넌트 등록만 사용하는 간단한 애플리케이션의 경우 문자열 내부에 케밥 케이스(kebab-case)를 사용할 수 있습니다.**
 
 
 ::: details 자세한 설명
@@ -484,7 +482,7 @@ export default {
 
 </div>
 
-## 전체 단어 컴포넌트 이름 {#full-word-component-names}
+## 전체 단어를 사용한 컴포넌트 이름 {#full-word-component-names}
 
 **컴포넌트 이름은 약어보다 완전한 단어를 사용하는 것이 좋습니다.**
 
@@ -512,9 +510,10 @@ components/
 
 </div>
 
-## prop 이름 대소문자 {#prop-name-casing}
+## prop 이름 표기법 {#prop-name-casing}
 
-**prop 이름은 선언 시 항상 대/소문자를 구분해야 합니다. in-DOM 템플릿 내에서 사용하는 경우 prop은 케밥 케이스를 사용해야 합니다. 싱글 파일 컴포넌트 템플릿과 [JSX](/guide/extras/render-function#jsx-tsx)는 케밥 케이스 또는 캠멜 케이스 프로퍼티를 사용할 수 있습니다. 대소문자는 일관성을 유지해야 합니다. camelCase prop을 사용하기로 선택한 경우 애플리케이션에서 케밥 케이스 prop을 사용하지 않아야 합니다**
+
+**Prop 이름은 선언 시 항상 camelCase를 사용해야 합니다. DOM 내에서 직접 사용하는 템플릿에서는 props를 kebab-case로 작성해야 합니다. 반면, Single-File Component(SFC) 템플릿과 [JSX](/guide/extras/render-function#jsx-tsx)에서는 kebab-case 또는 camelCase 중 하나를 선택하여 사용할 수 있습니다. 일관성을 유지하는 것이 중요합니다. camelCase를 선택했다면, 애플리케이션 전체에서 kebab-case props를 혼용하지 않도록 주의해야 합니다.**
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -808,9 +807,9 @@ const finalPrice = computed(() => basePrice.value - discount.value)
 
 </div>
 
-## 지시어 단축 {#directive-shorthands}
+## 디렉티브 단축 표기법 {#directive-shorthands}
 
-**지시어 단축(`v-bind:`의 경우 `:`, `v-on:`의 경우 `@`, `v-slot`의 경우 `#`)는 항상 사용하거나 절대 사용하지 않아야 합니다.**
+**디렉티브 단축(`v-bind:`의 경우 `:`, `v-on:`의 경우 `@`, `v-slot`의 경우 `#`)는 항상 사용하거나 절대 사용하지 않아야 합니다.**
 
 
 <div class="style-example style-example-bad">

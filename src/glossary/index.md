@@ -95,13 +95,13 @@ Vue는 커스텀 엘리먼트를 렌더링하기 위한 내장 지원을 제공�
 
 디렉티브(지시자:Directive)라는 용어는 `v-` 접두사로 시작하는 템플릿 속성 또는 해당 속성의 축약형을 가리킵니다.
 
-내장된 지시자에는 `v-if`, `v-for`, `v-bind`, `v-on` 및 `v-slot`이 포함됩니다.
+내장된 디렉티브에는 `v-if`, `v-for`, `v-bind`, `v-on` 및 `v-slot`이 포함됩니다.
 
-Vue는 사용자 정의 지시자를 생성하는 것도 지원하지만, 일반적으로 이들은 DOM 노드를 직접 조작하기 위한 '탈출구'로만 사용됩니다. 사용자 정의 지시자는 일반적으로 내장된 지시자의 기능을 완전히 재구현하는 데 사용되지는 않습니다.
+Vue는 사용자 정의 디렉티브를 생성하는 것도 지원하지만, 일반적으로 이들은 DOM 노드를 직접 조작하기 위한 '탈출구'로만 사용됩니다. 사용자 정의 디렉티브는 일반적으로 내장된 디렉티브의 기능을 완전히 재구현하는 데 사용되지는 않습니다.
 
 자세한 내용은 다음을 참조하세요:
-- [가이드 - 템플릿 구문 - 지시자](/guide/essentials/template-syntax.html#directives)
-- [가이드 - 사용자 정의 지시자](/guide/reusability/custom-directives.html)
+- [가이드 - 템플릿 구문 - 디렉티브](/guide/essentials/template-syntax.html#directives)
+- [가이드 - 사용자 정의 디렉티브](/guide/reusability/custom-directives.html)
 
 ## 동적 컴포넌트 {#dynamic-component}
 

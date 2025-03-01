@@ -148,7 +148,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
       text: '핵심 가이드',
       items: [
         {
-          text: '앱 생성',
+          text: '앱 만들기',
           link: '/guide/essentials/application'
         },
         {
@@ -177,7 +177,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
           link: '/guide/essentials/event-handling'
         },
         { text: 'Form 입력 바인딩', link: '/guide/essentials/forms' },
-        
+
         { text: '감시자', link: '/guide/essentials/watchers' },
         { text: '템플릿 참조', link: '/guide/essentials/template-refs' },
         {
@@ -424,7 +424,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
     {
       text: '고급 APIs',
       items: [
-        { text: 'Custom Elements', link: '/api/custom-elements' },
+        { text: '커스텀 앨리먼트', link: '/api/custom-elements' },
         { text: '렌더 함수', link: '/api/render-function' },
         { text: '서버 사이드 렌더링', link: '/api/ssr' },
         { text: 'TypeScript 유틸리티 타입', link: '/api/utility-types' },

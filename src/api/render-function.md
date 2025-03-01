@@ -242,7 +242,7 @@ Clones a vnode.
 
 ## resolveDirective() {#resolvedirective}
 
-등록된 지시문을 이름으로 수동으로 확인합니다.
+등록된 디렉티브을 이름으로 수동으로 확인합니다.
 
 For manually resolving a registered directive by name.
 
@@ -258,13 +258,13 @@ For manually resolving a registered directive by name.
 
   올바른 컴포넌트 컨텍스트에서 해결하려면 `resolveDirective()`를 `setup()` 또는 렌더링 함수 내부에서 호출해야 합니다.
 
-  지시어를 찾을 수 없으면 런타임 경고가 발생하고 함수는 `undefined`을 반환합니다.
+  디렉티브를 찾을 수 없으면 런타임 경고가 발생하고 함수는 `undefined`을 반환합니다.
 
 - **참고** [가이드 - Render Functions - Custom Directives](/guide/extras/render-function#custom-directives)
 
 ## withDirectives() {#withdirectives}
 
-노드에 사용자 지정 지시문을 추가합니다.
+노드에 사용자 지정 디렉티브를 추가합니다.
 
 For adding custom directives to vnodes.
 
@@ -287,7 +287,7 @@ For adding custom directives to vnodes.
 
 - **세부 사항**
 
-  기존 vnode를 사용자 정의 지시어로 래핑합니다. 두 번째 인자는 사용자지시어의 배열입니다. 각 사용자 정의 지시어는 `[지시어, 값, 인자, 수정자]` 형식의 배열로 표현됩니다. 배열의 꼬리 앨리먼트는 필요하지 않은 경우 생략할 수 있습니다.
+  기존 vnode를 사용자 정의 디렉티브로 래핑합니다. 두 번째 인자는 사용자 디렉티브의 배열입니다. 각 사용자 정의 디렉티브는 `[디렉티브, 값, 인자, 수정자]` 형식의 배열로 표현됩니다. 배열의 꼬리 앨리먼트는 필요하지 않은 경우 생략할 수 있습니다.
 
 - **예제**
 

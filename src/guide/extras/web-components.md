@@ -158,7 +158,7 @@ document.body.appendChild(
 
 - [스코프드 슬롯](/guide/components/slots#scoped-slots)은 지원되지 않습니다.
 
-- 이름이 있는 슬롯을 전달할 때는 `v-slot` 지시문 대신 `slot` 속성을 사용하세요:
+- 이름이 있는 슬롯을 전달할 때는 `v-slot` 디렉테브 대신 `slot` 속성을 사용하세요:
 
   ```vue-html
   <my-element>

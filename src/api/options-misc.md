@@ -138,7 +138,7 @@
 
 ## directives {#directives}
 
-컴포넌트 인스턴스에서 사용 가능하도록 지시자를 등록하는 객체입니다.
+컴포넌트 인스턴스에서 사용 가능하도록 디렉티브를 등록하는 객체입니다.
 
 - **타입**
 
@@ -171,5 +171,5 @@
 
   컴포넌트 인스턴스에서 사용할 수 있도록 제공되는 디렉티브의 해시 객체입니다.
 
-- **참고** [사용자 정의 지시자](/guide/reusability/custom-directives)
+- **참고** [사용자 정의 디렉티브](/guide/reusability/custom-directives)
 
