@@ -72,7 +72,7 @@ onMounted(async () => {
         href="https://vuejobs.com/?utm_source=vuejs&utm_medium=referral&utm_campaign=jobs_widget&utm_content=bottom_link"
         target="_blank"
         title="Hire Vue.js developers"
-      >vuejobs.com</a
+        >vuejobs.com</a
       >
     </div>
   </div>

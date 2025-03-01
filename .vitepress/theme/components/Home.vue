@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import SiteMap from './SiteMap.vue'
 // import NewsLetter from './NewsLetter.vue'
 import { load, data, base } from './sponsors'
@@ -53,7 +53,7 @@ onMounted(load)
     </p>
   </section>
 
-  <section v-if="data && data.special" id="special-sponsor">
+  <section v-if="data && data.special" id="special-spsr">
     <span class="lead">스페셜 스폰서</span>
     <template v-for="{ url, img, name, description } of data.special">
       <a :href="url" target="_blank" rel="sponsored noopener">
@@ -82,6 +82,7 @@ onMounted(load)
       </a>
     </span>
   </section>
+
   <section id="highlights" class="vt-box-container">
     <div class="vt-box">
       <h2>접근성</h2>
@@ -90,15 +91,15 @@ onMounted(load)
       </p>
     </div>
     <div class="vt-box">
-      <h2>성능</h2>
+      <h2>고성능</h2>
       <p>
-        제대로된 반응성, 컴파일러 수준에서 최적화된 렌더링 시스템은 대부분의 경우 개발자가 직접 최적화를 수행할 필요가 없습니다.
+        진정한 반응형(Reactive) 구조를 갖춘 컴파일러 최적화 렌더링 시스템으로, 수동 최적화가 거의 필요하지 않습니다.
       </p>
     </div>
     <div class="vt-box">
-      <h2>유용성</h2>
+      <h2>유연성</h2>
       <p>
-        라이브러리에서 부터 모든 기능을 갖춘 프레임워크 까지 확장되는 풍부하고 점진적으로 채택 가능한 에코시스템을 제공합니다.
+        풍부하고 점진적으로 도입할 수 있는 생태계로, 라이브러리부터 완전한 기능을 갖춘 프레임워크까지 확장할 수 있습니다.
       </p>
     </div>
   </section>

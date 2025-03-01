@@ -42,9 +42,9 @@ function findHeader(
   link: string
 ):
   | (Header & {
-  optionsOnly?: boolean
-  compositionOnly?: boolean
-})
+      optionsOnly?: boolean
+      compositionOnly?: boolean
+    })
   | undefined {
   for (const h of headers) {
     if (h.link === link) {

@@ -31,12 +31,12 @@ const vFocus = {
 
 ```vue
 <script setup>
-// 템플릿에서 v-highlight로 활성화 가능
-const vHighlight = {
-  mounted: (el) => {
-    el.classList.add('is-highlight')
+  // 템플릿에서 v-highlight로 활성화 가능
+  const vHighlight = {
+    mounted: (el) => {
+      el.classList.add('is-highlight')
+    }
   }
-}
 </script>
 
 <template>
@@ -55,7 +55,7 @@ const highlight = {
 
 export default {
   directives: {
-    // 템플릿에서 v-highlight로 활성화 가능
+    //  템플릿에서 v-highlight로 활성화 가능
     highlight
   }
 }
@@ -64,12 +64,8 @@ export default {
 ```vue-html
 <p v-highlight>This sentence is important!</p>
 ```
-
 </div>
 
-<div class="demo">
-  <p v-highlight>이 문장은 중요합니다!</p>
-</div>
 
 <div class="composition-api">
 
@@ -286,3 +282,4 @@ app.directive('demo', (el, binding) => {
 ```
 
 컴포넌트는 잠재적으로 하나 이상의 루트 노드를 가질 수 있습니다. 다중 루트 컴포넌트에 적용될 때, 디렉티브는 무시되고 경고가 발생합니다. 속성과 달리, 디렉티브는 `v-bind="$attrs"`로 다른 요소에 전달될 수 없습니다. 일반적으로 컴포넌트에서 커스텀 디렉티브를 사용하는 것은 권장되지 **않습니다**.
+
