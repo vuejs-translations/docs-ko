@@ -8,4 +8,4 @@
 - [Weekly Vue News](https://weekly-vue.news/)
 - [Vue.js Developers Newsletter](https://vuejsdevelopers.com/newsletter/)
 
-아직 포함되지 않은 좋은 것을 알고 계신다면 아래 링크를 사용하여 풀 리퀘스트를 제출해 주세요!
+훌륭한 뉴스레터를 알고 있지만 아직 포함되지 않았다면, 아래 링크를 통해 PR(Pull Request)을 제출해 주세요!
