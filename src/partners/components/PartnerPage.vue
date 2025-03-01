@@ -25,7 +25,7 @@ const contactLink = computed(() => {
   <div class="partner-page">
     <div class="back">
       <a href="/partners/all.html"
-        ><VTIconChevronLeft class="icon" />Back to all partners</a
+      ><VTIconChevronLeft class="icon" />Back to all partners</a
       >
     </div>
 
@@ -38,7 +38,7 @@ const contactLink = computed(() => {
 
     <div class="actions">
       <a :href="website.url" target="_blank" @click="track"
-        >Visit Website</a
+      >Visit Website</a
       >
       <a
         v-if="contact || contactPage"
@@ -46,7 +46,7 @@ const contactLink = computed(() => {
         :href="contactLink"
         target="_blank"
         @click="track"
-        >Contact</a
+      >Contact</a
       >
     </div>
 

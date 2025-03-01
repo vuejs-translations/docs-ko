@@ -64,7 +64,7 @@ const {
   margin-bottom: 36px;
   font-size: 15px;
   transition: background-color 0.5s, box-shadow 0.25s ease,
-    border-color 0.25s ease;
+  border-color 0.25s ease;
 }
 
 .partner-card.hero {

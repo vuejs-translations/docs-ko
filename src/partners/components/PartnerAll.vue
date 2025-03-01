@@ -25,7 +25,7 @@ function includes(a: string, b: string) {
   <div class="container">
     <VTIconSearch class="icon" />
     <input
-      placeholder="Search partners by name or region"
+      placeholder="이름이나 지역으로 파트너를 찾아 보세요"
       v-model="query"
     />
     <PartnerList :filter="filter" />
