@@ -8,7 +8,7 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 
 # 빠른 시작 {#quick-start}
 
-## Try Vue Online {#try-vue-online}
+## 온라인에서 Vue 시도하기 {#try-vue-online}
 
 - Vue를 빠르게 체험해 보려면 [Playground](https://play.vuejs.org/#eNo9jcEKwjAMhl/lt5fpQYfXUQfefAMvvRQbddC1pUuHUPrudg4HIcmXjyRZXEM4zYlEJ+T0iEPgXjn6BB8Zhp46WUZWDjCa9f6w9kAkTtH9CRinV4fmRtZ63H20Ztesqiylphqy3R5UYBqD1UyVAPk+9zkvV1CKbCv9poMLiTEfR2/IXpSoXomqZLtti/IFwVtA9A==)에서 직접 사용해 보세요.
 
@@ -158,9 +158,9 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
   </VTCodeGroupTab>
 </VTCodeGroup>
 
-이렇게 하면 프로젝트의 `./dist` 디렉터리에 프로덕션에 사용할 수 있는 앱 빌드가 생성됩니다. 프로덕션 배포 가이드](/guide/best-practices/production-deployment)를 확인하여 앱을 프로덕션에 배포하는 방법에 대해 자세히 알아보세요.
+이렇게 하면 프로젝트의 `./dist` 디렉터리에 프로덕션에 사용할 수 있는 앱 빌드가 생성됩니다. [프로덕션 배포 가이드](/guide/best-practices/production-deployment)를 확인하여 앱을 프로덕션에 배포하는 방법에 대해 자세히 알아보세요.
 
-[Next Steps >](#next-steps)
+[다음 단계 >](#next-steps)
 
 ## CDN에서 Vue 사용 {#using-vue-from-cdn}
 
@@ -425,7 +425,7 @@ export default {
 
 또한, 가져온 컴포넌트의 템플릿이 JavaScript 문자열로 인라인되어 있는 것을 볼 수 있습니다. 만약 VS Code를 사용 중이라면, [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) 확장 프로그램을 설치하고 문자열 앞에 `/*html*/` 주석을 추가하면, 구문 강조(syntax highlighting)를 사용할 수 있습니다.
 
-## Next Steps {#next-steps}
+## 다음 단계 {#next-steps}
 
 [소개](/guide/introduction)를 건너뛰셨다면, 나머지 설명서를 읽기 전에 반드시 읽어보시길 권장합니다.
 
