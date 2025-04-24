@@ -101,7 +101,7 @@ app.use(i18nPlugin, {
 참고: [전역 속성 타입 보완하기](/guide/typescript/options-api#augmenting-global-properties) <sup class="vt-badge ts" />
 
 :::tip
-왠만하면 전역 속성은 사용하지 마십시오.
+웬만하면 전역 속성은 사용하지 마십시오.
 앱 전체에서 다른 플러그인에 의해 주입된 전역 속성이 너무 많이 사용되면 혼란스러워질 수 있기 때문입니다.
 :::
 
