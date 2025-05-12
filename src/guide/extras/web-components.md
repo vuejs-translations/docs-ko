@@ -397,7 +397,7 @@ type VueEmit<T extends EventMap> = EmitFn<{
 ```
 
 > [!참고]
-> 우리는 $props와 $emit을 **deprecated(사용 중단)**으로 표시했습니다.
+> 우리는 $props와 $emit을 **deprecated**(사용 중단)으로 표시했습니다.
 > 이는 커스텀 엘리먼트의 ref를 가져왔을 때,실제로 존재하지 않는 속성들을 실수로 사용하지 않도록 하기 위함입니다.
 > $props와 $emit은 커스텀 엘리먼트의 타입 검사 전용 속성이며, 실제 커스텀 엘리먼트 인스턴스에는 존재하지 않습니다.
 
