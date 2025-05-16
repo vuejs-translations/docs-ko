@@ -323,7 +323,7 @@ function handleChange(event) {
 </template>
 ```
 
-타입 주석(Type annotation)이 없으면, `event` 인수의 타입이 암시적으로 `any`가 됩니다. 또한, `tsconfig.json`에서 `"strict": true` 또는 `"noImplicitAny": true` 옵션이 활성화된 경우, TypeScript 오류가 발생할 수 있습니다. 따라서, 이벤트 핸들러의 인수는 명시적으로 타입을 지정하는 것이 권장됩니다. 추가적으로, `event`의 속성에 접근할 때는 **타입 단언(Type assertion)**을 사용해야 할 수도 있습니다.
+타입 주석(Type annotation)이 없으면, `event` 인수의 타입이 암시적으로 `any`가 됩니다. 또한, `tsconfig.json`에서 `"strict": true` 또는 `"noImplicitAny": true` 옵션이 활성화된 경우, TypeScript 오류가 발생할 수 있습니다. 따라서, 이벤트 핸들러의 인수는 명시적으로 타입을 지정하는 것이 권장됩니다. 추가적으로, `event`의 속성에 접근할 때는 **타입 단언**(Type assertion)을 사용해야 할 수도 있습니다.
 
 ```ts
 function handleChange(event: Event) {

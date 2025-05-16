@@ -489,7 +489,7 @@ export default {
 
 </div>
 
-이 방법은 버전 3.5 이전에서도 동작합니다. 추가로, 함수 인자로 전달되는 `onCleanup`은 watcher 인스턴스에 바인딩되므로, `onWatcherCleanup`과 달리 **동기 실행 제한(synchronous constraint)**을 받지 않습니다.
+이 방법은 버전 3.5 이전에서도 동작합니다. 추가로, 함수 인자로 전달되는 `onCleanup`은 watcher 인스턴스에 바인딩되므로, `onWatcherCleanup`과 달리 **동기 실행 제한**(synchronous constraint)을 받지 않습니다.
 
 ## 콜백 플러시 타이밍 {#callback-flush-timing}
 
