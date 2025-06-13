@@ -336,7 +336,7 @@ function mutateDeeply() {
 
 기본이 아닌 값은 아래에서 설명하는 [`reactive()`](#reactive)를 통해 반응형 프록시로 전환됩니다.
 
-[shallow refs(얕은 참조)](/api/reactivity-advanced#shallowref)를 사용하여 깊은 반응성을 옵트아웃할 수도 있습니다. 얕은 참조의 경우 반응성을 위해 `.value` 액세스만 추적됩니다. 얕은 참조는 큰 개체의 관찰 비용을 피하거나 외부 라이브러리에서 내부 상태를 관리하는 경우 성능을 최적화하는 데 사용할 수 있습니다.
+[shallow refs(얕은 참조)](/api/reactivity-advanced#shallowref)를 사용하여 깊은 반응성을 옵트아웃할 수도 있습니다. 얕은 참조의 경우 반응성을 위해 `.value` 액세스만 추적됩니다. 얕은 참조는 큰 객체의 관찰 비용을 피하거나 외부 라이브러리에서 내부 상태를 관리하는 경우 성능을 최적화하는 데 사용할 수 있습니다.
 
 추가 정보:
 
@@ -404,7 +404,7 @@ const state = reactive({ count: 0 })
 </button>
 ```
 
-반응형 개체는 [JavaScript Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)이며 일반 개체처럼 작동합니다. 차이점은 Vue가 반응성 추적 및 트리거링을 위해 반응성 객체의 모든 속성에 대한 액세스 및 변형을 가로챌 수 있다는 것입니다.
+반응형 객체는 [JavaScript Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)이며 일반 객체처럼 작동합니다. 차이점은 Vue가 반응성 추적 및 트리거링을 위해 반응성 객체의 모든 속성에 대한 액세스 및 변형을 가로챌 수 있다는 것입니다.
 
 `reactive()`는 객체를 심층적으로 변환합니다. 중첩된 객체도 액세스할 때 `reactive()`로 래핑됩니다. ref 값이 객체일 때 내부적으로 `ref()`에 의해 호출되기도 합니다. 얕은 참조와 유사하게 깊은 반응성을 옵트아웃하기 위한 [`shallowReactive()`](/api/reactivity-advanced#shallowreactive) API도 있습니다.
 
@@ -452,7 +452,7 @@ console.log(proxy.nested === raw) // false
 
 1. **제한된 값 유형:** 객체 유형(객체, 배열 및 [컬렉션 유형](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects#keyed_collections)에만 작동합니다. (예: `Map` 및 `Set`). 그러나 `string`, `number` 또는 `boolean`과 같은 [기본 유형](https://developer.mozilla.org/en-US/docs/Glossary/Primitive)을 보유할 수 없습니다.
 
-2. **전체 객체를 대체할 수 없음:** Vue의 반응성 추적은 속성 액세스를 통해 작동하므로 반응 객체에 대한 동일한 참조를 항상 유지해야 합니다. 즉, 첫 번째 참조에 대한 반응성 연결이 끊어지기 때문에 반응성 개체를 쉽게 "대체(replace)"할 수 없습니다:
+2. **전체 객체를 대체할 수 없음:** Vue의 반응성 추적은 속성 액세스를 통해 작동하므로 반응 객체에 대한 동일한 참조를 항상 유지해야 합니다. 즉, 첫 번째 참조에 대한 반응성 연결이 끊어지기 때문에 반응성 객체를 쉽게 "대체(replace)"할 수 없습니다:
 
    ```js
    let state = reactive({ count: 0 })
@@ -474,7 +474,7 @@ console.log(proxy.nested === raw) // false
 
    // 함수는 일반 숫자를 수신하고
    // state.count에 대한 변경 사항을 추적할 수 없습니다.
-   // 반응성을 유지하려면 전체 개체를 전달해야 합니다.
+   // 반응성을 유지하려면 전체 객체를 전달해야 합니다.
    callSomeFunction(state.count)
    ```
 
