@@ -631,7 +631,7 @@ export default {
 
 </div>
 
-Vue는 ``instanceof Person`를 사용하여 `author` prop의 값이 실제로 `Person` 클래스의 인스턴스인지 확인합니다.
+Vue는 `instanceof Person`를 사용하여 `author` prop의 값이 실제로 `Person` 클래스의 인스턴스인지 확인합니다.
 
 ### Nullable Type {#nullable-type}
 
