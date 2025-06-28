@@ -6,29 +6,29 @@ footer: false
 import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 </script>
 
-# Quick Start {#quick-start}
+# 빠른 시작 {#quick-start}
 
-## Try Vue Online {#try-vue-online}
+## 온라인에서 Vue 체험하기 {#try-vue-online}
 
-- To quickly get a taste of Vue, you can try it directly in our [Playground](https://play.vuejs.org/#eNo9jcEKwjAMhl/lt5fpQYfXUQfefAMvvRQbddC1pUuHUPrudg4HIcmXjyRZXEM4zYlEJ+T0iEPgXjn6BB8Zhp46WUZWDjCa9f6w9kAkTtH9CRinV4fmRtZ63H20Ztesqiylphqy3R5UYBqD1UyVAPk+9zkvV1CKbCv9poMLiTEfR2/IXpSoXomqZLtti/IFwVtA9A==).
+- Vue를 빠르게 체험해보고 싶다면 [Playground](https://play.vuejs.org/#eNo9jcEKwjAMhl/lt5fpQYfXUQfefAMvvRQbddC1pUuHUPrudg4HIcmXjyRZXEM4zYlEJ+T0iEPgXjn6BB8Zhp46WUZWDjCa9f6w9kAkTtH9CRinV4fmRtZ63H20Ztesqiylphqy3R5UYBqD1UyVAPk+9zkvV1CKbCv9poMLiTEfR2/IXpSoXomqZLtti/IFwVtA9A==)에서 바로 사용해볼 수 있습니다.
 
-- If you prefer a plain HTML setup without any build steps, you can use this [JSFiddle](https://jsfiddle.net/yyx990803/2ke1ab0z/) as your starting point.
+- 빌드 과정 없이 순수 HTML 환경을 선호한다면, 이 [JSFiddle](https://jsfiddle.net/yyx990803/2ke1ab0z/)을 시작점으로 사용할 수 있습니다.
 
-- If you are already familiar with Node.js and the concept of build tools, you can also try a complete build setup right within your browser on [StackBlitz](https://vite.new/vue).
+- Node.js와 빌드 도구 개념에 익숙하다면, [StackBlitz](https://vite.new/vue)에서 브라우저 내에서 완전한 빌드 환경을 바로 체험할 수 있습니다.
 
-- To get a walkthrough of the recommended setup, watch this interactive [Scrimba](http://scrimba.com/links/vue-quickstart) tutorial that shows you how to run, edit, and deploy your first Vue app.
+- 권장 설정에 대한 안내가 필요하다면, 첫 Vue 앱을 실행, 수정, 배포하는 방법을 보여주는 대화형 [Scrimba](http://scrimba.com/links/vue-quickstart) 튜토리얼을 시청하세요.
 
-## Creating a Vue Application {#creating-a-vue-application}
+## Vue 애플리케이션 생성하기 {#creating-a-vue-application}
 
-:::tip Prerequisites
+:::tip 사전 준비 사항
 
-- Familiarity with the command line
-- Install [Node.js](https://nodejs.org/) version 18.3 or higher
+- 커맨드 라인 사용에 익숙할 것
+- [Node.js](https://nodejs.org/) 18.3 이상 버전 설치
   :::
 
-In this section we will introduce how to scaffold a Vue [Single Page Application](/guide/extras/ways-of-using-vue#single-page-application-spa) on your local machine. The created project will be using a build setup based on [Vite](https://vitejs.dev) and allow us to use Vue [Single-File Components](/guide/scaling-up/sfc) (SFCs).
+이 섹션에서는 로컬 컴퓨터에서 Vue [싱글 페이지 애플리케이션](/guide/extras/ways-of-using-vue#single-page-application-spa)을 스캐폴딩하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vitejs.dev)를 기반으로 한 빌드 환경을 사용하며, Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc) (SFC)를 사용할 수 있습니다.
 
-Make sure you have an up-to-date version of [Node.js](https://nodejs.org/) installed and your current working directory is the one where you intend to create a project. Run the following command in your command line (without the `$` sign):
+최신 버전의 [Node.js](https://nodejs.org/)가 설치되어 있는지 확인하고, 현재 작업 디렉터리가 프로젝트를 생성하려는 위치인지 확인하세요. 커맨드 라인에서 다음 명령어를 실행하세요(`$` 기호는 입력하지 않습니다):
 
 <VTCodeGroup>
   <VTCodeGroupTab label="npm">
@@ -48,13 +48,13 @@ Make sure you have an up-to-date version of [Node.js](https://nodejs.org/) insta
   <VTCodeGroupTab label="yarn">
 
   ```sh
-  # For Yarn (v1+)
+  # Yarn (v1+)용
   $ yarn create vue
 
-  # For Yarn Modern (v2+)
+  # Yarn Modern (v2+)용
   $ yarn create vue@latest
   
-  # For Yarn ^v4.11
+  # Yarn ^v4.11용
   $ yarn dlx create-vue@latest
   ```
 
@@ -68,23 +68,23 @@ Make sure you have an up-to-date version of [Node.js](https://nodejs.org/) insta
   </VTCodeGroupTab>
 </VTCodeGroup>
 
-This command will install and execute [create-vue](https://github.com/vuejs/create-vue), the official Vue project scaffolding tool. You will be presented with prompts for several optional features such as TypeScript and testing support:
+이 명령어는 공식 Vue 프로젝트 스캐폴딩 도구인 [create-vue](https://github.com/vuejs/create-vue)를 설치하고 실행합니다. TypeScript 및 테스트 지원과 같은 여러 선택적 기능에 대한 프롬프트가 표시됩니다:
 
-<div class="language-sh"><pre><code><span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Project name: <span style="color:#888;">… <span style="color:#89DDFF;">&lt;</span><span style="color:#888;">your-project-name</span><span style="color:#89DDFF;">&gt;</span></span></span>
-<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add TypeScript? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
-<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add JSX Support? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
-<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add Vue Router for Single Page Application development? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
-<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add Pinia for state management? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
-<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add Vitest for Unit testing? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
-<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add an End-to-End Testing Solution? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Cypress / Nightwatch / Playwright</span></span>
-<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add ESLint for code quality? <span style="color:#888;">… No / <span style="color:#89DDFF;text-decoration:underline">Yes</span></span></span>
-<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add Prettier for code formatting? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
-<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">Add Vue DevTools 7 extension for debugging? (experimental) <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">No</span> / Yes</span></span>
+<div class="language-sh"><pre><code><span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">프로젝트 이름: <span style="color:#888;">… <span style="color:#89DDFF;">&lt;</span><span style="color:#888;">your-project-name</span><span style="color:#89DDFF;">&gt;</span></span></span>
+<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">TypeScript 추가? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">아니오</span> / 예</span></span>
+<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">JSX 지원 추가? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">아니오</span> / 예</span></span>
+<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">싱글 페이지 애플리케이션 개발을 위한 Vue Router 추가? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">아니오</span> / 예</span></span>
+<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">상태 관리를 위한 Pinia 추가? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">아니오</span> / 예</span></span>
+<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">단위 테스트를 위한 Vitest 추가? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">아니오</span> / 예</span></span>
+<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">엔드 투 엔드 테스트 솔루션 추가? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">아니오</span> / Cypress / Nightwatch / Playwright</span></span>
+<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">코드 품질을 위한 ESLint 추가? <span style="color:#888;">… 아니오 / <span style="color:#89DDFF;text-decoration:underline">예</span></span></span>
+<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">코드 포매팅을 위한 Prettier 추가? <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">아니오</span> / 예</span></span>
+<span style="color:var(--vt-c-green);">✔</span> <span style="color:#A6ACCD;">디버깅을 위한 Vue DevTools 7 확장 프로그램 추가? (실험적) <span style="color:#888;">… <span style="color:#89DDFF;text-decoration:underline">아니오</span> / 예</span></span>
 <span></span>
-<span style="color:#A6ACCD;">Scaffolding project in ./<span style="color:#89DDFF;">&lt;</span><span style="color:#888;">your-project-name</span><span style="color:#89DDFF;">&gt;</span>...</span>
-<span style="color:#A6ACCD;">Done.</span></code></pre></div>
+<span style="color:#A6ACCD;">./<span style="color:#89DDFF;">&lt;</span><span style="color:#888;">your-project-name</span><span style="color:#89DDFF;">&gt;</span>에 프로젝트 스캐폴딩 중...</span>
+<span style="color:#A6ACCD;">완료.</span></code></pre></div>
 
-If you are unsure about an option, simply choose `No` by hitting enter for now. Once the project is created, follow the instructions to install dependencies and start the dev server:
+옵션이 확실하지 않다면, 일단 엔터를 눌러 `아니오`를 선택하세요. 프로젝트가 생성되면, 의존성 설치 및 개발 서버 실행을 위한 안내에 따라 진행하세요:
 
 <VTCodeGroup>
   <VTCodeGroupTab label="npm">
@@ -125,14 +125,14 @@ If you are unsure about an option, simply choose `No` by hitting enter for now. 
   </VTCodeGroupTab>
 </VTCodeGroup>
 
-You should now have your first Vue project running! Note that the example components in the generated project are written using the [Composition API](/guide/introduction#composition-api) and `<script setup>`, rather than the [Options API](/guide/introduction#options-api). Here are some additional tips:
+이제 첫 번째 Vue 프로젝트가 실행되고 있을 것입니다! 생성된 프로젝트의 예제 컴포넌트는 [옵션 API](/guide/introduction#options-api)가 아닌 [컴포지션 API](/guide/introduction#composition-api)와 `<script setup>`을 사용하여 작성되어 있습니다. 추가 팁은 다음과 같습니다:
 
-- The recommended IDE setup is [Visual Studio Code](https://code.visualstudio.com/) + [Vue - Official extension](https://marketplace.visualstudio.com/items?itemName=Vue.volar). If you use other editors, check out the [IDE support section](/guide/scaling-up/tooling#ide-support).
-- More tooling details, including integration with backend frameworks, are discussed in the [Tooling Guide](/guide/scaling-up/tooling).
-- To learn more about the underlying build tool Vite, check out the [Vite docs](https://vitejs.dev).
-- If you choose to use TypeScript, check out the [TypeScript Usage Guide](typescript/overview).
+- 권장 IDE 설정은 [Visual Studio Code](https://code.visualstudio.com/) + [Vue - 공식 확장 프로그램](https://marketplace.visualstudio.com/items?itemName=Vue.volar)입니다. 다른 에디터를 사용한다면 [IDE 지원 섹션](/guide/scaling-up/tooling#ide-support)을 참고하세요.
+- 백엔드 프레임워크와의 통합 등 더 많은 도구 관련 정보는 [도구 가이드](/guide/scaling-up/tooling)에서 다룹니다.
+- 빌드 도구 Vite에 대해 더 알고 싶다면 [Vite 문서](https://vitejs.dev)를 참고하세요.
+- TypeScript를 사용하기로 했다면 [TypeScript 사용 가이드](typescript/overview)를 참고하세요.
 
-When you are ready to ship your app to production, run the following:
+앱을 프로덕션에 배포할 준비가 되면 다음 명령어를 실행하세요:
 
 <VTCodeGroup>
   <VTCodeGroupTab label="npm">
@@ -165,25 +165,25 @@ When you are ready to ship your app to production, run the following:
   </VTCodeGroupTab>
 </VTCodeGroup>
 
-This will create a production-ready build of your app in the project's `./dist` directory. Check out the [Production Deployment Guide](/guide/best-practices/production-deployment) to learn more about shipping your app to production.
+이 명령어는 프로젝트의 `./dist` 디렉터리에 프로덕션용 빌드를 생성합니다. 앱을 프로덕션에 배포하는 방법에 대해서는 [프로덕션 배포 가이드](/guide/best-practices/production-deployment)를 참고하세요.
 
-[Next Steps >](#next-steps)
+[다음 단계 >](#next-steps)
 
-## Using Vue from CDN {#using-vue-from-cdn}
+## CDN에서 Vue 사용하기 {#using-vue-from-cdn}
 
-You can use Vue directly from a CDN via a script tag:
+스크립트 태그를 통해 CDN에서 직접 Vue를 사용할 수 있습니다:
 
 ```html
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 ```
 
-Here we are using [unpkg](https://unpkg.com/), but you can also use any CDN that serves npm packages, for example [jsdelivr](https://www.jsdelivr.com/package/npm/vue) or [cdnjs](https://cdnjs.com/libraries/vue). Of course, you can also download this file and serve it yourself.
+여기서는 [unpkg](https://unpkg.com/)를 사용했지만, [jsdelivr](https://www.jsdelivr.com/package/npm/vue)나 [cdnjs](https://cdnjs.com/libraries/vue) 등 npm 패키지를 제공하는 다른 CDN도 사용할 수 있습니다. 물론 이 파일을 직접 다운로드하여 직접 서비스할 수도 있습니다.
 
-When using Vue from a CDN, there is no "build step" involved. This makes the setup a lot simpler, and is suitable for enhancing static HTML or integrating with a backend framework. However, you won't be able to use the Single-File Component (SFC) syntax.
+CDN에서 Vue를 사용할 때는 "빌드 단계"가 필요하지 않습니다. 이로 인해 설정이 훨씬 간단해지며, 정적 HTML을 보강하거나 백엔드 프레임워크와 통합할 때 적합합니다. 하지만 싱글 파일 컴포넌트(SFC) 문법은 사용할 수 없습니다.
 
-### Using the Global Build {#using-the-global-build}
+### 글로벌 빌드 사용하기 {#using-the-global-build}
 
-The above link loads the _global build_ of Vue, where all top-level APIs are exposed as properties on the global `Vue` object. Here is a full example using the global build:
+위 링크는 Vue의 _글로벌 빌드_를 로드하며, 모든 최상위 API가 전역 `Vue` 객체의 속성으로 노출됩니다. 다음은 글로벌 빌드를 사용하는 전체 예제입니다:
 
 <div class="options-api">
 
@@ -205,7 +205,7 @@ The above link loads the _global build_ of Vue, where all top-level APIs are exp
 </script>
 ```
 
-[CodePen Demo >](https://codepen.io/vuejs-examples/pen/QWJwJLp)
+[CodePen 데모 >](https://codepen.io/vuejs-examples/pen/QWJwJLp)
 
 </div>
 
@@ -230,17 +230,17 @@ The above link loads the _global build_ of Vue, where all top-level APIs are exp
 </script>
 ```
 
-[CodePen Demo >](https://codepen.io/vuejs-examples/pen/eYQpQEG)
+[CodePen 데모 >](https://codepen.io/vuejs-examples/pen/eYQpQEG)
 
 :::tip
-Many of the examples for Composition API throughout the guide will be using the `<script setup>` syntax, which requires build tools. If you intend to use Composition API without a build step, consult the usage of the [`setup()` option](/api/composition-api-setup).
+가이드 전반에 걸쳐 컴포지션 API 예제는 `<script setup>` 문법을 사용할 예정이며, 이는 빌드 도구가 필요합니다. 빌드 단계 없이 컴포지션 API를 사용하려면 [`setup()` 옵션](/api/composition-api-setup) 사용법을 참고하세요.
 :::
 
 </div>
 
-### Using the ES Module Build {#using-the-es-module-build}
+### ES 모듈 빌드 사용하기 {#using-the-es-module-build}
 
-Throughout the rest of the documentation, we will be primarily using [ES modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) syntax. Most modern browsers now support ES modules natively, so we can use Vue from a CDN via native ES modules like this:
+이후 문서에서는 주로 [ES 모듈](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) 문법을 사용할 것입니다. 대부분의 최신 브라우저는 ES 모듈을 기본적으로 지원하므로, 다음과 같이 CDN에서 네이티브 ES 모듈로 Vue를 사용할 수 있습니다:
 
 <div class="options-api">
 
@@ -283,28 +283,28 @@ Throughout the rest of the documentation, we will be primarily using [ES modules
 
 </div>
 
-Notice that we are using `<script type="module">`, and the imported CDN URL is pointing to the **ES modules build** of Vue instead.
+여기서는 `<script type="module">`을 사용하고, 가져오는 CDN URL이 Vue의 **ES 모듈 빌드**를 가리키고 있다는 점에 주의하세요.
 
 <div class="options-api">
 
-[CodePen Demo >](https://codepen.io/vuejs-examples/pen/VwVYVZO)
+[CodePen 데모 >](https://codepen.io/vuejs-examples/pen/VwVYVZO)
 
 </div>
 <div class="composition-api">
 
-[CodePen Demo >](https://codepen.io/vuejs-examples/pen/MWzazEv)
+[CodePen 데모 >](https://codepen.io/vuejs-examples/pen/MWzazEv)
 
 </div>
 
-### Enabling Import maps {#enabling-import-maps}
+### Import maps 활성화하기 {#enabling-import-maps}
 
-In the above example, we are importing from the full CDN URL, but in the rest of the documentation you will see code like this:
+위 예제에서는 전체 CDN URL에서 import하고 있지만, 이후 문서에서는 다음과 같은 코드를 자주 보게 될 것입니다:
 
 ```js
 import { createApp } from 'vue'
 ```
 
-We can teach the browser where to locate the `vue` import by using [Import Maps](https://caniuse.com/import-maps):
+[Import Maps](https://caniuse.com/import-maps)를 사용하여 브라우저에 `vue` import 위치를 알려줄 수 있습니다:
 
 <div class="options-api">
 
@@ -332,7 +332,7 @@ We can teach the browser where to locate the `vue` import by using [Import Maps]
 </script>
 ```
 
-[CodePen Demo >](https://codepen.io/vuejs-examples/pen/wvQKQyM)
+[CodePen 데모 >](https://codepen.io/vuejs-examples/pen/wvQKQyM)
 
 </div>
 
@@ -363,25 +363,25 @@ We can teach the browser where to locate the `vue` import by using [Import Maps]
 </script>
 ```
 
-[CodePen Demo >](https://codepen.io/vuejs-examples/pen/YzRyRYM)
+[CodePen 데모 >](https://codepen.io/vuejs-examples/pen/YzRyRYM)
 
 </div>
 
-You can also add entries for other dependencies to the import map - but make sure they point to the ES modules version of the library you intend to use.
+다른 의존성도 import map에 추가할 수 있지만, 반드시 해당 라이브러리의 ES 모듈 버전을 가리키도록 해야 합니다.
 
-:::tip Import Maps Browser Support
-Import Maps is a relatively new browser feature. Make sure to use a browser within its [support range](https://caniuse.com/import-maps). In particular, it is only supported in Safari 16.4+.
+:::tip Import Maps 브라우저 지원
+Import Maps는 비교적 새로운 브라우저 기능입니다. [지원 범위](https://caniuse.com/import-maps) 내의 브라우저를 사용해야 합니다. 특히 Safari는 16.4 이상에서만 지원됩니다.
 :::
 
-:::warning Notes on Production Use
-The examples so far are using the development build of Vue - if you intend to use Vue from a CDN in production, make sure to check out the [Production Deployment Guide](/guide/best-practices/production-deployment#without-build-tools).
+:::warning 프로덕션 사용 시 주의사항
+지금까지의 예제는 Vue의 개발용 빌드를 사용하고 있습니다. CDN에서 Vue를 프로덕션에 사용할 계획이라면 [프로덕션 배포 가이드](/guide/best-practices/production-deployment#without-build-tools)를 반드시 참고하세요.
 
-While it is possible to use Vue without a build system, an alternative approach to consider is using [`vuejs/petite-vue`](https://github.com/vuejs/petite-vue) that could better suit the context where [`jquery/jquery`](https://github.com/jquery/jquery) (in the past) or [`alpinejs/alpine`](https://github.com/alpinejs/alpine) (in the present) might be used instead.
+빌드 시스템 없이 Vue를 사용하는 것도 가능하지만, [`jquery/jquery`](https://github.com/jquery/jquery) (과거)나 [`alpinejs/alpine`](https://github.com/alpinejs/alpine) (현재)와 같은 상황에서는 [`vuejs/petite-vue`](https://github.com/vuejs/petite-vue)를 사용하는 것이 더 적합할 수 있습니다.
 :::
 
-### Splitting Up the Modules {#splitting-up-the-modules}
+### 모듈 분리하기 {#splitting-up-the-modules}
 
-As we dive deeper into the guide, we may need to split our code into separate JavaScript files so that they are easier to manage. For example:
+가이드가 더 깊어질수록, 코드를 관리하기 쉽게 여러 자바스크립트 파일로 분리해야 할 수도 있습니다. 예를 들어:
 
 ```html
 <!-- index.html -->
@@ -424,29 +424,29 @@ export default {
 
 </div>
 
-If you directly open the above `index.html` in your browser, you will find that it throws an error because ES modules cannot work over the `file://` protocol, which is the protocol the browser uses when you open a local file.
+위의 `index.html`을 브라우저에서 직접 열면, ES 모듈은 `file://` 프로토콜에서는 동작하지 않기 때문에 오류가 발생합니다. 브라우저가 로컬 파일을 열 때 사용하는 프로토콜이 바로 `file://`입니다.
 
-Due to security reasons, ES modules can only work over the `http://` protocol, which is what the browsers use when opening pages on the web. In order for ES modules to work on our local machine, we need to serve the `index.html` over the `http://` protocol, with a local HTTP server.
+보안상의 이유로, ES 모듈은 `http://` 프로토콜에서만 동작합니다. 즉, 브라우저가 웹에서 페이지를 열 때 사용하는 프로토콜입니다. 로컬 컴퓨터에서 ES 모듈을 사용하려면, 반드시 `index.html`을 `http://` 프로토콜로 제공해야 하며, 이를 위해 로컬 HTTP 서버가 필요합니다.
 
-To start a local HTTP server, first make sure you have [Node.js](https://nodejs.org/en/) installed, then run `npx serve` from the command line in the same directory where your HTML file is. You can also use any other HTTP server that can serve static files with the correct MIME types.
+로컬 HTTP 서버를 시작하려면, 먼저 [Node.js](https://nodejs.org/en/)가 설치되어 있는지 확인한 후, HTML 파일이 있는 디렉터리에서 커맨드 라인으로 `npx serve`를 실행하세요. 정적 파일을 올바른 MIME 타입으로 제공할 수 있는 다른 HTTP 서버를 사용해도 됩니다.
 
-You may have noticed that the imported component's template is inlined as a JavaScript string. If you are using VS Code, you can install the [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) extension and prefix the strings with a `/*html*/` comment to get syntax highlighting for them.
+가져온 컴포넌트의 템플릿이 자바스크립트 문자열로 인라인되어 있다는 점을 눈치챘을 수도 있습니다. VS Code를 사용한다면 [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) 확장 프로그램을 설치하고, 문자열 앞에 `/*html*/` 주석을 붙이면 문법 하이라이팅을 받을 수 있습니다.
 
-## Next Steps {#next-steps}
+## 다음 단계 {#next-steps}
 
-If you skipped the [Introduction](/guide/introduction), we strongly recommend reading it before moving on to the rest of the documentation.
+[소개](/guide/introduction)를 건너뛰었다면, 나머지 문서를 읽기 전에 꼭 읽어보시길 강력히 권장합니다.
 
 <div class="vt-box-container next-steps">
   <a class="vt-box" href="/guide/essentials/application.html">
-    <p class="next-steps-link">Continue with the Guide</p>
-    <p class="next-steps-caption">The guide walks you through every aspect of the framework in full detail.</p>
+    <p class="next-steps-link">가이드 계속하기</p>
+    <p class="next-steps-caption">가이드는 프레임워크의 모든 측면을 자세히 안내합니다.</p>
   </a>
   <a class="vt-box" href="/tutorial/">
-    <p class="next-steps-link">Try the Tutorial</p>
-    <p class="next-steps-caption">For those who prefer learning things hands-on.</p>
+    <p class="next-steps-link">튜토리얼 체험하기</p>
+    <p class="next-steps-caption">직접 실습하며 배우는 것을 선호하는 분들을 위한 코스입니다.</p>
   </a>
   <a class="vt-box" href="/examples/">
-    <p class="next-steps-link">Check out the Examples</p>
-    <p class="next-steps-caption">Explore examples of core features and common UI tasks.</p>
+    <p class="next-steps-link">예제 살펴보기</p>
+    <p class="next-steps-caption">핵심 기능과 일반적인 UI 작업 예제를 탐색해보세요.</p>
   </a>
 </div>

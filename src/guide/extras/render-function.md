@@ -2,66 +2,66 @@
 outline: deep
 ---
 
-# Render Functions & JSX {#render-functions-jsx}
+# 렌더 함수 & JSX {#render-functions-jsx}
 
-Vue recommends using templates to build applications in the vast majority of cases. However, there are situations where we need the full programmatic power of JavaScript. That's where we can use the **render function**.
+Vue는 대부분의 경우 애플리케이션을 빌드할 때 템플릿 사용을 권장합니다. 하지만 JavaScript의 완전한 프로그래밍적 힘이 필요한 상황도 있습니다. 이럴 때 **렌더 함수**를 사용할 수 있습니다.
 
-> If you are new to the concept of virtual DOM and render functions, make sure to read the [Rendering Mechanism](/guide/extras/rendering-mechanism) chapter first.
+> 가상 DOM과 렌더 함수 개념이 처음이라면, 먼저 [렌더링 메커니즘](/guide/extras/rendering-mechanism) 챕터를 읽어보세요.
 
-## Basic Usage {#basic-usage}
+## 기본 사용법 {#basic-usage}
 
-### Creating Vnodes {#creating-vnodes}
+### Vnode 생성하기 {#creating-vnodes}
 
-Vue provides an `h()` function for creating vnodes:
+Vue는 vnode를 생성하기 위한 `h()` 함수를 제공합니다:
 
 ```js
 import { h } from 'vue'
 
 const vnode = h(
-  'div', // type
+  'div', // 타입
   { id: 'foo', class: 'bar' }, // props
   [
-    /* children */
+    /* 자식 요소 */
   ]
 )
 ```
 
-`h()` is short for **hyperscript** - which means "JavaScript that produces HTML (hypertext markup language)". This name is inherited from conventions shared by many virtual DOM implementations. A more descriptive name could be `createVNode()`, but a shorter name helps when you have to call this function many times in a render function.
+`h()`는 **hyperscript**의 약자입니다. 이는 "HTML(하이퍼텍스트 마크업 언어)을 생성하는 JavaScript"를 의미합니다. 이 이름은 많은 가상 DOM 구현에서 공유되는 관례에서 유래되었습니다. 더 설명적인 이름은 `createVNode()`일 수 있지만, 렌더 함수에서 이 함수를 여러 번 호출해야 하므로 짧은 이름이 도움이 됩니다.
 
-The `h()` function is designed to be very flexible:
+`h()` 함수는 매우 유연하게 설계되어 있습니다:
 
 ```js
-// all arguments except the type are optional
+// 타입을 제외한 모든 인자는 선택 사항입니다
 h('div')
 h('div', { id: 'foo' })
 
-// both attributes and properties can be used in props
-// Vue automatically picks the right way to assign it
+// props에서 속성과 프로퍼티 모두 사용할 수 있습니다
+// Vue가 자동으로 올바른 할당 방식을 선택합니다
 h('div', { class: 'bar', innerHTML: 'hello' })
 
-// props modifiers such as `.prop` and `.attr` can be added
-// with `.` and `^` prefixes respectively
+// `.prop` 및 `.attr`과 같은 props 수식자는
+// 각각 `.` 및 `^` 접두사로 추가할 수 있습니다
 h('div', { '.name': 'some-name', '^width': '100' })
 
-// class and style have the same object / array
-// value support that they have in templates
+// class와 style은 템플릿에서와 동일하게
+// 객체/배열 값을 지원합니다
 h('div', { class: [foo, { bar }], style: { color: 'red' } })
 
-// event listeners should be passed as onXxx
+// 이벤트 리스너는 onXxx로 전달해야 합니다
 h('div', { onClick: () => {} })
 
-// children can be a string
+// 자식 요소는 문자열일 수 있습니다
 h('div', { id: 'foo' }, 'hello')
 
-// props can be omitted when there are no props
+// props가 없을 때는 props를 생략할 수 있습니다
 h('div', 'hello')
 h('div', [h('span', 'hello')])
 
-// children array can contain mixed vnodes and strings
+// 자식 배열에는 vnode와 문자열이 혼합될 수 있습니다
 h('div', ['hello', h('span', 'hello')])
 ```
 
-The resulting vnode has the following shape:
+생성된 vnode는 다음과 같은 형태를 가집니다:
 
 ```js
 const vnode = h('div', { id: 'foo' }, [])
@@ -72,15 +72,15 @@ vnode.children // []
 vnode.key // null
 ```
 
-:::warning Note
-The full `VNode` interface contains many other internal properties, but it is strongly recommended to avoid relying on any properties other than the ones listed here. This avoids unintended breakage in case the internal properties are changed.
+:::warning 참고
+전체 `VNode` 인터페이스에는 이 외에도 많은 내부 속성이 있지만, 여기 나열된 속성 외에는 의존하지 않는 것이 강력히 권장됩니다. 내부 속성이 변경될 경우 예기치 않은 오류를 방지할 수 있습니다.
 :::
 
-### Declaring Render Functions {#declaring-render-functions}
+### 렌더 함수 선언하기 {#declaring-render-functions}
 
 <div class="composition-api">
 
-When using templates with Composition API, the return value of the `setup()` hook is used to expose data to the template. When using render functions, however, we can directly return the render function instead:
+Composition API에서 템플릿을 사용할 때는 `setup()` 훅의 반환값이 템플릿에 데이터를 노출하는 데 사용됩니다. 하지만 렌더 함수를 사용할 때는, 렌더 함수를 직접 반환할 수 있습니다:
 
 ```js
 import { ref, h } from 'vue'
@@ -92,15 +92,15 @@ export default {
   setup(props) {
     const count = ref(1)
 
-    // return the render function
+    // 렌더 함수를 반환합니다
     return () => h('div', props.msg + count.value)
   }
 }
 ```
 
-The render function is declared inside `setup()` so it naturally has access to the props and any reactive state declared in the same scope.
+렌더 함수는 `setup()` 내부에서 선언되므로, 동일한 스코프에서 선언된 props와 반응형 상태에 자연스럽게 접근할 수 있습니다.
 
-In addition to returning a single vnode, you can also return strings or arrays:
+단일 vnode를 반환하는 것 외에도, 문자열이나 배열을 반환할 수도 있습니다:
 
 ```js
 export default {
@@ -115,7 +115,7 @@ import { h } from 'vue'
 
 export default {
   setup() {
-    // use an array to return multiple root nodes
+    // 배열을 사용하여 여러 루트 노드를 반환합니다
     return () => [
       h('div'),
       h('div'),
@@ -126,13 +126,13 @@ export default {
 ```
 
 :::tip
-Make sure to return a function instead of directly returning values! The `setup()` function is called only once per component, while the returned render function will be called multiple times.
+값을 직접 반환하는 대신 반드시 함수를 반환해야 합니다! `setup()` 함수는 컴포넌트당 한 번만 호출되지만, 반환된 렌더 함수는 여러 번 호출됩니다.
 :::
 
 </div>
 <div class="options-api">
 
-We can declare render functions using the `render` option:
+`render` 옵션을 사용하여 렌더 함수를 선언할 수 있습니다:
 
 ```js
 import { h } from 'vue'
@@ -149,9 +149,9 @@ export default {
 }
 ```
 
-The `render()` function has access to the component instance via `this`.
+`render()` 함수는 `this`를 통해 컴포넌트 인스턴스에 접근할 수 있습니다.
 
-In addition to returning a single vnode, you can also return strings or arrays:
+단일 vnode를 반환하는 것 외에도, 문자열이나 배열을 반환할 수도 있습니다:
 
 ```js
 export default {
@@ -166,7 +166,7 @@ import { h } from 'vue'
 
 export default {
   render() {
-    // use an array to return multiple root nodes
+    // 배열을 사용하여 여러 루트 노드를 반환합니다
     return [
       h('div'),
       h('div'),
@@ -178,7 +178,7 @@ export default {
 
 </div>
 
-If a render function component doesn't need any instance state, they can also be declared directly as a function for brevity:
+렌더 함수 컴포넌트가 인스턴스 상태를 필요로 하지 않는 경우, 간결하게 함수로 직접 선언할 수도 있습니다:
 
 ```js
 function Hello() {
@@ -186,24 +186,24 @@ function Hello() {
 }
 ```
 
-That's right, this is a valid Vue component! See [Functional Components](#functional-components) for more details on this syntax.
+맞습니다, 이것도 유효한 Vue 컴포넌트입니다! 이 문법에 대한 자세한 내용은 [함수형 컴포넌트](#functional-components)를 참고하세요.
 
-### Vnodes Must Be Unique {#vnodes-must-be-unique}
+### Vnode는 고유해야 합니다 {#vnodes-must-be-unique}
 
-All vnodes in the component tree must be unique. That means the following render function is invalid:
+컴포넌트 트리의 모든 vnode는 고유해야 합니다. 즉, 다음과 같은 렌더 함수는 유효하지 않습니다:
 
 ```js
 function render() {
   const p = h('p', 'hi')
   return h('div', [
-    // Yikes - duplicate vnodes!
+    // 이런 - 중복된 vnode입니다!
     p,
     p
   ])
 }
 ```
 
-If you really want to duplicate the same element/component many times, you can do so with a factory function. For example, the following render function is a perfectly valid way of rendering 20 identical paragraphs:
+동일한 요소/컴포넌트를 여러 번 복제하고 싶다면, 팩토리 함수를 사용하면 됩니다. 예를 들어, 다음 렌더 함수는 20개의 동일한 단락을 렌더링하는 완전히 유효한 방법입니다:
 
 ```js
 function render() {
@@ -218,32 +218,32 @@ function render() {
 
 ## JSX / TSX {#jsx-tsx}
 
-[JSX](https://facebook.github.io/jsx/) is an XML-like extension to JavaScript that allows us to write code like this:
+[JSX](https://facebook.github.io/jsx/)는 JavaScript에 XML과 유사한 확장 문법을 제공하여 다음과 같은 코드를 작성할 수 있게 해줍니다:
 
 ```jsx
 const vnode = <div>hello</div>
 ```
 
-Inside JSX expressions, use curly braces to embed dynamic values:
+JSX 표현식 내부에서는 중괄호를 사용하여 동적 값을 삽입할 수 있습니다:
 
 ```jsx
 const vnode = <div id={dynamicId}>hello, {userName}</div>
 ```
 
-`create-vue` and Vue CLI both have options for scaffolding projects with pre-configured JSX support. If you are configuring JSX manually, please refer to the documentation of [`@vue/babel-plugin-jsx`](https://github.com/vuejs/jsx-next) for details.
+`create-vue`와 Vue CLI 모두 사전 구성된 JSX 지원 옵션을 제공합니다. JSX를 수동으로 구성하는 경우, [`@vue/babel-plugin-jsx`](https://github.com/vuejs/jsx-next) 문서를 참고하세요.
 
-Although first introduced by React, JSX actually has no defined runtime semantics and can be compiled into various different outputs. If you have worked with JSX before, do note that **Vue JSX transform is different from React's JSX transform**, so you can't use React's JSX transform in Vue applications. Some notable differences from React JSX include:
+JSX는 React에서 처음 도입되었지만, 실제로는 정의된 런타임 의미가 없으며 다양한 출력으로 컴파일될 수 있습니다. JSX를 사용해본 경험이 있다면, **Vue의 JSX 변환은 React의 JSX 변환과 다르다는 점**에 유의하세요. 따라서 React의 JSX 변환을 Vue 애플리케이션에서 사용할 수 없습니다. React JSX와의 주요 차이점은 다음과 같습니다:
 
-- You can use HTML attributes such as `class` and `for` as props - no need to use `className` or `htmlFor`.
-- Passing children to components (i.e. slots) [works differently](#passing-slots).
+- `class`와 `for`와 같은 HTML 속성을 props로 사용할 수 있습니다. `className`이나 `htmlFor`를 사용할 필요가 없습니다.
+- 컴포넌트에 자식(즉, 슬롯)을 전달하는 방식이 [다릅니다](#passing-slots).
 
-Vue's type definition also provides type inference for TSX usage. When using TSX, make sure to specify `"jsx": "preserve"` in `tsconfig.json` so that TypeScript leaves the JSX syntax intact for Vue JSX transform to process.
+Vue의 타입 정의는 TSX 사용 시 타입 추론도 제공합니다. TSX를 사용할 때는 `tsconfig.json`에 `"jsx": "preserve"`를 지정하여 TypeScript가 JSX 문법을 그대로 남겨두고 Vue JSX 변환이 처리할 수 있도록 해야 합니다.
 
-### JSX Type Inference {#jsx-type-inference}
+### JSX 타입 추론 {#jsx-type-inference}
 
-Similar to the transform, Vue's JSX also needs different type definitions.
+변환과 마찬가지로, Vue의 JSX도 별도의 타입 정의가 필요합니다.
 
-Starting in Vue 3.4, Vue no longer implicitly registers the global `JSX` namespace. To instruct TypeScript to use Vue's JSX type definitions, make sure to include the following in your `tsconfig.json`:
+Vue 3.4부터는 더 이상 전역 `JSX` 네임스페이스를 암시적으로 등록하지 않습니다. TypeScript에 Vue의 JSX 타입 정의를 사용하도록 지시하려면, `tsconfig.json`에 다음을 포함해야 합니다:
 
 ```json
 {
@@ -255,17 +255,17 @@ Starting in Vue 3.4, Vue no longer implicitly registers the global `JSX` namespa
 }
 ```
 
-You can also opt-in per file by adding a `/* @jsxImportSource vue */` comment at the top of the file.
+파일 단위로 적용하려면 파일 상단에 `/* @jsxImportSource vue */` 주석을 추가할 수도 있습니다.
 
-If there is code that depends on the presence of the global `JSX` namespace,  you can retain the exact pre-3.4 global behavior by explicitly importing or referencing `vue/jsx` in your project, which registers the global `JSX` namespace.
+전역 `JSX` 네임스페이스의 존재에 의존하는 코드가 있다면, 프로젝트에서 `vue/jsx`를 명시적으로 import 또는 reference하여 3.4 이전의 전역 동작을 그대로 유지할 수 있습니다.
 
-## Render Function Recipes {#render-function-recipes}
+## 렌더 함수 레시피 {#render-function-recipes}
 
-Below we will provide some common recipes for implementing template features as their equivalent render functions / JSX.
+아래에서는 템플릿 기능을 렌더 함수/JSX로 구현하는 일반적인 레시피를 제공합니다.
 
 ### `v-if` {#v-if}
 
-Template:
+템플릿:
 
 ```vue-html
 <div>
@@ -274,7 +274,7 @@ Template:
 </div>
 ```
 
-Equivalent render function / JSX:
+동등한 렌더 함수/JSX:
 
 <div class="composition-api">
 
@@ -301,7 +301,7 @@ h('div', [this.ok ? h('div', 'yes') : h('span', 'no')])
 
 ### `v-for` {#v-for}
 
-Template:
+템플릿:
 
 ```vue-html
 <ul>
@@ -311,14 +311,14 @@ Template:
 </ul>
 ```
 
-Equivalent render function / JSX:
+동등한 렌더 함수/JSX:
 
 <div class="composition-api">
 
 ```js
 h(
   'ul',
-  // assuming `items` is a ref with array value
+  // `items`가 배열 값을 가진 ref라고 가정
   items.value.map(({ id, text }) => {
     return h('li', { key: id }, text)
   })
@@ -357,7 +357,7 @@ h(
 
 ### `v-on` {#v-on}
 
-Props with names that start with `on` followed by an uppercase letter are treated as event listeners. For example, `onClick` is the equivalent of `@click` in templates.
+`on`으로 시작하고 그 뒤에 대문자가 오는 props 이름은 이벤트 리스너로 처리됩니다. 예를 들어, `onClick`은 템플릿의 `@click`과 동일합니다.
 
 ```js
 h(
@@ -381,19 +381,19 @@ h(
 </button>
 ```
 
-#### Event Modifiers {#event-modifiers}
+#### 이벤트 수식자 {#event-modifiers}
 
-For the `.passive`, `.capture`, and `.once` event modifiers, they can be concatenated after the event name using camelCase.
+`.passive`, `.capture`, `.once` 이벤트 수식자는 이벤트 이름 뒤에 camelCase로 연결할 수 있습니다.
 
-For example:
+예시:
 
 ```js
 h('input', {
   onClickCapture() {
-    /* listener in capture mode */
+    /* 캡처 모드의 리스너 */
   },
   onKeyupOnce() {
-    /* triggers only once */
+    /* 한 번만 트리거됨 */
   },
   onMouseoverOnceCapture() {
     /* once + capture */
@@ -409,7 +409,7 @@ h('input', {
 />
 ```
 
-For other event and key modifiers, the [`withModifiers`](/api/render-function#withmodifiers) helper can be used:
+기타 이벤트 및 키 수식자의 경우, [`withModifiers`](/api/render-function#withmodifiers) 헬퍼를 사용할 수 있습니다:
 
 ```js
 import { withModifiers } from 'vue'
@@ -423,9 +423,9 @@ h('div', {
 <div onClick={withModifiers(() => {}, ['self'])} />
 ```
 
-### Components {#components}
+### 컴포넌트 {#components}
 
-To create a vnode for a component, the first argument passed to `h()` should be the component definition. This means when using render functions, it is unnecessary to register components - you can just use the imported components directly:
+컴포넌트의 vnode를 생성하려면, `h()`의 첫 번째 인자로 컴포넌트 정의를 전달해야 합니다. 즉, 렌더 함수를 사용할 때는 컴포넌트를 등록할 필요 없이, import한 컴포넌트를 바로 사용할 수 있습니다:
 
 ```js
 import Foo from './Foo.vue'
@@ -447,9 +447,9 @@ function render() {
 }
 ```
 
-As we can see, `h` can work with components imported from any file format as long as it's a valid Vue component.
+보시다시피, `h`는 유효한 Vue 컴포넌트라면 어떤 파일 형식에서 import하든 사용할 수 있습니다.
 
-Dynamic components are straightforward with render functions:
+동적 컴포넌트도 렌더 함수에서 간단하게 처리할 수 있습니다:
 
 ```js
 import Foo from './Foo.vue'
@@ -466,24 +466,24 @@ function render() {
 }
 ```
 
-If a component is registered by name and cannot be imported directly (for example, globally registered by a library), it can be programmatically resolved by using the [`resolveComponent()`](/api/render-function#resolvecomponent) helper.
+컴포넌트가 이름으로 등록되어 직접 import할 수 없는 경우(예: 라이브러리에서 전역 등록된 경우), [`resolveComponent()`](/api/render-function#resolvecomponent) 헬퍼를 사용하여 프로그래밍적으로 해결할 수 있습니다.
 
-### Rendering Slots {#rendering-slots}
+### 슬롯 렌더링 {#rendering-slots}
 
 <div class="composition-api">
 
-In render functions, slots can be accessed from the `setup()` context. Each slot on the `slots` object is a **function that returns an array of vnodes**:
+렌더 함수에서 슬롯은 `setup()` 컨텍스트에서 접근할 수 있습니다. `slots` 객체의 각 슬롯은 **vnode 배열을 반환하는 함수**입니다:
 
 ```js
 export default {
   props: ['message'],
   setup(props, { slots }) {
     return () => [
-      // default slot:
+      // 기본 슬롯:
       // <div><slot /></div>
       h('div', slots.default()),
 
-      // named slot:
+      // 명명된 슬롯:
       // <div><slot name="footer" :text="message" /></div>
       h(
         'div',
@@ -496,20 +496,20 @@ export default {
 }
 ```
 
-JSX equivalent:
+JSX 동등 코드:
 
 ```jsx
-// default
+// 기본
 <div>{slots.default()}</div>
 
-// named
+// 명명된
 <div>{slots.footer({ text: props.message })}</div>
 ```
 
 </div>
 <div class="options-api">
 
-In render functions, slots can be accessed from [`this.$slots`](/api/component-instance#slots):
+렌더 함수에서 슬롯은 [`this.$slots`](/api/component-instance#slots)에서 접근할 수 있습니다:
 
 ```js
 export default {
@@ -531,7 +531,7 @@ export default {
 }
 ```
 
-JSX equivalent:
+JSX 동등 코드:
 
 ```jsx
 // <div><slot /></div>
@@ -543,17 +543,17 @@ JSX equivalent:
 
 </div>
 
-### Passing Slots {#passing-slots}
+### 슬롯 전달하기 {#passing-slots}
 
-Passing children to components works a bit differently from passing children to elements. Instead of an array, we need to pass either a slot function, or an object of slot functions. Slot functions can return anything a normal render function can return - which will always be normalized to arrays of vnodes when accessed in the child component.
+컴포넌트에 자식을 전달하는 것은 요소에 자식을 전달하는 것과 약간 다릅니다. 배열 대신, 슬롯 함수 또는 슬롯 함수 객체를 전달해야 합니다. 슬롯 함수는 일반 렌더 함수가 반환할 수 있는 모든 것을 반환할 수 있으며, 자식 컴포넌트에서 접근할 때 항상 vnode 배열로 정규화됩니다.
 
 ```js
-// single default slot
+// 단일 기본 슬롯
 h(MyComponent, () => 'hello')
 
-// named slots
-// notice the `null` is required to avoid
-// the slots object being treated as props
+// 명명된 슬롯
+// `null`을 반드시 전달해야
+// 슬롯 객체가 props로 처리되지 않습니다
 h(MyComponent, null, {
   default: () => 'default slot',
   foo: () => h('div', 'foo'),
@@ -561,13 +561,13 @@ h(MyComponent, null, {
 })
 ```
 
-JSX equivalent:
+JSX 동등 코드:
 
 ```jsx
-// default
+// 기본
 <MyComponent>{() => 'hello'}</MyComponent>
 
-// named
+// 명명된
 <MyComponent>{{
   default: () => 'default slot',
   foo: () => <div>foo</div>,
@@ -575,14 +575,14 @@ JSX equivalent:
 }}</MyComponent>
 ```
 
-Passing slots as functions allows them to be invoked lazily by the child component. This leads to the slot's dependencies being tracked by the child instead of the parent, which results in more accurate and efficient updates.
+슬롯을 함수로 전달하면 자식 컴포넌트에서 지연 호출할 수 있습니다. 이로 인해 슬롯의 의존성이 부모가 아닌 자식에 의해 추적되어, 더 정확하고 효율적인 업데이트가 가능합니다.
 
-### Scoped Slots {#scoped-slots}
+### 스코프 슬롯 {#scoped-slots}
 
-To render a scoped slot in the parent component, a slot is passed to the child. Notice how the slot now has a parameter `text`. The slot will be called in the child component and the data from the child component will be passed up to the parent component.
+부모 컴포넌트에서 스코프 슬롯을 렌더링하려면, 슬롯을 자식에게 전달합니다. 이제 슬롯에 `text`라는 매개변수가 있음을 주목하세요. 슬롯은 자식 컴포넌트에서 호출되며, 자식 컴포넌트의 데이터가 부모 컴포넌트로 전달됩니다.
 
 ```js
-// parent component
+// 부모 컴포넌트
 export default {
   setup() {
     return () => h(MyComp, null, {
@@ -592,10 +592,10 @@ export default {
 }
 ```
 
-Remember to pass `null` so the slots will not be treated as props.
+슬롯이 props로 처리되지 않도록 `null`을 전달하는 것을 잊지 마세요.
 
 ```js
-// child component
+// 자식 컴포넌트
 export default {
   setup(props, { slots }) {
     const text = ref('hi')
@@ -604,7 +604,7 @@ export default {
 }
 ```
 
-JSX equivalent:
+JSX 동등 코드:
 
 ```jsx
 <MyComponent>{{
@@ -612,9 +612,9 @@ JSX equivalent:
 }}</MyComponent>
 ```
 
-### Built-in Components {#built-in-components}
+### 내장 컴포넌트 {#built-in-components}
 
-[Built-in components](/api/built-in-components) such as `<KeepAlive>`, `<Transition>`, `<TransitionGroup>`, `<Teleport>` and `<Suspense>` must be imported for use in render functions:
+[내장 컴포넌트](/api/built-in-components)인 `<KeepAlive>`, `<Transition>`, `<TransitionGroup>`, `<Teleport>`, `<Suspense>` 등은 렌더 함수에서 사용하려면 import해야 합니다:
 
 <div class="composition-api">
 
@@ -645,7 +645,7 @@ export default {
 
 ### `v-model` {#v-model}
 
-The `v-model` directive is expanded to `modelValue` and `onUpdate:modelValue` props during template compilation—we will have to provide these props ourselves:
+`v-model` 디렉티브는 템플릿 컴파일 시 `modelValue`와 `onUpdate:modelValue` props로 확장됩니다. 따라서 이 props를 직접 제공해야 합니다:
 
 <div class="composition-api">
 
@@ -681,14 +681,14 @@ export default {
 
 </div>
 
-### Custom Directives {#custom-directives}
+### 커스텀 디렉티브 {#custom-directives}
 
-Custom directives can be applied to a vnode using [`withDirectives`](/api/render-function#withdirectives):
+커스텀 디렉티브는 [`withDirectives`](/api/render-function#withdirectives)를 사용하여 vnode에 적용할 수 있습니다:
 
 ```js
 import { h, withDirectives } from 'vue'
 
-// a custom directive
+// 커스텀 디렉티브
 const pin = {
   mounted() { /* ... */ },
   updated() { /* ... */ }
@@ -700,13 +700,13 @@ const vnode = withDirectives(h('div'), [
 ])
 ```
 
-If the directive is registered by name and cannot be imported directly, it can be resolved using the [`resolveDirective`](/api/render-function#resolvedirective) helper.
+디렉티브가 이름으로 등록되어 직접 import할 수 없는 경우, [`resolveDirective`](/api/render-function#resolvedirective) 헬퍼를 사용하여 해결할 수 있습니다.
 
-### Template Refs {#template-refs}
+### 템플릿 ref {#template-refs}
 
 <div class="composition-api">
 
-With the Composition API, when using [`useTemplateRef()`](/api/composition-api-helpers#usetemplateref) <sup class="vt-badge" data-text="3.5+" />  template refs are created by passing the string value as prop to the vnode:
+Composition API에서 [`useTemplateRef()`](/api/composition-api-helpers#usetemplateref) <sup class="vt-badge" data-text="3.5+" />를 사용할 때, 템플릿 ref는 문자열 값을 vnode의 prop으로 전달하여 생성합니다:
 
 ```js
 import { h, useTemplateRef } from 'vue'
@@ -722,9 +722,9 @@ export default {
 ```
 
 <details>
-<summary>Usage before 3.5</summary>
+<summary>3.5 이전 버전에서의 사용법</summary>
 
-In versions before 3.5 where useTemplateRef() was not introduced, template refs are created by passing the ref() itself as a prop to the vnode:
+useTemplateRef()가 도입되지 않은 3.5 이전 버전에서는, ref() 자체를 vnode의 prop으로 전달하여 템플릿 ref를 생성합니다:
 
 ```js
 import { h, ref } from 'vue'
@@ -742,7 +742,7 @@ export default {
 </div>
 <div class="options-api">
 
-With the Options API, template refs are created by passing the ref name as a string in the vnode props:
+Options API에서는, vnode props에 ref 이름을 문자열로 전달하여 템플릿 ref를 생성합니다:
 
 ```js
 export default {
@@ -755,15 +755,15 @@ export default {
 
 </div>
 
-## Functional Components {#functional-components}
+## 함수형 컴포넌트 {#functional-components}
 
-Functional components are an alternative form of component that don't have any state of their own. They act like pure functions: props in, vnodes out. They are rendered without creating a component instance (i.e. no `this`), and without the usual component lifecycle hooks.
+함수형 컴포넌트는 자체 상태가 없는 컴포넌트의 대안 형태입니다. 이들은 순수 함수처럼 동작합니다: props를 입력받아 vnode를 출력합니다. 컴포넌트 인스턴스를 생성하지 않고(즉, `this`가 없음), 일반적인 컴포넌트 라이프사이클 훅도 없습니다.
 
-To create a functional component we use a plain function, rather than an options object. The function is effectively the `render` function for the component.
+함수형 컴포넌트를 만들려면 옵션 객체 대신 일반 함수를 사용합니다. 이 함수는 사실상 컴포넌트의 `render` 함수입니다.
 
 <div class="composition-api">
 
-The signature of a functional component is the same as the `setup()` hook:
+함수형 컴포넌트의 시그니처는 `setup()` 훅과 동일합니다:
 
 ```js
 function MyComponent(props, { slots, emit, attrs }) {
@@ -774,7 +774,7 @@ function MyComponent(props, { slots, emit, attrs }) {
 </div>
 <div class="options-api">
 
-As there is no `this` reference for a functional component, Vue will pass in the `props` as the first argument:
+함수형 컴포넌트에는 `this` 참조가 없으므로, Vue는 첫 번째 인자로 `props`를 전달합니다:
 
 ```js
 function MyComponent(props, context) {
@@ -782,32 +782,32 @@ function MyComponent(props, context) {
 }
 ```
 
-The second argument, `context`, contains three properties: `attrs`, `emit`, and `slots`. These are equivalent to the instance properties [`$attrs`](/api/component-instance#attrs), [`$emit`](/api/component-instance#emit), and [`$slots`](/api/component-instance#slots) respectively.
+두 번째 인자인 `context`에는 세 가지 속성이 있습니다: `attrs`, `emit`, `slots`. 이들은 각각 인스턴스 속성인 [`$attrs`](/api/component-instance#attrs), [`$emit`](/api/component-instance#emit), [`$slots`](/api/component-instance#slots)와 동일합니다.
 
 </div>
 
-Most of the usual configuration options for components are not available for functional components. However, it is possible to define [`props`](/api/options-state#props) and [`emits`](/api/options-state#emits) by adding them as properties:
+함수형 컴포넌트에는 대부분의 일반 컴포넌트 구성 옵션을 사용할 수 없습니다. 하지만 [`props`](/api/options-state#props)와 [`emits`](/api/options-state#emits)는 속성으로 추가하여 정의할 수 있습니다:
 
 ```js
 MyComponent.props = ['value']
 MyComponent.emits = ['click']
 ```
 
-If the `props` option is not specified, then the `props` object passed to the function will contain all attributes, the same as `attrs`. The prop names will not be normalized to camelCase unless the `props` option is specified.
+`props` 옵션이 지정되지 않은 경우, 함수에 전달되는 `props` 객체에는 모든 속성이 포함되며, 이는 `attrs`와 동일합니다. `props` 옵션이 지정되지 않으면 prop 이름이 camelCase로 정규화되지 않습니다.
 
-For functional components with explicit `props`, [attribute fallthrough](/guide/components/attrs) works much the same as with normal components. However, for functional components that don't explicitly specify their `props`, only the `class`, `style`, and `onXxx` event listeners will be inherited from the `attrs` by default. In either case, `inheritAttrs` can be set to `false` to disable attribute inheritance:
+명시적 `props`가 있는 함수형 컴포넌트의 경우, [속성 전달](/guide/components/attrs)은 일반 컴포넌트와 거의 동일하게 동작합니다. 하지만 `props`를 명시적으로 지정하지 않은 함수형 컴포넌트의 경우, 기본적으로 `class`, `style`, `onXxx` 이벤트 리스너만 `attrs`에서 상속됩니다. 두 경우 모두, `inheritAttrs`를 `false`로 설정하여 속성 상속을 비활성화할 수 있습니다:
 
 ```js
 MyComponent.inheritAttrs = false
 ```
 
-Functional components can be registered and consumed just like normal components. If you pass a function as the first argument to `h()`, it will be treated as a functional component.
+함수형 컴포넌트는 일반 컴포넌트처럼 등록하고 사용할 수 있습니다. `h()`의 첫 번째 인자로 함수를 전달하면, 함수형 컴포넌트로 처리됩니다.
 
-### Typing Functional Components<sup class="vt-badge ts" /> {#typing-functional-components}
+### 함수형 컴포넌트 타입 지정<sup class="vt-badge ts" /> {#typing-functional-components}
 
-Functional Components can be typed based on whether they are named or anonymous. [Vue - Official extension](https://github.com/vuejs/language-tools) also supports type checking properly typed functional components when consuming them in SFC templates.
+함수형 컴포넌트는 명명된 컴포넌트인지 익명 컴포넌트인지에 따라 타입을 지정할 수 있습니다. [Vue - 공식 확장](https://github.com/vuejs/language-tools)도 SFC 템플릿에서 타입이 올바르게 지정된 함수형 컴포넌트의 타입 검사를 지원합니다.
 
-**Named Functional Component**
+**명명된 함수형 컴포넌트**
 
 ```tsx
 import type { SetupContext } from 'vue'
@@ -842,7 +842,7 @@ FComponent.emits = {
 }
 ```
 
-**Anonymous Functional Component**
+**익명 함수형 컴포넌트**
 
 ```tsx
 import type { FunctionalComponent } from 'vue'

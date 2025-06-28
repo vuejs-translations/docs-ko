@@ -1,24 +1,24 @@
 # Watchers {#watchers}
 
-## Basic Example {#basic-example}
+## 기본 예제 {#basic-example}
 
-Computed properties allow us to declaratively compute derived values. However, there are cases where we need to perform "side effects" in reaction to state changes - for example, mutating the DOM, or changing another piece of state based on the result of an async operation.
+계산 속성은 파생 값을 선언적으로 계산할 수 있게 해줍니다. 하지만 상태 변화에 반응하여 "부수 효과"를 수행해야 하는 경우가 있습니다. 예를 들어, DOM을 변경하거나 비동기 작업의 결과에 따라 다른 상태를 변경하는 경우가 있습니다.
 
 <div class="options-api">
 
-With the Options API, we can use the [`watch` option](/api/options-state#watch) to trigger a function whenever a reactive property changes:
+옵션 API에서는 [`watch` 옵션](/api/options-state#watch)을 사용하여 반응형 속성이 변경될 때마다 함수를 실행할 수 있습니다:
 
 ```js
 export default {
   data() {
     return {
       question: '',
-      answer: 'Questions usually contain a question mark. ;-)',
+      answer: '질문에는 보통 물음표가 들어 있습니다. ;-)',
       loading: false
     }
   },
   watch: {
-    // whenever question changes, this function will run
+    // question이 변경될 때마다 이 함수가 실행됩니다
     question(newQuestion, oldQuestion) {
       if (newQuestion.includes('?')) {
         this.getAnswer()
@@ -28,12 +28,12 @@ export default {
   methods: {
     async getAnswer() {
       this.loading = true
-      this.answer = 'Thinking...'
+      this.answer = '생각 중...'
       try {
         const res = await fetch('https://yesno.wtf/api')
         this.answer = (await res.json()).answer
       } catch (error) {
-        this.answer = 'Error! Could not reach the API. ' + error
+        this.answer = '오류! API에 접근할 수 없습니다. ' + error
       } finally {
         this.loading = false
       }
@@ -44,20 +44,20 @@ export default {
 
 ```vue-html
 <p>
-  Ask a yes/no question:
+  예/아니오로 대답할 수 있는 질문을 해보세요:
   <input v-model="question" :disabled="loading" />
 </p>
 <p>{{ answer }}</p>
 ```
 
-[Try it in the Playground](https://play.vuejs.org/#eNp9VE1v2zAM/SucLnaw1D70lqUbsiKH7rB1W4++aDYdq5ElTx9xgiD/fbT8lXZFAQO2+Mgn8pH0mW2aJjl4ZCu2trkRjfucKTw22jgosOReOjhnCqDgjseL/hvAoPNGjSeAvx6tE1qtIIqWo5Er26Ih088BteCt51KeINfKcaGAT5FQc7NP4NPNYiaQmhdC7VZQcmlxMF+61yUcWu7yajVmkabQVqjwgGZmzSuudmiX4CphofQqD+ZWSAnGqz5y9I4VtmOuS9CyGA9T3QCihGu3RKhc+gJtHH2JFld+EG5Mdug2QYZ4MSKhgBd11OgqXdipEm5PKoer0Jk2kA66wB044/EF1GtOSPRUCbUnryRJosnFnK4zpC5YR7205M9bLhyUSIrGUeVcY1dpekKrdNK6MuWNiKYKXt8V98FElDxbknGxGLCpZMi7VkGMxmjzv0pz1tvO4QPcay8LULoj5RToKoTN40MCEXyEQDJTl0KFmXpNOqsUxudN+TNFzzqdJp8ODutGcod0Alg34QWwsXsaVtIjVXqe9h5bC9V4B4ebWhco7zI24hmDVSEs/yOxIPOQEFnTnjzt2emS83nYFrhcevM6nRJhS+Ys9aoUu6Av7WqoNWO5rhsh0fxownplbBqhjJEmuv0WbN2UDNtDMRXm+zfsz/bY2TL2SH1Ec8CMTZjjhqaxh7e/v+ORvieQqvaSvN8Bf6HV0veSdG5fvSoo7Su/kO1D3f13SKInuz06VHYsahzzfl0yRj+s+3dKn9O9TW7HPrPLP624lFU=)
+[플레이그라운드에서 실행해보기](https://play.vuejs.org/#eNp9VE1v2zAM/SucLnaw1D70lqUbsiKH7rB1W4++aDYdq5ElTx9xgiD/fbT8lXZFAQO2+Mgn8pH0mW2aJjl4ZCu2trkRjfucKTw22jgosOReOjhnCqDgjseL/hvAoPNGjSeAvx6tE1qtIIqWo5Er26Ih088BteCt51KeINfKcaGAT5FQc7NP4NPNYiaQmhdC7VZQcmlxMF+61yUcWu7yajVmkabQVqjwgGZmzSuudmiX4CphofQqD+ZWSAnGqz5y9I4VtmOuS9CyGA9T3QCihGu3RKhc+gJtHH2JFld+EG5Mdug2QYZ4MSKhgBd11OgqXdipEm5PKoer0Jk2kA66wB044/EF1GtOSPRUCbUnryRJosnFnK4zpC5YR7205M9bLhyUSIrGUeVcY1dpekKrdNK6MuWNiKYKXt8V98FElDxbknGxGLCpZMi7VkGMxmjzv0pz1tvO4QPcay8LULoj5RToKoTN40MCEXyEQDJTl0KFmXpNOqsUxudN+TNFzzqdJp8ODutGcod0Alg34QWwsXsaVtIjVXqe9h5bC9V4B4ebWhco7zI24hmDVSEs/yOxIPOQEFnTnjzt2emS83nYFrhcevM6nRJhS+Ys9aoUu6Av7WqoNWO5rhsh0fxownplbBqhjJEmuv0WbN2UDNtDMRXm+zfsz/bY2TL2SH1Ec8CMTZjjhqaxh7e/v+ORvieQqvaSvN8Bf6HV0veSdG5fvSoo7Su/kO1D3f13SKInuz06VHYsahzzfl0yRj+s+3dKn9O9TW7HPrPLP624lFU=)
 
-The `watch` option also supports a dot-delimited path as the key:
+`watch` 옵션은 점(.)으로 구분된 경로를 키로 사용할 수도 있습니다:
 
 ```js
 export default {
   watch: {
-    // Note: only simple paths. Expressions are not supported.
+    // 참고: 단순 경로만 지원합니다. 표현식은 지원되지 않습니다.
     'some.nested.key'(newValue) {
       // ...
     }
@@ -69,26 +69,26 @@ export default {
 
 <div class="composition-api">
 
-With Composition API, we can use the [`watch` function](/api/reactivity-core#watch) to trigger a callback whenever a piece of reactive state changes:
+Composition API에서는 [`watch` 함수](/api/reactivity-core#watch)를 사용하여 반응형 상태가 변경될 때마다 콜백을 실행할 수 있습니다:
 
 ```vue
 <script setup>
 import { ref, watch } from 'vue'
 
 const question = ref('')
-const answer = ref('Questions usually contain a question mark. ;-)')
+const answer = ref('질문에는 보통 물음표가 들어 있습니다. ;-)')
 const loading = ref(false)
 
-// watch works directly on a ref
+// watch는 ref에 직접 사용할 수 있습니다
 watch(question, async (newQuestion, oldQuestion) => {
   if (newQuestion.includes('?')) {
     loading.value = true
-    answer.value = 'Thinking...'
+    answer.value = '생각 중...'
     try {
       const res = await fetch('https://yesno.wtf/api')
       answer.value = (await res.json()).answer
     } catch (error) {
-      answer.value = 'Error! Could not reach the API. ' + error
+      answer.value = '오류! API에 접근할 수 없습니다. ' + error
     } finally {
       loading.value = false
     }
@@ -98,81 +98,81 @@ watch(question, async (newQuestion, oldQuestion) => {
 
 <template>
   <p>
-    Ask a yes/no question:
+    예/아니오로 대답할 수 있는 질문을 해보세요:
     <input v-model="question" :disabled="loading" />
   </p>
   <p>{{ answer }}</p>
 </template>
 ```
 
-[Try it in the Playground](https://play.vuejs.org/#eNp9U8Fy0zAQ/ZVFF9tDah96C2mZ0umhHKBAj7oIe52oUSQjyXEyGf87KytyoDC9JPa+p+e3b1cndtd15b5HtmQrV1vZeXDo++6Wa7nrjPVwAovtAgbh6w2M0Fqzg4xOZFxzXRvtPPzq0XlpNNwEbp5lRUKEdgPaVP925jnoXS+UOgKxvJAaxEVjJ+y2hA9XxUVFGdFIvT7LtEI5JIzrqjrbGozdOmikxdqTKqmIQOV6gvOkvQDhjrqGXOOQvCzAqCa9FHBzCyeuAWT7F6uUulZ9gy7PPmZFETmQjJV7oXoke972GJHY+Axkzxupt4FalhRcYHh7TDIQcqA+LTriikFIDy0G59nG+84tq+qITpty8G0lOhmSiedefSaPZ0mnfHFG50VRRkbkj1BPceVorbFzF/+6fQj4O7g3vWpAm6Ao6JzfINw9PZaQwXuYNJJuK/U0z1nxdTLT0M7s8Ec/I3WxquLS0brRi8ddp4RHegNYhR0M/Du3pXFSAJU285osI7aSuus97K92pkF1w1nCOYNlI534qbCh8tkOVasoXkV1+sjplLZ0HGN5Vc1G2IJ5R8Np5XpKlK7J1CJntdl1UqH92k0bzdkyNc8ZRWGGz1MtbMQi1esN1tv/1F/cIdQ4e6LJod0jZzPmhV2jj/DDjy94oOcZpK57Rew3wO/ojOpjJIH2qdcN2f6DN7l9nC47RfTsHg4etUtNpZUeJz5ndPPv32j9Yve6vE6DZuNvu1R2Tg==)
+[플레이그라운드에서 실행해보기](https://play.vuejs.org/#eNp9U8Fy0zAQ/ZVFF9tDah96C2mZ0umhHKBAj7oIe52oUSQjyXEyGf87KytyoDC9JPa+p+e3b1cndtd15b5HtmQrV1vZeXDo++6Wa7nrjPVwAovtAgbh6w2M0Fqzg4xOZFxzXRvtPPzq0XlpNNwEbp5lRUKEdgPaVP925jnoXS+UOgKxvJAaxEVjJ+y2hA9XxUVFGdFIvT7LtEI5JIzrqjrbGozdOmikxdqTKqmIQOV6gvOkvQDhjrqGXOOQvCzAqCa9FHBzCyeuAWT7F6uUulZ9gy7PPmZFETmQjJV7oXoke972GJHY+Axkzxupt4FalhRcYHh7TDIQcqA+LTriikFIDy0G59nG+84tq+qITpty8G0lOhmSiedefSaPZ0mnfHFG50VRRkbkj1BPceVorbFzF/+6fQj4O7g3vWpAm6Ao6JzfINw9PZaQwXuYNJJuK/U0z1nxdTLT0M7s8Ec/I3WxquLS0brRi8ddp4RHegNYhR0M/Du3pXFSAJU285osI7aSuus97K92pkF1w1nCOYNlI534qbCh8tkOVasoXkV1+sjplLZ0HGN5Vc1G2IJ5R8Np5XpKlK7J1CJntdl1UqH92k0bzdkyNc8ZRWGGz1MtbMQi1esN1tv/1F/cIdQ4e6LJod0jZzPmhV2jj/DDjy94oOcZpK57Rew3wO/ojOpjJIH2qdcN2f6DN7l9nC47RfTsHg4etUtNpZUeJz5ndPPv32j9Yve6vE6DZuNvu1R2Tg==)
 
-### Watch Source Types {#watch-source-types}
+### Watch 소스 타입 {#watch-source-types}
 
-`watch`'s first argument can be different types of reactive "sources": it can be a ref (including computed refs), a reactive object, a [getter function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description), or an array of multiple sources:
+`watch`의 첫 번째 인자는 다양한 타입의 반응형 "소스"가 될 수 있습니다: ref(계산된 ref 포함), 반응형 객체, [getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description), 또는 여러 소스의 배열이 될 수 있습니다:
 
 ```js
 const x = ref(0)
 const y = ref(0)
 
-// single ref
+// 단일 ref
 watch(x, (newX) => {
-  console.log(`x is ${newX}`)
+  console.log(`x는 ${newX}입니다`)
 })
 
 // getter
 watch(
   () => x.value + y.value,
   (sum) => {
-    console.log(`sum of x + y is: ${sum}`)
+    console.log(`x + y의 합은: ${sum}`)
   }
 )
 
-// array of multiple sources
+// 여러 소스의 배열
 watch([x, () => y.value], ([newX, newY]) => {
-  console.log(`x is ${newX} and y is ${newY}`)
+  console.log(`x는 ${newX}이고 y는 ${newY}입니다`)
 })
 ```
 
-Do note that you can't watch a property of a reactive object like this:
+반응형 객체의 속성을 아래와 같이 감시할 수는 없습니다:
 
 ```js
 const obj = reactive({ count: 0 })
 
-// this won't work because we are passing a number to watch()
+// 이렇게 하면 동작하지 않습니다. watch()에 숫자를 전달하기 때문입니다.
 watch(obj.count, (count) => {
-  console.log(`Count is: ${count}`)
+  console.log(`Count는: ${count}`)
 })
 ```
 
-Instead, use a getter:
+대신 getter를 사용하세요:
 
 ```js
-// instead, use a getter:
+// 대신 getter를 사용하세요:
 watch(
   () => obj.count,
   (count) => {
-    console.log(`Count is: ${count}`)
+    console.log(`Count는: ${count}`)
   }
 )
 ```
 
 </div>
 
-## Deep Watchers {#deep-watchers}
+## 깊은 감시자(Deep Watchers) {#deep-watchers}
 
 <div class="options-api">
 
-`watch` is shallow by default: the callback will only trigger when the watched property has been assigned a new value - it won't trigger on nested property changes. If you want the callback to fire on all nested mutations, you need to use a deep watcher:
+`watch`는 기본적으로 얕게 동작합니다: 감시하는 속성에 새 값이 할당될 때만 콜백이 실행되며, 중첩된 속성 변경에는 반응하지 않습니다. 모든 중첩된 변경에도 콜백이 실행되길 원한다면, 깊은 감시자를 사용해야 합니다:
 
 ```js
 export default {
   watch: {
     someObject: {
       handler(newValue, oldValue) {
-        // Note: `newValue` will be equal to `oldValue` here
-        // on nested mutations as long as the object itself
-        // hasn't been replaced.
+        // 참고: 객체 자체가 교체되지 않는 한,
+        // 중첩된 변경에서는 `newValue`와 `oldValue`가
+        // 동일합니다.
       },
       deep: true
     }
@@ -184,39 +184,39 @@ export default {
 
 <div class="composition-api">
 
-When you call `watch()` directly on a reactive object, it will implicitly create a deep watcher - the callback will be triggered on all nested mutations:
+`watch()`를 반응형 객체에 직접 호출하면 암묵적으로 깊은 감시자가 생성됩니다 - 콜백은 모든 중첩된 변경에 대해 실행됩니다:
 
 ```js
 const obj = reactive({ count: 0 })
 
 watch(obj, (newValue, oldValue) => {
-  // fires on nested property mutations
-  // Note: `newValue` will be equal to `oldValue` here
-  // because they both point to the same object!
+  // 중첩된 속성 변경에도 실행됩니다
+  // 참고: `newValue`와 `oldValue`는
+  // 동일한 객체를 가리키므로 같습니다!
 })
 
 obj.count++
 ```
 
-This should be differentiated with a getter that returns a reactive object - in the latter case, the callback will only fire if the getter returns a different object:
+반응형 객체를 반환하는 getter와는 구분해야 합니다 - 이 경우에는 getter가 다른 객체를 반환할 때만 콜백이 실행됩니다:
 
 ```js
 watch(
   () => state.someObject,
   () => {
-    // fires only when state.someObject is replaced
+    // state.someObject가 교체될 때만 실행됩니다
   }
 )
 ```
 
-You can, however, force the second case into a deep watcher by explicitly using the `deep` option:
+하지만, 두 번째 경우에도 `deep` 옵션을 명시적으로 사용하여 깊은 감시자로 만들 수 있습니다:
 
 ```js
 watch(
   () => state.someObject,
   (newValue, oldValue) => {
-    // Note: `newValue` will be equal to `oldValue` here
-    // *unless* state.someObject has been replaced
+    // 참고: state.someObject가 교체되지 않는 한,
+    // `newValue`와 `oldValue`는 동일합니다
   },
   { deep: true }
 )
@@ -224,19 +224,19 @@ watch(
 
 </div>
 
-In Vue 3.5+, the `deep` option can also be a number indicating the max traversal depth - i.e. how many levels should Vue traverse an object's nested properties.
+Vue 3.5+에서는 `deep` 옵션에 최대 탐색 깊이를 나타내는 숫자를 지정할 수도 있습니다. 즉, Vue가 객체의 중첩 속성을 몇 단계까지 탐색할지 지정할 수 있습니다.
 
-:::warning Use with Caution
-Deep watch requires traversing all nested properties in the watched object, and can be expensive when used on large data structures. Use it only when necessary and beware of the performance implications.
+:::warning 주의해서 사용하세요
+깊은 감시는 감시하는 객체의 모든 중첩 속성을 순회해야 하므로, 대용량 데이터 구조에 사용하면 비용이 많이 들 수 있습니다. 꼭 필요한 경우에만 사용하고, 성능에 주의하세요.
 :::
 
-## Eager Watchers {#eager-watchers}
+## 즉시 실행 감시자(Eager Watchers) {#eager-watchers}
 
-`watch` is lazy by default: the callback won't be called until the watched source has changed. But in some cases we may want the same callback logic to be run eagerly - for example, we may want to fetch some initial data, and then re-fetch the data whenever relevant state changes.
+`watch`는 기본적으로 지연(lazy) 실행됩니다: 감시하는 소스가 변경되기 전까지 콜백이 호출되지 않습니다. 하지만 경우에 따라 동일한 콜백 로직을 즉시 실행하고 싶을 수 있습니다. 예를 들어, 초기 데이터를 가져오고, 관련 상태가 변경될 때마다 다시 데이터를 가져오고 싶을 때가 있습니다.
 
 <div class="options-api">
 
-We can force a watcher's callback to be executed immediately by declaring it using an object with a `handler` function and the `immediate: true` option:
+객체 형태로 `handler` 함수와 `immediate: true` 옵션을 선언하면 감시자의 콜백을 즉시 실행할 수 있습니다:
 
 ```js
 export default {
@@ -244,9 +244,9 @@ export default {
   watch: {
     question: {
       handler(newQuestion) {
-        // this will be run immediately on component creation.
+        // 이 코드는 컴포넌트 생성 시 즉시 실행됩니다.
       },
-      // force eager callback execution
+      // 콜백 즉시 실행 강제
       immediate: true
     }
   }
@@ -254,19 +254,19 @@ export default {
 }
 ```
 
-The initial execution of the handler function will happen just before the `created` hook. Vue will have already processed the `data`, `computed`, and `methods` options, so those properties will be available on the first invocation.
+핸들러 함수의 최초 실행은 `created` 훅 직전에 발생합니다. Vue는 이미 `data`, `computed`, `methods` 옵션을 처리했으므로, 첫 번째 호출 시 해당 속성들을 사용할 수 있습니다.
 
 </div>
 
 <div class="composition-api">
 
-We can force a watcher's callback to be executed immediately by passing the `immediate: true` option:
+`immediate: true` 옵션을 전달하여 감시자의 콜백을 즉시 실행할 수 있습니다:
 
 ```js
 watch(
   source,
   (newValue, oldValue) => {
-    // executed immediately, then again when `source` changes
+    // 즉시 실행되고, 이후 `source`가 변경될 때마다 다시 실행됨
   },
   { immediate: true }
 )
@@ -274,11 +274,11 @@ watch(
 
 </div>
 
-## Once Watchers {#once-watchers}
+## 1회성 감시자(Once Watchers) {#once-watchers}
 
-- Only supported in 3.4+
+- 3.4+에서만 지원
 
-Watcher's callback will execute whenever the watched source changes. If you want the callback to trigger only once when the source changes, use the `once: true` option.
+감시자의 콜백은 감시하는 소스가 변경될 때마다 실행됩니다. 만약 소스가 변경될 때 단 한 번만 콜백이 실행되길 원한다면, `once: true` 옵션을 사용하세요.
 
 <div class="options-api">
 
@@ -287,7 +287,7 @@ export default {
   watch: {
     source: {
       handler(newValue, oldValue) {
-        // when `source` changes, triggers only once
+        // `source`가 변경될 때 단 한 번만 실행됨
       },
       once: true
     }
@@ -303,7 +303,7 @@ export default {
 watch(
   source,
   (newValue, oldValue) => {
-    // when `source` changes, triggers only once
+    // `source`가 변경될 때 단 한 번만 실행됨
   },
   { once: true }
 )
@@ -315,7 +315,7 @@ watch(
 
 ## `watchEffect()` \*\* {#watcheffect}
 
-It is common for the watcher callback to use exactly the same reactive state as the source. For example, consider the following code, which uses a watcher to load a remote resource whenever the `todoId` ref changes:
+감시자 콜백이 소스와 정확히 동일한 반응형 상태를 사용할 때가 많습니다. 예를 들어, 아래 코드는 `todoId` ref가 변경될 때마다 원격 리소스를 로드하기 위해 감시자를 사용합니다:
 
 ```js
 const todoId = ref(1)
@@ -333,9 +333,9 @@ watch(
 )
 ```
 
-In particular, notice how the watcher uses `todoId` twice, once as the source and then again inside the callback.
+특히, 감시자가 `todoId`를 소스로 한 번, 콜백 내부에서 한 번 더 사용하고 있다는 점에 주목하세요.
 
-This can be simplified with [`watchEffect()`](/api/reactivity-core#watcheffect). `watchEffect()` allows us to track the callback's reactive dependencies automatically. The watcher above can be rewritten as:
+이 코드는 [`watchEffect()`](/api/reactivity-core#watcheffect)로 더 간단하게 만들 수 있습니다. `watchEffect()`는 콜백의 반응형 의존성을 자동으로 추적합니다. 위의 감시자는 다음과 같이 다시 쓸 수 있습니다:
 
 ```js
 watchEffect(async () => {
@@ -346,36 +346,36 @@ watchEffect(async () => {
 })
 ```
 
-Here, the callback will run immediately, there's no need to specify `immediate: true`. During its execution, it will automatically track `todoId.value` as a dependency (similar to computed properties). Whenever `todoId.value` changes, the callback will be run again. With `watchEffect()`, we no longer need to pass `todoId` explicitly as the source value.
+여기서 콜백은 즉시 실행되며, `immediate: true`를 명시할 필요가 없습니다. 실행 중에 `todoId.value`가 의존성으로 자동 추적됩니다(계산 속성과 유사). `todoId.value`가 변경될 때마다 콜백이 다시 실행됩니다. `watchEffect()`를 사용하면 더 이상 소스 값을 명시적으로 전달할 필요가 없습니다.
 
-You can check out [this example](/examples/#fetching-data) of `watchEffect()` and reactive data-fetching in action.
+`watchEffect()`와 반응형 데이터 패칭이 실제로 동작하는 [이 예제](/examples/#fetching-data)를 확인해보세요.
 
-For examples like these, with only one dependency, the benefit of `watchEffect()` is relatively small. But for watchers that have multiple dependencies, using `watchEffect()` removes the burden of having to maintain the list of dependencies manually. In addition, if you need to watch several properties in a nested data structure, `watchEffect()` may prove more efficient than a deep watcher, as it will only track the properties that are used in the callback, rather than recursively tracking all of them.
+이처럼 의존성이 하나뿐인 경우에는 `watchEffect()`의 이점이 크지 않습니다. 하지만 여러 의존성을 가진 감시자에서는 `watchEffect()`를 사용하면 의존성 목록을 직접 관리할 필요가 없어집니다. 또한, 중첩 데이터 구조에서 여러 속성을 감시해야 할 때, `watchEffect()`는 콜백에서 실제로 사용된 속성만 추적하므로, 모든 속성을 재귀적으로 추적하는 깊은 감시자보다 더 효율적일 수 있습니다.
 
 :::tip
-`watchEffect` only tracks dependencies during its **synchronous** execution. When using it with an async callback, only properties accessed before the first `await` tick will be tracked.
+`watchEffect`는 **동기** 실행 중에만 의존성을 추적합니다. 비동기 콜백과 함께 사용할 때는, 첫 번째 `await` 이전에 접근한 속성만 추적됩니다.
 :::
 
 ### `watch` vs. `watchEffect` {#watch-vs-watcheffect}
 
-`watch` and `watchEffect` both allow us to reactively perform side effects. Their main difference is the way they track their reactive dependencies:
+`watch`와 `watchEffect` 모두 반응적으로 부수 효과를 수행할 수 있게 해줍니다. 두 함수의 주요 차이점은 반응형 의존성을 추적하는 방식에 있습니다:
 
-- `watch` only tracks the explicitly watched source. It won't track anything accessed inside the callback. In addition, the callback only triggers when the source has actually changed. `watch` separates dependency tracking from the side effect, giving us more precise control over when the callback should fire.
+- `watch`는 명시적으로 감시하는 소스만 추적합니다. 콜백 내부에서 접근한 값은 추적하지 않습니다. 또한, 소스가 실제로 변경될 때만 콜백이 실행됩니다. `watch`는 의존성 추적과 부수 효과를 분리하여, 콜백이 언제 실행될지 더 정밀하게 제어할 수 있습니다.
 
-- `watchEffect`, on the other hand, combines dependency tracking and side effect into one phase. It automatically tracks every reactive property accessed during its synchronous execution. This is more convenient and typically results in terser code, but makes its reactive dependencies less explicit.
+- 반면, `watchEffect`는 의존성 추적과 부수 효과를 하나의 단계로 결합합니다. 동기 실행 중에 접근한 모든 반응형 속성을 자동으로 추적합니다. 더 편리하고 코드가 간결해지지만, 반응형 의존성이 명시적이지 않게 됩니다.
 
 </div>
 
-## Side Effect Cleanup {#side-effect-cleanup}
+## 부수 효과 정리(Side Effect Cleanup) {#side-effect-cleanup}
 
-Sometimes we may perform side effects, e.g. asynchronous requests, in a watcher:
+때때로 감시자에서 비동기 요청 등 부수 효과를 수행할 수 있습니다:
 
 <div class="composition-api">
 
 ```js
 watch(id, (newId) => {
   fetch(`/api/${newId}`).then(() => {
-    // callback logic
+    // 콜백 로직
   })
 })
 ```
@@ -388,7 +388,7 @@ export default {
   watch: {
     id(newId) {
       fetch(`/api/${newId}`).then(() => {
-        // callback logic
+        // 콜백 로직
       })
     }
   }
@@ -397,9 +397,9 @@ export default {
 
 </div>
 
-But what if `id` changes before the request completes? When the previous request completes, it will still fire the callback with an ID value that is already stale. Ideally, we want to be able to cancel the stale request when `id` changes to a new value.
+하지만 요청이 완료되기 전에 `id`가 변경된다면 어떻게 될까요? 이전 요청이 완료되면 이미 오래된 ID 값으로 콜백이 실행됩니다. 이상적으로는, `id`가 새 값으로 변경될 때 이전 요청을 취소할 수 있으면 좋겠습니다.
 
-We can use the [`onWatcherCleanup()`](/api/reactivity-core#onwatchercleanup) <sup class="vt-badge" data-text="3.5+" /> API to register a cleanup function that will be called when the watcher is invalidated and is about to re-run:
+[`onWatcherCleanup()`](/api/reactivity-core#onwatchercleanup) <sup class="vt-badge" data-text="3.5+" /> API를 사용하면 감시자가 무효화되어 다시 실행되기 직전에 정리 함수를 등록할 수 있습니다:
 
 <div class="composition-api">
 
@@ -410,11 +410,11 @@ watch(id, (newId) => {
   const controller = new AbortController()
 
   fetch(`/api/${newId}`, { signal: controller.signal }).then(() => {
-    // callback logic
+    // 콜백 로직
   })
 
   onWatcherCleanup(() => {
-    // abort stale request
+    // 오래된 요청 중단
     controller.abort()
   })
 })
@@ -432,11 +432,11 @@ export default {
       const controller = new AbortController()
 
       fetch(`/api/${newId}`, { signal: controller.signal }).then(() => {
-        // callback logic
+        // 콜백 로직
       })
 
       onWatcherCleanup(() => {
-        // abort stale request
+        // 오래된 요청 중단
         controller.abort()
       })
     }
@@ -446,9 +446,9 @@ export default {
 
 </div>
 
-Note that `onWatcherCleanup` is only supported in Vue 3.5+ and must be called during the synchronous execution of a `watchEffect` effect function or `watch` callback function: you cannot call it after an `await` statement in an async function.
+`onWatcherCleanup`은 Vue 3.5+에서만 지원되며, 반드시 `watchEffect` 효과 함수나 `watch` 콜백 함수의 동기 실행 중에 호출해야 합니다. 비동기 함수에서 `await` 이후에 호출할 수 없습니다.
 
-Alternatively, an `onCleanup` function is also passed to watcher callbacks as the 3rd argument<span class="composition-api">, and to the `watchEffect` effect function as the first argument</span>:
+또는, 감시자 콜백의 3번째 인자<span class="composition-api">, 그리고 `watchEffect` 효과 함수의 첫 번째 인자</span>로 `onCleanup` 함수가 전달됩니다:
 
 <div class="composition-api">
 
@@ -456,14 +456,14 @@ Alternatively, an `onCleanup` function is also passed to watcher callbacks as th
 watch(id, (newId, oldId, onCleanup) => {
   // ...
   onCleanup(() => {
-    // cleanup logic
+    // 정리 로직
   })
 })
 
 watchEffect((onCleanup) => {
   // ...
   onCleanup(() => {
-    // cleanup logic
+    // 정리 로직
   })
 })
 ```
@@ -477,7 +477,7 @@ export default {
     id(newId, oldId, onCleanup) {
       // ...
       onCleanup(() => {
-        // cleanup logic
+        // 정리 로직
       })
     }
   }
@@ -486,19 +486,19 @@ export default {
 
 </div>
 
-This works in versions before 3.5. In addition, `onCleanup` passed via function argument is bound to the watcher instance so it is not subject to the synchronously constraint of `onWatcherCleanup`.
+이 방식은 3.5 이전 버전에서도 동작합니다. 또한, 함수 인자로 전달된 `onCleanup`은 감시자 인스턴스에 바인딩되어 있으므로, `onWatcherCleanup`의 동기 실행 제약을 받지 않습니다.
 
-## Callback Flush Timing {#callback-flush-timing}
+## 콜백 실행 타이밍(Callback Flush Timing) {#callback-flush-timing}
 
-When you mutate reactive state, it may trigger both Vue component updates and watcher callbacks created by you.
+반응형 상태를 변경하면, Vue 컴포넌트 업데이트와 사용자가 만든 감시자 콜백이 모두 트리거될 수 있습니다.
 
-Similar to component updates, user-created watcher callbacks are batched to avoid duplicate invocations. For example, we probably don't want a watcher to fire a thousand times if we synchronously push a thousand items into an array being watched.
+컴포넌트 업데이트와 마찬가지로, 사용자가 만든 감시자 콜백도 중복 호출을 방지하기 위해 배치 처리됩니다. 예를 들어, 감시하는 배열에 동기적으로 1,000개 항목을 추가할 때 감시자가 1,000번 실행되는 것을 원하지 않을 것입니다.
 
-By default, a watcher's callback is called **after** parent component updates (if any), and **before** the owner component's DOM updates. This means if you attempt to access the owner component's own DOM inside a watcher callback, the DOM will be in a pre-update state.
+기본적으로 감시자 콜백은 **상위 컴포넌트 업데이트 이후**(있다면), 그리고 **소유 컴포넌트의 DOM 업데이트 이전**에 호출됩니다. 즉, 감시자 콜백에서 소유 컴포넌트의 DOM에 접근하면, DOM이 업데이트되기 전 상태임을 의미합니다.
 
-### Post Watchers {#post-watchers}
+### 후처리 감시자(Post Watchers) {#post-watchers}
 
-If you want to access the owner component's DOM in a watcher callback **after** Vue has updated it, you need to specify the `flush: 'post'` option:
+감시자 콜백에서 **Vue가 DOM을 업데이트한 후** 소유 컴포넌트의 DOM에 접근하고 싶다면, `flush: 'post'` 옵션을 지정해야 합니다:
 
 <div class="options-api">
 
@@ -528,21 +528,21 @@ watchEffect(callback, {
 })
 ```
 
-Post-flush `watchEffect()` also has a convenience alias, `watchPostEffect()`:
+후처리 `watchEffect()`에는 편의상 `watchPostEffect()`라는 별칭도 있습니다:
 
 ```js
 import { watchPostEffect } from 'vue'
 
 watchPostEffect(() => {
-  /* executed after Vue updates */
+  /* Vue 업데이트 이후에 실행됨 */
 })
 ```
 
 </div>
 
-### Sync Watchers {#sync-watchers}
+### 동기 감시자(Sync Watchers) {#sync-watchers}
 
-It's also possible to create a watcher that fires synchronously, before any Vue-managed updates:
+Vue가 관리하는 업데이트보다 먼저, 동기적으로 실행되는 감시자를 만들 수도 있습니다:
 
 <div class="options-api">
 
@@ -572,27 +572,27 @@ watchEffect(callback, {
 })
 ```
 
-Sync `watchEffect()` also has a convenience alias, `watchSyncEffect()`:
+동기 `watchEffect()`에는 편의상 `watchSyncEffect()`라는 별칭도 있습니다:
 
 ```js
 import { watchSyncEffect } from 'vue'
 
 watchSyncEffect(() => {
-  /* executed synchronously upon reactive data change */
+  /* 반응형 데이터 변경 시 동기적으로 실행됨 */
 })
 ```
 
 </div>
 
-:::warning Use with Caution
-Sync watchers do not have batching and triggers every time a reactive mutation is detected. It's ok to use them to watch simple boolean values, but avoid using them on data sources that might be synchronously mutated many times, e.g. arrays.
+:::warning 주의해서 사용하세요
+동기 감시자는 배치 처리가 없으며, 반응형 변경이 감지될 때마다 매번 실행됩니다. 단순한 불리언 값을 감시할 때는 괜찮지만, 배열 등 동기적으로 여러 번 변경될 수 있는 데이터 소스에는 사용을 피하세요.
 :::
 
 <div class="options-api">
 
 ## `this.$watch()` \* {#this-watch}
 
-It's also possible to imperatively create watchers using the [`$watch()` instance method](/api/component-instance#watch):
+[`$watch()` 인스턴스 메서드](/api/component-instance#watch)를 사용하여 명령형으로 감시자를 생성할 수도 있습니다:
 
 ```js
 export default {
@@ -604,22 +604,22 @@ export default {
 }
 ```
 
-This is useful when you need to conditionally set up a watcher, or only watch something in response to user interaction. It also allows you to stop the watcher early.
+이 방법은 감시자를 조건부로 설정해야 하거나, 사용자 상호작용에 따라 무언가를 감시해야 할 때 유용합니다. 또한 감시자를 조기에 중단할 수도 있습니다.
 
 </div>
 
-## Stopping a Watcher {#stopping-a-watcher}
+## 감시자 중단하기(Stopping a Watcher) {#stopping-a-watcher}
 
 <div class="options-api">
 
-Watchers declared using the `watch` option or the `$watch()` instance method are automatically stopped when the owner component is unmounted, so in most cases you don't need to worry about stopping the watcher yourself.
+`watch` 옵션이나 `$watch()` 인스턴스 메서드로 선언한 감시자는 소유 컴포넌트가 언마운트될 때 자동으로 중단되므로, 대부분의 경우 감시자를 직접 중단할 필요가 없습니다.
 
-In the rare case where you need to stop a watcher before the owner component unmounts, the `$watch()` API returns a function for that:
+드물게 소유 컴포넌트가 언마운트되기 전에 감시자를 중단해야 하는 경우, `$watch()` API는 이를 위한 함수를 반환합니다:
 
 ```js
 const unwatch = this.$watch('foo', callback)
 
-// ...when the watcher is no longer needed:
+// ...감시자가 더 이상 필요 없을 때:
 unwatch()
 ```
 
@@ -627,42 +627,42 @@ unwatch()
 
 <div class="composition-api">
 
-Watchers declared synchronously inside `setup()` or `<script setup>` are bound to the owner component instance, and will be automatically stopped when the owner component is unmounted. In most cases, you don't need to worry about stopping the watcher yourself.
+`setup()` 또는 `<script setup>` 내부에서 동기적으로 선언한 감시자는 소유 컴포넌트 인스턴스에 바인딩되며, 소유 컴포넌트가 언마운트될 때 자동으로 중단됩니다. 대부분의 경우 감시자를 직접 중단할 필요가 없습니다.
 
-The key here is that the watcher must be created **synchronously**: if the watcher is created in an async callback, it won't be bound to the owner component and must be stopped manually to avoid memory leaks. Here's an example:
+여기서 중요한 점은 감시자가 **동기적으로** 생성되어야 한다는 것입니다: 감시자가 비동기 콜백에서 생성되면 소유 컴포넌트에 바인딩되지 않으므로, 메모리 누수를 방지하려면 직접 중단해야 합니다. 예시는 다음과 같습니다:
 
 ```vue
 <script setup>
 import { watchEffect } from 'vue'
 
-// this one will be automatically stopped
+// 이 감시자는 자동으로 중단됩니다
 watchEffect(() => {})
 
-// ...this one will not!
+// ...이 감시자는 자동으로 중단되지 않습니다!
 setTimeout(() => {
   watchEffect(() => {})
 }, 100)
 </script>
 ```
 
-To manually stop a watcher, use the returned handle function. This works for both `watch` and `watchEffect`:
+감시자를 수동으로 중단하려면 반환된 핸들 함수를 사용하세요. 이는 `watch`와 `watchEffect` 모두에 적용됩니다:
 
 ```js
 const unwatch = watchEffect(() => {})
 
-// ...later, when no longer needed
+// ...나중에 더 이상 필요 없을 때
 unwatch()
 ```
 
-Note that there should be very few cases where you need to create watchers asynchronously, and synchronous creation should be preferred whenever possible. If you need to wait for some async data, you can make your watch logic conditional instead:
+비동기적으로 감시자를 생성해야 하는 경우는 매우 드물며, 가능하면 동기적으로 생성하는 것이 좋습니다. 비동기 데이터를 기다려야 한다면, 감시 로직을 조건부로 만들 수 있습니다:
 
 ```js
-// data to be loaded asynchronously
+// 비동기로 로드될 데이터
 const data = ref(null)
 
 watchEffect(() => {
   if (data.value) {
-    // do something when data is loaded
+    // 데이터가 로드되었을 때 실행
   }
 })
 ```

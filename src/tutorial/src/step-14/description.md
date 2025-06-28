@@ -1,12 +1,12 @@
-# Slots {#slots}
+# 슬롯 {#slots}
 
-In addition to passing data via props, the parent component can also pass down template fragments to the child via **slots**:
+props를 통해 데이터를 전달하는 것 외에도, 부모 컴포넌트는 **슬롯**을 통해 템플릿 조각을 자식에게 전달할 수 있습니다:
 
 <div class="sfc">
 
 ```vue-html
 <ChildComp>
-  This is some slot content!
+  이것은 슬롯 콘텐츠입니다!
 </ChildComp>
 ```
 
@@ -15,18 +15,18 @@ In addition to passing data via props, the parent component can also pass down t
 
 ```vue-html
 <child-comp>
-  This is some slot content!
+  이것은 슬롯 콘텐츠입니다!
 </child-comp>
 ```
 
 </div>
 
-In the child component, it can render the slot content from the parent using the `<slot>` element as outlet:
+자식 컴포넌트에서는 `<slot>` 엘리먼트를 아웃렛으로 사용하여 부모로부터 전달된 슬롯 콘텐츠를 렌더링할 수 있습니다:
 
 <div class="sfc">
 
 ```vue-html
-<!-- in child template -->
+<!-- 자식 템플릿에서 -->
 <slot/>
 ```
 
@@ -34,16 +34,16 @@ In the child component, it can render the slot content from the parent using the
 <div class="html">
 
 ```vue-html
-<!-- in child template -->
+<!-- 자식 템플릿에서 -->
 <slot></slot>
 ```
 
 </div>
 
-Content inside the `<slot>` outlet will be treated as "fallback" content: it will be displayed if the parent did not pass down any slot content:
+`<slot>` 아웃렛 내부의 콘텐츠는 "폴백" 콘텐츠로 간주됩니다: 부모가 슬롯 콘텐츠를 전달하지 않은 경우에 표시됩니다:
 
 ```vue-html
-<slot>Fallback content</slot>
+<slot>폴백 콘텐츠</slot>
 ```
 
-Currently we are not passing any slot content to `<ChildComp>`, so you should see the fallback content. Let's provide some slot content to the child while making use of the parent's `msg` state.
+현재 우리는 `<ChildComp>`에 슬롯 콘텐츠를 전달하지 않았으므로, 폴백 콘텐츠가 표시되어야 합니다. 이제 부모의 `msg` 상태를 활용하여 자식에게 슬롯 콘텐츠를 제공해 봅시다.

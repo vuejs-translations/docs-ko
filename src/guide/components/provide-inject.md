@@ -1,18 +1,18 @@
 # Provide / Inject {#provide-inject}
 
-> This page assumes you've already read the [Components Basics](/guide/essentials/component-basics). Read that first if you are new to components.
+> 이 페이지는 이미 [컴포넌트 기본](/guide/essentials/component-basics)을 읽었다고 가정합니다. 컴포넌트가 처음이라면 먼저 해당 내용을 읽어보세요.
 
 ## Prop Drilling {#prop-drilling}
 
-Usually, when we need to pass data from the parent to a child component, we use [props](/guide/components/props). However, imagine the case where we have a large component tree, and a deeply nested component needs something from a distant ancestor component. With only props, we would have to pass the same prop across the entire parent chain:
+일반적으로 부모에서 자식 컴포넌트로 데이터를 전달할 때는 [props](/guide/components/props)를 사용합니다. 하지만, 큰 컴포넌트 트리에서 깊이 중첩된 컴포넌트가 먼 조상 컴포넌트의 무언가가 필요하다고 상상해보세요. props만으로는 동일한 prop을 전체 부모 체인에 걸쳐 전달해야 합니다:
 
 ![prop drilling diagram](./images/prop-drilling.png)
 
 <!-- https://www.figma.com/file/yNDTtReM2xVgjcGVRzChss/prop-drilling -->
 
-Notice although the `<Footer>` component may not care about these props at all, it still needs to declare and pass them along just so `<DeepChild>` can access them. If there is a longer parent chain, more components would be affected along the way. This is called "props drilling" and definitely isn't fun to deal with.
+`<Footer>` 컴포넌트가 이러한 prop에 전혀 관심이 없더라도, `<DeepChild>`가 접근할 수 있도록 prop을 선언하고 전달해야 한다는 점에 주목하세요. 부모 체인이 더 길어진다면 더 많은 컴포넌트가 영향을 받게 됩니다. 이를 "props drilling"이라고 하며, 확실히 다루기 번거롭습니다.
 
-We can solve props drilling with `provide` and `inject`. A parent component can serve as a **dependency provider** for all its descendants. Any component in the descendant tree, regardless of how deep it is, can **inject** dependencies provided by components up in its parent chain.
+`provide`와 `inject`를 사용하면 props drilling 문제를 해결할 수 있습니다. 부모 컴포넌트는 모든 자손을 위한 **의존성 제공자** 역할을 할 수 있습니다. 자손 트리 내의 어떤 컴포넌트든, 깊이에 상관없이 부모 체인 상단의 컴포넌트가 제공한 의존성을 **주입**할 수 있습니다.
 
 ![Provide/inject scheme](./images/provide-inject.png)
 
@@ -22,7 +22,7 @@ We can solve props drilling with `provide` and `inject`. A parent component can 
 
 <div class="composition-api">
 
-To provide data to a component's descendants, use the [`provide()`](/api/composition-api-dependency-injection#provide) function:
+컴포넌트의 자손에게 데이터를 제공하려면 [`provide()`](/api/composition-api-dependency-injection#provide) 함수를 사용하세요:
 
 ```vue
 <script setup>
@@ -32,7 +32,7 @@ provide(/* key */ 'message', /* value */ 'hello!')
 </script>
 ```
 
-If not using `<script setup>`, make sure `provide()` is called synchronously inside `setup()`:
+`<script setup>`을 사용하지 않는 경우, `provide()`는 반드시 `setup()` 내부에서 동기적으로 호출되어야 합니다:
 
 ```js
 import { provide } from 'vue'
@@ -44,9 +44,9 @@ export default {
 }
 ```
 
-The `provide()` function accepts two arguments. The first argument is called the **injection key**, which can be a string or a `Symbol`. The injection key is used by descendant components to lookup the desired value to inject. A single component can call `provide()` multiple times with different injection keys to provide different values.
+`provide()` 함수는 두 개의 인자를 받습니다. 첫 번째 인자는 **주입 키**(injection key)로, 문자열 또는 `Symbol`이 될 수 있습니다. 주입 키는 자손 컴포넌트가 주입할 값을 찾는 데 사용됩니다. 하나의 컴포넌트는 서로 다른 주입 키로 여러 번 `provide()`를 호출하여 다양한 값을 제공할 수 있습니다.
 
-The second argument is the provided value. The value can be of any type, including reactive state such as refs:
+두 번째 인자는 제공할 값입니다. 값은 ref와 같은 반응형 상태를 포함하여 어떤 타입이든 될 수 있습니다:
 
 ```js
 import { ref, provide } from 'vue'
@@ -55,13 +55,13 @@ const count = ref(0)
 provide('key', count)
 ```
 
-Providing reactive values allows the descendant components using the provided value to establish a reactive connection to the provider component.
+반응형 값을 제공하면, 제공된 값을 사용하는 자손 컴포넌트가 제공자 컴포넌트와 반응형 연결을 맺을 수 있습니다.
 
 </div>
 
 <div class="options-api">
 
-To provide data to a component's descendants, use the [`provide`](/api/options-composition#provide) option:
+컴포넌트의 자손에게 데이터를 제공하려면 [`provide`](/api/options-composition#provide) 옵션을 사용하세요:
 
 ```js
 export default {
@@ -71,9 +71,9 @@ export default {
 }
 ```
 
-For each property in the `provide` object, the key is used by child components to locate the correct value to inject, while the value is what ends up being injected.
+`provide` 객체의 각 프로퍼티에서, 키는 자식 컴포넌트가 올바른 값을 주입받는 데 사용되며, 값은 실제로 주입되는 값입니다.
 
-If we need to provide per-instance state, for example data declared via the `data()`, then `provide` must use a function value:
+인스턴스별 상태(예: `data()`로 선언된 데이터)를 제공해야 하는 경우, `provide`는 함수 값을 사용해야 합니다:
 
 ```js{7-12}
 export default {
@@ -83,7 +83,7 @@ export default {
     }
   },
   provide() {
-    // use function syntax so that we can access `this`
+    // `this`에 접근할 수 있도록 함수 문법을 사용합니다
     return {
       message: this.message
     }
@@ -91,13 +91,13 @@ export default {
 }
 ```
 
-However, do note this does **not** make the injection reactive. We will discuss [making injections reactive](#working-with-reactivity) below.
+하지만, 이렇게 해도 주입이 **반응형이 되지는 않습니다**. 아래에서 [주입을 반응형으로 만드는 방법](#working-with-reactivity)을 다루겠습니다.
 
 </div>
 
 ## App-level Provide {#app-level-provide}
 
-In addition to providing data in a component, we can also provide at the app level:
+컴포넌트에서 데이터를 제공하는 것 외에도, 앱 레벨에서 제공할 수도 있습니다:
 
 ```js
 import { createApp } from 'vue'
@@ -107,13 +107,13 @@ const app = createApp({})
 app.provide(/* key */ 'message', /* value */ 'hello!')
 ```
 
-App-level provides are available to all components rendered in the app. This is especially useful when writing [plugins](/guide/reusability/plugins), as plugins typically wouldn't be able to provide values using components.
+앱 레벨에서 제공한 값은 앱에서 렌더링되는 모든 컴포넌트에서 사용할 수 있습니다. 이는 [플러그인](/guide/reusability/plugins)을 작성할 때 특히 유용합니다. 플러그인은 일반적으로 컴포넌트를 통해 값을 제공할 수 없기 때문입니다.
 
 ## Inject {#inject}
 
 <div class="composition-api">
 
-To inject data provided by an ancestor component, use the [`inject()`](/api/composition-api-dependency-injection#inject) function:
+조상 컴포넌트가 제공한 데이터를 주입하려면 [`inject()`](/api/composition-api-dependency-injection#inject) 함수를 사용하세요:
 
 ```vue
 <script setup>
@@ -123,13 +123,13 @@ const message = inject('message')
 </script>
 ```
 
-If multiple parents provide data with the same key, inject will resolve to the value from the closest parent in component's parent chain.
+여러 부모가 동일한 키로 데이터를 제공하는 경우, inject는 컴포넌트의 부모 체인에서 가장 가까운 부모의 값을 사용합니다.
 
-If the provided value is a ref, it will be injected as-is and will **not** be automatically unwrapped. This allows the injector component to retain the reactivity connection to the provider component.
+제공된 값이 ref인 경우, 해당 값은 그대로 주입되며 **자동으로 언래핑되지 않습니다**. 이를 통해 주입자 컴포넌트가 제공자 컴포넌트와의 반응형 연결을 유지할 수 있습니다.
 
-[Full provide + inject Example with Reactivity](https://play.vuejs.org/#eNqFUUFugzAQ/MrKF1IpxfeIVKp66Kk/8MWFDXYFtmUbpArx967BhURRU9/WOzO7MzuxV+fKcUB2YlWovXYRAsbBvQije2d9hAk8Xo7gvB11gzDDxdseCuIUG+ZN6a7JjZIvVRIlgDCcw+d3pmvTglz1okJ499I0C3qB1dJQT9YRooVaSdNiACWdQ5OICj2WwtTWhAg9hiBbhHNSOxQKu84WT8LkNQ9FBhTHXyg1K75aJHNUROxdJyNSBVBp44YI43NvG+zOgmWWYGt7dcipqPhGZEe2ef07wN3lltD+lWN6tNkV/37+rdKjK2rzhRTt7f3u41xhe37/xJZGAL2PLECXa9NKdD/a6QTTtGnP88LgiXJtYv4BaLHhvg==)
+[반응형을 포함한 provide + inject 전체 예제](https://play.vuejs.org/#eNqFUUFugzAQ/MrKF1IpxfeIVKp66Kk/8MWFDXYFtmUbpArx967BhURRU9/WOzO7MzuxV+fKcUB2YlWovXYRAsbBvQije2d9hAk8Xo7gvB11gzDDxdseCuIUG+ZN6a7JjZIvVRIlgDCcw+d3pmvTglz1okJ499I0C3qB1dJQT9YRooVaSdNiACWdQ5OICj2WwtTWhAg9hiBbhHNSOxQKu84WT8LkNQ9FBhTHXyg1K75aJHNUROxdJyNSBVBp44YI43NvG+zOgmWWYGt7dcipqPhGZEe2ef07wN3lltD+lWN6tNkV/37+rdKjK2rzhRTt7f3u41xhe37/xJZGAL2PLECXa9NKdD/a6QTTtGnP88LgiXJtYv4BaLHhvg==)
 
-Again, if not using `<script setup>`, `inject()` should only be called synchronously inside `setup()`:
+마찬가지로, `<script setup>`을 사용하지 않는 경우 `inject()`는 반드시 `setup()` 내부에서 동기적으로 호출되어야 합니다:
 
 ```js
 import { inject } from 'vue'
@@ -146,76 +146,76 @@ export default {
 
 <div class="options-api">
 
-To inject data provided by an ancestor component, use the [`inject`](/api/options-composition#inject) option:
+조상 컴포넌트가 제공한 데이터를 주입하려면 [`inject`](/api/options-composition#inject) 옵션을 사용하세요:
 
 ```js
 export default {
   inject: ['message'],
   created() {
-    console.log(this.message) // injected value
+    console.log(this.message) // 주입된 값
   }
 }
 ```
 
-Injections are resolved **before** the component's own state, so you can access injected properties in `data()`:
+주입은 컴포넌트의 자체 상태보다 **먼저** 해결되므로, `data()`에서 주입된 프로퍼티에 접근할 수 있습니다:
 
 ```js
 export default {
   inject: ['message'],
   data() {
     return {
-      // initial data based on injected value
+      // 주입된 값을 기반으로 초기 데이터 설정
       fullMessage: this.message
     }
   }
 }
 ```
 
-If multiple parents provide data with the same key, inject will resolve to the value from the closest parent in component's parent chain.
+여러 부모가 동일한 키로 데이터를 제공하는 경우, inject는 컴포넌트의 부모 체인에서 가장 가까운 부모의 값을 사용합니다.
 
-[Full provide + inject example](https://play.vuejs.org/#eNqNkcFqwzAQRH9l0EUthOhuRKH00FO/oO7B2JtERZaEvA4F43+vZCdOTAIJCImRdpi32kG8h7A99iQKobs6msBvpTNt8JHxcTC2wS76FnKrJpVLZelKR39TSUO7qreMoXRA7ZPPkeOuwHByj5v8EqI/moZeXudCIBL30Z0V0FLXVXsqIA9krU8R+XbMR9rS0mqhS4KpDbZiSgrQc5JKQqvlRWzEQnyvuc9YuWbd4eXq+TZn0IvzOeKr8FvsNcaK/R6Ocb9Uc4FvefpE+fMwP0wH8DU7wB77nIo6x6a2hvNEME5D0CpbrjnHf+8excI=)
+[provide + inject 전체 예제](https://play.vuejs.org/#eNqNkcFqwzAQRH9l0EUthOhuRKH00FO/oO7B2JtERZaEvA4F43+vZCdOTAIJCImRdpi32kG8h7A99iQKobs6msBvpTNt8JHxcTC2wS76FnKrJpVLZelKR39TSUO7qreMoXRA7ZPPkeOuwHByj5v8EqI/moZeXudCIBL30Z0V0FLXVXsqIA9krU8R+XbMR9rS0mqhS4KpDbZiSgrQc5JKQqvlRWzEQnyvuc9YuWbd4eXq+TZn0IvzOeKr8FvsNcaK/R6Ocb9Uc4FvefpE+fMwP0wH8DU7wB77nIo6x6a2hvNEME5D0CpbrjnHf+8excI=)
 
 ### Injection Aliasing \* {#injection-aliasing}
 
-When using the array syntax for `inject`, the injected properties are exposed on the component instance using the same key. In the example above, the property was provided under the key `"message"`, and injected as `this.message`. The local key is the same as the injection key.
+`inject`의 배열 문법을 사용할 때, 주입된 프로퍼티는 동일한 키로 컴포넌트 인스턴스에 노출됩니다. 위 예제에서는 `"message"`라는 키로 제공된 프로퍼티가 `this.message`로 주입되었습니다. 로컬 키와 주입 키가 동일합니다.
 
-If we want to inject the property using a different local key, we need to use the object syntax for the `inject` option:
+다른 로컬 키로 프로퍼티를 주입하고 싶다면, `inject` 옵션에 객체 문법을 사용해야 합니다:
 
 ```js
 export default {
   inject: {
-    /* local key */ localMessage: {
-      from: /* injection key */ 'message'
+    /* 로컬 키 */ localMessage: {
+      from: /* 주입 키 */ 'message'
     }
   }
 }
 ```
 
-Here, the component will locate a property provided with the key `"message"`, and then expose it as `this.localMessage`.
+여기서 컴포넌트는 `"message"`라는 키로 제공된 프로퍼티를 찾아 `this.localMessage`로 노출합니다.
 
 </div>
 
 ### Injection Default Values {#injection-default-values}
 
-By default, `inject` assumes that the injected key is provided somewhere in the parent chain. In the case where the key is not provided, there will be a runtime warning.
+기본적으로, `inject`는 주입된 키가 부모 체인 어딘가에서 제공된다고 가정합니다. 만약 키가 제공되지 않은 경우 런타임 경고가 발생합니다.
 
-If we want to make an injected property work with optional providers, we need to declare a default value, similar to props:
+주입된 프로퍼티가 선택적 제공자와 함께 동작하도록 하려면, props와 유사하게 기본값을 선언해야 합니다:
 
 <div class="composition-api">
 
 ```js
-// `value` will be "default value"
-// if no data matching "message" was provided
+// "message"에 해당하는 데이터가 제공되지 않았다면
+// `value`는 "default value"가 됩니다
 const value = inject('message', 'default value')
 ```
 
-In some cases, the default value may need to be created by calling a function or instantiating a new class. To avoid unnecessary computation or side effects in case the optional value is not used, we can use a factory function for creating the default value:
+경우에 따라 기본값을 함수 호출이나 새 클래스 인스턴스화로 생성해야 할 수도 있습니다. 선택적 값이 사용되지 않을 때 불필요한 연산이나 부작용을 피하려면, 기본값 생성에 팩토리 함수를 사용할 수 있습니다:
 
 ```js
 const value = inject('key', () => new ExpensiveClass(), true)
 ```
 
-The third parameter indicates the default value should be treated as a factory function.
+세 번째 인자는 기본값을 팩토리 함수로 처리해야 함을 나타냅니다.
 
 </div>
 
@@ -223,16 +223,16 @@ The third parameter indicates the default value should be treated as a factory f
 
 ```js
 export default {
-  // object syntax is required
-  // when declaring default values for injections
+  // 주입에 기본값을 선언할 때는
+  // 객체 문법이 필요합니다
   inject: {
     message: {
-      from: 'message', // this is optional if using the same key for injection
+      from: 'message', // 주입 키가 동일하다면 생략 가능
       default: 'default value'
     },
     user: {
-      // use a factory function for non-primitive values that are expensive
-      // to create, or ones that should be unique per component instance.
+      // 생성 비용이 크거나, 컴포넌트 인스턴스마다 고유해야 하는
+      // 비원시값에는 팩토리 함수를 사용하세요.
       default: () => ({ name: 'John' })
     }
   }
@@ -245,12 +245,12 @@ export default {
 
 <div class="composition-api">
 
-When using reactive provide / inject values, **it is recommended to keep any mutations to reactive state inside of the _provider_ whenever possible**. This ensures that the provided state and its possible mutations are co-located in the same component, making it easier to maintain in the future.
+반응형 provide / inject 값을 사용할 때는, **가능하다면 반응형 상태의 모든 변경을 _제공자_ 내부에서만 처리하는 것이 좋습니다**. 이렇게 하면 제공된 상태와 그 변이 로직이 동일 컴포넌트에 위치하게 되어, 향후 유지보수가 쉬워집니다.
 
-There may be times when we need to update the data from an injector component. In such cases, we recommend providing a function that is responsible for mutating the state:
+주입자 컴포넌트에서 데이터를 업데이트해야 할 때도 있습니다. 이런 경우, 상태 변이를 담당하는 함수를 함께 제공하는 것을 권장합니다:
 
 ```vue{7-9,13}
-<!-- inside provider component -->
+<!-- 제공자 컴포넌트 내부 -->
 <script setup>
 import { provide, ref } from 'vue'
 
@@ -268,7 +268,7 @@ provide('location', {
 ```
 
 ```vue{5}
-<!-- in injector component -->
+<!-- 주입자 컴포넌트에서 -->
 <script setup>
 import { inject } from 'vue'
 
@@ -280,7 +280,7 @@ const { location, updateLocation } = inject('location')
 </template>
 ```
 
-Finally, you can wrap the provided value with [`readonly()`](/api/reactivity-core#readonly) if you want to ensure that the data passed through `provide` cannot be mutated by the injector component.
+마지막으로, `provide`를 통해 전달되는 데이터가 주입자 컴포넌트에서 변경되지 않도록 하려면 [`readonly()`](/api/reactivity-core#readonly)로 감쌀 수 있습니다.
 
 ```vue
 <script setup>
@@ -295,7 +295,7 @@ provide('read-only-count', readonly(count))
 
 <div class="options-api">
 
-In order to make injections reactively linked to the provider, we need to provide a computed property using the [computed()](/api/reactivity-core#computed) function:
+주입이 제공자와 반응형으로 연결되도록 하려면, [computed()](/api/reactivity-core#computed) 함수를 사용해 계산 속성을 제공해야 합니다:
 
 ```js{10}
 import { computed } from 'vue'
@@ -308,24 +308,24 @@ export default {
   },
   provide() {
     return {
-      // explicitly provide a computed property
+      // 계산 속성을 명시적으로 제공
       message: computed(() => this.message)
     }
   }
 }
 ```
 
-[Full provide + inject Example with Reactivity](https://play.vuejs.org/#eNqNUctqwzAQ/JVFFyeQxnfjBEoPPfULqh6EtYlV9EKWTcH43ytZtmPTQA0CsdqZ2dlRT16tPXctkoKUTeWE9VeqhbLGeXirheRwc0ZBds7HKkKzBdBDZZRtPXIYJlzqU40/I4LjjbUyIKmGEWw0at8UgZrUh1PscObZ4ZhQAA596/RcAShsGnbHArIapTRBP74O8Up060wnOO5QmP0eAvZyBV+L5jw1j2tZqsMp8yWRUHhUVjKPoQIohQ460L0ow1FeKJlEKEnttFweijJfiORElhCf5f3umObb0B9PU/I7kk17PJj7FloN/2t7a2Pj/Zkdob+x8gV8ZlMs2de/8+14AXwkBngD9zgVqjg2rNXPvwjD+EdlHilrn8MvtvD1+Q==)
+[반응형을 포함한 provide + inject 전체 예제](https://play.vuejs.org/#eNqNUctqwzAQ/JVFFyeQxnfjBEoPPfULqh6EtYlV9EKWTcH43ytZtmPTQA0CsdqZ2dlRT16tPXctkoKUTeWE9VeqhbLGeXirheRwc0ZBds7HKkKzBdBDZZRtPXIYJlzqU40/I4LjjbUyIKmGEWw0at8UgZrUh1PscObZ4ZhQAA596/RcAShsGnbHArIapTRBP74O8Up060wnOO5QmP0eAvZyBV+L5jw1j2tZqsMp8yWRUHhUVjKPoQIohQ460L0ow1FeKJlEKEnttFweijJfiORElhCf5f3umObb0B9PU/I7kk17PJj7FloN/2t7a2Pj/Zkdob+x8gV8ZlMs2de/8+14AXwkBngD9zgVqjg2rNXPvwjD+EdlHilrn8MvtvD1+Q==)
 
-The `computed()` function is typically used in Composition API components, but can also be used to complement certain use cases in Options API. You can learn more about its usage by reading the [Reactivity Fundamentals](/guide/essentials/reactivity-fundamentals) and [Computed Properties](/guide/essentials/computed) with the API Preference set to Composition API.
+`computed()` 함수는 주로 Composition API 컴포넌트에서 사용되지만, Options API의 특정 용례를 보완하는 데도 사용할 수 있습니다. [반응성 기초](/guide/essentials/reactivity-fundamentals)와 [계산 속성](/guide/essentials/computed)에서 Composition API로 API 선호도를 설정해 더 자세히 배울 수 있습니다.
 
 </div>
 
 ## Working with Symbol Keys {#working-with-symbol-keys}
 
-So far, we have been using string injection keys in the examples. If you are working in a large application with many dependency providers, or you are authoring components that are going to be used by other developers, it is best to use Symbol injection keys to avoid potential collisions.
+지금까지 예제에서는 문자열 주입 키를 사용했습니다. 많은 의존성 제공자가 있는 대규모 애플리케이션을 개발하거나, 다른 개발자가 사용할 컴포넌트를 작성하는 경우, 잠재적 충돌을 피하기 위해 Symbol 주입 키를 사용하는 것이 가장 좋습니다.
 
-It's recommended to export the Symbols in a dedicated file:
+Symbol을 별도의 파일에 export하는 것이 권장됩니다:
 
 ```js
 // keys.js
@@ -335,38 +335,38 @@ export const myInjectionKey = Symbol()
 <div class="composition-api">
 
 ```js
-// in provider component
+// 제공자 컴포넌트에서
 import { provide } from 'vue'
 import { myInjectionKey } from './keys.js'
 
 provide(myInjectionKey, {
-  /* data to provide */
+  /* 제공할 데이터 */
 })
 ```
 
 ```js
-// in injector component
+// 주입자 컴포넌트에서
 import { inject } from 'vue'
 import { myInjectionKey } from './keys.js'
 
 const injected = inject(myInjectionKey)
 ```
 
-See also: [Typing Provide / Inject](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
+참고: [Provide / Inject 타입 지정](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
 
 </div>
 
 <div class="options-api">
 
 ```js
-// in provider component
+// 제공자 컴포넌트에서
 import { myInjectionKey } from './keys.js'
 
 export default {
   provide() {
     return {
       [myInjectionKey]: {
-        /* data to provide */
+        /* 제공할 데이터 */
       }
     }
   }
@@ -374,7 +374,7 @@ export default {
 ```
 
 ```js
-// in injector component
+// 주입자 컴포넌트에서
 import { myInjectionKey } from './keys.js'
 
 export default {

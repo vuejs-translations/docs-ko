@@ -1,20 +1,20 @@
-# Render Function APIs {#render-function-apis}
+# 렌더 함수 API {#render-function-apis}
 
 ## h() {#h}
 
-Creates virtual DOM nodes (vnodes).
+가상 DOM 노드(vnode)를 생성합니다.
 
-- **Type**
+- **타입**
 
   ```ts
-  // full signature
+  // 전체 시그니처
   function h(
     type: string | Component,
     props?: object | null,
     children?: Children | Slot | Slots
   ): VNode
 
-  // omitting props
+  // props 생략
   function h(type: string | Component, children?: Children | Slot): VNode
 
   type Children = string | number | boolean | VNode | null | Children[]
@@ -24,68 +24,68 @@ Creates virtual DOM nodes (vnodes).
   type Slots = { [name: string]: Slot }
   ```
 
-  > Types are simplified for readability.
+  > 타입은 가독성을 위해 단순화되었습니다.
 
-- **Details**
+- **세부사항**
 
-  The first argument can either be a string (for native elements) or a Vue component definition. The second argument is the props to be passed, and the third argument is the children.
+  첫 번째 인자는 문자열(네이티브 엘리먼트용) 또는 Vue 컴포넌트 정의가 될 수 있습니다. 두 번째 인자는 전달할 props이고, 세 번째 인자는 자식(children)입니다.
 
-  When creating a component vnode, the children must be passed as slot functions. A single slot function can be passed if the component expects only the default slot. Otherwise, the slots must be passed as an object of slot functions.
+  컴포넌트 vnode를 생성할 때, 자식은 슬롯 함수로 전달되어야 합니다. 컴포넌트가 기본 슬롯만 기대한다면 단일 슬롯 함수를 전달할 수 있습니다. 그렇지 않으면 슬롯을 슬롯 함수 객체로 전달해야 합니다.
 
-  For convenience, the props argument can be omitted when the children is not a slots object.
+  편의를 위해, children이 슬롯 객체가 아닐 때는 props 인자를 생략할 수 있습니다.
 
-- **Example**
+- **예시**
 
-  Creating native elements:
+  네이티브 엘리먼트 생성:
 
   ```js
   import { h } from 'vue'
 
-  // all arguments except the type are optional
+  // type을 제외한 모든 인자는 선택 사항입니다.
   h('div')
   h('div', { id: 'foo' })
 
-  // both attributes and properties can be used in props
-  // Vue automatically picks the right way to assign it
+  // props에서 속성과 프로퍼티 모두 사용할 수 있습니다.
+  // Vue는 자동으로 올바른 할당 방식을 선택합니다.
   h('div', { class: 'bar', innerHTML: 'hello' })
 
-  // class and style have the same object / array
-  // value support like in templates
+  // class와 style은 템플릿에서처럼
+  // 객체/배열 값을 지원합니다.
   h('div', { class: [foo, { bar }], style: { color: 'red' } })
 
-  // event listeners should be passed as onXxx
+  // 이벤트 리스너는 onXxx로 전달해야 합니다.
   h('div', { onClick: () => {} })
 
-  // children can be a string
+  // children은 문자열이 될 수 있습니다.
   h('div', { id: 'foo' }, 'hello')
 
-  // props can be omitted when there are no props
+  // props가 없을 때는 생략할 수 있습니다.
   h('div', 'hello')
   h('div', [h('span', 'hello')])
 
-  // children array can contain mixed vnodes and strings
+  // children 배열에는 vnode와 문자열이 혼합될 수 있습니다.
   h('div', ['hello', h('span', 'hello')])
   ```
 
-  Creating components:
+  컴포넌트 생성:
 
   ```js
   import Foo from './Foo.vue'
 
-  // passing props
+  // props 전달
   h(Foo, {
-    // equivalent of some-prop="hello"
+    // some-prop="hello"와 동일
     someProp: 'hello',
-    // equivalent of @update="() => {}"
+    // @update="() => {}"와 동일
     onUpdate: () => {}
   })
 
-  // passing single default slot
+  // 단일 기본 슬롯 전달
   h(Foo, () => 'default slot')
 
-  // passing named slots
-  // notice the `null` is required to avoid
-  // slots object being treated as props
+  // 명명된 슬롯 전달
+  // 슬롯 객체가 props로 처리되지 않도록
+  // `null`이 필요합니다.
   h(MyComponent, null, {
     default: () => 'default slot',
     foo: () => h('div', 'foo'),
@@ -93,29 +93,29 @@ Creates virtual DOM nodes (vnodes).
   })
   ```
 
-- **See also** [Guide - Render Functions - Creating VNodes](/guide/extras/render-function#creating-vnodes)
+- **참고** [가이드 - 렌더 함수 - VNode 생성](/guide/extras/render-function#creating-vnodes)
 
 ## mergeProps() {#mergeprops}
 
-Merge multiple props objects with special handling for certain props.
+특정 props에 대해 특별한 처리를 하며 여러 props 객체를 병합합니다.
 
-- **Type**
+- **타입**
 
   ```ts
   function mergeProps(...args: object[]): object
   ```
 
-- **Details**
+- **세부사항**
 
-  `mergeProps()` supports merging multiple props objects with special handling for the following props:
+  `mergeProps()`는 다음과 같은 props에 대해 특별한 처리를 하며 여러 props 객체를 병합할 수 있습니다:
 
   - `class`
   - `style`
-  - `onXxx` event listeners - multiple listeners with the same name will be merged into an array.
+  - `onXxx` 이벤트 리스너 - 동일한 이름의 여러 리스너는 배열로 병합됩니다.
 
-  If you do not need the merge behavior and want simple overwrites, native object spread can be used instead.
+  병합 동작이 필요 없고 단순히 덮어쓰기를 원한다면, 네이티브 객체 스프레드를 대신 사용할 수 있습니다.
 
-- **Example**
+- **예시**
 
   ```js
   import { mergeProps } from 'vue'
@@ -141,23 +141,23 @@ Merge multiple props objects with special handling for certain props.
 
 ## cloneVNode() {#clonevnode}
 
-Clones a vnode.
+vnode를 복제합니다.
 
-- **Type**
+- **타입**
 
   ```ts
   function cloneVNode(vnode: VNode, extraProps?: object): VNode
   ```
 
-- **Details**
+- **세부사항**
 
-  Returns a cloned vnode, optionally with extra props to merge with the original.
+  원본과 병합할 추가 props와 함께 복제된 vnode를 반환합니다.
 
-  Vnodes should be considered immutable once created, and you should not mutate the props of an existing vnode. Instead, clone it with different / extra props.
+  vnode는 한 번 생성되면 불변으로 간주되어야 하며, 기존 vnode의 props를 변경해서는 안 됩니다. 대신, 다른/추가 props로 복제해야 합니다.
 
-  Vnodes have special internal properties, so cloning them is not as simple as an object spread. `cloneVNode()` handles most of the internal logic.
+  vnode는 특별한 내부 속성을 가지고 있으므로, 단순한 객체 스프레드로 복제할 수 없습니다. `cloneVNode()`는 대부분의 내부 로직을 처리합니다.
 
-- **Example**
+- **예시**
 
   ```js
   import { h, cloneVNode } from 'vue'
@@ -168,9 +168,9 @@ Clones a vnode.
 
 ## isVNode() {#isvnode}
 
-Checks if a value is a vnode.
+값이 vnode인지 확인합니다.
 
-- **Type**
+- **타입**
 
   ```ts
   function isVNode(value: unknown): boolean
@@ -178,23 +178,23 @@ Checks if a value is a vnode.
 
 ## resolveComponent() {#resolvecomponent}
 
-For manually resolving a registered component by name.
+등록된 컴포넌트를 이름으로 수동으로 해석할 때 사용합니다.
 
-- **Type**
+- **타입**
 
   ```ts
   function resolveComponent(name: string): Component | string
   ```
 
-- **Details**
+- **세부사항**
 
-  **Note: you do not need this if you can import the component directly.**
+  **참고: 컴포넌트를 직접 import할 수 있다면 이 함수를 사용할 필요가 없습니다.**
 
-  `resolveComponent()` must be called inside<span class="composition-api"> either `setup()` or</span> the render function in order to resolve from the correct component context.
+  `resolveComponent()`는 올바른 컴포넌트 컨텍스트에서 해석하기 위해<span class="composition-api"> `setup()` 또는</span> 렌더 함수 내부에서 호출되어야 합니다.
 
-  If the component is not found, a runtime warning will be emitted, and the name string is returned.
+  컴포넌트를 찾을 수 없으면 런타임 경고가 발생하고, 이름 문자열이 반환됩니다.
 
-- **Example**
+- **예시**
 
   <div class="composition-api">
 
@@ -228,33 +228,33 @@ For manually resolving a registered component by name.
 
   </div>
 
-- **See also** [Guide - Render Functions - Components](/guide/extras/render-function#components)
+- **참고** [가이드 - 렌더 함수 - 컴포넌트](/guide/extras/render-function#components)
 
 ## resolveDirective() {#resolvedirective}
 
-For manually resolving a registered directive by name.
+등록된 디렉티브를 이름으로 수동으로 해석할 때 사용합니다.
 
-- **Type**
+- **타입**
 
   ```ts
   function resolveDirective(name: string): Directive | undefined
   ```
 
-- **Details**
+- **세부사항**
 
-  **Note: you do not need this if you can import the directive directly.**
+  **참고: 디렉티브를 직접 import할 수 있다면 이 함수를 사용할 필요가 없습니다.**
 
-  `resolveDirective()` must be called inside<span class="composition-api"> either `setup()` or</span> the render function in order to resolve from the correct component context.
+  `resolveDirective()`는 올바른 컴포넌트 컨텍스트에서 해석하기 위해<span class="composition-api"> `setup()` 또는</span> 렌더 함수 내부에서 호출되어야 합니다.
 
-  If the directive is not found, a runtime warning will be emitted, and the function returns `undefined`.
+  디렉티브를 찾을 수 없으면 런타임 경고가 발생하고, 함수는 `undefined`를 반환합니다.
 
-- **See also** [Guide - Render Functions - Custom Directives](/guide/extras/render-function#custom-directives)
+- **참고** [가이드 - 렌더 함수 - 커스텀 디렉티브](/guide/extras/render-function#custom-directives)
 
 ## withDirectives() {#withdirectives}
 
-For adding custom directives to vnodes.
+vnode에 커스텀 디렉티브를 추가할 때 사용합니다.
 
-- **Type**
+- **타입**
 
   ```ts
   function withDirectives(
@@ -271,16 +271,16 @@ For adding custom directives to vnodes.
   >
   ```
 
-- **Details**
+- **세부사항**
 
-  Wraps an existing vnode with custom directives. The second argument is an array of custom directives. Each custom directive is also represented as an array in the form of `[Directive, value, argument, modifiers]`. Tailing elements of the array can be omitted if not needed.
+  기존 vnode를 커스텀 디렉티브로 감쌉니다. 두 번째 인자는 커스텀 디렉티브의 배열입니다. 각 커스텀 디렉티브는 `[Directive, value, argument, modifiers]` 형태의 배열로 표현됩니다. 배열의 마지막 요소들은 필요하지 않으면 생략할 수 있습니다.
 
-- **Example**
+- **예시**
 
   ```js
   import { h, withDirectives } from 'vue'
 
-  // a custom directive
+  // 커스텀 디렉티브
   const pin = {
     mounted() {
       /* ... */
@@ -296,29 +296,29 @@ For adding custom directives to vnodes.
   ])
   ```
 
-- **See also** [Guide - Render Functions - Custom Directives](/guide/extras/render-function#custom-directives)
+- **참고** [가이드 - 렌더 함수 - 커스텀 디렉티브](/guide/extras/render-function#custom-directives)
 
 ## withModifiers() {#withmodifiers}
 
-For adding built-in [`v-on` modifiers](/guide/essentials/event-handling#event-modifiers) to an event handler function.
+이벤트 핸들러 함수에 내장 [`v-on` 수식어](/guide/essentials/event-handling#event-modifiers)를 추가할 때 사용합니다.
 
-- **Type**
+- **타입**
 
   ```ts
   function withModifiers(fn: Function, modifiers: ModifierGuardsKeys[]): Function
   ```
 
-- **Example**
+- **예시**
 
   ```js
   import { h, withModifiers } from 'vue'
 
   const vnode = h('button', {
-    // equivalent of v-on:click.stop.prevent
+    // v-on:click.stop.prevent와 동일
     onClick: withModifiers(() => {
       // ...
     }, ['stop', 'prevent'])
   })
   ```
 
-- **See also** [Guide - Render Functions - Event Modifiers](/guide/extras/render-function#event-modifiers)
+- **참고** [가이드 - 렌더 함수 - 이벤트 수식어](/guide/extras/render-function#event-modifiers)

@@ -1,17 +1,17 @@
-# Composition API: setup() {#composition-api-setup}
+# 컴포지션 API: setup() {#composition-api-setup}
 
-## Basic Usage {#basic-usage}
+## 기본 사용법 {#basic-usage}
 
-The `setup()` hook serves as the entry point for Composition API usage in components in the following cases:
+`setup()` 훅은 다음과 같은 경우 컴포지션 API를 컴포넌트에서 사용할 수 있는 진입점 역할을 합니다:
 
-1. Using Composition API without a build step;
-2. Integrating with Composition-API-based code in an Options API component.
+1. 빌드 단계 없이 컴포지션 API를 사용할 때;
+2. 옵션 API 컴포넌트에서 컴포지션 API 기반 코드와 통합할 때.
 
-:::info Note
-If you are using Composition API with Single-File Components, [`<script setup>`](/api/sfc-script-setup) is strongly recommended for a more succinct and ergonomic syntax.
+:::info 참고
+싱글 파일 컴포넌트에서 컴포지션 API를 사용하는 경우, 더 간결하고 사용하기 쉬운 문법을 위해 [`<script setup>`](/api/sfc-script-setup) 사용을 강력히 권장합니다.
 :::
 
-We can declare reactive state using [Reactivity APIs](./reactivity-core) and expose them to the template by returning an object from `setup()`. The properties on the returned object will also be made available on the component instance (if other options are used):
+[반응성 API](./reactivity-core)를 사용하여 반응형 상태를 선언하고, `setup()`에서 객체를 반환하여 템플릿에 노출할 수 있습니다. 반환된 객체의 속성들은 (다른 옵션이 사용되는 경우) 컴포넌트 인스턴스에서도 사용할 수 있습니다:
 
 ```vue
 <script>
@@ -21,7 +21,7 @@ export default {
   setup() {
     const count = ref(0)
 
-    // expose to template and other options API hooks
+    // 템플릿과 다른 옵션 API 훅에 노출
     return {
       count
     }
@@ -38,15 +38,15 @@ export default {
 </template>
 ```
 
-[refs](/api/reactivity-core#ref) returned from `setup` are [automatically shallow unwrapped](/guide/essentials/reactivity-fundamentals#deep-reactivity) when accessed in the template so you do not need to use `.value` when accessing them. They are also unwrapped in the same way when accessed on `this`.
+`setup`에서 반환된 [ref](/api/reactivity-core#ref)는 템플릿에서 접근할 때 [자동으로 얕게 언래핑](/guide/essentials/reactivity-fundamentals#deep-reactivity)되므로 접근 시 `.value`를 사용할 필요가 없습니다. `this`에서 접근할 때도 동일하게 언래핑됩니다.
 
-`setup()` itself does not have access to the component instance - `this` will have a value of `undefined` inside `setup()`. You can access Composition-API-exposed values from Options API, but not the other way around.
+`setup()` 자체는 컴포넌트 인스턴스에 접근할 수 없습니다 - `setup()` 내부에서 `this`는 `undefined` 값을 가집니다. 옵션 API에서 컴포지션 API로 노출된 값에는 접근할 수 있지만, 그 반대는 불가능합니다.
 
-`setup()` should return an object _synchronously_. The only case when `async setup()` can be used is when the component is a descendant of a [Suspense](../guide/built-ins/suspense) component.
+`setup()`은 _동기적으로_ 객체를 반환해야 합니다. `async setup()`을 사용할 수 있는 유일한 경우는 컴포넌트가 [Suspense](../guide/built-ins/suspense) 컴포넌트의 하위 컴포넌트인 경우입니다.
 
-## Accessing Props {#accessing-props}
+## Props 접근하기 {#accessing-props}
 
-The first argument in the `setup` function is the `props` argument. Just as you would expect in a standard component, `props` inside of a `setup` function are reactive and will be updated when new props are passed in.
+`setup` 함수의 첫 번째 인자는 `props` 인자입니다. 일반 컴포넌트에서 기대하는 것처럼, `setup` 함수 내부의 `props`는 반응형이며 새로운 props가 전달될 때 업데이트됩니다.
 
 ```js
 export default {
@@ -59,21 +59,21 @@ export default {
 }
 ```
 
-Note that if you destructure the `props` object, the destructured variables will lose reactivity. It is therefore recommended to always access props in the form of `props.xxx`.
+`props` 객체를 구조 분해 할당하면, 구조 분해된 변수는 반응성을 잃게 됩니다. 따라서 항상 `props.xxx` 형태로 props에 접근하는 것이 권장됩니다.
 
-If you really need to destructure the props, or need to pass a prop into an external function while retaining reactivity, you can do so with the [toRefs()](./reactivity-utilities#torefs) and [toRef()](/api/reactivity-utilities#toref) utility APIs:
+정말로 props를 구조 분해해야 하거나, 반응성을 유지한 채로 외부 함수에 prop을 전달해야 하는 경우, [toRefs()](./reactivity-utilities#torefs) 및 [toRef()](/api/reactivity-utilities#toref) 유틸리티 API를 사용할 수 있습니다:
 
 ```js
 import { toRefs, toRef } from 'vue'
 
 export default {
   setup(props) {
-    // turn `props` into an object of refs, then destructure
+    // `props`를 ref 객체로 변환한 후 구조 분해
     const { title } = toRefs(props)
-    // `title` is a ref that tracks `props.title`
+    // `title`은 `props.title`을 추적하는 ref입니다
     console.log(title.value)
 
-    // OR, turn a single property on `props` into a ref
+    // 또는, `props`의 단일 속성을 ref로 변환
     const title = toRef(props, 'title')
   }
 }
@@ -81,27 +81,27 @@ export default {
 
 ## Setup Context {#setup-context}
 
-The second argument passed to the `setup` function is a **Setup Context** object. The context object exposes other values that may be useful inside `setup`:
+`setup` 함수에 전달되는 두 번째 인자는 **Setup Context** 객체입니다. 컨텍스트 객체는 `setup` 내부에서 유용할 수 있는 다른 값들을 노출합니다:
 
 ```js
 export default {
   setup(props, context) {
-    // Attributes (Non-reactive object, equivalent to $attrs)
+    // 속성 (비반응형 객체, $attrs와 동일)
     console.log(context.attrs)
 
-    // Slots (Non-reactive object, equivalent to $slots)
+    // 슬롯 (비반응형 객체, $slots와 동일)
     console.log(context.slots)
 
-    // Emit events (Function, equivalent to $emit)
+    // 이벤트 발생 (함수, $emit과 동일)
     console.log(context.emit)
 
-    // Expose public properties (Function)
+    // 공개 속성 노출 (함수)
     console.log(context.expose)
   }
 }
 ```
 
-The context object is not reactive and can be safely destructured:
+컨텍스트 객체는 반응형이 아니며 안전하게 구조 분해할 수 있습니다:
 
 ```js
 export default {
@@ -111,30 +111,30 @@ export default {
 }
 ```
 
-`attrs` and `slots` are stateful objects that are always updated when the component itself is updated. This means you should avoid destructuring them and always reference properties as `attrs.x` or `slots.x`. Also note that, unlike `props`, the properties of `attrs` and `slots` are **not** reactive. If you intend to apply side effects based on changes to `attrs` or `slots`, you should do so inside an `onBeforeUpdate` lifecycle hook.
+`attrs`와 `slots`는 상태를 가지는 객체로, 컴포넌트 자체가 업데이트될 때마다 항상 업데이트됩니다. 따라서 이들을 구조 분해하지 말고 항상 `attrs.x` 또는 `slots.x`와 같이 속성에 접근해야 합니다. 또한, `props`와 달리 `attrs`와 `slots`의 속성은 **반응형이 아닙니다**. `attrs`나 `slots`의 변경에 따라 부수 효과를 적용하려면 `onBeforeUpdate` 라이프사이클 훅 내부에서 처리해야 합니다.
 
-### Exposing Public Properties {#exposing-public-properties}
+### 공개 속성 노출하기 {#exposing-public-properties}
 
-`expose` is a function that can be used to explicitly limit the properties exposed when the component instance is accessed by a parent component via [template refs](/guide/essentials/template-refs#ref-on-component):
+`expose`는 부모 컴포넌트가 [템플릿 ref](/guide/essentials/template-refs#ref-on-component)를 통해 컴포넌트 인스턴스에 접근할 때 노출되는 속성을 명시적으로 제한할 수 있는 함수입니다:
 
 ```js{5,10}
 export default {
   setup(props, { expose }) {
-    // make the instance "closed" -
-    // i.e. do not expose anything to the parent
+    // 인스턴스를 "닫힌" 상태로 만듭니다 -
+    // 즉, 부모에게 아무것도 노출하지 않음
     expose()
 
     const publicCount = ref(0)
     const privateCount = ref(0)
-    // selectively expose local state
+    // 로컬 상태를 선택적으로 노출
     expose({ count: publicCount })
   }
 }
 ```
 
-## Usage with Render Functions {#usage-with-render-functions}
+## 렌더 함수와 함께 사용하기 {#usage-with-render-functions}
 
-`setup` can also return a [render function](/guide/extras/render-function) which can directly make use of the reactive state declared in the same scope:
+`setup`은 [렌더 함수](/guide/extras/render-function)를 반환할 수도 있으며, 동일한 스코프에서 선언된 반응형 상태를 직접 사용할 수 있습니다:
 
 ```js{6}
 import { h, ref } from 'vue'
@@ -147,9 +147,9 @@ export default {
 }
 ```
 
-Returning a render function prevents us from returning anything else. Internally that shouldn't be a problem, but it can be problematic if we want to expose methods of this component to the parent component via template refs.
+렌더 함수를 반환하면 다른 어떤 것도 반환할 수 없습니다. 내부적으로는 문제가 없지만, 이 컴포넌트의 메서드를 템플릿 ref를 통해 부모 컴포넌트에 노출하고 싶을 때 문제가 될 수 있습니다.
 
-We can solve this problem by calling [`expose()`](#exposing-public-properties):
+이 문제는 [`expose()`](#exposing-public-properties)를 호출하여 해결할 수 있습니다:
 
 ```js{8-10}
 import { h, ref } from 'vue'
@@ -168,4 +168,4 @@ export default {
 }
 ```
 
-The `increment` method would then be available in the parent component via a template ref.
+이제 `increment` 메서드는 템플릿 ref를 통해 부모 컴포넌트에서 사용할 수 있습니다.

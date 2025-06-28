@@ -1,10 +1,10 @@
-# Server-Side Rendering API {#server-side-rendering-api}
+# 서버 사이드 렌더링 API {#server-side-rendering-api}
 
 ## renderToString() {#rendertostring}
 
-- **Exported from `vue/server-renderer`**
+- **`vue/server-renderer`에서 내보냄**
 
-- **Type**
+- **타입**
 
   ```ts
   function renderToString(
@@ -13,7 +13,7 @@
   ): Promise<string>
   ```
 
-- **Example**
+- **예시**
 
   ```js
   import { createSSRApp } from 'vue'
@@ -30,9 +30,9 @@
   })()
   ```
 
-  ### SSR Context {#ssr-context}
+  ### SSR 컨텍스트 {#ssr-context}
 
-  You can pass an optional context object, which can be used to record additional data during the render, for example [accessing content of Teleports](/guide/scaling-up/ssr#teleports):
+  선택적으로 컨텍스트 객체를 전달할 수 있으며, 렌더링 중에 추가 데이터를 기록하는 데 사용할 수 있습니다. 예를 들어 [Teleport의 내용 접근](/guide/scaling-up/ssr#teleports)에 사용할 수 있습니다:
 
   ```js
   const ctx = {}
@@ -41,17 +41,17 @@
   console.log(ctx.teleports) // { '#teleported': 'teleported content' }
   ```
 
-  Most other SSR APIs on this page also optionally accept a context object. The context object can be accessed in component code via the [useSSRContext](#usessrcontext) helper.
+  이 페이지의 대부분의 다른 SSR API도 선택적으로 컨텍스트 객체를 받을 수 있습니다. 컨텍스트 객체는 컴포넌트 코드에서 [useSSRContext](#usessrcontext) 헬퍼를 통해 접근할 수 있습니다.
 
-- **See also** [Guide - Server-Side Rendering](/guide/scaling-up/ssr)
+- **관련 문서** [가이드 - 서버 사이드 렌더링](/guide/scaling-up/ssr)
 
 ## renderToNodeStream() {#rendertonodestream}
 
-Renders input as a [Node.js Readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable).
+입력을 [Node.js Readable 스트림](https://nodejs.org/api/stream.html#stream_class_stream_readable)으로 렌더링합니다.
 
-- **Exported from `vue/server-renderer`**
+- **`vue/server-renderer`에서 내보냄**
 
-- **Type**
+- **타입**
 
   ```ts
   function renderToNodeStream(
@@ -60,24 +60,24 @@ Renders input as a [Node.js Readable stream](https://nodejs.org/api/stream.html#
   ): Readable
   ```
 
-- **Example**
+- **예시**
 
   ```js
-  // inside a Node.js http handler
+  // Node.js http 핸들러 내부
   renderToNodeStream(app).pipe(res)
   ```
 
-  :::tip Note
-  This method is not supported in the ESM build of `vue/server-renderer`, which is decoupled from Node.js environments. Use [`pipeToNodeWritable`](#pipetonodewritable) instead.
+  :::tip 참고
+  이 메서드는 Node.js 환경과 분리된 `vue/server-renderer`의 ESM 빌드에서는 지원되지 않습니다. 대신 [`pipeToNodeWritable`](#pipetonodewritable)을 사용하세요.
   :::
 
 ## pipeToNodeWritable() {#pipetonodewritable}
 
-Render and pipe to an existing [Node.js Writable stream](https://nodejs.org/api/stream.html#stream_writable_streams) instance.
+렌더링 후 기존 [Node.js Writable 스트림](https://nodejs.org/api/stream.html#stream_writable_streams) 인스턴스에 파이프합니다.
 
-- **Exported from `vue/server-renderer`**
+- **`vue/server-renderer`에서 내보냄**
 
-- **Type**
+- **타입**
 
   ```ts
   function pipeToNodeWritable(
@@ -87,20 +87,20 @@ Render and pipe to an existing [Node.js Writable stream](https://nodejs.org/api/
   ): void
   ```
 
-- **Example**
+- **예시**
 
   ```js
-  // inside a Node.js http handler
+  // Node.js http 핸들러 내부
   pipeToNodeWritable(app, {}, res)
   ```
 
 ## renderToWebStream() {#rendertowebstream}
 
-Renders input as a [Web ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API).
+입력을 [Web ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)으로 렌더링합니다.
 
-- **Exported from `vue/server-renderer`**
+- **`vue/server-renderer`에서 내보냄**
 
-- **Type**
+- **타입**
 
   ```ts
   function renderToWebStream(
@@ -109,24 +109,24 @@ Renders input as a [Web ReadableStream](https://developer.mozilla.org/en-US/docs
   ): ReadableStream
   ```
 
-- **Example**
+- **예시**
 
   ```js
-  // inside an environment with ReadableStream support
+  // ReadableStream을 지원하는 환경에서
   return new Response(renderToWebStream(app))
   ```
 
-  :::tip Note
-  In environments that do not expose `ReadableStream` constructor in the global scope, [`pipeToWebWritable()`](#pipetowebwritable) should be used instead.
+  :::tip 참고
+  전역 범위에 `ReadableStream` 생성자가 노출되지 않은 환경에서는 [`pipeToWebWritable()`](#pipetowebwritable)을 대신 사용해야 합니다.
   :::
 
 ## pipeToWebWritable() {#pipetowebwritable}
 
-Render and pipe to an existing [Web WritableStream](https://developer.mozilla.org/en-US/docs/Web/API/WritableStream) instance.
+렌더링 후 기존 [Web WritableStream](https://developer.mozilla.org/en-US/docs/Web/API/WritableStream) 인스턴스에 파이프합니다.
 
-- **Exported from `vue/server-renderer`**
+- **`vue/server-renderer`에서 내보냄**
 
-- **Type**
+- **타입**
 
   ```ts
   function pipeToWebWritable(
@@ -136,13 +136,13 @@ Render and pipe to an existing [Web WritableStream](https://developer.mozilla.or
   ): void
   ```
 
-- **Example**
+- **예시**
 
-  This is typically used in combination with [`TransformStream`](https://developer.mozilla.org/en-US/docs/Web/API/TransformStream):
+  일반적으로 [`TransformStream`](https://developer.mozilla.org/en-US/docs/Web/API/TransformStream)과 함께 사용됩니다:
 
   ```js
-  // TransformStream is available in environments such as CloudFlare workers.
-  // in Node.js, TransformStream needs to be explicitly imported from 'stream/web'
+  // TransformStream은 CloudFlare workers와 같은 환경에서 사용 가능합니다.
+  // Node.js에서는 TransformStream을 'stream/web'에서 명시적으로 import해야 합니다.
   const { readable, writable } = new TransformStream()
   pipeToWebWritable(app, {}, writable)
 
@@ -151,11 +151,11 @@ Render and pipe to an existing [Web WritableStream](https://developer.mozilla.or
 
 ## renderToSimpleStream() {#rendertosimplestream}
 
-Renders input in streaming mode using a simple readable interface.
+간단한 읽기 인터페이스를 사용하여 스트리밍 모드로 입력을 렌더링합니다.
 
-- **Exported from `vue/server-renderer`**
+- **`vue/server-renderer`에서 내보냄**
 
-- **Type**
+- **타입**
 
   ```ts
   function renderToSimpleStream(
@@ -170,7 +170,7 @@ Renders input in streaming mode using a simple readable interface.
   }
   ```
 
-- **Example**
+- **예시**
 
   ```js
   let res = ''
@@ -181,14 +181,14 @@ Renders input in streaming mode using a simple readable interface.
     {
       push(chunk) {
         if (chunk === null) {
-          // done
-          console(`render complete: ${res}`)
+          // 완료
+          console(`렌더링 완료: ${res}`)
         } else {
           res += chunk
         }
       },
       destroy(err) {
-        // error encountered
+        // 에러 발생
       }
     }
   )
@@ -196,47 +196,47 @@ Renders input in streaming mode using a simple readable interface.
 
 ## useSSRContext() {#usessrcontext}
 
-A runtime API used to retrieve the context object passed to `renderToString()` or other server render APIs.
+`renderToString()` 또는 기타 서버 렌더 API에 전달된 컨텍스트 객체를 가져오는 런타임 API입니다.
 
-- **Type**
+- **타입**
 
   ```ts
   function useSSRContext<T = Record<string, any>>(): T | undefined
   ```
 
-- **Example**
+- **예시**
 
-  The retrieved context can be used to attach information that is needed for rendering the final HTML (e.g. head metadata).
+  가져온 컨텍스트는 최종 HTML 렌더링에 필요한 정보(예: head 메타데이터)를 첨부하는 데 사용할 수 있습니다.
 
   ```vue
   <script setup>
   import { useSSRContext } from 'vue'
 
-  // make sure to only call it during SSR
+  // 반드시 SSR 중에만 호출해야 합니다.
   // https://vitejs.dev/guide/ssr.html#conditional-logic
   if (import.meta.env.SSR) {
     const ctx = useSSRContext()
-    // ...attach properties to the context
+    // ...컨텍스트에 속성 추가
   }
   </script>
   ```
 
 ## data-allow-mismatch <sup class="vt-badge" data-text="3.5+" /> {#data-allow-mismatch}
 
-A special attribute that can be used to suppress [hydration mismatch](/guide/scaling-up/ssr#hydration-mismatch) warnings.
+[하이드레이션 불일치](/guide/scaling-up/ssr#hydration-mismatch) 경고를 억제하는 데 사용할 수 있는 특수 속성입니다.
 
-- **Example**
+- **예시**
 
   ```html
   <div data-allow-mismatch="text">{{ data.toLocaleString() }}</div>
   ```
 
-  The value can limit the allowed mismatch to a specific type. Allowed values are:
+  값은 허용되는 불일치 유형을 특정 타입으로 제한할 수 있습니다. 허용되는 값은 다음과 같습니다:
 
   - `text`
-  - `children` (only allows mismatch for direct children)
+  - `children` (직접 자식에 대한 불일치만 허용)
   - `class`
   - `style`
   - `attribute`
 
-  If no value is provided, all types of mismatches will be allowed.
+  값을 제공하지 않으면 모든 유형의 불일치가 허용됩니다.

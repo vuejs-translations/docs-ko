@@ -1,35 +1,35 @@
-# Creating a Vue Application {#creating-a-vue-application}
+# Vue 애플리케이션 생성하기 {#creating-a-vue-application}
 
-## The application instance {#the-application-instance}
+## 애플리케이션 인스턴스 {#the-application-instance}
 
-Every Vue application starts by creating a new **application instance** with the [`createApp`](/api/application#createapp) function:
+모든 Vue 애플리케이션은 [`createApp`](/api/application#createapp) 함수로 새로운 **애플리케이션 인스턴스**를 생성하는 것에서 시작합니다:
 
 ```js
 import { createApp } from 'vue'
 
 const app = createApp({
-  /* root component options */
+  /* 루트 컴포넌트 옵션 */
 })
 ```
 
-## The Root Component {#the-root-component}
+## 루트 컴포넌트 {#the-root-component}
 
-The object we are passing into `createApp` is in fact a component. Every app requires a "root component" that can contain other components as its children.
+`createApp`에 전달하는 객체는 사실 컴포넌트입니다. 모든 앱은 자식 컴포넌트를 포함할 수 있는 "루트 컴포넌트"가 필요합니다.
 
-If you are using Single-File Components, we typically import the root component from another file:
+싱글 파일 컴포넌트를 사용하는 경우, 일반적으로 루트 컴포넌트를 다른 파일에서 import합니다:
 
 ```js
 import { createApp } from 'vue'
-// import the root component App from a single-file component.
+// 싱글 파일 컴포넌트에서 루트 컴포넌트 App을 import합니다.
 import App from './App.vue'
 
 const app = createApp(App)
 ```
 
-While many examples in this guide only need a single component, most real applications are organized into a tree of nested, reusable components. For example, a Todo application's component tree might look like this:
+이 가이드의 많은 예제에서는 단일 컴포넌트만 필요하지만, 대부분의 실제 애플리케이션은 중첩되고 재사용 가능한 컴포넌트 트리로 구성됩니다. 예를 들어, Todo 애플리케이션의 컴포넌트 트리는 다음과 같을 수 있습니다:
 
 ```
-App (root component)
+App (루트 컴포넌트)
 ├─ TodoList
 │  └─ TodoItem
 │     ├─ TodoDeleteButton
@@ -39,11 +39,11 @@ App (root component)
    └─ TodoStatistics
 ```
 
-In later sections of the guide, we will discuss how to define and compose multiple components together. Before that, we will focus on what happens inside a single component.
+가이드의 뒷부분에서는 여러 컴포넌트를 정의하고 조합하는 방법에 대해 다룰 것입니다. 그 전에, 단일 컴포넌트 내부에서 어떤 일이 일어나는지에 집중하겠습니다.
 
-## Mounting the App {#mounting-the-app}
+## 앱 마운트하기 {#mounting-the-app}
 
-An application instance won't render anything until its `.mount()` method is called. It expects a "container" argument, which can either be an actual DOM element or a selector string:
+애플리케이션 인스턴스는 `.mount()` 메서드가 호출되기 전까지 아무것도 렌더링하지 않습니다. 이 메서드는 "컨테이너" 인자를 필요로 하며, 실제 DOM 요소이거나 선택자 문자열일 수 있습니다:
 
 ```html
 <div id="app"></div>
@@ -53,13 +53,13 @@ An application instance won't render anything until its `.mount()` method is cal
 app.mount('#app')
 ```
 
-The content of the app's root component will be rendered inside the container element. The container element itself is not considered part of the app.
+앱의 루트 컴포넌트의 내용은 컨테이너 요소 내부에 렌더링됩니다. 컨테이너 요소 자체는 앱의 일부로 간주되지 않습니다.
 
-The `.mount()` method should always be called after all app configurations and asset registrations are done. Also note that its return value, unlike the asset registration methods, is the root component instance instead of the application instance.
+`.mount()` 메서드는 모든 앱 설정 및 에셋 등록이 완료된 후에 항상 호출해야 합니다. 또한, 에셋 등록 메서드와 달리 반환값이 애플리케이션 인스턴스가 아니라 루트 컴포넌트 인스턴스임을 유의하세요.
 
-### In-DOM Root Component Template {#in-dom-root-component-template}
+### DOM 내 루트 컴포넌트 템플릿 {#in-dom-root-component-template}
 
-The template for the root component is usually part of the component itself, but it is also possible to provide the template separately by writing it directly inside the mount container:
+루트 컴포넌트의 템플릿은 보통 컴포넌트 자체의 일부이지만, 마운트 컨테이너 내부에 직접 작성하여 별도로 템플릿을 제공할 수도 있습니다:
 
 ```html
 <div id="app">
@@ -81,33 +81,33 @@ const app = createApp({
 app.mount('#app')
 ```
 
-Vue will automatically use the container's `innerHTML` as the template if the root component does not already have a `template` option.
+루트 컴포넌트에 이미 `template` 옵션이 없다면, Vue는 자동으로 컨테이너의 `innerHTML`을 템플릿으로 사용합니다.
 
-In-DOM templates are often used in applications that are [using Vue without a build step](/guide/quick-start.html#using-vue-from-cdn). They can also be used in conjunction with server-side frameworks, where the root template might be generated dynamically by the server.
+DOM 내 템플릿은 [빌드 단계 없이 Vue를 사용하는](/guide/quick-start.html#using-vue-from-cdn) 애플리케이션에서 자주 사용됩니다. 또한 서버 사이드 프레임워크와 함께 사용할 수도 있으며, 이 경우 루트 템플릿이 서버에서 동적으로 생성될 수 있습니다.
 
-## App Configurations {#app-configurations}
+## 앱 설정 {#app-configurations}
 
-The application instance exposes a `.config` object that allows us to configure a few app-level options, for example, defining an app-level error handler that captures errors from all descendant components:
+애플리케이션 인스턴스는 몇 가지 앱 레벨 옵션을 설정할 수 있는 `.config` 객체를 제공합니다. 예를 들어, 모든 하위 컴포넌트에서 발생하는 오류를 포착하는 앱 레벨 오류 핸들러를 정의할 수 있습니다:
 
 ```js
 app.config.errorHandler = (err) => {
-  /* handle error */
+  /* 오류 처리 */
 }
 ```
 
-The application instance also provides a few methods for registering app-scoped assets. For example, registering a component:
+애플리케이션 인스턴스는 앱 범위의 에셋을 등록할 수 있는 몇 가지 메서드도 제공합니다. 예를 들어, 컴포넌트를 등록할 수 있습니다:
 
 ```js
 app.component('TodoDeleteButton', TodoDeleteButton)
 ```
 
-This makes the `TodoDeleteButton` available for use anywhere in our app. We will discuss registration for components and other types of assets in later sections of the guide. You can also browse the full list of application instance APIs in its [API reference](/api/application).
+이렇게 하면 `TodoDeleteButton`을 앱 어디에서나 사용할 수 있습니다. 컴포넌트 및 기타 유형의 에셋 등록에 대해서는 가이드의 뒷부분에서 다룰 예정입니다. 또한 [API 레퍼런스](/api/application)에서 애플리케이션 인스턴스 API 전체 목록을 확인할 수 있습니다.
 
-Make sure to apply all app configurations before mounting the app!
+앱을 마운트하기 전에 모든 앱 설정을 적용했는지 꼭 확인하세요!
 
-## Multiple application instances {#multiple-application-instances}
+## 여러 애플리케이션 인스턴스 {#multiple-application-instances}
 
-You are not limited to a single application instance on the same page. The `createApp` API allows multiple Vue applications to co-exist on the same page, each with its own scope for configuration and global assets:
+동일한 페이지에서 하나의 애플리케이션 인스턴스만 사용할 필요는 없습니다. `createApp` API를 사용하면 여러 Vue 애플리케이션이 동일한 페이지에서 각각의 설정 및 전역 에셋 범위를 가지고 공존할 수 있습니다:
 
 ```js
 const app1 = createApp({
@@ -121,4 +121,4 @@ const app2 = createApp({
 app2.mount('#container-2')
 ```
 
-If you are using Vue to enhance server-rendered HTML and only need Vue to control specific parts of a large page, avoid mounting a single Vue application instance on the entire page. Instead, create multiple small application instances and mount them on the elements they are responsible for.
+Vue를 사용하여 서버 렌더링된 HTML을 향상시키고, 큰 페이지의 특정 부분만 Vue로 제어해야 하는 경우, 전체 페이지에 단일 Vue 애플리케이션 인스턴스를 마운트하는 것을 피하세요. 대신, 여러 개의 작은 애플리케이션 인스턴스를 생성하여 각각이 담당하는 요소에 마운트하세요.

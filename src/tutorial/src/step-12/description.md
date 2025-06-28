@@ -1,6 +1,6 @@
 # Props {#props}
 
-A child component can accept input from the parent via **props**. First, it needs to declare the props it accepts:
+자식 컴포넌트는 **props**를 통해 부모로부터 입력을 받을 수 있습니다. 먼저, 자식 컴포넌트는 자신이 받을 props를 선언해야 합니다:
 
 <div class="composition-api">
 <div class="sfc">
@@ -14,25 +14,25 @@ const props = defineProps({
 </script>
 ```
 
-Note `defineProps()` is a compile-time macro and doesn't need to be imported. Once declared, the `msg` prop can be used in the child component's template. It can also be accessed in JavaScript via the returned object of `defineProps()`.
+`defineProps()`는 컴파일 타임 매크로이므로 import할 필요가 없습니다. 선언이 완료되면, `msg` prop은 자식 컴포넌트의 템플릿에서 사용할 수 있습니다. 또한 `defineProps()`가 반환하는 객체를 통해 JavaScript에서도 접근할 수 있습니다.
 
 </div>
 
 <div class="html">
 
 ```js
-// in child component
+// 자식 컴포넌트에서
 export default {
   props: {
     msg: String
   },
   setup(props) {
-    // access props.msg
+    // props.msg에 접근
   }
 }
 ```
 
-Once declared, the `msg` prop is exposed on `this` and can be used in the child component's template. The received props are passed to `setup()` as the first argument.
+선언이 완료되면, `msg` prop은 `this`에 노출되며 자식 컴포넌트의 템플릿에서 사용할 수 있습니다. 받은 props는 첫 번째 인자로 `setup()`에 전달됩니다.
 
 </div>
 
@@ -41,7 +41,7 @@ Once declared, the `msg` prop is exposed on `this` and can be used in the child 
 <div class="options-api">
 
 ```js
-// in child component
+// 자식 컴포넌트에서
 export default {
   props: {
     msg: String
@@ -49,11 +49,11 @@ export default {
 }
 ```
 
-Once declared, the `msg` prop is exposed on `this` and can be used in the child component's template.
+선언이 완료되면, `msg` prop은 `this`에 노출되며 자식 컴포넌트의 템플릿에서 사용할 수 있습니다.
 
 </div>
 
-The parent can pass the prop to the child just like attributes. To pass a dynamic value, we can also use the `v-bind` syntax:
+부모는 props를 속성처럼 자식에게 전달할 수 있습니다. 동적 값을 전달하려면 `v-bind` 문법을 사용할 수도 있습니다:
 
 <div class="sfc">
 
@@ -70,4 +70,4 @@ The parent can pass the prop to the child just like attributes. To pass a dynami
 
 </div>
 
-Now try it yourself in the editor.
+이제 에디터에서 직접 시도해 보세요.

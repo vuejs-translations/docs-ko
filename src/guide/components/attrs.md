@@ -2,113 +2,113 @@
 outline: deep
 ---
 
-# Fallthrough Attributes {#fallthrough-attributes}
+# 폴스루 속성 {#fallthrough-attributes}
 
-> This page assumes you've already read the [Components Basics](/guide/essentials/component-basics). Read that first if you are new to components.
+> 이 페이지는 이미 [컴포넌트 기본](/guide/essentials/component-basics)을 읽었다고 가정합니다. 컴포넌트가 처음이라면 먼저 해당 내용을 읽어보세요.
 
-## Attribute Inheritance {#attribute-inheritance}
+## 속성 상속 {#attribute-inheritance}
 
-A "fallthrough attribute" is an attribute or `v-on` event listener that is passed to a component, but is not explicitly declared in the receiving component's [props](./props) or [emits](./events#declaring-emitted-events). Common examples of this include `class`, `style`, and `id` attributes.
+"폴스루 속성"이란 컴포넌트에 전달되었지만, 해당 컴포넌트의 [props](./props)나 [emits](./events#declaring-emitted-events)에 명시적으로 선언되지 않은 속성이나 `v-on` 이벤트 리스너를 의미합니다. 일반적인 예로는 `class`, `style`, `id` 속성이 있습니다.
 
-When a component renders a single root element, fallthrough attributes will be automatically added to the root element's attributes. For example, given a `<MyButton>` component with the following template:
+컴포넌트가 하나의 루트 엘리먼트만 렌더링할 때, 폴스루 속성은 자동으로 루트 엘리먼트의 속성에 추가됩니다. 예를 들어, 다음과 같은 템플릿을 가진 `<MyButton>` 컴포넌트가 있다고 가정해봅시다:
 
 ```vue-html
-<!-- template of <MyButton> -->
+<!-- <MyButton>의 템플릿 -->
 <button>Click Me</button>
 ```
 
-And a parent using this component with:
+그리고 부모가 이 컴포넌트를 다음과 같이 사용할 때:
 
 ```vue-html
 <MyButton class="large" />
 ```
 
-The final rendered DOM would be:
+최종적으로 렌더링되는 DOM은 다음과 같습니다:
 
 ```html
 <button class="large">Click Me</button>
 ```
 
-Here, `<MyButton>` did not declare `class` as an accepted prop. Therefore, `class` is treated as a fallthrough attribute and automatically added to `<MyButton>`'s root element.
+여기서 `<MyButton>`은 `class`를 허용되는 prop으로 선언하지 않았습니다. 따라서 `class`는 폴스루 속성으로 간주되어 `<MyButton>`의 루트 엘리먼트에 자동으로 추가됩니다.
 
-### `class` and `style` Merging {#class-and-style-merging}
+### `class`와 `style` 병합 {#class-and-style-merging}
 
-If the child component's root element already has existing `class` or `style` attributes, it will be merged with the `class` and `style` values that are inherited from the parent. Suppose we change the template of `<MyButton>` in the previous example to:
+자식 컴포넌트의 루트 엘리먼트에 이미 `class`나 `style` 속성이 있다면, 부모로부터 상속받은 `class` 및 `style` 값과 병합됩니다. 이전 예시에서 `<MyButton>`의 템플릿을 다음과 같이 변경한다고 가정해봅시다:
 
 ```vue-html
-<!-- template of <MyButton> -->
+<!-- <MyButton>의 템플릿 -->
 <button class="btn">Click Me</button>
 ```
 
-Then the final rendered DOM would now become:
+그러면 최종적으로 렌더링되는 DOM은 다음과 같이 됩니다:
 
 ```html
 <button class="btn large">Click Me</button>
 ```
 
-### `v-on` Listener Inheritance {#v-on-listener-inheritance}
+### `v-on` 리스너 상속 {#v-on-listener-inheritance}
 
-The same rule applies to `v-on` event listeners:
+동일한 규칙이 `v-on` 이벤트 리스너에도 적용됩니다:
 
 ```vue-html
 <MyButton @click="onClick" />
 ```
 
-The `click` listener will be added to the root element of `<MyButton>`, i.e. the native `<button>` element. When the native `<button>` is clicked, it will trigger the `onClick` method of the parent component. If the native `<button>` already has a `click` listener bound with `v-on`, then both listeners will trigger.
+`click` 리스너는 `<MyButton>`의 루트 엘리먼트, 즉 네이티브 `<button>` 엘리먼트에 추가됩니다. 네이티브 `<button>`이 클릭되면 부모 컴포넌트의 `onClick` 메서드가 실행됩니다. 만약 네이티브 `<button>`에 이미 `v-on`으로 바인딩된 `click` 리스너가 있다면, 두 리스너가 모두 실행됩니다.
 
-### Nested Component Inheritance {#nested-component-inheritance}
+### 중첩 컴포넌트 상속 {#nested-component-inheritance}
 
-If a component renders another component as its root node, for example, we refactored `<MyButton>` to render a `<BaseButton>` as its root:
+컴포넌트가 루트 노드로 또 다른 컴포넌트를 렌더링하는 경우, 예를 들어 `<MyButton>`을 리팩토링하여 루트로 `<BaseButton>`을 렌더링한다고 가정해봅시다:
 
 ```vue-html
-<!-- template of <MyButton/> that simply renders another component -->
+<!-- 또 다른 컴포넌트를 단순히 렌더링하는 <MyButton/>의 템플릿 -->
 <BaseButton />
 ```
 
-Then the fallthrough attributes received by `<MyButton>` will be automatically forwarded to `<BaseButton>`.
+그러면 `<MyButton>`이 받은 폴스루 속성은 자동으로 `<BaseButton>`으로 전달됩니다.
 
-Note that:
+참고할 점:
 
-1. Forwarded attributes do not include any attributes that are declared as props, or `v-on` listeners of declared events by `<MyButton>` - in other words, the declared props and listeners have been "consumed" by `<MyButton>`.
+1. 전달된 속성에는 prop으로 선언된 속성이나, `<MyButton>`에서 선언된 이벤트의 `v-on` 리스너는 포함되지 않습니다. 즉, 선언된 prop과 리스너는 `<MyButton>`에서 "소비"됩니다.
 
-2. Forwarded attributes may be accepted as props by `<BaseButton>`, if declared by it.
+2. 전달된 속성은 `<BaseButton>`에서 prop으로 선언되어 있다면 prop으로 받아질 수 있습니다.
 
-## Disabling Attribute Inheritance {#disabling-attribute-inheritance}
+## 속성 상속 비활성화 {#disabling-attribute-inheritance}
 
-If you do **not** want a component to automatically inherit attributes, you can set `inheritAttrs: false` in the component's options.
+컴포넌트가 속성을 자동으로 상속받지 않도록 하려면, 컴포넌트 옵션에서 `inheritAttrs: false`를 설정할 수 있습니다.
 
 <div class="composition-api">
 
- Since 3.3 you can also use [`defineOptions`](/api/sfc-script-setup#defineoptions) directly in `<script setup>`:
+ 3.3 버전부터는 `<script setup>`에서 [`defineOptions`](/api/sfc-script-setup#defineoptions)를 직접 사용할 수도 있습니다:
 
 ```vue
 <script setup>
 defineOptions({
   inheritAttrs: false
 })
-// ...setup logic
+// ...setup 로직
 </script>
 ```
 
 </div>
 
-The common scenario for disabling attribute inheritance is when attributes need to be applied to other elements besides the root node. By setting the `inheritAttrs` option to `false`, you can take full control over where the fallthrough attributes should be applied.
+속성 상속을 비활성화하는 일반적인 시나리오는 속성을 루트 노드가 아닌 다른 엘리먼트에 적용해야 할 때입니다. `inheritAttrs` 옵션을 `false`로 설정하면 폴스루 속성을 어디에 적용할지 완전히 제어할 수 있습니다.
 
-These fallthrough attributes can be accessed directly in template expressions as `$attrs`:
+이 폴스루 속성들은 템플릿 표현식에서 `$attrs`로 직접 접근할 수 있습니다:
 
 ```vue-html
-<span>Fallthrough attributes: {{ $attrs }}</span>
+<span>폴스루 속성: {{ $attrs }}</span>
 ```
 
-The `$attrs` object includes all attributes that are not declared by the component's `props` or `emits` options (e.g., `class`, `style`, `v-on` listeners, etc.).
+`$attrs` 객체에는 컴포넌트의 `props`나 `emits` 옵션에 선언되지 않은 모든 속성(예: `class`, `style`, `v-on` 리스너 등)이 포함됩니다.
 
-Some notes:
+몇 가지 참고 사항:
 
-- Unlike props, fallthrough attributes preserve their original casing in JavaScript, so an attribute like `foo-bar` needs to be accessed as `$attrs['foo-bar']`.
+- prop과 달리, 폴스루 속성은 JavaScript에서 원래의 케이싱을 유지하므로, `foo-bar`와 같은 속성은 `$attrs['foo-bar']`로 접근해야 합니다.
 
-- A `v-on` event listener like `@click` will be exposed on the object as a function under `$attrs.onClick`.
+- `@click`과 같은 `v-on` 이벤트 리스너는 `$attrs.onClick` 아래의 함수로 객체에 노출됩니다.
 
-Using our `<MyButton>` component example from the [previous section](#attribute-inheritance) - sometimes we may need to wrap the actual `<button>` element with an extra `<div>` for styling purposes:
+[이전 섹션](#attribute-inheritance)의 `<MyButton>` 컴포넌트 예시를 사용해보면, 실제 `<button>` 엘리먼트를 스타일링을 위해 추가적인 `<div>`로 감싸야 할 때가 있습니다:
 
 ```vue-html
 <div class="btn-wrapper">
@@ -116,7 +116,7 @@ Using our `<MyButton>` component example from the [previous section](#attribute-
 </div>
 ```
 
-We want all fallthrough attributes like `class` and `v-on` listeners to be applied to the inner `<button>`, not the outer `<div>`. We can achieve this with `inheritAttrs: false` and `v-bind="$attrs"`:
+`class`나 `v-on` 리스너와 같은 모든 폴스루 속성을 바깥쪽 `<div>`가 아니라 내부 `<button>`에 적용하고 싶습니다. 이를 위해 `inheritAttrs: false`와 `v-bind="$attrs"`를 사용할 수 있습니다:
 
 ```vue-html{2}
 <div class="btn-wrapper">
@@ -124,17 +124,17 @@ We want all fallthrough attributes like `class` and `v-on` listeners to be appli
 </div>
 ```
 
-Remember that [`v-bind` without an argument](/guide/essentials/template-syntax#dynamically-binding-multiple-attributes) binds all the properties of an object as attributes of the target element.
+[`v-bind`에 인자가 없을 때](/guide/essentials/template-syntax#dynamically-binding-multiple-attributes)는 객체의 모든 속성을 대상 엘리먼트의 속성으로 바인딩합니다.
 
-## Attribute Inheritance on Multiple Root Nodes {#attribute-inheritance-on-multiple-root-nodes}
+## 다중 루트 노드에서의 속성 상속 {#attribute-inheritance-on-multiple-root-nodes}
 
-Unlike components with a single root node, components with multiple root nodes do not have an automatic attribute fallthrough behavior. If `$attrs` are not bound explicitly, a runtime warning will be issued.
+하나의 루트 노드를 가진 컴포넌트와 달리, 여러 루트 노드를 가진 컴포넌트는 자동 폴스루 속성 동작이 없습니다. `$attrs`가 명시적으로 바인딩되지 않으면 런타임 경고가 발생합니다.
 
 ```vue-html
 <CustomLayout id="custom-layout" @click="changeValue" />
 ```
 
-If `<CustomLayout>` has the following multi-root template, there will be a warning because Vue cannot be sure where to apply the fallthrough attributes:
+`<CustomLayout>`이 다음과 같은 다중 루트 템플릿을 가진 경우, Vue는 폴스루 속성을 어디에 적용해야 할지 확신할 수 없으므로 경고가 발생합니다:
 
 ```vue-html
 <header>...</header>
@@ -142,7 +142,7 @@ If `<CustomLayout>` has the following multi-root template, there will be a warni
 <footer>...</footer>
 ```
 
-The warning will be suppressed if `$attrs` is explicitly bound:
+`$attrs`가 명시적으로 바인딩되면 경고가 사라집니다:
 
 ```vue-html{2}
 <header>...</header>
@@ -150,11 +150,11 @@ The warning will be suppressed if `$attrs` is explicitly bound:
 <footer>...</footer>
 ```
 
-## Accessing Fallthrough Attributes in JavaScript {#accessing-fallthrough-attributes-in-javascript}
+## 자바스크립트에서 폴스루 속성 접근하기 {#accessing-fallthrough-attributes-in-javascript}
 
 <div class="composition-api">
 
-If needed, you can access a component's fallthrough attributes in `<script setup>` using the `useAttrs()` API:
+필요하다면, `<script setup>`에서 `useAttrs()` API를 사용하여 컴포넌트의 폴스루 속성에 접근할 수 있습니다:
 
 ```vue
 <script setup>
@@ -164,24 +164,24 @@ const attrs = useAttrs()
 </script>
 ```
 
-If not using `<script setup>`, `attrs` will be exposed as a property of the `setup()` context:
+`<script setup>`을 사용하지 않는 경우, `attrs`는 `setup()` 컨텍스트의 속성으로 노출됩니다:
 
 ```js
 export default {
   setup(props, ctx) {
-    // fallthrough attributes are exposed as ctx.attrs
+    // 폴스루 속성은 ctx.attrs로 노출됩니다
     console.log(ctx.attrs)
   }
 }
 ```
 
-Note that although the `attrs` object here always reflects the latest fallthrough attributes, it isn't reactive (for performance reasons). You cannot use watchers to observe its changes. If you need reactivity, use a prop. Alternatively, you can use `onUpdated()` to perform side effects with the latest `attrs` on each update.
+여기서 `attrs` 객체는 항상 최신 폴스루 속성을 반영하지만(성능상의 이유로) 반응형이 아닙니다. 변경 사항을 감지하기 위해 watcher를 사용할 수 없습니다. 반응성이 필요하다면 prop을 사용하세요. 또는, 각 업데이트마다 최신 `attrs`로 부수 효과를 수행하려면 `onUpdated()`를 사용할 수 있습니다.
 
 </div>
 
 <div class="options-api">
 
-If needed, you can access a component's fallthrough attributes via the `$attrs` instance property:
+필요하다면, 컴포넌트의 폴스루 속성에 `$attrs` 인스턴스 속성을 통해 접근할 수 있습니다:
 
 ```js
 export default {

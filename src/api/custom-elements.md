@@ -1,10 +1,10 @@
-# Custom Elements API {#custom-elements-api}
+# 커스텀 엘리먼트 API {#custom-elements-api}
 
 ## defineCustomElement() {#definecustomelement}
 
-This method accepts the same argument as [`defineComponent`](#definecomponent), but instead returns a native [Custom Element](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) class constructor.
+이 메서드는 [`defineComponent`](#definecomponent)와 동일한 인자를 받지만, 대신 네이티브 [커스텀 엘리먼트](https://developer.mozilla.org/ko/docs/Web/Web_Components/Using_custom_elements) 클래스 생성자를 반환합니다.
 
-- **Type**
+- **타입**
 
   ```ts
   function defineCustomElement(
@@ -19,28 +19,28 @@ This method accepts the same argument as [`defineComponent`](#definecomponent), 
   interface CustomElementsOptions {
     styles?: string[]
 
-    // the following options are 3.5+
+    // 아래 옵션들은 3.5+ 버전에서 지원됩니다.
     configureApp?: (app: App) => void
     shadowRoot?: boolean
     nonce?: string
   }
   ```
 
-  > Type is simplified for readability.
+  > 가독성을 위해 타입이 단순화되었습니다.
 
-- **Details**
+- **세부사항**
 
-  In addition to normal component options, `defineCustomElement()` also supports a number of options that are custom-elements-specific:
+  일반 컴포넌트 옵션 외에도, `defineCustomElement()`는 커스텀 엘리먼트 전용 옵션들을 추가로 지원합니다:
 
-  - **`styles`**: an array of inlined CSS strings for providing CSS that should be injected into the element's shadow root.
+  - **`styles`**: 엘리먼트의 섀도우 루트에 주입될 CSS를 제공하기 위한 인라인 CSS 문자열 배열입니다.
 
-  - **`configureApp`** <sup class="vt-badge" data-text="3.5+"/>: a function that can be used to configure the Vue app instance for the custom element.
+  - **`configureApp`** <sup class="vt-badge" data-text="3.5+"/>: 커스텀 엘리먼트의 Vue 앱 인스턴스를 구성하는 데 사용할 수 있는 함수입니다.
 
-  - **`shadowRoot`** <sup class="vt-badge" data-text="3.5+"/>: `boolean`, defaults to `true`. Set to `false` to render the custom element without a shadow root. This means `<style>` in custom element SFCs will no longer be encapsulated.
+  - **`shadowRoot`** <sup class="vt-badge" data-text="3.5+"/>: `boolean`, 기본값은 `true`입니다. `false`로 설정하면 커스텀 엘리먼트가 섀도우 루트 없이 렌더링됩니다. 이 경우 커스텀 엘리먼트 SFC 내의 `<style>`은 더 이상 캡슐화되지 않습니다.
 
-  - **`nonce`** <sup class="vt-badge" data-text="3.5+"/>: `string`, if provided, will be set as the `nonce` attribute on style tags injected to the shadow root.
+  - **`nonce`** <sup class="vt-badge" data-text="3.5+"/>: `string`, 제공되면 섀도우 루트에 주입되는 style 태그의 `nonce` 속성으로 설정됩니다.
 
-  Note that instead of being passed as part of the component itself, these options can also be passed via a second argument:
+  이러한 옵션들은 컴포넌트 자체의 일부로 전달하는 대신, 두 번째 인자를 통해서도 전달할 수 있습니다:
 
   ```js
   import Element from './MyElement.ce.vue'
@@ -52,35 +52,35 @@ This method accepts the same argument as [`defineComponent`](#definecomponent), 
   })
   ```
 
-  The return value is a custom element constructor that can be registered using [`customElements.define()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define).
+  반환값은 [`customElements.define()`](https://developer.mozilla.org/ko/docs/Web/API/CustomElementRegistry/define)를 사용하여 등록할 수 있는 커스텀 엘리먼트 생성자입니다.
 
-- **Example**
+- **예시**
 
   ```js
   import { defineCustomElement } from 'vue'
 
   const MyVueElement = defineCustomElement({
-    /* component options */
+    /* 컴포넌트 옵션 */
   })
 
-  // Register the custom element.
+  // 커스텀 엘리먼트 등록
   customElements.define('my-vue-element', MyVueElement)
   ```
 
-- **See also**
+- **관련 문서**
 
-  - [Guide - Building Custom Elements with Vue](/guide/extras/web-components#building-custom-elements-with-vue)
+  - [가이드 - Vue로 커스텀 엘리먼트 빌드하기](/guide/extras/web-components#building-custom-elements-with-vue)
 
-  - Also note that `defineCustomElement()` requires [special config](/guide/extras/web-components#sfc-as-custom-element) when used with Single-File Components.
+  - 또한, Single-File Component와 함께 `defineCustomElement()`를 사용할 때는 [특별한 설정](/guide/extras/web-components#sfc-as-custom-element)이 필요함을 참고하세요.
 
 ## useHost() <sup class="vt-badge" data-text="3.5+"/> {#usehost}
 
-A Composition API helper that returns the host element of the current Vue custom element.
+현재 Vue 커스텀 엘리먼트의 호스트 엘리먼트를 반환하는 Composition API 헬퍼입니다.
 
 ## useShadowRoot() <sup class="vt-badge" data-text="3.5+"/> {#useshadowroot}
 
-A Composition API helper that returns the shadow root of the current Vue custom element.
+현재 Vue 커스텀 엘리먼트의 섀도우 루트를 반환하는 Composition API 헬퍼입니다.
 
 ## this.$host <sup class="vt-badge" data-text="3.5+"/> {#this-host}
 
-An Options API property that exposes the host element of the current Vue custom element.
+현재 Vue 커스텀 엘리먼트의 호스트 엘리먼트를 노출하는 Options API 속성입니다.

@@ -1,10 +1,10 @@
-# Lifecycle Hooks {#lifecycle-hooks}
+# 라이프사이클 훅 {#lifecycle-hooks}
 
-Each Vue component instance goes through a series of initialization steps when it's created - for example, it needs to set up data observation, compile the template, mount the instance to the DOM, and update the DOM when data changes. Along the way, it also runs functions called lifecycle hooks, giving users the opportunity to add their own code at specific stages.
+각 Vue 컴포넌트 인스턴스는 생성될 때 일련의 초기화 단계를 거칩니다. 예를 들어, 데이터 관찰을 설정하고, 템플릿을 컴파일하며, 인스턴스를 DOM에 마운트하고, 데이터가 변경될 때 DOM을 업데이트해야 합니다. 이 과정에서 라이프사이클 훅이라고 불리는 함수들이 실행되며, 사용자는 특정 단계에서 자신만의 코드를 추가할 수 있습니다.
 
-## Registering Lifecycle Hooks {#registering-lifecycle-hooks}
+## 라이프사이클 훅 등록하기 {#registering-lifecycle-hooks}
 
-For example, the <span class="composition-api">`onMounted`</span><span class="options-api">`mounted`</span> hook can be used to run code after the component has finished the initial rendering and created the DOM nodes:
+예를 들어, <span class="composition-api">`onMounted`</span><span class="options-api">`mounted`</span> 훅은 컴포넌트가 초기 렌더링을 마치고 DOM 노드를 생성한 후에 코드를 실행하는 데 사용할 수 있습니다:
 
 <div class="composition-api">
 
@@ -13,7 +13,7 @@ For example, the <span class="composition-api">`onMounted`</span><span class="op
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  console.log(`the component is now mounted.`)
+  console.log(`컴포넌트가 이제 마운트되었습니다.`)
 })
 </script>
 ```
@@ -24,43 +24,43 @@ onMounted(() => {
 ```js
 export default {
   mounted() {
-    console.log(`the component is now mounted.`)
+    console.log(`컴포넌트가 이제 마운트되었습니다.`)
   }
 }
 ```
 
 </div>
 
-There are also other hooks which will be called at different stages of the instance's lifecycle, with the most commonly used being <span class="composition-api">[`onMounted`](/api/composition-api-lifecycle#onmounted), [`onUpdated`](/api/composition-api-lifecycle#onupdated), and [`onUnmounted`](/api/composition-api-lifecycle#onunmounted).</span><span class="options-api">[`mounted`](/api/options-lifecycle#mounted), [`updated`](/api/options-lifecycle#updated), and [`unmounted`](/api/options-lifecycle#unmounted).</span>
+인스턴스의 라이프사이클에서 서로 다른 단계에 호출되는 다른 훅들도 있으며, 가장 일반적으로 사용되는 것은 <span class="composition-api">[`onMounted`](/api/composition-api-lifecycle#onmounted), [`onUpdated`](/api/composition-api-lifecycle#onupdated), 그리고 [`onUnmounted`](/api/composition-api-lifecycle#onunmounted)</span><span class="options-api">[`mounted`](/api/options-lifecycle#mounted), [`updated`](/api/options-lifecycle#updated), 그리고 [`unmounted`](/api/options-lifecycle#unmounted)</span>입니다.
 
 <div class="options-api">
 
-All lifecycle hooks are called with their `this` context pointing to the current active instance invoking it. Note this means you should avoid using arrow functions when declaring lifecycle hooks, as you won't be able to access the component instance via `this` if you do so.
+모든 라이프사이클 훅은 해당 훅을 호출하는 현재 활성 인스턴스를 가리키는 `this` 컨텍스트로 호출됩니다. 즉, 라이프사이클 훅을 선언할 때 화살표 함수를 사용하면 `this`를 통해 컴포넌트 인스턴스에 접근할 수 없으므로 사용을 피해야 합니다.
 
 </div>
 
 <div class="composition-api">
 
-When calling `onMounted`, Vue automatically associates the registered callback function with the current active component instance. This requires these hooks to be registered **synchronously** during component setup. For example, do not do this:
+`onMounted`를 호출할 때, Vue는 등록된 콜백 함수를 현재 활성 컴포넌트 인스턴스와 자동으로 연결합니다. 이로 인해 이러한 훅들은 컴포넌트 setup 중에 **동기적으로** 등록되어야 합니다. 예를 들어, 이렇게 하면 안 됩니다:
 
 ```js
 setTimeout(() => {
   onMounted(() => {
-    // this won't work.
+    // 이 코드는 동작하지 않습니다.
   })
 }, 100)
 ```
 
-Do note this doesn't mean that the call must be placed lexically inside `setup()` or `<script setup>`. `onMounted()` can be called in an external function as long as the call stack is synchronous and originates from within `setup()`.
+이것이 반드시 `setup()` 또는 `<script setup>` 내부에 문법적으로 위치해야 한다는 의미는 아닙니다. `onMounted()`는 호출 스택이 동기적이고 `setup()` 내부에서 시작된다면 외부 함수에서 호출할 수도 있습니다.
 
 </div>
 
-## Lifecycle Diagram {#lifecycle-diagram}
+## 라이프사이클 다이어그램 {#lifecycle-diagram}
 
-Below is a diagram for the instance lifecycle. You don't need to fully understand everything going on right now, but as you learn and build more, it will be a useful reference.
+아래는 인스턴스 라이프사이클에 대한 다이어그램입니다. 지금 당장 모든 내용을 완전히 이해할 필요는 없지만, 더 많이 배우고 개발할수록 유용한 참고 자료가 될 것입니다.
 
-![Component lifecycle diagram](./images/lifecycle.png)
+![컴포넌트 라이프사이클 다이어그램](./images/lifecycle.png)
 
 <!-- https://www.figma.com/file/Xw3UeNMOralY6NV7gSjWdS/Vue-Lifecycle -->
 
-Consult the <span class="composition-api">[Lifecycle Hooks API reference](/api/composition-api-lifecycle)</span><span class="options-api">[Lifecycle Hooks API reference](/api/options-lifecycle)</span> for details on all lifecycle hooks and their respective use cases.
+모든 라이프사이클 훅과 각각의 사용 사례에 대한 자세한 내용은 <span class="composition-api">[라이프사이클 훅 API 레퍼런스](/api/composition-api-lifecycle)</span><span class="options-api">[라이프사이클 훅 API 레퍼런스](/api/options-lifecycle)</span>를 참고하세요.

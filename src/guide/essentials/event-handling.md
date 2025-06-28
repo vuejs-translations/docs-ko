@@ -1,26 +1,26 @@
-# Event Handling {#event-handling}
+# 이벤트 처리 {#event-handling}
 
 <div class="options-api">
-  <VueSchoolLink href="https://vueschool.io/lessons/user-events-in-vue-3" title="Free Vue.js Events Lesson"/>
+  <VueSchoolLink href="https://vueschool.io/lessons/user-events-in-vue-3" title="무료 Vue.js 이벤트 강의"/>
 </div>
 
 <div class="composition-api">
-  <VueSchoolLink href="https://vueschool.io/lessons/vue-fundamentals-capi-user-events-in-vue-3" title="Free Vue.js Events Lesson"/>
+  <VueSchoolLink href="https://vueschool.io/lessons/vue-fundamentals-capi-user-events-in-vue-3" title="무료 Vue.js 이벤트 강의"/>
 </div>
 
-## Listening to Events {#listening-to-events}
+## 이벤트 리스닝 {#listening-to-events}
 
-We can use the `v-on` directive, which we typically shorten to the `@` symbol, to listen to DOM events and run some JavaScript when they're triggered. The usage would be `v-on:click="handler"` or with the shortcut, `@click="handler"`.
+우리는 `v-on` 디렉티브(일반적으로 `@` 기호로 축약)를 사용하여 DOM 이벤트를 리스닝하고, 이벤트가 발생할 때 JavaScript를 실행할 수 있습니다. 사용법은 `v-on:click="handler"` 또는 축약형인 `@click="handler"`입니다.
 
-The handler value can be one of the following:
+핸들러 값은 다음 중 하나일 수 있습니다:
 
-1. **Inline handlers:** Inline JavaScript to be executed when the event is triggered (similar to the native `onclick` attribute).
+1. **인라인 핸들러:** 이벤트가 발생할 때 실행될 인라인 JavaScript(네이티브 `onclick` 속성과 유사).
 
-2. **Method handlers:** A property name or path that points to a method defined on the component.
+2. **메서드 핸들러:** 컴포넌트에 정의된 메서드를 가리키는 속성 이름 또는 경로.
 
-## Inline Handlers {#inline-handlers}
+## 인라인 핸들러 {#inline-handlers}
 
-Inline handlers are typically used in simple cases, for example:
+인라인 핸들러는 일반적으로 간단한 경우에 사용됩니다. 예를 들어:
 
 <div class="composition-api">
 
@@ -48,20 +48,20 @@ data() {
 
 <div class="composition-api">
 
-[Try it in the Playground](https://play.vuejs.org/#eNo9jssKgzAURH/lko0tgrbbEqX+Q5fZaLxiqHmQ3LgJ+fdqFZcD58xMYp1z1RqRvRgP0itHEJCia4VR2llPkMDjBBkmbzUUG1oII4y0JhBIGw2hh2Znbo+7MLw+WjZ/C4TaLT3hnogPkcgaeMtFyW8j2GmXpWBtN47w5PWBHLhrPzPCKfWDXRHmPsCAaOBfgSOkdH3IGUhpDBWv9/e8vsZZ/gFFhFJN)
+[Playground에서 실행해보기](https://play.vuejs.org/#eNo9jssKgzAURH/lko0tgrbbEqX+Q5fZaLxiqHmQ3LgJ+fdqFZcD58xMYp1z1RqRvRgP0itHEJCia4VR2llPkMDjBBkmbzUUG1oII4y0JhBIGw2hh2Znbo+7MLw+WjZ/C4TaLT3hnogPkcgaeMtFyW8j2GmXpWBtN47w5PWBHLhrPzPCKfWDXRHmPsCAaOBfgSOkdH3IGUhpDBWv9/e8vsZZ/gFFhFJN)
 
 </div>
 <div class="options-api">
 
-[Try it in the Playground](https://play.vuejs.org/#eNo9jcEKgzAQRH9lyKlF0PYqqdR/6DGXaLYo1RjiRgrivzepIizLzu7sm1XUzuVLIFEKObe+d1wpS183eYahtw4DY1UWMJr15ZpmxYAnDt7uF0BxOwXL5Evc0kbxlmyxxZLFyY2CaXSDZkqKZROYJ4tnO/Tt56HEgckyJaraGNxlsVt2u6teHeF40s20EDo9oyGy+CPIYF1xULBt4H6kOZeFiwBZnOFi+wH0B1hk)
+[Playground에서 실행해보기](https://play.vuejs.org/#eNo9jcEKgzAQRH9lyKlF0PYqqdR/6DGXaLYo1RjiRgrivzepIizLzu7sm1XUzuVLIFEKObe+d1wpS183eYahtw4DY1UWMJr15ZpmxYAnDt7uF0BxOwXL5Evc0kbxlmyxxZLFyY2CaXSDZkqKZROYJ4tnO/Tt56HEgckyJaraGNxlsVt2u6teHeF40s20EDo9oyGy+CPIYF1xULBt4H6kOZeFiwBZnOFi+wH0B1hk)
 
 </div>
 
-## Method Handlers {#method-handlers}
+## 메서드 핸들러 {#method-handlers}
 
-The logic for many event handlers will be more complex though, and likely isn't feasible with inline handlers. That's why `v-on` can also accept the name or path of a component method you'd like to call.
+많은 이벤트 핸들러의 로직은 더 복잡할 수 있으며, 인라인 핸들러로는 적합하지 않을 수 있습니다. 그래서 `v-on`은 호출하고자 하는 컴포넌트 메서드의 이름이나 경로도 받을 수 있습니다.
 
-For example:
+예를 들어:
 
 <div class="composition-api">
 
@@ -70,7 +70,7 @@ const name = ref('Vue.js')
 
 function greet(event) {
   alert(`Hello ${name.value}!`)
-  // `event` is the native DOM event
+  // `event`는 네이티브 DOM 이벤트입니다
   if (event) {
     alert(event.target.tagName)
   }
@@ -88,9 +88,9 @@ data() {
 },
 methods: {
   greet(event) {
-    // `this` inside methods points to the current active instance
+    // 메서드 내부의 `this`는 현재 활성 인스턴스를 가리킵니다
     alert(`Hello ${this.name}!`)
-    // `event` is the native DOM event
+    // `event`는 네이티브 DOM 이벤트입니다
     if (event) {
       alert(event.target.tagName)
     }
@@ -101,41 +101,41 @@ methods: {
 </div>
 
 ```vue-html
-<!-- `greet` is the name of the method defined above -->
+<!-- `greet`는 위에 정의된 메서드의 이름입니다 -->
 <button @click="greet">Greet</button>
 ```
 
 <div class="composition-api">
 
-[Try it in the Playground](https://play.vuejs.org/#eNpVj0FLxDAQhf/KMwjtXtq7dBcFQS/qzVMOrWFao2kSkkkvpf/dJIuCEBgm771vZnbx4H23JRJ3YogqaM+IxMlfpNWrd4GxI9CMA3NwK5psbaSVVjkbGXZaCediaJv3RN1XbE5FnZNVrJ3FEoi4pY0sn7BLC0yGArfjMxnjcLsXQrdNJtFxM+Ys0PcYa2CEjuBPylNYb4THtxdUobj0jH/YX3D963gKC5WyvGZ+xR7S5jf01yPzeblhWr2ZmErHw0dizivfK6PV91mKursUl6dSh/4qZ+vQ/+XE8QODonDi)
+[Playground에서 실행해보기](https://play.vuejs.org/#eNpVj0FLxDAQhf/KMwjtXtq7dBcFQS/qzVMOrWFao2kSkkkvpf/dJIuCEBgm771vZnbx4H23JRJ3YogqaM+IxMlfpNWrd4GxI9CMA3NwK5psbaSVVjkbGXZaCediaJv3RN1XbE5FnZNVrJ3FEoi4pY0sn7BLC0yGArfjMxnjcLsXQrdNJtFxM+Ys0PcYa2CEjuBPylNYb4THtxdUobj0jH/YX3D963gKC5WyvGZ+xR7S5jf01yPzeblhWr2ZmErHw0dizivfK6PV91mKursUl6dSh/4qZ+vQ/+XE8QODonDi)
 
 </div>
 <div class="options-api">
 
-[Try it in the Playground](https://play.vuejs.org/#eNplUE1LxDAQ/StjEbYL0t5LXRQEvag3Tz00prNtNE1CMilC6X83SUkRhJDJfLz3Jm8tHo2pFo9FU7SOW2Ho0in8MdoSDHhlXhKsnQIYGLHyvL8BLJK3KmcAis3YwOnDY/XlTnt1i2G7i/eMNOnBNRkwWkQqcUFFByVAXUNPk3A9COXEgBkGRgtFDkgDTQjcWxuAwDiJBeMsMcUxszCJlsr+BaXUcLtGwiqut930579KST1IBd5Aqlgie3p/hdTIk+IK//bMGqleEbMjxjC+BZVDIv0+m9CpcNr6MDgkhLORjDBm1H56Iq3ggUvBv++7IhnUFZfnGNt6b4fRtj5wxfYL9p+Sjw==)
+[Playground에서 실행해보기](https://play.vuejs.org/#eNplUE1LxDAQ/StjEbYL0t5LXRQEvag3Tz00prNtNE1CMilC6X83SUkRhJDJfLz3Jm8tHo2pFo9FU7SOW2Ho0in8MdoSDHhlXhKsnQIYGLHyvL8BLJK3KmcAis3YwOnDY/XlTnt1i2G7i/eMNOnBNRkwWkQqcUFFByVAXUNPk3A9COXEgBkGRgtFDkgDTQjcWxuAwDiJBeMsMcUxszCJlsr+BaXUcLtGwiqut930579KST1IBd5Aqlgie3p/hdTIk+IK//bMGqleEbMjxjC+BZVDIv0+m9CpcNr6MDgkhLORjDBm1H56Iq3ggUvBv++7IhnUFZfnGNt6b4fRtj5wxfYL9p+Sjw==)
 
 </div>
 
-A method handler automatically receives the native DOM Event object that triggers it - in the example above, we are able to access the element dispatching the event via `event.target`.
+메서드 핸들러는 자동으로 해당 이벤트를 발생시킨 네이티브 DOM Event 객체를 전달받습니다. 위 예제에서는 `event.target`을 통해 이벤트를 발생시킨 엘리먼트에 접근할 수 있습니다.
 
 <div class="composition-api">
 
-See also: [Typing Event Handlers](/guide/typescript/composition-api#typing-event-handlers) <sup class="vt-badge ts" />
+참고: [이벤트 핸들러 타입 지정](/guide/typescript/composition-api#typing-event-handlers) <sup class="vt-badge ts" />
 
 </div>
 <div class="options-api">
 
-See also: [Typing Event Handlers](/guide/typescript/options-api#typing-event-handlers) <sup class="vt-badge ts" />
+참고: [이벤트 핸들러 타입 지정](/guide/typescript/options-api#typing-event-handlers) <sup class="vt-badge ts" />
 
 </div>
 
-### Method vs. Inline Detection {#method-vs-inline-detection}
+### 메서드 vs. 인라인 감지 {#method-vs-inline-detection}
 
-The template compiler detects method handlers by checking whether the `v-on` value string is a valid JavaScript identifier or property access path. For example, `foo`, `foo.bar` and `foo['bar']` are treated as method handlers, while `foo()` and `count++` are treated as inline handlers.
+템플릿 컴파일러는 `v-on` 값 문자열이 유효한 JavaScript 식별자 또는 속성 접근 경로인지 확인하여 메서드 핸들러를 감지합니다. 예를 들어, `foo`, `foo.bar`, `foo['bar']`는 메서드 핸들러로 처리되고, `foo()`와 `count++`는 인라인 핸들러로 처리됩니다.
 
-## Calling Methods in Inline Handlers {#calling-methods-in-inline-handlers}
+## 인라인 핸들러에서 메서드 호출하기 {#calling-methods-in-inline-handlers}
 
-Instead of binding directly to a method name, we can also call methods in an inline handler. This allows us to pass the method custom arguments instead of the native event:
+메서드 이름에 직접 바인딩하는 대신, 인라인 핸들러에서 메서드를 호출할 수도 있습니다. 이를 통해 네이티브 이벤트 대신 메서드에 커스텀 인자를 전달할 수 있습니다:
 
 <div class="composition-api">
 
@@ -165,26 +165,26 @@ methods: {
 
 <div class="composition-api">
 
-[Try it in the Playground](https://play.vuejs.org/#eNp9jTEOwjAMRa8SeSld6I5CBWdg9ZJGBiJSN2ocpKjq3UmpFDGx+Vn//b/ANYTjOxGcQEc7uyAqkqTQI98TW3ETq2jyYaQYzYNatSArZTzNUn/IK7Ludr2IBYTG4I3QRqKHJFJ6LtY7+zojbIXNk7yfmhahv5msvqS7PfnHGjJVp9w/hu7qKKwfEd1NSg==)
+[Playground에서 실행해보기](https://play.vuejs.org/#eNp9jTEOwjAMRa8SeSld6I5CBWdg9ZJGBiJSN2ocpKjq3UmpFDGx+Vn//b/ANYTjOxGcQEc7uyAqkqTQI98TW3ETq2jyYaQYzYNatSArZTzNUn/IK7Ludr2IBYTG4I3QRqKHJFJ6LtY7+zojbIXNk7yfmhahv5msvqS7PfnHGjJVp9w/hu7qKKwfEd1NSg==)
 
 </div>
 <div class="options-api">
 
-[Try it in the Playground](https://play.vuejs.org/#eNptjUEKwjAQRa8yZFO7sfsSi57B7WzGdjTBtA3NVC2ldzehEFwIw8D7vM9f1cX742tmVSsd2sl6aXDgjx8ngY7vNDuBFQeAnsWMXagToQAEWg49h0APLncDAIUcT5LzlKJsqRBfPF3ljQjCvXcknEj0bRYZBzi3zrbPE6o0UBhblKiaKy1grK52J/oA//23IcmNBD8dXeVBtX0BF0pXsg==)
+[Playground에서 실행해보기](https://play.vuejs.org/#eNptjUEKwjAQRa8yZFO7sfsSi57B7WzGdjTBtA3NVC2ldzehEFwIw8D7vM9f1cX742tmVSsd2sl6aXDgjx8ngY7vNDuBFQeAnsWMXagToQAEWg49h0APLncDAIUcT5LzlKJsqRBfPF3ljQjCvXcknEj0bRYZBzi3zrbPE6o0UBhblKiaKy1grK52J/oA//23IcmNBD8dXeVBtX0BF0pXsg==)
 
 </div>
 
-## Accessing Event Argument in Inline Handlers {#accessing-event-argument-in-inline-handlers}
+## 인라인 핸들러에서 이벤트 인자 접근하기 {#accessing-event-argument-in-inline-handlers}
 
-Sometimes we also need to access the original DOM event in an inline handler. You can pass it into a method using the special `$event` variable, or use an inline arrow function:
+때때로 인라인 핸들러에서 원래의 DOM 이벤트에 접근해야 할 때가 있습니다. 이럴 때는 특별한 `$event` 변수를 사용하거나, 인라인 화살표 함수를 사용할 수 있습니다:
 
 ```vue-html
-<!-- using $event special variable -->
+<!-- $event 특수 변수를 사용 -->
 <button @click="warn('Form cannot be submitted yet.', $event)">
   Submit
 </button>
 
-<!-- using inline arrow function -->
+<!-- 인라인 화살표 함수 사용 -->
 <button @click="(event) => warn('Form cannot be submitted yet.', event)">
   Submit
 </button>
@@ -194,7 +194,7 @@ Sometimes we also need to access the original DOM event in an inline handler. Yo
 
 ```js
 function warn(message, event) {
-  // now we have access to the native event
+  // 이제 네이티브 이벤트에 접근할 수 있습니다
   if (event) {
     event.preventDefault()
   }
@@ -208,7 +208,7 @@ function warn(message, event) {
 ```js
 methods: {
   warn(message, event) {
-    // now we have access to the native event
+    // 이제 네이티브 이벤트에 접근할 수 있습니다
     if (event) {
       event.preventDefault()
     }
@@ -219,11 +219,11 @@ methods: {
 
 </div>
 
-## Event Modifiers {#event-modifiers}
+## 이벤트 수식자 {#event-modifiers}
 
-It is a very common need to call `event.preventDefault()` or `event.stopPropagation()` inside event handlers. Although we can do this easily inside methods, it would be better if the methods can be purely about data logic rather than having to deal with DOM event details.
+이벤트 핸들러 내부에서 `event.preventDefault()`나 `event.stopPropagation()`을 호출해야 하는 경우가 매우 흔합니다. 물론 메서드 내부에서 쉽게 할 수 있지만, 메서드가 DOM 이벤트 세부사항을 처리하지 않고 데이터 로직에만 집중할 수 있다면 더 좋을 것입니다.
 
-To address this problem, Vue provides **event modifiers** for `v-on`. Recall that modifiers are directive postfixes denoted by a dot.
+이 문제를 해결하기 위해 Vue는 `v-on`에 **이벤트 수식자**를 제공합니다. 수식자는 점으로 표시되는 디렉티브 접미사입니다.
 
 - `.stop`
 - `.prevent`
@@ -233,74 +233,74 @@ To address this problem, Vue provides **event modifiers** for `v-on`. Recall tha
 - `.passive`
 
 ```vue-html
-<!-- the click event's propagation will be stopped -->
+<!-- 클릭 이벤트의 전파가 중단됩니다 -->
 <a @click.stop="doThis"></a>
 
-<!-- the submit event will no longer reload the page -->
+<!-- submit 이벤트가 더 이상 페이지를 새로고침하지 않습니다 -->
 <form @submit.prevent="onSubmit"></form>
 
-<!-- modifiers can be chained -->
+<!-- 수식자는 체이닝할 수 있습니다 -->
 <a @click.stop.prevent="doThat"></a>
 
-<!-- just the modifier -->
+<!-- 수식자만 사용 -->
 <form @submit.prevent></form>
 
-<!-- only trigger handler if event.target is the element itself -->
-<!-- i.e. not from a child element -->
+<!-- event.target이 해당 엘리먼트일 때만 핸들러가 실행됩니다 -->
+<!-- 즉, 자식 엘리먼트에서 발생한 이벤트는 제외 -->
 <div @click.self="doThat">...</div>
 ```
 
 ::: tip
-Order matters when using modifiers because the relevant code is generated in the same order. Therefore using `@click.prevent.self` will prevent **click's default action on the element itself and its children**, while `@click.self.prevent` will only prevent click's default action on the element itself.
+수식자를 사용할 때는 순서가 중요합니다. 관련 코드는 같은 순서로 생성되기 때문입니다. 따라서 `@click.prevent.self`는 **해당 엘리먼트와 자식 모두에서 클릭의 기본 동작을 막고**, `@click.self.prevent`는 해당 엘리먼트에서만 클릭의 기본 동작을 막습니다.
 :::
 
-The `.capture`, `.once`, and `.passive` modifiers mirror the [options of the native `addEventListener` method](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#options):
+`.capture`, `.once`, `.passive` 수식자는 [네이티브 `addEventListener` 메서드의 옵션](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#options)과 동일하게 동작합니다:
 
 ```vue-html
-<!-- use capture mode when adding the event listener     -->
-<!-- i.e. an event targeting an inner element is handled -->
-<!-- here before being handled by that element           -->
+<!-- 이벤트 리스너를 추가할 때 캡처 모드 사용     -->
+<!-- 즉, 내부 엘리먼트를 타겟팅한 이벤트가        -->
+<!-- 해당 엘리먼트에서 먼저 처리됩니다            -->
 <div @click.capture="doThis">...</div>
 
-<!-- the click event will be triggered at most once -->
+<!-- 클릭 이벤트는 최대 한 번만 트리거됩니다 -->
 <a @click.once="doThis"></a>
 
-<!-- the scroll event's default behavior (scrolling) will happen -->
-<!-- immediately, instead of waiting for `onScroll` to complete  -->
-<!-- in case it contains `event.preventDefault()`                -->
+<!-- 스크롤 이벤트의 기본 동작(스크롤링)은 `onScroll`이 완료될 때까지 기다리지 않고    -->
+<!-- 즉시 발생합니다. `event.preventDefault()`가  -->
+<!-- 포함되어 있을 경우에도 마찬가지입니다.      -->
 <div @scroll.passive="onScroll">...</div>
 ```
 
-The `.passive` modifier is typically used with touch event listeners for [improving performance on mobile devices](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scroll_performance_using_passive_listeners).
+`.passive` 수식자는 일반적으로 [모바일 기기에서 성능 향상을 위해](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scroll_performance_using_passive_listeners) 터치 이벤트 리스너와 함께 사용됩니다.
 
 ::: tip
-Do not use `.passive` and `.prevent` together, because `.passive` already indicates to the browser that you _do not_ intend to prevent the event's default behavior, and you will likely see a warning from the browser if you do so.
+`.passive`와 `.prevent`를 함께 사용하지 마세요. `.passive`는 이미 브라우저에 이벤트의 기본 동작을 막지 않을 것임을 알리므로, 함께 사용하면 브라우저에서 경고가 발생할 수 있습니다.
 :::
 
-## Key Modifiers {#key-modifiers}
+## 키 수식자 {#key-modifiers}
 
-When listening for keyboard events, we often need to check for specific keys. Vue allows adding key modifiers for `v-on` or `@` when listening for key events:
+키보드 이벤트를 리스닝할 때, 특정 키를 확인해야 하는 경우가 많습니다. Vue는 키 이벤트를 리스닝할 때 `v-on` 또는 `@`에 키 수식자를 추가할 수 있습니다:
 
 ```vue-html
-<!-- only call `submit` when the `key` is `Enter` -->
+<!-- `key`가 `Enter`일 때만 `submit` 호출 -->
 <input @keyup.enter="submit" />
 ```
 
-You can directly use any valid key names exposed via [`KeyboardEvent.key`](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values) as modifiers by converting them to kebab-case.
+[`KeyboardEvent.key`](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)에서 노출되는 유효한 키 이름을 케밥 케이스로 변환하여 수식자로 직접 사용할 수 있습니다.
 
 ```vue-html
 <input @keyup.page-down="onPageDown" />
 ```
 
-In the above example, the handler will only be called if `$event.key` is equal to `'PageDown'`.
+위 예제에서 핸들러는 `$event.key`가 `'PageDown'`일 때만 호출됩니다.
 
-### Key Aliases {#key-aliases}
+### 키 별칭 {#key-aliases}
 
-Vue provides aliases for the most commonly used keys:
+Vue는 자주 사용되는 키에 대해 별칭을 제공합니다:
 
 - `.enter`
 - `.tab`
-- `.delete` (captures both "Delete" and "Backspace" keys)
+- `.delete` ("Delete"와 "Backspace" 키 모두 캡처)
 - `.esc`
 - `.space`
 - `.up`
@@ -308,20 +308,20 @@ Vue provides aliases for the most commonly used keys:
 - `.left`
 - `.right`
 
-### System Modifier Keys {#system-modifier-keys}
+### 시스템 수정 키 {#system-modifier-keys}
 
-You can use the following modifiers to trigger mouse or keyboard event listeners only when the corresponding modifier key is pressed:
+다음 수식자를 사용하여 해당 수정 키가 눌렸을 때만 마우스 또는 키보드 이벤트 리스너가 트리거되도록 할 수 있습니다:
 
 - `.ctrl`
 - `.alt`
 - `.shift`
 - `.meta`
 
-::: tip Note
-On Macintosh keyboards, meta is the command key (⌘). On Windows keyboards, meta is the Windows key (⊞). On Sun Microsystems keyboards, meta is marked as a solid diamond (◆). On certain keyboards, specifically MIT and Lisp machine keyboards and successors, such as the Knight keyboard, space-cadet keyboard, meta is labeled “META”. On Symbolics keyboards, meta is labeled “META” or “Meta”.
+::: tip 참고
+Macintosh 키보드에서 meta는 command 키(⌘)입니다. Windows 키보드에서는 meta가 Windows 키(⊞)입니다. Sun Microsystems 키보드에서는 meta가 실선 다이아몬드(◆)로 표시됩니다. MIT 및 Lisp 머신 키보드와 그 후속 키보드(예: Knight 키보드, space-cadet 키보드)에서는 meta가 “META”로 표시됩니다. Symbolics 키보드에서는 meta가 “META” 또는 “Meta”로 표시됩니다.
 :::
 
-For example:
+예를 들어:
 
 ```vue-html
 <!-- Alt + Enter -->
@@ -332,30 +332,30 @@ For example:
 ```
 
 ::: tip
-Note that modifier keys are different from regular keys and when used with `keyup` events, they have to be pressed when the event is emitted. In other words, `keyup.ctrl` will only trigger if you release a key while holding down `ctrl`. It won't trigger if you release the `ctrl` key alone.
+수정 키는 일반 키와 다르며, `keyup` 이벤트와 함께 사용할 때는 이벤트가 발생할 때 반드시 눌려 있어야 합니다. 즉, `keyup.ctrl`은 ctrl을 누른 상태에서 다른 키를 뗄 때만 트리거됩니다. ctrl 키만 뗄 때는 트리거되지 않습니다.
 :::
 
-### `.exact` Modifier {#exact-modifier}
+### `.exact` 수식자 {#exact-modifier}
 
-The `.exact` modifier allows control of the exact combination of system modifiers needed to trigger an event.
+`.exact` 수식자를 사용하면 이벤트를 트리거하는 데 필요한 시스템 수정 키의 정확한 조합을 제어할 수 있습니다.
 
 ```vue-html
-<!-- this will fire even if Alt or Shift is also pressed -->
+<!-- Alt 또는 Shift가 함께 눌려도 실행됩니다 -->
 <button @click.ctrl="onClick">A</button>
 
-<!-- this will only fire when Ctrl and no other keys are pressed -->
+<!-- Ctrl만 눌렸을 때만 실행됩니다 -->
 <button @click.ctrl.exact="onCtrlClick">A</button>
 
-<!-- this will only fire when no system modifiers are pressed -->
+<!-- 시스템 수정 키가 아무것도 눌리지 않았을 때만 실행됩니다 -->
 <button @click.exact="onClick">A</button>
 ```
 
-## Mouse Button Modifiers {#mouse-button-modifiers}
+## 마우스 버튼 수식자 {#mouse-button-modifiers}
 
 - `.left`
 - `.right`
 - `.middle`
 
-These modifiers restrict the handler to events triggered by a specific mouse button.
+이 수식자들은 특정 마우스 버튼으로 트리거된 이벤트에만 핸들러를 제한합니다.
 
-Note, however, that `.left`, `.right`, and `.middle` modifier names are based on the typical right-handed mouse layout, but in fact represent "main", "secondary", and "auxiliary" pointing device event triggers, respectively, and not the actual physical buttons. So that for a left-handed mouse layout the "main" button might physically be the right one but would trigger the `.left` modifier handler. Or a trackpad might trigger the `.left` handler with a one-finger tap, the `.right` handler with a two-finger tap, and the `.middle` handler with a three-finger tap. Similarly, other devices and event sources generating "mouse" events might have trigger modes that are not related to "left" and "right" whatsoever.
+단, `.left`, `.right`, `.middle` 수식자 이름은 일반적인 오른손잡이 마우스 레이아웃을 기준으로 하지만, 실제로는 각각 "주", "보조", "보조2" 포인팅 장치 이벤트 트리거를 의미하며, 실제 물리적 버튼과는 다를 수 있습니다. 예를 들어, 왼손잡이 마우스 레이아웃에서는 "주" 버튼이 실제로 오른쪽 버튼일 수 있지만 `.left` 수식자 핸들러가 트리거됩니다. 트랙패드의 경우 한 손가락 탭은 `.left`, 두 손가락 탭은 `.right`, 세 손가락 탭은 `.middle` 핸들러를 트리거할 수 있습니다. 이와 같이, "마우스" 이벤트를 생성하는 다른 장치나 이벤트 소스도 "left"와 "right"와는 무관한 트리거 모드를 가질 수 있습니다.

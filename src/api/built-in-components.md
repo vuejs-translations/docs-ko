@@ -2,12 +2,12 @@
 pageClass: api
 ---
 
-# Built-in Components {#built-in-components}
+# 내장 컴포넌트 {#built-in-components}
 
-:::info Registration and Usage
-Built-in components can be used directly in templates without needing to be registered. They are also tree-shakeable: they are only included in the build when they are used.
+:::info 등록 및 사용법
+내장 컴포넌트는 등록 없이 템플릿에서 바로 사용할 수 있습니다. 또한 트리 셰이킹이 가능합니다. 즉, 사용된 경우에만 빌드에 포함됩니다.
 
-When using them in [render functions](/guide/extras/render-function), they need to be imported explicitly. For example:
+[렌더 함수](/guide/extras/render-function)에서 사용할 때는 명시적으로 import 해야 합니다. 예시:
 
 ```js
 import { h, Transition } from 'vue'
@@ -21,50 +21,50 @@ h(Transition, {
 
 ## `<Transition>` {#transition}
 
-Provides animated transition effects to a **single** element or component.
+**하나의** 요소 또는 컴포넌트에 애니메이션 전환 효과를 제공합니다.
 
 - **Props**
 
   ```ts
   interface TransitionProps {
     /**
-     * Used to automatically generate transition CSS class names.
-     * e.g. `name: 'fade'` will auto expand to `.fade-enter`,
-     * `.fade-enter-active`, etc.
+     * 전환 CSS 클래스 이름을 자동으로 생성하는 데 사용됩니다.
+     * 예: `name: 'fade'`를 지정하면 `.fade-enter`,
+     * `.fade-enter-active` 등으로 자동 확장됩니다.
      */
     name?: string
     /**
-     * Whether to apply CSS transition classes.
-     * Default: true
+     * CSS 전환 클래스를 적용할지 여부입니다.
+     * 기본값: true
      */
     css?: boolean
     /**
-     * Specifies the type of transition events to wait for to
-     * determine transition end timing.
-     * Default behavior is auto detecting the type that has
-     * longer duration.
+     * 전환 종료 타이밍을 결정하기 위해
+     * 대기할 전환 이벤트의 종류를 지정합니다.
+     * 기본 동작은 더 긴 지속 시간을 가진
+     * 타입을 자동 감지합니다.
      */
     type?: 'transition' | 'animation'
     /**
-     * Specifies explicit durations of the transition.
-     * Default behavior is wait for the first `transitionend`
-     * or `animationend` event on the root transition element.
+     * 전환의 명시적 지속 시간을 지정합니다.
+     * 기본 동작은 루트 전환 요소에서 첫 번째 `transitionend`
+     * 또는 `animationend` 이벤트를 대기합니다.
      */
     duration?: number | { enter: number; leave: number }
     /**
-     * Controls the timing sequence of leaving/entering transitions.
-     * Default behavior is simultaneous.
+     * 나가기/들어오기 전환의 타이밍 시퀀스를 제어합니다.
+     * 기본 동작은 동시에 실행됩니다.
      */
     mode?: 'in-out' | 'out-in' | 'default'
     /**
-     * Whether to apply transition on initial render.
-     * Default: false
+     * 초기 렌더 시 전환을 적용할지 여부입니다.
+     * 기본값: false
      */
     appear?: boolean
 
     /**
-     * Props for customizing transition classes.
-     * Use kebab-case in templates, e.g. enter-from-class="xxx"
+     * 전환 클래스를 커스터마이즈하기 위한 props입니다.
+     * 템플릿에서는 케밥 케이스를 사용하세요. 예: enter-from-class="xxx"
      */
     enterFromClass?: string
     enterActiveClass?: string
@@ -78,7 +78,7 @@ Provides animated transition effects to a **single** element or component.
   }
   ```
 
-- **Events**
+- **이벤트**
 
   - `@before-enter`
   - `@before-leave`
@@ -89,20 +89,20 @@ Provides animated transition effects to a **single** element or component.
   - `@after-leave`
   - `@after-appear`
   - `@enter-cancelled`
-  - `@leave-cancelled` (`v-show` only)
+  - `@leave-cancelled` (`v-show`에서만)
   - `@appear-cancelled`
 
-- **Example**
+- **예시**
 
-  Simple element:
+  단순 요소:
 
   ```vue-html
   <Transition>
-    <div v-if="ok">toggled content</div>
+    <div v-if="ok">토글된 내용</div>
   </Transition>
   ```
 
-  Forcing a transition by changing the `key` attribute:
+  `key` 속성을 변경하여 전환 강제 적용:
 
   ```vue-html
   <Transition>
@@ -110,7 +110,7 @@ Provides animated transition effects to a **single** element or component.
   </Transition>
   ```
 
-  Dynamic component, with transition mode + animate on appear:
+  동적 컴포넌트, 전환 모드 + appear 시 애니메이션:
 
   ```vue-html
   <Transition name="fade" mode="out-in" appear>
@@ -118,51 +118,51 @@ Provides animated transition effects to a **single** element or component.
   </Transition>
   ```
 
-  Listening to transition events:
+  전환 이벤트 리스닝:
 
   ```vue-html
   <Transition @after-enter="onTransitionComplete">
-    <div v-show="ok">toggled content</div>
+    <div v-show="ok">토글된 내용</div>
   </Transition>
   ```
 
-- **See also** [Guide - Transition](/guide/built-ins/transition)
+- **더 알아보기** [가이드 - Transition](/guide/built-ins/transition)
 
 ## `<TransitionGroup>` {#transitiongroup}
 
-Provides transition effects for **multiple** elements or components in a list.
+목록 내 **여러** 요소 또는 컴포넌트에 전환 효과를 제공합니다.
 
 - **Props**
 
-  `<TransitionGroup>` accepts the same props as `<Transition>` except `mode`, plus two additional props:
+  `<TransitionGroup>`은 `mode`를 제외한 `<Transition>`과 동일한 props를 받으며, 두 가지 추가 props가 있습니다:
 
   ```ts
   interface TransitionGroupProps extends Omit<TransitionProps, 'mode'> {
     /**
-     * If not defined, renders as a fragment.
+     * 정의하지 않으면 fragment로 렌더링됩니다.
      */
     tag?: string
     /**
-     * For customizing the CSS class applied during move transitions.
-     * Use kebab-case in templates, e.g. move-class="xxx"
+     * 이동 전환 중 적용되는 CSS 클래스를 커스터마이즈합니다.
+     * 템플릿에서는 케밥 케이스를 사용하세요. 예: move-class="xxx"
      */
     moveClass?: string
   }
   ```
 
-- **Events**
+- **이벤트**
 
-  `<TransitionGroup>` emits the same events as `<Transition>`.
+  `<TransitionGroup>`은 `<Transition>`과 동일한 이벤트를 발생시킵니다.
 
-- **Details**
+- **상세 설명**
 
-  By default, `<TransitionGroup>` doesn't render a wrapper DOM element, but one can be defined via the `tag` prop.
+  기본적으로 `<TransitionGroup>`은 래퍼 DOM 요소를 렌더링하지 않지만, `tag` prop을 통해 정의할 수 있습니다.
 
-  Note that every child in a `<transition-group>` must be [**uniquely keyed**](/guide/essentials/list#maintaining-state-with-key) for the animations to work properly.
+  `<transition-group>` 내의 모든 자식은 애니메이션이 제대로 동작하려면 [**고유한 key**](/guide/essentials/list#maintaining-state-with-key)가 있어야 합니다.
 
-  `<TransitionGroup>` supports moving transitions via CSS transform. When a child's position on screen has changed after an update, it will get applied a moving CSS class (auto generated from the `name` attribute or configured with the `move-class` prop). If the CSS `transform` property is "transition-able" when the moving class is applied, the element will be smoothly animated to its destination using the [FLIP technique](https://aerotwist.com/blog/flip-your-animations/).
+  `<TransitionGroup>`은 CSS transform을 통한 이동 전환을 지원합니다. 업데이트 후 자식의 화면 위치가 변경되면, 이동 CSS 클래스( `name` 속성에서 자동 생성되거나 `move-class` prop으로 지정됨)가 적용됩니다. 이동 클래스가 적용될 때 CSS `transform` 속성이 "전환 가능"하다면, [FLIP 기법](https://aerotwist.com/blog/flip-your-animations/)을 사용하여 부드럽게 목적지로 애니메이션됩니다.
 
-- **Example**
+- **예시**
 
   ```vue-html
   <TransitionGroup tag="ul" name="slide">
@@ -172,28 +172,28 @@ Provides transition effects for **multiple** elements or components in a list.
   </TransitionGroup>
   ```
 
-- **See also** [Guide - TransitionGroup](/guide/built-ins/transition-group)
+- **더 알아보기** [가이드 - TransitionGroup](/guide/built-ins/transition-group)
 
 ## `<KeepAlive>` {#keepalive}
 
-Caches dynamically toggled components wrapped inside.
+내부에 감싼 동적으로 토글되는 컴포넌트를 캐시합니다.
 
 - **Props**
 
   ```ts
   interface KeepAliveProps {
     /**
-     * If specified, only components with names matched by
-     * `include` will be cached.
+     * 지정하면, `include`에 일치하는 이름의
+     * 컴포넌트만 캐시됩니다.
      */
     include?: MatchPattern
     /**
-     * Any component with a name matched by `exclude` will
-     * not be cached.
+     * `exclude`에 일치하는 이름의
+     * 컴포넌트는 캐시되지 않습니다.
      */
     exclude?: MatchPattern
     /**
-     * The maximum number of component instances to cache.
+     * 캐시할 컴포넌트 인스턴스의 최대 개수입니다.
      */
     max?: number | string
   }
@@ -201,17 +201,17 @@ Caches dynamically toggled components wrapped inside.
   type MatchPattern = string | RegExp | (string | RegExp)[]
   ```
 
-- **Details**
+- **상세 설명**
 
-  When wrapped around a dynamic component, `<KeepAlive>` caches the inactive component instances without destroying them.
+  동적 컴포넌트를 감쌀 때, `<KeepAlive>`는 비활성 컴포넌트 인스턴스를 파괴하지 않고 캐시합니다.
 
-  There can only be one active component instance as the direct child of `<KeepAlive>` at any time.
+  한 번에 `<KeepAlive>`의 직접 자식으로는 하나의 활성 컴포넌트 인스턴스만 존재할 수 있습니다.
 
-  When a component is toggled inside `<KeepAlive>`, its `activated` and `deactivated` lifecycle hooks will be invoked accordingly, providing an alternative to `mounted` and `unmounted`, which are not called. This applies to the direct child of `<KeepAlive>` as well as to all of its descendants.
+  `<KeepAlive>` 내부에서 컴포넌트가 토글될 때, 해당 컴포넌트의 `activated` 및 `deactivated` 라이프사이클 훅이 호출됩니다. 이는 `mounted`와 `unmounted`의 대안으로, 이 둘은 호출되지 않습니다. 이 동작은 `<KeepAlive>`의 직접 자식뿐만 아니라 모든 하위 컴포넌트에도 적용됩니다.
 
-- **Example**
+- **예시**
 
-  Basic usage:
+  기본 사용법:
 
   ```vue-html
   <KeepAlive>
@@ -219,7 +219,7 @@ Caches dynamically toggled components wrapped inside.
   </KeepAlive>
   ```
 
-  When used with `v-if` / `v-else` branches, there must be only one component rendered at a time:
+  `v-if` / `v-else` 분기와 함께 사용할 때는 한 번에 하나의 컴포넌트만 렌더링되어야 합니다:
 
   ```vue-html
   <KeepAlive>
@@ -228,7 +228,7 @@ Caches dynamically toggled components wrapped inside.
   </KeepAlive>
   ```
 
-  Used together with `<Transition>`:
+  `<Transition>`과 함께 사용:
 
   ```vue-html
   <Transition>
@@ -238,26 +238,26 @@ Caches dynamically toggled components wrapped inside.
   </Transition>
   ```
 
-  Using `include` / `exclude`:
+  `include` / `exclude` 사용:
 
   ```vue-html
-  <!-- comma-delimited string -->
+  <!-- 콤마로 구분된 문자열 -->
   <KeepAlive include="a,b">
     <component :is="view"></component>
   </KeepAlive>
 
-  <!-- regex (use `v-bind`) -->
+  <!-- 정규식 (v-bind 사용) -->
   <KeepAlive :include="/a|b/">
     <component :is="view"></component>
   </KeepAlive>
 
-  <!-- Array (use `v-bind`) -->
+  <!-- 배열 (v-bind 사용) -->
   <KeepAlive :include="['a', 'b']">
     <component :is="view"></component>
   </KeepAlive>
   ```
 
-  Usage with `max`:
+  `max`와 함께 사용:
 
   ```vue-html
   <KeepAlive :max="10">
@@ -265,39 +265,39 @@ Caches dynamically toggled components wrapped inside.
   </KeepAlive>
   ```
 
-- **See also** [Guide - KeepAlive](/guide/built-ins/keep-alive)
+- **더 알아보기** [가이드 - KeepAlive](/guide/built-ins/keep-alive)
 
 ## `<Teleport>` {#teleport}
 
-Renders its slot content to another part of the DOM.
+슬롯 콘텐츠를 DOM의 다른 위치에 렌더링합니다.
 
 - **Props**
 
   ```ts
   interface TeleportProps {
     /**
-     * Required. Specify target container.
-     * Can either be a selector or an actual element.
+     * 필수. 대상 컨테이너를 지정합니다.
+     * 선택자 또는 실제 요소가 될 수 있습니다.
      */
     to: string | HTMLElement
     /**
-     * When `true`, the content will remain in its original
-     * location instead of moved into the target container.
-     * Can be changed dynamically.
+     * `true`이면, 콘텐츠가 대상 컨테이너로 이동하지 않고
+     * 원래 위치에 남아 있습니다.
+     * 동적으로 변경할 수 있습니다.
      */
     disabled?: boolean
     /**
-     * When `true`, the Teleport will defer until other
-     * parts of the application have been mounted before
-     * resolving its target. (3.5+)
+     * `true`이면, Teleport는
+     * 애플리케이션의 다른 부분이 마운트된 후
+     * 대상 해석을 지연합니다. (3.5+)
      */
     defer?: boolean
   }
   ```
 
-- **Example**
+- **예시**
 
-  Specifying target container:
+  대상 컨테이너 지정:
 
   ```vue-html
   <Teleport to="#some-id" />
@@ -305,7 +305,7 @@ Renders its slot content to another part of the DOM.
   <Teleport to="[data-teleport]" />
   ```
 
-  Conditionally disabling:
+  조건부 비활성화:
 
   ```vue-html
   <Teleport to="#popup" :disabled="displayVideoInline">
@@ -313,20 +313,20 @@ Renders its slot content to another part of the DOM.
   </Teleport>
   ```
 
-  Defer target resolution <sup class="vt-badge" data-text="3.5+" />:
+  대상 해석 지연 <sup class="vt-badge" data-text="3.5+" />:
 
   ```vue-html
   <Teleport defer to="#late-div">...</Teleport>
 
-  <!-- somewhere later in the template -->
+  <!-- 템플릿의 다른 위치에 -->
   <div id="late-div"></div>
   ```
 
-- **See also** [Guide - Teleport](/guide/built-ins/teleport)
+- **더 알아보기** [가이드 - Teleport](/guide/built-ins/teleport)
 
 ## `<Suspense>` <sup class="vt-badge experimental" /> {#suspense}
 
-Used for orchestrating nested async dependencies in a component tree.
+컴포넌트 트리 내에서 중첩된 비동기 의존성을 조율하는 데 사용됩니다.
 
 - **Props**
 
@@ -337,18 +337,18 @@ Used for orchestrating nested async dependencies in a component tree.
   }
   ```
 
-- **Events**
+- **이벤트**
 
   - `@resolve`
   - `@pending`
   - `@fallback`
 
-- **Details**
+- **상세 설명**
 
-  `<Suspense>` accepts two slots: the `#default` slot and the `#fallback` slot. It will display the content of the fallback slot while rendering the default slot in memory.
+  `<Suspense>`는 두 개의 슬롯을 받습니다: `#default` 슬롯과 `#fallback` 슬롯. 기본 슬롯을 메모리에서 렌더링하는 동안 fallback 슬롯의 내용을 표시합니다.
 
-  If it encounters async dependencies ([Async Components](/guide/components/async) and components with [`async setup()`](/guide/built-ins/suspense#async-setup)) while rendering the default slot, it will wait until all of them are resolved before displaying the default slot.
+  기본 슬롯을 렌더링하는 동안 비동기 의존성([비동기 컴포넌트](/guide/components/async) 및 [`async setup()`](/guide/built-ins/suspense#async-setup)이 있는 컴포넌트를 만나면, 모든 의존성이 해결될 때까지 기본 슬롯을 표시하지 않습니다.
 
-  By setting the Suspense as `suspensible`, all the async dependency handling will be handled by the parent Suspense. See [implementation details](https://github.com/vuejs/core/pull/6736)
+  Suspense를 `suspensible`로 설정하면, 모든 비동기 의존성 처리가 부모 Suspense에 의해 처리됩니다. [구현 세부사항](https://github.com/vuejs/core/pull/6736) 참고
 
-- **See also** [Guide - Suspense](/guide/built-ins/suspense)
+- **더 알아보기** [가이드 - Suspense](/guide/built-ins/suspense)

@@ -1,6 +1,6 @@
 ---
 page: true
-title: Examples
+title: 예제
 aside: false
 footer: false
 outline: false
