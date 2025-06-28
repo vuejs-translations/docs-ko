@@ -1,12 +1,16 @@
 # Component v-model {#component-v-model}
 
-## 기본 사용법 {#basic-usage}
+<ScrimbaLink href="https://scrimba.com/links/vue-component-v-model" title="Free Vue.js Component v-model Lesson" type="scrimba">
+  Watch an interactive video lesson on Scrimba
+</ScrimbaLink>
 
-`v-model`을 컴포넌트에서 사용하여 양방향 바인딩을 구현할 수 있습니다.
+## Basic Usage {#basic-usage}
+
+`v-model` can be used on a component to implement a two-way binding.
 
 <div class="composition-api">
 
-Vue 3.4부터는 [`defineModel()`](/api/sfc-script-setup#definemodel) 매크로를 사용하는 것이 권장되는 접근 방식입니다:
+Starting in Vue 3.4, the recommended approach to achieve this is using the [`defineModel()`](/api/sfc-script-setup#definemodel) macro:
 
 ```vue
 <!-- Child.vue -->
@@ -19,23 +23,24 @@ function update() {
 </script>
 
 <template>
-  <div>부모 바인딩 v-model은: {{ model }}</div>
+  <div>Parent bound v-model is: {{ model }}</div>
+  <button @click="update">Increment</button>
 </template>
 ```
 
-부모는 `v-model`을 사용하여 값을 바인딩할 수 있습니다:
+The parent can then bind a value with `v-model`:
 
 ```vue-html
 <!-- Parent.vue -->
 <Child v-model="countModel" />
 ```
 
-`defineModel()`에 의해 반환되는 값은 ref입니다. 다른 ref처럼 접근하고 변경할 수 있지만, 부모 값과 로컬 값 사이의 양방향 바인딩으로 작동합니다:
+The value returned by `defineModel()` is a ref. It can be accessed and mutated like any other ref, except that it acts as a two-way binding between a parent value and a local one:
 
-- `.value`는 부모 `v-model`에 의해 바인딩된 값과 동기화됩니다;
-- 자식에 의해 변경되면 부모 바인딩 값도 업데이트됩니다.
+- Its `.value` is synced with the value bound by the parent `v-model`;
+- When it is mutated by the child, it causes the parent bound value to be updated as well.
 
-따라서 이 ref를 네이티브 입력 엘리먼트의 `v-model`에 바인딩할 수도 있어, 네이티브 입력 엘리먼트를 래핑하면서 동일한 `v-model` 사용을 제공하는 것이 간단해집니다:
+This means you can also bind this ref to a native input element with `v-model`, making it straightforward to wrap native input elements while providing the same `v-model` usage:
 
 ```vue
 <script setup>
@@ -47,16 +52,16 @@ const model = defineModel()
 </template>
 ```
 
-[Try it in the Playground](https://play.vuejs.org/#eNqFUtFKwzAU/ZWYl06YLbK30Q10DFSYigq+5KW0t11mmoQknZPSf/cm3eqEsT0l555zuefmpKV3WsfbBuiUpjY3XDtiwTV6ziSvtTKOLNZcFKQ0qiZRnATkG6JB0BIDJen2kp5iMlfSOlLbisw8P4oeQAhFPpURxVV0zWSa9PNwEgIHtRaZA0SEpOvbeduG5q5LE0Sh2jvZ3tSqADFjFHlGSYJkmhz10zF1FseXvIo3VklcrfX9jOaq1lyAedGOoz1GpyQwnsvQ3fdTqDnTwPhQz9eQf52ob+zO1xh9NWDBbIHRgXOZqcD19PL9GXZ4H0h03whUnyHfwCrReI+97L6RBdo+0gW3j+H9uaw+7HLnQNrDUt6oV3ZBzyhmsjiz+p/dSTwJfUx2+IpD1ic+xz5enwQGXEDJJaw8Gl2I1upMzlc/hEvdOBR6SNKAjqP1J6P/o6XdL11L5h4=)
+[Try it in the playground](https://play.vuejs.org/#eNqFUtFKwzAU/ZWYl06YLbK30Q10DFSYigq+5KW0t11mmoQknZPSf/cm3eqEsT0l555zuefmpKV3WsfbBuiUpjY3XDtiwTV6ziSvtTKOLNZcFKQ0qiZRnATkG6JB0BIDJen2kp5iMlfSOlLbisw8P4oeQAhFPpURxVV0zWSa9PNwEgIHtRaZA0SEpOvbeduG5q5LE0Sh2jvZ3tSqADFjFHlGSYJkmhz10zF1FseXvIo3VklcrfX9jOaq1lyAedGOoz1GpyQwnsvQ3fdTqDnTwPhQz9eQf52ob+zO1xh9NWDBbIHRgXOZqcD19PL9GXZ4H0h03whUnyHfwCrReI+97L6RBdo+0gW3j+H9uaw+7HLnQNrDUt6oV3ZBzyhmsjiz+p/dSTwJfUx2+IpD1ic+xz5enwQGXEDJJaw8Gl2I1upMzlc/hEvdOBR6SNKAjqP1J6P/o6XdL11L5h4=)
 
-### 내부 구조 {#under-the-hood}
+### Under the Hood {#under-the-hood}
 
-`defineModel`은 편의성을 위한 매크로입니다. 컴파일러는 다음과 같이 확장합니다:
+`defineModel` is a convenience macro. The compiler expands it to the following:
 
-- 로컬 ref의 값과 동기화되는 `modelValue`라는 이름의 prop;
-- 로컬 ref의 값이 변경될 때 발생하는 `update:modelValue`라는 이벤트.
+- A prop named `modelValue`, which the local ref's value is synced with;
+- An event named `update:modelValue`, which is emitted when the local ref's value is mutated.
 
-3.4 이전에 위와 같은 자식 컴포넌트를 구현하는 방법은 다음과 같습니다:
+This is how you would implement the same child component shown above prior to 3.4:
 
 ```vue
 <!-- Child.vue -->
@@ -73,7 +78,7 @@ const emit = defineEmits(['update:modelValue'])
 </template>
 ```
 
-그런 다음, 부모 컴포넌트에서 `v-model="modelValue"`는 다음과 같이 컴파일됩니다:
+Then, `v-model="foo"` in the parent component will be compiled to:
 
 ```vue-html
 <!-- Parent.vue -->
@@ -83,26 +88,30 @@ const emit = defineEmits(['update:modelValue'])
 />
 ```
 
-보시다시피, 이것은 훨씬 더 장황합니다. 하지만 내부에서 무슨 일이 일어나는지 이해하는 것이 도움이 됩니다.
+As you can see, it is quite a bit more verbose. However, it is helpful to understand what is happening under the hood.
 
-`defineModel`은 prop을 선언하므로, `defineModel`에 전달함으로써 기본 prop의 옵션을 선언할 수 있습니다:
+Because `defineModel` declares a prop, you can therefore declare the underlying prop's options by passing it to `defineModel`:
 
 ```js
-// v-model을 필수로 만들기
+// making the v-model required
 const model = defineModel({ required: true })
 
-// 기본값 제공
+// providing a default value
 const model = defineModel({ default: 0 })
 ```
 
 :::warning
-`defineModel` prop에 `default` 값을 설정하고, 부모 컴포넌트에서 이 prop에 대한 값을 제공하지 않으면, 부모와 자식 컴포넌트 간의 동기화 문제가 발생할 수 있습니다. 아래 예시에서, 부모의 `myRef`는 값이 정의되지 않았지만(`undefined`) 자식의 `model`은 1 입니다:
+If you have a `default` value for `defineModel` prop and you don't provide any value for this prop from the parent component, it can cause a de-synchronization between parent and child components. In the example below, the parent's `myRef` is undefined, but the child's `model` is 1:
+
+**Child component:**
 
 ```js
-// 자식 컴포넌트:
 const model = defineModel({ default: 1 })
+```
 
-// 부모 컴포넌트:
+**Parent component:**
+
+```js
 const myRef = ref()
 ```
 
@@ -116,13 +125,13 @@ const myRef = ref()
 
 <div class="options-api">
 
-먼저 네이티브 엘리먼트에서 v-model이 어떻게 사용되는지 다시 살펴봅시다:
+First let's revisit how `v-model` is used on a native element:
 
 ```vue-html
 <input v-model="searchText" />
 ```
 
-내부적으로 템플릿 컴파일러는 `v-model`을 좀 더 자세한 표현으로 확장합니다. 따라서 위의 코드는 다음과 같은 작업을 수행합니다:
+Under the hood, the template compiler expands `v-model` to the more verbose equivalent for us. So the above code does the same as the following:
 
 ```vue-html
 <input
@@ -131,7 +140,7 @@ const myRef = ref()
 />
 ```
 
-컴포넌트에 사용하면 `v-model`이 대신 이렇게 확장됩니다:
+When used on a component, `v-model` instead expands to this:
 
 ```vue-html
 <CustomInput
@@ -140,12 +149,12 @@ const myRef = ref()
 />
 ```
 
-하지만 이 기능이 실제로 작동하려면 `<CustomInput>` 컴포넌트가 두 가지 작업을 수행해야 합니다:
+For this to actually work though, the `<CustomInput>` component must do two things:
 
-1. 네이티브 `<input>` 앨리먼트의 `value` 속성을 `modelValue` 프로퍼티에 바인딩합니다.
-2. 네이티브 `input` 이벤트가 트리거되면 새 값으로 `update:modelValue` 사용자 지정 이벤트를 내보냅니다.
+1. Bind the `value` attribute of a native `<input>` element to the `modelValue` prop
+2. When a native `input` event is triggered, emit an `update:modelValue` custom event with the new value
 
-실제로 작동하는 모습은 다음과 같습니다:
+Here's that in action:
 
 ```vue
 <!-- CustomInput.vue -->
@@ -164,7 +173,7 @@ export default {
 </template>
 ```
 
-이제 `v-model`이 이 컴포넌트와 완벽하게 작동합니다:
+Now `v-model` should work perfectly with this component:
 
 ```vue-html
 <CustomInput v-model="searchText" />
@@ -172,7 +181,7 @@ export default {
 
 [Try it in the Playground](https://play.vuejs.org/#eNqFkctqwzAQRX9lEAEn4Np744aWrvoD3URdiHiSGvRCHpmC8b93JDfGKYGCkJjXvTrSJF69r8aIohHtcA69p6O0vfEuELzFgZx5tz4SXIIzUFT1JpfGCmmlxe/c3uFFRU0wSQtwdqxh0dLQwHSnNJep3ilS+8PSCxCQYrC3CMDgMKgrNlB8odaOXVJ2TgdvvNp6vSwHhMZrRcgRQLs1G5+M61A/S/ErKQXUR5immwXMWW1VEKX4g3j3Mo9QfXCeKU9FtvpQmp/lM0Oi6RP/qYieebHZNvyL0acLLODNmGYSxCogxVJ6yW1c2iWz/QOnEnY48kdUpMIVGSllD8t8zVZb+PkHqPG4iw==)
 
-이 컴포넌트 내에서 `v-model`을 구현하는 또 다른 방법은 getter와 setter가 모두 있는 쓰기 가능한 `computed` 프로퍼티를 사용하는 것입니다. `get` 메서드는 `modelValue` 프로퍼티를 반환하고 `set` 메서드는 해당 이벤트를 발생시켜야 합니다:
+Another way of implementing `v-model` within this component is to use a writable `computed` property with both a getter and a setter. The `get` method should return the `modelValue` property and the `set` method should emit the corresponding event:
 
 ```vue
 <!-- CustomInput.vue -->
@@ -200,9 +209,9 @@ export default {
 
 </div>
 
-## `v-model` 인수 {#v-model-arguments}
+## `v-model` Arguments {#v-model-arguments}
 
-`v-model`은 컴포넌트에서 인수를 받을 수도 있습니다:
+`v-model` on a component can also accept an argument:
 
 ```vue-html
 <MyComponent v-model:title="bookTitle" />
@@ -210,7 +219,7 @@ export default {
 
 <div class="composition-api">
 
-자식 컴포넌트에서는 `defineModel()`의 첫 번째 인수로 문자열을 전달하여 해당 인수를 지원할 수 있습니다:
+In the child component, we can support the corresponding argument by passing a string to `defineModel()` as its first argument:
 
 ```vue
 <!-- MyComponent.vue -->
@@ -223,16 +232,16 @@ const title = defineModel('title')
 </template>
 ```
 
-[Try it in the Playground](https://play.vuejs.org/#eNqFU9tu2zAM/RVBKOAWyGIM25PhFbugDxuwC7a+VX3wEiZ1K0uCRHkuDP/7SKlxk16BILbIQ/KcQ3mUn5xb9hFkJeuw8q3DU2XazlmP4vvtF0tvBgyKjbedKJblXozLCmWUgSHB17BpokYxKiPEaocKlRgPOk0Lzq8bbI5PMlYIDxi92Z2E+GvtzXmLGipR9G86uwYtGr+NHTeAoemc5tEMnfhBf/Sry1kBHRAI1SDQSYj66u3pON73FdNUlxRLuX12d9MqZNQHJecKJUVJ8Lqc+8qFfODGgYlPueK8dWTIRZHaF5fJCuhadumiiI5cgTy6uHxVUmtcxGwC3jomizCgkjlU9Y2OKZjZ5+jHVETRI556fDhyIY6gZylIXgMp4g4nufSxdgwrazbtdnkdrCHlSaCSvPhWg//psLUmKEn7z7OVbLS2/76lGPoISX2quYLVzRPx6zBwTMlfHgL4nmTMucwxp8/+/EjK5yTtMLLoF5K/IVgdmWOGfY5mTbT3cInt1/QptGZ7Hs4GBBN2ophounoJryStn+/Cc9Lv6b5bvt9dWTn9B6F1Lrs=)
+[Try it in the Playground](https://play.vuejs.org/#eNqFklFPwjAUhf9K05dhgiyGNzJI1PCgCWqUx77McQeFrW3aOxxZ9t+9LTAXA/q2nnN6+t12Db83ZrSvgE944jIrDTIHWJmZULI02iJrmIWctSy3umQRRaPOWhweNX0pUHiyR3FP870UZkyoTCuH7FPr3VJiAWzqSwfR/rbUKyhYatdV6VugTktTQHQjVBIfeYiEFgikpwi0YizZ3M2aplfXtklMWvD6UKf+CfrUVPBuh+AspngSd718yH+hX7iS4xihjUZYQS4VLPwJgyiI/3FLZSrafzAeBqFG4jgxeuEqGTo6OZfr0dZpRVxNuFWeEa4swL4alEQm+IQFx3tpUeiv56ChrWB41rMNZLsL+tbVXhP8zYIDuyeQzkN6HyBWb88/XgJ3ZxJ95bH/MN/B6aLyjMfYQ6VWhN3LBdqn8FdJtV66eY2g3HkoD+qTbcgLTo/jX+ra6D+449E47BOq5e039mr+gA==)
 
-prop 옵션이 필요한 경우, 모델 이름 뒤에 전달해야 합니다:
+If prop options are also needed, they should be passed after the model name:
 
 ```js
 const title = defineModel('title', { required: true })
 ```
 
 <details>
-<summary>3.4 이전 사용법</summary>
+<summary>Pre 3.4 Usage</summary>
 
 ```vue
 <!-- MyComponent.vue -->
@@ -254,13 +263,13 @@ defineEmits(['update:title'])
 </template>
 ```
 
-[Try it in the Playground](https://play.vuejs.org/#eNp9UE1rwzAM/SvCFNJC17BrSMvG2HGw+7xDaJTNEH/gyKEl5L9PtkPJytjJ1tPT03uaxLNzhzGgqEQ9nL1yBANScCdplHbWE0zgsYMZOm81FEwtbq2364vln0FDS/tQrrCoy2RpztYMBKSoRzhGuW0xPmjbYg+N/wo6zuOl0a7HYidNXWYn7IELQsYbQq4A6u/H0zQtUvNcl1wnfG1l0a4S6yhFeqWAkql1edMTe3Fn9o8jtNgpg+/eumH7USSl4pM9ZvxVK4p4cC0r5oWp/V8EZVyg+AOgq0sG8UJSZKgamz6sXGf0KQ0xukFeuf29cA8bHGME4msiJ4kKuzx6n3n+AX48rro=)
+[Try it in the Playground](https://play.vuejs.org/#eNp9kE1rwzAMhv+KMIW00DXsGtKyMXYc7D7vEBplM8QfOHJoCfnvk+1QsjJ2svVKevRKk3h27jAGFJWoh7NXjmBACu4kjdLOeoIJPHYwQ+ethoJLi1vq7fpi+WfQ0JI+lCstcrkYQJqzNQMBKeoRjhG4LcYHbVvsofFfQUcCXhrteix20tRl9sIuOCBkvSHkCKD+fjxN04Ka57rkOOlrMwu7SlVHKdIrBZRcWpc3ntiLO7t/nKHFThl899YN248ikYpP9pj1V60o6sG1TMwDU/q/FZRxgeIPgK4uGcQLSZGlamz6sHKd1afUxOoGeeT298A9bHCMKxBfE3mTSNjl1vud5x8qNa76)
 
 </details>
 </div>
 <div class="options-api">
 
-이 경우, 기본 `modelValue` prop과 `update:modelValue` 이벤트 대신, 자식 컴포넌트는 `title` prop을 기대하고 부모 값을 업데이트하기 위해 `update:title` 이벤트를 발생시켜야 합니다:
+In this case, instead of the default `modelValue` prop and `update:modelValue` event, the child component should expect a `title` prop and emit an `update:title` event to update the parent value:
 
 ```vue
 <!-- MyComponent.vue -->
@@ -284,11 +293,11 @@ export default {
 
 </div>
 
-## Multiple `v-model` bindings {#multiple-v-model-bindings}
+## Multiple `v-model` Bindings {#multiple-v-model-bindings}
 
-앞서 배운 것처럼 특정 prop과 이벤트를 타깃팅하는 기능을 [`v-model` 인자](#v-model-arguments)로 활용하면 이제 단일 컴포넌트 인스턴스에 여러 개의 `v-model` 바인딩을 생성할 수 있습니다.
+By leveraging the ability to target a particular prop and event as we learned before with [`v-model` arguments](#v-model-arguments), we can now create multiple `v-model` bindings on a single component instance.
 
-각 `v-model`은 컴포넌트에서 추가 옵션 없이도 다른 prop에 동기화됩니다:
+Each `v-model` will sync to a different prop, without the need for extra options in the component:
 
 ```vue-html
 <UserName
@@ -314,7 +323,7 @@ const lastName = defineModel('lastName')
 [Try it in the Playground](https://play.vuejs.org/#eNqFkstuwjAQRX/F8iZUAqKKHQpIfbAoUmnVx86bKEzANLEt26FUkf+9Y4MDSAg2UWbu9fjckVv6oNRw2wAd08wUmitLDNhGTZngtZLakpZoKIkjpZY1SdCadNK3Ab3IazhowzQ2/ES0MVFIYSwpucbvxA/qJXO5FsldlKr8qDxL8EKW7kEQAQsLtapyC1gRkq3vp217mOccwf8wwLksRSlYIoMvCNkOarmEahyODAT2J4yGgtFzhx8UDf5/r6c4NEs7CNqnpxkvbO0kcVjNhCyh5AJe/SW9pBPOV3DJGvu3dsKFaiyxf8qTW9gheQwVs4Z90BDm5oF47cF/Ht4aZC75argxUmD61g9ktJC14hXoN2U5ZmJ0TILitbyq5O889KxuoB/7xRqKnwv9jdn5HqPvGnDVWwTpNJvrFSCul2efi4DeiRigqdB9RfwAI6vGM+5tj41YIvaJL9C+hOfNxerLzHYWhImhPKh3uuBnFJ/A05XoR9zRcBTOMeGo+wcs+yse)
 
 <details>
-<summary>3.4 이전 사용법</summary>
+<summary>Pre 3.4 Usage</summary>
 
 ```vue
 <script setup>
@@ -375,11 +384,11 @@ export default {
 
 </div>
 
-## `v-model` 수정자 처리하기 {#handling-v-model-modifiers}
+## Handling `v-model` Modifiers {#handling-v-model-modifiers}
 
-Form 양식 입력 바인딩에 대해 배울 때 `v-model`에 `.trim`, `.number` 및 `.lazy`와 같은 [내장 수정자](/guide/essentials/forms#modifiers)가 있다는 것을 알았습니다. 경우에 따라 사용자 정의 입력 컴포넌트에서 `v-model`이 사용자 정의 수정자를 지원하도록 할 수도 있습니다.
+When we were learning about form input bindings, we saw that `v-model` has [built-in modifiers](/guide/essentials/forms#modifiers) - `.trim`, `.number` and `.lazy`. In some cases, you might also want the `v-model` on your custom input component to support custom modifiers.
 
-`v-model` 바인딩에서 제공하는 문자열의 첫 글자를 대문자로 표시하는 사용자 지정 수정자 예제인 `capitalize`를 만들어 보겠습니다:
+Let's create an example custom modifier, `capitalize`, that capitalizes the first letter of the string provided by the `v-model` binding:
 
 ```vue-html
 <MyComponent v-model.capitalize="myText" />
@@ -387,7 +396,7 @@ Form 양식 입력 바인딩에 대해 배울 때 `v-model`에 `.trim`, `.number
 
 <div class="composition-api">
 
-컴포넌트 `v-model`에 추가된 수정자(modifiers)는 자식 컴포넌트에서 `defineModel()` 반환값을 구조 분해하여 다음과 같이 접근할 수 있습니다:
+Modifiers added to a component `v-model` can be accessed in the child component by destructuring the `defineModel()` return value like this:
 
 ```vue{4}
 <script setup>
@@ -401,7 +410,7 @@ console.log(modifiers) // { capitalize: true }
 </template>
 ```
 
-수정자에 기반하여 값을 어떻게 읽거나 쓸지 조건적으로 조정하려면, `defineModel()`에 `get`과 `set` 옵션을 전달할 수 있습니다. 이 두 옵션은 모델 ref의 get / set에서 값을 받아 변환된 값을 반환해야 합니다. 다음은 `set` 옵션을 사용하여 `capitalize` 수정자를 구현하는 방법입니다:
+To conditionally adjust how the value should be read / written based on modifiers, we can pass `get` and `set` options to `defineModel()`. These two options receive the value on get / set of the model ref and should return a transformed value. This is how we can use the `set` option to implement the `capitalize` modifier:
 
 ```vue{6-8}
 <script setup>
@@ -420,10 +429,10 @@ const [model, modifiers] = defineModel({
 </template>
 ```
 
-[Try it in the Playground](https://play.vuejs.org/#eNp9UsFu2zAM/RVClzhY5mzoLUgHdEUPG9Bt2LLTtIPh0Ik6WxIkyosb5N9LybFrFG1OkvgeyccnHsWNtXkbUKzE2pdOWQKPFOwnqVVjjSM4gsMKTlA508CMqbMRuu9uDd80ajrD+XISi3WZDCB1abQnaLoNHgiuY8VsNptLvV72TbkdPwgbWxeE/ALY7JUHpW0gKAurqKjVI3rAFl1He6V30JkA3AbdKvLXUzXt+8Zssc6fM6+l6NtLAUtusF6O3cRCvFB9yY2SiYFw+8KSYcY/qfEC+FCVQuf/8rxbrJTG+4hkxyiWq2ZtUQecQ3oDqAqyMWeieyQAu0bBaUh5ebkv3A1lH+Y5md/WorstPGZzeHfGfa1KzD6yxzH11B/TCjHC4dPlX1j3P0CdjQ5S79/Z3WhpPF91lDz7Uald/uCNZj/TFFJE91SN7rslxX5JsRrmk6Koa/P/a4qRC7gY4uUey3+vxB/8Icak+OHQo2tRihGjwu2QtUb47te3pHsEWXWomX0B/Ine1CFq7Gmfg96y7Akvqf2StoKXcePvDoTaD0NFocnhxJeClyRu2FujP8u9yq+GnxGnJxSEO+M=)
+[Try it in the Playground](https://play.vuejs.org/#eNp9UsFu2zAM/RVClzhY5mzoLUgHdEUPG9Bt2LLTtIPh0Ik6WRIkKksa5N9LybFrFG1OkvgeyccnHsWNc+UuoliIZai9cgQBKbpP0qjWWU9wBI8NnKDxtoUJUycDdH+4tXwzaOgMl/NRLNVlMoA0tTWBoD2scE9wnSoWk8lUmuW8a8rt+EHYOl0R8gtgtVUBlHGRoK6cokqrRwxAW4RGea6mkQg9HGwEboZ+kbKWY027961doy6f86+l6ERIAXNus5wPPcVMvNB+yZOaiZFw/cKYftI/ufEM+FCNQh/+8tRrbJTB+4QUxySWqxa7SkecQn4DqAaKIWekeyAAe0fRG8h5Zb2t/A0VH6Yl2d/Oob+tAhZTeHfGg1Y1Fh/Z6ZR66o5xhRTh8OnyXyy7f6CDSw5S59/Z3WRpOl91lAL70ahN+RCsYT/zFFIk95RG/92RYr+kWPTzSVFpbf9/zTHyEWd9vN5i/e+V+EPYp5gUPzwG9DuUYsCo8htkrQm++/Ut6x5AVh01sy+APzFYHZPGjvY5mjXLHvGy2i95K5TZrMLdntCEfqgkNDuc+VLwkqQNe2v0Z7lX5VX/M+L0BFEuPdc=)
 
 <details>
-<summary>3.4 이전 사용법</summary>
+<summary>Pre 3.4 Usage</summary>
 
 ```vue{11-13}
 <script setup>
@@ -444,7 +453,7 @@ function emitValue(e) {
 </script>
 
 <template>
-  <input type="text" :value="modelValue" @input="emitValue" />
+  <input type="text" :value="props.modelValue" @input="emitValue" />
 </template>
 ```
 
@@ -455,7 +464,7 @@ function emitValue(e) {
 
 <div class="options-api">
 
-컴포넌트 `v-model`에 추가된 수정자는 `modelModifiers` prop을 통해 컴포넌트에 제공됩니다. 아래 예제에서는 빈 객체로 기본 설정된 `modelModifiers` prop이 포함된 컴포넌트를 만들었습니다:
+Modifiers added to a component `v-model` will be provided to the component via the `modelModifiers` prop. In the below example, we have created a component that contains a `modelModifiers` prop that defaults to an empty object:
 
 ```vue{11}
 <script>
@@ -482,9 +491,9 @@ export default {
 </template>
 ```
 
-컴포넌트의 `modelModifiers` 프로퍼티에 `capitalize`가 포함되어 있고 그 값은 `v-model` 바인딩 `v-model.capitalize="myText"`에 설정되어 있기 때문에 `true`인 것을 알 수 있습니다.
+Notice the component's `modelModifiers` prop contains `capitalize` and its value is `true` - due to it being set on the `v-model` binding `v-model.capitalize="myText"`.
 
-이제 prop이  설정되었으므로 `modelModifiers` 객체 키를 확인하고 발신된 값을 변경하는 핸들러를 작성할 수 있습니다. 아래 코드에서는 `<input />` 앨리먼트가 `input` 이벤트를 실행할 때마다 문자열을 대문자로 표시합니다.
+Now that we have our prop set up, we can check the `modelModifiers` object keys and write a handler to change the emitted value. In the code below we will capitalize the string whenever the `<input />` element fires an `input` event.
 
 ```vue{13-15}
 <script>
@@ -513,21 +522,21 @@ export default {
 </template>
 ```
 
-[Try it in the Playground](https://play.vuejs.org/#eNqFUk1vgzAM/SsWmgTVOrpdEZ1W9dzTul3GDhG4bSRIomCqsqr/fU5o+ZgqDSGC7edn+znnYGVMfGwwSIK0zq009JopWRltCTbtWvOfQkWws7qCMF6MfC4tzFSm8OThBe5EUxKcMwWQ31B1AucJ02Xu4oUgEc06LIBFaqy6WQBVu8UTJRAyv7Mv7uAPv+mib5MNwsqUgpAtgO1B1iCVaQhyYSSJUv5gDXhE29JBqj20ugHuAW3i8Om4reNTpQss4yFzmQVdH1kACy6QLvpqwTz4I8REv3uCGKuN06IbyNf6FGWDCbyT5d68KtfARhdyJ9EOeBasI0uAVVu+QnS+zMba+HSspNP7K2wM64vJUCX89oAK6aCLgdYl+HiE/S4ASmQ5nBeWgDEJu0ee0TluCLmDiBWt42m7I/FGdNCT+TPOD8KuKHqexaQ/jEG7FjXyVI/XeF3KHKOX63jXAd3jKz64nqM7E8679Ikq/92YtLst1Bq3bep2nXget/2enL1vHsreXrM71+LyC45aHrs=)
+[Try it in the Playground](https://play.vuejs.org/#eNqFks1qg0AQgF9lkIKGpqa9iikNOefUtJfaw6KTZEHdZR1DbPDdO7saf0qgIq47//PNXL2N1uG5Ri/y4io1UtNrUspCK0Owa7aK/0osCQ5GFeCHq4nMuvlJCZCUeHEOGR5EnRNcrTS92VURXGex2qXVZ4JEsOhsAQxSbcrbDaBo9nihCHyXAaC1B3/4jVdDoXwhLHQuCPkGsD/JCmSpa4JUaEkilz9YAZ7RNHSS5REaVQPXgCay9vG0rPNToTLMw9FznXhdHYkHK04Qr4Zs3tL7g2JG8B4QbZS2LLqGXK5PkdcYwTsZrs1R6RU7lcmDRDPaM7AuWARMbf0KwbVdTNk4dyyk5f3l15r5YjRm8b+dQYF0UtkY1jo4fYDDLAByZBxWCmvAkIQ5IvdoBTcLeYCAiVbhvNwJvEk4GIK5M0xPwmwoeF6EpD60RrMVFXJXj72+ymWKwUvfXt+gfVzGB1tzcKfDZec+o/LfxsTdtlCj7bSpm3Xk4tjpD8FZ+uZMWTowu7MW7S+CWR77)
 
 </div>
 
-### 인자와 수정자가 있는 `v-model`에 대한 수정자들 {#modifiers-for-v-model-with-arguments}
+### Modifiers for `v-model` with Arguments {#modifiers-for-v-model-with-arguments}
 
 <div class="options-api">
 
-인자와 수정자가 모두 있는 `v-model` 바인딩의 경우, 생성된 prop 이름은 `arg + "수정자"`가 됩니다. 예를 들어
+For `v-model` bindings with both argument and modifiers, the generated prop name will be `arg + "Modifiers"`. For example:
 
 ```vue-html
 <MyComponent v-model:title.capitalize="myText">
 ```
 
-해당 선언은 다음과 같아야 합니다:
+The corresponding declarations should be:
 
 ```js
 export default {
@@ -541,7 +550,7 @@ export default {
 
 </div>
 
-다음은 다른 인자를 가진 여러 `v-model`에 수정자를 사용한 예시입니다:
+Here's another example of using modifiers with multiple `v-model` with different arguments:
 
 ```vue-html
 <UserName
@@ -563,15 +572,15 @@ console.log(lastNameModifiers) // { uppercase: true }
 ```
 
 <details>
-<summary>3.4 이전 사용법</summary>
+<summary>Pre 3.4 Usage</summary>
 
 ```vue{5,6,10,11}
 <script setup>
 const props = defineProps({
-  firstName: String,
-  lastName: String,
-  firstNameModifiers: { default: () => ({}) },
-  lastNameModifiers: { default: () => ({}) }
+firstName: String,
+lastName: String,
+firstNameModifiers: { default: () => ({}) },
+lastNameModifiers: { default: () => ({}) }
 })
 defineEmits(['update:firstName', 'update:lastName'])
 

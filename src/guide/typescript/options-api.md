@@ -1,14 +1,14 @@
-# Options API와 함께 타입스크립트 사용하기 {#typescript-with-options-api}
+# TypeScript with Options API {#typescript-with-options-api}
 
-> 이 페이지에서는 [Vue와 함께 타입스크립트 사용하기](./overview) 에 대한 개요를 이미 읽었다고 가정합니다.
+> This page assumes you've already read the overview on [Using Vue with TypeScript](./overview).
 
 :::tip
-Vue는 Options API에서 타입스크립트를 지원 합니다. 하지만 보다 간단하고 효율적이며 강력한 타입 추론을 제공하는 Composition API를 타입스크립트와 함께 사용하는 것을 추천합니다.
+While Vue does support TypeScript usage with Options API, it is recommended to use Vue with TypeScript via Composition API as it offers simpler, more efficient and more robust type inference.
 :::
 
-## 컴포넌트 Props 작성 {#typing-component-props}
+## Typing Component Props {#typing-component-props}
 
-Options API의 props에 대한 타입 추론은 컴포넌트를 `defineComponent()` 로 래핑해야 합니다. 이를 통해 Vue는 `props` 옵션을 기반으로 props의 타입을 추론할 수 있으며 `required: true` 및 `default` 와 같은 추가 옵션을 사용할 수 있습니다.
+Type inference for props in Options API requires wrapping the component with `defineComponent()`. With it, Vue is able to infer the types for the props based on the `props` option, taking additional options such as `required: true` and `default` into account:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -30,9 +30,9 @@ export default defineComponent({
 })
 ```
 
-그러나 런타임 `props` 옵션은 생성자 함수를 prop의 타입으로 사용하는 것만 지원합니다. 중첩된 속성이나 함수 호출 시그니처가 있는 객체와 같은 복잡한 타입을 지정할 수 있는 방법은 없습니다.
+However, the runtime `props` options only support using constructor functions as a prop's type - there is no way to specify complex types such as objects with nested properties or function call signatures.
 
-복잡한 props 유형에 어노테이팅 하기 위해`PropType` 유틸리티 타입을 사용할 수 있습니다:
+To annotate complex props types, we can use the `PropType` utility type:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -47,11 +47,11 @@ interface Book {
 export default defineComponent({
   props: {
     book: {
-      // `Object`에 대한 자세한 타입을 제공합니다
+      // provide more specific type to `Object`
       type: Object as PropType<Book>,
       required: true
     },
-    // functions도 어노테이팅 가능합니다
+    // can also annotate functions
     callback: Function as PropType<(id: number) => void>
   },
   mounted() {
@@ -65,10 +65,9 @@ export default defineComponent({
 })
 ```
 
-### 주의사항 {#caveats}
+### Caveats {#caveats}
 
-타입스크립트의 4.7 버전 미만을 사용하신다면  `validator` 및 `default` prop 옵션에 함수 값을 사용할 때 주의해야 합니다.
-화살표 함수를 사용해야 합니다:
+If your TypeScript version is less than `4.7`, you have to be careful when using function values for `validator` and `default` prop options - make sure to use arrow functions:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -83,7 +82,7 @@ export default defineComponent({
   props: {
     bookA: {
       type: Object as PropType<Book>,
-      // 타입스크립트 4.7 버전 미만인 경우 반드시 화살표 함수를 사용해야 함.
+      // Make sure to use arrow functions if your TypeScript version is less than 4.7
       default: () => ({
         title: 'Arrow Function Expression'
       }),
@@ -93,14 +92,11 @@ export default defineComponent({
 })
 ```
 
-이렇게 하면 타입스크립트가 이러한 함수 내에서 `this` 유형 유추에 실패하는 것을 방지할 수 있습니다.
-이것은 과거의 [설계적 한계](https://github.com/microsoft/TypeScript/issues/38845) 때문에 발생한 현상으로,
-[4.7버전](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#improved-function-inference-in-objects-and-methods)에서 개선 되었습니다.
+This prevents TypeScript from having to infer the type of `this` inside these functions, which, unfortunately, can cause the type inference to fail. It was a previous [design limitation](https://github.com/microsoft/TypeScript/issues/38845), and now has been improved in [TypeScript 4.7](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#improved-function-inference-in-objects-and-methods).
 
-## 컴포넌트 Emits 작성 {#typing-component-emits}
+## Typing Component Emits {#typing-component-emits}
 
-`emits` 옵션의 객체 구문을 사용하여 emitted 이벤트의 페이로드 타입을 선언할 수 있습니다. 또한 선언되지 않은 emitted 이벤트는 호출될 때 타입 에러를 발생시킵니다.
-
+We can declare the expected payload type for an emitted event using the object syntax of the `emits` option. Also, all non-declared emitted events will throw a type error when called:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -109,25 +105,24 @@ export default defineComponent({
   emits: {
     addBook(payload: { bookName: string }) {
       // perform runtime validation
-      // 런타임 유효성 검사 수행
       return payload.bookName.length > 0
     }
   },
   methods: {
     onSubmit() {
       this.$emit('addBook', {
-        bookName: 123 // Type error! // 타입 에러!
+        bookName: 123 // Type error!
       })
 
-      this.$emit('non-declared-event') // Type error! // 타입 에러!
+      this.$emit('non-declared-event') // Type error!
     }
   }
 })
 ```
 
-## Computed 속성 작성 {#typing-computed-properties}
+## Typing Computed Properties {#typing-computed-properties}
 
-Computed 속성은 반환 값을 기반으로 타입을 유추합니다.
+A computed property infers its type based on its return value:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -149,8 +144,7 @@ export default defineComponent({
 })
 ```
 
-경우에 따라서는 구현이 올바른지 확인하기 위해 computed 속성 타입에 명시적으로 어노테이팅 가능합니다:
-
+In some cases, you may want to explicitly annotate the type of a computed property to ensure its implementation is correct:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -162,12 +156,12 @@ export default defineComponent({
     }
   },
   computed: {
-    // 반환 타입에 명시적인 어노테이팅
+    // explicitly annotate return type
     greeting(): string {
       return this.message + '!'
     },
 
-    // 쓰기 가능한 computed 속성에 어노테이팅
+    // annotating a writable computed property
     greetingUppercased: {
       get(): string {
         return this.greeting.toUpperCase()
@@ -180,12 +174,11 @@ export default defineComponent({
 })
 ```
 
+Explicit annotations may also be required in some edge cases where TypeScript fails to infer the type of a computed property due to circular inference loops.
 
-타입스크립트가 순환 참조 루프로 인해 computed 속성의 타입을 추론하지 못하는 일부의 경우에는 명시적 어노테이팅이 필요 할 수 있습니다.
+## Typing Event Handlers {#typing-event-handlers}
 
-## 이벤트 핸들러 작성 {#typing-event-handlers}
-
-네이티브 DOM 이벤트를 처리할 때 핸들러에 올바르게 인자를 전달하는 것이 유용합니다. 다음 예를 살펴보겠습니다: 
+When dealing with native DOM events, it might be useful to type the argument we pass to the handler correctly. Let's take a look at this example:
 
 ```vue
 <script lang="ts">
@@ -206,7 +199,7 @@ export default defineComponent({
 </template>
 ```
 
-타입 주석이 없으면 `event` 인자는 암시적으로 `any` 타입을 갖게 됩니다. 또한, `tsconfig.json`에서 `"strict": true` 또는 `"noImplicitAny": true`가 설정된 경우 TypeScript 오류가 발생할 수 있습니다. 따라서 이벤트 핸들러의 인자는 명시적으로 타입을 지정하는 것이 권장됩니다. 추가적으로, `event`의 속성에 접근할 때 타입 단언(type assertion)이 필요할 수도 있습니다.
+Without type annotation, the `event` argument will implicitly have a type of `any`. This will also result in a TS error if `"strict": true` or `"noImplicitAny": true` are used in `tsconfig.json`. It is therefore recommended to explicitly annotate the argument of event handlers. In addition, you may need to use type assertions when accessing the properties of `event`:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -220,9 +213,9 @@ export default defineComponent({
 })
 ```
 
-## 전역 속성 확장 {#augmenting-global-properties}
+## Augmenting Global Properties {#augmenting-global-properties}
 
-일부 플러그인은 [`app.config.globalProperties`](/api/application#app-config-globalproperties)를 통해 모든 컴포넌트 인스턴스에 전역적으로 사용 가능한 프로퍼티를 설치합니다. 예를 들어, 데이터 불러오기를 위해 `this.$http`를 설치하거나 국제화를 위해 `this.$translate`를 설치할 수 있습니다. 이를 타입스크립트에서 잘 작동하도록 하기 위해 Vue는 [타입스크립트 모듈 증강](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)을 통해 증강되도록 설계된 `ComponentCustomProperties` 인터페이스를 노출합니다:
+Some plugins install globally available properties to all component instances via [`app.config.globalProperties`](/api/application#app-config-globalproperties). For example, we may install `this.$http` for data-fetching or `this.$translate` for internationalization. To make this play well with TypeScript, Vue exposes a `ComponentCustomProperties` interface designed to be augmented via [TypeScript module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation):
 
 ```ts
 import axios from 'axios'
@@ -235,15 +228,15 @@ declare module 'vue' {
 }
 ```
 
-참고:
+See also:
 
-- [컴포넌트 타입 확장을 위한 타입스크립트 유닛 테스트](https://github.com/vuejs/core/blob/main/packages/dts-test/componentTypeExtensions.test-d.tsx)
+- [TypeScript unit tests for component type extensions](https://github.com/vuejs/core/blob/main/packages-private/dts-test/componentTypeExtensions.test-d.tsx)
 
-### 타입 배치 증강 {#type-augmentation-placement}
+### Type Augmentation Placement {#type-augmentation-placement}
 
-타입 확장을 `.ts` 파일이나 프로젝트의 `*.d.ts` 파일에 넣을 수 있습니다. 어느 쪽이든 `tsconfig.json` 에 포함되어 있는지 확인하십시오. 라이브러리/플러그인 작성자의 경우 이 파일을`package.json` 의 `types` 속성에 작성해야합니다.
+We can put this type augmentation in a `.ts` file, or in a project-wide `*.d.ts` file. Either way, make sure it is included in `tsconfig.json`. For library / plugin authors, this file should be specified in the `types` property in `package.json`.
 
-모듈 확장을 활용하려면 [타입스크립트 모듈](https://www.typescriptlang.org/docs/handbook/modules) 에 선언 되었는지 확인해야 합니다. 즉, 파일은 `export {}` 일지라도 최소한 하나의 최상위 `import` 또는 `export` 를 포함해야 합니다. 기능 확장이 모듈 외부에 선언되면 원래 타입을 사용하지 않고 덮어씁니다!
+In order to take advantage of module augmentation, you will need to ensure the augmentation is placed in a [TypeScript module](https://www.typescriptlang.org/docs/handbook/modules.html). That is to say, the file needs to contain at least one top-level `import` or `export`, even if it is just `export {}`. If the augmentation is placed outside of a module, it will overwrite the original types rather than augmenting them!
 
 ```ts
 // Does not work, overwrites the original types.
@@ -265,9 +258,9 @@ declare module 'vue' {
 }
 ```
 
-## 사용자 지정 옵션 증강 {#augmenting-custom-options}
+## Augmenting Custom Options {#augmenting-custom-options}
 
-`vue-router` 와 같은 일부 플러그인은 `beforeRouteEnter` 와 같은 사용자 지정 컴포넌트 옵션을 지원합니다:
+Some plugins, for example `vue-router`, provide support for custom component options such as `beforeRouteEnter`:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -279,7 +272,7 @@ export default defineComponent({
 })
 ```
 
-적절한 타입 보강이 없으면, 이 훅의 인자는 암시적으로 `any` 타입을 갖습니다. 이러한 사용자 정의 옵션을 지원하기 위해 `ComponentCustomOptions` 인터페이스를 보강할 수 있습니다:
+Without proper type augmentation, the arguments of this hook will implicitly have `any` type. We can augment the `ComponentCustomOptions` interface to support these custom options:
 
 ```ts
 import { Route } from 'vue-router'
@@ -291,11 +284,10 @@ declare module 'vue' {
 }
 ```
 
-이제 `beforeRouteEnter` 옵션이 올바르게 입력됩니다. 이것은 단지 예시일 뿐이며, `vue-router`와 같이 잘 입력된 라이브러리는 자체 유형 정의에서 이러한 증강을 자동으로 수행해야 합니다.
+Now the `beforeRouteEnter` option will be properly typed. Note this is just an example - well-typed libraries like `vue-router` should automatically perform these augmentations in their own type definitions.
 
-이 증강의 배치에는 전역 속성 증강과 [동일한 제한](#type-augmentation-placement)이 적용됩니다.
+The placement of this augmentation is subject to the [same restrictions](#type-augmentation-placement) as global property augmentations.
 
+See also:
 
-참고:
-
-- [컴포넌트 타입 확장을 위한 TypeScript 단위 테스트](https://github.com/vuejs/core/blob/main/packages/dts-test/componentTypeExtensions.test-d.tsx)
+- [TypeScript unit tests for component type extensions](https://github.com/vuejs/core/blob/main/packages-private/dts-test/componentTypeExtensions.test-d.tsx)

@@ -1,60 +1,60 @@
-# 컴포지션 API: <br>의존성 주입 {#composition-api-dependency-injection}
+# Composition API: <br>Dependency Injection {#composition-api-dependency-injection}
 
-## provide()  {#provide}
+## provide() {#provide}
 
-하위 컴포넌트에 주입(Inject)할 수 있도록 값을 제공(Provide)합니다.
+Provides a value that can be injected by descendant components.
 
-- **타입**
+- **Type**
 
   ```ts
   function provide<T>(key: InjectionKey<T> | string, value: T): void
   ```
 
-- **세부 사항**
+- **Details**
 
-  `provide()`는 "키가 될 문자열 또는 심볼(symbol)"과 "제공될 값" 두 가지 인자를 가집니다.
+  `provide()` takes two arguments: the key, which can be a string or a symbol, and the value to be injected.
 
-  TypeScript를 사용할 때 키는 `InjectionKey`(Vue에서 제공하는 `Symbol`을 확장한 다용도 타입)로 캐스팅된 심볼일 수 있으며, 이것은 `provide()`와 `inject()` 간 값의 타입을 동기화하는 데 사용할 수 있습니다.
+  When using TypeScript, the key can be a symbol casted as `InjectionKey` - a Vue provided utility type that extends `Symbol`, which can be used to sync the value type between `provide()` and `inject()`.
 
-  생명 주기 훅을 등록하는 API와 유사하게 `provide()`는 컴포넌트의 `setup()` 단계에서 동기적으로 호출되어야 합니다.
+  Similar to lifecycle hook registration APIs, `provide()` must be called synchronously during a component's `setup()` phase.
 
-- **예제**
+- **Example**
 
   ```vue
   <script setup>
   import { ref, provide } from 'vue'
   import { countSymbol } from './injectionSymbols'
 
-  // 제공: 정적 값
+  // provide static value
   provide('path', '/project/')
 
-  // 제공: 반응형 값
+  // provide reactive value
   const count = ref(0)
   provide('count', count)
 
-  // 제공: 심볼(Symbol) 키
+  // provide with Symbol keys
   provide(countSymbol, count)
   </script>
   ```
 
-- **참고**
-  - [가이드 - Provide/Inject](/guide/components/provide-inject)
-  - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
+- **See also**
+  - [Guide - Provide / Inject](/guide/components/provide-inject)
+  - [Guide - Typing Provide / Inject](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
 
 ## inject() {#inject}
 
-상위 컴포넌트 또는 [`app.provide()`](/api/application#app-provide)를 통해 앱에서 제공(Provide)된 값을 주입(Inject)합니다.
+Injects a value provided by an ancestor component or the application (via `app.provide()`).
 
-- **타입**
+- **Type**
 
   ```ts
-  // 기본 값 없음
+  // without default value
   function inject<T>(key: InjectionKey<T> | string): T | undefined
 
-  // 기본 값 정의 있음
+  // with default value
   function inject<T>(key: InjectionKey<T> | string, defaultValue: T): T
 
-  // 팩토리 함수
+  // with factory
   function inject<T>(
     key: InjectionKey<T> | string,
     defaultValue: () => T,
@@ -62,56 +62,58 @@
   ): T
   ```
 
-- **세부 사항**
+- **Details**
 
-  첫 번째 인수는 주입 키(injection key)입니다. Vue는 부모 체인을 따라 일치하는 키와 함께 제공된 값을 찾습니다. 부모 체인에서 여러 컴포넌트가 동일한 키를 제공하는 경우, 주입 컴포넌트에 가장 가까운 컴포넌트가 체인 상위의 컴포넌트를 "가리게" 됩니다. 일치하는 키를 가진 값이 없는 경우, `inject()`는 기본값이 제공되지 않는 한 `undefined`를 반환합니다.
+  The first argument is the injection key. Vue will walk up the parent chain to locate a provided value with a matching key. If multiple components in the parent chain provide the same key, the one closest to the injecting component will "shadow" those higher up the chain and its value will be used. If no value with matching key was found, `inject()` returns `undefined` unless a default value is provided.
 
-  두 번째 인수는 선택적이며, 일치하는 값이 없을 때 사용할 기본값입니다.
+  The second argument is optional and is the default value to be used when no matching value was found.
 
-  두 번째 인수는 생성 비용이 큰 값을 반환하는 팩토리 함수일 수도 있습니다. 이 경우, 함수 자체 대신 팩토리 함수를 사용해야 하므로 세 번째 인수로 `true`를 전달해야 합니다.
+  The second argument can also be a factory function that returns values that are expensive to create. In this case, `true` must be passed as the third argument to indicate that the function should be used as a factory instead of the value itself.
 
-  라이프사이클 후크 등록 API와 유사하게, `inject()`는 컴포넌트의 `setup()` 단계에서 동기적으로 호출되어야 합니다.
+  Similar to lifecycle hook registration APIs, `inject()` must be called synchronously during a component's `setup()` phase.
 
-  TypeScript를 사용하는 경우, 키는 `InjectionKey` 타입일 수 있습니다. `InjectionKey`는 `Symbol`을 확장한 Vue에서 제공하는 유틸리티 타입으로, `provide()`와 `inject()` 사이에서 값의 유형을 동기화하는 데 사용할 수 있습니다.
+  When using TypeScript, the key can be of type of `InjectionKey` - a Vue-provided utility type that extends `Symbol`, which can be used to sync the value type between `provide()` and `inject()`.
 
-- **예제**
+- **Example**
 
-  부모 컴포넌트가 이전 `provide()` 예제에서와 같은 값을 제공했다고 가정:
+  Assuming a parent component has provided values as shown in the previous `provide()` example:
 
   ```vue
   <script setup>
   import { inject } from 'vue'
   import { countSymbol } from './injectionSymbols'
 
-  // 주입: 기본 값이 없는 정적 값
+  // inject static value without default
   const path = inject('path')
 
-  // 주입: 반응형 값
+  // inject reactive value
   const count = inject('count')
 
-  // 주입: 심볼 키를 사용하여
+  // inject with Symbol keys
   const count2 = inject(countSymbol)
 
-  // 주입: 기본 값 제공을 하며 (제공되는 'foo'가 없는 경우 적용됨)
+  // inject with default value
   const bar = inject('path', '/default-path')
 
-  // 함수 기본값을 사용하여 주입하기
+  // inject with function default value
   const fn = inject('function', () => {})
 
-  // 팩토리 함수를 사용하여 주입하기
+  // inject with default value factory
   const baz = inject('factory', () => new ExpensiveObject(), true)
   </script>
   ```
   
-- **참고**
-  - [가이드 - Provide/Inject](/guide/components/provide-inject)
-  - [가이드 - Provide/Inject에 타입 지정하기](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
+- **See also**
+  - [Guide - Provide / Inject](/guide/components/provide-inject)
+  - [Guide - Typing Provide / Inject](/guide/typescript/composition-api#typing-provide-inject) <sup class="vt-badge ts" />
 
 ## hasInjectionContext() {#has-injection-context}
-- 3.3+ 버전에서만 지원
-만약 [inject()](#inject)를 `setup()` 바깥에서 호출하는 경우 경고 없이 사용할 수 있는지 여부를 확인하고 참(true)인 경우 true를 반환합니다. 이 메서드는 `inject()`를 끝 사용자에게 경고를 트리거하지 않고 내부에서 사용하려는 라이브러리에서 사용하도록 설계되었습니다.
 
-- **타입**
+- Only supported in 3.3+
+
+Returns true if [inject()](#inject) can be used without warning about being called in the wrong place (e.g. outside of `setup()`). This method is designed to be used by libraries that want to use `inject()` internally without triggering a warning to the end user.
+
+- **Type**
 
   ```ts
   function hasInjectionContext(): boolean

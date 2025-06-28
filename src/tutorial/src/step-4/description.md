@@ -1,12 +1,12 @@
-# 이벤트 리스너 {#event-listeners}
+# Event Listeners {#event-listeners}
 
-`v-on` 디렉티브를 사용하여 DOM 이벤트를 수신할 수 있습니다:
+We can listen to DOM events using the `v-on` directive:
 
 ```vue-html
 <button v-on:click="increment">{{ count }}</button>
 ```
 
-자주 사용되기 때문에 `v-on`에는 다음과 같은 단축 문법도 있습니다:
+Due to its frequent use, `v-on` also has a shorthand syntax:
 
 ```vue-html
 <button @click="increment">{{ count }}</button>
@@ -14,7 +14,7 @@
 
 <div class="options-api">
 
-여기서 참조되는 `increment`는 `methods` 옵션을 사용하여 선언된 함수입니다:
+Here, `increment` references a function declared using the `methods` option:
 
 <div class="sfc">
 
@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     increment() {
-      // 컴포넌트의 count 상태 업데이트
+      // update component state
       this.count++
     }
   }
@@ -46,7 +46,7 @@ createApp({
   },
   methods: {
     increment() {
-      // 컴포넌트의 count 상태 업데이트
+      // update component state
       this.count++
     }
   }
@@ -55,9 +55,7 @@ createApp({
 
 </div>
 
-메서드 내에서 `this`를 사용하여 컴포넌트 인스턴스에 접근할 수 있습니다.
-컴포넌트 인스턴스는 `data`에 의해 선언된 데이터 속성을 노출합니다.
-이러한 속성을 변경하여 컴포넌트 상태를 업데이트할 수 있습니다.
+Inside a method, we can access the component instance using `this`. The component instance exposes the data properties declared by `data`. We can update the component state by mutating these properties.
 
 </div>
 
@@ -65,7 +63,7 @@ createApp({
 
 <div class="sfc">
 
-여기서 참조되는 `increment`는 `<script setup>`에서 선언된 함수입니다:
+Here, `increment` is referencing a function declared in `<script setup>`:
 
 ```vue{6-9}
 <script setup>
@@ -74,7 +72,7 @@ import { ref } from 'vue'
 const count = ref(0)
 
 function increment() {
-  // 컴포넌트의 count 상태 업데이트
+  // update component state
   count.value++
 }
 </script>
@@ -84,14 +82,14 @@ function increment() {
 
 <div class="html">
 
-여기서 참조되는 `increment`는 `setup()`에서 반환된 객체의 메서드입니다:
+Here, `increment` is referencing a method in the object returned from `setup()`:
 
 ```js{$}
 setup() {
   const count = ref(0)
 
   function increment(e) {
-    // 컴포넌트의 count 상태 업데이트
+    // update component state
     count.value++
   }
 
@@ -104,13 +102,10 @@ setup() {
 
 </div>
 
-함수 내에서 ref 값을 변경하여 컴포넌트 상태를 업데이트할 수 있습니다.
+Inside the function, we can update the component state by mutating refs.
 
 </div>
 
-이벤트 핸들러는 인라인 표현식을 사용할 수도 있으며,
-수식어를 사용하여 일반적인 작업을 단순화할 수 있습니다.
-이러한 세부 사항은 <a target="_blank" href="/guide/essentials/event-handling.html">가이드 - 이벤트 핸들링</a>에서 다룹니다.
+Event handlers can also use inline expressions, and can simplify common tasks with modifiers. These details are covered in <a target="_blank" href="/guide/essentials/event-handling.html">Guide - Event Handling</a>.
 
-이제 `increment` <span class="options-api">메서드</span><span class="composition-api">함수</span>를 직접 구현하고,
-`v-on`을 사용하여 버튼에 바인딩 해봅시다.
+Now, try to implement the `increment` <span class="options-api">method</span><span class="composition-api">function</span> yourself and bind it to the button using `v-on`.

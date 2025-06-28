@@ -1,10 +1,8 @@
-# 컴포넌트 {#components}
+# Components {#components}
 
-지금까지 우리는 단일 컴포넌트로만 작업했습니다.
-일반적으로 실제 Vue 앱은 중첩된 컴포넌트를 사용하여 생성됩니다.
+So far, we've only been working with a single component. Real Vue applications are typically created with nested components.
 
-상위 컴포넌트는 다른 컴포넌트를 템플릿의 하위 컴포넌트로 렌더링할 수 있습니다.
-자식 컴포넌트를 사용하려면 먼저 가져와야 합니다:
+A parent component can render another component in its template as a child component. To use a child component, we need to first import it:
 
 <div class="composition-api">
 <div class="sfc">
@@ -29,15 +27,14 @@ export default {
 }
 ```
 
-그런 다음 `components` 옵션을 사용하여 컴포넌트를 등록해야 합니다.
-여기서는 [객체 축약형 속성명](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#property_definitions) 문법을 사용하여 `ChildComp`로 컴포넌트를 등록했습니다.
+We also need to register the component using the `components` option. Here we are using the object property shorthand to register the `ChildComp` component under the `ChildComp` key.
 
 </div>
 </div>
 
 <div class="sfc">
 
-그런 다음 템플릿에서 컴포넌트를 다음과 같이 사용할 수 있습니다:
+Then, we can use the component in the template as:
 
 ```vue-html
 <ChildComp />
@@ -57,11 +54,9 @@ createApp({
 })
 ```
 
-그런 다음 `components` 옵션을 사용하여 컴포넌트를 등록해야 합니다.
-여기서는 [객체 축약형 속성명](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#property_definitions) 문법을 사용하여 `ChildComp`로 컴포넌트를 등록했습니다.
+We also need to register the component using the `components` option. Here we are using the object property shorthand to register the `ChildComp` component under the `ChildComp` key.
 
-DOM에 템플릿을 작성하므로 태그의 대소문자를 구분하지 않는 브라우저 문법 분석 규칙이 적용됩니다.
-따라서 하위 컴포넌트를 참조하려면 케밥 케이스(kebab-cased) 이름을 사용해야 합니다:
+Because we are writing the template in the DOM, it will be subject to browser's parsing rules, which is case-insensitive for tag names. Therefore, we need to use the kebab-cased name to reference the child component:
 
 ```vue-html
 <child-comp></child-comp>
@@ -69,4 +64,5 @@ DOM에 템플릿을 작성하므로 태그의 대소문자를 구분하지 않�
 
 </div>
 
-이제 직접 템플릿에서 하위 컴포넌트를 가져와 렌더링해봅시다.
+
+Now try it yourself - import the child component and render it in the template.

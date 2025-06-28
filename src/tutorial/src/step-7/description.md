@@ -1,6 +1,6 @@
-# 리스트 렌더링 {#list-rendering}
+# List Rendering {#list-rendering}
 
-`v-for` 디렉티브를 사용하여 자료 배열을 엘리먼트 목록으로 렌더링할 수 있습니다:
+We can use the `v-for` directive to render a list of elements based on a source array:
 
 ```vue-html
 <ul>
@@ -10,14 +10,13 @@
 </ul>
 ```
 
-여기서 `todo`는 현재 반복 중인 배열 앨리먼트를 나타내는 로컬 변수입니다. 함수 범위와 유사하게 `v-for` 앨리먼트 위 또는 내부에서만 액세스할 수 있습니다.
+Here `todo` is a local variable representing the array element currently being iterated on. It's only accessible on or inside the `v-for` element, similar to a function scope.
 
-각 todo 객체에 고유한 `id`를 부여하고, 각 `<li>`에 <a target="_blank" href="/api/built-in-special-attributes.html#key">특별한 속성인 `key`</a>를 바인딩했습니다.
-`key`를 사용하면 Vue가 각 `<li>`를 정확하게 이동시켜 배열에서 해당 객체의 위치와 일치하도록 할 수 있습니다.
+Notice how we are also giving each todo object a unique `id`, and binding it as the <a target="_blank" href="/api/built-in-special-attributes.html#key">special `key` attribute</a> for each `<li>`. The `key` allows Vue to accurately move each `<li>` to match the position of its corresponding object in the array.
 
-목록을 업데이트하는 방법에는 두 가지가 있습니다:
+There are two ways to update the list:
 
-1. 자료 배열에서 [변경 메서드(mutating methods)](https://stackoverflow.com/questions/9009879/which-javascript-array-functions-are-mutating)를 호출합니다:
+1. Call [mutating methods](https://stackoverflow.com/questions/9009879/which-javascript-array-functions-are-mutating) on the source array:
 
    <div class="composition-api">
 
@@ -34,7 +33,7 @@
 
    </div>
 
-2. 배열을 새 배열로 교체합니다:
+2. Replace the array with a new one:
 
    <div class="composition-api">
 
@@ -51,7 +50,6 @@
 
    </div>
 
-여기에 간단한 할 일 목록이 있습니다.
-`addTodo()` 및 `removeTodo()` 메서드에 대한 로직을 구현하고 작동되도록 해봅시다!
+Here we have a simple todo list - try to implement the logic for `addTodo()` and `removeTodo()` methods to make it work!
 
-`v-for`에 대한 자세한 내용은 <a target="_blank" href="/guide/essentials/list.html">가이드 - 리스트 렌더링</a>에서 다룹니다.
+More details on `v-for`: <a target="_blank" href="/guide/essentials/list.html">Guide - List Rendering</a>

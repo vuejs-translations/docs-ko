@@ -1,110 +1,110 @@
-# 슬롯 {#slots}
+# Slots {#slots}
 
-> 이 페이지에서는 [컴포넌트 기초](/guide/essentials/component-basics)를 이미 읽었다고 가정합니다. 컴포넌트를 처음 사용하는 경우, 그 문서를 먼저 읽으십시오.
+> This page assumes you've already read the [Components Basics](/guide/essentials/component-basics). Read that first if you are new to components.
 
 <VueSchoolLink href="https://vueschool.io/lessons/vue-3-component-slots" title="Free Vue.js Slots Lesson"/>
 
-## 슬롯 컨텐츠와 아울렛 {#slot-content-and-outlet}
+## Slot Content and Outlet {#slot-content-and-outlet}
 
-우리는 컴포넌트의 props가 모든 유형의 JavaScript 값을 받을 수 있다는 것을 배웠습니다. 그러나 템플릿 컨텐츠는 어떻습니까? 어떤 경우에는 템플릿 조각을 자식 컴포넌트에 전달하고 자식 컴포넌트가 자체 템플릿 내에서 조각을 렌더링하도록 할 수 있습니다.
+We have learned that components can accept props, which can be JavaScript values of any type. But how about template content? In some cases, we may want to pass a template fragment to a child component, and let the child component render the fragment within its own template.
 
-예를 들어 다음과 같은 사용법을 지원하는 `<FancyButton>` 컴포넌트가 있을 수 있습니다:
+For example, we may have a `<FancyButton>` component that supports usage like this:
 
 ```vue-html{2}
 <FancyButton>
-  클릭하기! <!-- 슬롯 컨텐츠 -->
+  Click me! <!-- slot content -->
 </FancyButton>
 ```
 
-`<FancyButton>`의 템플릿은 다음과 같습니다:
+The template of `<FancyButton>` looks like this:
 
 ```vue-html{2}
 <button class="fancy-btn">
-  <slot></slot> <!-- 슬롯 아울렛 -->
+  <slot></slot> <!-- slot outlet -->
 </button>
 ```
 
-`<slot>` 엘리먼트는 부모가 제공한 **슬롯 컨텐츠**가 렌더링되어야 하는 위치를 나타내는 **슬롯 아울렛**(outlet)입니다.
+The `<slot>` element is a **slot outlet** that indicates where the parent-provided **slot content** should be rendered.
 
-![슬롯 다이어그램](./images/slots.png)
+![slot diagram](./images/slots.png)
 
-<!-- https://www.figma.com/file/LjKTYVL97Ck6TEmBbstavX/slot --><!-- https://www.figma.com/file/PuKXOMrFPmfnrtMa3tKL5G/slot-(ko-kr) -->
+<!-- https://www.figma.com/file/LjKTYVL97Ck6TEmBbstavX/slot -->
 
-최종적으로 렌더링된 DOM은:
+And the final rendered DOM:
 
 ```html
-<button class="fancy-btn">클릭하기!</button>
+<button class="fancy-btn">Click me!</button>
 ```
 
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNpdkbtOwzAUhl/lYIQKUtPQG5cQKsHAU2RxEyeKSGzLdlCrqgMSLEwslRAsZUEMIBgYKvFGNH0HbAdVKVvOl/NfjjxBZ5y3rgqCPOTLUKRcgSSq4IOApjlnQsEFpuH4vFCKUYgFy6HRcmvMiBsB9d1KrXV6UCTnGVZETwB+bdsCgNX11/LlfTV7+Fl8gr/lOFDevS2fP6D8fl3d3peLOTiO2Q2UXw/TyHfX5qiJ/hUxV2xmD6viYYalPA1QbPadoaIBsv+1v8yYcgebLWY35eNiOX+qWpgSlc9mvj1VqnFmPltra5gY55BlTHiwHcfxiZmHOLxMBCto5EGWUoKFkwgcpYSq3W67H5GkCdu9TtQ97kCnv6OHg94hieO9Ss1ERLQdZZRYwHEUpTTxoM9H0N7nI0tzLJKUWliTOSankB4c/eGwENKU4yyligjNpvYF7Slo+gvDasNv)
+[Try it in the Playground](https://play.vuejs.org/#eNpdUdlqAyEU/ZVbQ0kLMdNsXabTQFvoV8yLcRkkjopLSQj596oTwqRvnuM9y9UT+rR2/hs5qlHjqZM2gOch2m2rZW+NC/BDND1+xRCMBuFMD9N5NeKyeNrqphrUSZdA4L1VJPCEAJrRdCEAvpWke+g5NHcYg1cmADU6cB0A4zzThmYckqimupqiGfpXILe/zdwNhaki3n+0SOR5vAu6ReU++efUajtqYGJQ/FIg5w8Wt9FlOx+OKh/nV1c4ZVNqlHE1TIQQ7xnvCN13zkTNalBSc+Jw5wiTac2H1WLDeDeDyXrJVm9LWG7uE3hev3AhHge1cYwnO200L4QljEnd1bCxB1g82UNhe+I6qQs5kuGcE30NrxeaRudzOWtkemeXuHP5tLIKOv8BN+mw3w==)
 
 </div>
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNpdkbtOwzAUhl/lYIQKUtPQG5cQKsHAU2RxEyeKSGzLdlCrqgMSLEwslRAsZUEMIBgYKvFGNH0HbAdVKVvOl/NfjjxBZ5y3rgqCPOTLUKRcgSSq4IOApjlnQsEFpuH4vFCKUYgFy6HRcmvMiBsB9d1KrXV6UCTnGVZETwB+bdsCgNX11/LlfTV7+Fl8gr/lOFDevS2fP6D8fl3d3peLOTiO2Q2UXw/TyHfX5qiJ/hUxV2xmD6viYYalPA1QbPadoaIBsv+1v8yYcgebLWY35eNiOX+qWpgSlc9mvj1VqnFmPltra5gY55BlTHiwHcfxiZmHOLxMBCto5EGWUoKFkwgcpYSq3W67H5GkCdu9TtQ97kCnv6OHg94hieO9Ss1ERLQdZZRYwHEUpTTxoM9H0N7nI0tzLJKUWliTOSankB4c/eGwENKU4yyligjNpvYF7Slo+gvDasNv)
+[Try it in the Playground](https://play.vuejs.org/#eNpdUdtOwzAM/RUThAbSurIbl1ImARJf0ZesSapoqROlKdo07d9x0jF1SHmIT+xzcY7sw7nZTy9Zwcqu9tqFTYW6ddYH+OZYHz77ECyC8raFySwfYXFsUiFAhXKfBoRUvDcBjhGtLbGgxNAVcLziOlVIp8wvelQE2TrDg6QKoBx1JwDgy+h6B62E8ibLoDM2kAAGoocsiz1VKMfmCCrzCymbsn/GY95rze1grja8694rpmJ/tg1YsfRO/FE134wc2D4YeTYQ9QeKa+mUrgsHE6+zC+vfjoz1Bdwqpd5iveX1rvG2R1GA0Si5zxrPhaaY98v5WshmCrerhVi+LmCxvqPiafUslXoYpq0XkuiQ1p4Ax4XQ2BSwdnuYP7p9QlvuG40JHI1lUaenv3o5w3Xvu2jOWU179oQNn5aisNMvLBvDOg==)
 
 </div>
 
-슬롯을 사용 시, `<FancyButton>`이 `<button>`(및 멋진 스타일 지정)을 렌더링하고, 내부 컨텐츠를 자식 컴포넌트에게 제공합니다.
+With slots, the `<FancyButton>` is responsible for rendering the outer `<button>` (and its fancy styling), while the inner content is provided by the parent component.
 
-슬롯을 이해하는 또 다른 방법은 슬롯을 JavaScript 함수와 비교하는 것입니다:
+Another way to understand slots is by comparing them to JavaScript functions:
 
 ```js
-// 슬롯 컨텐츠를 전달하는 부모 컴포넌트
-FancyButton('클릭하기!')
+// parent component passing slot content
+FancyButton('Click me!')
 
-// FancyButton은 자체 템플릿에서 슬롯 컨텐츠를 렌더링합니다.
+// FancyButton renders slot content in its own template
 function FancyButton(slotContent) {
   return `<button class="fancy-btn">
       ${slotContent}
-    </button>`  
+    </button>`
 }
 ```
 
-슬롯 컨텐츠는 텍스트에만 국한되지 않습니다. 모든 유효한 템플릿 컨텐츠일 수 있습니다. 예를 들어 여러 엘리먼트 또는 다른 컴포넌트를 전달할 수 있습니다:
+Slot content is not just limited to text. It can be any valid template content. For example, we can pass in multiple elements, or even other components:
 
 ```vue-html
 <FancyButton>
-  <span style="color:red">클릭하기!</span>
+  <span style="color:red">Click me!</span>
   <AwesomeIcon name="plus" />
 </FancyButton>
 ```
 
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp1UstKw0AU/ZVrRFQwrVbrI0ZBF4L/0M00mYRgMjPMTNQiXdStiCuhSAsKIrYodNFFF/ozLk2Kv+BMUktacJd7cs89j+TKOGKsdB5jwzJs4fCASRBYxuywRoKIUS7hBBGncRxLSQl4nEawXCoXME1eni4fXWBBI3zqFJYL2GTZLudSSkQNEkcsRBKrCcAunM4AgHFrmLy8j+/b36PBgoJq0i4a+I9mC4YICNkI8UHNcGhIueU0EKkZhzMXlRm1+EcqBijnp+fE7PLUsLFmzDWha5zNU8+bc0IkhPLh6X2zLrUN/V6FESGVWkrnyrdnVbKSshzqsTQ9AFean+eCRc/z9vVcR86Zz2lMXAvCgGDETZ8jN8BErmxuVF3sr8HiVsXd3KtApbqkhu2tHex5qzmbcherc4QSnAEMuW5AfAuq7BI21tllhkaI+wHJwALN1DqxsGB3AjsxF9ocowGRmCusmX37LIrqbu7H0N0tmCYkt4Ok/wpJv5c+ttLOR/LUgbQ7VNj4ZpB+tiG9fksfemCauqdpTV/d55/RXfHrNH8BmKYTZA==)
+[Try it in the Playground](https://play.vuejs.org/#eNp1UmtOwkAQvspQYtCEgrx81EqCJibeoX+W7bRZaHc3+1AI4QyewH8ewvN4Aa/gbgtNIfFf5+vMfI/ZXbCQcvBmMYiCWFPFpAGNxsp5wlkphTLwQjjdPlljBIdMiRJ6g2EL88O9pnnxjlqU+EpbzS3s0BwPaypH4gqDpSyIQVcBxK3VFQDwXDC6hhJdlZi4zf3fRKwl4aDNtsDHJKCiECqiW8KTYH5c1gEnwnUdJ9rCh/XeM6Z42AgN+sFZAj6+Ux/LOjFaEK2diMz3h0vjNfj/zokuhPFU3lTdfcpShVOZcJ+DZgHs/HxtCrpZlj34eknoOlfC8jSCgnEkKswVSRlyczkZzVLM+9CdjtPJ/RjGswtX3ExvMcuu6mmhUnTruOBYAZKkKeN5BDO5gdG13FRoSVTOeAW2xkLPY3UEdweYWqW9OCkYN6gctq9uXllx2Z09CJ9dJwzBascI7nBYihWDldUGMqEgdTVIq6TQqCEMfUpNSD+fX7/fH+3b7P8AdGP6wA==)
 
 </div>
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNptUl1r1EAU/Su3KVKFza7ddv2IsVAfBP9DXmYnkxBMZoaZie6y9KG+ivgkFGlBQcQWhX3oQx/0z/hosvgXemfShtmlkIfcwz33nnPuLIJDKYdvahZEQaypKqQ5SHhRSaEMvCSczl/UxggOmRIV7AxHHmZpO33z4VumRcVeUa/Zw26aARLOZo6QsozUpYGFRanAKZxxoyNY+IsHa4OPEo5fPOqVYmFYJUtiGFYAsUd1AMDq+LL5/mv16eTf1RKRxMS+CTfjTl6sJeGgzbxkz5OAilKoiM4JT4IDf+QWqsHGW5KvdtRJ2lgXj3rFwSDYyNOeYd3QtMuflkRr1JHZ/nBqrAwXp4l1KYxdZZ113etbXErOB/4O+wG3wVtfsJ1l2TNbTwl9nStR8zSCsuCMqDBXJC3wNPf3dicpywewvT9O956OYTy5h8Wj/ccsyx50bKFShuM43tIBkqRpwfMIJnIGuw/lzKEVUXnBHejRQrunxgfw5AamtdJWnBQFN0wh1h3fWcHsNp6XzW4rDKH5sGwufkBzcd5+OW5PfzdfT6E9u0Rs9X7Z/jmB9t3P9vM5hKHNqY/p79m3/1cf/escXQMFqisO)
+[Try it in the Playground](https://play.vuejs.org/#eNptUltu2zAQvMpGQZEWsOzGiftQ1QBpgQK9g35oaikwkUiCj9aGkTPkBPnLIXKeXCBXyJKKBdoIoA/tYGd3doa74tqY+b+ARVXUjltp/FWj5GC09fCHKb79FbzXCoTVA5zNFxkWaWdT8/V/dHrAvzxrzrC3ZoBG4SYRWhQs9B52EeWapihU3lWwyxfPDgbfNYq+ejEppcLjYHrmkSqAOqMmAOB3L/ktDEhV4+v8gMR/l1M7wxQ4v+3xZ1Nw3Wtb8S1TTXG1H3cCJIO69oxc5mLUcrSrXkxSi1lxZGT0//CS9Wg875lzJELE/nLto4bko69dr31cFc8auw+3JHvSEfQ7nwbsHY9HwakQ4kes14zfdlYH1VbQS4XMlp1lraRMPl6cr1rsZnB6uWwvvi9hufpAxZfLryjEp5GtbYs0TlGICTCsbaXqKliZDZx/NpuEDsx2UiUwo5VxT6Dkv73BPFgXxRktlUdL2Jh6OoW8O3pX0buTsoTgaCNQcDjoGwk3wXkQ2tJLGzSYYI126KAso0uTSc8Pjy9P93k2d6+NyRKa)
 
 </div>
 
-슬롯을 사용하면 `<FancyButton>`이 더 유연하고 재사용 가능하게 할 수 있습니다. 이제 내부 내용은 다르지만 모두 동일한 멋진 스타일로 다른 장소에서 사용할 수 있습니다.
+By using slots, our `<FancyButton>` is more flexible and reusable. We can now use it in different places with different inner content, but all with the same fancy styling.
 
-Vue 컴포넌트의 슬롯 메커니즘은 [네이티브 웹 컴포넌트 `<slot>` 엘리먼트](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot)에서 영감을 얻었고, 나중에 추가 기능에 대해 설명하겠습니다.
+Vue components' slot mechanism is inspired by the [native Web Component `<slot>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot), but with additional capabilities that we will see later.
 
-## 렌더링 범위 {#render-scope}
+## Render Scope {#render-scope}
 
-슬롯 컨텐츠는 부모 컴포넌트에 정의되어 있으므로 부모 컴포넌트의 데이터 범위에 접근할 수 있습니다. 예를 들어:
+Slot content has access to the data scope of the parent component, because it is defined in the parent. For example:
 
 ```vue-html
 <span>{{ message }}</span>
 <FancyButton>{{ message }}</FancyButton>
 ```
 
-여기서 두 <span v-pre>`{{ message }}`</span> 이중 중괄호 문법은 동일한 컨텐츠를 렌더링합니다.
+Here both <span v-pre>`{{ message }}`</span> interpolations will render the same content.
 
-슬롯 콘텐츠에는 하위 컴포넌트의 데이터에 대한 액세스 권한이 **없습니다**. Vue 템플릿의 표현식은 JavaScript의 어휘 범위와 일치하도록 정의된 범위에만 액세스할 수 있습니다. 다시 말해
+Slot content does **not** have access to the child component's data. Expressions in Vue templates can only access the scope it is defined in, consistent with JavaScript's lexical scoping. In other words:
 
-> 상위 템플릿의 표현식은 상위 범위에만 액세스할 수 있고 하위 템플릿의 표현식은 하위 범위에만 액세스할 수 있습니다.
+> Expressions in the parent template only have access to the parent scope; expressions in the child template only have access to the child scope.
 
-## 대체 컨텐츠 {#fallback-content}
+## Fallback Content {#fallback-content}
 
-슬롯에 대체(fallback) 컨텐츠를 지정하여, 컨텐츠가 제공되지 않을 때만 렌더링되도록 하는 것이 유용한 경우가 있습니다. 예를 들어 `<SubmitButton>` 컴포넌트에서:
+There are cases when it's useful to specify fallback (i.e. default) content for a slot, to be rendered only when no content is provided. For example, in a `<SubmitButton>` component:
 
 ```vue-html
 <button type="submit">
@@ -112,70 +112,70 @@ Vue 컴포넌트의 슬롯 메커니즘은 [네이티브 웹 컴포넌트 `<slot
 </button>
 ```
 
-부모가 슬롯 컨텐츠를 제공하지 않은 경우, "제출" 텍스트가 `<button>` 내부에 렌더링되기를 원할 수 있습니다. "제출"을 대체 컨텐츠로 지정하려면 `<slot>` 태그 사이에 배치하면 됩니다:
+We might want the text "Submit" to be rendered inside the `<button>` if the parent didn't provide any slot content. To make "Submit" the fallback content, we can place it in between the `<slot>` tags:
 
 ```vue-html{3}
 <button type="submit">
   <slot>
-    제출 <!-- 대체 컨텐츠 -->
+    Submit <!-- fallback content -->
   </slot>
 </button>
 ```
 
-이제 부모 컴포넌트 `<SubmitButton>`을 사용하여 슬롯에 컨텐츠를 제공하지 않습니다:
+Now when we use `<SubmitButton>` in a parent component, providing no content for the slot:
 
 ```vue-html
 <SubmitButton />
 ```
 
-그러면 대체 컨텐츠로 "제출"이 렌더링됩니다:
+This will render the fallback content, "Submit":
 
 ```html
-<button type="submit">제출</button>
+<button type="submit">Submit</button>
 ```
 
-그러나 컨텐츠를 제공하는 경우:
+But if we provide content:
 
 ```vue-html
-<SubmitButton>저장</SubmitButton>
+<SubmitButton>Save</SubmitButton>
 ```
 
-제공된 컨텐츠가 대신 렌더링됩니다:
+Then the provided content will be rendered instead:
 
 ```html
-<button type="submit">저장</button>
+<button type="submit">Save</button>
 ```
 
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqrVnIsKNArK01VslKyKU4uyiwoUShOLSktsIvJy8wtyC8qUQguTcrNLHEqLSnJz1NIK8rPVVDX00cWBGlXj8mz0YfoB+oEckpScwtyEktSgTwFBRtFXV2F1z0NbzZtUXjb2vuma8nbrh0Kb5rWvJm1UkFXF6IGxR59sBhcL0Tpm3kTFN4smPpm7gxkUxbMebV5K1ZT7N4saHgzb6kNimuBymz04a5T0lFC9wooJFBdnwRxU0llQaptjFIxWH2MEsifJUDZ4px8kJ8VgCCmBOiaN9vmoHj4ze4Vb1snvNmxAObGmBJgUEE0gZgQ09GcVQsAj6Sl3A==)
+[Try it in the Playground](https://play.vuejs.org/#eNp1kMsKwjAQRX9lzMaNbfcSC/oL3WbT1ikU8yKZFEX8d5MGgi2YVeZxZ86dN7taWy8B2ZlxP7rZEnikYFuhZ2WNI+jCoGa6BSKjYXJGwbFufpNJfhSaN1kflTEgVFb2hDEC4IeqguARpl7KoR8fQPgkqKpc3Wxo1lxRWWeW+Y4wBk9x9V9d2/UL8g1XbOJN4WAntodOnrecQ2agl8WLYH7tFyw5olj10iR3EJ+gPCxDFluj0YS6EAqKR8mi9M3Td1ifLxWShcU=)
 
 </div>
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNptUE1LAzEU/CvPXHpxu/cSC/oXvObS1hQWdpOw+1aUUliEXopCL16klD0oKnjyi4L/SN/+B5MNLk0RcsibvJnMzIwdG9M/LyUbMF5M8sTgUKgkMzpHOC3HWYInJaJWMM11Br1+vAs6Yk8oAKHkRUs5k9NRmSLMHDrRVkdJhcXAAxBIOmQulD087r62A8rMpCOUdgLgB1EEP9cVvb5Ds7ih5X2z3AJdvdDdM0SR3wmMxi3Wcf0qbVZAjxXVt7sq9fr77eNflSHVFW0eeBDXrvG4c8cO2X4XrsTQ/dh7wksjjwQr2n3BXE60r0WqXWZXjEDrhj7XQWD6emoWK9rWfx4F2qo8yV29+p6t+S+Nv7rA)
+[Try it in the Playground](https://play.vuejs.org/#eNp1UEEOwiAQ/MrKxYu1d4Mm+gWvXChuk0YKpCyNxvh3lxIb28SEA8zuDDPzEucQ9mNCcRAymqELdFKu64MfCK6p6Tu6JCLvoB18D9t9/Qtm4lY5AOXwMVFu2OpkCV4ZNZ51HDqKhwLAQjIjb+X4yHr+mh+EfbCakF8AclNVkCJCq61ttLkD4YOgqsp0YbGesJkVBj92NwSTIrH3v7zTVY8oF8F4SdazD7ET69S5rqXPpnigZ8CjEnHaVyInIp5G63O6XIGiIlZMzrGMd8RVfR0q4lIKKV+L+srW+wNTTZq3)
 
 </div>
 
-## 이름이 있는 슬롯 {#named-slots}
+## Named Slots {#named-slots}
 
-단일 컴포넌트에 여러 개의 슬롯 아울렛이 있는 것이 유용한 경우가 있습니다. 예를 들어 `<BaseLayout>` 템플릿 컴포넌트에서:
+There are times when it's useful to have multiple slot outlets in a single component. For example, in a `<BaseLayout>` component with the following template:
 
 ```vue-html
 <div class="container">
   <header>
-    <!-- 우리는 여기에 헤더 컨텐츠를 원합니다. -->
+    <!-- We want header content here -->
   </header>
   <main>
-    <!-- 우리는 여기에 메인 컨텐츠를 원합니다. -->
+    <!-- We want main content here -->
   </main>
   <footer>
-    <!-- 우리는 여기에 푸터 컨텐츠를 원합니다. -->
+    <!-- We want footer content here -->
   </footer>
 </div>
 ```
 
-이러한 경우, 슬롯에 고유 ID를 할당하는 데 사용할 수 있는 `name`이라는 특수 속성을 사용하여, 컨텐츠가 렌더링되어야 하는 위치를 `<slot>` 엘리먼트가 결정할 수 있도록 할 수 있습니다:
+For these cases, the `<slot>` element has a special attribute, `name`, which can be used to assign a unique ID to different slots so you can determine where content should be rendered:
 
 ```vue-html
 <div class="container">
@@ -191,102 +191,102 @@ Vue 컴포넌트의 슬롯 메커니즘은 [네이티브 웹 컴포넌트 `<slot
 </div>
 ```
 
-`name`이 없는 `<slot>` 아울렛은 암시적으로 "default"라는 이름을 갖습니다.
+A `<slot>` outlet without `name` implicitly has the name "default".
 
-`<BaseLayout>`을 사용하는 부모 컴포넌트에서 각각 다른 슬롯 아울렛를 대상으로 하는 여러 슬롯 컨텐츠 조각을 전달하는 방법이 필요합니다. 이럴 때 **이름이 있는 슬롯**이 사용됩니다.
+In a parent component using `<BaseLayout>`, we need a way to pass multiple slot content fragments, each targeting a different slot outlet. This is where **named slots** come in.
 
-이름이 있는 슬롯을 전달하려면, `<template>` 엘리먼트와 함께 `v-slot` 디렉티브를 사용하고, 슬롯 이름을 `v-slot`에 인자로 전달해야 합니다:
+To pass a named slot, we need to use a `<template>` element with the `v-slot` directive, and then pass the name of the slot as an argument to `v-slot`:
 
 ```vue-html
 <BaseLayout>
   <template v-slot:header>
-    <!-- 헤더 슬롯의 컨텐츠 -->
+    <!-- content for the header slot -->
   </template>
 </BaseLayout>
 ```
 
-`v-slot`에는 전용 단축 문법인 `#`가 있으므로 `<template v-slot:header>`는 `<template #header>`로 단축할 수 있습니다. 이것은 자식 컴포넌트의 'header' 슬롯에서 이 템플릿 조각을 렌더링 한다는 것입니다.
+`v-slot` has a dedicated shorthand `#`, so `<template v-slot:header>` can be shortened to just `<template #header>`. Think of it as "render this template fragment in the child component's 'header' slot".
 
-![이름이 있는 슬롯 다이어그램](./images/named-slots.png)
+![named slots diagram](./images/named-slots.png)
 
-<!-- https://www.figma.com/file/2BhP8gVZevttBu9oUmUUyz/named-slot --><!-- https://www.figma.com/file/KQkd1odvlQeg8gl2r8KeaQ/named-slot-(ko-kr) -->
+<!-- https://www.figma.com/file/2BhP8gVZevttBu9oUmUUyz/named-slot -->
 
-다음은 단축 문법을 사용하여 세 슬롯의 컨텐츠를 모두 `<BaseLayout>`에 전달하는 코드입니다:
+Here's the code passing content for all three slots to `<BaseLayout>` using the shorthand syntax:
 
 ```vue-html
 <BaseLayout>
   <template #header>
-    <h1>다음은 페이지 제목일 수 있습니다.</h1>
+    <h1>Here might be a page title</h1>
   </template>
 
   <template #default>
-    <p>주요 내용에 대한 단락입니다.</p>
-    <p>그리고 또 하나.</p>
+    <p>A paragraph for the main content.</p>
+    <p>And another one.</p>
   </template>
 
   <template #footer>
-    <p>다음은 연락처 정보입니다.</p>
+    <p>Here's some contact info</p>
   </template>
 </BaseLayout>
 ```
 
-컴포넌트가 기본 슬롯과 이름이 있는 슬롯을 모두 허용하는 경우, 모든 최상위 비`<template>` 노드는 기본 슬롯의 컨텐츠로 암시적으로 처리됩니다. 따라서 위의 내용은 다음과 같이 쓸 수도 있습니다:
+When a component accepts both a default slot and named slots, all top-level non-`<template>` nodes are implicitly treated as content for the default slot. So the above can also be written as:
 
 ```vue-html
 <BaseLayout>
   <template #header>
-    <h1>다음은 페이지 제목일 수 있습니다.</h1>
+    <h1>Here might be a page title</h1>
   </template>
 
   <!-- implicit default slot -->
-  <p>주요 내용에 대한 단락입니다.</p>
-  <p>그리고 또 하나.</p>
+  <p>A paragraph for the main content.</p>
+  <p>And another one.</p>
 
   <template #footer>
-    <p>다음은 연락처 정보입니다.</p>
+    <p>Here's some contact info</p>
   </template>
 </BaseLayout>
 ```
 
-이제 `<template>` 엘리먼트 내부의 모든 것이 해당 슬롯으로 전달됩니다. 최종 렌더링된 HTML은 다음과 같습니다:
+Now everything inside the `<template>` elements will be passed to the corresponding slots. The final rendered HTML will be:
 
 ```html
 <div class="container">
   <header>
-    <h1>다음은 페이지 제목일 수 있습니다.</h1>
+    <h1>Here might be a page title</h1>
   </header>
   <main>
-    <p>주요 내용에 대한 단락입니다.</p>
-    <p>그리고 또 하나.</p>
+    <p>A paragraph for the main content.</p>
+    <p>And another one.</p>
   </main>
   <footer>
-    <p>다음은 연락처 정보입니다.</p>
+    <p>Here's some contact info</p>
   </footer>
 </div>
 ```
 
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9UstKw0AU/ZVLunCjjW6K1FjQtZ/QTUynGEgyQ2YqPhCKIBQr4sJikKYUFLXiQmxFF/WHOtN/8CbpI2nF5T2POfcxp9oOY/nDGtGKmsEt32YCOBE1Vip7tsuoL2DX5GTPPKY1AVWfurCS1+dQZF0pe4aeeNGFhSAuc0xBsAIw5uK4RmTKQ+6AmBXiT3BkDjZKsvmowisV1mF8HahwoJ7roLpt+dpT4RBUIwDVaajLT9lsoDRv6OiZvKungpeiKqRq1pxpD0ixknoYqvtbkOcDdd9Tdzcgr+rjVhtk80WGP6pzMcuI1jGzjb6+5dPbqN8FGdzAuBXI8yCl+b+NKqUiPTFLDazu3qPcDxyx25L9wV8dZF6Pysx6U6y2qmXPFF04663Yh2A5JufbZc2injBtj/hlbZq0eBzuUAGe6RKUJxxq8fIIz5rLeAwXX8z6F/UphbG4mnRewi3npTyGjvNkdxD/Ri6OnWTgRAyniXmf+tjqmqCsCBvsCDh17ArkLMvaSgQWdahfhFyhUJggVVzSGrdPSBHW85vEjeGz+PvHIdrZLxsKPjo=)
+[Try it in the Playground](https://play.vuejs.org/#eNp9UsFuwjAM/RWrHLgMOi5o6jIkdtphn9BLSF0aKU2ixEVjiH+fm8JoQdvRfu/5xS8+ZVvvl4cOsyITUQXtCSJS5zel1a13geBdRvyUR9cR1MG1MF/mt1YvnZdW5IOWVVwQtt5IQq4AxI2cau5ccZg1KCsMlz4jzWrzgQGh1fuGYIcgwcs9AmkyKHKGLyPykcfD1Apr2ZmrHUN+s+U5Qe6D9A3ULgA1bCK1BeUsoaWlyPuVb3xbgbSOaQGcxRH8v3XtHI0X8mmfeYToWkxmUhFoW7s/JvblJLERmj1l0+T7T5tqK30AZWSMb2WW3LTFUGZXp/u8o3EEVrbI9AFjLn8mt38fN9GIPrSp/p4/Yoj7OMZ+A/boN9KInPeZZpAOLNLRDAsPZDgN4p0L/NQFOV/Ayn9x6EZXMFNKvQ4E5YwLBczW6/WlU3NIi6i/sYDn5Qu2qX1OF51MsvMPkrIEHg==)
 
 </div>
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9Us1K5EAQfpUic/CyTtbLsGSzA7vnfYRcspkeDCTdTbpHdEUYBGFwRDw4GMTIgOIfHkRH9KAvZPe8g5VkfjqjCH2pr76vvqrq2rR+c15f6xDLsVwRJCGXTY+GMWeJhD++IH/9DdaR0E5YDEt1ew7loiWPepSsF+QWafudSMKmRwEChhUooVI4JQBGsTze8ig+155ZYiBJzCNfEowA3Dm/iBGZ5qG2SvwWSSY4ZlZXmqp/rrM9nXVhvJ/qbKQvu6CHJ+rmWmcvoHsp6NOe3n1U/R5S666Nmkld2zD+YDUZa+7Fm/rsRR8fgtoe6eNrfXQAaq87HpyA6l+p7FWf7sw8uCl7e3pWF7dvD0NQ6QGMB6naTg3O1220GZPmxNwYWB/d5b73OOJwoB5Gn3VQqZ6HlfUaWeubVf3j/DCq2la4BkHkC/HLswJGpR9SknjW1Gnxc0TEJFA/Jkgvc8jFn0d41lxF48ZYsapf5BsMd3E1pl+Z++hnaFwb56nuoLhGITeicuCSPL3jfyzBVpcl4w6s8HUQLApbUAuC4GdJCFjEEgdqjUZjgrRxScsi/E8c+F7/QeICLs+/MLG23gGkEFH1)
+[Try it in the Playground](https://play.vuejs.org/#eNp9UkFuwjAQ/MoqHLiUpFxQlaZI9NRDn5CLSTbEkmNb9oKgiL934wRwQK3ky87O7njGPicba9PDHpM8KXzlpKV1qWVnjSP4FB6/xcnsCRpnOpin2R3qh+alBig1HgO9xkbsFcG5RyvDOzRq8vkAQLSury+l5lNkN1EuCDurBCFXAMWdH2pGrn2YtShqdCPOnXa5/kKH0MldS7BFEGDFDoEkKSwybo8rskjjaevo4L7Wrje8x4mdE7aFxjiglkWE1GxQE9tLi8xO+LoGoQ3THLD/qP2/dGMMxYZs8DP34E2HQUxUBFI35o+NfTlJLOomL8n04frXns7W8gCVEt5/lElQkxpdmVyVHvP2yhBo0SHThx5z+TEZvl1uMlP0oU3nH/kRo3iMI9Ybes960UyRsZ9pBuGDeTqpwfBAvn7NrXF81QUZm8PSHjl0JWuYVVX1PhAqo4zLYbZarUak4ZAWXv5gDq/pG3YBHn50EEkuv5irGBk=)
 
 </div>
 
-한 번 더 언급하자면, JavaScript 함수 비유를 사용하여 명명된 슬롯을 더 잘 이해도록 해봅시다:
+Again, it may help you understand named slots better using the JavaScript function analogy:
 
 ```js
-// 이름이 다른 여러 슬롯 조각 전달
+// passing multiple slot fragments with different names
 BaseLayout({
   header: `...`,
   default: `...`,
   footer: `...`
 })
 
-// <BaseLayout>은 그것들을 각자 해당하는 위치에 렌더링합니다.
+// <BaseLayout> renders them in different places
 function BaseLayout(slots) {
   return `<div class="container">
       <header>${slots.header}</header>
@@ -296,14 +296,14 @@ function BaseLayout(slots) {
 }
 ```
 
-## 조건부 슬롯 {#conditional-slots}
+## Conditional Slots {#conditional-slots}
 
-때때로 슬롯이 있는지 여부에 따라 무언가를 렌더링하고 싶을 수 있습니다.
+Sometimes you want to render something based on whether or not content has been passed to a slot. 
 
-[$slots](/api/component-instance#slots) 속성과 [v-if](/guide/essentials/conditional#v-if)를 결합하여 이를 실현할 수 있습니다.
+You can use the [$slots](/api/component-instance.html#slots) property in combination with a [v-if](/guide/essentials/conditional.html#v-if) to achieve this.
 
-아래 예제에서는 세 가지 조건부 슬롯인 `header`, `footer`, 그리고 `default`를 가진 Card 컴포넌트를 정의합니다.
-header / footer / default가 있을 때 추가 스타일을 제공하기 위해 이를 감싸기를 원합니다:
+In the example below we define a Card component with three conditional slots: `header`, `footer` and the `default` one.
+When content for the header / footer / default is present, we want to wrap it to provide additional styling:
 
 ```vue-html
 <template>
@@ -323,11 +323,11 @@ header / footer / default가 있을 때 추가 스타일을 제공하기 위해 
 </template>
 ```
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqVVMtu2zAQ/BWCLZBLIjVoTq4aoA1yaA9t0eaoCy2tJcYUSZCUKyPwv2dJioplOw4C+EDuzM4+ONYT/aZ1tumBLmhhK8O1IxZcr29LyTutjCN3zNRkZVRHLrLcXzz9opRFHvnIxIuDTgvmAG+EFJ4WTnhOCPnQAqvBjHFE2uvbh5Zbgj/XAolwkWN4TM33VI/UalixXvjyo5yeqVVKOpCuyP0ob6utlHL7vUE3U4twkWP4hJq/jiPP4vSSOouNrHiTPVolcclPnl3SSnWaCzC/teNK2pIuSEA8xoRQ/3+GmDM9XKZ41UK1PhF/tIOPlfSPAQtmAyWdMMdMAy7C9/9+wYDnCexU3QtknwH/glWi9z1G2vde1tj2Hi90+yNYhcvmwd4PuHabhvKNeuYu8EuK1rk7M/pLu5+zm5BXyh1uMdnOu3S+95pvSCWYtV9xQcgqaXogj2yu+AqBj1YoZ7NosJLOEq5S9OXtPZtI1gFSppx8engUHs+vVhq9eVhq9ORRrXdpRyseSqfo6SmmnONK6XTw9yis24q448wXSG+0VAb3sSDXeiBoDV6TpWDV+ktENatrdMGCfAoBfL1JYNzzpINJjVFoJ9yKUKho19ul6OFQ6UYPx1rjIpPYeXIc/vXCgjetawzbni0dPnhhJ3T3DMVSruI=)
+[Try it in the Playground](https://play.vuejs.org/#eNqVVMtu2zAQ/BWCLZBLIjVoTq4aoA1yaA9t0eaoCy2tJcYUSZCUKyPwv2dJioplOw4C+EDuzM4+ONYT/aZ1tumBLmhhK8O1IxZcr29LyTutjCN3zNRkZVRHLrLcXzz9opRFHvnIxIuDTgvmAG+EFJ4WTnhOCPnQAqvBjHFE2uvbh5Zbgj/XAolwkWN4TM33VI/UalixXvjyo5yeqVVKOpCuyP0ob6utlHL7vUE3U4twkWP4hJq/jiPP4vSSOouNrHiTPVolcclPnl3SSnWaCzC/teNK2pIuSEA8xoRQ/3+GmDM9XKZ41UK1PhF/tIOPlfSPAQtmAyWdMMdMAy7C9/9+wYDnCexU3QtknwH/glWi9z1G2vde1tj2Hi90+yNYhcvmwd4PuHabhvKNeuYu8EuK1rk7M/pLu5+zm5BXyh1uMdnOu3S+95pvSCWYtV9xQcgqaXogj2yu+AqBj1YoZ7NosJLOEq5S9OXtPZtI1gFSppx8engUHs+vVhq9eVhq9ORRrXdpRyseSqfo6SmmnONK6XTw9yis24q448wXSG+0VAb3sSDXeiBoDV6TpWDV+ktENatrdMGCfAoBfL1JYNzzpINJjVFoJ9yKUKho19ul6OFQ6UYPx1rjIpPYeXIc/vXCgjetawzbni0dPnhhJ3T3DMVSruI=)
 
-## 동적인 슬롯 이름 {#dynamic-slot-names}
+## Dynamic Slot Names {#dynamic-slot-names}
 
-[동적인 디렉티브의 인자](/guide/essentials/template-syntax#dynamic-arguments)는 `v-slot`에서도 작동하므로 동적 슬롯 이름을 정의할 수 있습니다:
+[Dynamic directive arguments](/guide/essentials/template-syntax.md#dynamic-arguments) also work on `v-slot`, allowing the definition of dynamic slot names:
 
 ```vue-html
 <base-layout>
@@ -335,31 +335,31 @@ header / footer / default가 있을 때 추가 스타일을 제공하기 위해 
     ...
   </template>
 
-  <!-- 단축 문법 사용 -->
+  <!-- with shorthand -->
   <template #[dynamicSlotName]>
     ...
   </template>
 </base-layout>
 ```
 
-표현식에는 디렉티브의 [동적인 인자 문법 제약 조건](/guide/essentials/template-syntax.md#dynamic-argument-syntax-constraints)이 적용됩니다.
+Do note the expression is subject to the [syntax constraints](/guide/essentials/template-syntax.md#dynamic-argument-syntax-constraints) of dynamic directive arguments.
 
-## 범위가 지정된 슬롯 {#scoped-slots}
+## Scoped Slots {#scoped-slots}
 
-[렌더링 범위](#render-scope)에서 논의한 바와 같이 슬롯 컨텐츠는 자식 컴포넌트의 상태에 접근할 수 없습니다.
+As discussed in [Render Scope](#render-scope), slot content does not have access to state in the child component.
 
-그러나 슬롯의 컨텐츠가 상위 범위와 하위 범위의 데이터를 모두 사용할 수 있는 경우, 유용할 수 있습니다. 이를 구현하려면 자식이 데이터를 렌더링할 때 슬롯에 데이터를 전달할 수 있는 방법이 필요합니다.
+However, there are cases where it could be useful if a slot's content can make use of data from both the parent scope and the child scope. To achieve that, we need a way for the child to pass data to a slot when rendering it.
 
-사실, 우리는 정확히 그렇게 할 수 있습니다. props를 컴포넌트에 전달하는 것처럼 속성을 슬롯 아울렛에 전달할 수 있습니다:
+In fact, we can do exactly that - we can pass attributes to a slot outlet just like passing props to a component:
 
 ```vue-html
-<!-- <MyComponent> 템플릿 -->
+<!-- <MyComponent> template -->
 <div>
   <slot :text="greetingMessage" :count="1"></slot>
 </div>
 ```
 
-슬롯 props을 받는 것은 단일 기본 슬롯을 사용할 때와 명명된 슬롯을 사용할 때 약간 다릅니다. 자식 컴포넌트 태그에 직접 `v-slot`을 사용하여 단일 기본 슬롯을 사용하여 props를 수신하는 방법을 먼저 보여줄 것입니다:
+Receiving the slot props is a bit different when using a single default slot vs. using named slots. We are going to show how to receive props using a single default slot first, by using `v-slot` directly on the child component tag:
 
 ```vue-html
 <MyComponent v-slot="slotProps">
@@ -369,43 +369,43 @@ header / footer / default가 있을 때 추가 스타일을 제공하기 위해 
 
 ![scoped slots diagram](./images/scoped-slots.svg)
 
-<!-- https://www.figma.com/file/QRneoj8eIdL1kw3WQaaEyc/scoped-slot --><!-- https://www.figma.com/file/4MiKw8LEKRgyECRYxDRQUc/scoped-slot-(ko-kr) -->
+<!-- https://www.figma.com/file/QRneoj8eIdL1kw3WQaaEyc/scoped-slot -->
 
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9kEEKwjAQRa8yZNONtrgtURDXggfIRupYCjYJybQoJUvBC3hKPYQTK6UWcZXMZP6f99OJtbVp26DIhfSFqyyBR2rsSumqtsYRbC8bwzeNmuDoTA1Jmo16UZwoLbNezTouCGt72hPGiuTYoZ37k6GlEvHYOWO9EjwFoKjrYGimhGeCEOCrWZiGLUKI83IMwQ4yG5aKmZgA/khXGO0JSodIlS636P2+RFhC8rzfHtf7v0i8/FC1H2oZ8SCPvJxq4qcE5G9oflpwULbk6f5Xst5jzB1er4qR4w==)
+[Try it in the Playground](https://play.vuejs.org/#eNp9kMEKgzAMhl8l9OJlU3aVOhg7C3uAXsRlTtC2tFE2pO++dA5xMnZqk+b/8/2dxMnadBxQ5EL62rWWwCMN9qh021vjCMrn2fBNoya4OdNDkmarXhQnSstsVrOOC8LedhVhrEiuHca97wwVSsTj4oz1SvAUgKJpgqWZEj4IQoCvZm0Gtgghzss1BDvIbFkqdmID+CNdbbQnaBwitbop0fuqQSgguWPXmX+JePe1HT/QMtJBHnE51MZOCcjfzPx04JxsydPzp2Szxxo7vABY1I/p)
 
 </div>
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqFkFFKxDAQhq8y5KUK2uJriYL4vOAB8lLa2VJok5BMy0rJo+AF9pR6CCetLdlFWAgk82fyT75/Fq/W5tOIohTS166z9KJ0N1jjCA4fb4ZPGjXB0ZkBsrxItPgsU1ppPC3tDR6rsSeYlQaoty5frgKkdlEISvOSxT6VC8LB9hVhrEim86dH3xt6ViJu785YrwR3ASiaZ9jFnPBEEAJciLUZ2SLwOACZIrCDLPah4kFc4V2k8h9mU1F1d78ROqTR6a0CaB0idbo9oPdViyVkP+ev788zpxavl//ciIE/3HTTH6mMSFBGRk7iyl0JKBdQvnricNiSu9cki9UjZQ2/UAe12Q==)
+[Try it in the Playground](https://play.vuejs.org/#eNqFkNFqxCAQRX9l8CUttAl9DbZQ+rzQD/AlJLNpwKjoJGwJ/nvHpAnusrAg6FzHO567iE/nynlCUQsZWj84+lBmGJ31BKffL8sng4bg7O0IRVllWnpWKAOgDF7WBx2em0kTLElt975QbwLkhkmIyvCS1TGXC8LR6YYwVSTzH8yvQVt6VyJt3966oAR38XhaFjjEkvBCECNcia2d2CLyOACZQ7CDrI6h4kXcAF7lcg+za6h5et4JPdLkzV4B9B6RBtOfMISmxxqKH9TarrGtATxMgf/bDfM/qExEUCdEDuLGXAmoV06+euNs2JK7tyCrzSNHjX9aurQf)
 
 </div>
 
-자식이 슬롯에 전달한 props는 해당 '`v-slot'` 디렉티브의 값으로 사용할 수 있으며 슬롯 내부의 표현식에서 접근할 수 있습니다.
+The props passed to the slot by the child are available as the value of the corresponding `v-slot` directive, which can be accessed by expressions inside the slot.
 
-범위가 지정된 슬롯은 자식 컴포넌트에 전달되는 함수로 생각할 수 있습니다. 그런 다음 자식 컴포넌트가 이를 호출하고 props를 인자로 전달합니다:
+You can think of a scoped slot as a function being passed into the child component. The child component then calls it, passing props as arguments:
 
 ```js
 MyComponent({
-  // 기본 슬롯을 함수로 전달합니다.
+  // passing the default slot, but as a function
   default: (slotProps) => {
     return `${slotProps.text} ${slotProps.count}`
   }
 })
 
 function MyComponent(slots) {
-  const greetingMessage = '안녕'
-    return `<div>${
+  const greetingMessage = 'hello'
+  return `<div>${
     // call the slot function with props!
     slots.default({ text: greetingMessage, count: 1 })
   }</div>`
 }
 ```
 
-사실 이것은 범위가 지정된 슬롯이 컴파일되는 방법과 수동 [렌더 함수](/guide/extras/render-function)에서 범위가 지정된 슬롯을 사용하는 방법에 매우 유사합니다.
+In fact, this is very close to how scoped slots are compiled, and how you would use scoped slots in manual [render functions](/guide/extras/render-function).
 
-`v-slot="slotProps"`가 슬롯 함수 특징과 어떻게 일치하는지 주목하십시오. 함수의 인자와 마찬가지로 `v-slot`에서 분해 할당을 사용할 수 있습니다:
+Notice how `v-slot="slotProps"` matches the slot function signature. Just like with function arguments, we can use destructuring in `v-slot`:
 
 ```vue-html
 <MyComponent v-slot="{ text, count }">
@@ -413,9 +413,9 @@ function MyComponent(slots) {
 </MyComponent>
 ```
 
-### 이름이 있고 범위가 지정된 슬롯 {#named-scoped-slots}
+### Named Scoped Slots {#named-scoped-slots}
 
-이름이 있고 범위가 지정된 슬롯은 유사하게 작동합니다. 슬롯 props는 `v-slot` 디렉티브의 값인 `v-slot:name="slotProps"`로 접근할 수 있습니다. 단축 문법을 사용하면 다음과 같습니다:
+Named scoped slots work similarly - slot props are accessible as the value of the `v-slot` directive: `v-slot:name="slotProps"`. When using the shorthand, it looks like this:
 
 ```vue-html
 <MyComponent>
@@ -433,15 +433,15 @@ function MyComponent(slots) {
 </MyComponent>
 ```
 
-이름이 있는 슬롯에 props 전달:
+Passing props to a named slot:
 
 ```vue-html
-<slot name="header" message="안녕"></slot>
+<slot name="header" message="hello"></slot>
 ```
 
-슬롯의 `name`은 예약되어 있기 때문에 props에 포함되지 않습니다. 따라서 `headerProps`의 결과는 `{ message: '안녕' }`이 됩니다.
+Note the `name` of a slot won't be included in the props because it is reserved - so the resulting `headerProps` would be `{ message: 'hello' }`.
 
-명명된 슬롯과 기본 범위 슬롯을 혼합하는 경우, 기본 슬롯에 명시적인 `<template>` 태그를 사용해야 합니다. 컴포넌트에 `v-slot` 디렉티브를 직접 배치하려고 하면 컴파일 오류가 발생합니다. 이는 기본 슬롯의 prop 범위에 대한 모호함을 피하기 위한 것입니다. 예를 들어
+If you are mixing named slots with the default scoped slot, you need to use an explicit `<template>` tag for the default slot. Attempting to place the `v-slot` directive directly on the component will result in a compilation error. This is to avoid any ambiguity about the scope of the props of the default slot. For example:
 
 ```vue-html
 <!-- <MyComponent> template -->
@@ -462,7 +462,7 @@ function MyComponent(slots) {
 </MyComponent>
 ```
 
-기본 슬롯에 명시적인 `<template>` 태그를 사용하면 다른 슬롯에서 `message` prop을 사용할 수 없음을 명확히 알 수 있습니다:
+Using an explicit `<template>` tag for the default slot helps to make it clear that the `message` prop is not available inside the other slot:
 
 ```vue-html
 <MyComponent>
@@ -477,9 +477,9 @@ function MyComponent(slots) {
 </MyComponent>
 ```
 
-### 멋진 목록 예제 {#fancy-list-example}
+### Fancy List Example {#fancy-list-example}
 
-범위가 지정된 슬롯의 좋은 사용 사례가 무엇인지 궁금할 수 있습니다. 예를 들면 다음과 같습니다. 아이템 목록을 렌더링하는 `<FancyList>` 컴포넌트를 상상해 봅시다. 이 컴포넌트는 원격 데이터를 로드하고, 데이터를 사용하여 목록을 표시하거나, 페이지 분할이나 무한 스크롤과 같은 고급 기능을 포함할 수 있습니다. 그러나 각 아이템의 모양에 유연하게 조정하고, 각 아이템의 스타일을 해당 아이템을 소비하는 부모 컴포넌트에 맡기기를 원합니다. 따라서 원하는 사용법은 다음과 같을 수 있습니다:
+You may be wondering what would be a good use case for scoped slots. Here's an example: imagine a `<FancyList>` component that renders a list of items - it may encapsulate the logic for loading remote data, using the data to display a list, or even advanced features like pagination or infinite scrolling. However, we want it to be flexible with how each item looks and leave the styling of each item to the parent component consuming it. So the desired usage may look like this:
 
 ```vue-html
 <FancyList :api-url="url" :per-page="10">
@@ -492,7 +492,7 @@ function MyComponent(slots) {
 </FancyList>
 ```
 
-`<FancyList>` 내부에서 동일한 `<slot>`을 아이템 데이터로 여러 번 렌더링할 수 있습니다. (객체를 슬롯 props로 전달하기 위해 `v-bind`를 사용하고 있음을 주목하세요):
+Inside `<FancyList>`, we can render the same `<slot>` multiple times with different item data (notice we are using `v-bind` to pass an object as slot props):
 
 ```vue-html
 <ul>
@@ -504,40 +504,40 @@ function MyComponent(slots) {
 
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqFU2Fv0zAQ/StHJtROapNuZTBCNwnQQKBpTGxCQss+uMml8+bYlu2UlZL/zjlp0lQa40sU3/nd3Xv3vA7eax0uSwziYGZTw7UDi67Up4nkhVbGwScm09U5tw5yowoYhFEX8cBBImdRgyQMHRwWWjCHdAKYbdFM83FpxEkS0DcJINZoxpotkCIHkySo7xOixcMep19KrmGustUISotGsgJHIPgDWqg6DKEyvoRUMGsJ4HG9HGX16bqpAlU1izy5baqDFegYweYroMttMwLAHx/Y9Kyan36RWUTN2+mjXfpbrei8k6SjdSuBYFOlMaNI6AeAtcflSrqx5b8xhkl4jMU7H0yVUCaGvVeH8+PjKYWqWnpf5DQYBTtb+fc612Awh2qzzGaBiUyVpBVpo7SFE8gw5xIv/Wl4M9gsbjCCQbuywe3+FuXl9iiqO7xpElEEhUofKFQo2mTGiFiOLr3jcpFImuiaF6hKNxzuw8lpw7kuEy6ZKJGK3TR6NluLYXBVqwRXQjkLn0ueIc3TLonyZ0sm4acqKVovKIbDCVQjGsb1qvyg2telU4Yzz6eHv6ARBWdwjVqUNCbbFjqgQn6aW1J8RKfJhDg+5/lStG4QHJZjnpO5XjT0BMqFu+uZ81yxjEQJw7A1kOA76FyZjaWBy0akvu8tCQKeQ+d7wsy5zLpz1FlzU3kW1QP+x40ApWgWAySEJTv6/NitNMkllcTakwCaZZ5ADEf6cROas/RhYVQps5igEpkZLwzRROmG04OjDBcj7+Js+vYQDo9e0uH1qzeY5/s1vtaaqG969+vTTrsmBTMLLv12nuy7l+d5W673SBzxkzlfhPdWSXokdZMkSFWhuUDzTTtOnk6CuG2fBEwI9etrHXOmRLJUE0/vMH14In5vH30sCS4Nkr+WmARdztHQ6Jr02dUFPtJ/lyxUVgq6/UzyO1olSj9jc+0DcaWxe/fqab/UT51Uu7Znjw6lbUn5QWtR6vtJQM//4zPUt+NOw+lGzCqo/gLm1QS8)
+[Try it in the Playground](https://play.vuejs.org/#eNqFU2Fv0zAQ/StHJtROapNuZTBCNwnQQKBpTGxCQss+uMml8+bYlu2UlZL/zjlp0lQa40sU3/nd3Xv3vA7eax0uSwziYGZTw7UDi67Up4nkhVbGwScm09U5tw5yowoYhFEX8cBBImdRgyQMHRwWWjCHdAKYbdFM83FpxEkS0DcJINZoxpotkCIHkySo7xOixcMep19KrmGustUISotGsgJHIPgDWqg6DKEyvoRUMGsJ4HG9HGX16bqpAlU1izy5baqDFegYweYroMttMwLAHx/Y9Kyan36RWUTN2+mjXfpbrei8k6SjdSuBYFOlMaNI6AeAtcflSrqx5b8xhkl4jMU7H0yVUCaGvVeH8+PjKYWqWnpf5DQYBTtb+fc612Awh2qzzGaBiUyVpBVpo7SFE8gw5xIv/Wl4M9gsbjCCQbuywe3+FuXl9iiqO7xpElEEhUofKFQo2mTGiFiOLr3jcpFImuiaF6hKNxzuw8lpw7kuEy6ZKJGK3TR6NluLYXBVqwRXQjkLn0ueIc3TLonyZ0sm4acqKVovKIbDCVQjGsb1qvyg2telU4Yzz6eHv6ARBWdwjVqUNCbbFjqgQn6aW1J8RKfJhDg+5/lStG4QHJZjnpO5XjT0BMqFu+uZ81yxjEQJw7A1kOA76FyZjaWBy0akvu8tCQKeQ+d7wsy5zLpz1FlzU3kW1QP+x40ApWgWAySEJTv6/NitNMkllcTakwCaZZ5ADEf6cROas/RhYVQps5igEpkZLwzRROmG04OjDBcj7+Js+vYQDo9e0uH1qzeY5/s1vtaaqG969+vTTrsmBTMLLv12nuy7l+d5W673SBzxkzlfhPdWSXokdZMkSFWhuUDzTTtOnk6CuG2fBEwI9etrHXOmRLJUE0/vMH14In5vH30sCS4Nkr+WmARdztHQ6Jr02dUFPtJ/lyxUVgq6/UzyO1olSj9jc+0DcaWxe/fqab/UT51Uu7Znjw6lbUn5QWtR6vtJQM//4zPUt+NOw+lGzCqo/gLm1QS8)
 
 </div>
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqNVMFq20AQ/ZWpQnECtuQ4SZuqjqGXnnosvUQ5rK2Vs0RaLatViOsaSgk9pC0EmhRDHUigNE0JxIQccugXRfI/dCRZslUCDQihmdn3ZmfejPraCyH03ZBqptYMOpIJ1bI484QvFbwkvNN7xQIFjvQ9qOhG4UkgFYtbnO6lR23qkNBV0Lc4QMdHPKdcBWbmgBlVYg4sjk/TKPKhoagnXKIoWgDNWWYiWC2U7oal4dvSwBRU1gTpUvQs1y0tPY+IHA8LDD8x2Ie2b/eqEAZUcuLRKrhshwaYPMcgyma70HFJECAgwc3FMCpa/YwFBoOmIUqhAuZRRRDW7gEezpMhAN4ljmnOQfYxT9I0MHl+e6Nc/qzPaJeCaAaq51IIOr6gNnr05AJZmx2fq1rA3lIT6vo69Z5nYri+NGFhtdFeX19BV9b6hKSlVbWSoqUhuE9ZIX2Bom5WprJUqlDJBalsVZMjNlFkcSnXXVIVSp5bAEmTE4KtzIF3wVeK8/yQK2rPoIYB0e9f8ckQ4u+Hd9cXEH0Zxyc3k/0x3I3fx6e38fDH3e04OxxQ9Zp51A/VIjJstGYZ1TYL9DQtbMDmTMJMWRMq0fVRPNpHSojPkfY4OhxBfHAZnV2leU5uoq8jrDOXFhHxp9PJ8Dg6/4zuVFcTGvVpGf+QvwkpTA5Gk4+n0c/L+NufMlH0YRhd3WJkRrSMRDlP3qQqeuv1pYetTujmQ+Uy2K0xB2f0UVq/7lLeVdtzMx6djaKjC13X8zF0WQns+HK6GMB4pt389gSuryAppdgexLQZtwvbKAZ8ytw00vv9Z6YBQjdX0MXZrKXxmuoJ7BrHX0s62TiOxLYZ75qwJvamrjbp7HQlzpJtIpRTImtdSWyGf6PFleU1m3aryS7YK88a0Fh7jMaT1afUcZZSfNp6LH2ae54fJS6SeER2GU/EujfvguM4OV2xaoO/NKbeKQ==)
+[Try it in the Playground](https://play.vuejs.org/#eNqNVNtq20AQ/ZWpQnECujhO0qaqY+hD25fQl4RCifKwllbKktXushcT1/W/d1bSSnYJNCCEZmbPmcuZ1S76olS6cTTKo6UpNVN2VQjWKqktfCOi3N4yY6HWsoVZmo0eD5kVAqAQ9KU7XNGaOG5h572lRAZBhTV574CJzJv7QuCzzMaMaFjaKk4sRQtgOeUmiiVO85siwncRQa6oThRpKHrO50XUnUdEwMMJw08M7mAtq20MzlAtSEtj4OyZGkweMIiq2AZKToxBgMcdxDCqVrueBfb7ZaaOQiOspZYgbL0FPBySIQD+eMeQc99/HJIsM0weqs+O258mjfZREE1jt5yCKaWiFXpSX0A/5loKmxj2m+YwT69p+7kXg0udw8nlYn19fYGufvSeZBXF0ZGmR2vwmrJKS4WiPswGWWYxzIIgs8fYH6mIJadnQXdNrdMiWAB+yJ7gsXdgLfjqcK10wtJqgmYZ+spnpGgl6up5oaa2fGKi6U8Yau9ZS6Wzpwi7WU1p7BMzaZcLbuBh0q2XM4fZXTc+uOPSGvjuWEWxlaAexr9uiIBf0qG3Uy6HxXwo9B+mn47CvbNSM+LHccDxAyvmjMA9Vdxh1WQiO0eywBVGEaN3Pj972wVxPKwOZ7BJWI2b+K5rOOVUNPbpYJNvJalwZmmahm3j7AhdSz3sPzDRS3R4SQwOCXxP4yVBzJqJarSzcY8H5mXWFfif1QVwPGjGcQWTLp7YrcLxCfyDdAuMW0cq30AOV+plcK1J+dxoXJkqR6igRCeNxjbxp3N6cX5V0Sb2K19dfFrA4uo9Gh8uP9K6Puvw3eyx9SH3IT/qPCZpiW6Y8Gq9mvekrutAN96o/V99ALPj)
 
 </div>
 
-### 렌더리스 컴포넌트 {#renderless-components}
+### Renderless Components {#renderless-components}
 
-위에서 논의한 `<FancyList>` 사용 사례는, 재사용 가능한 로직(데이터 가져오기, 페이지 매김 등)과 시각적 출력을 모두 포함하는 동시에, 시각적 출력의 일부를 범위가 지정된 슬롯을 통해 사용될 컴포넌트에 위임합니다.
+The `<FancyList>` use case we discussed above encapsulates both reusable logic (data fetching, pagination etc.) and visual output, while delegating part of the visual output to the consumer component via scoped slots.
 
-이 개념을 조금 더 확장하면, 로직을 포함하기만 하고 자체적으로 아무 것도 렌더링하지 않는 컴포넌트를 생각해낼 수 있습니다. 시각적 출력은 범위가 지정된 슬롯인 사용될 컴포넌트에 완전히 위임됩니다. 이러한 유형의 컴포넌트를 **렌더리스 컴포넌트**라고 합니다.
+If we push this concept a bit further, we can come up with components that only encapsulate logic and do not render anything by themselves - visual output is fully delegated to the consumer component with scoped slots. We call this type of component a **Renderless Component**.
 
-렌더리스 컴포넌트의 예제로 현재 마우스 위치를 추적하는 로직을 포함하는 컴포넌트를 살펴봅시다:
+An example renderless component could be one that encapsulates the logic of tracking the current mouse position:
 
 ```vue-html
 <MouseTracker v-slot="{ x, y }">
-  마우스 좌표: {{ x }}, {{ y }}
+  Mouse is at: {{ x }}, {{ y }}
 </MouseTracker>
 ```
 
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqNUcFKw0AQ/ZVhL0khJp5DWvDgTW8KCnsJzVSCze6yu0kTQu4iXryKJxG8+l/Wf3C2aUsSKHhYmHk77817TMsulAqrElnMErPUubJg0JZqwUVeKKktXMvS4I1Ol4+oYaVlAV4YDUFH97hIop5PTGosFmqdWnSdTUYa1ZlZSzvnrIU6gAY6zmgKgNufr6ft2/f2+RO2Hy+/r+8xtDQDXRe4gia7ndpoO1GT6LiNBWxq7XSyFjSuApCCKMJi5spbUfQNdPuwfTqyJ5ZSGEt+5o7nn88OSDNADlipMvJDH/QW0DqBOqzSdbnDQpU+4J0Dmwl4z4ULKY6mfH/mFDa5yOQmTLPsskJhr3JjUaD2PbJrsJAVesF+6YxsDIKMBfRu9l8aJw8KkLgLQlzTEWvOIG6oaDiLJsfo/gCRPdm0)
+[Try it in the Playground](https://play.vuejs.org/#eNqNUcFqhDAQ/ZUhF12w2rO4Cz301t5aaCEX0dki1SQko6uI/96J7i4qLPQQmHmZ9+Y9ZhQvxsRdiyIVmStsZQgcUmtOUlWN0ZbgXbcOP2xe/KKFs9UNBHGyBj09kCpLFj4zuSFsTJ0T+o6yjUb35GpNRylG6CMYYJKCpwAkzWNQOcgphZG/YZoiX/DQNAttFjMrS+6LRCT2rh6HGsHiOQKtmKIIS19+qmZpYLrmXIKxM1Vo5Yj9HD0vfD7ckGGF3LDWlOyHP/idYPQCfdzldTtjscl/8MuDww78lsqHVHdTYXjwCpdKlfoS52X52qGit8oRKrRhwHYdNrrDILouPbCNVZCtgJ1n/6Xx8JYAmT8epD3fr5cC0oGLQYpkd4zpD27R0vA=)
 
 </div>
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqVUU1Lw0AQ/SvDXtJCTDyHVPDgTW8eFPYSmqkNNrthdzZNKLmLePEqnkTw6v+y/gcnDU1N/YDCsszMznvzZt9KnBZFUDoUkYjt1GQFnUiV5YU2BBfaWbw0yfQWDcyMzsELwu/FFuhJJRVWG0CKs8QtCFZSAUw1syhUZKOuAAPCttJIxScO+8GcEObFIiFsM4oHEsoju9A0kWIFlQ81wwV3AUj6eLtbP72v719h/fLw+fjME7kHmsZvA+7kMcw2EM/QOOynCV/sbzb4kt82TBNKRuPtcgbJGbXNAKoIjv1tUnPSxayEr81DjjTX6e57XMGMOMKeEoDmmQ0qmAAGRXKDV4N63devf3JrpwjTnbxlplK9DJI0PSvZlPPMEio0I487Lea6RM/vaDsZ4x2XU3+xmQ3wEML/HQeIW4shqtjlSgqIag5qKcI9t5ovl2Xw7Q==)
+[Try it in the Playground](https://play.vuejs.org/#eNqVUU1rwzAM/SvCl7SQJTuHdLDDbttthw18MbW6hjW2seU0oeS/T0lounQfUDBGepaenvxO4tG5rIkoClGGra8cPUhT1c56ghcbA756tf1EDztva0iy/Ds4NCbSAEiD7diicafigeA0oFvLPAYNhWICYEE5IL00fMp8Hs0JYe0OinDIqFyIaO7CwdJGihO0KXTcLriK59NYBlUARTyMn6Hv0yHgIp7ARAvl3FXm8yCRiuu1Fv/x23JakVqtz3t5pOjNOQNoC7hPz0nHyRSzEr7Ghxppb/XlZ6JjRlzhTAlA+ypkLWwAM6c+8G2BdzP+/pPbRkOoL/KOldH2mCmtnxr247kKhAb9KuHKgLVtMEkn2knG+sIVzV9sfmy8hfB/swHKwV0oWja4lQKKjoNOivzKrf4L/JPqaQ==)
 
 </div>
 
-흥미로운 패턴이지만 렌더리스 컴포넌트로 구현할 수 있는 대부분의 케이스는, 추가 컴포넌트 중첩에 의한 오버헤드를 발생시키지 않고 Composition API를 사용하여 보다 효율적인 방식으로 구현할 수 있습니다. 나중에 [컴포지블](/guide/reusability/composables)로 동일한 마우스 추적 기능을 구현하는 방법을 살펴보겠습니다.
+While an interesting pattern, most of what can be achieved with Renderless Components can be achieved in a more efficient fashion with Composition API, without incurring the overhead of extra component nesting. Later, we will see how we can implement the same mouse tracking functionality as a [Composable](/guide/reusability/composables).
 
-결론적으로, 범위가 지정된 슬롯은 `<FancyList>` 예제와 같이 로직을 포함하고 시각적 출력을 구성해야 할 때에 여전히 유용합니다.
+That said, scoped slots are still useful in cases where we need to both encapsulate logic **and** compose visual output, like in the `<FancyList>` example.

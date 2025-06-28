@@ -4,7 +4,7 @@ import { onMounted } from 'vue'
 if (typeof window !== 'undefined') {
   const hash = window.location.hash
 
-  // v-model에 대한 문서는 이 페이지의 일부였습니다. 오래된 링크를 리다이렉트하려고 합니다.
+  // The docs for v-model used to be part of this page. Attempt to redirect outdated links.
   if ([
     '#usage-with-v-model',
     '#v-model-arguments',
@@ -18,26 +18,26 @@ if (typeof window !== 'undefined') {
 }
 </script>
 
-# 컴포넌트 이벤트 {#component-events}
+# Component Events {#component-events}
 
-> 이 페이지는 이미 [컴포넌트 기초](/guide/essentials/component-basics)를 읽었다고 가정합니다. 컴포넌트에 익숙하지 않다면 먼저 그것을 읽어보세요.
+> This page assumes you've already read the [Components Basics](/guide/essentials/component-basics). Read that first if you are new to components.
 
 <div class="options-api">
-  <VueSchoolLink href="https://vueschool.io/lessons/defining-custom-events-emits" title="사용자 정의 이벤트 정의에 관한 무료 Vue.js 강좌"/>
+  <VueSchoolLink href="https://vueschool.io/lessons/defining-custom-events-emits" title="Free Vue.js Lesson on Defining Custom Events"/>
 </div>
 
-## 이벤트 발생 및 수신 {#emitting-and-listening-to-events}
+## Emitting and Listening to Events {#emitting-and-listening-to-events}
 
-컴포넌트는 내장 `$emit` 메소드를 사용하여 템플릿 표현식에서 직접 사용자 정의 이벤트를 발생시킬 수 있습니다(예: `v-on` 핸들러에서):
+A component can emit custom events directly in template expressions (e.g. in a `v-on` handler) using the built-in `$emit` method:
 
 ```vue-html
 <!-- MyComponent -->
-<button @click="$emit('someEvent')">click me</button>
+<button @click="$emit('someEvent')">Click Me</button>
 ```
 
 <div class="options-api">
 
-`$emit()` 메소드는 컴포넌트 인스턴스에서 `this.$emit()`로도 사용할 수 있습니다:
+The `$emit()` method is also available on the component instance as `this.$emit()`:
 
 ```js
 export default {
@@ -51,27 +51,27 @@ export default {
 
 </div>
 
-부모는 `v-on`을 사용하여 이를 수신할 수 있습니다:
+The parent can then listen to it using `v-on`:
 
 ```vue-html
 <MyComponent @some-event="callback" />
 ```
 
-컴포넌트 이벤트 리스너에서 `.once` 수정자도 지원됩니다:
+The `.once` modifier is also supported on component event listeners:
 
 ```vue-html
 <MyComponent @some-event.once="callback" />
 ```
 
-컴포넌트와 props와 마찬가지로, 이벤트 이름은 자동으로 대소문자 변환을 제공합니다. camelCase 이벤트를 발생시켰지만, 부모에서 kebab-case 리스너를 사용하여 수신할 수 있습니다. [props casing](/guide/components/props#prop-name-casing)와 마찬가지로, 템플릿에서 kebab-case 이벤트 리스너를 사용하는 것이 좋습니다.
+Like components and props, event names provide an automatic case transformation. Notice we emitted a camelCase event, but can listen for it using a kebab-cased listener in the parent. As with [props casing](/guide/components/props#prop-name-casing), we recommend using kebab-cased event listeners in templates.
 
 :::tip
-네이티브 DOM 이벤트와 달리, 컴포넌트에서 발생한 이벤트는 **버블링되지 않습니다**. 직접 자식 컴포넌트에서 발생한 이벤트만 수신할 수 있습니다. 형제 컴포넌트나 깊숙이 중첩된 컴포넌트 간에 통신이 필요한 경우, 외부 이벤트 버스 또는 [글로벌 상태 관리 솔루션](/guide/scaling-up/state-management)을 사용하세요.
+Unlike native DOM events, component emitted events do **not** bubble. You can only listen to the events emitted by a direct child component. If there is a need to communicate between sibling or deeply nested components, use an external event bus or a [global state management solution](/guide/scaling-up/state-management).
 :::
 
-## 이벤트 인수 {#event-arguments}
+## Event Arguments {#event-arguments}
 
-이벤트와 함께 특정 값을 발생시키는 것이 유용할 때가 있습니다. 예를 들어, `<BlogPost>` 컴포넌트가 텍스트를 얼마나 확대할지 결정하게 하고 싶을 수 있습니다. 이 경우, 이 값을 제공하기 위해 `$emit`에 추가 인수를 전달할 수 있습니다:
+It's sometimes useful to emit a specific value with an event. For example, we may want the `<BlogPost>` component to be in charge of how much to enlarge the text by. In those cases, we can pass extra arguments to `$emit` to provide this value:
 
 ```vue-html
 <button @click="$emit('increaseBy', 1)">
@@ -79,19 +79,19 @@ export default {
 </button>
 ```
 
-그런 다음 부모에서 이벤트를 수신할 때, 인라인 화살표 함수를 리스너로 사용할 수 있으며, 이를 통해 이벤트 인수에 접근할 수 있습니다:
+Then, when we listen to the event in the parent, we can use an inline arrow function as the listener, which allows us to access the event argument:
 
 ```vue-html
 <MyButton @increase-by="(n) => count += n" />
 ```
 
-또는 이벤트 핸들러가 메소드인 경우:
+Or, if the event handler is a method:
 
 ```vue-html
 <MyButton @increase-by="increaseCount" />
 ```
 
-그러면 해당 메소드의 첫 번째 매개변수로 값이 전달됩니다:
+Then the value will be passed as the first parameter of that method:
 
 <div class="options-api">
 
@@ -115,12 +115,12 @@ function increaseCount(n) {
 </div>
 
 :::tip
-이벤트 이름 다음에 `$emit()`에 전달된 모든 추가 인수는 리스너에게 전달됩니다. 예를 들어, `$emit('foo', 1, 2, 3)`으로 `$emit`을 사용하면 리스너 함수는 세 개의 인수를 받게 됩니다.
+All extra arguments passed to `$emit()` after the event name will be forwarded to the listener. For example, with `$emit('foo', 1, 2, 3)` the listener function will receive three arguments.
 :::
 
-## 발생하는 이벤트 선언하기 {#declaring-emitted-events}
+## Declaring Emitted Events {#declaring-emitted-events}
 
-컴포넌트는 <span class="composition-api">[`defineEmits()`](/api/sfc-script-setup#defineprops-defineemits) 매크로</span><span class="options-api">[`emits`](/api/options-state#emits) 옵션</span>을 사용하여 발생할 이벤트를 명시적으로 선언할 수 있습니다:
+A component can explicitly declare the events it will emit using the <span class="composition-api">[`defineEmits()`](/api/sfc-script-setup#defineprops-defineemits) macro</span><span class="options-api">[`emits`](/api/options-state#emits) option</span>:
 
 <div class="composition-api">
 
@@ -130,7 +130,7 @@ defineEmits(['inFocus', 'submit'])
 </script>
 ```
 
-`<template>`에서 사용한 `$emit` 메소드는 컴포넌트의 `<script setup>` 섹션 내에서 접근할 수 없지만, `defineEmits()`는 대신 사용할 수 있는 동등한 함수를 반환합니다:
+The `$emit` method that we used in the `<template>` isn't accessible within the `<script setup>` section of a component, but `defineEmits()` returns an equivalent function that we can use instead:
 
 ```vue
 <script setup>
@@ -142,9 +142,9 @@ function buttonClick() {
 </script>
 ```
 
-`defineEmits()` 매크로는 함수 내부가 아니라 `<script setup>`에서 직접 사용해야 합니다.
+The `defineEmits()` macro **cannot** be used inside a function, it must be placed directly within `<script setup>`, as in the example above.
 
-명시적인 `setup` 함수를 사용하는 경우 이벤트는 [`emits`](/api/options-state#emits) 옵션을 사용하여 선언되어야 하며, `emit` 함수는 `setup()` 컨텍스트에 노출됩니다:
+If you're using an explicit `setup` function instead of `<script setup>`, events should be declared using the [`emits`](/api/options-state#emits) option, and the `emit` function is exposed on the `setup()` context:
 
 ```js
 export default {
@@ -155,7 +155,7 @@ export default {
 }
 ```
 
-`setup()` 컨텍스트의 다른 속성과 마찬가지로, `emit`은 안전하게 구조 분해할 수 있습니다:
+As with other properties of the `setup()` context, `emit` can safely be destructured:
 
 ```js
 export default {
@@ -177,7 +177,7 @@ export default {
 
 </div>
 
-`emits` 옵션과 `defineEmits()` 매크로는 객체 구문도 지원합니다. TypeScript를 사용하는 경우 인수를 타입 지정할 수 있으며, 이를 통해 발생된 이벤트의 페이로드에 대한 런타임 유효성 검사를 수행할 수 있습니다:
+The `emits` option and `defineEmits()` macro also support an object syntax. If using TypeScript you can type arguments, which allows us to perform runtime validation of the payload of the emitted events:
 
 <div class="composition-api">
 
@@ -185,14 +185,14 @@ export default {
 <script setup lang="ts">
 const emit = defineEmits({
   submit(payload: { email: string, password: string }) {
-    // 유효성 검사 통과/실패를 나타내기 위해
-    // `true` 또는 `false`를 반환
+    // return `true` or `false` to indicate
+    // validation pass / fail
   }
 })
 </script>
 ```
 
-`<script setup>`을 사용하여 TypeScript와 함께 작업하는 경우, 순수한 타입 주석을 사용하여 발생된 이벤트를 선언할 수도 있습니다:
+If you are using TypeScript with `<script setup>`, it's also possible to declare emitted events using pure type annotations:
 
 ```vue
 <script setup lang="ts">
@@ -203,7 +203,7 @@ const emit = defineEmits<{
 </script>
 ```
 
-자세한 정보: [컴포넌트 이벤트 타이핑](/guide/typescript/composition-api#typing-component-emits) <sup class="vt-badge ts" />
+More details: [Typing Component Emits](/guide/typescript/composition-api#typing-component-emits) <sup class="vt-badge ts" />
 
 </div>
 <div class="options-api">
@@ -212,38 +212,38 @@ const emit = defineEmits<{
 export default {
   emits: {
     submit(payload: { email: string, password: string }) {
-      // 유효성 검사 통과/실패를 나타내기 위해
-      // `true` 또는 `false`를 반환
+      // return `true` or `false` to indicate
+      // validation pass / fail
     }
   }
 }
 ```
 
-참조: [컴포넌트 이벤트 타이핑](/guide/typescript/options-api#typing-component-emits) <sup class="vt-badge ts" />
+See also: [Typing Component Emits](/guide/typescript/options-api#typing-component-emits) <sup class="vt-badge ts" />
 
 </div>
 
-이벤트를 정의하는 것은 선택 사항이지만, 컴포넌트가 어떻게 동작해야 하는지 더 잘 문서화하기 위해 모든 발생 이벤트를 정의하는 것이 좋습니다. 또한 이를 통해 Vue는 알려진 리스너를 [낙하 속성](/guide/components/attrs#v-on-listener-inheritance)에서 제외시켜 타사 코드에 의해 수동으로 발송된 DOM 이벤트에 의해 발생하는 에지 케이스를 피할 수 있습니다.
+Although optional, it is recommended to define all emitted events in order to better document how a component should work. It also allows Vue to exclude known listeners from [fallthrough attributes](/guide/components/attrs#v-on-listener-inheritance), avoiding edge cases caused by DOM events manually dispatched by 3rd party code.
 
 :::tip
-`emits` 옵션에서 네이티브 이벤트(예: `click`)를 정의한 경우, 리스너는 이제 네이티브 `click` 이벤트가 아니라 컴포넌트에서 발생한 `click` 이벤트에만 응답합니다.
+If a native event (e.g., `click`) is defined in the `emits` option, the listener will now only listen to component-emitted `click` events and no longer respond to native `click` events.
 :::
 
-## 이벤트 유효성 검사 {#events-validation}
+## Events Validation {#events-validation}
 
-prop 타입 유효성 검사와 마찬가지로, 배열 구문 대신 객체 구문으로 정의된 이벤트는 유효성 검사가 가능합니다.
+Similar to prop type validation, an emitted event can be validated if it is defined with the object syntax instead of the array syntax.
 
-유효성 검사를 추가하려면, <span class="options-api">`this.$emit`</span><span class="composition-api">`emit`</span> 호출로 전달된 인수를 받는 함수에 이벤트를 할당하고, 이벤트가 유효한지 여부를 나타내는 부울을 반환합니다.
+To add validation, the event is assigned a function that receives the arguments passed to the <span class="options-api">`this.$emit`</span><span class="composition-api">`emit`</span> call and returns a boolean to indicate whether the event is valid or not.
 
 <div class="composition-api">
 
 ```vue
 <script setup>
 const emit = defineEmits({
-  // 유효성 검사 없음
+  // No validation
   click: null,
 
-  // submit 이벤트 유효성 검사
+  // Validate submit event
   submit: ({ email, password }) => {
     if (email && password) {
       return true
@@ -266,10 +266,10 @@ function submitForm(email, password) {
 ```js
 export default {
   emits: {
-    // 유효성 검사 없음
+    // No validation
     click: null,
 
-    // submit 이벤트 유효성 검사
+    // Validate submit event
     submit: ({ email, password }) => {
       if (email && password) {
         return true

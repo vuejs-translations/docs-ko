@@ -1,9 +1,9 @@
-# 커스텀 디렉티브 {#custom-directives}
+# Custom Directives {#custom-directives}
 
 <script setup>
-const vFocus = {
+const vHighlight = {
   mounted: el => {
-    el.focus()
+    el.classList.add('is-highlight')
   }
 }
 </script>
@@ -19,24 +19,24 @@ const vFocus = {
 }
 </style>
 
-## 소개 {#introduction}
+## Introduction {#introduction}
 
-코어에 포함된 기본 디렉티브 세트(예: `v-model` 또는 `v-show`) 외에도 Vue를 사용하면 커스텀 디렉티브를 정의할 수 있습니다.
+In addition to the default set of directives shipped in core (like `v-model` or `v-show`), Vue also allows you to register your own custom directives.
 
-우리는 Vue에서 [컴포넌트 기초](/guide/essentials/component-basics)와 [컴포저블](./composables)이라는 두 가지 형태의 코드 재사용을 도입했습니다. 컴포넌트는 주요 빌딩 블럭(building-block)이고, 컴포저블은 상태 저장 로직을 재사용하는 데 중점을 둡니다. 반면에 커스텀 디렉티브는 주로 일반 엘리먼트에 대한 저수준(low-level) DOM 접근과 관련된 로직을 재사용하기 위한 것입니다.
+We have introduced two forms of code reuse in Vue: [components](/guide/essentials/component-basics) and [composables](./composables). Components are the main building blocks, while composables are focused on reusing stateful logic. Custom directives, on the other hand, are mainly intended for reusing logic that involves low-level DOM access on plain elements.
 
-커스텀 디렉티브는 컴포넌트의 생명주기 훅을 포함하는 객체처럼 정의됩니다. 훅은 디렉티브가 바인딩된 엘리먼트를 수신합니다. 다음은 엘리먼트가 Vue에 의해 DOM에 삽입될 때, `<input>`에 포커스 되는 커스텀 디렉티브 구현의 예제입니다:
+A custom directive is defined as an object containing lifecycle hooks similar to those of a component. The hooks receive the element the directive is bound to. Here is an example of a directive that adds a class to an element when it is inserted into the DOM by Vue:
 
 <div class="composition-api">
 
 ```vue
 <script setup>
-  // 템플릿에서 v-highlight로 활성화 가능
-  const vHighlight = {
-    mounted: (el) => {
-      el.classList.add('is-highlight')
-    }
+// enables v-highlight in templates
+const vHighlight = {
+  mounted: (el) => {
+    el.classList.add('is-highlight')
   }
+}
 </script>
 
 <template>
@@ -55,7 +55,7 @@ const highlight = {
 
 export default {
   directives: {
-    //  템플릿에서 v-highlight로 활성화 가능
+    // enables v-highlight in template
     highlight
   }
 }
@@ -64,14 +64,18 @@ export default {
 ```vue-html
 <p v-highlight>This sentence is important!</p>
 ```
+
 </div>
 
+<div class="demo">
+  <p v-highlight>This sentence is important!</p>
+</div>
 
 <div class="composition-api">
 
-`<script setup>`에서 `v` 접두사로 시작하는 모든 camelCase 변수를 커스텀 디렉티브로 사용할 수 있습니다. 위의 예에서 `vhighlight`는 템플릿에서 `v-highlight`로 사용할 수 있습니다.
+In `<script setup>`, any camelCase variable that starts with the `v` prefix can be used as a custom directive. In the example above, `vHighlight` can be used in the template as `v-highlight`.
 
-`<script setup>`을 사용하지 않는 경우, `directives` 옵션을 사용하여 커스텀 디렉티브를 등록할 수 있습니다:
+If you are not using `<script setup>`, custom directives can be registered using the `directives` option:
 
 ```js
 export default {
@@ -79,7 +83,7 @@ export default {
     /*...*/
   },
   directives: {
-    // 템플릿에서 v-highlight로 활성화 가능
+    // enables v-highlight in template
     highlight: {
       /* ... */
     }
@@ -91,33 +95,32 @@ export default {
 
 <div class="options-api">
 
-컴포넌트와 마찬가지로 커스텀 디렉티브는 템플릿에서 사용할 수 있도록 등록해야 합니다. 위의 예에서는 `directives` 옵션을 통해 로컬 등록을 사용하고 있습니다.
+Similar to components, custom directives must be registered so that they can be used in templates. In the example above, we are using local registration via the `directives` option.
 
 </div>
 
-앱 수준에서 커스텀 디렉티브를 전역적으로 등록하는 것도 일반적입니다:
+It is also common to globally register custom directives at the app level:
 
 ```js
 const app = createApp({})
 
-// 모든 컴포넌트에서 v-highlight를 사용할 수 있도록 합니다.
+// make v-highlight usable in all components
 app.directive('highlight', {
   /* ... */
 })
 ```
 
+## When to use custom directives {#when-to-use}
 
-## 언제 사용자 정의 디렉티브를 사용하나요 {#when-to-use}
+Custom directives should only be used when the desired functionality can only be achieved via direct DOM manipulation.
 
-커스텀 디렉티브는 원하는 기능이 직접적인 DOM 조작을 통해서만 구현될 수 있을 때만 사용해야 합니다.
-
-대표적인 예로, 요소에 포커스를 맞추는 `v-focus` 커스텀 디렉티브가 있습니다.
+A common example of this is a `v-focus` custom directive that brings an element into focus.
 
 <div class="composition-api">
 
 ```vue
 <script setup>
-// 템플릿에서  v-focus 를 활성화
+// enables v-focus in templates
 const vFocus = {
   mounted: (el) => el.focus()
 }
@@ -139,7 +142,7 @@ const focus = {
 
 export default {
   directives: {
-    // 템플릿에서  v-focus 를 활성화
+    // enables v-focus in template
     focus
   }
 }
@@ -151,89 +154,88 @@ export default {
 
 </div>
 
-이 디렉티브는 `autofocus` 속성보다 더 유용합니다. 그 이유는 페이지가 로드될 때뿐만 아니라, Vue가 요소를 동적으로 삽입할 때도 작동하기 때문입니다!
+This directive is more useful than the `autofocus` attribute because it works not just on page load - it also works when the element is dynamically inserted by Vue!
 
-가능한 경우, `v-bind`와 같은 내장 디렉티브를 활용한 선언적 템플릿 작성이 권장됩니다.이 방식이 더 효율적이며 서버 사이드 렌더링(SSR)에도 적합하기 때문입니다.
+Declarative templating with built-in directives such as `v-bind` is recommended when possible because they are more efficient and server-rendering friendly.
 
+## Directive Hooks {#directive-hooks}
 
-## 디렉티브 훅 {#directive-hooks}
-
-디렉티브를 정의하는 객체는 다음과 같은 여러 훅 기능을 제공할 수 있습니다(모두 선택 사항):
+A directive definition object can provide several hook functions (all optional):
 
 ```js
 const myDirective = {
-  // 바인딩된 엘리먼트의 속성 또는
-  // 이벤트 리스너가 적용되기 전에 호출됩니다.
+  // called before bound element's attributes
+  // or event listeners are applied
   created(el, binding, vnode) {
-    // 인자에 대한 자세한 내용은 아래를 참고.
+    // see below for details on arguments
   },
-  // 엘리먼트가 DOM에 삽입되기 직전에 호출됩니다.
+  // called right before the element is inserted into the DOM.
   beforeMount(el, binding, vnode) {},
-  // 바인딩된 엘리먼트의 부모 컴포넌트 및
-  // 모든 자식 컴포넌트의 mounted 이후에 호출됩니다.
+  // called when the bound element's parent component
+  // and all its children are mounted.
   mounted(el, binding, vnode) {},
-  // 부모 컴포넌트의 updated 전에 호출됩니다.
+  // called before the parent component is updated
   beforeUpdate(el, binding, vnode, prevVnode) {},
-  // 바인딩된 엘리먼트의 부모 컴포넌트 및
-  // 모든 자식 컴포넌트의 updated 이후에 호출됩니다.
+  // called after the parent component and
+  // all of its children have updated
   updated(el, binding, vnode, prevVnode) {},
-  // 부모 컴포넌트의 beforeUnmount 이후에 호출됩니다.
+  // called before the parent component is unmounted
   beforeUnmount(el, binding, vnode) {},
-  // 부모 컴포넌트의 unmounted 전에 호출됩니다.
+  // called when the parent component is unmounted
   unmounted(el, binding, vnode) {}
 }
 ```
 
-### 훅 인자 {#hook-arguments}
+### Hook Arguments {#hook-arguments}
 
-디렉티브 훅에는 다음 인자가 전달됩니다:
+Directive hooks are passed these arguments:
 
-- `el`: 디렉티브가 바인딩된 엘리먼트입니다. DOM을 직접 조작하는 데 사용할 수 있습니다.
+- `el`: the element the directive is bound to. This can be used to directly manipulate the DOM.
 
-- `binding`: 다음 속성을 포함하는 객체입니다.
+- `binding`: an object containing the following properties.
 
-  - `value`: 디렉티브에 전달된 값입니다. 예를 들어 `v-my-directive="1 + 1"`에서 value는 `2`입니다.
-  - `oldValue`: 이것은 `beforeUpdate` 및 `updated`에서만 사용할 수 있습니다. 값이 변경되었는지 여부에 관계없이 사용 가능합니다.
-  - `arg`: 디렉티브에 전달된 인자(있는 경우). 예를 들어 `v-my-directive:foo`에서 인자는 `"foo"`입니다.
-  - `modifiers`: 수식어가 있는 경우 수식어를 포함하는 객체입니다. 예를 들어 `v-my-directive.foo.bar`에서 수식어 객체는 `{ foo: true, bar: true }`입니다.
-  - `instance`: 디렉티브가 사용되는 컴포넌트의 인스턴스입니다.
-  - `dir`: 디렉티브를 정의하는 객체
+  - `value`: The value passed to the directive. For example in `v-my-directive="1 + 1"`, the value would be `2`.
+  - `oldValue`: The previous value, only available in `beforeUpdate` and `updated`. It is available whether or not the value has changed.
+  - `arg`: The argument passed to the directive, if any. For example in `v-my-directive:foo`, the arg would be `"foo"`.
+  - `modifiers`: An object containing modifiers, if any. For example in `v-my-directive.foo.bar`, the modifiers object would be `{ foo: true, bar: true }`.
+  - `instance`: The instance of the component where the directive is used.
+  - `dir`: the directive definition object.
 
-- `vnode`: 바인딩된 엘리먼트를 나타내는 기본 VNode.
-- `prevVnode`: 이전 렌더링에서 바인딩된 엘리먼트를 나타내는 VNode입니다. `beforeUpdate` 및 `updated` 훅에서만 사용할 수 있습니다.
+- `vnode`: the underlying VNode representing the bound element.
+- `prevVnode`: the VNode representing the bound element from the previous render. Only available in the `beforeUpdate` and `updated` hooks.
 
-다음과 같은 디렉티브를 사용한다고 가정한 예제를 살펴봅시다:
+As an example, consider the following directive usage:
 
 ```vue-html
 <div v-example:foo.bar="baz">
 ```
 
-`binding` 인자는 다음과 같은 형태의 객체입니다:
+The `binding` argument would be an object in the shape of:
 
 ```js
 {
   arg: 'foo',
   modifiers: { bar: true },
-  value: /* `baz`의 값 */,
-  oldValue: /* 업데이트 전 `baz`의 값 */
+  value: /* value of `baz` */,
+  oldValue: /* value of `baz` from previous update */
 }
 ```
 
-내장 디렉티브와 유사하게 커스텀 디렉티브 인자는 동적일 수 있습니다. 예를 들어:
+Similar to built-in directives, custom directive arguments can be dynamic. For example:
 
 ```vue-html
 <div v-example:[arg]="value"></div>
 ```
 
-여기서 디렉티브 인자는 컴포넌트 상태의 `arg` 속성을 기반으로 반응형으로 업데이트됩니다.
+Here the directive argument will be reactively updated based on `arg` property in our component state.
 
-:::tip 참고
-`el`을 제외하고 이러한 인자들은 읽기 전용으로 처리하고 절대 수정해서는 안 됩니다. 훅 간에 정보를 공유해야 하는 경우 엘리먼트의 [dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)을 통해 공유하는 것이 좋습니다.
+:::tip Note
+Apart from `el`, you should treat these arguments as read-only and never modify them. If you need to share information across hooks, it is recommended to do so through element's [dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset).
 :::
 
-## 간단하게 함수로 사용하기 {#function-shorthand}
+## Function Shorthand {#function-shorthand}
 
-커스텀 디렉티브가 `mounted` 및 `updated`에 대해 동일한 동작을 갖는 것이 일반적이며, 다른 훅은 필요하지 않습니다. 이러한 경우 디렉티브를 객체가 아닌 함수로 정의할 수 있습니다:
+It's common for a custom directive to have the same behavior for `mounted` and `updated`, with no need for the other hooks. In such cases we can define the directive as a function:
 
 ```vue-html
 <div v-color="color"></div>
@@ -241,45 +243,44 @@ const myDirective = {
 
 ```js
 app.directive('color', (el, binding) => {
-  // 이 함수가 호출되는 시점은 `mounted`와 `updated`입니다.
+  // this will be called for both `mounted` and `updated`
   el.style.color = binding.value
 })
 ```
 
-## 객체를 값으로 전달하기 {#object-literals}
+## Object Literals {#object-literals}
 
-디렉티브에 여러 값이 필요한 경우, JavaScript 객체 리터럴을 전달할 수도 있습니다. 디렉티브는 모든 유효한 JavaScript 표현식을 사용할 수 있음을 기억하십시오.
+If your directive needs multiple values, you can also pass in a JavaScript object literal. Remember, directives can take any valid JavaScript expression.
 
 ```vue-html
-<div v-demo="{ color: 'white', text: '안녕!' }"></div>
+<div v-demo="{ color: 'white', text: 'hello!' }"></div>
 ```
 
 ```js
 app.directive('demo', (el, binding) => {
   console.log(binding.value.color) // => "white"
-  console.log(binding.value.text) // => "안녕!"
+  console.log(binding.value.text) // => "hello!"
 })
 ```
 
-## 컴포넌트에서 사용 {#usage-on-components}
+## Usage on Components {#usage-on-components}
 
-:::warning 추천하지 않음
-컴포넌트에 커스텀 디렉티브를 사용하는 것은 권장되지 않습니다. 컴포넌트에 여러 개의 루트 노드가 있을 경우 예상치 못한 동작이 발생할 수 있습니다.
+:::warning Not recommended
+Using custom directives on components is not recommended. Unexpected behaviour may occur when a component has multiple root nodes.
 :::
 
-컴포넌트에 사용될 때 커스텀 디렉티브는 [폴스루 속성](/guide/components/attrs)과 유사하게 항상 컴포넌트의 루트 노드에 적용됩니다.
+When used on components, custom directives will always apply to a component's root node, similar to [Fallthrough Attributes](/guide/components/attrs).
 
 ```vue-html
 <MyComponent v-demo="test" />
 ```
 
 ```vue-html
-<!-- MyComponent 템플릿에서 -->
+<!-- template of MyComponent -->
 
-<div> <!-- 여기에 v-demo 디렉티브가 적용됩니다. -->
-  <span>컴포넌트 컨텐츠...</span>
+<div> <!-- v-demo directive will be applied here -->
+  <span>My component content</span>
 </div>
 ```
 
-컴포넌트는 잠재적으로 하나 이상의 루트 노드를 가질 수 있습니다. 다중 루트 컴포넌트에 적용될 때, 디렉티브는 무시되고 경고가 발생합니다. 속성과 달리, 디렉티브는 `v-bind="$attrs"`로 다른 요소에 전달될 수 없습니다. 일반적으로 컴포넌트에서 커스텀 디렉티브를 사용하는 것은 권장되지 **않습니다**.
-
+Note that components can potentially have more than one root node. When applied to a multi-root component, a directive will be ignored and a warning will be thrown. Unlike attributes, directives can't be passed to a different element with `v-bind="$attrs"`.

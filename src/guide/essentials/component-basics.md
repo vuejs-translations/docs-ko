@@ -1,16 +1,20 @@
-# 컴포넌트 기초 {#components-basics}
+# Components Basics {#components-basics}
 
-컴포넌트를 사용하면 UI를 독립적이고 재사용 가능한 일부분으로 분할하고 각 부분을 개별적으로 다룰 수 있습니다. 따라서 앱이 중첩된 컴포넌트의 트리로 구성되는 것은 일반적입니다:
+<ScrimbaLink href="https://scrimba.com/links/vue-component-basics" title="Free Vue.js Components Basics Lesson" type="scrimba">
+  Watch an interactive video lesson on Scrimba
+</ScrimbaLink>
+
+Components allow us to split the UI into independent and reusable pieces, and think about each piece in isolation. It's common for an app to be organized into a tree of nested components:
 
 ![Component Tree](./images/components.png)
 
 <!-- https://www.figma.com/file/qa7WHDQRWuEZNRs7iZRZSI/components -->
 
-이것은 기본 HTML 엘리먼트를 중첩하는 방법과 매우 유사하지만, Vue는 각 컴포넌트에 사용자 정의 컨텐츠와 논리를 캡슐화할 수 있는 자체 컴포넌트 모델을 구현합니다. Vue는 기본 웹 컴포넌트와도 잘 작동합니다. Vue 컴포넌트와 기본 웹 컴포넌트 간의 관계가 궁금하시다면 [여기에서 자세히 읽어보세요](/guide/extras/web-components).
+This is very similar to how we nest native HTML elements, but Vue implements its own component model that allows us to encapsulate custom content and logic in each component. Vue also plays nicely with native Web Components. If you are curious about the relationship between Vue Components and native Web Components, [read more here](/guide/extras/web-components).
 
-## 컴포넌트 정의하기 {#defining-a-component}
+## Defining a Component {#defining-a-component}
 
-빌드 방식을 사용할 때 일반적으로 [싱글 파일 컴포넌트](/guide/scaling-up/sfc)(줄여서 SFC)라고 하는 `.vue` 확장자를 사용하는 전용 파일에 각 Vue 컴포넌트를 정의합니다:
+When using a build step, we typically define each Vue component in a dedicated file using the `.vue` extension - known as a [Single-File Component](/guide/scaling-up/sfc) (SFC for short):
 
 <div class="options-api">
 
@@ -26,7 +30,7 @@ export default {
 </script>
 
 <template>
-  <button @click="count++">당신은 {{ count }} 번 클릭했습니다.</button>
+  <button @click="count++">You clicked me {{ count }} times.</button>
 </template>
 ```
 
@@ -41,13 +45,13 @@ const count = ref(0)
 </script>
 
 <template>
-  <button @click="count++">당신은 {{ count }} 번 클릭했습니다.</button>
+  <button @click="count++">You clicked me {{ count }} times.</button>
 </template>
 ```
 
 </div>
 
-빌드 방식을 사용하지 않을 때, Vue 컴포넌트는 Vue 관련 옵션을 포함하는 일반 JavaScript 객체로 정의할 수 있습니다:
+When not using a build step, a Vue component can be defined as a plain JavaScript object containing Vue-specific options:
 
 <div class="options-api">
 
@@ -60,7 +64,7 @@ export default {
   },
   template: `
     <button @click="count++">
-      당신은 {{ count }} 번 클릭했습니다.
+      You clicked me {{ count }} times.
     </button>`
 }
 ```
@@ -78,26 +82,26 @@ export default {
   },
   template: `
     <button @click="count++">
-      당신은 {{ count }} 번 클릭했습니다.
+      You clicked me {{ count }} times.
     </button>`
-  // DOM 내의 템플릿을 대상으로 할 수도 있습니다:
+  // Can also target an in-DOM template:
   // template: '#my-template-element'
 }
 ```
 
 </div>
 
-JavaScript 문자열로 정의한 템플릿은 Vue가 즉석에서 컴파일합니다. 엘리먼트(보통 기본 `<template>` 엘리먼트)를 가리키는 ID 셀렉터를 사용할 수도 있습니다. Vue는 해당 컨텐츠를 템플릿 소스로 사용합니다.
+The template is inlined as a JavaScript string here, which Vue will compile on the fly. You can also use an ID selector pointing to an element (usually native `<template>` elements) - Vue will use its content as the template source.
 
-위의 예는 단일 컴포넌트를 정의하고 이를 `.js` 파일의 내보내기 기본 값으로 내보냅니다. 그러나 명명된 내보내기를 사용하여 한 파일에서 여러 개의 컴포넌트로 내보낼 수 있습니다.
+The example above defines a single component and exports it as the default export of a `.js` file, but you can use named exports to export multiple components from the same file.
 
-## 컴포넌트 사용하기 {#using-a-component}
+## Using a Component {#using-a-component}
 
 :::tip
-이 가이드의 나머지 부분에서는 SFC 문법을 사용할 것입니다. 컴포넌트에 대한 개념은 빌드 방식를 사용하는지 여부에 관계없이 동일합니다. [예제](/examples/) 섹션은 두 시나리오 모두에서 컴포넌트 사용을 보여줍니다.
+We will be using SFC syntax for the rest of this guide - the concepts around components are the same regardless of whether you are using a build step or not. The [Examples](/examples/) section shows component usage in both scenarios.
 :::
 
-자식 컴포넌트를 사용하려면 부모 컴포넌트에서 가져와야(import) 합니다. 파일 안에 `ButtonCounter.vue`라는 카운터 컴포넌트를 배치했다고 가정하면, 해당 컴포넌트 파일의 기본 내보내기가 노출됩니다:
+To use a child component, we need to import it in the parent component. Assuming we placed our counter component inside a file called `ButtonCounter.vue`, the component will be exposed as the file's default export:
 
 <div class="options-api">
 
@@ -113,12 +117,12 @@ export default {
 </script>
 
 <template>
-  <h1>아래에 자식 컴포넌트가 있습니다.</h1>
+  <h1>Here is a child component!</h1>
   <ButtonCounter />
 </template>
 ```
 
-가져온 컴포넌트를 템플릿에 노출하려면 `components` 옵션을 사용하여 [등록](/guide/components/registration)해야 합니다. 그러면 컴포넌트는 등록된 키를 사용하여 태그로 사용할 수 있습니다.
+To expose the imported component to our template, we need to [register](/guide/components/registration) it with the `components` option. The component will then be available as a tag using the key it is registered under.
 
 </div>
 
@@ -130,21 +134,21 @@ import ButtonCounter from './ButtonCounter.vue'
 </script>
 
 <template>
-  <h1>아래에 자식 컴포넌트가 있습니다.</h1>
+  <h1>Here is a child component!</h1>
   <ButtonCounter />
 </template>
 ```
 
-`<script setup>`을 사용하면 가져온 컴포넌트를 템플릿에서 자동으로 사용할 수 있습니다.
+With `<script setup>`, imported components are automatically made available to the template.
 
 </div>
 
-컴포넌트를 전역으로 등록하면, 가져오기(import) 없이 지정된 앱의 모든 곳에서 컴포넌트를 사용할 수 있습니다. 전역 및 로컬 등록의 장단점은 [컴포넌트 등록](/guide/components/registration) 섹션에서 설명합니다.
+It's also possible to globally register a component, making it available to all components in a given app without having to import it. The pros and cons of global vs. local registration is discussed in the dedicated [Component Registration](/guide/components/registration) section.
 
-컴포넌트는 원하는 만큼 재사용할 수 있습니다:
+Components can be reused as many times as you want:
 
 ```vue-html
-<h1>여기에 많은 자식 컴포넌트가 있습니다!</h1>
+<h1>Here are many child components!</h1>
 <ButtonCounter />
 <ButtonCounter />
 <ButtonCounter />
@@ -152,35 +156,35 @@ import ButtonCounter from './ButtonCounter.vue'
 
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqVkM1Kw0AUhV/lOpsqlUa3YSz+vMZsYjrFYDIJ04kIIVChi9CIutG6UHEhuqlQpELFN+pM3sHJhFaighRmc85wz73nS9BeFLVOYopshHsu9yLRJswLopAL2I+FCNlBGDNBOXR5GECjZdXccrRBGGH01Ix0aNeJfQEJYQBuqHMYZaJnVwbUI0srJUw/bC13ayFoEPmOoKUS+Gi7rUbj+WyiRlcgXy7UfR+K61t1NwD1OS0ux3JwXgxn80kf1EOmhu8yz2T+tIYtPWkS6j2slUxsLa9Bm+hX9xq2vxh0HOGsbyzqcypizhaqJKSTbNiqtAbxLxAAfGiOgF3X99zjHYJMSLNJkPkGkPmHyh9LTElSbYA0BfmWQXE2lc+vxc03pZZJtKrIH3XTL4552Co=)
+[Try it in the Playground](https://play.vuejs.org/#eNqVUE1LxDAQ/StjLqusNHotcfHj4l8QcontLBtsJiGdiFL6301SdrEqyEJyeG9m3ps3k3gIoXlPKFqhxi7awDtN1gUfGR4Ts6cnn4gxwj56B5tGrtgyutEEoAk/6lCPe5MGhqmwnc9KhMRjuxCwFi3UrCk/JU/uGTC6MBjGglgdbnfPGBFM/s7QJ3QHO/TfxC+UzD21d72zPItU8uQrrsWvnKsT/ZW2N2wur45BI3KKdETlFlmphZsF58j/RgdQr3UJuO8G273daVFFtlstahngxSeoNezBIUzTYgPzDGwdjk1VkYvMj4jzF0nwsyQ=)
 
 </div>
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqVkM1Kw0AUhV/lOpsqlYxuZVr8eY1sNEwx2EyGycRNCFToIjSibrQuVFyIbioUqVDxjToz72BmUpQqFrq8P+e759wM7XHunaYU7SCSBCLkEhIqU972WRjxWEjYT6WM2UGcMkkFdEQcQcPDC10LaPiM4JpQaatC0oh3DyW1lSTH2209HM2mYz28AvVyoe97YK5v9V0f9OfEXI5U/9wMprNxD/RDoQfvqixU+bRGcKV0hEUfeKUmwd9u0Cb64/3/8BkI2oF8HruO6bMgZomEwAKgZTfWtzaWxAcgR+4k7AbdMDhp+chpm00fuTGAKj90+WifkmVzcJ6DeivAnE3U86u5+fmJ54i4Rv4Kl38By+W/NQ==)
+[Try it in the Playground](https://play.vuejs.org/#eNqVj91KAzEQhV/lmJsqlY3eSlr8ufEVhNys6ZQGNz8kE0GWfXez2SJUsdCLuZiZM9+ZM4qnGLvPQuJBqGySjYxMXOJWe+tiSIznwhz8SyieKWGfgsOqkyfTGbDSXsmFUG9rw+Ti0DPNHavD/faVEqGv5Xr/BXOwww4mVBNPnvOVklXTtKeO8qKhkj++4lb8+fL/mCMS7TEdAy6BtDfBZ65fVgA2s+L67uZMUEC9N0s8msGaj40W7Xa91qKtgbdQ0Ha0gyOM45E+TWDrKHeNIhfMr0DTN4U0me8=)
 
 </div>
 
-버튼을 클릭할 때 각 버튼은 독립적인 `count`를 유지합니다. 컴포넌트를 사용할 때마다 해당 컴포넌트의 새 **인스턴스**가 생성되기 때문입니다.
+Notice that when clicking on the buttons, each one maintains its own, separate `count`. That's because each time you use a component, a new **instance** of it is created.
 
-SFC에서는 네이티브 HTML 엘리먼트와 구별하기 위해 자식 컴포넌트에 `PascalCase` 태그 이름을 사용하는 것이 좋습니다. 기본 HTML 태그 이름은 대소문자를 구분하지 않지만, Vue의 SFC는 컴파일된 포맷으로 대소문자를 구분하여 태그 이름을 사용할 수 있습니다. 또한 `/>`를 사용하여 태그를 닫을 수 있습니다.
+In SFCs, it's recommended to use `PascalCase` tag names for child components to differentiate from native HTML elements. Although native HTML tag names are case-insensitive, Vue SFC is a compiled format so we are able to use case-sensitive tag names in it. We are also able to use `/>` to close a tag.
 
-템플릿을 DOM에서 직접 작성하는 경우(예: 기본 `<template>` 엘리먼트의 컨텐츠로), 템플릿은 브라우저의 기본 HTML 구문 분석 동작을 따릅니다. 이러한 경우 컴포넌트는 `kebab-case` 및 명시적 닫는 태그를 사용해야 합니다:
+If you are authoring your templates directly in a DOM (e.g. as the content of a native `<template>` element), the template will be subject to the browser's native HTML parsing behavior. In such cases, you will need to use `kebab-case` and explicit closing tags for components:
 
 ```vue-html
-<!-- 이 템플릿이 DOM에 작성된 경우 -->
+<!-- if this template is written in the DOM -->
 <button-counter></button-counter>
 <button-counter></button-counter>
 <button-counter></button-counter>
 ```
 
-자세한 내용은 [in-DOM 템플릿 파싱 주의 사항](#in-dom-template-parsing-caveats)을 참조하세요.
+See [in-DOM template parsing caveats](#in-dom-template-parsing-caveats) for more details.
 
-## Props 전달하기 {#passing-props}
+## Passing Props {#passing-props}
 
-블로그를 구축하는 경우 블로그 게시물을 나타내는 컴포넌트가 필요할 수 있습니다. 우리는 모든 블로그 게시물이 동일한 시각적 레이아웃을 공유하기를 원하지만 컨텐츠는 다릅니다. 이러한 곳에 사용할 컴포넌트는 표시하려는 특정 게시물의 제목 및 컨텐츠와 같은 데이터를 전달할 수 없으면 유용하지 않습니다. `props`가 필요한 건 바로 이때입니다.
+If we are building a blog, we will likely need a component representing a blog post. We want all the blog posts to share the same visual layout, but with different content. Such a component won't be useful unless you can pass data to it, such as the title and content of the specific post we want to display. That's where props come in.
 
-`props`은 컴포넌트에 등록할 수 있는 사용자 정의 속성입니다. 블로그 게시물 제목을 컴포넌트에 전달하려면, <span class="options-api">[`props`](/api/options-state#props) 옵션</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup#defineprops-defineemits) 메크로</span>를 사용해야 합니다:
+Props are custom attributes you can register on a component. To pass a title to our blog post component, we must declare it in the list of props this component accepts, using the <span class="options-api">[`props`](/api/options-state#props) option</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup#defineprops-defineemits) macro</span>:
 
 <div class="options-api">
 
@@ -197,7 +201,7 @@ export default {
 </template>
 ```
 
-`props` 속성에 값이 전달되면, 해당 컴포넌트 인스턴스의 속성이 됩니다. 해당 속성의 값은 컴포넌트의 다른 속성과 마찬가지로 템플릿 내에서 그리고 컴포넌트의 `this` 컨텍스트에서 접근할 수 있습니다:
+When a value is passed to a prop attribute, it becomes a property on that component instance. The value of that property is accessible within the template and on the component's `this` context, just like any other component property.
 
 </div>
 <div class="composition-api">
@@ -213,16 +217,16 @@ defineProps(['title'])
 </template>
 ```
 
-`defineProps`는 `<script setup>` 내에서만 사용할 수 있는 컴파일 타임 매크로이며, 템플릿에 선언된 `props`는 자동으로 노출됩니다. (역자주: 컴파일러 매크로이기 때문에 개발 환경 설정에 따라 lint 에러나 경고가 나올수 있습니다) 그리고 `defineProps`는 컴포넌트에 전달된 모든 `props`를 객체로 반환하므로, 필요한 경우 JavaScript에서 접근할 수 있습니다:
+`defineProps` is a compile-time macro that is only available inside `<script setup>` and does not need to be explicitly imported. Declared props are automatically exposed to the template. `defineProps` also returns an object that contains all the props passed to the component, so that we can access them in JavaScript if needed:
 
 ```js
 const props = defineProps(['title'])
 console.log(props.title)
 ```
 
-참고: [컴포넌트 Props 타입 지정하기](/guide/typescript/composition-api#typing-component-props) <sup class="vt-badge ts" />
+See also: [Typing Component Props](/guide/typescript/composition-api#typing-component-props) <sup class="vt-badge ts" />
 
-`<script setup>`을 사용하지 않는 경우, `props` 옵션을 선언해서 사용해야 하며, `props` 객체는 `setup()`에 첫 번째 인자로 전달됩니다:
+If you are not using `<script setup>`, props should be declared using the `props` option, and the props object will be passed to `setup()` as the first argument:
 
 ```js
 export default {
@@ -235,17 +239,17 @@ export default {
 
 </div>
 
-컴포넌트는 원하는 만큼 `props`를 가질 수 있으며, 기본적으로 모든 값을 모두 `props`에 전달할 수 있습니다.
+A component can have as many props as you like and, by default, any value can be passed to any prop.
 
-`props`가 등록되면, 다음과 같이 데이터를 사용자 정의 속성으로 전달할 수 있습니다:
+Once a prop is registered, you can pass data to it as a custom attribute, like this:
 
 ```vue-html
-<BlogPost title="Vue와 함께한 나의 여행" />
-<BlogPost title="Vue로 블로깅하기" />
-<BlogPost title="Vue가 재미있는 이유" />
+<BlogPost title="My journey with Vue" />
+<BlogPost title="Blogging with Vue" />
+<BlogPost title="Why Vue is so fun" />
 ```
 
-그러나 일반적인 앱에서는 부모 컴포넌트에 다음과 같은 게시물 배열이 있을 수 있습니다:
+In a typical app, however, you'll likely have an array of posts in your parent component:
 
 <div class="options-api">
 
@@ -255,9 +259,9 @@ export default {
   data() {
     return {
       posts: [
-        { id: 1, title: 'Vue와 함께한 나의 여행' },
-        { id: 2, title: 'Vue로 블로깅하기' },
-        { id: 3, title: 'Vue가 재미있는 이유' }
+        { id: 1, title: 'My journey with Vue' },
+        { id: 2, title: 'Blogging with Vue' },
+        { id: 3, title: 'Why Vue is so fun' }
       ]
     }
   }
@@ -269,15 +273,15 @@ export default {
 
 ```js
 const posts = ref([
-  { id: 1, title: 'Vue와 함께한 나의 여행' },
-  { id: 2, title: 'Vue로 블로깅하기' },
-  { id: 3, title: 'Vue가 재미있는 이유' }
+  { id: 1, title: 'My journey with Vue' },
+  { id: 2, title: 'Blogging with Vue' },
+  { id: 3, title: 'Why Vue is so fun' }
 ])
 ```
 
 </div>
 
-그런 다음 `v-for`를 사용하여 각각을 컴포넌트로 렌더링하려고 합니다:
+Then want to render a component for each one, using `v-for`:
 
 ```vue-html
 <BlogPost
@@ -289,24 +293,24 @@ const posts = ref([
 
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9kc9LwzAUx/+VRy9VmCv+OJU60L/AkxfjoayZFrskZOlQSmEIgnretMI29OZh4A4eJv5Hbfo/mLRrWWEIJc335X3y8t43Mk4Yaw9DbNiGM+hyn4kOIn6fUS7gNKBXZ3QgoMdpH8y2VQU0YCKCCL4tEj3cc8NAQIQIQJcqmmAiBnYZgPoireKWXj1XuDu71TnHIuSkUgBM5Sr6otIAEfieDfstEL4IsA3meYjl2wjyyWf6m+STKWT3iZwlIF8X+cuTuS6zCR804OxDIaux+qU/D/kkSVfLbdBhA0qXI5DzRfa1kvPH7HkMcvYtp+8KrLjLclNotajPseqxKiFwnwWuwFoJZ3MuSAz3epQfI0N3Dz4pp4AMnQlg3+C79Vnb93RUI3bxuCpeiBLoOLVZqpRj1XWNlrHpYsP2bW4yTpm2wiwuN1V///UE4FwfdaKoHBrEsWMp3XxA/AcM3eY4)
+[Try it in the Playground](https://play.vuejs.org/#eNp9UU1rhDAU/CtDLrawVfpxklRo74We2kPtQdaoaTUJ8bmtiP+9ia6uC2VBgjOZeXnz3sCejAkPnWAx4+3eSkNJqmRjtCU817p81S2hsLpBEEYL4Q1BqoBUid9Jmosi62rC4Nm9dn4lFLXxTGAt5dG482eeUXZ1vdxbQZ1VCwKM0zr3x4KBATKPcbsDSapFjOClx5d2JtHjR1KFN9fTsfbWcXdy+CZKqcqL+vuT/r3qvQqyRatRdMrpF/nn/DNhd7iPR+v8HCDRmDoj4RHxbfyUDjeFto8p8yEh1Rw2ZV4JxN+iP96FMvest8RTTws/gdmQ8HUr7ikere+yHduu62y//y3NWG38xIOpeODyXcoE8OohGYZ5VhhHHjl83sD4B3XgyGI=)
 
 </div>
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9UctKw0AU/ZXLbFKhNvhYhWlBv6ArNx0X0k50sJ0ZkmlBQqAIgrpuNUJbdOeiYBcuKv5RMvkHZ5q2GpCuwr3ncXPOROhEytqgT5GHcNgOmFQQUtWXDcJZT4pAQQQB9SEGPxA9cAzV2UKnXXHZFKFaYzV3s7COhkZ4W3ADS7MKoW6NKi3CwXiyjgcHVVBMdakHzlmf6pch5OP39DvJxxPIbhM9TUA/z/OnBwfi6q/ssCTL3gx5OTKf9OsuHyfpclGmH5Xo6WIIejbPPpZ6dp89jkBPP/Xk1UgIP98jHLtFCya/GRTtye6FonZSeJPOehM12PdFUCfIhgPGi5AEWSaAd01v1liNdezWSrzVj2z2q6EQNPC2OnMKu9u7qIr+dvrPK3WozzhtBkKGlZaz8nR2BgHAV8eNKCpagTjGrpnLV+MfeV/OSw==)
+[Try it in the Playground](https://play.vuejs.org/#eNp9kU9PhDAUxL/KpBfWBCH+OZEuid5N9qSHrQezFKhC27RlDSF8d1tYQBP1+N78OpN5HciD1sm54yQj1J6M0A6Wu07nTIpWK+MwwPASI0qjWkQejVbpsVHVQVl30ZJ0WQRHjwFMnpT0gPZLi32w2h2DMEAUGW5iOOEaniF66vGuOiN5j0/hajx7B4zxxt5ubIiphKz+IO828qXugw5hYRXKTnqSydcrJmk61/VF/eB4q5s3x8Pk6FJjauDO16Uye0ZCBwg5d2EkkED2wfuLlogibMOTbMpf9tMwP8jpeiMfRdM1l8Tk+/F++Y6Cl0Lyg1Ha7o7R5Bn9WwSg9X0+DPMxMI409fPP1PELlVmwdQ==)
 
 </div>
 
-[`v-bind` 구문](/api/built-in-directives#v-bind) (`:title="post.title"`)이 동적 prop 값을 전달하는 데 사용되는 것에 주목하세요. 이는 미리 정확히 렌더링할 내용을 모를 때 특히 유용합니다.
+Notice how [`v-bind` syntax](/api/built-in-directives#v-bind) (`:title="post.title"`) is used to pass dynamic prop values. This is especially useful when you don't know the exact content you're going to render ahead of time.
 
-지금은 이것이 `props`에 대해 알아야 할 전부입니다. 하지만 이 페이지를 다 읽고 내용에 익숙해지면 나중에 다시 돌아와 [Props](/guide/components/props)의 전체 가이드를 읽는 것이 좋습니다.
+That's all you need to know about props for now, but once you've finished reading this page and feel comfortable with its content, we recommend coming back later to read the full guide on [Props](/guide/components/props).
 
-## 이벤트 청취하기 {#listening-to-events}
+## Listening to Events {#listening-to-events}
 
-`<BlogPost>` 컴포넌트를 개발할 때 일부 기능은 상위 항목과 다시 통신해야 할 수 있습니다. 예를 들어, 페이지의 나머지 부분은 기본 크기로 유지하면서, 블로그 게시물의 텍스트를 확대하는 접근성 기능을 포함하기로 결정할 수 있습니다.
+As we develop our `<BlogPost>` component, some features may require communicating back up to the parent. For example, we may decide to include an accessibility feature to enlarge the text of blog posts, while leaving the rest of the page at its default size.
 
-부모 컴포넌트에서 `postFontSize` <span class="options-api">데이터 속성을</span><span class="composition-api">ref를</span> 추가하여 이 기능을 지원할 수 있습니다:
+In the parent, we can support this feature by adding a `postFontSize` <span class="options-api">data property</span><span class="composition-api">ref</span>:
 
 <div class="options-api">
 
@@ -334,7 +338,7 @@ const postFontSize = ref(1)
 
 </div>
 
-템플릿에서 모든 블로그 게시물의 글꼴 크기를 제어하는 데 사용할 수 있습니다:
+Which can be used in the template to control the font size of all blog posts:
 
 ```vue-html{1,7}
 <div :style="{ fontSize: postFontSize + 'em' }">
@@ -346,19 +350,19 @@ const postFontSize = ref(1)
 </div>
 ```
 
-이제 `<BlogPost>` 컴포넌트의 템플릿에 버튼을 추가해 보겠습니다:
+Now let's add a button to the `<BlogPost>` component's template:
 
 ```vue{5}
-<!-- BlogPost.vue의 <script> 생략 -->
+<!-- BlogPost.vue, omitting <script> -->
 <template>
   <div class="blog-post">
     <h4>{{ title }}</h4>
-    <button>텍스트 확대</button>
+    <button>Enlarge text</button>
   </div>
 </template>
 ```
 
-버튼은 아직 아무것도 하지 않습니다. 버튼을 클릭하여 모든 게시물의 텍스트를 확대해야 한다고 부모에게 알리고 싶습니다. 이 문제를 해결하기 위해 컴포넌트는 커스텀 이벤트 시스템을 제공합니다. 부모 컴포넌트는 네이티브 DOM 이벤트와 마찬가지로 `v-on` 또는 `@`를 사용하여 자식 컴포넌트 인스턴스의 모든 이벤트를 수신하도록 선택할 수 있습니다:
+The button doesn't do anything yet - we want clicking the button to communicate to the parent that it should enlarge the text of all posts. To solve this problem, components provide a custom events system. The parent can choose to listen to any event on the child component instance with `v-on` or `@`, just as we would with a native DOM event:
 
 ```vue-html{3}
 <BlogPost
@@ -367,32 +371,32 @@ const postFontSize = ref(1)
  />
 ```
 
-그런 다음 자식 컴포넌트는 빌트인 [**`$emit`** 메서드](/api/component-instance#emit)를 호출하고 이벤트 이름을 전달하여 자체적으로 이벤트를 생성할 수 있습니다:
+Then the child component can emit an event on itself by calling the built-in [**`$emit`** method](/api/component-instance#emit), passing the name of the event:
 
 ```vue{5}
-<!-- BlogPost.vue의 <script> 생략 -->
+<!-- BlogPost.vue, omitting <script> -->
 <template>
   <div class="blog-post">
     <h4>{{ title }}</h4>
-    <button @click="$emit('enlarge-text')">텍스트 확대</button>
+    <button @click="$emit('enlarge-text')">Enlarge text</button>
   </div>
 </template>
 ```
 
-`@enlarge-text="postFontSize += 0.1"` 리스너 덕분에 부모 컴포넌트는 이벤트를 수신하고 `postFontSize` 값을 업데이트합니다.
+Thanks to the `@enlarge-text="postFontSize += 0.1"` listener, the parent will receive the event and update the value of `postFontSize`.
 
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqNks9rnFAQx/+VQQomdHfttj2JWdIeei4Ueqk5GH2bPqLviY5LUllYCoF2aW/ZdgNJaKGHHgLJIYcN+Y9W/R8yT1fjQgIRUefHZ97M10m1N2HYGyVMMzUrdiMe4sAWPAhlhPDWl3vvZYwwjGQAes+oHQrQbWELdlAmemzoJD5CagsAVxItmMDYrBzQFFLWuKOenoPOxmYdjxgmkagtgJByif5U2wApcM+EfgeQo89M0D8mLD+ZQDH7v7ydF7NTyL7O87M55L8vil/f9dUxbfjlGpz9JWRxTK/lzVExmy8XVw9Br9ag5dUE8vOL7HKRn3/LpseQn13np38IrLmdpoKa4Z0U+IF/Ibpfucs8etBtGY3cZCALQt9BRhaA5fERmDEe+mzL1lIYNmXaReE56CxQZ2slRVxbZ3WNukMZUQmFAReVrrZWh819driK9rjX8pcj15HSuA9uM+E70R7rIjvAVc59S1vwotevkwdWszHVXAYNRl+W0YyrdbT2Uq1t4UPLFUYyVJuhl13pldws4OW66O3W9J0nyez6ThzTGLvURVfNUqppI4U/vx6kafX7YTy2DLJXkd0EUQrYdn3u7hP8THWwsX78JhUqjn7m03/FdAHFySz7MbGMinxUjfEddY1DhQ==)
+[Try it in the Playground](https://play.vuejs.org/#eNqNUsFOg0AQ/ZUJMaGNbbHqidCmmujNxMRED9IDhYWuhV0CQy0S/t1ZYIEmaiRkw8y8N/vmMZVxl6aLY8EM23ByP+Mprl3Bk1RmCPexjJ5ljhBmMgFzYemEIpiuAHAFOzXQgIVeESNUKutL4gsmMLfbBPStVFTP1Bl46E2mup4xLDKhI4CUsMR+1zFABTywYTkD5BgzG8ynEj4kkVgJnxz38Eqaut5jxvXAUCIiLqI/8TcD/m1fKhTwHHIJYSEIr+HbnqikPkqBL/yLSMs23eDooNexel8pQJaksYeMIgAn4EewcyxjtnKNCsK+zbgpXILJEnW30bCIN7ZTPcd5KDNqoWjARWufa+iyfWBlV13wYJRvJtWVJhiKGyZiL4vYHNkJO8wgaQVXi6UGr51+Ndq5LBqMvhyrH9eYGePtOVu3n3YozWSqFsBsVJmt3SzhzVaYY2nm9l82+7GX5zTGjlTM1SyNmy5SeX+7rqr2r0NdOxbFXWVXIEoBGz/m/oHIF0rB5Pz6KTV6aBOgEo7Vsn51ov4GgAAf2A==)
 
 </div>
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp1Uk1r20AQ/SuDKMihtlW3PYm1SQvtOVDoJerBkVfpEmlXSGvTVAhMIdCa5hYnDiQhgRxyCCSHHBzyjyzpP2RWH7YFiS7SzJs38+aNIu2T77dHQ6qZGgntgPkSQiqHfs/izPNFICGCgDoQgxMID3Qs1ZfQZ1fsbolQlljbqBKqI5ZZ3BYcYR9TIXRVo8a2xQF7soEJnSZIJl1qgv59SNPTMWTTm8XTLJueQfJnlp7PID25zY7/6RA3V7T3NVpyhcXzI3wtHg+y6Wwxv6+Xf6iVL+7HkF7cJnfz9OJvMjmC9PwhPbtEisV/bNQlfxVcfmO/aam8gzAxCpPQHgwk9Xy3L6mKJBmwEZih3Hdp19IicEq2We/1FnTqqXEasgAfUplWhACjliMCbKFowHjhnqVVsLlH90u0zQZr+XzLCsmDFbhJudsPdmlL0l+yrFlJ6sK7dqcq7pHlGXOFxMDF8IsYy3W1prZ+6Rf+nQF1GKdbgfDDxraei9GVvUX+i8ekyq+LyuFX7UUZyl7b7Ychyt/B6S21w8rFnx97UVRcGuKYGBiXyM5QSsFh03aZvYfkNxTHN+rDN7BRdnCYTq6zyRyy02nyf0yMgvmqC/EzAMkwtA==)
+[Try it in the Playground](https://play.vuejs.org/#eNp1Uk1PwkAQ/SuTxqQYgYp6ahaiJngzITHRA/UAZQor7W7TnaK16X93th8UEuHEvPdm5s3bls5Tmo4POTq+I0yYyZTAIOXpLFAySXVGUEKGEVQQZToBl6XukXqO9XahDbXc2OsAO5FlAIEKtWJByqCBqR01WFqiBLnxYTIEkhSjD+5rAV86zxQW8C1pB+88Aaphr73rtXbNVqrtBeV9r/zYFZYHacBoiHLFykB9Xgfq1NmLVvQmf7E1OGFaeE0anAMXhEkarwhtRWIjD+AbKmKcBk4JUdvtn8+6ARcTu87hLuCf6NJpSoDDKNIZj7BtIFUTUuB0tL/HomXHcnOC18d1TF305COqeJVtcUT4Q62mtzSF2/GkE8/E8b1qh8Ljw/if8I7nOkPn9En/+Ug2GEmFi0ynZrB0azOujbfB54kki5+aqumL8bING28Yr4xh+2vePrI39CnuHmZl2TwwVJXwuG6ZdU6kFTyGsQz33HyFvH5wvvyaB80bACwgvKbrYgLVH979DQc=)
 
 </div>
 
-<span class="options-api">[`emits`](/api/options-state#emits) 옵션을</span><span class="composition-api">[`defineEmits`](/api/sfc-script-setup#defineprops-defineemits) 매크로를</span> 사용하여 원하는 이벤트를 선언할 수 있습니다.:
+We can optionally declare emitted events using the <span class="options-api">[`emits`](/api/options-state#emits) option</span><span class="composition-api">[`defineEmits`](/api/sfc-script-setup#defineprops-defineemits) macro</span>:
 
 <div class="options-api">
 
@@ -419,11 +423,11 @@ defineEmits(['enlarge-text'])
 
 </div>
 
-이것은 컴포넌트가 내보내는 모든 이벤트를 문서화하고 선택적으로 [유효성 검사](/guide/components/events#events-validation)를 합니다. 또한 Vue가 자식 컴포넌트의 루트 엘리먼트에 암시적으로 네이티브 리스너가 적용되는 것을 방지할 수 있습니다.
+This documents all the events that a component emits and optionally [validates them](/guide/components/events#events-validation). It also allows Vue to avoid implicitly applying them as native listeners to the child component's root element.
 
 <div class="composition-api">
 
-`defineProps`와 마찬가지로 `defineEmits`도 `<script setup>`에서만 사용할 수 있으며 `import`할 필요가 없습니다. `$emit` 메서드와 동일한 `emit` 함수를 반환하므로, 컴포넌트의 `<script setup>` 섹션에서 이벤트를 내보내는 데 사용할 수 있습니다.
+Similar to `defineProps`, `defineEmits` is only usable in `<script setup>` and doesn't need to be imported. It returns an `emit` function that is equivalent to the `$emit` method. It can be used to emit events in the `<script setup>` section of a component, where `$emit` isn't directly accessible:
 
 ```vue
 <script setup>
@@ -433,9 +437,9 @@ emit('enlarge-text')
 </script>
 ```
 
-참고: [컴포넌트 emit 타입 지정하기](/guide/typescript/composition-api#typing-component-emits) <sup class="vt-badge ts" />
+See also: [Typing Component Emits](/guide/typescript/composition-api#typing-component-emits) <sup class="vt-badge ts" />
 
-`<script setup>`을 사용하지 않는 경우, `emits` 옵션을 사용하여 내보낼 이벤트를 선언할 수 있습니다. setup 컨텍스트의 속성으로 `emit` 함수에 접근할 수 있습니다(`setup()`의 두 번째 인자로 전달됨):
+If you are not using `<script setup>`, you can declare emitted events using the `emits` option. You can access the `emit` function as a property of the setup context (passed to `setup()` as the second argument):
 
 ```js
 export default {
@@ -448,31 +452,31 @@ export default {
 
 </div>
 
-지금은 이것이 사용자 정의 컴포넌트 이벤트에 대해 알아야 할 전부입니다. 그러나 이 페이지를 다 읽고 내용에 익숙해지면 나중에 다시 돌아와 [사용자 정의 이벤트](/guide/components/events)의 전체 가이드를 읽는 것이 좋습니다.
+That's all you need to know about custom component events for now, but once you've finished reading this page and feel comfortable with its content, we recommend coming back later to read the full guide on [Custom Events](/guide/components/events).
 
-## 슬롯이 있는 컨텐츠 배포 {#content-distribution-with-slots}
+## Content Distribution with Slots {#content-distribution-with-slots}
 
-HTML 엘리먼트와 마찬가지로 다음과 같이 컴포넌트에 컨텐츠를 전달할 수 있으면 종종 유용합니다:
+Just like with HTML elements, it's often useful to be able to pass content to a component, like this:
 
 ```vue-html
 <AlertBox>
-  나쁜 일이 일어났습니다.
+  Something bad happened.
 </AlertBox>
 ```
 
-다음과 같이 렌더링할 수 있습니다:
+Which might render something like:
 
-:::danger 이것은 데모용 에러입니다.
-나쁜 일이 일어났습니다.
+:::danger This is an Error for Demo Purposes
+Something bad happened.
 :::
 
-이것은 Vue의 사용자 정의 `<slot>` 엘리먼트를 사용하여 달성할 수 있습니다.
+This can be achieved using Vue's custom `<slot>` element:
 
-```vue{4}
+```vue{5}
 <!-- AlertBox.vue -->
 <template>
   <div class="alert-box">
-    <strong>이것은 데모용 에러입니다.</strong>
+    <strong>This is an Error for Demo Purposes</strong>
     <slot />
   </div>
 </template>
@@ -484,42 +488,42 @@ HTML 엘리먼트와 마찬가지로 다음과 같이 컴포넌트에 컨텐츠�
 </style>
 ```
 
-위에서 볼 수 있듯이 컨텐츠를 이동하려는 자리 표시자로 `<slot>`을 사용합니다. 우리가 할 일은 이게 끝입니다!
+As you'll see above, we use the `<slot>` as a placeholder where we want the content to go – and that's it. We're done!
 
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdD5cbmltcG9ydCBBbGVydEJveCBmcm9tICcuL0FsZXJ0Qm94LnZ1ZSdcbiAgXG5leHBvcnQgZGVmYXVsdCB7XG4gIGNvbXBvbmVudHM6IHsgQWxlcnRCb3ggfVxufVxuPC9zY3JpcHQ+XG5cbjx0ZW1wbGF0ZT5cblx0PEFsZXJ0Qm94PlxuICBcdOuCmOyBnCDsnbzsnbQg7J287Ja064Ks7Iq164uI64ukLlxuXHQ8L0FsZXJ0Qm94PlxuPC90ZW1wbGF0ZT4iLCJpbXBvcnQtbWFwLmpzb24iOiJ7XG4gIFwiaW1wb3J0c1wiOiB7XG4gICAgXCJ2dWVcIjogXCJodHRwczovL3NmYy52dWVqcy5vcmcvdnVlLnJ1bnRpbWUuZXNtLWJyb3dzZXIuanNcIixcbiAgICBcInZ1ZS9zZXJ2ZXItcmVuZGVyZXJcIjogXCJodHRwczovL3NmYy52dWVqcy5vcmcvc2VydmVyLXJlbmRlcmVyLmVzbS1icm93c2VyLmpzXCJcbiAgfVxufSIsIkFsZXJ0Qm94LnZ1ZSI6Ijx0ZW1wbGF0ZT5cbiAgPGRpdiBjbGFzcz1cImFsZXJ0LWJveFwiPlxuICAgIDxzdHJvbmc+7J206rKD7J2AIOuNsOuqqOyaqSDsmKTrpZjsnoXri4jri6QuPC9zdHJvbmc+XG4gICAgPGJyLz5cbiAgICA8c2xvdCAvPlxuICA8L2Rpdj5cbjwvdGVtcGxhdGU+XG5cbjxzdHlsZSBzY29wZWQ+XG4uYWxlcnQtYm94IHtcbiAgY29sb3I6ICM2NjY7XG4gIGJvcmRlcjogMXB4IHNvbGlkIHJlZDtcbiAgYm9yZGVyLXJhZGl1czogNHB4O1xuICBwYWRkaW5nOiAyMHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjhmOGY4O1xufVxuICBcbnN0cm9uZyB7XG5cdGNvbG9yOiByZWQ7ICAgIFxufVxuPC9zdHlsZT4ifQ==)
+[Try it in the Playground](https://play.vuejs.org/#eNpVUcFOwzAM/RUTDruwFhCaUCmThsQXcO0lbbKtIo0jx52Kpv07TreWouTynl+en52z2oWQnXqrClXGhtrA28q3XUBi2DlL/IED7Ak7WGX5RKQHq8oDVN4Oo9TYve4dwzmxDcp7bz3HAs5/LpfKyy3zuY0Atl1wmm1CXE5SQeLNX9hZPrb+ALU2cNQhWG9NNkrnLKIt89lGPahlyDTVogVAadoTNE7H+F4pnZTrGodKjUUpRyb0h+0nEdKdRL3CW7GmfNY5ZLiiMhfP/ynG0SL/OAuxwWCNMNncbVqSQyrgfrPZvCVcIxkrxFMYIKJrDZA1i8qatGl72ehLGEY6aGNkNwU8P96YWjffB8Lem/Xkvn9NR6qy+fRd14FSgopvmtQmzTT9Toq9VZdfIpa5jQ==)
 
 </div>
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdCBzZXR1cD5cbmltcG9ydCBBbGVydEJveCBmcm9tICcuL0FsZXJ0Qm94LnZ1ZSdcbjwvc2NyaXB0PlxuXG48dGVtcGxhdGU+XG5cdDxBbGVydEJveD5cbiAgXHTrgpjsgZwg7J287J20IOydvOyWtOuCrOyKteuLiOuLpC5cblx0PC9BbGVydEJveD5cbjwvdGVtcGxhdGU+IiwiaW1wb3J0LW1hcC5qc29uIjoie1xuICBcImltcG9ydHNcIjoge1xuICAgIFwidnVlXCI6IFwiaHR0cHM6Ly9zZmMudnVlanMub3JnL3Z1ZS5ydW50aW1lLmVzbS1icm93c2VyLmpzXCIsXG4gICAgXCJ2dWUvc2VydmVyLXJlbmRlcmVyXCI6IFwiaHR0cHM6Ly9zZmMudnVlanMub3JnL3NlcnZlci1yZW5kZXJlci5lc20tYnJvd3Nlci5qc1wiXG4gIH1cbn0iLCJBbGVydEJveC52dWUiOiI8dGVtcGxhdGU+XG4gIDxkaXYgY2xhc3M9XCJhbGVydC1ib3hcIj5cbiAgICA8c3Ryb25nPuydtOqyg+ydgCDrjbDrqqjsmqkg7Jik66WY7J6F64uI64ukLjwvc3Ryb25nPlxuICAgIDxici8+XG4gICAgPHNsb3QgLz5cbiAgPC9kaXY+XG48L3RlbXBsYXRlPlxuXG48c3R5bGUgc2NvcGVkPlxuLmFsZXJ0LWJveCB7XG4gIGNvbG9yOiAjNjY2O1xuICBib3JkZXI6IDFweCBzb2xpZCByZWQ7XG4gIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgcGFkZGluZzogMjBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y4ZjhmODtcbn1cbiAgXG5zdHJvbmcge1xuXHRjb2xvcjogcmVkOyAgICBcbn1cbjwvc3R5bGU+In0=)
+[Try it in the Playground](https://play.vuejs.org/#eNpVUEtOwzAQvcpgFt3QBBCqUAiRisQJ2GbjxG4a4Xis8aQKqnp37PyUyqv3mZn3fBVH55JLr0Umcl9T6xi85t4VpW07h8RwNJr4Cwc4EXawS9KFiGO70ubpNBcmAmDdOSNZR8T5Yg0IoOQf7DSfW9tAJRWcpXPaapWM1nVt8ObpukY8ie29GHNzAiBX7QVqI73/LIWMzn2FQylGMcieCW1TfBMhPYSoE5zFitLVZ5BhQnkadt6nGKt5/jMafI1Oq8Ak6zW4xrEaDVIGj4fD4SPiCknpQLy4ATyaVgFptVH2JFXb+wze3DDSTioV/iaD1+eZqWT92xD2Vu2X7af3+IJ6G7/UToVigpJnTzwTO42eWDnELsTtH/wUqH4=)
 
 </div>
 
-지금은 이것이 슬롯에 대해 알아야 할 전부입니다. 그러나 이 페이지를 다 읽고 내용에 익숙해지면 나중에 다시 돌아와서 [Slots](/guide/components/slots)의 전체 가이드를 읽는 것이 좋습니다.
+That's all you need to know about slots for now, but once you've finished reading this page and feel comfortable with its content, we recommend coming back later to read the full guide on [Slots](/guide/components/slots).
 
-## 동적 컴포넌트 {#dynamic-components}
+## Dynamic Components {#dynamic-components}
 
-때로는 탭 인터페이스와 같이 컴포넌트 간에 동적으로 전환하는 것이 유용할 수 있습니다:
+Sometimes, it's useful to dynamically switch between components, like in a tabbed interface:
 
 <div class="options-api">
 
-[온라인 연습장으로 예제보기](https://play.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdD5cbmltcG9ydCBIb21lIGZyb20gJy4vSG9tZS52dWUnXG5pbXBvcnQgUG9zdHMgZnJvbSAnLi9Qb3N0cy52dWUnXG5pbXBvcnQgQXJjaGl2ZSBmcm9tICcuL0FyY2hpdmUudnVlJ1xuICBcbmV4cG9ydCBkZWZhdWx0IHtcbiAgY29tcG9uZW50czoge1xuICAgIEhvbWUsXG4gICAgUG9zdHMsXG4gICAgQXJjaGl2ZVxuICB9LFxuICBkYXRhKCkge1xuICAgIHJldHVybiB7XG4gICAgICBjdXJyZW50VGFiOiAnSG9tZScsXG4gICAgICB0YWJzOiBbJ0hvbWUnLCAnUG9zdHMnLCAnQXJjaGl2ZSddXG4gICAgfVxuICB9XG59XG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuICA8ZGl2IGNsYXNzPVwiZGVtb1wiPlxuICAgIDxidXR0b25cbiAgICAgICB2LWZvcj1cInRhYiBpbiB0YWJzXCJcbiAgICAgICA6a2V5PVwidGFiXCJcbiAgICAgICA6Y2xhc3M9XCJbJ3RhYi1idXR0b24nLCB7IGFjdGl2ZTogY3VycmVudFRhYiA9PT0gdGFiIH1dXCJcbiAgICAgICBAY2xpY2s9XCJjdXJyZW50VGFiID0gdGFiXCJcbiAgICAgPlxuICAgICAge3sgdGFiIH19XG4gICAgPC9idXR0b24+XG5cdCAgPGNvbXBvbmVudCA6aXM9XCJjdXJyZW50VGFiXCIgY2xhc3M9XCJ0YWJcIj48L2NvbXBvbmVudD5cbiAgPC9kaXY+XG48L3RlbXBsYXRlPlxuXG48c3R5bGU+XG4uZGVtbyB7XG4gIGZvbnQtZmFtaWx5OiBzYW5zLXNlcmlmO1xuICBib3JkZXI6IDFweCBzb2xpZCAjZWVlO1xuICBib3JkZXItcmFkaXVzOiAycHg7XG4gIHBhZGRpbmc6IDIwcHggMzBweDtcbiAgbWFyZ2luLXRvcDogMWVtO1xuICBtYXJnaW4tYm90dG9tOiA0MHB4O1xuICB1c2VyLXNlbGVjdDogbm9uZTtcbiAgb3ZlcmZsb3cteDogYXV0bztcbn1cblxuLnRhYi1idXR0b24ge1xuICBwYWRkaW5nOiA2cHggMTBweDtcbiAgYm9yZGVyLXRvcC1sZWZ0LXJhZGl1czogM3B4O1xuICBib3JkZXItdG9wLXJpZ2h0LXJhZGl1czogM3B4O1xuICBib3JkZXI6IDFweCBzb2xpZCAjY2NjO1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGJhY2tncm91bmQ6ICNmMGYwZjA7XG4gIG1hcmdpbi1ib3R0b206IC0xcHg7XG4gIG1hcmdpbi1yaWdodDogLTFweDtcbn1cbi50YWItYnV0dG9uOmhvdmVyIHtcbiAgYmFja2dyb3VuZDogI2UwZTBlMDtcbn1cbi50YWItYnV0dG9uLmFjdGl2ZSB7XG4gIGJhY2tncm91bmQ6ICNlMGUwZTA7XG59XG4udGFiIHtcbiAgYm9yZGVyOiAxcHggc29saWQgI2NjYztcbiAgcGFkZGluZzogMTBweDtcbn1cbjwvc3R5bGU+IiwiaW1wb3J0LW1hcC5qc29uIjoie1xuICBcImltcG9ydHNcIjoge1xuICAgIFwidnVlXCI6IFwiaHR0cHM6Ly9zZmMudnVlanMub3JnL3Z1ZS5ydW50aW1lLmVzbS1icm93c2VyLmpzXCJcbiAgfVxufSIsIkhvbWUudnVlIjoiPHRlbXBsYXRlPlxuICA8ZGl2IGNsYXNzPVwidGFiXCI+XG4gICAgSG9tZSBjb21wb25lbnRcbiAgPC9kaXY+XG48L3RlbXBsYXRlPiIsIlBvc3RzLnZ1ZSI6Ijx0ZW1wbGF0ZT5cbiAgPGRpdiBjbGFzcz1cInRhYlwiPlxuICAgIFBvc3RzIGNvbXBvbmVudFxuICA8L2Rpdj5cbjwvdGVtcGxhdGU+IiwiQXJjaGl2ZS52dWUiOiI8dGVtcGxhdGU+XG4gIDxkaXYgY2xhc3M9XCJ0YWJcIj5cbiAgICBBcmNoaXZlIGNvbXBvbmVudFxuICA8L2Rpdj5cbjwvdGVtcGxhdGU+In0=)
+[Open example in the Playground](https://play.vuejs.org/#eNqNVE2PmzAQ/Ssj9kArLSHbrXpwk1X31mMPvS17cIxJrICNbJMmivLfO/7AEG2jRiDkefP85sNmztlr3y8OA89ItjJMi96+VFJ0vdIWfqqOQ6NVB/midIYj5sn9Sxlrkt9b14RXzXbiMElEO5IAKsmPnljzhg6thbNDmcLdkktrSADAJ/IYlj5MXEc9Z1w8VFNLP30ed2luBy1HC4UHrVH2N90QyJ1kHnUALN1gtLeIQu6juEUMkb8H5sXHqiS+qzK1Cw3Lu76llqMFsKrFAVhLjVlXWc07VWUeR89msFbhhhAWDkWjNJIwPgjp06iy5CV7fgrOOTgKv+XoKIIgpnoGyiymSmZ1wnq9dqJweZ8p/GCtYHtUmBMdLXFitgDnc9ju68b0yxDO1WzRTEcFRLiUJsEqSw3wwi+rMpFDj0psEq5W5ax1aBp7at1y4foWzq5R0hYN7UR7ImCoNIXhWjTfnW+jdM01gaf+CEa1ooYHzvnMVWhaiwEP90t/9HBP61rILQJL3POMHw93VG+FLKzqUYx3c2yjsOaOwNeRO2B8zKHlzBKQWJNH1YHrplV/iiMBOliFILYNK5mOKdSTMviGCTyNojFdTKBoeWNT3s8f/Vpsd7cIV61gjHkXnotR6OqVkJbrQKdsv9VqkDWBh2bpnn8VXaDcHPexE4wFzsojO9eDUOSVPF+65wN/EW7sHRsi5XaFqaexn+EH9Xcpe8zG2eWG3O0/NVzUaeJMk+jGhUXlNPXulw5j8w7t2bi8X32cuf/Vv/wF/SL98A==)
 
 </div>
 <div class="composition-api">
 
-[온라인 연습장으로 예제보기](https://play.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdCBzZXR1cD5cbmltcG9ydCBIb21lIGZyb20gJy4vSG9tZS52dWUnXG5pbXBvcnQgUG9zdHMgZnJvbSAnLi9Qb3N0cy52dWUnXG5pbXBvcnQgQXJjaGl2ZSBmcm9tICcuL0FyY2hpdmUudnVlJ1xuaW1wb3J0IHsgcmVmIH0gZnJvbSAndnVlJ1xuIFxuY29uc3QgY3VycmVudFRhYiA9IHJlZignSG9tZScpXG5cbmNvbnN0IHRhYnMgPSB7XG4gIEhvbWUsXG4gIFBvc3RzLFxuICBBcmNoaXZlXG59XG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuICA8ZGl2IGNsYXNzPVwiZGVtb1wiPlxuICAgIDxidXR0b25cbiAgICAgICB2LWZvcj1cIihfLCB0YWIpIGluIHRhYnNcIlxuICAgICAgIDprZXk9XCJ0YWJcIlxuICAgICAgIDpjbGFzcz1cIlsndGFiLWJ1dHRvbicsIHsgYWN0aXZlOiBjdXJyZW50VGFiID09PSB0YWIgfV1cIlxuICAgICAgIEBjbGljaz1cImN1cnJlbnRUYWIgPSB0YWJcIlxuICAgICA+XG4gICAgICB7eyB0YWIgfX1cbiAgICA8L2J1dHRvbj5cblx0ICA8Y29tcG9uZW50IDppcz1cInRhYnNbY3VycmVudFRhYl1cIiBjbGFzcz1cInRhYlwiPjwvY29tcG9uZW50PlxuICA8L2Rpdj5cbjwvdGVtcGxhdGU+XG5cbjxzdHlsZT5cbi5kZW1vIHtcbiAgZm9udC1mYW1pbHk6IHNhbnMtc2VyaWY7XG4gIGJvcmRlcjogMXB4IHNvbGlkICNlZWU7XG4gIGJvcmRlci1yYWRpdXM6IDJweDtcbiAgcGFkZGluZzogMjBweCAzMHB4O1xuICBtYXJnaW4tdG9wOiAxZW07XG4gIG1hcmdpbi1ib3R0b206IDQwcHg7XG4gIHVzZXItc2VsZWN0OiBub25lO1xuICBvdmVyZmxvdy14OiBhdXRvO1xufVxuXG4udGFiLWJ1dHRvbiB7XG4gIHBhZGRpbmc6IDZweCAxMHB4O1xuICBib3JkZXItdG9wLWxlZnQtcmFkaXVzOiAzcHg7XG4gIGJvcmRlci10b3AtcmlnaHQtcmFkaXVzOiAzcHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkICNjY2M7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgYmFja2dyb3VuZDogI2YwZjBmMDtcbiAgbWFyZ2luLWJvdHRvbTogLTFweDtcbiAgbWFyZ2luLXJpZ2h0OiAtMXB4O1xufVxuLnRhYi1idXR0b246aG92ZXIge1xuICBiYWNrZ3JvdW5kOiAjZTBlMGUwO1xufVxuLnRhYi1idXR0b24uYWN0aXZlIHtcbiAgYmFja2dyb3VuZDogI2UwZTBlMDtcbn1cbi50YWIge1xuICBib3JkZXI6IDFweCBzb2xpZCAjY2NjO1xuICBwYWRkaW5nOiAxMHB4O1xufVxuPC9zdHlsZT4iLCJpbXBvcnQtbWFwLmpzb24iOiJ7XG4gIFwiaW1wb3J0c1wiOiB7XG4gICAgXCJ2dWVcIjogXCJodHRwczovL3NmYy52dWVqcy5vcmcvdnVlLnJ1bnRpbWUuZXNtLWJyb3dzZXIuanNcIlxuICB9XG59IiwiSG9tZS52dWUiOiI8dGVtcGxhdGU+XG4gIDxkaXYgY2xhc3M9XCJ0YWJcIj5cbiAgICBIb21lIGNvbXBvbmVudFxuICA8L2Rpdj5cbjwvdGVtcGxhdGU+IiwiUG9zdHMudnVlIjoiPHRlbXBsYXRlPlxuICA8ZGl2IGNsYXNzPVwidGFiXCI+XG4gICAgUG9zdHMgY29tcG9uZW50XG4gIDwvZGl2PlxuPC90ZW1wbGF0ZT4iLCJBcmNoaXZlLnZ1ZSI6Ijx0ZW1wbGF0ZT5cbiAgPGRpdiBjbGFzcz1cInRhYlwiPlxuICAgIEFyY2hpdmUgY29tcG9uZW50XG4gIDwvZGl2PlxuPC90ZW1wbGF0ZT4ifQ==)
+[Open example in the Playground](https://play.vuejs.org/#eNqNVMGOmzAQ/ZURe2BXCiHbrXpwk1X31mMPvS1V5RiTWAEb2SZNhPLvHdvggLZRE6TIM/P8/N5gpk/e2nZ57HhCkrVhWrQWDLdd+1pI0bRKW/iuGg6VVg2ky9wFDp7G8g9lrIl1H80Bb5rtxfFKMcRzUA+aV3AZQKEEhWRKGgus05pL+5NuYeNwj6mTkT4VckRYujVY63GT17twC6/Fr4YjC3kp5DoPNtEgBpY3bU0txwhgXYojsJoasymSkjeqSHweK9vOWoUbXIC/Y1YpjaDH3wt39hMI6TUUSYSQAz8jArPT5Mj+nmIhC6zpAu1TZlEhmXndbBwpXH5NGL6xWrADMsyaMj1lkAzQ92E7mvYe8nCcM24xZApbL5ECiHCSnP73KyseGnvh6V/XedwS2pVjv3C1ziddxNDYc+2WS9fC8E4qJW1W0UbUZwKGSpMZrkX11dW2SpdcE3huT2BULUp44JxPSpmmpegMgU/tyadbWpZC7jCxwj0v+OfTDdU7ITOrWiTjzTS3Vei8IfB5xHZ4PmqoObMEJHryWXXkuqrVn+xEgHZWYRKbh06uLyv4iQq+oIDnkXSQiwKymlc26n75WNdit78FmLWCMeZL+GKMwlKrhLRcBzhlh51WnSwJPFQr9/zLdIZ007w/O6bR4MQe2bseBJMzer5yzwf8MtzbOzYMkNsOY0+HfoZv1d+lZJGMg8fNqdsfbbio4b77uRVv7I0Li8xxZN1PHWbeHdyTWXc/+zgw/8t/+QsROe9h)
 
 </div>
 
-위의 내용은 Vue의 `<component>` 엘리먼트에 특별한 `is` 속성이 있어 가능합니다:
+The above is made possible by Vue's `<component>` element with the special `is` attribute:
 
 <div class="options-api">
 
 ```vue-html
-<!-- currentTab이 변경되면 컴포넌트가 변경됩니다 -->
+<!-- Component changes when currentTab changes -->
 <component :is="currentTab"></component>
 ```
 
@@ -527,39 +531,39 @@ HTML 엘리먼트와 마찬가지로 다음과 같이 컴포넌트에 컨텐츠�
 <div class="composition-api">
 
 ```vue-html
-<!-- currentTab이 변경되면 컴포넌트가 변경됩니다 -->
+<!-- Component changes when currentTab changes -->
 <component :is="tabs[currentTab]"></component>
 ```
 
 </div>
 
-위의 예에서 `:is`에 전달된 값은 다음 중 하나를 포함할 수 있습니다:
+In the example above, the value passed to `:is` can contain either:
 
-- 등록된 컴포넌트의 이름 문자열
-- 실제 가져온 컴포넌트 객체
+- the name string of a registered component, OR
+- the actual imported component object
 
-`is` 속성을 사용하여 일반 HTML 엘리먼트를 만들 수도 있습니다.
+You can also use the `is` attribute to create regular HTML elements.
 
-`<component :is="...">`를 사용하여 여러 컴포넌트 간에 전환할 때, 다른 컴포넌트로 전환되면 컴포넌트가 마운트 해제됩니다. 내장된 [`<KeepAlive>` 컴포넌트](/guide/built-ins/keep-alive)를 사용하여 비활성 컴포넌트를 "활성" 상태로 유지하도록 강제할 수 있습니다.
+When switching between multiple components with `<component :is="...">`, a component will be unmounted when it is switched away from. We can force the inactive components to stay "alive" with the built-in [`<KeepAlive>` component](/guide/built-ins/keep-alive).
 
-## in-DOM 템플릿 파싱 주의 사항 {#in-dom-template-parsing-caveats}
+## in-DOM Template Parsing Caveats {#in-dom-template-parsing-caveats}
 
-Vue 템플릿을 DOM에서 직접 작성하는 경우, Vue는 DOM에서 템플릿 문자열을 검색해야 합니다. 이것은 브라우저의 기본 HTML 파싱 동작으로 인해 몇 가지 주의 사항으로 이어집니다.
+If you are writing your Vue templates directly in the DOM, Vue will have to retrieve the template string from the DOM. This leads to some caveats due to browsers' native HTML parsing behavior.
 
 :::tip
-아래에 설명된 제한 사항은 템플릿을 DOM에서 직접 작성하는 경우에만 적용된다는 점에 유의해야 합니다. 다음 소스의 문자열 템플릿을 사용하는 경우에는 적용되지 않습니다:
+It should be noted that the limitations discussed below only apply if you are writing your templates directly in the DOM. They do NOT apply if you are using string templates from the following sources:
 
-- 싱글 파일 컴포넌트(SFC)
-- 인라인 템플릿 문자열(예: `template: '...'`)
+- Single-File Components
+- Inlined template strings (e.g. `template: '...'`)
 - `<script type="text/x-template">`
   :::
 
-### 대소문자를 구분하지 않음 {#case-insensitivity}
+### Case Insensitivity {#case-insensitivity}
 
-HTML 태그와 속성의 이름은 대소문자를 구분하지 않으므로 브라우저는 대문자를 소문자로 해석합니다. 즉, DOM 내 템플릿을 사용할 때 PascalCase 컴포넌트 이름과 `props`의 camelCased 이름 또는 `v-on` 이벤트 이름은 모두 kebab-case(하이픈으로 구분된) 기반으로 사용해야 합니다:
+HTML tags and attribute names are case-insensitive, so browsers will interpret any uppercase characters as lowercase. That means when you’re using in-DOM templates, PascalCase component names and camelCased prop names or `v-on` event names all need to use their kebab-cased (hyphen-delimited) equivalents:
 
 ```js
-// JavaScript에서 camelCase
+// camelCase in JavaScript
 const BlogPost = {
   props: ['postTitle'],
   emits: ['updatePost'],
@@ -570,46 +574,46 @@ const BlogPost = {
 ```
 
 ```vue-html
-<!-- HTML에서 kebab-case -->
-<blog-post post-title="안녕!" @update-post="onUpdatePost"></blog-post>
+<!-- kebab-case in HTML -->
+<blog-post post-title="hello!" @update-post="onUpdatePost"></blog-post>
 ```
 
-### 셀프 테그 닫기 {#self-closing-tags}
+### Self Closing Tags {#self-closing-tags}
 
-컴포넌트에 자동 닫기 태그를 사용했습니다:
+We have been using self-closing tags for components in previous code samples:
 
 ```vue-html
 <MyComponent />
 ```
 
-Vue의 템플릿 파서는 유형에 관계없이 모든 태그를 닫으라는 표시로 `/>`를 허용하기 때문입니다.
+This is because Vue's template parser respects `/>` as an indication to end any tag, regardless of its type.
 
-그러나 in-DOM 템플릿에서는 항상 명시적인 닫는 태그를 포함해야 합니다.
+In in-DOM templates, however, we must always include explicit closing tags:
 
 ```vue-html
 <my-component></my-component>
 ```
 
-이는 HTML 사양에서 [몇 가지 특정 엘리먼트](https://html.spec.whatwg.org/multipage/syntax#void-elements)가 닫는 태그를 생략할 수 있도록 허용하기 때문입니다. 가장 일반적인 것은 `<input>` 및 `<img>`입니다. 다른 모든 엘리먼트의 경우, 닫는 태그를 생략하면 기본 HTML 파서는 사용자가 여는 태그를 종료하지 않은 것으로 간주합니다. 예를 들어, 스니펫은 다음과 같습니다:
+This is because the HTML spec only allows [a few specific elements](https://html.spec.whatwg.org/multipage/syntax.html#void-elements) to omit closing tags, the most common being `<input>` and `<img>`. For all other elements, if you omit the closing tag, the native HTML parser will think you never terminated the opening tag. For example, the following snippet:
 
 ```vue-html
-<my-component /> <!-- 우리는 여기서 태그를 닫으려 했습니다... -->
+<my-component /> <!-- we intend to close the tag here... -->
 <span>hello</span>
 ```
 
-하지만 아래와 같이 파싱됩니다:
+will be parsed as:
 
 ```vue-html
 <my-component>
-  <span>안녕</span>
-</my-component> <!-- 그러나 브라우저는 여기에서 닫을 것입니다. -->
+  <span>hello</span>
+</my-component> <!-- but the browser will close it here. -->
 ```
 
-### 엘리먼트 배치 제한 {#element-placement-restrictions}
+### Element Placement Restrictions {#element-placement-restrictions}
 
-`<ul>`, `<ol>`, `<table>` 및 `<select>`와 같은 일부 HTML 엘리먼트에는 내부에 표시할 수 있는 엘리먼트에 대한 제한이 있습니다. 또한 `<li>`, `<tr>` 및 `<option>`와 같은 일부 엘리먼트는 특정 다른 엘리먼트 내부에만 사용할 수 있습니다.
+Some HTML elements, such as `<ul>`, `<ol>`, `<table>` and `<select>` have restrictions on what elements can appear inside them, and some elements such as `<li>`, `<tr>`, and `<option>` can only appear inside certain other elements.
 
-이러한 제한이 있는 엘리먼트가 있는 컴포넌트를 사용할 때 문제가 발생합니다. 예를 들어:
+This will lead to issues when using components with elements that have such restrictions. For example:
 
 ```vue-html
 <table>
@@ -617,7 +621,7 @@ Vue의 템플릿 파서는 유형에 관계없이 모든 태그를 닫으라는 
 </table>
 ```
 
-사용자 정의 컴포넌트 `<blog-post-row>`는 잘못된 컨텐츠로 호이스트(hoisted)되어 최종적으로 렌더링된 출력에서 에러를 발생시킵니다. 특별한 [`is` 속성](/api/built-in-special-attributes#is)을 해결 방법으로 사용할 수 있습니다:
+The custom component `<blog-post-row>` will be hoisted out as invalid content, causing errors in the eventual rendered output. We can use the special [`is` attribute](/api/built-in-special-attributes#is) as a workaround:
 
 ```vue-html
 <table>
@@ -626,9 +630,9 @@ Vue의 템플릿 파서는 유형에 관계없이 모든 태그를 닫으라는 
 ```
 
 :::tip
-기본 HTML 엘리먼트에 사용되는 경우, `is` 값은 Vue 컴포넌트로 해석되기 위해 `vue:` 접두사를 사용해야 합니다. 이는 기본 [맞춤형 내장 엘리먼트](https://html.spec.whatwg.org/multipage/custom-elements#custom-elements-customized-builtin-example)와의 혼동을 피하기 위해 필요합니다.
+When used on native HTML elements, the value of `is` must be prefixed with `vue:` in order to be interpreted as a Vue component. This is required to avoid confusion with native [customized built-in elements](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example).
 :::
 
-이것이 현재로서는 Vue를 사용할 때 in-DOM 템플릿 파싱 경고에 대해 필수적으로 알아야 할 전부입니다. 축하합니다! 아직 배울 것이 더 있지만 먼저 잠시 휴식을 취하며 Vue를 직접 다뤄보는 것이 좋습니다. 재미있는 것을 빌드하거나 아직 확인하지 않았다면 몇 가지 [예제](/examples/)를 확인해보세요.
+That's all you need to know about in-DOM template parsing caveats for now - and actually, the end of Vue's _Essentials_. Congratulations! There's still more to learn, but first, we recommend taking a break to play with Vue yourself - build something fun, or check out some of the [Examples](/examples/) if you haven't already.
 
-방금 익힌 지식에 익숙해지면 가이드를 계속 진행하여 컴포넌트에 대해 자세히 알아보세요.
+Once you feel comfortable with the knowledge you've just digested, move on with the guide to learn more about components in depth.

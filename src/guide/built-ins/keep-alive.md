@@ -4,88 +4,82 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 
 # KeepAlive {#keepalive}
 
-`<KeepAlive>`는 여러 컴포넌트 간에 동적으로 전환될 때, 컴포넌트 인스턴스를 조건부로 캐시할 수 있는 빌트인 컴포넌트입니다.
+`<KeepAlive>` is a built-in component that allows us to conditionally cache component instances when dynamically switching between multiple components.
 
-## 기본 사용법 {#basic-usage}
+## Basic Usage {#basic-usage}
 
-컴포넌트 기초의 [동적 컴포넌트](/guide/essentials/component-basics#dynamic-components) 장에서 특별한 `<component>` 엘리먼트를 사용하는 문법을 소개했습니다:
+In the Component Basics chapter, we introduced the syntax for [Dynamic Components](/guide/essentials/component-basics#dynamic-components), using the `<component>` special element:
 
 ```vue-html
 <component :is="activeComponent" />
 ```
 
-기본적으로 활성 컴포넌트 인스턴스는 전환할 때 마운트 해제됩니다. 이렇게 하면 해당 컴포넌트가 보유한 모든 변경된 상태가 손실됩니다. 이 컴포넌트가 다시 표시되면 초기 상태로만 새 인스턴스가 생성됩니다.
+By default, an active component instance will be unmounted when switching away from it. This will cause any changed state it holds to be lost. When this component is displayed again, a new instance will be created with only the initial state.
 
-아래 예시에는 두 개의 상태 저장 컴포넌트가 있습니다. A에는 카운터가 있고, B에는 `v-model`을 통해 입력과 동기화된 메시지가 있습니다. 이 중 하나의 상태를 업데이트하고 다른 곳으로 전환했다가 다시 전환해 보세요:
+In the example below, we have two stateful components - A contains a counter, while B contains a message synced with an input via `v-model`. Try updating the state of one of them, switch away, and then switch back to it:
 
 <SwitchComponent />
 
-다시 전환하면 이전에 변경한 상태가 초기화되었음을 알 수 있습니다.
+You'll notice that when switched back, the previous changed state would have been reset.
 
-스위치에서 새 컴포넌트 인스턴스를 만드는 것은 일반적으로 유용한 동작이지만 이 경우에는 두 컴포넌트 인스턴스가 비활성 상태인 경우에도 상태가 보존되기를 원합니다.
-이 문제를 해결하기 위해 동적 컴포넌트를 빌트인 컴포넌트인 `<KeepAlive>`로 래핑할 수 있습니다:
+Creating fresh component instance on switch is normally useful behavior, but in this case, we'd really like the two component instances to be preserved even when they are inactive. To solve this problem, we can wrap our dynamic component with the `<KeepAlive>` built-in component:
 
 ```vue-html
-<!-- 비활성 컴포넌트가 캐시됩니다! -->
+<!-- Inactive components will be cached! -->
 <KeepAlive>
   <component :is="activeComponent" />
 </KeepAlive>
 ```
 
-이제 상태는 컴포넌트 전환 간에 유지됩니다:
+Now, the state will be persisted across component switches:
 
 <SwitchComponent use-KeepAlive />
 
 <div class="composition-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqtUsFOwzAM/RWrl4IGC+cqq2h3RFw495K12YhIk6hJi1DVf8dJSllBaAJxi+2XZz8/j0lhzHboeZIl1NadMA4sd73JKyVaozsHI9hnJqV+feJHmODY6RZS/JEuiL1uTTEXtiREnnINKFeAcgZUqtbKOqj7ruPKwe6s2VVguq4UJXEynAkDx1sjmeMYAdBGDFBLZu2uShre6ioJeaxIduAyp0KZ3oF7MxwRHWsEQmC4bXXDJWbmxpjLBiZ7DwptMUFyKCiJNP/BWUbO8gvnA+emkGKIgkKqRrRWfh+Z8MIWwpySpfbxn6wJKMGV4IuSs0UlN1HVJae7bxYvBuk+2IOIq7sLnph8P9u5DJv5VfpWWLaGqTzwZTCOM/M0IaMvBMihd04ruK+lqF/8Ajxms8EFbCiJxR8khsP6ncQosLWnWV6a/kUf2nqu75Fby04chA0iPftaYryhz6NBRLjdtajpHZTWPio=)
+[Try it in the Playground](https://play.vuejs.org/#eNqtUsFOwzAM/RWrl4IGC+cqq2h3RFw495K12YhIk6hJi1DVf8dJSllBaAJxi+2XZz8/j0lhzHboeZIl1NadMA4sd73JKyVaozsHI9hnJqV+feJHmODY6RZS/JEuiL1uTTEXtiREnnINKFeAcgZUqtbKOqj7ruPKwe6s2VVguq4UJXEynAkDx1sjmeMYAdBGDFBLZu2uShre6ioJeaxIduAyp0KZ3oF7MxwRHWsEQmC4bXXDJWbmxpjLBiZ7DwptMUFyKCiJNP/BWUbO8gvnA+emkGKIgkKqRrRWfh+Z8MIWwpySpfbxn6wJKMGV4IuSs0UlN1HVJae7bxYvBuk+2IOIq7sLnph8P9u5DJv5VfpWWLaGqTzwZTCOM/M0IaMvBMihd04ruK+lqF/8Ajxms8EFbCiJxR8khsP6ncQosLWnWV6a/kUf2nqu75Fby04chA0iPftaYryhz6NBRLjdtajpHZTWPio=)
 
 </div>
 <div class="options-api">
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNqtUsFKw0AQ/ZUhlyqtruewBluP/kIv22QrwU2yJJughICHnkTw4kE8eBWhxx4qflLTf3B2t41NVaoolCYz8+ZN3swrnb6Uh0XOHdehmZ+GUnnDOIxkkio4TSLZh3GaRNA5JCbS0E4LMGgBBisAwDDmlwYU8DHLhYJSZ33EJDGPVeZCaQf0VjRVTwMCptjevgUDpFzlabyOsD1PU2x2oWNazSCASj/wD3+UNCIwUDySgimOEQANwgJ8wbLseOgEPEqGjsljRbARFx4NY5krUFeSIyJlQYgQKA6iJOACM6vhOsdErjHmIzAmHvQpsSz/QDmwlIMtyjPOZV+EhZVjUs06wQ21rIbPo6SprftJm4ASXAi+UbKxJqdnRX2yxFfH3HGrJNeXOvrVjaS3fJjUT1Oo32bLu+licru8mbt6u9ICMslir36d1Y8zUylLOwiqCnl10cBGuVJJDCe+CP0LvRiN6XZxMV1KbPEb6cbBf5QeZedo0R3u/Kl2tMGm9sXLfT2Z18/XRjtO2lJuHfdhMUQYo7e1Vu9k6GUV)
+[Try it in the Playground](https://play.vuejs.org/#eNqtU8tugzAQ/JUVl7RKWveMXFTIseofcHHAiawasPxArRD/3rVNSEhbpVUrIWB3x7PM7jAkuVL3veNJmlBTaaFsVraiUZ22sO0alcNedw2s7kmIPHS1ABQLQDEBAMqWvwVQzffMSQuDz1aI6VreWpPCEBtsJppx4wE1s+zmNoIBNLdOt8cIjzut8XAKq3A0NAIY/QNveFEyi8DA8kZJZjlGALQWPVSSGfNYJjVvujIJeaxItuMyo6JVzoJ9VxwRmtUCIdDfNV3NJWam5j7HpPOY8BEYkwxySiLLP1AWkbK4oHzmXOVS9FFOSM3jhFR4WTNfRslcO54nSwJKcCD4RsnZmJJNFPXJEl8t88quOuc39fCrHalsGyWcnJL62apYNoq12UQ8DLEFjCMy+kKA7Jy1XQtPlRTVqx+Jx6zXOJI1JbH4jejg3T+KbswBzXnFlz9Tjes/V/3CjWEHDsL/OYNvdCE8Wu3kLUQEhy+ljh+brFFu)
 
 </div>
 
 :::tip
-[in-DOM 템플릿](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에서 사용할 때 `<keep-alive>`로 참조해야 합니다.
+When used in [in-DOM templates](/guide/essentials/component-basics#in-dom-template-parsing-caveats), it should be referenced as `<keep-alive>`.
 :::
 
 ## Include / Exclude {#include-exclude}
 
-기본적으로 `<KeepAlive>`는 내부의 모든 컴포넌트 인스턴스를 캐시합니다.
-`include` 및 `exclude` props를 통해 이 동작을 사용자 정의할 수 있습니다.
-두 props 모두 쉼표로 구분된 문자열, `RegExp`(정규식) 또는 이 두 유형 중 하나를 포함하는 배열이 될 수 있습니다:
+By default, `<KeepAlive>` will cache any component instance inside. We can customize this behavior via the `include` and `exclude` props. Both props can be a comma-delimited string, a `RegExp`, or an array containing either types:
 
 ```vue-html
-<!-- 쉼표로 구분되는 문자열 -->
+<!-- comma-delimited string -->
 <KeepAlive include="a,b">
   <component :is="view" />
 </KeepAlive>
 
-<!-- 정규식 (`v-bind`를 사용해야 함) -->
+<!-- regex (use `v-bind`) -->
 <KeepAlive :include="/a|b/">
   <component :is="view" />
 </KeepAlive>
 
-<!-- 배열 (`v-bind`를 사용해야 함) -->
+<!-- Array (use `v-bind`) -->
 <KeepAlive :include="['a', 'b']">
   <component :is="view" />
 </KeepAlive>
 ```
 
-컴포넌트의 [`name`](/api/options-misc#name) 옵션과 일치하는지 확인하므로, `KeepAlive`에 의해 조건부로 캐시되어야 하는 컴포넌트는 명시적으로 `name` 옵션을 선언해야 합니다.
+The match is checked against the component's [`name`](/api/options-misc#name) option, so components that need to be conditionally cached by `KeepAlive` must explicitly declare a `name` option.
 
 :::tip
-버전 3.2.34부터 `<script setup>`을 사용하는 싱글 파일 컴포넌트는 파일명을 기반으로 `name` 옵션을 자동으로 추론하므로 이름을 수동으로 선언할 필요가 없습니다.
+Since version 3.2.34, a single-file component using `<script setup>` will automatically infer its `name` option based on the filename, removing the need to manually declare the name.
 :::
 
+## Max Cached Instances {#max-cached-instances}
 
-## 최대 캐시 인스턴스 {#max-cached-instances}
-
-`max` props를 통해 캐시할 수 있는 컴포넌트 인스턴스의 최대 수를 제한할 수 있습니다.
-`max`가 지정되면 `<KeepAlive>`는 [LRU 캐시](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>)처럼 작동합니다.
-캐시된 인스턴스의 수가 지정된 최대 수를 초과하려고 하면, 가장 최근에 접근해서 캐시된 인스턴스가 파괴되어 새 인스턴스를 위한 공간을 확보합니다.
+We can limit the maximum number of component instances that can be cached via the `max` prop. When `max` is specified, `<KeepAlive>` behaves like an [LRU cache](<https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)>): if the number of cached instances is about to exceed the specified max count, the least recently accessed cached instance will be destroyed to make room for the new one.
 
 ```vue-html
 <KeepAlive :max="10">
@@ -93,28 +87,26 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 </KeepAlive>
 ```
 
-## 캐시된 인스턴스의 생명주기 {#lifecycle-of-cached-instance}
+## Lifecycle of Cached Instance {#lifecycle-of-cached-instance}
 
-컴포넌트 인스턴스가 DOM에서 제거되었지만 `<KeepAlive>`에 의해 캐시된 컴포넌트 트리의 일부인 경우,
-마운트 해제되는 대신 **비활성화됨** 상태가 됩니다.
-컴포넌트 인스턴스가 캐시된 트리의 일부로 DOM에 삽입되면 **활성화**됩니다.
+When a component instance is removed from the DOM but is part of a component tree cached by `<KeepAlive>`, it goes into a **deactivated** state instead of being unmounted. When a component instance is inserted into the DOM as part of a cached tree, it is **activated**.
 
 <div class="composition-api">
 
-kept-alive 컴포넌트는 [`onActivated()`](/api/composition-api-lifecycle#onactivated) 및 [`onDeactivated()`](/api/composition-api-lifecycle#ondeactivated)를 사용하여 이 두 가지 상태에 대한 생명 주기 훅을 등록할 수 있습니다:
+A kept-alive component can register lifecycle hooks for these two states using [`onActivated()`](/api/composition-api-lifecycle#onactivated) and [`onDeactivated()`](/api/composition-api-lifecycle#ondeactivated):
 
 ```vue
 <script setup>
 import { onActivated, onDeactivated } from 'vue'
 
 onActivated(() => {
-  // 초기 마운트 시 또는
-  // 캐시상태에서 다시 삽입될 때마다 호출됨.
+  // called on initial mount
+  // and every time it is re-inserted from the cache
 })
 
 onDeactivated(() => {
-  // DOM에서 제거되고 캐시로 전환될 시 또는
-  // 마운트 해제될 때마다 호출됨.
+  // called when removed from the DOM into the cache
+  // and also when unmounted
 })
 </script>
 ```
@@ -122,30 +114,30 @@ onDeactivated(() => {
 </div>
 <div class="options-api">
 
-Keeped-alive 컴포넌트는 [`activated`](/api/options-lifecycle#activated) 및 [`deactivated`](/api/options-lifecycle#deactivated) 훅을 사용하여, 이 두 가지 상태에 대한 생명 주기 훅을 등록할 수 있습니다:
+A kept-alive component can register lifecycle hooks for these two states using [`activated`](/api/options-lifecycle#activated) and [`deactivated`](/api/options-lifecycle#deactivated) hooks:
 
 ```js
 export default {
   activated() {
-    // 초기 마운트 시 또는
-    // 캐시상태에서 다시 삽입될 때마다 호출됨.
+    // called on initial mount
+    // and every time it is re-inserted from the cache
   },
   deactivated() {
-    // DOM에서 제거되고 캐시로 전환될 시 또는
-    // 마운트 해제될 때마다 호출됨.
+    // called when removed from the DOM into the cache
+    // and also when unmounted
   }
 }
 ```
 
 </div>
 
-참고:
+Note that:
 
-- <span class="composition-api">`onActivated`</span><span class="options-api">`activated`</span>는 마운트 시에도 호출되고 <span class="composition-api">`onDeactivated`</span><span class="options-api">`deactivated`</span>는 마운트 해제 시에도 호출됩니다.
+- <span class="composition-api">`onActivated`</span><span class="options-api">`activated`</span> is also called on mount, and <span class="composition-api">`onDeactivated`</span><span class="options-api">`deactivated`</span> on unmount.
 
-- 두 훅은 `<KeepAlive>`에 의해 캐시된 루트 컴포넌트뿐만 아니라 캐시된 트리 내의 하위 컴포넌트에도 작동합니다.
+- Both hooks work for not only the root component cached by `<KeepAlive>`, but also the descendant components in the cached tree.
 ---
 
-**관련 문서**
+**Related**
 
-- [`<KeepAlive>` API 참고](/api/built-in-components#keepalive)
+- [`<KeepAlive>` API reference](/api/built-in-components#keepalive)

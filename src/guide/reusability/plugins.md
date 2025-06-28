@@ -1,9 +1,8 @@
-﻿# 플러그인 {#plugins}
+﻿# Plugins {#plugins}
 
-## 소개 {#introduction}
+## Introduction {#introduction}
 
-플러그인은 일반적으로 Vue에 앱 레벨 기능을 추가하는 자체 코드입니다.
-플러그인을 설치하는 방법은 다음과 같습니다:
+Plugins are self-contained code that usually add app-level functionality to Vue. This is how we install a plugin:
 
 ```js
 import { createApp } from 'vue'
@@ -11,65 +10,61 @@ import { createApp } from 'vue'
 const app = createApp({})
 
 app.use(myPlugin, {
-  /* 선택적인 옵션 */
+  /* optional options */
 })
 ```
 
-플러그인은 `install()` 메서드를 노출하는 객체 또는 단순히 install 함수 자체로 작동하는 함수로 정의됩니다.
-install 함수는 `app.use()`에 전달된 추가 옵션과 함께 [앱 인스턴스](/api/application)를 받습니다(있는 경우):
+A plugin is defined as either an object that exposes an `install()` method, or simply a function that acts as the install function itself. The install function receives the [app instance](/api/application) along with additional options passed to `app.use()`, if any:
 
 ```js
 const myPlugin = {
   install(app, options) {
-    // 앱 환경설정
+    // configure the app
   }
 }
 ```
 
-플러그인에 대해 엄격하게 정의된 범위는 없지만 플러그인이 유용한 일반적인 시나리오는 다음과 같습니다:
+There is no strictly defined scope for a plugin, but common scenarios where plugins are useful include:
 
-1. [`app.component()`](/api/application#app-component) 및 [`app.directive()`](/api/application#app-directive)를 사용하여 하나 이상의 전역 컴포넌트 또는 커스텀 디렉티브를 등록합니다.
+1. Register one or more global components or custom directives with [`app.component()`](/api/application#app-component) and [`app.directive()`](/api/application#app-directive).
 
-2. [`app.provide()`](/api/application#app-provide)를 호출하여 앱 전체에 리소스를 [주입 가능](/guide/components/provide-inject)하게 만듭니다.
+2. Make a resource [injectable](/guide/components/provide-inject) throughout the app by calling [`app.provide()`](/api/application#app-provide).
 
-3. 일부 전역 인스턴스 속성 또는 메서드를 [`app.config.globalProperties`](/api/application#app-config-globalproperties)에 첨부하여 추가합니다.
+3. Add some global instance properties or methods by attaching them to [`app.config.globalProperties`](/api/application#app-config-globalproperties).
 
-4. 위 목록의 몇 가지를 조합해 무언가를 수행해야 하는 라이브러리(예: [vue-router](https://github.com/vuejs/vue-router-next)).
+4. A library that needs to perform some combination of the above (e.g. [vue-router](https://github.com/vuejs/vue-router-next)).
 
-## 플러그인 작성하기 {#writing-a-plugin}
+## Writing a Plugin {#writing-a-plugin}
 
-고유한 Vue.js 플러그인을 만드는 방법을 더 잘 이해하기 위해 `i18n`([Internationalization](https://en.wikipedia.org/wiki/Internationalization_and_localization)의 약어) 문자열을 표시하는 매우 간단한 버전의 플러그인을 만들 것입니다.
+In order to better understand how to create your own Vue.js plugins, we will create a very simplified version of a plugin that displays `i18n` (short for [Internationalization](https://en.wikipedia.org/wiki/Internationalization_and_localization)) strings.
 
-플러그인 객체를 설정하는 것으로 시작하겠습니다.
-로직이 포함되고 분리된 상태로 유지하려면 아래와 같이 별도의 파일로 생성하여 내보내는 것이 좋습니다.
+Let's begin by setting up the plugin object. It is recommended to create it in a separate file and export it, as shown below to keep the logic contained and separate.
 
 ```js
 // plugins/i18n.js
 export default {
   install: (app, options) => {
-    // 플러그인 코드는 여기로
+    // Plugin code goes here
   }
 }
 ```
 
-우리는 앱 전체에서 사용할 수 있는 키를 번역하는 기능을 만들고자 하므로 `app.config.globalProperties`를 사용하여 이를 노출할 것입니다.
-이 함수는 점으로 구분된 `key` 문자열을 수신하며, 커스텀 옵션에서 번역된 문자열을 찾는 데 사용할 것입니다.
+We want to create a translation function. This function will receive a dot-delimited `key` string, which we will use to look up the translated string in the user-provided options. This is the intended usage in templates:
 
 ```vue-html
 <h1>{{ $translate('greetings.hello') }}</h1>
 ```
 
-이 함수는 모든 템플릿에서 전역적으로 사용할 수 있어야 하므로 플러그인의 `app.config.globalProperties`에 이 함수를 첨부하여 그렇게 만들겠습니다:
-
+Since this function should be globally available in all templates, we will make it so by attaching it to `app.config.globalProperties` in our plugin:
 
 ```js{4-11}
 // plugins/i18n.js
 export default {
   install: (app, options) => {
-    // 전역적으로 사용 가능한 $translate() 메서드 주입
+    // inject a globally available $translate() method
     app.config.globalProperties.$translate = (key) => {
-      // `key`를 경로로 사용하여
-      // `options`에서 중첩 속성을 검색합니다.
+      // retrieve a nested property in `options`
+      // using `key` as the path
       return key.split('.').reduce((o, i) => {
         if (o) return o[i]
       }, options)
@@ -78,9 +73,9 @@ export default {
 }
 ```
 
-`$translate` 함수는 `greetings.hello`와 같은 문자열을 받아 사용자가 제공한 구성을 살펴본 후 번역된 값을 반환합니다.
+Our `$translate` function will take a string such as `greetings.hello`, look inside the user provided configuration and return the translated value.
 
-번역된 키가 포함된 객체는 설치 중에 `app.use()`에 대한 추가 매개 변수를 통해 플러그인에 전달되어야 합니다:
+The object containing the translated keys should be passed to the plugin during installation via additional parameters to `app.use()`:
 
 ```js
 import i18nPlugin from './plugins/i18n'
@@ -92,23 +87,17 @@ app.use(i18nPlugin, {
 })
 ```
 
-이제 초기 표현식 `$translate('greetings.hello')`는 런타임에 `Bonjour!`로 대체됩니다.
+Now, our initial expression `$translate('greetings.hello')` will be replaced by `Bonjour!` at runtime.
 
-```vue-html
-<h1>{{ $translate('greetings.hello') }}</h1>
-```
-
-참고: [전역 속성 타입 보완하기](/guide/typescript/options-api#augmenting-global-properties) <sup class="vt-badge ts" />
+See also: [Augmenting Global Properties](/guide/typescript/options-api#augmenting-global-properties) <sup class="vt-badge ts" />
 
 :::tip
-웬만하면 전역 속성은 사용하지 마십시오.
-앱 전체에서 다른 플러그인에 의해 주입된 전역 속성이 너무 많이 사용되면 혼란스러워질 수 있기 때문입니다.
+Use global properties scarcely, since it can quickly become confusing if too many global properties injected by different plugins are used throughout an app.
 :::
 
-### 플러그인에서 Provide / Inject 활용하기 {#provide-inject-with-plugins}
+### Provide / Inject with Plugins {#provide-inject-with-plugins}
 
-플러그인을 사용하면 `inject`를 사용하여 플러그인 사용자에게 함수나 속성을 제공할 수도 있습니다.
-예를 들어 앱이 `options` 매개변수에 접근하여 번역 객체를 사용할 수 있도록 허용할 수 있습니다.
+Plugins also allow us to use `provide` to give plugin users access to a function or attribute. For example, we can allow the application to have access to the `options` parameter to be able to use the translations object.
 
 ```js{10}
 // plugins/i18n.js
@@ -119,7 +108,7 @@ export default {
 }
 ```
 
-플러그인 사용자는 이제 `i18n` 키를 사용하여 컴포넌트에 플러그인 옵션을 삽입할 수 있습니다:
+Plugin users will now be able to inject the plugin options into their components using the `i18n` key:
 
 <div class="composition-api">
 
@@ -147,7 +136,6 @@ export default {
 
 </div>
 
-### NPM 을 위한 번들
+### Bundle for NPM
 
-플러그인을 더 개발하고 배포하여 다른 사람들이 사용할 수 있도록 하려면, [Vite의 라이브러리 모드(Library Mode)](https://vitejs.dev/guide/build.html#library-mode) 섹션을 참고하세요.
-
+If you further want to build and publish your plugin for others to use, see [Vite's section on Library Mode](https://vitejs.dev/guide/build.html#library-mode).

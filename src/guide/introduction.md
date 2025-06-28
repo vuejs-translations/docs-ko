@@ -2,12 +2,12 @@
 footer: false
 ---
 
-# 소개 {#introduction}
+# Introduction {#introduction}
 
-:::info 당신은 현재 Vue 3에 대한 문서를 읽고 있습니다!
+:::info You are reading the documentation for Vue 3!
 
-- Vue 2 지원은 **2023년 12월 31일**에 종료되었습니다. [Vue 2 EOL](https://v2.vuejs.org/eol/)에 대해 자세히 알아보세요.
-- Vue 2에서 업그레이드 중이신가요? [마이그레이션 가이드](https://v3-migration.vuejs.org/)를 확인하세요.
+- Vue 2 support has ended on **Dec 31, 2023**. Learn more about [Vue 2 EOL](https://v2.vuejs.org/eol/).
+- Upgrading from Vue 2? Check out the [Migration Guide](https://v3-migration.vuejs.org/).
   :::
 
 <style src="@theme/styles/vue-mastery.css"></style>
@@ -23,11 +23,11 @@ footer: false
   </a>
 </div>
 
-## Vue는 무엇일까요? {#what-is-vue}
+## What is Vue? {#what-is-vue}
 
-Vue(발음은 **view** /vjuː/(뷰)와 같습니다)는 사용자 인터페이스를 구축하기 위한 JavaScript 프레임워크입니다. 이는 표준 HTML, CSS, 및 JavaScript 위에 구축되며, 선언적이고 컴포넌트 기반의 프로그래밍 모델을 제공하여 어떠한 복잡성의 사용자 인터페이스도 효율적으로 개발할 수 있게 도와줍니다.
+Vue (pronounced /vjuː/, like **view**) is a JavaScript framework for building user interfaces. It builds on top of standard HTML, CSS, and JavaScript and provides a declarative, component-based programming model that helps you efficiently develop user interfaces of any complexity.
 
-아주 단순한 예제를 한번 볼까요:
+Here is a minimal example:
 
 <div class="options-api">
 
@@ -63,12 +63,12 @@ createApp({
 ```vue-html
 <div id="app">
   <button @click="count++">
-    숫자 세기: {{ count }}
+    Count is: {{ count }}
   </button>
 </div>
 ```
 
-**결과**
+**Result**
 
 <script setup>
 import { ref } from 'vue'
@@ -77,47 +77,42 @@ const count = ref(0)
 
 <div class="demo">
   <button @click="count++">
-    숫자 세기: {{ count }}
+    Count is: {{ count }}
   </button>
 </div>
 
-위의 예는 Vue의 두 가지 핵심 기능을 보여줍니다:
+The above example demonstrates the two core features of Vue:
 
-- **선언적 렌더링(Declarative Rendering)**: Vue는 표준 HTML을 템플릿 문법으로 확장하여 JavaScript 상태(State)를 기반으로 화면에 출력될 HTML을 선언적(declaratively)으로 작성할 수 있습니다.
+- **Declarative Rendering**: Vue extends standard HTML with a template syntax that allows us to declaratively describe HTML output based on JavaScript state.
 
-- **반응성(Reactivity)**: Vue는 JavaScript 상태(State) 변경을 추적하고, 변경이 발생하면 DOM을 효율적으로 업데이트하는 것을 자동으로 수행합니다.
+- **Reactivity**: Vue automatically tracks JavaScript state changes and efficiently updates the DOM when changes happen.
 
-이미 Vue에 대해 궁금한 점이 있을 수 있으나 조급해하지 마세요. 이후 문서에서 모든 세부 사항을 다 다룰 것입니다. 지금은 Vue가 제공하는 것에 대한 기본적인 수준의 이해를 할 수 있도록 따라 읽어보시기를 바랍니다.
+You may already have questions - don't worry. We will cover every little detail in the rest of the documentation. For now, please read along so you can have a high-level understanding of what Vue offers.
 
-:::tip 전제조건
-이 문서의 나머지 부분은 기본적인 HTML, CSS, JavaScript에 대한 이해를 전제로 작성되었습니다. 만약 프론트엔드 개발이 완전히 처음이라면, 첫 단계로 프레임워크를 바로 배우는 것은 최선의 선택이 아닐 수 있습니다. 기초 개념을 먼저 익힌 후 다시 돌아오는 것이 좋습니다! 필요하다면 아래 개요를 통해 자신의 지식을 확인해 보세요:
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript)
-- [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML)
-- [CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps)
-
-다른 프레임워크를 사용해 본 경험이 있다면 도움이 되겠지만, 필수 사항은 아닙니다.
+:::tip Prerequisites
+The rest of the documentation assumes basic familiarity with HTML, CSS, and JavaScript. If you are totally new to frontend development, it might not be the best idea to jump right into a framework as your first step - grasp the basics and then come back! You can check your knowledge level with these overviews for [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript), [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML) and [CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps) if needed. Prior experience with other frameworks helps, but is not required.
 :::
 
-## 프로그레시브 프레임워크 {#the-progressive-framework}
+## The Progressive Framework {#the-progressive-framework}
 
-Vue는 프론트엔드 개발에 필요한 대부분의 공통 기능을 다루는 프레임워크이자 생태계입니다. 그러나 웹은 매우 다양해 구축하려는 것의 형태와 규모가 크게 다를 수 있습니다. 이를 염두에 두고 Vue는 유연하고 점진적으로 채택할 수 있도록 설계되었습니다. 사용 사례에 따라 Vue를 다양한 방식으로 사용할 수 있습니다:
+Vue is a framework and ecosystem that covers most of the common features needed in frontend development. But the web is extremely diverse - the things we build on the web may vary drastically in form and scale. With that in mind, Vue is designed to be flexible and incrementally adoptable. Depending on your use case, Vue can be used in different ways:
 
-- 빌드 과정 없이 정적 HTML에 적용
-- 모든 페이지에 웹 컴포넌트로 추가
-- 싱글 페이지 어플리케이션 (SPA: Single-Page Application)
-- Fullstack / 서버 사이드 렌더링 (SSR: Server-Side-Rendering)
-- Jamstack / 정적 사이트 생성 (SSG: Static-Site-Generation)
-- 데스크톱, 모바일, WebGL 또는 터미널을 대상으로 하는 경우
+- Enhancing static HTML without a build step
+- Embedding as Web Components on any page
+- Single-Page Application (SPA)
+- Fullstack / Server-Side Rendering (SSR)
+- Jamstack / Static Site Generation (SSG)
+- Targeting desktop, mobile, WebGL, and even the terminal
 
-이러한 개념이 두렵더라도 걱정하지 마십시오! 튜토리얼과 가이드는 HTML과 JavaScript의 기본적인 지식만 요구하며 전문가가 아니더라도 따라 할 수 있습니다.
+If you find these concepts intimidating, don't worry! The tutorial and guide only require basic HTML and JavaScript knowledge, and you should be able to follow along without being an expert in any of these.
 
-위 목록에서 언급하는 용어들의 의미가 궁금하거나 어떻게 하면 당신의 기술 스택과 Vue를 잘 조합하여 사용할 수 있는지 관심이 있는 숙련된 개발자라면, 이에 대해 자세히 설명된 [Vue 사용 방법](/guide/extras/ways-of-using-vue)을 살펴보세요.
+If you are an experienced developer interested in how to best integrate Vue into your stack, or you are curious about what these terms mean, we discuss them in more detail in [Ways of Using Vue](/guide/extras/ways-of-using-vue).
 
-이러한 유연성에도 불구하고 Vue 작동 방식에 대한 핵심 지식은 이러한 모든 사용 사례에서 공유됩니다. 비록 지금은 초보자일지라도 미래에 더 야심 찬 목표를 달성하기 위해 성장함에 따라 그 과정에서 얻은 지식은 계속 유용할 것입니다. 베테랑이라면 해결하려는 문제를 기반으로 Vue를 활용하는 최적의 방법을 선택하면서 같은 생산성을 유지할 수 있습니다. 이러한 이유로 Vue를 "프로그레시브 프레임워크(Progressive Framework)"라고 부릅니다. 이것은 당신과 함께 성장하고 당신의 요구에 적응할 수 있는 프레임워크입니다.
+Despite the flexibility, the core knowledge about how Vue works is shared across all these use cases. Even if you are just a beginner now, the knowledge gained along the way will stay useful as you grow to tackle more ambitious goals in the future. If you are a veteran, you can pick the optimal way to leverage Vue based on the problems you are trying to solve, while retaining the same productivity. This is why we call Vue "The Progressive Framework": it's a framework that can grow with you and adapt to your needs.
 
-## 싱글 파일 컴포넌트 {#single-file-components}
+## Single-File Components {#single-file-components}
 
-빌드 도구를 사용하는 대부분의 Vue 프로젝트에서는 HTML과 유사한 **싱글 파일 컴포넌트**(Single-File Component: **SFC**, `*.vue` 파일이라고도 함)라는 파일 형식을 사용하여 Vue 컴포넌트를 작성합니다. Vue SFC는 이름에서 알 수 있듯이 컴포넌트의 논리(JavaScript), 템플릿(HTML) 및 스타일(CSS)을 하나의 파일에 캡슐화합니다. 이전에 보았던 예제는 다음과 같이 SFC 형식으로 작성할 수 있습니다:
+In most build-tool-enabled Vue projects, we author Vue components using an HTML-like file format called **Single-File Component** (also known as `*.vue` files, abbreviated as **SFC**). A Vue SFC, as the name suggests, encapsulates the component's logic (JavaScript), template (HTML), and styles (CSS) in a single file. Here's the previous example, written in SFC format:
 
 <div class="options-api">
 
@@ -133,7 +128,7 @@ export default {
 </script>
 
 <template>
-  <button @click="count++">숫자 세기: {{ count }}</button>
+  <button @click="count++">Count is: {{ count }}</button>
 </template>
 
 <style scoped>
@@ -165,123 +160,123 @@ button {
 
 </div>
 
-SFC는 Vue를 빌드 방식으로 사용하는 경우, 컴포넌트를 만들고 정의하는데 권장되는 방법입니다. [SFC를 왜 그리고 어떻게 사용해야 할까](/guide/scaling-up/sfc)에서 자세히 알아볼 수 있습니다. 하지만 지금은 Vue가 모든 빌드 도구 설정을 처리한다는 점만 알아두세요.
+SFC is a defining feature of Vue and is the recommended way to author Vue components **if** your use case warrants a build setup. You can learn more about the [how and why of SFC](/guide/scaling-up/sfc) in its dedicated section - but for now, just know that Vue will handle all the build tools setup for you.
 
-## API 스타일 {#api-styles}
+## API Styles {#api-styles}
 
-Vue 컴포넌트는 **옵션(Options) API**와 **컴포지션(Composition) API** 두 가지 스타일로 작성할 수 있습니다.
+Vue components can be authored in two different API styles: **Options API** and **Composition API**.
 
-### 옵션 API {#options-api}
+### Options API {#options-api}
 
-옵션 API를 사용하여 옵션의  `data`, `methods` 및 `mounted` 같은 객체를 사용하여 컴포넌트의 로직을 정의합니다. 옵션으로 정의된 속성은 컴포넌트 인스턴스를 가리키는 함수 내부의 `this`에 노출됩니다:
+With Options API, we define a component's logic using an object of options such as `data`, `methods`, and `mounted`. Properties defined by options are exposed on `this` inside functions, which points to the component instance:
 
 ```vue
 <script>
 export default {
-  // data()에서 반환된 속성들은 반응적인 상태가 되어
-  // `this`에 노출됩니다.
+  // Properties returned from data() become reactive state
+  // and will be exposed on `this`.
   data() {
     return {
       count: 0
     }
   },
 
-  // methods는 속성 값을 변경하고 업데이트 할 수 있는 함수.
-  // 템플릿 내에서 이벤트 헨들러로 바인딩 될 수 있음.
+  // Methods are functions that mutate state and trigger updates.
+  // They can be bound as event handlers in templates.
   methods: {
     increment() {
       this.count++
     }
   },
 
-  // 생명주기 훅(Lifecycle hooks)은 컴포넌트 생명주기의
-  // 여러 단계에서 호출됩니다.
-  // 이 함수는 컴포넌트가 마운트 된 후 호출됩니다.
+  // Lifecycle hooks are called at different stages
+  // of a component's lifecycle.
+  // This function will be called when the component is mounted.
   mounted() {
-    console.log(`숫자 세기의 초기값은 ${ this.count } 입니다.`)
+    console.log(`The initial count is ${this.count}.`)
   }
 }
 </script>
 
 <template>
-  <button @click="increment">숫자 세기: {{ count }}</button>
+  <button @click="increment">Count is: {{ count }}</button>
 </template>
 ```
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNptkMFKw0AQhl9lCB5aKonnEou+Rw6NyWqD6SYkGxFCoNJGQktBxWBAUwQ9iF6i7aEHfaFk9x3cJG2DICzs/sPO9/8zvnBs2+KFh4SuILuaY9ikp2B0aVsOAR2dqp5JwFcwgCRBkSU0vWVJDHR8xcZPZVlXidpq118AHEQ8B28VgGZ5mHThoNZBeQX7Ct7whogMLN0tpvdAr+d08gl5dkfTCRTLUf71w+IkXz4DfQiLeUbTFZuugcW8ECVAF1HZxuI3rkrchtXdehtYc9AQYdKEAyADwxWrTJ3O/5E4rXgPgb585+sM2GNYscsOpDckzcKuZSLRtM5afRp90MUN0Mmat9CUZ1tF/FWNMoI9vzENeOywmEXF7FXstytnBfMjS7vNc0HQ0DZVgrgCkE88QiwMR5ppaOeHirCbSxF6f5z55H69bwgCWar7OEOWdkAh+AU1KtMH)
+[Try it in the Playground](https://play.vuejs.org/#eNptkMFqxCAQhl9lkB522ZL0HNKlpa/Qo4e1ZpLIGhUdl5bgu9es2eSyIMio833zO7NP56pbRNawNkivHJ25wV9nPUGHvYiaYOYGoK7Bo5CkbgiBBOFy2AkSh2N5APmeojePCkDaaKiBt1KnZUuv3Ky0PppMsyYAjYJgigu0oEGYDsirYUAP0WULhqVrQhptF5qHQhnpcUJD+wyQaSpUd/Xp9NysVY/yT2qE0dprIS/vsds5Mg9mNVbaDofL94jZpUgJXUKBCvAy76ZUXY53CTd5tfX2k7kgnJzOCXIF0P5EImvgQ2olr++cbRE4O3+t6JxvXj0ptXVpye1tvbFY+ge/NJZt)
 
-### 컴포지션 API {#composition-api}
+### Composition API {#composition-api}
 
-컴포지션 API를 사용하는 경우, `import`해서 가져온 API 함수들을 사용하여 컴포넌트의 로직을 정의합니다. SFC에서 컴포지션 API는 일반적으로 [`<script setup>`](/api/sfc-script-setup)과 함께 사용됩니다. `setup` 속성은 Vue가 더 적은 코드 문맥으로 컴포지션 API를 사용하고, 컴파일 시 의도한대로 올바르게 동작할 수 있게 코드를 변환하도록 하는 힌트입니다. 예를 들어 `<script setup>`에 `import` 되어 가져온 객체들과 선언된 최상위 변수 및 함수는 템플릿에서 직접 사용할 수 있습니다.
+With Composition API, we define a component's logic using imported API functions. In SFCs, Composition API is typically used with [`<script setup>`](/api/sfc-script-setup). The `setup` attribute is a hint that makes Vue perform compile-time transforms that allow us to use Composition API with less boilerplate. For example, imports and top-level variables / functions declared in `<script setup>` are directly usable in the template.
 
-아래 예제는 위 예제와 완전히 동일한 템플릿을 사용하는 동일한 컴포넌트 이지만, Composition API와 `<script setup>`을 사용했습니다:
+Here is the same component, with the exact same template, but using Composition API and `<script setup>` instead:
 
 ```vue
 <script setup>
 import { ref, onMounted } from 'vue'
 
-// 반응적인 상태의 속성
+// reactive state
 const count = ref(0)
 
-// 속성 값을 변경하고 업데이트 할 수 있는 함수.
+// functions that mutate state and trigger updates
 function increment() {
   count.value++
 }
 
-// 생명 주기 훅
+// lifecycle hooks
 onMounted(() => {
-  console.log(`숫자 세기의 초기값은 ${ count.value } 입니다.`)
+  console.log(`The initial count is ${count.value}.`)
 })
 </script>
 
 <template>
-  <button @click="increment">숫자 세기: {{ count }}</button>
+  <button @click="increment">Count is: {{ count }}</button>
 </template>
 ```
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNpVkEFKw0AYha/yE4SmVBLXJS16AG8wi9Y4lWAyE5JJNyHQ0kZCS0HFYkBTCroQ3UTbRRZ6oWRyB6dNW3QxMG+Y773//b50ZttK38NSU9Jc3TFsBi5mnt1GxLBs6jDwwcG9Y6DknHqE4UsIoOdQC2qCqiGCiKpCkcY8uePLIU8y4KNhOXrmSQz8ZsbHn4jolLgM9A0PrY2dfFLfkdUXyNN7noyhWA3yr59yHuerJfDHsJilPFmXkwzKuXiIhOUiKiYPQr4JpSDS84jODErAILqDLUyYXAcfEajilH7X9HCjgUiwD4zi4j0E/vKdZymUTyEih2qyYFvtPU5camLFpFdyh0cffHELfJwJaNtsHYnbduoBHPl/w8R++CIsplExfVU6omcgjqZWyxVrFYJhyza7DAsFoF14jIkCp7pp6NctJB2aIKn9L7gJ/i4JgkBTK054aOrBUAp+AeD502I=)
+[Try it in the Playground](https://play.vuejs.org/#eNpNkMFqwzAQRH9lMYU4pNg9Bye09NxbjzrEVda2iLwS0spQjP69a+yYHnRYad7MaOfiw/tqSliciybqYDxDRE7+qsiM3gWGGQJ2r+DoyyVivEOGLrgRDkIdFCmqa1G0ms2EELllVKQdRQa9AHBZ+PLtuEm7RCKVd+ChZRjTQqwctHQHDqbvMUDyd7mKip4AGNIBRyQujzArgtW/mlqb8HRSlLcEazrUv9oiDM49xGGvXgp5uT5his5iZV1f3r4HFHvDprVbaxPhZf4XkKub/CDLaep1T7IhGRhHb6WoTADNT2KWpu/aGv24qGKvrIrr5+Z7hnneQnJu6hURvKl3ryL/ARrVkuI=)
 
-### 무엇을 선택해야 할까요? {#which-to-choose}
+### Which to Choose? {#which-to-choose}
 
-두 API 스타일 모두 일반적인 사용 사례를 완벽하게 다룰 수 있습니다. 이것들은 정확히 동일한 기본 시스템에 의해 구동되는 서로 다른 인터페이스입니다. 사실, 옵션 API는 컴포지션 API 위에 구현됩니다! Vue에 대한 기본 개념과 지식은 두 스타일과 상관없이 동일합니다.
+Both API styles are fully capable of covering common use cases. They are different interfaces powered by the exact same underlying system. In fact, the Options API is implemented on top of the Composition API! The fundamental concepts and knowledge about Vue are shared across the two styles.
 
-옵션 API는 일반적으로 OOP 언어 배경을 가진 사용자를 위한 클래스 기반 모델과 더 잘 맞는 "컴포넌트 인스턴스"(예제에서 볼 수 있는 `this`)의 개념을 중심으로 합니다. 또한 반응형 세부 사항을 추상화하고 옵션 그룹을 통해 코드 구조를 실행하여 초보자에게 더 친숙합니다.
+The Options API is centered around the concept of a "component instance" (`this` as seen in the example), which typically aligns better with a class-based mental model for users coming from OOP language backgrounds. It is also more beginner-friendly by abstracting away the reactivity details and enforcing code organization via option groups.
 
-컴포지션 API는 함수 범위에서 직접 반응형 변수를 선언하고 복잡성을 처리하기 위해 여러 함수의 상태를 함께 구성하는데 중점을 둡니다. 보다 자유로운 형식이며 Vue에서 반응형이 효과적으로 사용되는 방식에 대한 이해가 필요합니다. 그 대가로 이 유연성은 로직을 구성하고 재사용하기 위한 보다 강력한 패턴을 가능하게 합니다.
+The Composition API is centered around declaring reactive state variables directly in a function scope and composing state from multiple functions together to handle complexity. It is more free-form and requires an understanding of how reactivity works in Vue to be used effectively. In return, its flexibility enables more powerful patterns for organizing and reusing logic.
 
-[컴포지션 API FAQ](/guide/extras/composition-api-faq)에서 두 스타일의 비교 및 컴포지션 API의 잠재적 이점에 대해 자세히 알아볼 수 있습니다.
+You can learn more about the comparison between the two styles and the potential benefits of Composition API in the [Composition API FAQ](/guide/extras/composition-api-faq).
 
-Vue를 처음 사용하는 경우 일반적인 권장 사항은 다음과 같습니다:
+If you are new to Vue, here's our general recommendation:
 
-- 학습을 목적으로 하는 경우, 당신이 쉽게 이해할 수 있어보이는 스타일로 가십시오. 다시 말하지만, 대부분의 핵심 개념은 두 스타일 간에 공유됩니다. 나중에 언제든지 다른 스타일을 선택할 수 있습니다.
+- For learning purposes, go with the style that looks easier to understand to you. Again, most of the core concepts are shared between the two styles. You can always pick up the other style later.
 
-- 제품용(production)으로 사용하는 경우:
+- For production use:
 
-  - 빌드 도구를 사용하지 않거나 Vue를 주로 복잡성이 낮은 시나리오에서 사용할 계획이라면 옵션 API를 사용하세요.
+  - Go with Options API if you are not using build tools, or plan to use Vue primarily in low-complexity scenarios, e.g. progressive enhancement.
 
-  - Vue로 규모가 있는 앱의 전체를 구축하려는 경우 컴포지션 API + 단일파일 컴포넌트(SFC)를 사용하십시오.
+  - Go with Composition API + Single-File Components if you plan to build full applications with Vue.
 
-학습 단계에서 한 가지 스타일만 고집할 필요는 없습니다. 이후 문서에서는 두 가지 스타일의 코드 샘플을 제공하며, 왼쪽 사이드바의 상단에 있는 **API 스타일 설정**을 사용하여 언제든지 두 스타일 사이를 전환할 수 있습니다.
+You don't have to commit to only one style during the learning phase. The rest of the documentation will provide code samples in both styles where applicable, and you can toggle between them at any time using the **API Preference switches** at the top of the left sidebar.
 
-## 여전히 궁금한 것이 있나요? {#still-got-questions}
+## Still Got Questions? {#still-got-questions}
 
-[FAQ](https://vuejs.org/about/faq)를 확인하세요.
+Check out our [FAQ](/about/faq).
 
-## 학습 방법 선택 {#pick-your-learning-path}
+## Pick Your Learning Path {#pick-your-learning-path}
 
-개발자마다 학습 스타일이 다릅니다. 선호하는 학습 방법을 자유롭게 선택하세요. 가능하면 모든 컨텐츠를 살펴보는 것이 좋습니다.
+Different developers have different learning styles. Feel free to pick a learning path that suits your preference - although we do recommend going over all of the content, if possible!
 
 <div class="vt-box-container next-steps">
   <a class="vt-box" href="/tutorial/">
-    <p class="next-steps-link">튜토리얼 시작</p>
-    <p class="next-steps-caption">직접 배우는 것을 선호하는 사람들을 위해.</p>
+    <p class="next-steps-link">Try the Tutorial</p>
+    <p class="next-steps-caption">For those who prefer learning things hands-on.</p>
   </a>
   <a class="vt-box" href="/guide/quick-start.html">
-    <p class="next-steps-link">가이드 읽기</p>
-    <p class="next-steps-caption">이 가이드는 프레임워크의 모든 측면을 자세히 안내합니다.</p>
+    <p class="next-steps-link">Read the Guide</p>
+    <p class="next-steps-caption">The guide walks you through every aspect of the framework in full detail.</p>
   </a>
   <a class="vt-box" href="/examples/">
-    <p class="next-steps-link">예제 확인하기</p>
-    <p class="next-steps-caption">핵심 기능 및 일반적인 UI 작업의 예를 살펴보십시오.</p>
+    <p class="next-steps-link">Check out the Examples</p>
+    <p class="next-steps-caption">Explore examples of core features and common UI tasks.</p>
   </a>
 </div>

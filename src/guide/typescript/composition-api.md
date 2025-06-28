@@ -1,12 +1,16 @@
-# TypeScript와 Composition API {#typescript-with-composition-api}
+# TypeScript with Composition API {#typescript-with-composition-api}
 
-> 이 페이지는 이미 [Using Vue with TypeScript](./overview) 개요를 읽은 것을 가정합니다.
+<ScrimbaLink href="https://scrimba.com/links/vue-ts-composition-api" title="Free Vue.js TypeScript with Composition API Lesson" type="scrimba">
+  Watch an interactive video lesson on Scrimba
+</ScrimbaLink>
 
-## 컴포넌트 Props의 타이핑 {#typing-component-props}
+> This page assumes you've already read the overview on [Using Vue with TypeScript](./overview).
 
-### `<script setup>` 사용하기 {#using-script-setup}
+## Typing Component Props {#typing-component-props}
 
-`<script setup>`을 사용할 때, `defineProps()` 매크로는 인수를 기반으로 Props 타입을 추론하는 기능을 지원합니다.
+### Using `<script setup>` {#using-script-setup}
+
+When using `<script setup>`, the `defineProps()` macro supports inferring the props types based on its argument:
 
 ```vue
 <script setup lang="ts">
@@ -20,9 +24,9 @@ props.bar // number | undefined
 </script>
 ```
 
-이를 "런타임 선언"이라고 부르며, `defineProps()`에 전달되는 인수가 런타임 `props` 옵션으로 사용됩니다.
+This is called "runtime declaration", because the argument passed to `defineProps()` will be used as the runtime `props` option.
 
-하지만 보통은 제네릭 타입 인수를 사용하여 순수 타입으로 Props를 정의하는 것이 더 직관적입니다:
+However, it is usually more straightforward to define props with pure types via a generic type argument:
 
 ```vue
 <script setup lang="ts">
@@ -33,11 +37,11 @@ const props = defineProps<{
 </script>
 ```
 
-이를 "타입 기반 선언"이라고 부릅니다. 컴파일러는 타입 인수를 기반으로 동일한 런타임 옵션을 추론하기 위해 최선을 다할 것입니다. 이 경우, 두 번째 예제는 첫 번째 예제와 정확히 동일한 런타임 옵션으로 컴파일됩니다.
+This is called "type-based declaration". The compiler will try to do its best to infer the equivalent runtime options based on the type argument. In this case, our second example compiles into the exact same runtime options as the first example.
 
-타입 기반 선언이나 런타임 선언을 모두 사용할 수 있지만, 동시에 둘 다 사용할 수는 없습니다.
+You can use either type-based declaration OR runtime declaration, but you cannot use both at the same time.
 
-Props 타입을 별도의 인터페이스로 분리할 수도 있습니다:
+We can also move the props types into a separate interface:
 
 ```vue
 <script setup lang="ts">
@@ -50,7 +54,7 @@ const props = defineProps<Props>()
 </script>
 ```
 
-이 기능은 `Props`가 외부 소스에서 가져온 경우에도 작동합니다. 이 기능을 사용하려면 TypeScript가 Vue의 피어 종속성이어야 합니다.
+This also works if `Props` is imported from an external source. This feature requires TypeScript to be a peer dependency of Vue.
 
 ```vue
 <script setup lang="ts">
@@ -60,15 +64,15 @@ const props = defineProps<Props>()
 </script>
 ```
 
-#### 문법 제한 {#syntax-limitations}
+#### Syntax Limitations {#syntax-limitations}
 
-3.2 버전 이하에서는 `defineProps()`의 제네릭 타입 매개변수는 타입 리터럴이나 로컬 인터페이스에 대한 참조로 제한되었습니다.
+In version 3.2 and below, the generic type parameter for `defineProps()` were limited to a type literal or a reference to a local interface.
 
-이 제한은 3.3에서 해결되었습니다. 최신 버전의 Vue는 가져온(imported) 및 일부 복잡한 타입을 유형 매개변수 위치에서 지원합니다. 그러나 유형을 런타임으로 변환하는 것은 여전히 AST 기반이므로 실제 유형 분석이 필요한 일부 복잡한 유형(조건부 유형 등)은 지원되지 않습니다. 조건부 유형은 단일 prop의 유형으로 사용할 수는 있지만, 전체 props 객체에는 사용할 수 없습니다.
+This limitation has been resolved in 3.3. The latest version of Vue supports referencing imported and a limited set of complex types in the type parameter position. However, because the type to runtime conversion is still AST-based, some complex types that require actual type analysis, e.g. conditional types, are not supported. You can use conditional types for the type of a single prop, but not the entire props object.
 
-### Props 기본값 {#props-default-values}
+### Props Default Values {#props-default-values}
 
-타입 기반 선언(Type-based declaration)을 사용할 경우, props의 기본값을 선언하는 기능을 잃게 됩니다. 이를 해결하려면 [반응형 props 구조 분해(Reactive Props Destructure)](/guide/components/props#reactive-props-destructure) <sup class="vt-badge" data-text="3.5+" />를 사용할 수 있습니다:
+When using type-based declaration, we lose the ability to declare default values for the props. This can be resolved by using [Reactive Props Destructure](/guide/components/props#reactive-props-destructure) <sup class="vt-badge" data-text="3.5+" />:
 
 ```ts
 interface Props {
@@ -78,7 +82,8 @@ interface Props {
 
 const { msg = 'hello', labels = ['one', 'two'] } = defineProps<Props>()
 ```
-버전 3.4 이하에서는 반응형 props 구조 분해(Reactive Props Destructure)가 기본적으로 활성화되어 있지 않습니다.대안으로, `withDefaults` 컴파일러 매크로를 사용할 수 있습니다:
+
+In 3.4 and below, Reactive Props Destructure is not enabled by default. An alternative is to use the `withDefaults` compiler macro:
 
 ```ts
 interface Props {
@@ -92,15 +97,15 @@ const props = withDefaults(defineProps<Props>(), {
 })
 ```
 
-이 코드는 런타임에서 props의 default 옵션과 동일한 동작을 하도록 컴파일됩니다. 추가적으로, withDefaults 헬퍼는 기본값에 대한 타입 검사를 수행하며, 기본값이 선언된 속성의 경우, props 타입에서 optional 플래그를 제거하도록 보장합니다.
+This will be compiled to equivalent runtime props `default` options. In addition, the `withDefaults` helper provides type checks for the default values, and ensures the returned `props` type has the optional flags removed for properties that do have default values declared.
 
 :::info
-기본값으로 배열(Array) 또는 객체(Object)와 같은 변경 가능한 참조 타입을 사용할 경우, withDefaults를 사용할 때 반드시 함수로 감싸야 합니다. 이렇게 하면 실수로 기본값을 수정하거나, 외부 부작용이 발생하는 것을 방지할 수 있습니다. 또한, 각 컴포넌트 인스턴스가 독립적인 기본값을 가지게 됩니다. 반면, 구조 분해(Destructure) 방식을 사용할 때는 이러한 처리가 필요하지 않습니다.
+Note that default values for mutable reference types (like arrays or objects) should be wrapped in functions when using `withDefaults` to avoid accidental modification and external side effects. This ensures each component instance gets its own copy of the default value. This is **not** necessary when using default values with destructure.
 :::
 
-### `<script setup>`을 사용하지 않는 경우 {#without-script-setup}
+### Without `<script setup>` {#without-script-setup}
 
-`<script setup>`을 사용하지 않는 경우에는 `defineComponent()`를 사용하여 Props 타입 추론을 가능하게 해야 합니다. `setup()`에 전달되는 props 객체의 타입은 `props` 옵션을 기반으로 추론됩니다.
+If not using `<script setup>`, it is necessary to use `defineComponent()` to enable props type inference. The type of the props object passed to `setup()` is inferred from the `props` option.
 
 ```ts
 import { defineComponent } from 'vue'
@@ -110,14 +115,14 @@ export default defineComponent({
     message: String
   },
   setup(props) {
-    props.message // <-- 타입: string
+    props.message // <-- type: string
   }
 })
 ```
 
-### 복잡한 속성 유형 {#complex-prop-types}
+### Complex prop types {#complex-prop-types}
 
-타입 기반 선언을 사용하면 prop도 다른 타입과 마찬가지로 복잡한 유형을 사용할 수 있습니다:
+With type-based declaration, a prop can use a complex type much like any other type:
 
 ```vue
 <script setup lang="ts">
@@ -133,7 +138,7 @@ const props = defineProps<{
 </script>
 ```
 
-런타임 선언의 경우 `PropType` 유틸리티 타입을 사용할 수 있습니다:
+For runtime declaration, we can use the `PropType` utility type:
 
 ```ts
 import type { PropType } from 'vue'
@@ -143,7 +148,7 @@ const props = defineProps({
 })
 ```
 
-`props` 옵션을 직접 지정하는 경우에도 동일한 방식으로 작동합니다:
+This works in much the same way if we're specifying the `props` option directly:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -156,36 +161,36 @@ export default defineComponent({
 })
 ```
 
-`props` 옵션은 주로 Options API와 함께 사용되므로, [옵션 API와 TypeScript](/guide/typescript/options-api#typing-component-props) 가이드에서 더 자세한 예제를 찾을 수 있습니다. 그 예제들에서 보여지는 기술은 `defineProps()`를 사용한 런타임 선언에도 적용됩니다.
+The `props` option is more commonly used with the Options API, so you'll find more detailed examples in the guide to [TypeScript with Options API](/guide/typescript/options-api#typing-component-props). The techniques shown in those examples also apply to runtime declarations using `defineProps()`.
 
-## 컴포넌트 이벤트의 타이핑 {#typing-component-emits}
+## Typing Component Emits {#typing-component-emits}
 
-`<script setup>`에서 `emit` 함수도 런타임 선언이나 타입 선언을 통해 타이핑할 수 있습니다:
+In `<script setup>`, the `emit` function can also be typed using either runtime declaration OR type declaration:
 
 ```vue
 <script setup lang="ts">
-// 런타임 선언
+// runtime
 const emit = defineEmits(['change', 'update'])
 
-// options 기반
+// options based
 const emit = defineEmits({
   change: (id: number) => {
-    // `true` 또는 `false` 값을 반환하여
-    // 유효성 검사 통과/실패 여부를 알려줌
+    // return `true` or `false` to indicate
+    // validation pass / fail
   },
   update: (value: string) => {
-    // `true` 또는 `false` 값을 반환하여
-    // 유효성 검사 통과/실패 여부를 알려줌
+    // return `true` or `false` to indicate
+    // validation pass / fail
   }
 })
 
-// 타입 기반 선언
+// type-based
 const emit = defineEmits<{
   (e: 'change', id: number): void
   (e: 'update', value: string): void
 }>()
 
-// 3.3+: 대체, 더 간결한 문법
+// 3.3+: alternative, more succinct syntax
 const emit = defineEmits<{
   change: [id: number]
   update: [value: string]
@@ -193,14 +198,14 @@ const emit = defineEmits<{
 </script>
 ```
 
-타입 인수는 다음 중 하나일 수 있습니다:
+The type argument can be one of the following:
 
-1. 호출 가능한 함수 타입입니다. [Call Signatures](https://www.typescriptlang.org/docs/handbook/2/functions.html#call-signatures)와 함께 타입 리터럴로 작성됩니다. 이것은 반환된 `emit` 함수의 타입으로 사용됩니다.
-2. 키가 이벤트 이름이고 값이 추가 허용되는 이벤트의 매개변수를 나타내는 배열 또는 튜플 타입인 타입 리터럴입니다. 위의 예제는 명명된 튜플을 사용하므로 각 인수에 명시적인 이름을 부여할 수 있습니다.
+1. A callable function type, but written as a type literal with [Call Signatures](https://www.typescriptlang.org/docs/handbook/2/functions.html#call-signatures). It will be used as the type of the returned `emit` function.
+2. A type literal where the keys are the event names, and values are array / tuple types representing the additional accepted parameters for the event. The example above is using named tuples so each argument can have an explicit name.
 
-보다 세부적인 이벤트의 타입 제약 조건을 지정할 수 있는 타입 선언을 사용하면 더욱 정교한 제어가 가능합니다.
+As we can see, the type declaration gives us much finer-grained control over the type constraints of emitted events.
 
-`<script setup>`을 사용하지 않는 경우, `defineComponent()`을 사용하여 `setup()` 컨텍스트에서 노출된 `emit` 함수에 대한 허용된 이벤트를 컴파일러가 추론할 수 있습니다:
+When not using `<script setup>`, `defineComponent()` is able to infer the allowed events for the `emit` function exposed on the setup context:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -208,26 +213,26 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   emits: ['change'],
   setup(props, { emit }) {
-    emit('change') // <-- 타입 체크 / 자동 완성
+    emit('change') // <-- type check / auto-completion
   }
 })
 ```
 
-## `ref()`의 타이핑 {#typing-ref}
+## Typing `ref()` {#typing-ref}
 
-`ref`는 초기 값에서 타입을 추론합니다:
+Refs infer the type from the initial value:
 
 ```ts
 import { ref } from 'vue'
 
-// 추론된 타입: Ref<number>
+// inferred type: Ref<number>
 const year = ref(2020)
 
-// => TS 에러: 'string' 타입은 'number'에 할당할 수 없습니다.
+// => TS Error: Type 'string' is not assignable to type 'number'.
 year.value = '2020'
 ```
 
-때로는 ref의 내부 값에 대해 복잡한 유형을 지정해야 할 수도 있습니다. 이를 위해 `Ref` 타입을 사용할 수 있습니다:
+Sometimes we may need to specify complex types for a ref's inner value. We can do that by using the `Ref` type:
 
 ```ts
 import { ref } from 'vue'
@@ -235,37 +240,37 @@ import type { Ref } from 'vue'
 
 const year: Ref<string | number> = ref('2020')
 
-year.value = 2020 // 정상적인 동작!
+year.value = 2020 // ok!
 ```
 
-또는 `ref()`를 호출할 때 제네릭 인수를 전달하여 기본 추론을 덮어쓸 수도 있습니다:
+Or, by passing a generic argument when calling `ref()` to override the default inference:
 
 ```ts
-// 결과 타입: Ref<string | number>
+// resulting type: Ref<string | number>
 const year = ref<string | number>('2020')
 
-year.value = 2020 // 정상적인 동작!
+year.value = 2020 // ok!
 ```
 
-제네릭 유형 인수를 지정하면서 초기 값은 생략하는 경우, 결과 타입은 `undefined`를 포함하는 유니온 타입이 됩니다:
+If you specify a generic type argument but omit the initial value, the resulting type will be a union type that includes `undefined`:
 
 ```ts
-// 추론된 타입: Ref<number | undefined>
+// inferred type: Ref<number | undefined>
 const n = ref<number>()
 ```
 
-## `reactive()`의 타이핑 {#typing-reactive}
+## Typing `reactive()` {#typing-reactive}
 
-`reactive()`는 인수에서 타입을 암묵적으로 추론합니다:
+`reactive()` also implicitly infers the type from its argument:
 
 ```ts
 import { reactive } from 'vue'
 
-// 추론된 타입: { title: string }
+// inferred type: { title: string }
 const book = reactive({ title: 'Vue 3 Guide' })
 ```
 
-`reactive` 속성에 명시적인 타입을 지정하기 위해 인터페이스를 사용할 수 있습니다:
+To explicitly type a `reactive` property, we can use interfaces:
 
 ```ts
 import { reactive } from 'vue'
@@ -279,41 +284,41 @@ const book: Book = reactive({ title: 'Vue 3 Guide' })
 ```
 
 :::tip
-`reactive()`의 제네릭 인수를 사용하는 것은 권장되지 않습니다. 중첩된 ref 언래핑을 처리하는 반환된 타입은 제네릭 인수 타입과 다릅니다.
+It's not recommended to use the generic argument of `reactive()` because the returned type, which handles nested ref unwrapping, is different from the generic argument type.
 :::
 
-## `computed()`의 타이핑 {#typing-computed}
+## Typing `computed()` {#typing-computed}
 
-`computed()`는 getter의 반환 값에 따라 타입을 추론합니다:
+`computed()` infers its type based on the getter's return value:
 
 ```ts
 import { ref, computed } from 'vue'
 
 const count = ref(0)
 
-// 추론된 타입: ComputedRef<number>
+// inferred type: ComputedRef<number>
 const double = computed(() => count.value * 2)
 
-// => TS 에러: 'number'에는 'split' 속성이 존재하지 않습니다.
+// => TS Error: Property 'split' does not exist on type 'number'
 const result = double.value.split('')
 ```
 
-제네릭 인수를 사용하여 명시적인 타입을 지정할 수도 있습니다:
+You can also specify an explicit type via a generic argument:
 
 ```ts
 const double = computed<number>(() => {
-  // 반환 값이 number가 아니면 타입 에러
+  // type error if this doesn't return a number
 })
 ```
 
-## 이벤트 핸들러의 타이핑 {#typing-event-handlers}
+## Typing Event Handlers {#typing-event-handlers}
 
-네이티브 DOM 이벤트를 다룰 때, 핸들러에 전달되는 인수의 타입을 올바르게 지정하는 것이 유용할 수 있습니다. 다음 예제를 살펴보세요:
+When dealing with native DOM events, it might be useful to type the argument we pass to the handler correctly. Let's take a look at this example:
 
 ```vue
 <script setup lang="ts">
 function handleChange(event) {
-  // `event`의 타입은 암묵적으로 `any`입니다
+  // `event` implicitly has `any` type
   console.log(event.target.value)
 }
 </script>
@@ -323,7 +328,7 @@ function handleChange(event) {
 </template>
 ```
 
-타입 주석(Type annotation)이 없으면, `event` 인수의 타입이 암시적으로 `any`가 됩니다. 또한, `tsconfig.json`에서 `"strict": true` 또는 `"noImplicitAny": true` 옵션이 활성화된 경우, TypeScript 오류가 발생할 수 있습니다. 따라서, 이벤트 핸들러의 인수는 명시적으로 타입을 지정하는 것이 권장됩니다. 추가적으로, `event`의 속성에 접근할 때는 **타입 단언**(Type assertion)을 사용해야 할 수도 있습니다.
+Without type annotation, the `event` argument will implicitly have a type of `any`. This will also result in a TS error if `"strict": true` or `"noImplicitAny": true` are used in `tsconfig.json`. It is therefore recommended to explicitly annotate the argument of event handlers. In addition, you may need to use type assertions when accessing the properties of `event`:
 
 ```ts
 function handleChange(event: Event) {
@@ -331,9 +336,9 @@ function handleChange(event: Event) {
 }
 ```
 
-## `provide`/`inject`의 타이핑 {#typing-provide-inject}
+## Typing Provide / Inject {#typing-provide-inject}
 
-`provide`와 `inject`는 보통 서로 다른 컴포넌트에서 수행됩니다. 주입된(inject) 값의 타입을 적절히 지정하기 위해 Vue는 `InjectionKey` 인터페이스를 제공하는데, 이는 `Symbol`을 확장하는 제네릭 타입입니다. 이를 사용하여 제공자와 소비자 간에 주입된 값의 타입을 동기화할 수 있습니다:
+Provide and inject are usually performed in separate components. To properly type injected values, Vue provides an `InjectionKey` interface, which is a generic type that extends `Symbol`. It can be used to sync the type of the injected value between the provider and the consumer:
 
 ```ts
 import { provide, inject } from 'vue'
@@ -341,47 +346,47 @@ import type { InjectionKey } from 'vue'
 
 const key = Symbol() as InjectionKey<string>
 
-provide(key, 'foo') // 문자열이 아닌 값을 제공하면 오류 발생
+provide(key, 'foo') // providing non-string value will result in error
 
-const foo = inject(key) // foo의 타입: string | undefined
+const foo = inject(key) // type of foo: string | undefined
 ```
 
-주입 키를 별도의 파일에 위치시켜 여러 컴포넌트에서 임포트할 수 있도록 하는 것이 좋습니다.
+It's recommended to place the injection key in a separate file so that it can be imported in multiple components.
 
-문자열 주입 키를 사용할 때, 주입된 값의 타입은 `unknown`이 될 것이며, 제네릭 타입 인자를 통해 명시적으로 선언해야 합니다:
+When using string injection keys, the type of the injected value will be `unknown`, and needs to be explicitly declared via a generic type argument:
 
 ```ts
-const foo = inject<string>('foo') // 타입: string | undefined
+const foo = inject<string>('foo') // type: string | undefined
 ```
 
-주입된 값은 런타임에 제공자가 이 값을 제공한다는 보장이 없기 때문에 여전히 `undefined`일 수 있습니다.
+Notice the injected value can still be `undefined`, because there is no guarantee that a provider will provide this value at runtime.
 
-`undefined` 타입은 기본값을 제공함으로써 제거할 수 있습니다:
+The `undefined` type can be removed by providing a default value:
 
 ```ts
-const foo = inject<string>('foo', 'bar') // 타입: string
+const foo = inject<string>('foo', 'bar') // type: string
 ```
 
-값이 항상 제공된다고 확신한다면, 값을 강제로 캐스팅할 수도 있습니다:
+If you are sure that the value is always provided, you can also force cast the value:
 
 ```ts
 const foo = inject('foo') as string
 ```
 
-## 템플릿 Ref의 타이핑 {#typing-template-refs}
+## Typing Template Refs {#typing-template-refs}
 
-Vue 3.5 및 @vue/language-tools 2.1(IDE 언어 서비스 및 `vue-tsc` 지원)에서는, SFC에서 `useTemplateRef()`를 사용하여 생성된 ref의 타입이 **자동으로 추론**될 수 있습니다. 이는 정적(static) ref의 경우, 해당 `ref` 속성이 사용된 요소를 기준으로 타입을 추론하는 방식입니다.
+With Vue 3.5 and `@vue/language-tools` 2.1 (powering both the IDE language service and `vue-tsc`), the type of refs created by `useTemplateRef()` in SFCs can be **automatically inferred** for static refs based on what element the matching `ref` attribute is used on.
 
-그러나 자동 추론이 불가능한 경우, 제네릭 인자를 사용하여 템플릿 ref를 명시적인 타입으로 변환(cast)할 수 있습니다.
+In cases where auto-inference is not possible, you can still cast the template ref to an explicit type via the generic argument:
 
 ```ts
 const el = useTemplateRef<HTMLInputElement>('el')
 ```
 
 <details>
-<summary>3.5 이전</summary>
+<summary>Usage before 3.5</summary>
 
-템플릿 ref는 명시적인 제네릭 타입 인수와 `null`을 초기 값으로 사용하여 생성해야 합니다:
+Template refs should be created with an explicit generic type argument and an initial value of `null`:
 
 ```vue
 <script setup lang="ts">
@@ -401,17 +406,17 @@ onMounted(() => {
 
 </details>
 
-올바른 DOM 인터페이스를 얻기 위해서는 [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#technical_summary)과 같은 페이지를 확인할 수 있습니다.
+To get the right DOM interface you can check pages like [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#technical_summary).
 
-Strict한 타입 안전성을 위해서는 `el.value`에 접근할 때 옵셔널 체이닝 또는 타입 가드를 사용해야 합니다. 이는 초기 ref 값이 컴포넌트가 마운트될 때까지 `null`이며, 참조된 요소가 `v-if`에 의해 마운트 해제될 수도 있기 때문입니다.
+Note that for strict type safety, it is necessary to use optional chaining or type guards when accessing `el.value`. This is because the initial ref value is `null` until the component is mounted, and it can also be set to `null` if the referenced element is unmounted by `v-if`.
 
-## 컴포넌트 템플릿 Ref의 타이핑 {#typing-component-template-refs}
+## Typing Component Template Refs {#typing-component-template-refs}
 
-Vue 3.5 및 `@vue/language-tools` 2.1(IDE 언어 서비스 및 `vue-tsc` 지원)에서는, SFC에서 `useTemplateRef()`를 사용하여 생성된 ref의 타입이 **자동으로 추론**될 수 있습니다. 이는 정적(static) ref의 경우, 해당 ref 속성이 사용된 요소 또는 컴포넌트를 기준으로 타입을 추론하는 방식입니다.
+With Vue 3.5 and `@vue/language-tools` 2.1 (powering both the IDE language service and `vue-tsc`), the type of refs created by `useTemplateRef()` in SFCs can be **automatically inferred** for static refs based on what element or component the matching `ref` attribute is used on.
 
-자동 추론이 불가능한 경우 (예: SFC가 아닌 환경에서 사용하거나 동적 컴포넌트에 ref를 할당하는 경우) 제네릭 인자를 사용하여 template ref의 타입을 명시적으로 지정할 수 있습니다.
+In cases where auto-inference is not possible (e.g. non-SFC usage or dynamic components), you can still cast the template ref to an explicit type via the generic argument.
 
-가져온(imported) 컴포넌트의 인스턴스 타입을 얻으려면, 먼저 `typeof`를 사용하여 해당 컴포넌트의 타입을 가져온 뒤, TypeScript의 내장 유틸리티 타입인 `InstanceType`을 사용하여 인스턴스 타입을 추출해야 합니다:
+In order to get the instance type of an imported component, we need to first get its type via `typeof`, then use TypeScript's built-in `InstanceType` utility to extract its instance type:
 
 ```vue{5}
 <!-- App.vue -->
@@ -431,7 +436,7 @@ const compRef = useTemplateRef<FooType | BarType>('comp')
 </template>
 ```
 
-구체적인 컴포넌트 타입을 알 수 없거나 중요하지 않은 경우에는 `ComponentPublicInstance`를 대신 사용할 수 있습니다. 이는 `$el`과 같이 모든 컴포넌트에서 공유되는 속성만 포함합니다:
+In cases where the exact type of the component isn't available or isn't important, `ComponentPublicInstance` can be used instead. This will only include properties that are shared by all components, such as `$el`:
 
 ```ts
 import { useTemplateRef } from 'vue'
@@ -440,28 +445,24 @@ import type { ComponentPublicInstance } from 'vue'
 const child = useTemplateRef<ComponentPublicInstance>('child')
 ```
 
-참조된 컴포넌트가 [제네릭 컴포넌트](/guide/typescript/overview.html#generic-components)인 경우, 예를 들어 `MyGenericModal`과 같은 경우:
+In cases where the component referenced is a [generic component](/guide/typescript/overview.html#generic-components), for instance `MyGenericModal`:
 
 ```vue
 <!-- MyGenericModal.vue -->
 <script setup lang="ts" generic="ContentType extends string | number">
-  import { ref } from 'vue'
+import { ref } from 'vue'
 
-  const content = ref<ContentType | null>(null)
+const content = ref<ContentType | null>(null)
 
-  const open = (newContent: ContentType) => (content.value = newContent)
+const open = (newContent: ContentType) => (content.value = newContent)
 
-  defineExpose({
-    open
-  })
+defineExpose({
+  open
+})
 </script>
 ```
 
 It needs to be referenced using `ComponentExposed` from the [`vue-component-type-helpers`](https://www.npmjs.com/package/vue-component-type-helpers) library as `InstanceType` won't work.
-
-`InstanceType`은 사용할 수 없으므로 [`vue-component-type-helpers`](https://www.npmjs.com/package/vue-component-type-helpers) 라이브러리의 `ComponentExposed`를 사용하여 참조해야 합니다.
-
-
 
 ```vue
 <!-- App.vue -->
@@ -478,4 +479,4 @@ const openModal = () => {
 </script>
 ```
 
-`@vue/language-tools` 2.1+ 버전에서는 정적 템플릿 ref의 타입이 자동으로 추론될 수 있으며, 위와 같은 처리는 극단적인 경우에만 필요합니다.
+Note that with `@vue/language-tools` 2.1+, static template refs' types can be automatically inferred and the above is only needed in edge cases.

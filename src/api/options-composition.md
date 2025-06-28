@@ -1,10 +1,10 @@
-# 옵션: 컴포지션 {#options-composition}
+# Options: Composition {#options-composition}
 
 ## provide {#provide}
 
-하위 컴포넌트에 주입(Inject)할 수 있도록 값을 제공(Provide)합니다.
+Provide values that can be injected by descendant components.
 
-- **타입**
+- **Type**
 
   ```ts
   interface ComponentOptions {
@@ -12,19 +12,15 @@
   }
   ```
 
-- **세부 사항**
+- **Details**
 
-  부모 컴포넌트가 값을 제공하면,
-  컴포넌트 계층 구조의 깊이와 관계없이 모든 자식 컴포넌트에서 선택적으로 의존성을 주입받을 수 있도록,
-  `provide`와 [`inject`](#inject)는 함께 사용됩니다.
+  `provide` and [`inject`](#inject) are used together to allow an ancestor component to serve as a dependency injector for all its descendants, regardless of how deep the component hierarchy is, as long as they are in the same parent chain.
 
-  `provide` 옵션은 객체이거나 객체를 반환하는 함수여야 합니다.
-  이 객체는 자식 컴포넌트에 주입할 수 있는 속성으로 구성되며,
-  심볼(Symbol)을 키로 사용할 수 있습니다.
+  The `provide` option should be either an object or a function that returns an object. This object contains the properties that are available for injection into its descendants. You can use Symbols as keys in this object.
 
-- **예제**
+- **Example**
 
-  기본 사용법:
+  Basic usage:
 
   ```js
   const s = Symbol()
@@ -37,7 +33,7 @@
   }
   ```
 
-  함수 사용법:
+  Using a function to provide per-component state:
 
   ```js
   export default {
@@ -45,7 +41,7 @@
       return {
         msg: 'foo'
       }
-    },
+    }
     provide() {
       return {
         msg: this.msg
@@ -54,17 +50,15 @@
   }
   ```
 
-  위 예제에서 제공된 `msg`는 반응형이 아닙니다.
-  자세한 내용은 [반응형으로 만들기](/guide/components/provide-inject#working-with-reactivity)를 참고하십시오.
+  Note in the above example, the provided `msg` will NOT be reactive. See [Working with Reactivity](/guide/components/provide-inject#working-with-reactivity) for more details.
 
-- **참고** [Provide / Inject](/guide/components/provide-inject)
+- **See also** [Provide / Inject](/guide/components/provide-inject)
 
 ## inject {#inject}
 
-상위 컴포넌트 또는 [`app.provide()`](/api/application#app-provide)를 통해 앱에서 제공(Provide)된 값 중,
-주입(Inject)할 속성을 선언합니다.
+Declare properties to inject into the current component by locating them from ancestor providers.
 
-- **타입**
+- **Type**
 
   ```ts
   interface ComponentOptions {
@@ -81,30 +75,24 @@
   }
   ```
 
-- **세부 사항**
+- **Details**
 
-  `inject` 옵션은 다음 중 하나입니다:
+  The `inject` option should be either:
 
-  - 문자열로 이루어진 배열
-  - 객체의 키는 인스턴스에 바인딩 될 이름이고, 값은 다음 중 하나입니다:
-    - 문자열 또는 심볼로 되어있는 주입 가능한 속성의 키.
-    - 다음 속성 중 하나 이상으로 이루어진 객체:
-      - `from`: 문자열 또는 심볼로 되어있는 주입 가능한 속성의 키.
-      - `default`: 대체 값으로 사용되며, props의 `default`와 유사.
-        대체될 값이 객체 타입일 경우,
-        컴포넌트의 여러 인스턴스 간 값의 참조가 공유되는 것을 피하기 위해 팩토리 함수를 사용해야 함.
+  - An array of strings, or
+  - An object where the keys are the local binding name and the value is either:
+    - The key (string or Symbol) to search for in available injections, or
+    - An object where:
+      - The `from` property is the key (string or Symbol) to search for in available injections, and
+      - The `default` property is used as fallback value. Similar to props default values, a factory function is needed for object types to avoid value sharing between multiple component instances.
 
-  일치하는 속성이나 기본값이 제공되지 않는 경우, 주입된 속성의 값은 `undefined`입니다.
+  An injected property will be `undefined` if neither a matching property nor a default value was provided.
 
-  주입되어 바인딩된 값은 반응형이 아니며,
-  이것은 의도적입니다.
-  그러나 주입된 값이 반응형 객체인 경우,
-  해당 객체의 속성은 반응형으로 유지됩니다.
-  자세한 내용은 [반응형으로 만들기](/guide/components/provide-inject#working-with-reactivity)를 참고하십시오.
+  Note that injected bindings are NOT reactive. This is intentional. However, if the injected value is a reactive object, properties on that object do remain reactive. See [Working with Reactivity](/guide/components/provide-inject#working-with-reactivity) for more details.
 
-- **예제**
+- **Example**
 
-  기본 사용법:
+  Basic usage:
 
   ```js
   export default {
@@ -115,10 +103,10 @@
   }
   ```
 
-  주입된 값을 prop의 기본값으로 사용:
+  Using an injected value as the default for a prop:
 
   ```js
-  export default {
+  const Child = {
     inject: ['foo'],
     props: {
       bar: {
@@ -130,10 +118,10 @@
   }
   ```
 
-  주입된 값을 데이터 입력값으로 사용:
+  Using an injected value as data entry:
 
   ```js
-  export default {
+  const Child = {
     inject: ['foo'],
     data() {
       return {
@@ -143,21 +131,20 @@
   }
   ```
 
-  주입될 값에 기본값을 설정한 옵션을 제공:
+  Injections can be optional with default value:
 
   ```js
-  export default {
+  const Child = {
     inject: {
       foo: { default: 'foo' }
     }
   }
   ```
 
-  주입할 속성의 이름을 다르게 해야 할 경우,
-  `from`을 사용하여 주입할 속성 표기:
+  If it needs to be injected from a property with a different name, use `from` to denote the source property:
 
   ```js
-  export default {
+  const Child = {
     inject: {
       foo: {
         from: 'bar',
@@ -167,10 +154,10 @@
   }
   ```
 
-  팩토리 함수를 사용한 객체 타입의 기본값 지정:
+  Similar to prop defaults, you need to use a factory function for non-primitive values:
 
   ```js
-  export default {
+  const Child = {
     inject: {
       foo: {
         from: 'bar',
@@ -180,13 +167,13 @@
   }
   ```
 
-- **참고** [Provide / Inject](/guide/components/provide-inject)
+- **See also** [Provide / Inject](/guide/components/provide-inject)
 
 ## mixins {#mixins}
 
-현재 컴포넌트에 혼합할 옵션 객체의 배열입니다.
+An array of option objects to be mixed into the current component.
 
-- **타입**
+- **Type**
 
   ```ts
   interface ComponentOptions {
@@ -194,21 +181,17 @@
   }
   ```
 
-- **세부 사항**
+- **Details**
 
-  `mixins` 옵션은 믹스인 객체로 이루어진 배열입니다.
-  믹스인 객체는 일반 인스턴스 객체와 같은 옵션을 포함할 수 있으며,
-  특정 옵션 병합 로직을 사용하여 병합된 최종 옵션이 인스턴스에서 사용됩니다.
-  예를 들어 믹스인에 `created` 훅이 있고, 컴포넌트에도 훅이 있으면,
-  두 함수가 모두 호출됩니다.
+  The `mixins` option accepts an array of mixin objects. These mixin objects can contain instance options like normal instance objects, and they will be merged against the eventual options using the certain option merging logic. For example, if your mixin contains a `created` hook and the component itself also has one, both functions will be called.
 
-  믹스인 훅은 제공된 순서대로 호출되며, 컴포넌트 자체 훅보다 먼저 호출됩니다.
+  Mixin hooks are called in the order they are provided, and called before the component's own hooks.
 
-  :::warning 더 이상 권장되지 않음
-- Vue 2에서는 mixins이 컴포넌트 로직의 재사용 가능한 청크를 생성하는 주요 메커니즘이었습니다. Vue 3에서도 mixins은 여전히 지원되지만, [Composition API를 사용한 컴포저블 함수](/guide/reusability/composables)는 이제 컴포넌트 간에 코드를 재사용하는 선호되는 방법입니다.
+  :::warning No Longer Recommended
+  In Vue 2, mixins were the primary mechanism for creating reusable chunks of component logic. While mixins continue to be supported in Vue 3, [Composable functions using Composition API](/guide/reusability/composables) is now the preferred approach for code reuse between components.
   :::
 
-- **예제**
+- **Example**
 
   ```js
   const mixin = {
@@ -217,14 +200,12 @@
     }
   }
 
-  export default {
-    createApp({
-      created() {
-        console.log(2)
-      },
-      mixins: [mixin]
-    })
-  }
+  createApp({
+    created() {
+      console.log(2)
+    },
+    mixins: [mixin]
+  })
 
   // => 1
   // => 2
@@ -232,9 +213,9 @@
 
 ## extends {#extends}
 
-현재 컴포넌트를 확장(extend)할 "클래스 기반" 컴포넌트입니다.
+A "base class" component to extend from.
 
-- **타입**
+- **Type**
 
   ```ts
   interface ComponentOptions {
@@ -242,40 +223,33 @@
   }
   ```
 
-- **세부 사항**
+- **Details**
 
-  B 컴포넌트 확장에 A 컴포넌트를 사용하면, A 컴포넌트의 옵션을 상속받을 수 있습니다.
+  Allows one component to extend another, inheriting its component options.
 
-  구현의 관점에서 `extens`는 `mixins`와 거의 동일합니다.
-  `extens`로 지정된 컴포넌트는 첫 번째 믹스인인 것처럼 처리됩니다.
+  From an implementation perspective, `extends` is almost identical to `mixins`. The component specified by `extends` will be treated as though it were the first mixin.
 
-  그러나 `extens`와 `mixins`는 구현된 목적이 다릅니다.
-  주로 `mixins` 옵션은 기능 묶음을 구성하는데 사용되지만,
-  `extens`는 상속과 관련됩니다.
+  However, `extends` and `mixins` express different intents. The `mixins` option is primarily used to compose chunks of functionality, whereas `extends` is primarily concerned with inheritance.
 
-  `mixins`와 마찬가지로, `setup()`을 제외한 다른 옵션들은 해당하는 병합 전략을 사용하여 병합됩니다.
+  As with `mixins`, any options (except for `setup()`) will be merged using the relevant merge strategy.
 
-- **예제**
+- **Example**
 
   ```js
-  // CompB.vue 파일에서
+  const CompA = { ... }
 
-  import CompA from './CompA.vue'
-
-  export default {
-    // CompB 컴포넌트는 CompA에 정의된,
-    // 옵션 속성들을 상속받음
+  const CompB = {
     extends: CompA,
     ...
   }
   ```
 
-  :::warning Composition API에 권장되지 않음
-  `extends`는 Options API를 위해 설계된 것으로, `setup()` 훅의 병합을 처리하지 않습니다.
+  :::warning Not Recommended for Composition API
+  `extends` is designed for Options API and does not handle the merging of the `setup()` hook.
 
-  Composition API에서는 로직 재사용에 대해 "상속(inheritance)"보다는 "조합(compose)"이 선호되는 개념 모델입니다. 다른 컴포넌트에서 재사용해야 할 로직이 있다면, 해당 로직을 [컴포저블(Composable)](/guide/reusability/composables#composables)로 추출하는 것을 고려해보세요.
+  In Composition API, the preferred mental model for logic reuse is "compose" over "inheritance". If you have logic from a component that needs to be reused in another one, consider extracting the relevant logic into a [Composable](/guide/reusability/composables#composables).
 
-  Composition API를 사용하여 여전히 컴포넌트를 "확장(extend)"하려면, 확장하는 컴포넌트의 `setup()`에서 기본 컴포넌트의 `setup()`을 호출할 수 있습니다:
+  If you still intend to "extend" a component using Composition API, you can call the base component's `setup()` in the extending component's `setup()`:
 
   ```js
   import Base from './Base.js'
@@ -284,7 +258,7 @@
     setup(props, ctx) {
       return {
         ...Base.setup(props, ctx),
-        // 로컬 바인딩
+        // local bindings
       }
     }
   }

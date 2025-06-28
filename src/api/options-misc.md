@@ -1,10 +1,10 @@
-# 옵션: 기타 {#options-misc}
+# Options: Misc {#options-misc}
 
 ## name {#name}
 
-컴포넌트에 대한 표시 이름을 명시적으로 선언합니다.
+Explicitly declare a display name for the component.
 
-- **타입**
+- **Type**
 
   ```ts
   interface ComponentOptions {
@@ -12,43 +12,43 @@
   }
   ```
 
-- **상세 정보**
+- **Details**
 
-  컴포넌트의 이름은 다음과 같은 용도로 사용됩니다:
+  The name of a component is used for the following:
 
-  - 컴포넌트 자체 템플릿에서 재귀적인 자기 참조
-  - Vue DevTools의 컴포넌트 검사 트리에서 표시
-  - 경고 컴포넌트 추적에서 표시
+  - Recursive self-reference in the component's own template
+  - Display in Vue DevTools' component inspection tree
+  - Display in warning component traces
 
-  단일 파일 컴포넌트(Single-File Components)를 사용하는 경우, 컴포넌트는 이미 파일 이름에서 추론된 이름을 가지게 됩니다. 예를 들어, `MyComponent.vue`라는 파일은 추론된 표시 이름이 "MyComponent"가 됩니다.
+  When you use Single-File Components, the component already infers its own name from the filename. For example, a file named `MyComponent.vue` will have the inferred display name "MyComponent".
 
-  또 다른 경우는 [`app.component`](/api/application#app-component)를 사용하여 전역으로 컴포넌트를 등록하는 경우, 전역 ID가 자동으로 이름으로 설정됩니다.
+  Another case is that when a component is registered globally with [`app.component`](/api/application#app-component), the global ID is automatically set as its name.
 
-  `name` 옵션을 사용하면 추론된 이름을 재정의하거나 이름을 명시적으로 제공할 수 있습니다 (빌드 도구를 사용하지 않거나 인라인된 비-SFC 컴포넌트를 사용하는 경우와 같이 이름을 추론할 수 없는 경우).
+  The `name` option allows you to override the inferred name, or to explicitly provide a name when no name can be inferred (e.g. when not using build tools, or an inlined non-SFC component).
 
-  `name`이 명시적으로 필요한 경우가 하나 있습니다: [`<KeepAlive>`](/guide/built-ins/keep-alive)의 `include / exclude` props에서 캐시 가능한 컴포넌트와 일치시킬 때입니다.
+  There is one case where `name` is explicitly necessary: when matching against cacheable components in [`<KeepAlive>`](/guide/built-ins/keep-alive) via its `include / exclude` props.
 
   :::tip
-  3.2.34 버전부터 `<script setup>`을 사용하는 단일 파일 컴포넌트는 `<KeepAlive>`와 함께 사용될 때도 이름을 수동으로 선언할 필요 없이 파일 이름을 기반으로 자동으로 `name` 옵션을 추론합니다.
+  Since version 3.2.34, a single-file component using `<script setup>` will automatically infer its `name` option based on the filename, removing the need to manually declare the name even when used with `<KeepAlive>`.
   :::
 
 ## inheritAttrs {#inheritattrs}
 
-기본 컴포넌트 속성 전달 동작을 활성화할지 여부를 제어합니다.
+Controls whether the default component attribute fallthrough behavior should be enabled.
 
-- **타입**
+- **Type**
 
   ```ts
   interface ComponentOptions {
-    inheritAttrs?: boolean // 기본값: true
+    inheritAttrs?: boolean // default: true
   }
   ```
 
-- **상세 정보**
+- **Details**
 
-  기본적으로, 부모 범위에서 인식되지 않는 속성 바인딩은 "전달됩니다(fallthrough)". 즉, 단일 루트 컴포넌트인 경우, 이러한 바인딩은 하위 컴포넌트의 루트 요소에 일반 HTML 속성으로 적용됩니다. 대상 요소나 다른 컴포넌트를 감싸는 컴포넌트를 작성할 때 항상 원하는 동작은 아닐 수 있습니다. `inheritAttrs`를 `false`로 설정하여 이 기본 동작을 비활성화할 수 있습니다. 속성은 `$attrs` 인스턴스 속성을 통해 사용할 수 있으며, `v-bind`를 사용하여 비루트 요소에 명시적으로 바인딩할 수 있습니다.
+  By default, parent scope attribute bindings that are not recognized as props will "fallthrough". This means that when we have a single-root component, these bindings will be applied to the root element of the child component as normal HTML attributes. When authoring a component that wraps a target element or another component, this may not always be the desired behavior. By setting `inheritAttrs` to `false`, this default behavior can be disabled. The attributes are available via the `$attrs` instance property and can be explicitly bound to a non-root element using `v-bind`.
 
-- **예시**
+- **Example**
 
   <div class="options-api">
 
@@ -76,7 +76,7 @@
   </div>
   <div class="composition-api">
 
-  `<script setup>`을 사용하는 컴포넌트에서 이 옵션을 선언할 때는 [`defineOptions`](/api/sfc-script-setup#defineoptions) 매크로를 사용할 수 있습니다:
+  When declaring this option in a component that uses `<script setup>`, you can use the [`defineOptions`](/api/sfc-script-setup#defineoptions) macro:
 
   ```vue
   <script setup>
@@ -101,16 +101,19 @@
 
   </div>
 
-- **참고** [전달 속성](/guide/components/attrs)
+- **See also**
+
+  - [Fallthrough Attributes](/guide/components/attrs)
   <div class="composition-api">
 
-  - [보통은 `<script>` 에서  `inheritAttrs`을 사용합니다](/api/sfc-script-setup#usage-alongside-normal-script)
+  - [Using `inheritAttrs` in normal `<script>`](/api/sfc-script-setup.html#usage-alongside-normal-script)
   </div>
+
 ## components {#components}
 
-컴포넌트 인스턴스에서 사용 가능하도록 컴포넌트를 등록하는 객체입니다.
+An object that registers components to be made available to the component instance.
 
-- **타입**
+- **Type**
 
   ```ts
   interface ComponentOptions {
@@ -118,7 +121,7 @@
   }
   ```
 
-- **예시**
+- **Example**
 
   ```js
   import Foo from './Foo.vue'
@@ -126,21 +129,21 @@
 
   export default {
     components: {
-      // 간략한 표현
+      // shorthand
       Foo,
-      // 다른 이름으로 등록
+      // register under a different name
       RenamedBar: Bar
     }
   }
   ```
 
-- **참고** [컴포넌트 등록](/guide/components/registration)
+- **See also** [Component Registration](/guide/components/registration)
 
 ## directives {#directives}
 
-컴포넌트 인스턴스에서 사용 가능하도록 디렉티브를 등록하는 객체입니다.
+An object that registers directives to be made available to the component instance.
 
-- **타입**
+- **Type**
 
   ```ts
   interface ComponentOptions {
@@ -148,14 +151,12 @@
   }
   ```
 
-- **예시**
+- **Example**
 
   ```js
-
-
   export default {
     directives: {
-      // 템플릿에서 v-focus 활성화
+      // enables v-focus in template
       focus: {
         mounted(el) {
           el.focus()
@@ -169,7 +170,4 @@
   <input v-focus>
   ```
 
-  컴포넌트 인스턴스에서 사용할 수 있도록 제공되는 디렉티브의 해시 객체입니다.
-
-- **참고** [사용자 정의 디렉티브](/guide/reusability/custom-directives)
-
+- **See also** [Custom Directives](/guide/reusability/custom-directives)

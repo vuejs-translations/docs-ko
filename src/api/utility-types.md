@@ -1,14 +1,14 @@
-# 유틸리티 타입 {#utility-types}
+# Utility Types {#utility-types}
 
-::: info
-이 페이지는 사용법에 대한 설명이 필요할 수 있는 몇 가지 일반적으로 사용되는 유틸리티 타입을 나열합니다. 내보낸 타입의 전체 목록을 확인하려면 [소스 코드](https://github.com/vuejs/core/blob/main/packages/runtime-core/src/index.ts#L131)를 참조하십시오.
+:::info
+This page only lists a few commonly used utility types that may need explanation for their usage. For a full list of exported types, consult the [source code](https://github.com/vuejs/core/blob/main/packages/runtime-core/src/index.ts#L131).
 :::
 
 ## PropType\<T> {#proptype-t}
 
-런타임 props 선언을 사용할 때 보다 고급 유형으로 prop을 주석 처리하는 데 사용됩니다.
+Used to annotate a prop with more advanced types when using runtime props declarations.
 
-- **예시**
+- **Example**
 
   ```ts
   import type { PropType } from 'vue'
@@ -22,7 +22,7 @@
   export default {
     props: {
       book: {
-        // `Object`에 더 구체적인 타입 제공
+        // provide more specific type to `Object`
         type: Object as PropType<Book>,
         required: true
       }
@@ -30,27 +30,27 @@
   }
   ```
 
-- **참고** [가이드 - 컴포넌트 Props 타이핑](/guide/typescript/options-api#typing-component-props)
+- **See also** [Guide - Typing Component Props](/guide/typescript/options-api#typing-component-props)
 
 ## MaybeRef\<T> {#mayberef}
 
-`T | Ref<T>`의 별칭입니다. [컴포저블](/guide/reusability/composables)의 인자를 주석 처리하는 데 유용합니다.
+- Only supported in 3.3+
 
-- 3.3+에서만 지원됩니다.
+Alias for `T | Ref<T>`. Useful for annotating arguments of [Composables](/guide/reusability/composables.html).
 
 ## MaybeRefOrGetter\<T> {#maybereforgetter}
 
-`T | Ref<T> | (() => T)`의 별칭입니다. [컴포저블](/guide/reusability/composables)의 인자를 주석 처리하는 데 유용합니다.
+- Only supported in 3.3+
 
-- 3.3+에서만 지원됩니다.
+Alias for `T | Ref<T> | (() => T)`. Useful for annotating arguments of [Composables](/guide/reusability/composables.html).
 
 ## ExtractPropTypes\<T> {#extractproptypes}
 
-런타임 props 옵션 객체에서 prop 타입을 추출합니다. 추출된 타입은 내부 지향적입니다 - 즉, 컴포넌트가 받는 해결된 props입니다. 이는 boolean props와 기본값이 있는 props는 필수가 아니더라도 항상 정의된다는 것을 의미합니다.
+Extract prop types from a runtime props options object. The extracted types are internal facing - i.e. the resolved props received by the component. This means boolean props and props with default values are always defined, even if they are not required.
 
-부모가 전달할 수 있는 props, 즉 공개적으로 직면하는 props를 추출하려면 [`ExtractPublicPropTypes`](#extractpublicproptypes)를 사용하세요.
+To extract public facing props, i.e. props that the parent is allowed to pass, use [`ExtractPublicPropTypes`](#extractpublicproptypes).
 
-- **예시**
+- **Example**
 
   ```ts
   const propsOptions = {
@@ -77,11 +77,11 @@
 
 ## ExtractPublicPropTypes\<T> {#extractpublicproptypes}
 
-런타임 props 옵션 객체에서 prop 타입을 추출합니다. 추출된 타입은 공개적으로 직면합니다 - 즉, 부모가 전달할 수 있는 props입니다.
+- Only supported in 3.3+
 
-- 3.3+에서만 지원됩니다.
+Extract prop types from a runtime props options object. The extracted types are public facing - i.e. the props that the parent is allowed to pass.
 
-- **예시**
+- **Example**
 
   ```ts
   const propsOptions = {
@@ -108,9 +108,9 @@
 
 ## ComponentCustomProperties {#componentcustomproperties}
 
-컴포넌트 인스턴스 타입을 사용자 정의 전역 속성을 지원하도록 확장하는 데 사용됩니다.
+Used to augment the component instance type to support custom global properties.
 
-- **예시**
+- **Example**
 
   ```ts
   import axios from 'axios'
@@ -124,16 +124,16 @@
   ```
 
   :::tip
-  확장은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 더 자세한 내용은 [타입 확장 위치](/guide/typescript/options-api#augmenting-global-properties)를 참조하세요.
+  Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api#augmenting-global-properties) for more details.
   :::
 
-- **참고** [가이드 - 전역 속성 확장](/guide/typescript/options-api#augmenting-global-properties)
+- **See also** [Guide - Augmenting Global Properties](/guide/typescript/options-api#augmenting-global-properties)
 
 ## ComponentCustomOptions {#componentcustomoptions}
 
-사용자 정의 옵션을 지원하도록 컴포넌트 옵션 타입을 확장하는 데 사용됩니다.
+Used to augment the component options type to support custom options.
 
-- **예시**
+- **Example**
 
   ```ts
   import { Route } from 'vue-router'
@@ -146,16 +146,16 @@
   ```
 
   :::tip
-  확장은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 더 자세한 내용은 [타입 확장 위치](/guide/typescript/options-api#augmenting-global-properties)를 참조하세요.
+  Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api#augmenting-global-properties) for more details.
   :::
 
-- **참고** [가이드 - 사용자 정의 옵션 확장](/guide/typescript/options-api#augmenting-custom-options)
+- **See also** [Guide - Augmenting Custom Options](/guide/typescript/options-api#augmenting-custom-options)
 
 ## ComponentCustomProps {#componentcustomprops}
 
-TSX 요소에서 선언되지 않은 props를 사용하기 위해 허용된 TSX props를 확장하는 데 사용됩니다.
+Used to augment allowed TSX props in order to use non-declared props on TSX elements.
 
-- **예시**
+- **Example**
 
   ```ts
   declare module 'vue' {
@@ -168,21 +168,21 @@ TSX 요소에서 선언되지 않은 props를 사용하기 위해 허용된 TSX 
   ```
 
   ```tsx
-  // 이제 hello가 선언된 prop이 아니더라도 작동합니다
+  // now works even if hello is not a declared prop
   <MyComponent hello="world" />
   ```
 
   :::tip
-  확장은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 더 자세한 내용은 [타입 확장 위치](/guide/typescript/options-api#augmenting-global-properties)를 참조하세요.
+  Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api#augmenting-global-properties) for more details.
   :::
 
 ## CSSProperties {#cssproperties}
 
-스타일 속성 바인딩에서 허용되는 값에 추가하는 데 사용됩니다.
+Used to augment allowed values in style property bindings.
 
-- **예시**
+- **Example**
 
-  모든 사용자 정의 CSS 속성 허용
+  Allow any custom CSS property
 
   ```ts
   declare module 'vue' {
@@ -200,12 +200,12 @@ TSX 요소에서 선언되지 않은 props를 사용하기 위해 허용된 TSX 
   <div :style="{ '--bg-color': 'blue' }"></div>
   ```
 
-::: tip
-확장은 모듈 `.ts` 또는 `.d.ts` 파일에 배치해야 합니다. 더 자세한 내용은 [타입 확장 위치](/guide/typescript/options-api#augmenting-global-properties)를 참조하세요.
+:::tip
+Augmentations must be placed in a module `.ts` or `.d.ts` file. See [Type Augmentation Placement](/guide/typescript/options-api#augmenting-global-properties) for more details.
 :::
 
-::: info 참고
-SFC `<style>` 태그는 CSS 값과 동적 컴포넌트 상태를 `v-bind` CSS 함수를 사용하여 연결할 수 있게 지원하여, 타입 확장 없이 사용자 정의 속성을 가능하게 합니다.
+:::info See also
+SFC `<style>` tags support linking CSS values to dynamic component state using the `v-bind` CSS function. This allows for custom properties without type augmentation.
 
-- [CSS에서의 v-bind()](/api/sfc-css-features#v-bind-in-css)
+- [v-bind() in CSS](/api/sfc-css-features#v-bind-in-css)
   :::

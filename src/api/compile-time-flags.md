@@ -2,41 +2,43 @@
 outline: deep
 ---
 
-# 컴파일 타임 플래그(Compile-Time Flags) {#compile-time-flags}
+# Compile-Time Flags {#compile-time-flags}
 
 :::tip
-Compile-time 플래그는 Vue의 `esm-bundler` 빌드를 사용할 때만 적용됩니다 (즉, `vue/dist/vue.esm-bundler.js`).
+Compile-time flags only apply when using the `esm-bundler` build of Vue (i.e. `vue/dist/vue.esm-bundler.js`).
 :::
 
-빌드 단계에서 Vue를 사용할 때, 특정 기능을 활성화/비활성화하기 위해 다양한 컴파일 타임 플래그를 설정할 수 있습니다. 컴파일 타임 플래그를 사용하는 이점은 이 방식으로 비활성화된 기능들이 트리 쉐이킹을 통해 최종 번들에서 제거될 수 있다는 것입니다.
+When using Vue with a build step, it is possible to configure a number of compile-time flags to enable / disable certain features. The benefit of using compile-time flags is that features disabled this way can be removed from the final bundle via tree-shaking.
 
-이러한 플래그들이 명시적으로 설정되지 않더라도 Vue는 작동합니다. 그러나 가능한 경우 관련 기능이 제대로 제거될 수 있도록 항상 이들을 설정하는 것이 권장됩니다.
+Vue will work even if these flags are not explicitly configured. However, it is recommended to always configure them so that the relevant features can be properly removed when possible.
 
-빌드 도구에 따라 이들을 어떻게 설정하는지에 대해서는 [설정 가이드](#configuration-guides)를 참조하세요.
+See [Configuration Guides](#configuration-guides) on how to configure them depending on your build tool.
 
 ## `__VUE_OPTIONS_API__` {#VUE_OPTIONS_API}
 
-- **기본값:** `true`
+- **Default:** `true`
 
-  옵션 API 지원 활성화 / 비활성화. 이를 비활성화하면 번들 크기가 줄어들지만, 옵션 API에 의존하는 제3자 라이브러리와의 호환성에 영향을 미칠 수 있습니다.
+  Enable / disable Options API support. Disabling this will result in smaller bundles, but may affect compatibility with 3rd party libraries if they rely on Options API.
 
 ## `__VUE_PROD_DEVTOOLS__` {#VUE_PROD_DEVTOOLS}
 
-- **기본값:** `false`
+- **Default:** `false`
 
-  프로덕션 빌드에서 devtools 지원 활성화 / 비활성화. 이로 인해 번들에 더 많은 코드가 포함될 수 있으므로, 디버깅 목적으로만 이를 활성화하는 것이 권장됩니다.
+  Enable / disable devtools support in production builds. This will result in more code included in the bundle, so it is recommended to only enable this for debugging purposes.
 
-## `__VUE_PROD_HYDRATION_MISMATCH_DETAILS__` <sup class="vt-badge" data-text="3.4+" /> {#VUE_PROD_HYDRATION_MISMATCH_DETAILS}
+## `__VUE_PROD_HYDRATION_MISMATCH_DETAILS__` {#VUE_PROD_HYDRATION_MISMATCH_DETAILS}
 
-- **기본값:** `false`
+- **Default:** `false`
 
-  프로덕션 빌드에서 수화 불일치에 대한 자세한 경고 활성화/비활성화. 이로 인해 번들에 더 많은 코드가 포함될 수 있으므로, 디버깅 목적으로만 이를 활성화하는 것이 권장됩니다.
+  Enable/disable detailed warnings for hydration mismatches in production builds. This will result in more code included in the bundle, so it is recommended to only enable this for debugging purposes.
 
-## 설정 가이드 {#configuration-guides}
+- Only available in 3.4+
+
+## Configuration Guides {#configuration-guides}
 
 ### Vite {#vite}
 
-`@vitejs/plugin-vue`는 이러한 플래그들에 대해 자동으로 기본값을 제공합니다. 기본값을 변경하려면 Vite의 [`define` 구성 옵션](https://vitejs.dev/config/shared-options.html#define)을 사용하세요:
+`@vitejs/plugin-vue` automatically provides default values for these flags. To change the default values, use Vite's [`define` config option](https://vitejs.dev/config/shared-options.html#define):
 
 ```js
 // vite.config.js
@@ -44,7 +46,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   define: {
-    // 프로덕션 빌드에서 수화 불일치 세부사항 활성화
+    // enable hydration mismatch details in production build
     __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
   }
 })
@@ -52,7 +54,7 @@ export default defineConfig({
 
 ### vue-cli {#vue-cli}
 
-`@vue/cli-service`는 이러한 플래그들 중 일부에 대해 자동으로 기본값을 제공합니다. 값을 설정/변경하려면:
+`@vue/cli-service` automatically provides default values for some of these flags. To configure /change the values:
 
 ```js
 // vue.config.js
@@ -72,7 +74,7 @@ module.exports = {
 
 ### webpack {#webpack}
 
-플래그는 webpack의 [DefinePlugin](https://webpack.js.org/plugins/define-plugin/)을 사용하여 정의해야 합니다:
+Flags should be defined using webpack's [DefinePlugin](https://webpack.js.org/plugins/define-plugin/):
 
 ```js
 // webpack.config.js
@@ -90,7 +92,7 @@ module.exports = {
 
 ### Rollup {#rollup}
 
-플래그는 [@rollup/plugin-replace](https://github.com/rollup/plugins/tree/master/packages/replace)를 사용하여 정의해야 합니다:
+Flags should be defined using [@rollup/plugin-replace](https://github.com/rollup/plugins/tree/master/packages/replace):
 
 ```js
 // rollup.config.js

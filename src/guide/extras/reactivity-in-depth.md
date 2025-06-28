@@ -6,19 +6,19 @@ outline: deep
 import SpreadSheet from './demos/SpreadSheet.vue'
 </script>
 
-# 반응형 심화 {#reactivity-in-depth}
+# Reactivity in Depth {#reactivity-in-depth}
 
-Vue의 가장 독특한 기능 중 하나는 눈에 거슬리지 않는 반응성 시스템입니다. 컴포넌트 상태는 반응형 자바스크립트 객체로 구성됩니다. 이를 수정하면 뷰가 업데이트됩니다. 상태 관리를 간단하고 직관적으로 만들지만 몇 가지 일반적인 문제를 피하려면 작동 방식을 이해하는 것도 중요합니다. 이 섹션에서는 Vue의 반응성 시스템에 대한 몇 가지 하위 수준의 세부 사항을 살펴보겠습니다.
+One of Vue’s most distinctive features is the unobtrusive reactivity system. Component state consists of reactive JavaScript objects. When you modify them, the view updates. It makes state management simple and intuitive, but it’s also important to understand how it works to avoid some common gotchas. In this section, we are going to dig into some of the lower-level details of Vue’s reactivity system.
 
-## 반응형이란? {#what-is-reactivity}
+## What is Reactivity? {#what-is-reactivity}
 
-요즘 프로그래밍에서 이 용어가 자주 등장하는데, 사람들이 이 말을 할 때 무슨 뜻일까요? 반응성은 선언적인 방식으로 변화에 적응할 수 있는 프로그래밍 패러다임입니다. 반응형 프로그래밍이 훌륭하기 때문에 사람들이 일반적으로 보여주는 대표적인 예는 Excel 스프레드시트입니다:
+This term comes up in programming quite a bit these days, but what do people mean when they say it? Reactivity is a programming paradigm that allows us to adjust to changes in a declarative manner. The canonical example that people usually show, because it’s a great one, is an Excel spreadsheet:
 
 <SpreadSheet />
 
-여기서 A2 셀은 `= A0 + A1`의 수식을 통해 정의되므로(A2를 클릭하여 수식을 보거나 편집할 수 있음) 스프레드시트는 우리에게 3을 제공합니다. 그리고 A0 또는 A1을 업데이트하면, A2도 자동으로 업데이트됨을 알 수 있습니다.
+Here cell A2 is defined via a formula of `= A0 + A1` (you can click on A2 to view or edit the formula), so the spreadsheet gives us 3. No surprises there. But if you update A0 or A1, you'll notice that A2 automagically updates too.
 
-JavaScript는 일반적으로 이렇게 작동하지 않습니다. JavaScript에서 비슷한 것을 작성한다면:
+JavaScript doesn’t usually work like this. If we were to write something comparable in JavaScript:
 
 ```js
 let A0 = 1
@@ -28,12 +28,12 @@ let A2 = A0 + A1
 console.log(A2) // 3
 
 A0 = 2
-console.log(A2) // 여전히 3
+console.log(A2) // Still 3
 ```
 
-`A0`을 변경한다고 `A2`가 자동으로 변경되지 않습니다.
+When we mutate `A0`, `A2` does not change automatically.
 
-그러면 JavaScript에서 이것을 어떻게 해야 할까요? 먼저 `A2`를 업데이트하는 코드를 다시 실행하기 위해 다음과 같이 함수로 래핑합니다:
+So how would we do this in JavaScript? First, in order to re-run the code that updates `A2`, let's wrap it in a function:
 
 ```js
 let A2
@@ -43,31 +43,31 @@ function update() {
 }
 ```
 
-그런 다음 몇 가지 용어를 정의해야 합니다:
+Then, we need to define a few terms:
 
-- `update()` 함수는 프로그램의 상태를 수정하기 때문에 "**사이드 이펙트**" 줄여서 "**이펙트**"를 생성합니다.
+- The `update()` function produces a **side effect**, or **effect** for short, because it modifies the state of the program.
 
-- `A0` 및 `A1`은 해당 값이 이펙트를 수행하는 데 사용되므로 이펙트의 "**의존성**"(dependency)으로 간주됩니다. 그 이펙트는 의존성에 대한 "**구독자**"(subscriber)라고 합니다.
+- `A0` and `A1` are considered **dependencies** of the effect, as their values are used to perform the effect. The effect is said to be a **subscriber** to its dependencies.
 
-우리에게 필요한 것은 `A0` 또는 `A1`(**의존성**)이 변경될 때마다 `update()`(**이펙트**)를 호출할 수 있는 함수입니다:
+What we need is a magic function that can invoke `update()` (the **effect**) whenever `A0` or `A1` (the **dependencies**) change:
 
 ```js
 whenDepsChange(update)
 ```
 
-이 `whenDepsChange()` 함수에는 다음과 같은 작업이 있습니다:
+This `whenDepsChange()` function has the following tasks:
 
-1. 변수가 읽힐 때를 추적합니다. 예를 들어 `A0 + A1` 표현식을 평가할 때 `A0`과 `A1`이 모두 읽힙니다.
+1. Track when a variable is read. E.g. when evaluating the expression `A0 + A1`, both `A0` and `A1` are read.
 
-2. 현재 실행 중인 이펙트가 있을 때 변수를 읽으면, 해당 이펙트를 해당 변수의 구독자로 만듭니다. 예를 들어 `A0`과 `A1`은 `update()`가 실행될 때 읽히기 때문에 `update()`는 첫 번째 호출 이후에 `A0`과 `A1`의 구독자가 됩니다.
+2. If a variable is read when there is a currently running effect, make that effect a subscriber to that variable. E.g. because `A0` and `A1` are read when `update()` is being executed, `update()` becomes a subscriber to both `A0` and `A1` after the first call.
 
-3. 변수가 언제 변이되는지 감지합니다. 예를 들어 `A0`에 새 값이 할당되면, 모든 구독자 이펙트에 다시 실행하도록 알립니다.
+3. Detect when a variable is mutated. E.g. when `A0` is assigned a new value, notify all its subscriber effects to re-run.
 
-## Vue에서 반응형 작동 방식 {#how-reactivity-works-in-vue}
+## How Reactivity Works in Vue {#how-reactivity-works-in-vue}
 
-예제에서처럼 로컬 변수의 읽기 및 쓰기를 추적할 수는 없습니다. 바닐라 자바스크립트에는 이를 수행할 수 있는 메커니즘이 없기 때문입니다. 하지만 우리가 할 수 있는 것은 **객체 속성**의 읽기 및 쓰기를 가로채는 것입니다.
+We can't really track the reading and writing of local variables like in the example. There's just no mechanism for doing that in vanilla JavaScript. What we **can** do though, is intercept the reading and writing of **object properties**.
 
-JavaScript에서 속성 접근을 가로채는 두 가지 방법이 있습니다: [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description) / [setter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set#description)와 [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)입니다. Vue 2는 브라우저 지원 제한으로 인해 getter / setter만 사용했습니다. Vue 3에서는 반응형 객체에 Proxy를 사용하고, ref에 getter / setter를 사용합니다. 다음은 그들이 어떻게 작동하는지를 보여주는 의사 코드입니다:
+There are two ways of intercepting property access in JavaScript: [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description) / [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set#description) and [Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). Vue 2 used getter / setters exclusively due to browser support limitations. In Vue 3, Proxies are used for reactive objects and getter / setters are used for refs. Here's some pseudo-code that illustrates how they work:
 
 ```js{4,9,17,22}
 function reactive(obj) {
@@ -99,20 +99,20 @@ function ref(value) {
 ```
 
 :::tip
-여기와 아래의 코드 스니펫은 가능한 한 간단한 형태로 핵심 개념을 설명하기 위한 것이기 때문에 많은 세부 사항은 생략되고 예외적인 케이스는 무시됩니다.
+Code snippets here and below are meant to explain the core concepts in the simplest form possible, so many details are omitted, and edge cases ignored.
 :::
 
-아래는 우리가 기초 섹션에서 논의한 몇 가지 [반응형의 제한 사항](/guide/essentials/reactivity-fundamentals#limitations-of-reactive)입니다:
+This explains a few [limitations of reactive objects](/guide/essentials/reactivity-fundamentals#limitations-of-reactive) that we have discussed in the fundamentals section:
 
-- 반응형 객체의 속성을 로컬 변수에 할당하거나 해체할 때, 해당 변수에 접근하거나 할당하는 것은 비반응형(non-reactive)입니다. 이는 소스 객체의 get/set 프록시 트랩을 더 이상 트리거하지 않기 때문입니다. 이러한 "끊김(disconnect)"은 변수 바인딩에만 영향을 미칩니다. 변수가 객체와 같은 원시 타입이 아닌 값을 가리키는 경우, 해당 객체를 수정하는 것은 여전히 반응형으로 동작합니다.
+- When you assign or destructure a reactive object's property to a local variable, accessing or assigning to that variable is non-reactive because it no longer triggers the get / set proxy traps on the source object. Note this "disconnect" only affects the variable binding - if the variable points to a non-primitive value such as an object, mutating the object would still be reactive.
 
-- `reactive()`에서 반환된 프록시는 원본과 동일하게 동작하지만 `===` 연산자를 사용하여 원본과 비교하면 다른 ID를 갖습니다.
+- The returned proxy from `reactive()`, although behaving just like the original, has a different identity if we compare it to the original using the `===` operator.
 
-`track()` 내부에서 현재 실행 중인 이펙트가 있는지 확인합니다. 존재하는 경우, 추적 중인 속성에 대한 구독자 이펙트(Set에 저장됨)를 조회하고 이펙트를 Set에 추가합니다.
+Inside `track()`, we check whether there is a currently running effect. If there is one, we lookup the subscriber effects (stored in a Set) for the property being tracked, and add the effect to the Set:
 
 ```js
-// 이펙트가 실행되기 직전에 설정됩니다.
-// 우리는 나중에 이것에 대해 다룰 것입니다.
+// This will be set right before an effect is about
+// to be run. We'll deal with this later.
 let activeEffect
 
 function track(target, key) {
@@ -123,9 +123,9 @@ function track(target, key) {
 }
 ```
 
-이펙트 구독은 전역 `WeakMap<target, Map<key, Set<effect>>>` 데이터 구조에 저장됩니다. 속성에 대한 구독 이펙트 Set이 발견되지 않은 경우(처음 추적 시) 생성됩니다. 이것이 `getSubscribersForProperty()` 함수가 하는 일입니다. 간단하게 하기 위해 자세한 내용은 건너뛰겠습니다.
+Effect subscriptions are stored in a global `WeakMap<target, Map<key, Set<effect>>>` data structure. If no subscribing effects Set was found for a property (tracked for the first time), it will be created. This is what the `getSubscribersForProperty()` function does, in short. For simplicity, we will skip its details.
 
-`trigger()` 내부에서 속성에 대한 구독자 이펙트를 다시 조회합니다. 그러나 이번에는 우리가 그것들을 대신 호출합니다:
+Inside `trigger()`, we again lookup the subscriber effects for the property. But this time we invoke them instead:
 
 ```js
 function trigger(target, key) {
@@ -134,7 +134,7 @@ function trigger(target, key) {
 }
 ```
 
-이제 다시 `whenDepsChange()` 함수로 돌아가 보겠습니다:
+Now let's circle back to the `whenDepsChange()` function:
 
 ```js
 function whenDepsChange(update) {
@@ -147,11 +147,11 @@ function whenDepsChange(update) {
 }
 ```
 
-실제 업데이트를 실행하기 전에 자신을 현재 활성 이펙트로 설정하는 이펙트에 로우(raw) `업데이트` 함수를 래핑합니다. 이것은 현재 활성 이펙트를 찾기 위해 업데이트 동안 `track()` 호출을 활성화합니다.
+It wraps the raw `update` function in an effect that sets itself as the current active effect before running the actual update. This enables `track()` calls during the update to locate the current active effect.
 
-이 시점에서 의존성을 자동으로 추적하고 의존성이 변경될 때마다 다시 실행하는 이펙트를 만들었습니다. 우리는 이것을 **반응 이펙트**(Reactive Effect)라고 부릅니다.
+At this point, we have created an effect that automatically tracks its dependencies, and re-runs whenever a dependency changes. We call this a **Reactive Effect**.
 
-Vue는 반응 이펙트를 생성할 수 있는 [`watchEffect()`](/api/reactivity-core#watcheffect) API를 제공합니다. 사실, 예제의 `whenDepsChange()`와 매우 유사하게 작동한다는 것을 눈치채셨을 것입니다. 이제 실제 Vue API를 사용하여 원래 예제를 다시 작업할 수 있습니다:
+Vue provides an API that allows you to create reactive effects: [`watchEffect()`](/api/reactivity-core#watcheffect). In fact, you may have noticed that it works pretty similarly to the magical `whenDepsChange()` in the example. We can now rework the original example using actual Vue APIs:
 
 ```js
 import { ref, watchEffect } from 'vue'
@@ -161,15 +161,15 @@ const A1 = ref(1)
 const A2 = ref()
 
 watchEffect(() => {
-  // A0과 A1을 추적함
+  // tracks A0 and A1
   A2.value = A0.value + A1.value
 })
 
-// 이펙트가 트리거됨
+// triggers the effect
 A0.value = 2
 ```
 
-반응 이펙트를 사용하여 ref를 변경하는 것이 가장 흥미로운 사용 사례는 아닙니다. 계산된 속성을 사용하면 더 선언적입니다:
+Using a reactive effect to mutate a ref isn't the most interesting use case - in fact, using a computed property makes it more declarative:
 
 ```js
 import { ref, computed } from 'vue'
@@ -181,9 +181,9 @@ const A2 = computed(() => A0.value + A1.value)
 A0.value = 2
 ```
 
-내부적으로 `computed`는 무효화 및 재계산을 반응 이펙트를 사용하여 관리합니다.
+Internally, `computed` manages its invalidation and re-computation using a reactive effect.
 
-그렇다면 일반적이고 유용한 반응 이펙트의 예는 무엇일까요? DOM을 업데이트 하는 것입니다! 다음과 같이 간단한 "반응형 렌더링"을 구현할 수 있습니다:
+So what's an example of a common and useful reactive effect? Well, updating the DOM! We can implement simple "reactive rendering" like this:
 
 ```js
 import { ref, watchEffect } from 'vue'
@@ -191,36 +191,36 @@ import { ref, watchEffect } from 'vue'
 const count = ref(0)
 
 watchEffect(() => {
-  document.body.innerHTML = `숫자 세기: ${count.value}`
+  document.body.innerHTML = `Count is: ${count.value}`
 })
 
-// DOM 업데이트
+// updates the DOM
 count.value++
 ```
 
-사실 이것은 Vue 컴포넌트가 상태와 DOM을 동기화 상태로 유지하는 방법과 매우 유사합니다. 각 컴포넌트 인스턴스는 DOM을 렌더링하고 업데이트하는 반응 이펙트를 생성합니다. 물론 Vue 컴포넌트는 `innerHTML`보다 훨씬 더 효율적인 방법으로 DOM을 업데이트합니다. 이것은 [렌더링 메커니즘](./rendering-mechanism)에서 논의됩니다.
+In fact, this is pretty close to how a Vue component keeps the state and the DOM in sync - each component instance creates a reactive effect to render and update the DOM. Of course, Vue components use much more efficient ways to update the DOM than `innerHTML`. This is discussed in [Rendering Mechanism](./rendering-mechanism).
 
 <div class="options-api">
 
-`ref()`, `computed()` 및 `watchEffect()` API는 모두 컴포지션 API의 일부입니다. 지금까지 Vue에서 옵션 API만 사용했다면, 컴포지션 API가 Vue의 반응형 시스템 작동 방식에 더 가깝다는 것을 알 수 있습니다. 사실, Vue 3에서 옵션 API는 컴포지션 API 위에 구현됩니다. 컴포넌트 인스턴스(`this`)에 대한 모든 속성 접근은 반응형 추적을 위해 getter/setter를 트리거하고 `watch` 및 `computed`와 같은 옵션은 내부적으로 해당 컴포지션 API를 호출합니다.
+The `ref()`, `computed()` and `watchEffect()` APIs are all part of the Composition API. If you have only been using Options API with Vue so far, you'll notice that Composition API is closer to how Vue's reactivity system works under the hood. In fact, in Vue 3 the Options API is implemented on top of the Composition API. All property access on the component instance (`this`) triggers getter / setters for reactivity tracking, and options like `watch` and `computed` invoke their Composition API equivalents internally.
 
 </div>
 
-## 런타임 (실행 시) vs. 컴파일 타임 (컴파일 시) 반응형 {#runtime-vs-compile-time-reactivity}
+## Runtime vs. Compile-time Reactivity {#runtime-vs-compile-time-reactivity}
 
-Vue의 반응성 시스템은 주로 런타임 기반입니다. 추적 및 트리거는 코드가 브라우저에서 직접 실행되는 동안 수행됩니다. 런타임 반응성의 장점은 빌드 단계 없이 작동하며 예외 상황이 더 적습니다. 반면에 JavaScript의 구문 제한 때문에 구문 제한이 있는 JavaScript 값 컨테이너인 Vue refs와 같은 값 컨테이너의 필요성이 생깁니다.
+Vue's reactivity system is primarily runtime-based: the tracking and triggering are all performed while the code is running directly in the browser. The pros of runtime reactivity are that it can work without a build step, and there are fewer edge cases. On the other hand, this makes it constrained by the syntax limitations of JavaScript, leading to the need of value containers like Vue refs.
 
-[Svelte](https://svelte.dev/)와 같은 몇몇 프레임워크는 컴파일 중에 반응성을 구현하여 이러한 제한을 극복하기로 선택합니다. 이 프레임워크는 코드를 분석하고 변환하여 반응성을 시뮬레이션합니다. 컴파일 단계를 통해 프레임워크는 JavaScript 자체의 의미를 변경할 수 있습니다. 예를 들어 로컬로 정의된 변수에 대한 액세스 주변의 종속성 분석 및 효과 트리거를 수행하는 코드를 암시적으로 삽입할 수 있습니다. 단점은 이러한 변환이 빌드 단계를 필요로 하며, JavaScript 의미를 변경하는 것은 본질적으로 JavaScript처럼 보이지만 다른 것으로 컴파일되는 언어를 생성하는 것입니다.
+Some frameworks, such as [Svelte](https://svelte.dev/), choose to overcome such limitations by implementing reactivity during compilation. It analyzes and transforms the code in order to simulate reactivity. The compilation step allows the framework to alter the semantics of JavaScript itself - for example, implicitly injecting code that performs dependency analysis and effect triggering around access to locally defined variables. The downside is that such transforms require a build step, and altering JavaScript semantics is essentially creating a language that looks like JavaScript but compiles into something else.
 
-Vue 팀은 이 방향을 탐색하기 위해 [Reactivity Transform](/guide/extras/reactivity-transform)이라는 실험적인 기능을 통해 이를 탐색했지만, 결국 [여기에서 설명된 이유](https://github.com/vuejs/rfcs/discussions/369#discussioncomment-5059028) 때문에 프로젝트에 적합하지 않다고 결정했습니다.
+The Vue team did explore this direction via an experimental feature called [Reactivity Transform](/guide/extras/reactivity-transform), but in the end we have decided that it would not be a good fit for the project due to [the reasoning here](https://github.com/vuejs/rfcs/discussions/369#discussioncomment-5059028).
 
-## 반응형 디버깅 {#reactivity-debugging}
+## Reactivity Debugging {#reactivity-debugging}
 
-Vue의 반응성 시스템이 종속성을 자동으로 추적하는 것은 훌륭하지만, 어떤 경우에는 추적 대상 또는 컴포넌트가 다시 렌더링되는 원인을 정확히 파악하고 싶을 수 있습니다.
+It's great that Vue's reactivity system automatically tracks dependencies, but in some cases we may want to figure out exactly what is being tracked, or what is causing a component to re-render.
 
-### 컴포넌트 디버깅 훅 {#component-debugging-hooks}
+### Component Debugging Hooks {#component-debugging-hooks}
 
-컴포넌트의 렌더링 중에 사용되는 의존성과 <span class="options-api">`renderTracked`</span><span class="composition-api">`onRenderTracked`</span> 및 <span class="options-api">`renderTriggered`</span><span class="composition-api">`onRenderTriggered`</span> 생명 주기 훅을 사용하여 업데이트를 트리거하는 의존성을 디버그할 수 있습니다. 두 훅 모두 해당 의존성에 대한 정보가 포함된 디버거 이벤트를 수신합니다. 의존성을 대화식으로 검사하기 위해 콜백에 `debugger` 문을 배치하는 것이 좋습니다:
+We can debug what dependencies are used during a component's render and which dependency is triggering an update using the <span class="options-api">`renderTracked`</span><span class="composition-api">`onRenderTracked`</span> and <span class="options-api">`renderTriggered`</span><span class="composition-api">`onRenderTriggered`</span> lifecycle hooks. Both hooks will receive a debugger event which contains information on the dependency in question. It is recommended to place a `debugger` statement in the callbacks to interactively inspect the dependency:
 
 <div class="composition-api">
 
@@ -255,10 +255,10 @@ export default {
 </div>
 
 :::tip
-컴포넌트 디버그 훅은 개발 모드에서만 작동합니다.
+Component debug hooks only work in development mode.
 :::
 
-디버그 이벤트 객체의 타입은 다음과 같습니다:
+The debug event objects have the following type:
 
 <span id="debugger-event"></span>
 
@@ -276,45 +276,45 @@ type DebuggerEvent = {
 }
 ```
 
-### 계산된 속성 디버깅 {#computed-debugging}
+### Computed Debugging {#computed-debugging}
 
 <!-- TODO options API equivalent -->
 
-`onTrack` 및 `onTrigger` 콜백이 있는 두 번째 옵션 객체를 `computed()`에 전달하여 계산된 속성을 디버그할 수 있습니다:
+We can debug computed properties by passing `computed()` a second options object with `onTrack` and `onTrigger` callbacks:
 
-- `onTrack`은 반응 속성 또는 ref가 의존성으로 추적될 때 호출됩니다.
-- `onTrigger`는 의존성의 변경에 의해 감시자 콜백이 트리거될 때 호출됩니다.
+- `onTrack` will be called when a reactive property or ref is tracked as a dependency.
+- `onTrigger` will be called when the watcher callback is triggered by the mutation of a dependency.
 
-두 콜백 모두 컴포넌트 디버그 훅과 [동일한 형식](#debugger-event)의 디버거 이벤트를 수신합니다:
+Both callbacks will receive debugger events in the [same format](#debugger-event) as component debug hooks:
 
 ```js
 const plusOne = computed(() => count.value + 1, {
   onTrack(e) {
-    // count.value가 의존성으로 추적될 때 트리거됩니다.
+    // triggered when count.value is tracked as a dependency
     debugger
   },
   onTrigger(e) {
-    // count.value가 변경되면 트리거됩니다.
+    // triggered when count.value is mutated
     debugger
   }
 })
 
-// plusOne에 접근, onTrack을 트리거해야 합니다.
+// access plusOne, should trigger onTrack
 console.log(plusOne.value)
 
-// count.value를 변경, onTrigger를 트리거해야 합니다.
+// mutate count.value, should trigger onTrigger
 count.value++
 ```
 
 :::tip
-계산된 속성의 `onTrack` 및 `onTrigger` 옵션은 개발 모드에서만 작동합니다.
+`onTrack` and `onTrigger` computed options only work in development mode.
 :::
 
-### 감시자 디버깅 {#watcher-debugging}
+### Watcher Debugging {#watcher-debugging}
 
 <!-- TODO options API equivalent -->
 
-`computed()`와 유사하게 감시자는 `onTrack` 및 `onTrigger` 옵션을 지원합니다:
+Similar to `computed()`, watchers also support the `onTrack` and `onTrigger` options:
 
 ```js
 watch(source, callback, {
@@ -337,22 +337,22 @@ watchEffect(callback, {
 ```
 
 :::tip
-감시자의 `onTrack` 및 `onTrigger` 옵션은 개발 모드에서만 작동합니다.
+`onTrack` and `onTrigger` watcher options only work in development mode.
 :::
 
-## 외부 상태 시스템과의 통합 {#integration-with-external-state-systems}
+## Integration with External State Systems {#integration-with-external-state-systems}
 
-Vue의 반응형 시스템은 일반 JavaScript 객체를 반응형 프록시로 깊이 변환하여 작동합니다. 깊은 변환은 외부 상태 관리 시스템과 통합할 때 필요하지 않거나 때때로 원하지 않을 수 있습니다(예: 외부 솔루션도 프록시를 사용하는 경우).
+Vue's reactivity system works by deeply converting plain JavaScript objects into reactive proxies. The deep conversion can be unnecessary or sometimes unwanted when integrating with external state management systems (e.g. if an external solution also uses Proxies).
 
-Vue의 반응형 시스템을 외부 상태 관리 솔루션과 통합하는 일반적인 아이디어는 외부 상태를 [`shallowRef`](/api/reactivity-advanced#shallowref)에 유지하는 것입니다. 얕은 참조는 `.value` 속성에 접근할 때만 반응합니다. 내부 값은 그대로 유지됩니다. 외부 상태가 변경되면 ref 값을 교체하여 업데이트를 트리거합니다.
+The general idea of integrating Vue's reactivity system with an external state management solution is to hold the external state in a [`shallowRef`](/api/reactivity-advanced#shallowref). A shallow ref is only reactive when its `.value` property is accessed - the inner value is left intact. When the external state changes, replace the ref value to trigger updates.
 
-### 불변 데이터 {#immutable-data}
+### Immutable Data {#immutable-data}
 
-실행 취소/다시 실행 기능을 구현하는 경우, 사용자가 편집할 때마다 앱 상태의 스냅샷을 찍고 싶을 것입니다. 그러나 Vue의 변경 가능한 반응형 시스템은 상태 트리가 큰 경우 적합하지 않습니다. 모든 업데이트에서 전체 상태 객체를 직렬화하는 것은 CPU 및 메모리 비용 측면에서 비용이 많이 들 수 있기 때문입니다.
+If you are implementing an undo / redo feature, you likely want to take a snapshot of the application's state on every user edit. However, Vue's mutable reactivity system isn't best suited for this if the state tree is large, because serializing the entire state object on every update can be expensive in terms of both CPU and memory costs.
 
-[불변 데이터 구조](https://en.wikipedia.org/wiki/Persistent_data_structure)는 상태 객체를 변경하지 않음으로써 이 문제를 해결합니다. 대신 이전 객체와 동일하고 변경되지 않은 부분을 공유하는 새 객체를 생성합니다. JavaScript에서 변경할 수 없는 데이터를 사용하는 방법에는 여러 가지가 있지만, Vue와 함께 [Immer](https://immerjs.github.io/immer/)를 사용하는 것이 좋습니다. 왜냐하면 보다 인체 공학적이고 변경 가능한 문법을 유지하면서 변경할 수 없는 데이터를 사용할 수 있기 때문입니다.
+[Immutable data structures](https://en.wikipedia.org/wiki/Persistent_data_structure) solve this by never mutating the state objects - instead, it creates new objects that share the same, unchanged parts with old ones. There are different ways of using immutable data in JavaScript, but we recommend using [Immer](https://immerjs.github.io/immer/) with Vue because it allows you to use immutable data while keeping the more ergonomic, mutable syntax.
 
-간단한 컴포넌트를 통해 Immer를 Vue와 통합할 수 있습니다:
+We can integrate Immer with Vue via a simple composable:
 
 ```js
 import { produce } from 'immer'
@@ -368,13 +368,13 @@ export function useImmer(baseState) {
 }
 ```
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9VMFu2zAM/RXNl6ZAYnfoTlnSdRt66DBsQ7vtEuXg2YyjRpYEUU5TBPn3UZLtuE1RH2KLfCIfycfsk8/GpNsGkmkyw8IK4xiCa8wVV6I22jq2Zw3CbV2DZQe2srpmZ2km/PmMK8a4KrRCxxbCQY1j1pgyd3DrD0s27++OFh689z/0OOEkTBlPvkNuFfvbAE/Gra/UilzOko0Mh2A+ufcHwd9ij8KtWUjwMsAqlxgjcLU854qrVaMKJ7RiTleVDBRHQpWwO4/xB8xHoRg2v+oyh/MioJepT0ClvTsxhnSUi1LOsthN6iMdCGgkBacTY7NGhjd9ScG2k5W2c56M9rG6ceBPdbOWm1AxO0/a+uiZFjJHpFv7Fj10XhdSFBtyntTJkzaxf/ZtQnYguoFNJkUkmAWGs2xAm47onqT/jPWHxjjYuUkJhba57+yUSaFg4tZWN9X6Y9eIcC8ZJ1FQkzo36QNqRZILQXjroAqnXb+9LQzVD3vtnMFpljXKbKq00HWU3/X7i/QivcxKgS5aUglVXjxNAGvK8KnWZSNJWa0KDoGChzmk3L28jSVcQX1o1d1puwfgOpdSP97BqsfQxhCCK9gFTC+tXu7/coR7R71rxRWXBL2FpHOMOAAeYVGJhBvFL3s+kGKIkW5zSfKfd+RHA2u3gzZEpML9y9JS06YtAq5DLFmOMWXsjkM6rET1YjzUcSMk2J/G1/h8TKGOb8HmV7bdQbqzhmLziv0Bd3Govywg2O1x8Umvua3ARffN/Q/S1sDZDfMN5x2glo3nGGFfGlUS7QEusL0NcxWq+o03OwcKu6Ke/+fwhIb89Y3Sj3Qv0w+9xg7/AWfvyMs=)
+[Try it in the Playground](https://play.vuejs.org/#eNp9VMFu2zAM/RXNl6ZAYnfoTlnSdRt66DBsQ7vtEuXg2YyjRpYEUU5TBPn3UZLtuE1RH2KLfCIfycfsk8/GpNsGkmkyw8IK4xiCa8wVV6I22jq2Zw3CbV2DZQe2srpmZ2km/PmMK8a4KrRCxxbCQY1j1pgyd3DrD0s27++OFh689z/0OOEkTBlPvkNuFfvbAE/Gra/UilzOko0Mh2A+ufcHwd9ij8KtWUjwMsAqlxgjcLU854qrVaMKJ7RiTleVDBRHQpWwO4/xB8xHoRg2v+oyh/MioJepT0ClvTsxhnSUi1LOsthN6iMdCGgkBacTY7NGhjd9ScG2k5W2c56M9rG6ceBPdbOWm1AxO0/a+uiZFjJHpFv7Fj10XhdSFBtyntTJkzaxf/ZtQnYguoFNJkUkmAWGs2xAm47onqT/jPWHxjjYuUkJhba57+yUSaFg4tZWN9X6Y9eIcC8ZJ1FQkzo36QNqRZILQXjroAqnXb+9LQzVD3vtnMFpljXKbKq00HWU3/X7i/QivcxKgS5aUglVXjxNAGvK8KnWZSNJWa0KDoGChzmk3L28jSVcQX1o1d1puwfgOpdSP97BqsfQxhCCK9gFTC+tXu7/coR7R71rxRWXBL2FpHOMOAAeYVGJhBvFL3s+kGKIkW5zSfKfd+RHA2u3gzZEpML9y9JS06YtAq5DLFmOMWXsjkM6rET1YjzUcSMk2J/G1/h8TKGOb8HmV7bdQbqzhmLziv0Bd3Govywg2O1x8Umvua3ARffN/Q/S1sDZDfMN5x2glo3nGGFfGlUS7QEusL0NcxWq+o03OwcKu6Ke/+fwhIb89Y3Sj3Qv0w+9xg7/AWfvyMs=)
 
-### 상태 머신 (State Machine) {#state-machines}
+### State Machines {#state-machines}
 
-[상태 머신](https://en.wikipedia.org/wiki/Finite-state_machine)은 앱이 어떤 상태에 있을 수 있는 모든 가능한 상태와 한 상태에서 다른 상태로 전환할 수 있는 모든 가능한 방법을 설명하기 위한 모델입니다. 단순한 컴포넌트에는 과도할 수 있지만, 복잡한 상태 흐름을 보다 강력하고 관리하기 쉽게 만드는 데 도움이 될 수 있습니다.
+[State Machine](https://en.wikipedia.org/wiki/Finite-state_machine) is a model for describing all the possible states an application can be in, and all the possible ways it can transition from one state to another. While it may be overkill for simple components, it can help make complex state flows more robust and manageable.
 
-JavaScript에서 가장 널리 사용되는 상태 머신 구현 중 하나는 [XState](https://xstate.js.org/)입니다. 다음은 이를 통합하는 컴포저블입니다:
+One of the most popular state machine implementations in JavaScript is [XState](https://xstate.js.org/). Here's a composable that integrates with it:
 
 ```js
 import { createMachine, interpret } from 'xstate'
@@ -392,41 +392,41 @@ export function useMachine(options) {
 }
 ```
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp1U01vnDAQ/SsjX2ClLVRVpUqITdJDlUurSG1udQ8UzK4TGFvYkJUQ/z1jG7y7h1wQzLw3bz4eM/uudTaNghWsNPUgtQUj7KjvOMpeq8HCDKMRv6r6JFHAAu2gekiyvA+R7MUkHDnWCo2Fv8ZWVuypBDb/4HDFTGeOALIpILHqeOxEsvcBlFZWHUUlVrWV0xr3dUwBnuVgIUkBUOiez0+Pjz9/EG9lUWeLZwJ8CI0SDuyw9Fh2HMs8TE4z04cVve5Inb4Ayv+jtQrhoe5k/XrgzE2WJqFksuPMowDmObSc9ZWtT8KknG1qnO3gHjh7alvOoHBvSC+L76DMgwCVKfOozPYsLP9TX2nasEI6j18FlfUJw1lcDmdnr+1CnJ2s1abI8xH16zGrVZ+H7MPX7Mu37HMuTC6xEWcqe9+rZuyIt+2CdC9nJcnogHoQVGI95Z7OYcWgB2GjH4IGOSFSzKnqOvX2W7QRRDbzXhFnj2lHpAXRcq9corSLmF2YLZhqbYnsdNNGxF6QvgnCXbTTbZ7VaH8c4pohhknWjhNn2igeBZApfB4qNERXmKYo3kINONxBGm4+Vd3oSsTcRqX0YNMbOWwImIpJoPUl1gYy76sQdisCoE7GAW//KHei5R2K10Oj)
+[Try it in the Playground](https://play.vuejs.org/#eNp1U81unDAQfpWRL7DSFqqqUiXEJumhyqVVpDa3ugcKZtcJjC1syEqId8/YBu/uIRcEM9/P/DGz71pn0yhYwUpTD1JbMMKO+o6j7LUaLMwwGvGrqk8SBSzQDqqHJMv7EMleTMIRgGOt0Fj4a2xlxZ5EsPkHhytuOjucbApIrDoeO5HsfQCllVVHUYlVbeW0xr2OKcCzHCwkKQAK3fP56fHx5w/irSyqbfFMgA+h0cKBHZYey45jmYfeqWv6sKLXHbnTF0D5f7RWITzUnaxfD5y5ztIkSCY7zjwKYJ5DyVlf2fokTMrZ5sbZDu6Bs6e25QwK94b0svgKyjwYkEyZR2e2Z2H8n/pK04wV0oL8KEjWJwxncTicnb23C3F2slabIs9H1K/HrFZ9HrIPX7Mv37LPuTC5xEacSfa+V83YEW+bBfleFkuW8QbqQZDEuso9rcOKQQ/CxosIHnQLkWJOVdept9+ijSA6NEJwFGePaUekAdFwr65EaRcxu9BbOKq1JDqnmzIi9oL0RRDu4p1u/ayH9schrhlimGTtOLGnjeJRAJnC56FCQ3SFaYriLWjA4Q7SsPOp6kYnEXMbldKDTW/ssCFgKiaB1kusBWT+rkLYjQiAKhkHvP2j3IqWd5iMQ+M=)
 
 ### RxJS {#rxjs}
 
-[RxJS](https://rxjs.dev/)는 비동기 이벤트 스트림을 다루기 위한 라이브러리입니다. [VueUse](https://vueuse.org/) 라이브러리는 Vue의 반응성 시스템과 RxJS 스트림을 연결하기 위한 [`@vueuse/rxjs`](https://vueuse.org/rxjs/readme.html) 애드온을 제공합니다.
+[RxJS](https://rxjs.dev/) is a library for working with asynchronous event streams. The [VueUse](https://vueuse.org/) library provides the [`@vueuse/rxjs`](https://vueuse.org/rxjs/readme.html) add-on for connecting RxJS streams with Vue's reactivity system.
 
-## 신호 연결 {#connection-to-signals}
+## Connection to Signals {#connection-to-signals}
 
-Vue의 Composition API에서 refs와 유사한 반응성 기본 요소를 "신호(signals)"라는 용어로 소개한 다른 프레임워크가 꽤 있습니다:
+Quite a few other frameworks have introduced reactivity primitives similar to refs from Vue's Composition API, under the term "signals":
 
-- [Solid 신호](https://www.solidjs.com/docs/latest/api#createsignal)
-- [Angular 신호](https://angular.io/guide/signals)
-- [Preact 신호](https://preactjs.com/guide/v10/signals/)
-- [Qwik 신호](https://qwik.builder.io/docs/components/state/#usesignal)
+- [Solid Signals](https://www.solidjs.com/docs/latest/api#createsignal)
+- [Angular Signals](https://angular.dev/guide/signals)
+- [Preact Signals](https://preactjs.com/guide/v10/signals/)
+- [Qwik Signals](https://qwik.builder.io/docs/components/state/#usesignal)
 
-기본적으로, 신호는 Vue refs와 같은 종류의 반응성 기본 요소입니다. 접근 시 주입(provide) 추적 및 변화(mutation) 시 사이드 이펙트 트리거링을 제공하는 값 컨테이너입니다. 이 반응성 기본 요소 기반 패러다임은 프론트엔드 세계에서 특히 새로운 개념이 아닙니다: [Knockout 관찰가능 객체](https://knockoutjs.com/documentation/observables.html)와 [Meteor Tracker](https://docs.meteor.com/api/tracker.html)와 같은 구현으로 10년 이상 전으로 거슬러 올라갑니다. Vue Options API와 React 상태 관리 라이브러리 [MobX](https://mobx.js.org/)도 같은 원칙에 기반하지만, 기본 요소를 객체 속성 뒤에 숨깁니다.
+Fundamentally, signals are the same kind of reactivity primitive as Vue refs. It's a value container that provides dependency tracking on access, and side-effect triggering on mutation. This reactivity-primitive-based paradigm isn't a particularly new concept in the frontend world: it dates back to implementations like [Knockout observables](https://knockoutjs.com/documentation/observables.html) and [Meteor Tracker](https://docs.meteor.com/api/tracker.html) from more than a decade ago. Vue Options API and the React state management library [MobX](https://mobx.js.org/) are also based on the same principles, but hide the primitives behind object properties.
 
-신호로 간주되기 위해 필수적인 특성은 아니지만, 오늘날 이 개념은 종종 세밀한 구독을 통해 업데이트가 수행되는 렌더링 모델과 함께 논의됩니다. Virtual DOM을 사용하기 때문에 Vue는 현재 [유사한 최적화를 달성하기 위해 컴파일러에 의존](/guide/extras/rendering-mechanism#compiler-informed-virtual-dom)합니다. 그러나 우리는 Virtual DOM에 의존하지 않고 Vue의 내장된 반응성 시스템을 더 활용하는 Solid에서 영감을 받은 새로운 컴파일 전략인 [Vapor Mode](https://github.com/vuejs/core-vapor)도 탐구하고 있습니다.
+Although not a necessary trait for something to qualify as signals, today the concept is often discussed alongside the rendering model where updates are performed through fine-grained subscriptions. Due to the use of Virtual DOM, Vue currently [relies on compilers to achieve similar optimizations](/guide/extras/rendering-mechanism#compiler-informed-virtual-dom). However, we are also exploring a new Solid-inspired compilation strategy, called [Vapor Mode](https://github.com/vuejs/core-vapor), that does not rely on Virtual DOM and takes more advantage of Vue's built-in reactivity system.
 
-### API 디자인의 절충 {#api-design-trade-offs}
+### API Design Trade-Offs {#api-design-trade-offs}
 
-Preact와 Qwik의 신호 디자인은 Vue의 [shallowRef](/api/reactivity-advanced#shallowref)와 매우 유사합니다: 모두 `.value` 속성을 통해 변경 가능한 인터페이스를 제공합니다. 우리는 Solid와 Angular 신호에 대한 논의에 초점을 맞출 것입니다.
+The design of Preact and Qwik's signals are very similar to Vue's [shallowRef](/api/reactivity-advanced#shallowref): all three provide a mutable interface via the `.value` property. We will focus the discussion on Solid and Angular signals.
 
-#### Solid 신호 {#solid-signals}
+#### Solid Signals {#solid-signals}
 
-Solid의 `createSignal()` API 디자인은 읽기 / 쓰기 분리를 강조합니다. 신호는 읽기 전용 getter와 별도의 setter로 노출됩니다:
+Solid's `createSignal()` API design emphasizes read / write segregation. Signals are exposed as a read-only getter and a separate setter:
 
 ```js
 const [count, setCount] = createSignal(0)
 
-count() // 값에 접근
-setCount(1) // 값 업데이트
+count() // access the value
+setCount(1) // update the value
 ```
 
-`count` 신호가 setter 없이 전달될 수 있다는 점을 주목하세요. 이는 setter가 명시적으로 노출되지 않는 한 상태가 결코 변경될 수 없다는 것을 보장합니다. 이 안전 보장이 더 장황한 구문을 정당화하는지 여부는 프로젝트의 요구 사항과 개인의 취향에 따라 다를 수 있지만, 이 API 스타일을 선호하는 경우 Vue에서 쉽게 복제할 수 있습니다:
+Notice how the `count` signal can be passed down without the setter. This ensures that the state can never be mutated unless the setter is also explicitly exposed. Whether this safety guarantee justifies the more verbose syntax could be subject to the requirement of the project and personal taste - but in case you prefer this API style, you can easily replicate it in Vue:
 
 ```js
 import { shallowRef, triggerRef } from 'vue'
@@ -442,21 +442,21 @@ export function createSignal(value, options) {
 }
 ```
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNpdUk1TgzAQ/Ss7uQAjgr12oNXxH+ix9IAYaDQkMV/qMPx3N6G0Uy9Msu/tvn2PTORJqcI7SrakMp1myoKh1qldI9iopLYwQadpa+krG0TLYYZeyxGSojSSs/d7E8vFh0ka0YhOCmPh0EknbB4mPYfTEeqbIelD1oiqXPRQCS+WjoojAW8A1Wmzm1A39KYZzHNVYiUib85aKeCx46z7rBuySqQe6h14uINN1pDIBWACVUcqbGwtl17EqvIiR3LyzwcmcXFuTi3n8vuF9jlYzYaBajxfMsDcomv6E/m9E51luN2NV99yR3OQKkAmgykss+SkMZerxMLEZFZ4oBYJGAA600VEryAaD6CPaJwJKwnr9ldR2WMedV1Dsi6WwB58emZlsAV/zqmH9LzfvqBfruUmNvZ4QN7VearjenP4aHwmWsABt4x/+tiImcx/z27Jqw==)
+[Try it in the Playground](https://play.vuejs.org/#eNpdUk1TgzAQ/Ss7uQAjgr12oNXxH+ix9IAYaDQkMV/qMPx3N6G0Uy9Msu/tvn2PTORJqcI7SrakMp1myoKh1qldI9iopLYwQadpa+krG0TLYYZeyxGSojSSs/d7E8vFh0ka0YhOCmPh0EknbB4mPYfTEeqbIelD1oiqXPRQCS+WjoojAW8A1Wmzm1A39KYZzHNVYiUib85aKeCx46z7rBuySqQe6h14uINN1pDIBWACVUcqbGwtl17EqvIiR3LyzwcmcXFuTi3n8vuF9jlYzYaBajxfMsDcomv6E/m9E51luN2NV99yR3OQKkAmgykss+SkMZerxMLEZFZ4oBYJGAA600VEryAaD6CPaJwJKwnr9ldR2WMedV1Dsi6WwB58emZlsAV/zqmH9LzfvqBfruUmNvZ4QN7VearjenP4aHwmWsABt4x/+tiImcx/z27Jqw==)
 
-#### Angular 신호 {#angular-signals}
+#### Angular Signals {#angular-signals}
 
-Angular는 더티 체크(dirty-checking)를 포기하고 자체 반응성 기본 요소의 구현을 도입함으로써 일부 근본적인 변화를 겪고 있습니다. Angular 신호 API는 다음과 같습니다:
+Angular is undergoing some fundamental changes by foregoing dirty-checking and introducing its own implementation of a reactivity primitive. The Angular Signal API looks like this:
 
 ```js
 const count = signal(0)
 
-count() // 값에 접근
-count.set(1) // 새로운 값 설정
-count.update((v) => v + 1) // 이전 값에 기반한 업데이트
+count() // access the value
+count.set(1) // set new value
+count.update((v) => v + 1) // update based on previous value
 ```
 
-다시 한번, 우리는 Vue에서 API를 쉽게 복제할 수 있습니다:
+Again, we can easily replicate the API in Vue:
 
 ```js
 import { shallowRef } from 'vue'
@@ -474,11 +474,11 @@ export function signal(initialValue) {
 }
 ```
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNp9Ul1v0zAU/SuWX9ZCSRh7m9IKGHuAB0AD8WQJZclt6s2xLX+ESlH+O9d2krbr1Df7nnPu17k9/aR11nmgt7SwleHaEQvO6w2TvNXKONITyxtZihWpVKu9g5oMZGtUS66yvJSNF6V5lyjZk71ikslKSeuQ7qUj61G+eL+cgFr5RwGITAkXiyVZb5IAn2/IB+QWeeoHO8GPg1aL0gH+CCl215u7mJ3bW9L3s3IYihyxifMlFRpJqewL1qN3TknysRK8el4zGjNlXtdYa9GFrjryllwvGY18QrisDLQgXZTnSX8pF64zzD7pDWDghbbI5/Hoip7tFL05eLErhVD/HmB75Edpyd8zc9DUaAbso3TrZeU4tjfawSV3vBR/SuFhSfrQUXLHBMvmKqe8A8siK7lmsi5gAbJhWARiIGD9hM7BIfHSgjGaHljzlDyGF2MEPQs6g5dpcAIm8Xs+2XxODTgUn0xVYdJ5RxPhKOd4gdMsA/rgLEq3vEEHlEQPYrbgaqu5APNDh6KWUTyuZC2jcWvfYswZD6spXu2gen4l/mT3Icboz3AWpgNGZ8yVBttM8P2v77DH9wy2qvYC2RfAB7BK+NBjon32ssa2j3ix26/xsrhsftv7vQNpp6FCo4E5RD6jeE93F0Y/tHuT3URd2OLwHyXleRY=)
+[Try it in the Playground](https://play.vuejs.org/#eNp9Ul1v0zAU/SuWX9ZCSRh7m9IKGHuAB0AD8WQJZclt6s2xLX+ESlH+O9d2krbr1Df7nnPu17k9/aR11nmgt7SwleHaEQvO6w2TvNXKONITyxtZihWpVKu9g5oMZGtUS66yvJSNF6V5lyjZk71ikslKSeuQ7qUj61G+eL+cgFr5RwGITAkXiyVZb5IAn2/IB+QWeeoHO8GPg1aL0gH+CCl215u7mJ3bW9L3s3IYihyxifMlFRpJqewL1qN3TknysRK8el4zGjNlXtdYa9GFrjryllwvGY18QrisDLQgXZTnSX8pF64zzD7pDWDghbbI5/Hoip7tFL05eLErhVD/HmB75Edpyd8zc9DUaAbso3TrZeU4tjfawSV3vBR/SuFhSfrQUXLHBMvmKqe8A8siK7lmsi5gAbJhWARiIGD9hM7BIfHSgjGaHljzlDyGF2MEPQs6g5dpcAIm8Xs+2XxODTgUn0xVYdJ5RxPhKOd4gdMsA/rgLEq3vEEHlEQPYrbgaqu5APNDh6KWUTyuZC2jcWvfYswZD6spXu2gen4l/mT3Icboz3AWpgNGZ8yVBttM8P2v77DH9wy2qvYC2RfAB7BK+NBjon32ssa2j3ix26/xsrhsftv7vQNpp6FCo4E5RD6jeE93F0Y/tHuT3URd2OLwHyXleRY=)
 
-Vue refs와 비교할 때, Solid와 Angular의 getter 기반 API 스타일은 Vue 컴포넌트에서 사용될 때 몇 가지 흥미로운 절충을 제공합니다:
+Compared to Vue refs, Solid and Angular's getter-based API style provide some interesting trade-offs when used in Vue components:
 
-- `()`는 `.value`보다 약간 덜 장황하지만, 값을 업데이트하는 것은 더 장황합니다.
-- ref-언래핑이 없습니다: 값을 접근할 때 항상 `()`이 필요합니다. 이는 모든 곳에서 값 접근을 일관되게 합니다. 이는 또한 원시 신호를 컴포넌트 props로 내려보낼 수 있음을 의미합니다.
+- `()` is slightly less verbose than `.value`, but updating the value is more verbose.
+- There is no ref-unwrapping: accessing values always require `()`. This makes value access consistent everywhere. This also means you can pass raw signals down as component props.
 
-이러한 API 스타일이 여러분에게 맞는지는 어느 정도 주관적입니다. 우리의 목표는 이러한 다른 API 디자인 간의 근본적 유사성과 절충을 보여주는 것입니다. 또한 Vue가 유연하다는 것을 보여주고 싶습니다: 실제로 기존 API에 완전히 묶여 있지 않습니다. 필요한 경우, 더 구체적인 요구 사항에 맞게 자체 반응성 기본 요소 API를 만들 수 있습니다.
+Whether these API styles suit you is to some extent subjective. Our goal here is to demonstrate the underlying similarity and trade-offs between these different API designs. We also want to show that Vue is flexible: you are not really locked into the existing APIs. Should it be necessary, you can create your own reactivity primitive API to suit more specific needs.

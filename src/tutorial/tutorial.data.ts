@@ -8,7 +8,7 @@ export default {
   watch: './src/**',
   async load() {
     const md = await createMarkdownRenderer(process.cwd(), {
-      theme: 'github-dark',
+        theme: 'github-dark',
     }, '/')
     const files = readExamples(path.resolve(__dirname, './src'))
     for (const step in files) {

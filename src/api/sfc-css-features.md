@@ -1,8 +1,8 @@
-# SFC CSS 기능 {#sfc-css-features}
+# SFC CSS Features {#sfc-css-features}
 
-## 범위가 지정된 CSS {#scoped-css}
+## Scoped CSS {#scoped-css}
 
-`<style>` 태그에 `scoped` 속성이 있으면, 해당 CSS는 현재 컴포넌트의 엘리먼트에만 적용됩니다. 이것은 Shadow DOM에서 발견되는 스타일 캡슐화와 유사합니다. 몇 가지 주의 사항이 있지만, 폴리필이 필요하지 않습니다. PostCSS를 사용하여 다음을 변환함으로써 달성됩니다:
+When a `<style>` tag has the `scoped` attribute, its CSS will apply to elements of the current component only. This is similar to the style encapsulation found in Shadow DOM. It comes with some caveats, but doesn't require any polyfills. It is achieved by using PostCSS to transform the following:
 
 ```vue
 <style scoped>
@@ -12,11 +12,11 @@
 </style>
 
 <template>
-  <div class="example">안녕!</div>
+  <div class="example">hi</div>
 </template>
 ```
 
-다음으로:
+Into the following:
 
 ```vue
 <style>
@@ -26,17 +26,17 @@
 </style>
 
 <template>
-  <div class="example" data-v-f3f3eg9>안녕!</div>
+  <div class="example" data-v-f3f3eg9>hi</div>
 </template>
 ```
 
-### 자식 컴포넌트 루트 엘리먼트 {#child-component-root-elements}
+### Child Component Root Elements {#child-component-root-elements}
 
-`scoped`를 사용하면 부모 컴포넌트의 스타일이 자식 컴포넌트로 누출되지 않습니다. 그러나 자식 컴포넌트의 루트 노드는 부모의 범위가 지정된 CSS와 자식의 범위가 지정된 CSS 모두의 영향을 받습니다. 이것은 부모가 레이아웃 목적으로 자식 루트 엘리먼트의 스타일을 지정할 수 있도록 의도적으로 설계된 것입니다:
+With `scoped`, the parent component's styles will not leak into child components. However, a child component's root node will be affected by both the parent's scoped CSS and the child's scoped CSS. This is by design so that the parent can style the child root element for layout purposes.
 
-### 깊은 셀렉터 {#deep-selectors}
+### Deep Selectors {#deep-selectors}
 
-`scoped` 스타일의 셀렉터를 "깊게"(즉, 자식 컴포넌트에 영향을 미치게 하려면) `:deep()` 의사 클래스를 사용할 수 있습니다:
+If you want a selector in `scoped` styles to be "deep", i.e. affecting child components, you can use the `:deep()` pseudo-class:
 
 ```vue
 <style scoped>
@@ -46,7 +46,7 @@
 </style>
 ```
 
-위의 내용은 다음과 같이 컴파일됩니다:
+The above will be compiled into:
 
 ```css
 .a[data-v-f3f3eg9] .b {
@@ -55,12 +55,12 @@
 ```
 
 :::tip
-`v-html`로 만든 DOM 컨텐츠는 범위가 지정된 스타일의 영향을 받지 않지만, 깊은 셀렉터를 사용하여 스타일을 지정할 수 있습니다.
+DOM content created with `v-html` are not affected by scoped styles, but you can still style them using deep selectors.
 :::
 
-### 슬롯형 셀렉터 {#slotted-selectors}
+### Slotted Selectors {#slotted-selectors}
 
-기본적으로 범위가 지정된 스타일은 `<slot/>`에 의해 렌더링된 컨텐츠에 영향을 미치지 않습니다. 스타일을 전달하는 부모 컴포넌트가 소유한 것으로 간주되기 때문입니다. 슬롯 컨텐츠를 명시적으로 대상으로 지정하려면, `:slotted` 의사 클래스를 사용해야 합니다:
+By default, scoped styles do not affect contents rendered by `<slot/>`, as they are considered to be owned by the parent component passing them in. To explicitly target slot content, use the `:slotted` pseudo-class:
 
 ```vue
 <style scoped>
@@ -70,9 +70,9 @@
 </style>
 ```
 
-### 전역 셀렉터 {#global-selectors}
+### Global Selectors {#global-selectors}
 
-하나의 규칙만 전역적으로 적용하려면, 다른 `<style>`을 만드는 대신 `:global` 의사 클래스를 사용할 수 있습니다(아래 참고):
+If you want just one rule to apply globally, you can use the `:global` pseudo-class rather than creating another `<style>` (see below):
 
 ```vue
 <style scoped>
@@ -82,33 +82,33 @@
 </style>
 ```
 
-### 로컬 및 전역 스타일 혼합 {#mixing-local-and-global-styles}
+### Mixing Local and Global Styles {#mixing-local-and-global-styles}
 
-동일한 컴포넌트에 범위가 지정된 스타일과 범위가 지정되지 않은 스타일을 모두 포함할 수도 있습니다:
+You can also include both scoped and non-scoped styles in the same component:
 
 ```vue
 <style>
-/* 전역 스타일 */
+/* global styles */
 </style>
 
 <style scoped>
-/* 로컬 스타일 */
+/* local styles */
 </style>
 ```
 
-### 범위가 지정된 스타일 팁 {#scoped-style-tips}
+### Scoped Style Tips {#scoped-style-tips}
 
-- **범위가 지정된 스타일은 클래스의 필요성을 제거하지 않습니다**. 브라우저가 다양한 CSS 셀렉터를 렌더링하는 방식 때문에, `p { color: red }`처럼 범위를 지정할 때(즉, 속성 셀렉터와 결합될 때) 속도가 몇 배 느려집니다. `.example { color: red }`와 같이 클래스나 ID를 사용하면, 성능 저하를 거의 제거할 수 있습니다.
+- **Scoped styles do not eliminate the need for classes**. Due to the way browsers render various CSS selectors, `p { color: red }` will be many times slower when scoped (i.e. when combined with an attribute selector). If you use classes or ids instead, such as in `.example { color: red }`, then you virtually eliminate that performance hit.
 
-- **재귀적 컴포넌트의 자손 셀렉터에 주의해야 합니다!** 셀렉터가 `.a .b`인 CSS 규칙의 경우, `.a`와 일치하는 엘리먼트가 재귀적인 자식 컴포넌트를 포함한다면, 해당 자식 컴포넌트의 모든 `.b`는 규칙과 일치하게 됩니다.
+- **Be careful with descendant selectors in recursive components!** For a CSS rule with the selector `.a .b`, if the element that matches `.a` contains a recursive child component, then all `.b` in that child component will be matched by the rule.
 
-## CSS 모듈 {#css-modules}
+## CSS Modules {#css-modules}
 
-`<style module>` 태그는 [CSS 모듈](https://github.com/css-modules/css-modules)로 컴파일되고, 결과적으로 CSS 클래스를 `$style` 키(key) 내부에 객체로 컴포넌트에 노출합니다:
+A `<style module>` tag is compiled as [CSS Modules](https://github.com/css-modules/css-modules) and exposes the resulting CSS classes to the component as an object under the key of `$style`:
 
 ```vue
 <template>
-  <p :class="$style.red">이것은 빨간색이어야 합니다.</p>
+  <p :class="$style.red">This should be red</p>
 </template>
 
 <style module>
@@ -118,13 +118,13 @@
 </style>
 ```
 
-결과적인 클래스는 충돌을 피하기 위해 해시되어, CSS 범위를 현재 컴포넌트로만 지정하는 것과 동일한 효과를 얻습니다.
+The resulting classes are hashed to avoid collision, achieving the same effect of scoping the CSS to the current component only.
 
-[전역 예외](https://github.com/css-modules/css-modules/blob/master/docs/composition.md#exceptions), [컴포지션](https://github.com/css-modules/css-modules/blob/master/docs/composition.md#composition) 등의 자세한 사항은 [CSS 모듈 스팩](https://github.com/css-modules/css-modules)을 참고하십시오.
+Refer to the [CSS Modules spec](https://github.com/css-modules/css-modules) for more details such as [global exceptions](https://github.com/css-modules/css-modules/blob/master/docs/composition.md#exceptions) and [composition](https://github.com/css-modules/css-modules/blob/master/docs/composition.md#composition).
 
-### 커스텀 이름 삽입 {#custom-inject-name}
+### Custom Inject Name {#custom-inject-name}
 
-`module` 속성에 값을 지정하여, 주입된 클래스 객체의 속성 키를 커스텀할 수 있습니다:
+You can customize the property key of the injected classes object by giving the `module` attribute a value:
 
 ```vue
 <template>
@@ -138,28 +138,48 @@
 </style>
 ```
 
-### 컴포지션 API와 함께 사용 {#usage-with-composition-api}
+### Usage with Composition API {#usage-with-composition-api}
 
-주입된 클래스는 `useCssModule` API를 통해 `setup()` 및 `<script setup>`에서 접근할 수 있습니다. 커스텀 주입 이름이 있는 `<style module>` 블록의 경우 `useCssModule`은 일치하는 `module` 속성 값을 첫 번째 인자로 받습니다:
+The injected classes can be accessed in `setup()` and `<script setup>` via the `useCssModule` API. For `<style module>` blocks with custom injection names, `useCssModule` accepts the matching `module` attribute value as the first argument:
 
 ```js
 import { useCssModule } from 'vue'
 
-// setup() 내부에서...
-// 기본값은, <style module>의 클래스 반환
+// inside setup() scope...
+// default, returns classes for <style module>
 useCssModule()
 
-// 이름을 지정한 경우, <style module="classes">의 클래스 반환
+// named, returns classes for <style module="classes">
 useCssModule('classes')
 ```
 
-## CSS에서 `v-bind()` {#v-bind-in-css}
+- **Example**
 
-SFC `<style>` 태그는 `v-bind` CSS 함수를 사용하여, CSS 값을 동적 컴포넌트 상태에 연결하는 것을 지원합니다:
+```vue
+<script setup lang="ts">
+import { useCssModule } from 'vue'
+
+const classes = useCssModule()
+</script>
+
+<template>
+  <p :class="classes.red">red</p>
+</template>
+
+<style module>
+.red {
+  color: red;
+}
+</style>
+```
+
+## `v-bind()` in CSS {#v-bind-in-css}
+
+SFC `<style>` tags support linking CSS values to dynamic component state using the `v-bind` CSS function:
 
 ```vue
 <template>
-  <div class="text">안녕!</div>
+  <div class="text">hello</div>
 </template>
 
 <script>
@@ -179,7 +199,7 @@ export default {
 </style>
 ```
 
-[`<script setup>`](./sfc-script-setup)에서도 문법은 작동하며, JavaScript 표현식을 지원합니다(따옴표로 묶어야 함):
+The syntax works with [`<script setup>`](./sfc-script-setup), and supports JavaScript expressions (must be wrapped in quotes):
 
 ```vue
 <script setup>
@@ -190,7 +210,7 @@ const theme = ref({
 </script>
 
 <template>
-  <p>안녕!</p>
+  <p>hello</p>
 </template>
 
 <style scoped>
@@ -200,4 +220,4 @@ p {
 </style>
 ```
 
-실제 값은 해시된 CSS 커스텀 속성으로 컴파일되므로, CSS는 여전히 정적입니다. 커스텀 속성은 컴포넌트의 루트 엘리먼트에 인라인 스타일로 적용되고, 소스 값이 변경되면(소스가 반응형일 경우) 반응적으로 업데이트됩니다.
+The actual value will be compiled into a hashed CSS custom property, so the CSS is still static. The custom property will be applied to the component's root element via inline styles and reactively updated if the source value changes.
