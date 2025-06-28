@@ -9,7 +9,7 @@ export default {
     stats: Array
   },
   computed: {
-    // a computed property for the polygon's points
+    // 다각형의 점들을 위한 계산된 속성
     points() {
       const total = this.stats.length
       return this.stats

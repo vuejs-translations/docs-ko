@@ -1,1 +1,1 @@
-Modal component with customizable slots and CSS transitions.
+사용자 지정 슬롯과 CSS 전환 효과가 있는 모달 컴포넌트.

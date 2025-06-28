@@ -2,11 +2,11 @@ import { ref, computed } from 'vue'
 
 export default {
   setup() {
-    const flightType = ref('one-way flight')
+    const flightType = ref('편도 항공권')
     const departureDate = ref(dateToString(new Date()))
     const returnDate = ref(departureDate.value)
 
-    const isReturn = computed(() => flightType.value === 'return flight')
+    const isReturn = computed(() => flightType.value === '왕복 항공권')
 
     const canBook = computed(
       () =>
@@ -17,8 +17,8 @@ export default {
     function book() {
       alert(
         isReturn.value
-          ? `You have booked a return flight leaving on ${departureDate.value} and returning on ${returnDate.value}.`
-          : `You have booked a one-way flight leaving on ${departureDate.value}.`
+          ? `출발일이 ${departureDate.value}이고, 귀국일이 ${returnDate.value}인 왕복 항공권을 예약하셨습니다.`
+          : `출발일이 ${departureDate.value}인 편도 항공권을 예약하셨습니다.`
       )
     }
 
