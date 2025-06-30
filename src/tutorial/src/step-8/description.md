@@ -1,9 +1,6 @@
-# 계산된 속성 {#computed-property}
+# 계산 속성 {#computed-property}
 
-이전 단계의 할 일 목록을 계속 만들어 나가봅시다.
-여기에 이미 각 할 일에 토글 기능을 추가했습니다.
-이것은 각 할 일 객체에 `done` 속성을 추가하고,
-`v-model`을 사용하여 체크박스에 바인딩함으로써 작동합니다.
+이전 단계의 할 일 목록을 계속 확장해 봅시다. 여기서는 이미 각 할 일에 토글 기능을 추가했습니다. 이는 각 할 일 객체에 `done` 속성을 추가하고, 이를 체크박스에 `v-model`로 바인딩하여 구현합니다:
 
 ```vue-html{2}
 <li v-for="todo in todos">
@@ -12,14 +9,11 @@
 </li>
 ```
 
-다음 개선 사항은 이미 완료된 할 일을 숨길 수 있는 기능을 추가하는 것입니다.
-이미 `hideCompleted` 상태를 토글하는 버튼이 있습니다.
-하지만 그 상태를 바탕으로 목록 내 항목을 어떻게 렌더링해야 할까요?
+다음으로 추가할 개선점은 이미 완료된 할 일을 숨길 수 있는 기능입니다. 우리는 이미 `hideCompleted` 상태를 토글하는 버튼을 가지고 있습니다. 하지만 그 상태에 따라 어떻게 다른 목록 항목을 렌더링할 수 있을까요?
 
 <div class="options-api">
 
-<a target="_blank" href="/guide/essentials/computed.html">계산된(computed) 속성</a>을 소개합니다.
-`computed` 옵션을 사용하여 반응적으로 계산되는 속성을 선언할 수 있습니다:
+<a target="_blank" href="/guide/essentials/computed.html">계산 속성</a>을 소개합니다. `computed` 옵션을 사용하여 다른 속성으로부터 반응적으로 계산되는 속성을 선언할 수 있습니다:
 
 <div class="sfc">
 
@@ -28,8 +22,7 @@ export default {
   // ...
   computed: {
     filteredTodos() {
-      // `this.hideCompleted`를
-      // 기반으로 필터링된 할 일 반환
+      // `this.hideCompleted`에 따라 필터링된 할 일 목록을 반환합니다.
     }
   }
 }
@@ -43,8 +36,7 @@ createApp({
   // ...
   computed: {
     filteredTodos() {
-      // `this.hideCompleted`를
-      // 기반으로 필터링된 할 일 반환
+      // `this.hideCompleted`에 따라 필터링된 할 일 목록을 반환합니다.
     }
   }
 })
@@ -55,8 +47,7 @@ createApp({
 </div>
 <div class="composition-api">
 
-<a target="_blank" href="/guide/essentials/computed.html">`computed()`</a>를 소개합니다.
-반응 데이터 소스를 기반으로 `.value`를 계산하는 계산된 참조(ref)를 만들 수 있습니다:
+<a target="_blank" href="/guide/essentials/computed.html">`computed()`</a>를 소개합니다. 다른 반응형 데이터 소스를 기반으로 `.value`를 계산하는 계산 ref를 만들 수 있습니다:
 
 <div class="sfc">
 
@@ -69,8 +60,8 @@ const todos = ref([
 ])
 
 const filteredTodos = computed(() => {
-  // `todos.value` 및 `hideCompleted.value`를
-  // 기반으로 필터링된 할 일을 반환.
+  // `todos.value`와 `hideCompleted.value`에 따라
+  // 필터링된 할 일 목록을 반환합니다.
 })
 ```
 
@@ -88,8 +79,8 @@ createApp({
     ])
 
     const filteredTodos = computed(() => {
-      // `todos.value` 및 `hideCompleted.value`를
-      // 기반으로 필터링된 할 일을 반환.
+      // `todos.value`와 `hideCompleted.value`에 따라
+      // 필터링된 할 일 목록을 반환합니다.
     })
 
     return {
@@ -108,8 +99,6 @@ createApp({
 + <li v-for="todo in filteredTodos">
 ```
 
-계산된 속성은 계산에 사용된 다른 반응형 상태를 의존성으로 추적합니다.
-결과를 캐시하고 의존성이 변경되면 자동으로 업데이트합니다.
+계산 속성은 계산에 사용된 다른 반응형 상태를 의존성으로 추적합니다. 결과를 캐시하고, 의존성이 변경될 때 자동으로 업데이트합니다.
 
-이제 계산된 속성 `filteredTodos`을 추가하고, 계산되는 로직을 구현해 봅시다!
-올바르게 구현된 경우, 완료된 항목 숨기기 상태일 때 할 일을 체크하면 즉시 숨겨져야 합니다.
+이제 `filteredTodos` 계산 속성을 추가하고, 그 계산 로직을 구현해 보세요! 올바르게 구현했다면, 완료된 항목 숨기기 상태에서 할 일을 체크하면 즉시 해당 항목이 숨겨져야 합니다.

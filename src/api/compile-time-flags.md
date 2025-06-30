@@ -2,41 +2,43 @@
 outline: deep
 ---
 
-# 컴파일 타임 플래그(Compile-Time Flags) {#compile-time-flags}
+# 컴파일 타임 플래그 {#compile-time-flags}
 
 :::tip
-Compile-time 플래그는 Vue의 `esm-bundler` 빌드를 사용할 때만 적용됩니다 (즉, `vue/dist/vue.esm-bundler.js`).
+컴파일 타임 플래그는 `esm-bundler` 빌드의 Vue(즉, `vue/dist/vue.esm-bundler.js`)를 사용할 때만 적용됩니다.
 :::
 
-빌드 단계에서 Vue를 사용할 때, 특정 기능을 활성화/비활성화하기 위해 다양한 컴파일 타임 플래그를 설정할 수 있습니다. 컴파일 타임 플래그를 사용하는 이점은 이 방식으로 비활성화된 기능들이 트리 쉐이킹을 통해 최종 번들에서 제거될 수 있다는 것입니다.
+Vue를 빌드 단계와 함께 사용할 때, 여러 컴파일 타임 플래그를 설정하여 특정 기능을 활성화/비활성화할 수 있습니다. 컴파일 타임 플래그를 사용하면 비활성화된 기능이 트리 셰이킹을 통해 최종 번들에서 제거될 수 있다는 이점이 있습니다.
 
-이러한 플래그들이 명시적으로 설정되지 않더라도 Vue는 작동합니다. 그러나 가능한 경우 관련 기능이 제대로 제거될 수 있도록 항상 이들을 설정하는 것이 권장됩니다.
+이 플래그들이 명시적으로 설정되지 않아도 Vue는 정상적으로 동작합니다. 그러나 관련 기능이 가능한 경우 제대로 제거될 수 있도록 항상 플래그를 설정하는 것이 권장됩니다.
 
-빌드 도구에 따라 이들을 어떻게 설정하는지에 대해서는 [설정 가이드](#configuration-guides)를 참조하세요.
+빌드 도구에 따라 플래그를 설정하는 방법은 [설정 가이드](#configuration-guides)를 참고하세요.
 
 ## `__VUE_OPTIONS_API__` {#VUE_OPTIONS_API}
 
 - **기본값:** `true`
 
-  옵션 API 지원 활성화 / 비활성화. 이를 비활성화하면 번들 크기가 줄어들지만, 옵션 API에 의존하는 제3자 라이브러리와의 호환성에 영향을 미칠 수 있습니다.
+  Options API 지원을 활성화/비활성화합니다. 비활성화하면 번들 크기가 더 작아지지만, Options API에 의존하는 서드파티 라이브러리와의 호환성에 영향을 줄 수 있습니다.
 
 ## `__VUE_PROD_DEVTOOLS__` {#VUE_PROD_DEVTOOLS}
 
 - **기본값:** `false`
 
-  프로덕션 빌드에서 devtools 지원 활성화 / 비활성화. 이로 인해 번들에 더 많은 코드가 포함될 수 있으므로, 디버깅 목적으로만 이를 활성화하는 것이 권장됩니다.
+  프로덕션 빌드에서 devtools 지원을 활성화/비활성화합니다. 활성화하면 번들에 더 많은 코드가 포함되므로, 디버깅 목적일 때만 활성화하는 것이 권장됩니다.
 
-## `__VUE_PROD_HYDRATION_MISMATCH_DETAILS__` <sup class="vt-badge" data-text="3.4+" /> {#VUE_PROD_HYDRATION_MISMATCH_DETAILS}
+## `__VUE_PROD_HYDRATION_MISMATCH_DETAILS__` {#VUE_PROD_HYDRATION_MISMATCH_DETAILS}
 
 - **기본값:** `false`
 
-  프로덕션 빌드에서 수화 불일치에 대한 자세한 경고 활성화/비활성화. 이로 인해 번들에 더 많은 코드가 포함될 수 있으므로, 디버깅 목적으로만 이를 활성화하는 것이 권장됩니다.
+  프로덕션 빌드에서 hydration 불일치에 대한 상세 경고를 활성화/비활성화합니다. 활성화하면 번들에 더 많은 코드가 포함되므로, 디버깅 목적일 때만 활성화하는 것이 권장됩니다.
+
+- 3.4+ 버전에서만 사용 가능합니다.
 
 ## 설정 가이드 {#configuration-guides}
 
 ### Vite {#vite}
 
-`@vitejs/plugin-vue`는 이러한 플래그들에 대해 자동으로 기본값을 제공합니다. 기본값을 변경하려면 Vite의 [`define` 구성 옵션](https://vitejs.dev/config/shared-options.html#define)을 사용하세요:
+`@vitejs/plugin-vue`는 이 플래그들에 대한 기본값을 자동으로 제공합니다. 기본값을 변경하려면 Vite의 [`define` 설정 옵션](https://vitejs.dev/config/shared-options.html#define)을 사용하세요:
 
 ```js
 // vite.config.js
@@ -44,7 +46,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   define: {
-    // 프로덕션 빌드에서 수화 불일치 세부사항 활성화
+    // 프로덕션 빌드에서 hydration 불일치 상세 정보 활성화
     __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
   }
 })
@@ -52,7 +54,7 @@ export default defineConfig({
 
 ### vue-cli {#vue-cli}
 
-`@vue/cli-service`는 이러한 플래그들 중 일부에 대해 자동으로 기본값을 제공합니다. 값을 설정/변경하려면:
+`@vue/cli-service`는 이 플래그들 중 일부에 대한 기본값을 자동으로 제공합니다. 값을 설정/변경하려면 다음과 같이 하세요:
 
 ```js
 // vue.config.js

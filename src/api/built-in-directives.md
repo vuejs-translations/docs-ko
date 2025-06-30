@@ -1,99 +1,99 @@
-# 빌트인 디렉티브 {#built-in-directives}
+# 내장 디렉티브 {#built-in-directives}
 
 ## v-text {#v-text}
 
-엘리먼트의 텍스트 컨텐츠를 업데이트합니다.
+요소의 텍스트 콘텐츠를 업데이트합니다.
 
-- **요구되는 값** `string`
+- **기대값:** `string`
 
-- **세부 사항**
+- **세부사항**
 
-  `v-text`는 엘리먼트의 [텍스트 컨텐츠](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) 속성을 설정하므로, 엘리먼트 내부의 기존 컨텐츠를 덮어씁니다. `텍스트 컨텐츠`의 일부를 업데이트해야 하는 경우, [이중 중괄호](/guide/essentials/template-syntax#text-interpolation)를 사용해야 합니다.
+  `v-text`는 요소의 [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) 속성을 설정하여 동작하므로, 요소 내부의 기존 콘텐츠를 모두 덮어씁니다. `textContent`의 일부만 업데이트해야 한다면 [머스태시 보간법](/guide/essentials/template-syntax#text-interpolation)을 대신 사용해야 합니다.
 
-- **예제**
+- **예시**
 
   ```vue-html
   <span v-text="msg"></span>
-  <!-- 아래와 같음 -->
+  <!-- 아래와 동일 -->
   <span>{{msg}}</span>
   ```
 
-- **참고** [템플릿 문법 - 텍스트 보간법](/guide/essentials/template-syntax#text-interpolation)
+- **참고** [템플릿 문법 - 텍스트 보간](/guide/essentials/template-syntax#text-interpolation)
 
 ## v-html {#v-html}
 
-엘리먼트의 [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)을 업데이트합니다.
+요소의 [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)을 업데이트합니다.
 
-- **요구되는 값** `string`
+- **기대값:** `string`
 
-- **세부 사항**
+- **세부사항**
 
-  `v-html`의 내용은 Vue 템플릿 문법을 처리하지 않고 일반 HTML로 삽입됩니다. `v-html`을 사용하여 템플릿을 작성하려고 한다면, 이 방법 대신 컴포넌트를 사용하여 해결하는 방법을 고민해봐야 합니다.
+  `v-html`의 내용은 일반 HTML로 삽입되며, Vue 템플릿 문법은 처리되지 않습니다. `v-html`을 사용해 템플릿을 조합하려고 한다면, 대신 컴포넌트를 사용하는 방식으로 해결책을 다시 생각해보세요.
 
-  ::: warning 보안 참고 사항
-  웹사이트에서 임의의 HTML을 동적으로 렌더링하는 것은 [XSS 공격](https://en.wikipedia.org/wiki/Cross-site_scripting)으로 쉽게 이어질 수 있기 때문에 매우 위험할 수 있습니다. 신뢰할 수 있는 컨텐츠에만 `v-html`을 사용하고, 사용자가 제공하는 컨텐츠에는 **절대** 사용하면 안됩니다.
+  ::: warning 보안 주의
+  웹사이트에서 임의의 HTML을 동적으로 렌더링하는 것은 매우 위험할 수 있습니다. 이는 쉽게 [XSS 공격](https://en.wikipedia.org/wiki/Cross-site_scripting)으로 이어질 수 있기 때문입니다. 신뢰할 수 있는 콘텐츠에만 `v-html`을 사용하고, **절대** 사용자로부터 제공된 콘텐츠에는 사용하지 마세요.
   :::
 
-  [싱글 파일 컴포넌트(SFC)](/guide/scaling-up/sfc)에서 `scoped`(범위를 지정한) Style은 `v-html` 내부 컨텐츠에 적용되지 않습니다. 왜냐하면 해당 HTML은 Vue의 템플릿 컴파일러에서 처리되지 않기 때문입니다. 범위를 지정한 CSS로 `v-html` 컨텐츠를 대상으로 지정하려는 경우, [CSS 모듈](./sfc-css-features#css-modules) 또는 BEM과 같은 수동 범위 지정 방법과 함께 전역 `<style>` 엘리먼트를 사용할 수 있습니다.
+  [싱글 파일 컴포넌트](/guide/scaling-up/sfc)에서는, `scoped` 스타일이 `v-html` 내부의 콘텐츠에는 적용되지 않습니다. 이는 해당 HTML이 Vue의 템플릿 컴파일러에 의해 처리되지 않기 때문입니다. `v-html` 콘텐츠에 scoped CSS를 적용하려면 [CSS 모듈](./sfc-css-features#css-modules)이나 BEM과 같은 수동 스코핑 전략을 가진 추가적인 전역 `<style>` 요소를 사용할 수 있습니다.
 
-- **예제**
+- **예시**
 
   ```vue-html
   <div v-html="html"></div>
   ```
 
-- **참고** [템플릿 문법 - HTML 출력](/guide/essentials/template-syntax#raw-html)
+- **참고** [템플릿 문법 - Raw HTML](/guide/essentials/template-syntax#raw-html)
 
 ## v-show {#v-show}
 
-표현식의 [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) 값을 기반으로 엘리먼트의 가시성을 전환합니다.
+표현식 값의 참/거짓에 따라 요소의 표시 여부를 토글합니다.
 
-- **요구되는 값** `any`
+- **기대값:** `any`
 
-- **세부 사항**
+- **세부사항**
 
-  `v-show`는 인라인 스타일을 통해 `display` CSS 속성을 설정하며, 엘리먼트가 표시될 때 초기 `display` 값을 설정하려고 시도합니다. 또한 조건이 변경될 때 전환을 트리거합니다.
+  `v-show`는 인라인 스타일을 통해 `display` CSS 속성을 설정하여 동작하며, 요소가 보일 때 초기 `display` 값을 최대한 존중합니다. 또한 조건이 변경될 때 트랜지션을 트리거합니다.
 
 - **참고** [조건부 렌더링 - v-show](/guide/essentials/conditional#v-show)
 
 ## v-if {#v-if}
 
-표현식의 truthy 값을 기반으로 엘리먼트 또는 템플릿 일부를 조건부로 렌더링합니다.
+표현식 값의 참/거짓에 따라 요소 또는 템플릿 조각을 조건부로 렌더링합니다.
 
-- **요구되는 값** `any`
+- **기대값:** `any`
 
-- **세부 사항**
+- **세부사항**
 
-  `v-if` 엘리먼트가 토글되면, 엘리먼트와 여기에 포함된 디렉티브/컴포넌트가 파괴되고 재구성됩니다. 초기 조건 값이 falsy이면, 내부 컨텐츠가 전혀 렌더링되지 않습니다.
+  `v-if` 요소가 토글될 때, 해당 요소와 그 안의 디렉티브/컴포넌트는 파괴되고 다시 생성됩니다. 초기 조건이 거짓이라면 내부 콘텐츠는 전혀 렌더링되지 않습니다.
 
-  텍스트 또는 여러 엘리먼트를 포함하는 조건부 블록을 나타내기 위해 `<template>`에 사용할 수도 있습니다.
+  `<template>`에 사용할 수 있어, 텍스트만 포함하거나 여러 요소를 포함하는 조건부 블록을 나타낼 수 있습니다.
 
-  이 디렉티브는 조건이 변경될 때, [트랜지션](/guide/built-ins/transition)을 트리거합니다.
+  이 디렉티브는 조건이 변경될 때 트랜지션을 트리거합니다.
 
-  `v-for`와 함께 사용하는 경우, `v-if`의 우선 순위가 높습니다. 하나의 엘리먼트에 이 두 디렉티브을 함께 사용하는 것은 권장되지 않습니다. 자세한 내용은 [리스트 렌더링](/guide/essentials/list#v-for-with-v-if)을 참고하세요.
+  함께 사용할 때, `v-if`가 `v-for`보다 우선순위가 높습니다. 이 두 디렉티브를 하나의 요소에 함께 사용하는 것은 권장하지 않습니다. 자세한 내용은 [리스트 렌더링 가이드](/guide/essentials/list#v-for-with-v-if)를 참고하세요.
 
 - **참고** [조건부 렌더링 - v-if](/guide/essentials/conditional#v-if)
 
 ## v-else {#v-else}
 
-`v-if` 또는 `v-else-if` 체인에 대한 `else`입니다.
+`v-if` 또는 `v-if` / `v-else-if` 체인의 "else 블록"을 나타냅니다.
 
-- **표현식을 허용하지 않습니다**.
+- **표현식 없음**
 
-- **세부 사항**
+- **세부사항**
 
-  - 제한사항: 이전 형제 엘리먼트에 `v-if` 또는 `v-else-if`가 있어야 합니다.
+  - 제한: 이전 형제 요소에 `v-if` 또는 `v-else-if`가 있어야 합니다.
 
-  - `<template>`에서 텍스트 또는 여러 엘리먼트를 포함하는 조건부 블록을 나타내는 데 사용할 수 있습니다.
+  - `<template>`에 사용할 수 있어, 텍스트만 포함하거나 여러 요소를 포함하는 조건부 블록을 나타낼 수 있습니다.
 
-- **예제**
+- **예시**
 
   ```vue-html
   <div v-if="Math.random() > 0.5">
-    이제 나를 볼 수 있어요!
+    Now you see me
   </div>
   <div v-else>
-    아직이에요!
+    Now you don't
   </div>
   ```
 
@@ -101,17 +101,17 @@
 
 ## v-else-if {#v-else-if}
 
-`v-if`에 대한 `else if` 블록을 나타냅니다. `v-else-if`는 계속 이어서 사용할 수 있습니다.
+`v-if`의 "else if 블록"을 나타냅니다. 체이닝이 가능합니다.
 
-- **요구되는 값** `any`
+- **기대값:** `any`
 
-- **세부 사항**
+- **세부사항**
 
-  - 제한사항: 이전 형제 엘리먼트에 `v-if` 또는 `v-else-if`가 있어야 합니다.
+  - 제한: 이전 형제 요소에 `v-if` 또는 `v-else-if`가 있어야 합니다.
 
-  - `<template>`에서 텍스트 또는 여러 엘리먼트를 포함하는 조건부 블록을 나타내는 데 사용할 수 있습니다.
+  - `<template>`에 사용할 수 있어, 텍스트만 포함하거나 여러 요소를 포함하는 조건부 블록을 나타낼 수 있습니다.
 
-- **예제**
+- **예시**
 
   ```vue-html
   <div v-if="type === 'A'">
@@ -124,7 +124,7 @@
     C
   </div>
   <div v-else>
-    A/B/C 가 아니야!
+    Not A/B/C
   </div>
   ```
 
@@ -132,13 +132,13 @@
 
 ## v-for {#v-for}
 
-소스 데이터를 기반으로 엘리먼트 또는 템플릿 블록을 여러 번 렌더링합니다.
+소스 데이터를 기반으로 요소 또는 템플릿 블록을 여러 번 렌더링합니다.
 
-- **요구되는 값** `Array | Object | number | string | Iterable`
+- **기대값:** `Array | Object | number | string | Iterable`
 
-- **세부 사항**
+- **세부사항**
 
-  디렉티브는 반복되는 과정의 현재 값에 별칭을 제공하기 위해, 특수 문법인 `alias in expression`(표현식 내 별칭)을 사용해야 합니다:
+  디렉티브의 값은 현재 반복 중인 요소에 대한 별칭을 제공하기 위해 `alias in expression`이라는 특수 문법을 사용해야 합니다:
 
   ```vue-html
   <div v-for="item in items">
@@ -146,7 +146,7 @@
   </div>
   ```
 
-  또한 인덱스(객체에서 사용되는 경우 키)의 별칭을 지정할 수도 있습니다:
+  또는, 인덱스(또는 객체에서 사용할 경우 키)에 대한 별칭도 지정할 수 있습니다:
 
   ```vue-html
   <div v-for="(item, index) in items"></div>
@@ -154,7 +154,7 @@
   <div v-for="(value, name, index) in object"></div>
   ```
 
-  `v-for`의 기본 동작은 엘리먼트를 이동하지 않고 제자리에 패치(patch)하려고 합니다. 강제로 엘리먼트를 재정렬하려면, 특수 속성 `key`를 사용하여 순서 지정을 위한 힌트를 제공해야 합니다:
+  `v-for`의 기본 동작은 요소를 제자리에서 패치하려고 시도하며, 이동시키지 않습니다. 요소의 순서를 강제로 재정렬하려면 `key` 특수 속성으로 정렬 힌트를 제공해야 합니다:
 
   ```vue-html
   <div v-for="item in items" :key="item.id">
@@ -162,45 +162,45 @@
   </div>
   ```
 
-  `v-for`는 네이티브 `Map`,`Set`과 더불어 [Iterable Protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)을 구현한 값에서도 작동합니다.
+  `v-for`는 [이터러블 프로토콜](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol)을 구현한 값(네이티브 `Map` 및 `Set` 포함)에도 사용할 수 있습니다.
 
 - **참고**
-  - [가이드 - 리스트 렌더링](/guide/essentials/list)
+  - [리스트 렌더링](/guide/essentials/list)
 
 ## v-on {#v-on}
 
-엘리먼트에 이벤트 리스너를 연결합니다.
+요소에 이벤트 리스너를 연결합니다.
 
-- **단축 문법:** `@`
+- **축약형:** `@`
 
-- **요구되는 값** `Function | Inline Statement | Object (without argument)`
+- **기대값:** `Function | 인라인 문장 | Object (인자 없이)`
 
-- **인자:** `event` (선택사항: 객체 문법을 사용하는 경우)
+- **인자:** `event` (Object 문법 사용 시 선택)
 
-- **수식어:**
+- **수식어**
 
-  - `.stop` - `event.stopPropagation()` 호출.
-  - `.prevent` - `event.preventDefault()` 호출.
-  - `.capture` - 캡처 모드로 이벤트 등록.
-  - `.self` - 이벤트가 이 엘리먼트에서 전달된 경우에만 트리거 됨.
-  - `.{keyAlias}` - 이벤트가 특정 키에 대해서만 트리거 됨.
-  - `.once` - 이벤트가 한 번만 트리거 됨(일회용처럼).
-  - `.left` - 마우스 왼쪽 버튼으로만 이벤트가 트리거 됨.
-  - `.right` - 마우스 오른쪽 버튼으로만 이벤트가 트리거 됨.
-  - `.middle` - 마우스 중앙(힐 클릭) 버튼으로만 이벤트가 트리거 됨.
-  - `.passive` - `{ passive: true }` 옵션으로 DOM 이벤트를 등록.
+  - `.stop` - `event.stopPropagation()` 호출
+  - `.prevent` - `event.preventDefault()` 호출
+  - `.capture` - 캡처 모드로 이벤트 리스너 추가
+  - `.self` - 이벤트가 이 요소에서 발생한 경우에만 핸들러 트리거
+  - `.{keyAlias}` - 특정 키에서만 핸들러 트리거
+  - `.once` - 핸들러를 최대 한 번만 트리거
+  - `.left` - 마우스 왼쪽 버튼 이벤트에서만 핸들러 트리거
+  - `.right` - 마우스 오른쪽 버튼 이벤트에서만 핸들러 트리거
+  - `.middle` - 마우스 가운데 버튼 이벤트에서만 핸들러 트리거
+  - `.passive` - `{ passive: true }`로 DOM 이벤트 연결
 
-- **세부 사항**
+- **세부사항**
 
-  이벤트 타입은 인자로 표시됩니다. 표현식은 메서드 이름 또는 인라인 명령문이거나, 수식어가 있는 경우 생략될 수 있습니다.
+  이벤트 타입은 인자로 표시됩니다. 표현식은 메서드 이름, 인라인 문장, 또는 수식어가 있을 경우 생략할 수 있습니다.
 
-  일반 엘리먼트에 사용되면 [**네이티브 DOM 이벤트**](https://developer.mozilla.org/en-US/docs/Web/Events)만 수신합니다. 커스텀 엘리먼트 컴포넌트에서 사용되는 경우, 해당 자식 컴포넌트에서 발송(emit)하는 **커스텀 이벤트**를 수신합니다.
+  일반 요소에 사용하면 [**네이티브 DOM 이벤트**](https://developer.mozilla.org/en-US/docs/Web/Events)만 리스닝합니다. 커스텀 엘리먼트 컴포넌트에 사용하면 해당 자식 컴포넌트에서 발생한 **커스텀 이벤트**를 리스닝합니다.
 
-  네이티브 DOM 이벤트를 수신할 때, 메서드의 인자는 네이티브 이벤트 뿐 입니다. 인라인 명령문을 사용하는 경우, 명령문은 특수 속성인 `$event`로 `v-on:click="handle('ok', $event)"`와 같이 이벤트 객체에 접근할 수 있습니다.
+  네이티브 DOM 이벤트를 리스닝할 때, 메서드는 네이티브 이벤트를 유일한 인자로 받습니다. 인라인 문장을 사용할 경우, 특별한 `$event` 속성에 접근할 수 있습니다: `v-on:click="handle('ok', $event)"`.
 
-  `v-on`은 인자 없이 `이벤트(키): 리스너(값)` 형식의 객체 바인딩도 지원합니다. 수식어는 객체 문법을 사용할 때는 지원하지 않습니다.
+  `v-on`은 인자 없이 이벤트/리스너 쌍의 객체에 바인딩하는 것도 지원합니다. 객체 문법을 사용할 때는 수식어를 지원하지 않습니다.
 
-- **예제**
+- **예시**
 
   ```vue-html
   <!-- 메서드 핸들러 -->
@@ -209,199 +209,200 @@
   <!-- 동적 이벤트 -->
   <button v-on:[event]="doThis"></button>
 
-  <!-- 인라인 표현식 -->
+  <!-- 인라인 문장 -->
   <button v-on:click="doThat('hello', $event)"></button>
 
-  <!-- 단축 문법 -->
+  <!-- 축약형 -->
   <button @click="doThis"></button>
 
-  <!-- 단축 문법 동적 이벤트 -->
+  <!-- 축약형 동적 이벤트 -->
   <button @[event]="doThis"></button>
 
-  <!-- 전파 중지 -->
+  <!-- 이벤트 전파 중지 -->
   <button @click.stop="doThis"></button>
 
-  <!-- event.preventDefault() 작동 -->
+  <!-- 기본 동작 방지 -->
   <button @click.prevent="doThis"></button>
 
-  <!-- 표현식 없이 event.preventDefault()만 사용 -->
+  <!-- 표현식 없이 기본 동작 방지 -->
   <form @submit.prevent></form>
 
-  <!-- 수식어 이어서 사용 -->
+  <!-- 수식어 체이닝 -->
   <button @click.stop.prevent="doThis"></button>
 
-  <!-- 키 별칭을 수식어로 사용 -->
+  <!-- keyAlias를 사용한 키 수식어 -->
   <input @keyup.enter="onEnter" />
 
-  <!-- 클릭 이벤트 단 한 번만 트리거 -->
+  <!-- 클릭 이벤트가 최대 한 번만 트리거됨 -->
   <button v-on:click.once="doThis"></button>
 
   <!-- 객체 문법 -->
   <button v-on="{ mousedown: doThis, mouseup: doThat }"></button>
   ```
 
-  자식 컴포넌트의 커스텀 이벤트 수신 대기(자식에서  "my-event"가 발생하면 핸들러가 호출됨):
+  자식 컴포넌트에서 커스텀 이벤트를 리스닝(자식에서 "my-event"가 emit될 때 핸들러가 호출됨):
 
   ```vue-html
   <MyComponent @my-event="handleThis" />
 
-  <!-- 인라인 표현식 -->
+  <!-- 인라인 문장 -->
   <MyComponent @my-event="handleThis(123, $event)" />
   ```
 
 - **참고**
   - [이벤트 핸들링](/guide/essentials/event-handling)
-  - [컴포넌트 - 이벤트 청취하기](/guide/essentials/component-basics#listening-to-events)
+  - [컴포넌트 - 커스텀 이벤트](/guide/essentials/component-basics#listening-to-events)
 
 ## v-bind {#v-bind}
 
 하나 이상의 속성 또는 컴포넌트 prop을 표현식에 동적으로 바인딩합니다.
 
-- **단축 문법:**
-  - `:` 또는 `.`(`.prop` 수식어를 사용할 때)
-  - 속성(attribute)과 바인딩된 값이 같은 이름을 가질 경우 값을 생략할 수 있음 <sup class="vt-badge">3.4+</sup>
+- **축약형:**
+  - `:` 또는 `.` (`.prop` 수식어 사용 시)
+  - 값 생략(속성과 바인딩 값의 이름이 같을 때, 3.4+ 필요)
 
-- **요구되는 값** `any (인자 있이) | Object (인자 없이)`
+- **기대값:** `any (인자 사용 시) | Object (인자 없이)`
 
-- **인자:** `attrOrProp (optional)`
+- **인자:** `attrOrProp (선택)`
 
-- **수식어:**
+- **수식어**
 
-  - `.camel` - kebab-case 속성 이름을 camelCase로 변환.
-  - `.prop` - 바인딩을 [DOM 속성(property: 이하 프로퍼티)](https://developer.mozilla.org/en-US/docs/Web/API/Element#properties)으로 강제 설정.  (3.2+).
-  - `.attr` - 바인딩을 [DOM 속성(attribute)](https://developer.mozilla.org/en-US/docs/Glossary/Attribute)으로 강제 설정. (3.2+).
+  - `.camel` - 케밥 케이스 속성명을 camelCase로 변환
+  - `.prop` - 바인딩을 DOM 속성으로 강제 설정 (3.2+)
+  - `.attr` - 바인딩을 DOM 속성으로 강제 설정 (3.2+)
+
 - **사용법**
 
-  `class` 또는 `style` 속성을 바인딩하는 데 사용되는 경우, `v-bind`는 배열 또는 객체와 같이 값을 추가할 수 있는 타입을 지원합니다. 자세한 내용은 아래 링크된 가이드 섹션을 참고합시다.
+  `class` 또는 `style` 속성에 바인딩할 때, `v-bind`는 Array 또는 Object와 같은 추가 값 타입을 지원합니다. 자세한 내용은 아래 가이드 섹션을 참고하세요.
 
-  엘리먼트에 바인딩을 설정할 때, Vue는 기본적으로 연산자 검사를 위한 `in`을 사용하여, 엘리먼트에 프로퍼티로 정의된 키가 있는지 확인합니다. 프로퍼티가 정의되면, Vue는 속성 대신 DOM 프로퍼티로 값을 설정합니다. 이것은 대부분의 경우 작동하지만, `.prop` 또는 `.attr` 수식어를 명시적으로 사용하여 이 동작을 재정의할 수 있습니다. 이것은 특히 [커스텀 엘리먼트로 작업](/guide/extras/web-components.html#passing-dom-properties)할 때 필요합니다.
+  요소에 바인딩을 설정할 때, Vue는 기본적으로 `in` 연산자 체크를 통해 해당 키가 속성으로 정의되어 있는지 확인합니다. 속성이 정의되어 있으면, Vue는 값을 속성이 아닌 DOM 속성으로 설정합니다. 대부분의 경우 이 방식이 잘 동작하지만, `.prop` 또는 `.attr` 수식어를 명시적으로 사용하여 이 동작을 오버라이드할 수 있습니다. 특히 [커스텀 엘리먼트 작업 시](/guide/extras/web-components#passing-dom-properties) 필요할 수 있습니다.
 
-  컴포넌트 prop 바인딩에 사용될 때 prop은 자식 컴포넌트에서 적절하게 선언되어야 합니다.
+  컴포넌트 prop 바인딩에 사용할 때, prop은 자식 컴포넌트에서 올바르게 선언되어 있어야 합니다.
 
-  인자 없이 사용하는 경우, 속성을 이름-값 쌍으로 포함하는 객체를 바인딩하는 데 사용할 수 있습니다. 이 모드에서 `class`와 `style`은 배열 또는 객체를 지원하지 않습니다.
+  인자 없이 사용할 경우, 속성명-값 쌍을 포함하는 객체를 바인딩할 수 있습니다.
 
-- **예제**
+- **예시**
 
   ```vue-html
   <!-- 속성 바인딩 -->
   <img v-bind:src="imageSrc" />
 
-  <!-- 동적인 속성명 -->
+  <!-- 동적 속성명 -->
   <button v-bind:[key]="value"></button>
 
-  <!-- 단축 문법 -->
+  <!-- 축약형 -->
   <img :src="imageSrc" />
 
-  <!-- 같은 이름 생략 가능 (3.4+), 오른쪽과 같음 :src="src" -->
+  <!-- 동일 이름 축약형 (3.4+), :src="src"로 확장됨 -->
   <img :src />
-  
-  <!-- 단축 문법과 동적 속성명 -->
+
+  <!-- 축약형 동적 속성명 -->
   <button :[key]="value"></button>
 
-  <!-- 인라인으로 문자열 결합 -->
+  <!-- 인라인 문자열 연결 -->
   <img :src="'/path/to/images/' + fileName" />
 
-  <!-- class 바인딩 -->
+  <!-- 클래스 바인딩 -->
   <div :class="{ red: isRed }"></div>
   <div :class="[classA, classB]"></div>
   <div :class="[classA, { classB: isB, classC: isC }]"></div>
 
-  <!-- style 바인딩 -->
+  <!-- 스타일 바인딩 -->
   <div :style="{ fontSize: size + 'px' }"></div>
   <div :style="[styleObjectA, styleObjectB]"></div>
 
-  <!-- 속성을 객체로 바인딩 -->
+  <!-- 속성 객체 바인딩 -->
   <div v-bind="{ id: someProp, 'other-attr': otherProp }"></div>
 
-  <!-- prop 바인딩. "prop"은 자식 컴포넌트에서 선언되어 있어야 함 -->
+  <!-- prop 바인딩. "prop"은 자식 컴포넌트에서 선언되어야 함 -->
   <MyComponent :prop="someThing" />
 
-  <!-- 자식 컴포넌트와 공유될 부모 props를 전달 -->
+  <!-- 부모와 자식 컴포넌트에서 공통된 prop 전달 -->
   <MyComponent v-bind="$props" />
-  
+
   <!-- XLink -->
   <svg><a :xlink:special="foo"></a></svg>
   ```
 
-  `.prop` 수식어에는 전용 단축 문법 `.`가 있습니다:
+  `.prop` 수식어는 전용 축약형 `.`도 있습니다:
 
   ```vue-html
   <div :someProperty.prop="someObject"></div>
 
-  <!-- 위 코드는 아래와 같이 단축할 수 있음 -->
+  <!-- 아래와 동일 -->
   <div .someProperty="someObject"></div>
   ```
 
-  `.camel` 수식어는 DOM 내 템플릿을 사용할 때, `v-bind`의 속성명을 카멜라이징(camelizing)할 수 있습니다. 예를 들면, SVG `viewBox` 속성:
+  `.camel` 수식어는 in-DOM 템플릿에서 `v-bind` 속성명을 camelCase로 변환할 수 있습니다. 예: SVG `viewBox` 속성
 
   ```vue-html
   <svg :view-box.camel="viewBox"></svg>
   ```
 
-  문자열 템플릿을 사용하거나 템플릿을 빌드 과정으로 미리 컴파일하는 경우에는 `.camel`이 필요하지 않습니다.
+  `.camel`은 문자열 템플릿을 사용하거나, 빌드 단계에서 템플릿을 미리 컴파일하는 경우 필요하지 않습니다.
 
 - **참고**
-  - [가이드 - 클래스와 스타일 바인딩](/guide/essentials/class-and-style)
-  - [가이드 - Props: Props 전달에 관한 심화](/guide/components/props#prop-passing-details)
+  - [클래스 및 스타일 바인딩](/guide/essentials/class-and-style)
+  - [컴포넌트 - Prop 전달 세부사항](/guide/components/props#prop-passing-details)
 
 ## v-model {#v-model}
 
-사용자 입력을 받는 폼(form) 엘리먼트 또는 컴포넌트에 양방향 바인딩을 만듭니다.
+폼 입력 요소 또는 컴포넌트에서 양방향 바인딩을 생성합니다.
 
-- **요구되는 값** 사용자 입력을 받는 폼 엘리먼트 또는 컴포넌트의 출력 값에 따라 다름.
+- **기대값:** 폼 입력 요소의 값 또는 컴포넌트의 출력에 따라 다름
 
-- **다음으로 제한됨**:
+- **제한:**
 
   - `<input>`
   - `<select>`
   - `<textarea>`
   - 컴포넌트
 
-- **수식어:**
+- **수식어**
 
-  - [`.lazy`](/guide/essentials/forms#lazy) - `input` 대신 `change` 이벤트를 수신함.
-  - [`.number`](/guide/essentials/forms#number) - 유효한 입력 문자열을 숫자로 변환하여 전달.
-  - [`.trim`](/guide/essentials/forms#trim) - 사용자 입력의 공백을 트리밍.
+  - [`.lazy`](/guide/essentials/forms#lazy) - `input` 대신 `change` 이벤트 리스닝
+  - [`.number`](/guide/essentials/forms#number) - 유효한 입력 문자열을 숫자로 변환
+  - [`.trim`](/guide/essentials/forms#trim) - 입력값 트림
 
 - **참고**
 
-  - [가이드 - Form 입력 바인딩](/guide/essentials/forms)
-  - [가이드 - 이벤트: `v-model`과 함께 사용하기](/guide/components/v-model)
+  - [폼 입력 바인딩](/guide/essentials/forms)
+  - [컴포넌트 이벤트 - `v-model`과 함께 사용](/guide/components/v-model)
 
 ## v-slot {#v-slot}
 
-이름이 있는 슬롯 또는 props를 받을 것으로 예상되는 범위형 (Scoped) 슬롯을 나타냅니다.
+props를 받을 것으로 예상되는 명명된 슬롯 또는 스코프 슬롯을 나타냅니다.
 
-- **단축 문법:** `#`
+- **축약형:** `#`
 
-- **요구되는 값** JavaScript expression that is valid in a function argument position, including support for destructuring. Optional - only needed if expecting props to be passed to the slot.
+- **기대값:** 함수 인자 위치에서 유효한 JavaScript 표현식(구조 분해 지원 포함). 선택 사항 - 슬롯에 props가 전달될 것으로 예상될 때만 필요.
 
-- **인자:** 슬롯 이름 (선택적, 기본값은 `default`)
+- **인자:** 슬롯 이름(선택, 기본값은 `default`)
 
-- **다음으로 제한됨**:
+- **제한:**
 
   - `<template>`
-  - [컴포넌트](/guide/components/slots#scoped-slots) (props를 수신할 기본 슬롯만 있는 경우)
+  - [컴포넌트](/guide/components/slots#scoped-slots) (props가 있는 단일 기본 슬롯의 경우)
 
-- **예제**
+- **예시**
 
   ```vue-html
-  <!-- 이름이 있는 슬롯 -->
+  <!-- 명명된 슬롯 -->
   <BaseLayout>
     <template v-slot:header>
-      해더 컨텐츠
+      Header content
     </template>
 
     <template v-slot:default>
-      기본 슬롯 컨텐츠
+      Default slot content
     </template>
 
     <template v-slot:footer>
-      푸터 컨텐츠
+      Footer content
     </template>
   </BaseLayout>
 
-  <!-- props를 수신할 기본 슬롯 -->
+  <!-- props를 받는 명명된 슬롯 -->
   <InfiniteScroll>
     <template v-slot:item="slotProps">
       <div class="item">
@@ -410,47 +411,47 @@
     </template>
   </InfiniteScroll>
 
-  <!-- props를 수신할 기본 슬롯, 분해할당을 사용 -->
+  <!-- 구조 분해와 함께 props를 받는 기본 슬롯 -->
   <Mouse v-slot="{ x, y }">
-    마우스 위치: {{ x }}, {{ y }}
+    Mouse position: {{ x }}, {{ y }}
   </Mouse>
   ```
 
 - **참고**
-  - [가이드 - 슬롯](/guide/components/slots)
+  - [컴포넌트 - 슬롯](/guide/components/slots)
 
 ## v-pre {#v-pre}
 
-이 엘리먼트와 모든 자식 엘리먼트의 컴파일을 생략합니다.
+이 요소와 모든 자식에 대한 컴파일을 건너뜁니다.
 
-- **표현식을 허용하지 않습니다**.
+- **표현식 없음**
 
-- **세부 사항**
+- **세부사항**
 
-  `v-pre`가 있는 엘리먼트 내에서 모든 Vue 템플릿 구문은 그대로 유지되고 렌더링됩니다. 가장 일반적인 사용 사례는 이중 중괄호 태그를 표시하는 것입니다.
+  `v-pre`가 있는 요소 내부에서는 모든 Vue 템플릿 문법이 그대로 보존되어 렌더링됩니다. 가장 일반적인 사용 사례는 원시 머스태시 태그를 표시하는 것입니다.
 
-- **예제**
+- **예시**
 
   ```vue-html
-  <span v-pre>{{ 이곳은 컴파일되지 않습니다. }}</span>
+  <span v-pre>{{ this will not be compiled }}</span>
   ```
 
 ## v-once {#v-once}
 
-엘리먼트와 컴포넌트를 한 번만 렌더링하고, 향후 업데이트를 생략합니다.
+요소와 컴포넌트를 한 번만 렌더링하고, 이후 업데이트를 건너뜁니다.
 
-- **표현식을 허용하지 않습니다**.
+- **표현식 없음**
 
-- **세부 사항**
+- **세부사항**
 
-  이후 다시 렌더링할 때 엘리먼트/컴포넌트 및 모든 자식들은 정적 컨텐츠로 처리되어 생략됩니다. 이것은 업데이트 성능을 최적화하는 데 사용할 수 있습니다.
+  이후 다시 렌더링될 때, 해당 요소/컴포넌트와 모든 자식은 정적 콘텐츠로 간주되어 건너뜁니다. 이는 업데이트 성능을 최적화하는 데 사용할 수 있습니다.
 
   ```vue-html
-  <!-- 단일 엘리먼트 -->
-  <span v-once>절대 바뀌지 않음: {{msg}}</span>
-  <!-- 자식이 있는 엘리먼트 -->
+  <!-- 단일 요소 -->
+  <span v-once>This will never change: {{msg}}</span>
+  <!-- 자식이 있는 요소 -->
   <div v-once>
-    <h1>댓글</h1>
+    <h1>Comment</h1>
     <p>{{msg}}</p>
   </div>
   <!-- 컴포넌트 -->
@@ -461,20 +462,21 @@
   </ul>
   ```
 
-  3.2부터는 [`v-memo`](#v-memo)를 사용하여 무효화 조건으로 템플릿의 일부를 메모화할 수도 있습니다.
+  3.2부터는 [`v-memo`](#v-memo)를 사용해 무효화 조건과 함께 템플릿의 일부를 메모이즈할 수도 있습니다.
 
 - **참고**
-  - [가이드 - 템플릿 문법: 텍스트 보간법](/guide/essentials/template-syntax.html#text-interpolation)
+  - [데이터 바인딩 문법 - 보간](/guide/essentials/template-syntax#text-interpolation)
   - [v-memo](#v-memo)
 
 ## v-memo {#v-memo}
-- 3.2+ 버전 이상에서만 지원합니다.
 
-- **요구되는 값** `any[]`
+- 3.2+에서만 지원
 
-- **세부 사항**
+- **기대값:** `any[]`
 
-  템플릿의 하위 트리를 메모합니다. 엘리먼트와 컴포넌트 모두에 사용할 수 있습니다. 디렉티브는 메모이제이션을 위해 비교할 의존성 값의 고정된 길이의 배열을 요구합니다. 배열의 모든 값이 마지막 렌더링과 같으면 전체 하위 트리에 대한 업데이트를 생략합니다. 예를 들어:
+- **세부사항**
+
+  템플릿의 서브 트리를 메모이즈합니다. 요소와 컴포넌트 모두에 사용할 수 있습니다. 디렉티브는 메모이제이션을 위해 비교할 고정 길이의 의존성 값 배열을 기대합니다. 배열의 모든 값이 마지막 렌더와 동일하다면, 전체 서브 트리에 대한 업데이트가 건너뜁니다. 예를 들어:
 
   ```vue-html
   <div v-memo="[valueA, valueB]">
@@ -482,47 +484,47 @@
   </div>
   ```
 
-  컴포넌트가 다시 렌더링될 때 `valueA`와 `valueB`가 모두 동일하게 유지되면, 이 `<div>`와 하위 항목에 대한 모든 업데이트를 생략합니다. 사실, 하위 트리의 메모된 복사본을 재사용할 수 있기 때문에 가상 DOM VNode 생성도 생략합니다.
+  컴포넌트가 다시 렌더링될 때, `valueA`와 `valueB`가 모두 동일하다면 이 `<div>`와 그 자식에 대한 모든 업데이트가 건너뜁니다. 실제로, 메모이즈된 서브 트리의 복사본을 재사용할 수 있으므로 Virtual DOM VNode 생성조차도 건너뜁니다.
 
-  메모이제이션 배열을 올바르게 지정하는 것이 중요합니다. 그렇지 않으면 실제로 적용되어야 하는 업데이트를 건너뛸 수 있습니다. 빈 의존성 배열(`v-memo="[]"`)이 있는 `v-memo`는 기능적으로 `v-once`와 동일합니다.
+  메모이제이션 배열을 올바르게 지정하는 것이 중요합니다. 그렇지 않으면 실제로 적용되어야 할 업데이트를 건너뛸 수 있습니다. 의존성 배열이 비어있는 `v-memo="[]"`는 기능적으로 `v-once`와 동일합니다.
 
-  **`v-for`과 함께 사용하기**
+  **`v-for`와 함께 사용하기**
 
-  `v-memo`는 성능이 중요한 시나리오에서 마이크로 최적화를 위해 제공되는 것으로, 일반적으로 거의 필요하지 않습니다. 이것이 도움이 될 수 있는 가장 일반적인 경우는 큰 리스트(`length > 1000`)를 `v-for`로 렌더링할 때입니다:
+  `v-memo`는 성능이 중요한 시나리오에서 마이크로 최적화를 위해 제공되며, 거의 필요하지 않습니다. 가장 일반적인 활용 사례는 대용량 `v-for` 리스트(길이 > 1000)를 렌더링할 때입니다:
 
   ```vue-html
   <div v-for="item in list" :key="item.id" v-memo="[item.id === selected]">
-    <p>ID: {{ item.id }} - 선택됨: {{ item.id === selected }}</p>
-    <p>...더 많은 자식 노드</p>
+    <p>ID: {{ item.id }} - selected: {{ item.id === selected }}</p>
+    <p>...more child nodes</p>
   </div>
   ```
 
-  컴포넌트의 `selected` 상태가 변경되면, 대부분의 아이템이 정확히 동일하게 유지되더라도 많은 양의 VNode가 생성됩니다. 여기서 `v-memo` 사용법은 본질적으로 "아이템의 선택여부가 바뀐 경우에만, 이 아이템을 업데이트하십시오"입니다. 이렇게 하면 영향을 받지 않는 모든 아이템이 이전 VNode를 재사용하고, 차이점 비교를 생략할 수 있습니다. Vue는 아이템의 `:key`로 자동 추론하므로, 메모 의존성 배열에 `item.id`를 포함할 필요가 없습니다.
+  컴포넌트의 `selected` 상태가 변경될 때, 대부분의 항목이 동일하더라도 많은 VNode가 생성됩니다. 여기서 `v-memo` 사용은 "이 항목이 선택됨/해제됨으로 변경된 경우에만 업데이트하라"는 의미입니다. 영향을 받지 않은 항목은 이전 VNode를 재사용하여 diffing을 완전히 건너뜁니다. 이때, Vue가 항목의 `:key`에서 자동으로 추론하므로 memo 의존성 배열에 `item.id`를 포함할 필요는 없습니다.
 
   :::warning
-  `v-for`와 함께 `v-memo`를 사용할 때, 동일한 엘리먼트에 사용되는지 확인이 필요합니다. **`v-memo`는 `v-for` 내에서 작동하지 않습니다**.
+  `v-memo`를 `v-for`와 함께 사용할 때는 반드시 같은 요소에 사용해야 합니다. **`v-memo`는 `v-for` 내부에서는 동작하지 않습니다.**
   :::
 
-  `v-memo`는 자식 컴포넌트 업데이트 확인이 최적화되지 않은 특정 엣지 케이스에서 원치 않는 업데이트를 수동으로 방지하기 위해 컴포넌트에 사용할 수도 있습니다. 그러나 필요한 업데이트를 건너뛰지 않도록 올바른 의존성 배열을 지정하는 것은 개발자의 책임입니다.
+  `v-memo`는 자식 컴포넌트 업데이트 체크가 비최적화된 특정 엣지 케이스에서 원치 않는 업데이트를 수동으로 방지하는 데도 사용할 수 있습니다. 하지만, 필요한 업데이트가 건너뛰어지지 않도록 올바른 의존성 배열을 지정하는 것은 개발자의 책임입니다.
 
 - **참고**
   - [v-once](#v-once)
 
 ## v-cloak {#v-cloak}
 
-준비될 때까지 컴파일되지 않은 템플릿을 숨기는 데 사용됩니다.
+컴파일되지 않은 템플릿을 준비될 때까지 숨기는 데 사용됩니다.
 
-- **표현식을 허용하지 않습니다**.
+- **표현식 없음**
 
-- **세부 사항**
+- **세부사항**
 
-  **이 디렉티브는 빌드 과정이 없는 설정에서만 필요합니다**.
+  **이 디렉티브는 빌드 단계가 없는 환경에서만 필요합니다.**
 
-  DOM 내 템플릿을 사용할 때, "컴파일되지 않은 템플릿이 순간 보이는 현상"이 있을 수 있습니다. 이러면 사용자는 컴포넌트가 렌더링된 컨텐츠로 대체할 때까지 이중 중괄호 태그를 볼 수 있습니다.
+  in-DOM 템플릿을 사용할 때, "컴파일되지 않은 템플릿의 깜빡임"이 발생할 수 있습니다. 즉, 마운트된 컴포넌트가 렌더링된 콘텐츠로 교체되기 전까지 사용자가 원시 머스태시 태그를 볼 수 있습니다.
 
-  `v-cloak`은 연결된 컴포넌트 인스턴스가 마운트될 때까지 엘리먼트에 남아 있습니다. `[v-cloak] { display: none }`과 같은 CSS 규칙과 결합하여, 컴포넌트가 준비될 때까지 템플릿을 숨기는 데 사용할 수 있습니다.
+  `v-cloak`는 관련 컴포넌트 인스턴스가 마운트될 때까지 요소에 남아 있습니다. `[v-cloak] { display: none }`과 같은 CSS 규칙과 결합하여, 컴포넌트가 준비될 때까지 원시 템플릿을 숨기는 데 사용할 수 있습니다.
 
-- **예제**
+- **예시**
 
   ```css
   [v-cloak] {
@@ -536,4 +538,4 @@
   </div>
   ```
 
-  `<div>`는 컴파일이 완료될 때까지 표시되지 않습니다.
+  컴파일이 완료될 때까지 `<div>`는 보이지 않습니다.

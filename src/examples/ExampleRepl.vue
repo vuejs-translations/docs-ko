@@ -94,7 +94,7 @@ onMounted(() => {
     border: none;
     height: calc(
       var(--vh, 0px) - var(--vt-nav-height) - var(--vt-banner-height, 0px) -
-      48px
+        48px
     );
   }
 }

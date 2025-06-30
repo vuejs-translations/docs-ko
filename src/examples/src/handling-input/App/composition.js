@@ -5,13 +5,13 @@ export default {
     const message = ref('Hello World!')
 
     function reverseMessage() {
-      // Access/mutate the value of a ref via
-      // its .value property.
+      // ref의 값을 접근/변경하려면
+      // .value 속성을 사용하세요.
       message.value = message.value.split('').reverse().join('')
     }
 
     function notify() {
-      alert('navigation was prevented.')
+      alert('이동이 차단되었습니다.')
     }
 
     return {

@@ -2,27 +2,23 @@
 
 ## 기본 사용법 {#basic-usage}
 
-거대한 앱에서는 앱을 더 작게 조각내어 나누고, 필요할 때만 서버에서 컴포넌트를 로드해야 할 수 있습니다.
-이를 구현하기 위해 [`defineAsyncComponent`](/api/general#defineasynccomponent) 함수를 제공합니다:
+대형 애플리케이션에서는 앱을 더 작은 청크로 나누고, 필요할 때만 서버에서 컴포넌트를 로드해야 할 수 있습니다. 이를 가능하게 하기 위해 Vue는 [`defineAsyncComponent`](/api/general#defineasynccomponent) 함수를 제공합니다:
 
 ```js
 import { defineAsyncComponent } from 'vue'
 
 const AsyncComp = defineAsyncComponent(() => {
   return new Promise((resolve, reject) => {
-    // ...서버에서 컴포넌트를 로드하는 로직
-    resolve(/* 로드 된 컴포넌트 */)
+    // ...서버에서 컴포넌트 로드
+    resolve(/* 로드된 컴포넌트 */)
   })
 })
-// ... 일반 컴포넌트처럼 `AsyncComp`를 사용 
+// ... `AsyncComp`을 일반 컴포넌트처럼 사용
 ```
 
-위 예제처럼 `defineAsyncComponent`는 Promise를 반환하는 로더 함수를 사용합니다.
-Promise의 `resolve` 콜백을 호출해 서버에서 가져온 정의되어 있는 컴포넌트를 반환합니다.
-로드가 실패했음을 나타내기 위해 `reject(reason)`를 호출할 수도 있습니다.
+보시다시피, `defineAsyncComponent`는 Promise를 반환하는 로더 함수를 인자로 받습니다. 서버에서 컴포넌트 정의를 가져왔을 때 Promise의 `resolve` 콜백을 호출해야 합니다. 로드에 실패했음을 나타내려면 `reject(reason)`을 호출할 수도 있습니다.
 
-[ES 모듈 동적으로 가져오기](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)도 Promise를 반환하므로, 대부분의 경우 `defineAsyncComponent`와 함께 사용합니다.
-Vite 및 webpack과 같은 번들러에서도 이 문법을 지원하므로 Vue SFC를 가져오는 데 사용할 수 있습니다.
+[ES 모듈 동적 import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)도 Promise를 반환하므로, 대부분의 경우 `defineAsyncComponent`와 함께 사용합니다. Vite와 webpack 같은 번들러도 이 문법을 지원하며(번들 분할 지점으로 사용), 이를 통해 Vue SFC를 import할 수 있습니다:
 
 ```js
 import { defineAsyncComponent } from 'vue'
@@ -32,10 +28,9 @@ const AsyncComp = defineAsyncComponent(() =>
 )
 ```
 
-반환된 `AsyncComp`는 페이지에서 실제로 렌더링될 때만 로더 함수를 호출하는 래퍼 컴포넌트입니다.
-또한 모든 props를 내부 컴포넌트에 전달하므로, 기존 구현된 컴포넌트를 비동기 래퍼 컴포넌트로 문제없이 교체하여 지연(lazy) 로드를 구현할 수 있습니다.
+결과로 생성된 `AsyncComp`는 실제로 페이지에 렌더링될 때만 로더 함수를 호출하는 래퍼 컴포넌트입니다. 또한, 모든 props와 slot을 내부 컴포넌트로 전달하므로, 비동기 래퍼를 사용해 원래 컴포넌트를 무리 없이 대체하면서 지연 로딩을 구현할 수 있습니다.
 
-일반 컴포넌트 처럼, 비동기 컴포넌트도  `app.component()`를 통해  [전역 등록이 가능합니다](/guide/components/registration#global-registration):
+일반 컴포넌트와 마찬가지로, 비동기 컴포넌트도 `app.component()`를 사용해 [전역 등록](/guide/components/registration#global-registration)할 수 있습니다:
 
 ```js
 app.component('MyComponent', defineAsyncComponent(() =>
@@ -45,7 +40,7 @@ app.component('MyComponent', defineAsyncComponent(() =>
 
 <div class="options-api">
 
-[컴포넌트를 로컬로 등록](/guide/components/registration#local-registration)할 때 `defineAsyncComponent`를 사용할 수도 있습니다:
+[로컬 컴포넌트 등록](/guide/components/registration#local-registration) 시에도 `defineAsyncComponent`를 사용할 수 있습니다:
 
 ```vue
 <script>
@@ -69,7 +64,7 @@ export default {
 
 <div class="composition-api">
 
-부모 컴포넌트 안에서 직접 선언될수 있습니다.  
+부모 컴포넌트 내부에서 직접 정의할 수도 있습니다:
 
 ```vue
 <script setup>
@@ -89,59 +84,56 @@ const AdminPage = defineAsyncComponent(() =>
 
 ## 로딩 및 에러 상태 {#loading-and-error-states}
 
-비동기 작업에는 필연적으로 로드 및 에러 상태가 포함됩니다.
-`defineAsyncComponent()`는 고급 옵션을 통해 이러한 상태 처리를 지원합니다:
+비동기 작업에는 불가피하게 로딩 및 에러 상태가 수반됩니다. `defineAsyncComponent()`는 고급 옵션을 통해 이러한 상태를 처리할 수 있습니다:
 
 ```js
 const AsyncComp = defineAsyncComponent({
   // 로더 함수
   loader: () => import('./Foo.vue'),
 
-  // 비동기 컴포넌트가 로드되는 동안 사용할 로딩 컴포넌트입니다.
+  // 비동기 컴포넌트가 로딩 중일 때 사용할 컴포넌트
   loadingComponent: LoadingComponent,
-  // 로딩 컴포넌트를 표시하기 전에 지연할 시간. 기본값: 200ms
+  // 로딩 컴포넌트를 표시하기 전의 지연 시간. 기본값: 200ms.
   delay: 200,
 
-  // 로드 실패 시 사용할 에러 컴포넌트
+  // 로드에 실패했을 때 사용할 컴포넌트
   errorComponent: ErrorComponent,
-  // 시간 초과 시, 에러 컴포넌트가 표시됩니다. 기본값: 무한대
+  // 타임아웃이 지정되고 초과되면 에러 컴포넌트가 표시됩니다.
+  // 기본값: Infinity.
   timeout: 3000
 })
 ```
 
-로딩 컴포넌트가 제공되면 내부 컴포넌트가 로딩되는 동안 먼저 표시됩니다.
-로딩 컴포넌트가 표시되기 전에 기본 200ms 지연시간이 있습니다.
-이는 빠른 네트워크에서 인스턴트 로딩 상태가 너무 빨리 교체되어 깜박임처럼 보일 수 있기 때문입니다.
+로딩 컴포넌트가 제공되면, 내부 컴포넌트가 로드되는 동안 먼저 표시됩니다. 로딩 컴포넌트가 표시되기 전 기본 200ms의 지연이 있는데, 이는 빠른 네트워크에서 즉시 로딩 상태가 너무 빨리 대체되어 깜빡임처럼 보일 수 있기 때문입니다.
 
-에러 컴포넌트가 제공되면 로더 함수의 Promise가 reject로 반환될 때 표시됩니다.
-요청이 너무 오래 걸릴 때 에러 컴포넌트를 표시하도록 시간 초과를 지정할 수도 있습니다.
+에러 컴포넌트가 제공되면, 로더 함수가 반환한 Promise가 거부(reject)될 때 표시됩니다. 요청이 너무 오래 걸릴 때 에러 컴포넌트를 표시하도록 타임아웃을 지정할 수도 있습니다.
 
-# 지연 하이드레이션 <sup class="vt-badge" data-text="3.5+" /> {#lazy-hydration}
+## 지연 하이드레이션 <sup class="vt-badge" data-text="3.5+" /> {#lazy-hydration}
 
-> 이 섹션은  [Server-Side Rendering](/guide/scaling-up/ssr) 에서만 적용됩니다. 
+> 이 섹션은 [서버 사이드 렌더링](/guide/scaling-up/ssr)을 사용하는 경우에만 적용됩니다.
 
-Vue 3.5 이상에서는 비동기 컴포넌트가 하이드레이션 전략을 제공하여 하이드레이션 시점을 제어할 수 있습니다.
+Vue 3.5+에서는 비동기 컴포넌트가 하이드레이션 전략을 제공하여 언제 하이드레이션할지 제어할 수 있습니다.
 
-- Vue는 여러 가지 내장된 하이드레이션 전략을 제공합니다. 이러한 내장 전략은 개별적으로 가져와야 하며, 사용되지 않는 경우 트리 쉐이킹될 수 있습니다.
-- 
-- 이 설계는 유연성을 위해 의도적으로 저수준으로 만들어졌습니다. 향후 컴파일러 문법 설탕(Syntax Sugar)이 핵심(Vue Core)이나 상위 수준 솔루션(예: Nuxt)에서 추가적으로 구축될 가능성이 있습니다.
+- Vue는 여러 내장 하이드레이션 전략을 제공합니다. 이 내장 전략들은 사용하지 않을 경우 트리 셰이킹이 가능하도록 개별적으로 import해야 합니다.
 
-### 유휴 상태일때 하이드레이션 (Hydrate on Idle) {#hydrate-on-idle}
+- 설계는 유연성을 위해 의도적으로 저수준입니다. 향후 코어 또는 상위 레벨 솔루션(예: Nuxt)에서 컴파일러 문법 설탕이 추가될 수 있습니다.
 
-`requestIdleCallback` 를 이용한 하이드레이션:
+### Idle 시 하이드레이션 {#hydrate-on-idle}
+
+`requestIdleCallback`을 통해 하이드레이션합니다:
 
 ```js
 import { defineAsyncComponent, hydrateOnIdle } from 'vue'
 
 const AsyncComp = defineAsyncComponent({
   loader: () => import('./Comp.vue'),
-  hydrate: hydrateOnIdle(/* 옵션으로 최대 타입아읏 시간을 줄수있다. */)
+  hydrate: hydrateOnIdle(/* 선택적으로 최대 타임아웃 전달 가능 */)
 })
 ```
 
-### 보여질때 하이드레이션 {#hydrate-on-visible}
+### 보일 때 하이드레이션 {#hydrate-on-visible}
 
-`IntersectionObserver`를 이용하여 요소가 보여질때 하이드레이션:
+`IntersectionObserver`를 통해 요소가 보일 때 하이드레이션합니다.
 
 ```js
 import { defineAsyncComponent, hydrateOnVisible } from 'vue'
@@ -152,16 +144,15 @@ const AsyncComp = defineAsyncComponent({
 })
 ```
 
-옵저버에 대한 옵션 객체 값을 선택적으로 전달할 수 있습니다.
-
+옵저버를 위한 옵션 객체 값을 선택적으로 전달할 수 있습니다:
 
 ```js
 hydrateOnVisible({ rootMargin: '100px' })
 ```
 
-### 미디어 쿼리를 통한 하이드레이션 {#hydrate-on-media-query}
+### 미디어 쿼리로 하이드레이션 {#hydrate-on-media-query}
 
-특정 미디어 쿼리가 일치할 때 하이드레이션:
+지정한 미디어 쿼리가 일치할 때 하이드레이션합니다.
 
 ```js
 import { defineAsyncComponent, hydrateOnMediaQuery } from 'vue'
@@ -172,9 +163,9 @@ const AsyncComp = defineAsyncComponent({
 })
 ```
 
-### 상호 작용이 있을때 하이드레이션 {#hydrate-on-interaction}
+### 상호작용 시 하이드레이션 {#hydrate-on-interaction}
 
-지정된 이벤트가 컴포넌트 요소에서 트리거될 때 하이드레이션이 수행됩니다. 또한, 하이드레이션이 완료된 후 해당 이벤트가 다시 실행됩니다.
+지정한 이벤트가 컴포넌트 요소에서 발생할 때 하이드레이션합니다. 하이드레이션이 완료되면 트리거된 이벤트도 재생됩니다.
 
 ```js
 import { defineAsyncComponent, hydrateOnInteraction } from 'vue'
@@ -185,7 +176,7 @@ const AsyncComp = defineAsyncComponent({
 })
 ```
 
-여러 개의 이벤트 유형 목록으로도 사용할 수 있습니다:
+여러 이벤트 타입의 리스트도 전달할 수 있습니다:
 
 ```js
 hydrateOnInteraction(['wheel', 'mouseover'])
@@ -197,14 +188,16 @@ hydrateOnInteraction(['wheel', 'mouseover'])
 import { defineAsyncComponent, type HydrationStrategy } from 'vue'
 
 const myStrategy: HydrationStrategy = (hydrate, forEachElement) => {
-  // forEachElement는 컴포넌트의 하이드레이션되지 않은 DOM에서 모든 루트 요소를 순회하는 보조 함수(helper)입니다. 이는 루트가 단일 요소가 아닌 프래그먼트(fragment)일 수도 있기 때문입니다.
+  // forEachElement는 컴포넌트의 비하이드레이션 DOM의
+  // 모든 루트 요소를 순회하는 헬퍼입니다.
+  // 루트가 단일 요소가 아닌 프래그먼트일 수 있기 때문입니다.
   forEachElement(el => {
     // ...
   })
-  //  준비되면 `hydrate`이 호출됩니다. 
+  // 준비가 되면 `hydrate`를 호출
   hydrate()
   return () => {
-    // 정리 함수가 필요하면 리턴합니다. 
+    // 필요하다면 정리 함수 반환
   }
 }
 
@@ -214,8 +207,6 @@ const AsyncComp = defineAsyncComponent({
 })
 ```
 
+## Suspense와 함께 사용하기 {#using-with-suspense}
 
-## 지연(suspense) 사용하기 {#using-with-suspense}
-
-비동기 컴포넌트는 내장 컴포넌트인 `<Suspense>`와 함께 사용할 수 있습니다.
-`<Suspense>`와 비동기 컴포넌트 간의 상호 작용은 [`<Suspense>`](/guide/built-ins/suspense)에 설명되어 있습니다.
+비동기 컴포넌트는 내장 컴포넌트인 `<Suspense>`와 함께 사용할 수 있습니다. `<Suspense>`와 비동기 컴포넌트 간의 상호작용은 [`<Suspense>` 전용 챕터](/guide/built-ins/suspense)에서 문서화되어 있습니다.

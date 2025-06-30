@@ -1,8 +1,6 @@
-# 감시자 {#watchers}
+# Watchers {#watchers}
 
-때때로 우리는 반응형 "사이드 이펙트"를 수행해야 합니다.
-예를 들어 숫자가 변경될 때마다, 콘솔 로그로 출력하는 것입니다.
-우리는 `watch`(감시자)로 이를 구현할 수 있습니다:
+때때로 우리는 "부수 효과(side effects)"를 반응적으로 수행해야 할 필요가 있습니다. 예를 들어, 숫자가 변경될 때마다 콘솔에 로그를 남기는 경우가 있습니다. 이러한 작업은 watcher를 통해 달성할 수 있습니다:
 
 <div class="composition-api">
 
@@ -12,14 +10,12 @@ import { ref, watch } from 'vue'
 const count = ref(0)
 
 watch(count, (newCount) => {
-  // 예, console.log()는 사이드 이펙트입니다.
-  console.log(`새로 센 숫자 값은: ${newCount}`)
+  // 네, console.log()는 부수 효과입니다.
+  console.log(`new count is: ${newCount}`)
 })
 ```
 
-`watch()`는 `ref`를 직접 감시할 수 있으므로, `count`의 값이 변경될 때마다 콜백이 실행됩니다.
-`watch()`는 다른 타입의 데이터 소스도 볼 수 있습니다.
-자세한 내용은 <a target="_blank" href="/guide/essentials/watchers.html">가이드 - 감시자</a>에서 다룹니다.
+`watch()`는 ref를 직접 감시할 수 있으며, `count`의 값이 변경될 때마다 콜백이 실행됩니다. `watch()`는 다른 유형의 데이터 소스도 감시할 수 있습니다. 자세한 내용은 <a target="_blank" href="/guide/essentials/watchers.html">가이드 - Watchers</a>에서 확인할 수 있습니다.
 
 </div>
 <div class="options-api">
@@ -33,20 +29,15 @@ export default {
   },
   watch: {
     count(newCount) {
-      // 예, console.log()는 사이드 이펙트입니다.
-      console.log(`새로 센 숫자 값은: ${newCount}`)
+      // 네, console.log()는 부수 효과입니다.
+      console.log(`new count is: ${newCount}`)
     }
   }
 }
 ```
 
-여기에서는 `count` 속성의 변경 사항을 감시하기 위해 `watch` 옵션을 사용하고 있습니다.
-`watch` 콜백은 `count`가 변경될 때 호출되고 새 값을 인자로 받습니다.
-자세한 내용은 <a target="_blank" href="/guide/essentials/watchers.html">가이드 - 감시자</a>에서 다룹니다.
+여기서는 `watch` 옵션을 사용하여 `count` 속성의 변화를 감시하고 있습니다. watch 콜백은 `count`가 변경될 때 호출되며, 새로운 값이 인자로 전달됩니다. 자세한 내용은 <a target="_blank" href="/guide/essentials/watchers.html">가이드 - Watchers</a>에서 확인할 수 있습니다.
 
 </div>
 
-콘솔 로그를 출력하는 것 대신, ID 값이 변경될 때 새 데이터를 가져오도록 해봅시다.
-현재 코드는 컴포넌트가 마운트 될 때, Mock API에서 할 일 데이터를 가지고 오는 코드입니다.
-할 일을 가져오기 위해 ID 값을 증가시키는 버튼도 있습니다.
-버튼을 클릭할 때마다, 다음 할 일을 가져오는 감시자를 구현해 봅시다.
+콘솔에 로그를 남기는 것보다 더 실용적인 예시는 ID가 변경될 때마다 새로운 데이터를 가져오는 것입니다. 아래 코드는 컴포넌트가 마운트될 때 mock API에서 todos 데이터를 가져오고 있습니다. 또한, 가져올 todo ID를 증가시키는 버튼도 있습니다. 버튼을 클릭할 때마다 새로운 todo를 가져오도록 watcher를 구현해 보세요.

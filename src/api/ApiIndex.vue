@@ -57,9 +57,9 @@ const filtered = computed(() => {
 <template>
   <div id="api-index">
     <div class="header">
-      <h1>API 레퍼런스</h1>
+      <h1>API Reference</h1>
       <div class="api-filter">
-        <label for="api-filter">필터</label>
+        <label for="api-filter">Filter</label>
         <input
           ref="search"
           type="search"
@@ -93,7 +93,7 @@ const filtered = computed(() => {
     </div>
 
     <div v-if="!filtered.length" class="no-match">
-      N"{{ query }}"와 매칭되는 API를 찾지 못했습니다.
+      No API matching "{{ query }}" found.
     </div>
   </div>
 </template>

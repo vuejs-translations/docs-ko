@@ -5,9 +5,9 @@ const show = ref(true)
 
 <template>
   <div class="demo">
-    <button @click="show = !show">토글</button>
+    <button @click="show = !show">Toggle Fade</button>
     <Transition name="fade">
-      <p style="margin-top: 20px" v-if="show">안녕</p>
+      <p style="margin-top: 20px" v-if="show">hello</p>
     </Transition>
   </div>
 </template>

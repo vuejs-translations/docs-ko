@@ -9,7 +9,7 @@ export default {
       this.message = this.message.split('').reverse().join('')
     },
     notify() {
-      alert('navigation was prevented.')
+      alert('이동이 차단되었습니다.')
     }
   }
 }

@@ -2,7 +2,7 @@ import { ref, reactive, computed, watch } from 'vue'
 
 export default {
   setup() {
-    const names = reactive(['Emil, Hans', 'Mustermann, Max', 'Tisch, Roman'])
+    const names = reactive(['에밀, 한스', '무스터만, 막스', '티슈, 로만'])
     const selected = ref('')
     const prefix = ref('')
     const first = ref('')
@@ -15,7 +15,7 @@ export default {
     )
 
     watch(selected, (name) => {
-      ;[last.value, first.value] = name.split(', ')
+      [last.value, first.value] = name.split(', ')
     })
 
     function create() {

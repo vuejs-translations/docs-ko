@@ -5,10 +5,10 @@ const show = ref(true)
 
 <template>
   <div class="demo">
-    <button @click="show = !show" style="margin-bottom: 20px">토글</button>
+    <button @click="show = !show" style="margin-bottom: 20px">Toggle</button>
     <Transition duration="550" name="nested">
       <div v-if="show" class="transition-demo-outer">
-        <div class="transition-demo-inner">안녕</div>
+        <div class="transition-demo-inner">Hello</div>
       </div>
     </Transition>
   </div>
@@ -31,7 +31,7 @@ const show = ref(true)
 .nested-leave-active {
   transition: all 0.3s ease-in-out;
 }
-/* 부모 엘리먼트의 지연된 진출 */
+/* delay leave of parent element */
 .nested-leave-active {
   transition-delay: 0.25s;
 }
@@ -42,12 +42,12 @@ const show = ref(true)
   opacity: 0;
 }
 
-/* 중첩 셀렉터를 사용하여 중첩(자식) 엘리먼트를 트랜지션할 수도 있습니다. */
+/* we can also transition nested elements using nested selectors */
 .nested-enter-active .transition-demo-inner,
 .nested-leave-active .transition-demo-inner {
   transition: all 0.3s ease-in-out;
 }
-/* 중첩된(자식) 엘리먼트의 지연된 진입 */
+/* delay enter of nested element */
 .nested-enter-active .transition-demo-inner {
   transition-delay: 0.25s;
 }
@@ -56,8 +56,8 @@ const show = ref(true)
 .nested-leave-to .transition-demo-inner {
   transform: translateX(30px);
   /*
-    중첩된 불투명도 트랜지션을 처리할 때 Chrome 96 버그 해결 핵.
-    버그가 수정된 다른 브라우저나 Chrome 99+에서는 필요하지 않습니다.
+  	Hack around a Chrome 96 bug in handling nested opacity transitions.
+    This is not needed in other browsers or Chrome 99+ where the bug
     has been fixed.
   */
   opacity: 0.001;

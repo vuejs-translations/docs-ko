@@ -1,24 +1,29 @@
 # 라우팅 {#routing}
 
-## 클라이언트 측 라우팅과 서버 측 라우팅 비교 {#client-side-vs-server-side-routing}
+## 클라이언트 사이드 vs. 서버 사이드 라우팅 {#client-side-vs-server-side-routing}
 
-서버 측 라우팅은 사용자가 방문하는 URL 경로에 기반하여 서버가 응답을 보내는 것을 의미합니다. 전통적인 서버 렌더링 웹 앱에서 링크를 클릭하면, 브라우저는 서버로부터 HTML 응답을 받고 새 HTML로 전체 페이지를 다시 로드합니다.
+서버 사이드 라우팅이란 사용자가 방문하는 URL 경로에 따라 서버가 응답을 보내는 것을 의미합니다. 전통적인 서버 렌더링 웹 앱에서 링크를 클릭하면, 브라우저는 서버로부터 HTML 응답을 받아 전체 페이지를 새로운 HTML로 다시 로드합니다.
 
-그러나 [싱글 페이지 애플리케이션](https://developer.mozilla.org/en-US/docs/Glossary/SPA)(SPA)에서는 클라이언트 측 자바스크립트가 탐색을 가로채고 새 데이터를 동적으로 가져와 전체 페이지를 다시 로드하지 않고 현재 페이지를 업데이트할 수 있습니다. 이는 일반적으로 사용자가 오랜 시간 동안 많은 상호 작용을 수행해야 하는 실제 "애플리케이션"과 유사한 사용 사례에서 보다 빠른 사용자 경험을 제공합니다.
+하지만 [싱글 페이지 애플리케이션](https://developer.mozilla.org/ko/docs/Glossary/SPA) (SPA)에서는 클라이언트 사이드 자바스크립트가 네비게이션을 가로채고, 동적으로 새로운 데이터를 가져와 전체 페이지를 새로 고침하지 않고 현재 페이지를 업데이트할 수 있습니다. 이는 특히 사용자가 오랜 시간 동안 여러 상호작용을 수행하는 실제 "애플리케이션"과 같은 사용 사례에서 더욱 빠른 사용자 경험을 제공합니다.
 
-이러한 SPA에서 '라우팅'은 브라우저의 클라이언트 측에서 수행됩니다. 클라이언트 측 라우터는 [히스토리 API](https://developer.mozilla.org/en-US/docs/Web/API/History) 또는 [`hashchange` 이벤트](https://developer.mozilla.org/en-US/docs/Web/API/Window/hashchange_event)와 같은 브라우저 API를 사용하여 애플리케이션의 렌더링된 View를 관리할 책임이 있습니다.
+이러한 SPA에서는 "라우팅"이 브라우저에서 클라이언트 사이드에서 이루어집니다. 클라이언트 사이드 라우터는 [History API](https://developer.mozilla.org/ko/docs/Web/API/History)나 [`hashchange` 이벤트](https://developer.mozilla.org/ko/docs/Web/API/Window/hashchange_event)와 같은 브라우저 API를 사용하여 애플리케이션의 렌더링된 뷰를 관리하는 역할을 합니다.
 
 ## 공식 라우터 {#official-router}
 
-대부분의 싱글 페이지 앱(SPA)의 경우 공식적으로 지원되는 [vue-router 라이브러리](https://github.com/vuejs/router)를 사용하는 것이 좋습니다.
-자세한 내용은 vue-router의 [문서](https://router.vuejs.kr/)를 참조하십시오.
+<!-- TODO update links -->
+<div>
+  <VueSchoolLink href="https://vueschool.io/courses/vue-router-4-for-everyone" title="무료 Vue Router 강좌">
+    Vue School에서 무료 비디오 강좌 시청하기
+  </VueSchoolLink>
+</div>
 
-## 간단한 라우팅 구성하기 {#simple-routing-from-scratch}
+Vue는 SPA를 구축하는 데 매우 적합합니다. 대부분의 SPA에서는 공식적으로 지원되는 [Vue Router 라이브러리](https://github.com/vuejs/router)를 사용하는 것이 권장됩니다. 자세한 내용은 Vue Router의 [문서](https://router.vuejs.org/)를 참고하세요.
 
-매우 간단한 라우팅만 필요하여 모든 기능을 갖춘 라우터 라이브러리를 포함하지 않으려면 [동적인 컴포넌트](/guide/essentials/component-basics#dynamic-components)를 사용하고,
-브라우저 [`hashchange` 이벤트](https://developer.mozilla.org/en-US/docs/Web/API/Window/hashchange_event)를 수신하거나 [History API](https://developer.mozilla.org/en-US/docs/Web/API/History)를 사용하여 현재 컴포넌트 상태를 업데이트할 수 있습니다.
+## 간단한 라우팅 직접 구현하기 {#simple-routing-from-scratch}
 
-다음은 기본적인 예입니다:
+아주 간단한 라우팅만 필요하고, 기능이 풍부한 라우터 라이브러리를 사용하고 싶지 않다면, [동적 컴포넌트](/guide/essentials/component-basics#dynamic-components)와 브라우저의 [`hashchange` 이벤트](https://developer.mozilla.org/ko/docs/Web/API/Window/hashchange_event) 또는 [History API](https://developer.mozilla.org/ko/docs/Web/API/History)를 감지하여 현재 컴포넌트 상태를 업데이트하는 방식으로 구현할 수 있습니다.
+
+다음은 최소한의 예시입니다:
 
 <div class="composition-api">
 
@@ -48,12 +53,12 @@ const currentView = computed(() => {
 <template>
   <a href="#/">Home</a> |
   <a href="#/about">About</a> |
-  <a href="#/non-existent-path">잘못된 링크</a>
+  <a href="#/non-existent-path">Broken Link</a>
   <component :is="currentView" />
 </template>
 ```
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNptU8FK5EAQ/ZUie0gGxmQFT0Mm4GGXPSzLnvay2UNv0prApLvpdGaEmQEFEVEQb85BPSmCePCgB1H8GK+J/2B1JhMzmlNSXe/Vq3pdPTbWhbCHGTV6hpsGMhYKUqoy4fksTgSXCsYg6UYXAp6ITNEQprAheQImkswa9IMntDq3HR3omu/p9f88U3W+jJYBv7j6zjMW1pjFQQXzWcBZqkAik6bQh7HPAEzH7JXS3XlEdGE8KgV8Nn3nBZmUlKnfREVIxoGsUcxCPrIHPCAq5syOSBp1NKFKkDD8NkTKzzhVlFFpmRoRRIRtUrMLVgf63ryLRm17SAYZRYW26thQKbDU0Z+YjhC/cNdq1JV4D5JVI//9pGKngzig1moHJhPtxD/9Xdg213Kd+ZXiZWKgaCIGRFGMAFwCEdrQ940vjm942kTXIR5MPiZLTxFRetoOYZyt0K3SJ7UisEGEF+ez/PoxPz6F/GrndedGM0uenpQzREIvTpHe8ME3wEGQ69SdGl1jsUx6QZcniFartvHnI6tesVZaNUsLr7l2rdS1r2sVEWPhvR7NirO74mo7v3yC4va5ONuFYn8GxclecXCfH+7nhxc2vMweXEc/qabY9A3Sg0LH)
+[Playground에서 실행해보기](https://play.vuejs.org/#eNptUk1vgkAQ/SsTegAThZp4MmhikzY9mKanXkoPWxjLRpgly6JN1P/eWb5Eywlm572ZN2/m5GyKwj9U6CydsIy1LAyUaKpiHZHMC6UNnEDjbgqxyovKYAIX2GmVg8sktwe9qhzbdz+wga15TW++VWX6fB3dAt6UeVEVJT2me2hhEcWKSgOamVjCCk4RAbiBu6xbT5tI2ML8VDeI6HLlxZXWSOZdmJTJPJB3lJSoo5+pWBipyE9FmU4soU2IJHk+MGUrS4OE2nMtIk4F/aA7BW8Cq3WjYlDbP4isQu4wVp0F1Q1uFH1IPDK+c9cb1NW8B03tyJ//uvhlJmP05hM4n60TX/bb2db0CoNmpbxMDgzmRSYMcgQQCkjZhlXkPASRs7YmhoFYw/k+WXvKiNrTcQgpmuFv7ZOZFSyQ4U9a7ZFgK2lvSTXFDqmIQbCUJTMHFkQOBAwKg16kM3W6O7K3eSs+nbeK+eee1V/XKK0dY4Q3vLhR6uJxMUK8/AFKaB6k)
 
 </div>
 
@@ -92,11 +97,11 @@ export default {
 <template>
   <a href="#/">Home</a> |
   <a href="#/about">About</a> |
-  <a href="#/non-existent-path">잘못된 링크</a>
+  <a href="#/non-existent-path">Broken Link</a>
   <component :is="currentView" />
 </template>
 ```
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eNptUk1r1EAY/isv8ZBd2CYWegrZQA+KBxFPXoyHMZk1A5uZYTLpFroLFkSKBfHmHqwnpSAePOhBWvpjek36H/rO5KPbbS7JvDPP8z7P+3Hk7EvpHZTUCZywSBSTOoo5y6VQGp6JnMJMiRxczzeBAbr98/5bUer+3Ub3AS+EfipKnvaY7qKFxTwRvNCgkEkLmMJRzAFc3w2s9KSJiEmMV1Yg5ivDo4dWIKUzUs51w0uJJqNxcwZQVJeKdxFAUipFuX5JdBbAgvFULLy5SIhmgnsZKbIGiNnxY5UTkUv0lQZdkjbFK0YXdzq9UlPEa52xwtsQ84o5S+hodwzLpSntjfl3fXigmeMtSt6lb52SNH1ygBmfs0JTTtXINZaTjPB31J0A4qeRocQ61gDbHrCzwxUb+Gps5W1jQ79fAQw0zeWcaIoRQEggU3Q2jZ1HfuxEZj6hTyJYbj/acSHCjmsYwgXfoYe2FL0j0SDC6+/r6tdF9eUbVOfHN8e/DdPyzBgERyQErED6xhRiB3wEhX7v1Jk43Z6ahb5fQbbb2sbDNqvf3kFaW8sAb3OjB6l7j/daIsYyuvm8rs/+1ufvq5+XUP+5qs8+QH2yhvrrx/rTv+r0pDr94cH1+n/oyy2x1S1LDU0k)
+[Playground에서 실행해보기](https://play.vuejs.org/#eNptUstO6zAQ/ZVR7iKtVJKLxCpKK3Gli1ggxIoNZmGSKbFoxpEzoUi0/87YeVBKNonHPmfOmcdndN00yXuHURblbeFMwxtFpm6sY7i1NcLW2RriJPWBB8bT8/WL7Xh6D9FPwL3lG9tROWHGiwGmqLDUMjhhYgtr+FQEEKdxFqRXfaR9YrkKAoqOnocfQaDEre523PNKzXqx7M8ADrlzNEYAReccEj9orjLYGyrtPtnZQrOxlFS6rXqgZJdPUC5s3YivMhuTDCkeDe6/dSalvognrkybnIgl7c4UuLhcwuHgS3v2/7EPvzRruRXJ7/SDU12W/98l451pGQndIvaWi0rTK8YrEPx64ymKFQOce5DOzlfs4cdlkA+NzdNpBSRgrJudZpQIINdQOdyuVfQnVdHGzydP9QYO549hXIII45qHkKUL/Ail8EUjBgX+z9k3JLgz9OZJgeInYElAkJlWmCcDUBGkAsrTyWS0isYV9bv803x1OTiWwzlrWtxZ2lDGDO90mWepV3+vZojHL3QQKQE=)
 
 </div>

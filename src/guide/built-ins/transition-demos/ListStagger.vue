@@ -39,6 +39,7 @@ function onLeave(el, done) {
   })
 }
 </script>
+
 <template>
   <div class="demo" style="height: 265px">
     <input v-model="query" style="margin-bottom: 20px" />

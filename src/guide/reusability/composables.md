@@ -1,4 +1,4 @@
-# 컴포저블 {#composables}
+# 컴포저블(Composables) {#composables}
 
 <script setup>
 import { useMouse } from './mouse'
@@ -6,28 +6,20 @@ const { x, y } = useMouse()
 </script>
 
 :::tip
-이 섹션에서는 `컴포지션 API`에 대한 기본 지식이 있다고 가정합니다.
-`옵션 API`만 배웠다면 왼쪽 사이드바 상단의 `API 스타일 설정`을 `컴포지션 API`로 설정하고 [반응형 기초](/guide/essentials/reactivity-fundamentals) 및 [생명주기 훅](/guide/essentials/lifecycle) 장을 다시 읽을 수 있습니다.
+이 섹션은 Composition API에 대한 기본 지식을 전제로 합니다. 만약 Options API만으로 Vue를 학습해왔다면, 왼쪽 사이드바 상단의 토글을 사용해 API Preference를 Composition API로 설정하고 [반응성의 기초](/guide/essentials/reactivity-fundamentals) 및 [생명주기 훅](/guide/essentials/lifecycle) 챕터를 다시 읽어보세요.
 :::
 
-## 컴포저블이란? {#what-is-a-composable}
+## "컴포저블"이란? {#what-is-a-composable}
 
-Vue 앱의 컨텍스트에서 **컴포저블**은 Vue 컴포지션 API를 활용하여 **상태 저장 로직**를 캡슐화하고 재사용하는 함수입니다.
+Vue 애플리케이션의 맥락에서 "컴포저블"이란 Vue의 Composition API를 활용하여 **상태를 가진 로직**을 캡슐화하고 재사용하는 함수입니다.
 
-프론트엔드 앱을 구축할 때, 여러 곳에서 효율적으로 같은 작업을 하기 위해 로직을 재사용해야 하는 경우가 종종 있습니다.
-예를 들어 여러 위치에서 날짜 형식을 지정해야 할 수 있고, 이를 위해 재사용 가능한 함수를 생성합니다.
-이 함수는 상태 비저장 로직을 캡슐화합니다.
-일부 입력을 받고 즉시 계산된 값을 반환합니다.
-상태 비저장 로직을 재사용하기 위한 많은 라이브러리가 있습니다.
-예를 들어 [lodash](https://lodash.com/)나 [date-fns](https://date-fns.org/)는 들어본 적이 있을 것입니다.
+프론트엔드 애플리케이션을 개발할 때, 우리는 종종 공통 작업을 위한 로직을 재사용해야 합니다. 예를 들어, 여러 곳에서 날짜를 포맷해야 할 때, 이를 위한 재사용 가능한 함수를 추출할 수 있습니다. 이 포매터 함수는 **상태가 없는 로직**을 캡슐화합니다: 입력을 받아 즉시 예상되는 출력을 반환합니다. 상태가 없는 로직을 재사용하기 위한 라이브러리는 [lodash](https://lodash.com/)나 [date-fns](https://date-fns.org/)처럼 많이 존재합니다.
 
-이에 비해 상태 저장 로직은 시간이 지남에 따라 변경되는 상태 관리가 포함됩니다.
-간단한 예는 페이지에서 마우스의 현재 위치를 추적하는 것입니다.
-실제 시나리오에서는 터치 제스처 또는 데이터베이스 연결 상태와 같은 더 복잡한 로직이 될 수도 있습니다.
+반면, 상태를 가진 로직은 시간이 지남에 따라 변하는 상태를 관리하는 것을 포함합니다. 간단한 예로는 페이지에서 마우스의 현재 위치를 추적하는 것이 있습니다. 실제 시나리오에서는 터치 제스처나 데이터베이스 연결 상태와 같은 더 복잡한 로직일 수도 있습니다.
 
-## 마우스 위치 추적기 예제 {#mouse-tracker-example}
+## 마우스 트래커 예제 {#mouse-tracker-example}
 
-컴포넌트 내에서 직접 컴포지션 API를 사용하여 마우스 추적 기능은 다음과 같이 구현할 수 있습니다:
+만약 Composition API를 사용하여 마우스 추적 기능을 컴포넌트 내부에 직접 구현한다면, 다음과 같이 작성할 수 있습니다:
 
 ```vue
 <script setup>
@@ -45,11 +37,10 @@ onMounted(() => window.addEventListener('mousemove', update))
 onUnmounted(() => window.removeEventListener('mousemove', update))
 </script>
 
-<template>마우스 위치: {{ x }}, {{ y }}</template>
+<template>Mouse position is at: {{ x }}, {{ y }}</template>
 ```
 
-그러나 여러 컴포넌트에서 동일한 로직을 재사용하려면 어떻게 해야 할까요?
-로직을 컴포저블 함수로 재구성 후 외부 파일로 추출할 수 있습니다:
+하지만 동일한 로직을 여러 컴포넌트에서 재사용하고 싶다면, 로직을 외부 파일의 컴포저블 함수로 추출할 수 있습니다:
 
 ```js
 // mouse.js
@@ -57,27 +48,27 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 // 관례상, 컴포저블 함수 이름은 "use"로 시작합니다.
 export function useMouse() {
-  // 컴포저블로 캡슐화된 내부에서 관리되는 상태
+  // 컴포저블이 캡슐화하고 관리하는 상태
   const x = ref(0)
   const y = ref(0)
 
-  // 컴포저블은 시간이 지남에 따라 관리되는 상태를 업데이트할 수 있습니다.
+  // 컴포저블은 시간이 지남에 따라 관리하는 상태를 업데이트할 수 있습니다.
   function update(event) {
     x.value = event.pageX
     y.value = event.pageY
   }
 
-  // 컴포저블은 또한 이것을 사용하는 컴포넌트의 생명주기에 연결되어
-  // 사이드 이펙트를 설정 및 해제할 수 있습니다.
+  // 컴포저블은 소유 컴포넌트의
+  // 생명주기에 훅을 걸어 부수 효과를 설정 및 해제할 수 있습니다.
   onMounted(() => window.addEventListener('mousemove', update))
   onUnmounted(() => window.removeEventListener('mousemove', update))
 
-  // 관리 상태를 반환 값으로 노출
+  // 관리하는 상태를 반환값으로 노출
   return { x, y }
 }
 ```
 
-그리고 이것이 컴포넌트에서 사용되는 방법입니다:
+그리고 컴포넌트에서는 다음과 같이 사용할 수 있습니다:
 
 ```vue
 <script setup>
@@ -86,41 +77,34 @@ import { useMouse } from './mouse.js'
 const { x, y } = useMouse()
 </script>
 
-<template>마우스 위치: {{ x }}, {{ y }}</template>
+<template>Mouse position is at: {{ x }}, {{ y }}</template>
 ```
 
 <div class="demo">
-  마우스 위치: {{ x }}, {{ y }}
+  Mouse position is at: {{ x }}, {{ y }}
 </div>
 
-[온라인 연습장으로 실행하기](https://play.vuejs.org/#eyJBcHAudnVlIjoiPHNjcmlwdCBzZXR1cD5cbmltcG9ydCB7IHVzZU1vdXNlIH0gZnJvbSAnLi9tb3VzZS5qcydcblxuY29uc3QgeyB4LCB5IH0gPSB1c2VNb3VzZSgpXG48L3NjcmlwdD5cblxuPHRlbXBsYXRlPlxuICDrp4jsmrDsiqQg7JyE7LmYOiB7eyB4IH19LCB7eyB5IH19XG48L3RlbXBsYXRlPiIsImltcG9ydC1tYXAuanNvbiI6IntcbiAgXCJpbXBvcnRzXCI6IHtcbiAgICBcInZ1ZVwiOiBcImh0dHBzOi8vc2ZjLnZ1ZWpzLm9yZy92dWUucnVudGltZS5lc20tYnJvd3Nlci5qc1wiLFxuICAgIFwidnVlL3NlcnZlci1yZW5kZXJlclwiOiBcImh0dHBzOi8vc2ZjLnZ1ZWpzLm9yZy9zZXJ2ZXItcmVuZGVyZXIuZXNtLWJyb3dzZXIuanNcIlxuICB9XG59IiwibW91c2UuanMiOiJpbXBvcnQgeyByZWYsIG9uTW91bnRlZCwgb25Vbm1vdW50ZWQgfSBmcm9tICd2dWUnXG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VNb3VzZSgpIHtcbiAgY29uc3QgeCA9IHJlZigwKVxuICBjb25zdCB5ID0gcmVmKDApXG5cbiAgZnVuY3Rpb24gdXBkYXRlKGV2ZW50KSB7XG4gICAgeC52YWx1ZSA9IGV2ZW50LnBhZ2VYXG4gICAgeS52YWx1ZSA9IGV2ZW50LnBhZ2VZXG4gIH1cblxuICBvbk1vdW50ZWQoKCkgPT4gd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ21vdXNlbW92ZScsIHVwZGF0ZSkpXG4gIG9uVW5tb3VudGVkKCgpID0+IHdpbmRvdy5yZW1vdmVFdmVudExpc3RlbmVyKCdtb3VzZW1vdmUnLCB1cGRhdGUpKVxuXG4gIHJldHVybiB7IHgsIHkgfVxufSJ9)
+[Playground에서 직접 실행해보기](https://play.vuejs.org/#eNqNkj1rwzAQhv/KocUOGKVzSAIdurVjoQUvJj4XlfgkJNmxMfrvPcmJkkKHLrbu69H7SlrEszFyHFDsxN6drDIeHPrBHGtSvdHWwwKDwzfNHwjQWd1DIbd9jOW3K2qq6aTJxb6pgpl7Dnmg3NS0365YBnLgsTfnxiNHACvUaKe80gTKQeN3sDAIQqjignEhIvKYqMRta1acFVrsKtDEQPLYxuU7cV8Msmg2mdTilIa6gU5p27tYWKKq1c3ENphaPrGFW25+yMXsHWFaFlfiiOSvFIBJjs15QJ5JeWmaL/xYS/Mfpc9YYrPxl52ULOpwhIuiVl9k07Yvsf9VOY+EtizSWfR6xKK6itgkvQ/+fyNs6v4XJXIsPwVL+WprCiL8AEUxw5s=)
 
-보다시피, 핵심 로직은 정확히 동일합니다.
-조치한 것은 그것을 외부 함수로 옮기고, 노출되어야 하는 상태를 반환하는 것뿐이었습니다.
-컴포넌트 내부처럼 컴포저블에서는 [컴포지션 API 함수](/api/#composition-api)의 전체를 사용할 수 있습니다.
-`useMouse()` 함수는 이제 모든 컴포넌트에서 사용할 수 있습니다.
+보시다시피, 핵심 로직은 동일하게 유지됩니다. 단지 외부 함수로 옮기고 노출할 상태를 반환하기만 하면 됩니다. 컴포넌트 내부에서와 마찬가지로, 컴포저블에서도 [Composition API 함수](/api/#composition-api)를 모두 사용할 수 있습니다. 이제 동일한 `useMouse()` 기능을 어떤 컴포넌트에서도 사용할 수 있습니다.
 
-하지만 컴포저블의 멋진 부분은 중첩할 수도 있다는 것입니다.
-하나의 컴포저블 함수는 하나 이상의 "다른 컴포저블 함수"를 호출할 수 있습니다.
-이를 통해 컴포넌트를 사용하여 전체 앱을 구성하는 방법과 유사하게 작게 독립된 단위를 사용하여 복잡한 로직을 구성할 수 있습니다.
-사실 이 패턴을 가능하게 하는 API 모음을 "**컴포지션 API**"라고 부르기로 결정한 이유입니다.
+컴포저블의 더 멋진 점은, 컴포저블을 중첩할 수도 있다는 것입니다: 하나의 컴포저블 함수가 하나 이상의 다른 컴포저블 함수를 호출할 수 있습니다. 이를 통해 작은, 독립적인 단위로 복잡한 로직을 조합할 수 있으며, 이는 전체 애플리케이션을 컴포넌트로 조합하는 방식과 유사합니다. 사실, 이러한 패턴을 가능하게 하는 API 모음을 Composition API라고 부르게 된 이유이기도 합니다.
 
-<div id='use-event-listener'></div>
-예를 들어 DOM 이벤트 리스너를 자체 컴포저블에 추가하고 정리하는 로직을 추출할 수 있습니다:
+예를 들어, DOM 이벤트 리스너를 추가하고 제거하는 로직을 별도의 컴포저블로 추출할 수 있습니다:
 
 ```js
 // event.js
 import { onMounted, onUnmounted } from 'vue'
 
 export function useEventListener(target, event, callback) {
-  // if you want, you can also make this
-  // support selector strings as target
+  // 원한다면, target을
+  // 셀렉터 문자열로도 지원할 수 있습니다.
   onMounted(() => target.addEventListener(event, callback))
   onUnmounted(() => target.removeEventListener(event, callback))
 }
 ```
 
-이제 `useMouse()`를 다음과 같이 단순화할 수 있습니다:
+이제 우리의 `useMouse()` 컴포저블은 다음과 같이 더 간단해질 수 있습니다:
 
 ```js{3,9-12}
 // mouse.js
@@ -141,14 +125,12 @@ export function useMouse() {
 ```
 
 :::tip
-`useMouse()`를 호출하는 각 컴포넌트 인스턴스는 서로 간섭하지 않도록 `x`와 `y` 상태의 자체 복사본을 생성합니다.
-컴포넌트 간의 공유 상태를 관리하려면 [상태 관리](/guide/scaling-up/state-management) 문서를 읽으십시오.
+각 컴포넌트 인스턴스가 `useMouse()`를 호출하면 `x`와 `y` 상태의 자체 복사본이 생성되므로 서로 간섭하지 않습니다. 컴포넌트 간에 상태를 공유하고 싶다면 [상태 관리](/guide/scaling-up/state-management) 챕터를 읽어보세요.
 :::
 
 ## 비동기 상태 예제 {#async-state-example}
 
-컴포저블 함수 `useMouse()`는 인자를 사용하지 않으므로, 인자를 사용하는 다른 예를 살펴보겠습니다.
-비동기 데이터 가져오기를 수행할 때 로드, 성공 및 에러와 같은 다양한 상태를 처리해야 하는 경우가 많습니다:
+`useMouse()` 컴포저블은 인자를 받지 않으므로, 인자를 사용하는 또 다른 예제를 살펴보겠습니다. 비동기 데이터 패칭을 할 때는 로딩, 성공, 에러 등 다양한 상태를 처리해야 합니다:
 
 ```vue
 <script setup>
@@ -164,17 +146,16 @@ fetch('...')
 </script>
 
 <template>
-  <div v-if="error">앗! 에러 발생: {{ error.message }}</div>
+  <div v-if="error">Oops! Error encountered: {{ error.message }}</div>
   <div v-else-if="data">
-    로드된 데이터:
+    Data loaded:
     <pre>{{ data }}</pre>
   </div>
-  <div v-else>로딩...</div>
+  <div v-else>Loading...</div>
 </template>
 ```
 
-다시 말하지만 데이터를 가져와야 하는 모든 컴포넌트에서 이 패턴을 반복해야 한다면 끔찍할 것입니다.
-추출해서 컴포저블로 재구성 해보겠습니다:
+이 패턴을 데이터를 패칭해야 하는 모든 컴포넌트에서 반복하는 것은 번거롭습니다. 이를 컴포저블로 추출해봅시다:
 
 ```js
 // fetch.js
@@ -193,7 +174,7 @@ export function useFetch(url) {
 }
 ```
 
-이제 컴포넌트에서 다음을 수행할 수 있습니다:
+이제 컴포넌트에서는 다음과 같이 간단히 사용할 수 있습니다:
 
 ```vue
 <script setup>
@@ -203,29 +184,29 @@ const { data, error } = useFetch('...')
 </script>
 ```
 
-### 리액티브 상태 수락 {#accepting-reactive-state}
+### 반응형 상태 받기 {#accepting-reactive-state}
 
-`useFetch()`는 정적 URL 문자열을 입력으로 받아 한 번만 fetch를 수행하고 끝납니다. 그런데 URL이 변경될 때마다 다시 fetch를 수행하려면 어떻게 해야 할까요? 이를 달성하려면 리액티브 상태를 composable 함수에 전달해야 하며, composable이 전달된 상태를 사용하여 작업을 수행하는 watcher를 생성합니다.
+`useFetch()`는 정적인 URL 문자열을 입력으로 받으므로, 한 번만 패칭을 수행하고 끝납니다. 만약 URL이 변경될 때마다 다시 패칭하고 싶다면 어떻게 해야 할까요? 이를 위해서는 반응형 상태를 컴포저블 함수에 전달하고, 컴포저블이 전달받은 상태를 사용해 동작을 수행하는 watcher를 생성해야 합니다.
 
-예를 들어, `useFetch()`는 `ref`를 받아들일 수 있어야 합니다:
+예를 들어, `useFetch()`는 ref를 받을 수 있어야 합니다:
 
 ```js
 const url = ref('/initial-url')
 
 const { data, error } = useFetch(url)
 
-// re-fetch를 트리거 합니다.
+// 이 코드는 다시 패칭을 트리거해야 합니다.
 url.value = '/new-url'
 ```
 
-또는 [getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description)를 받아들입니다:
+또는, [getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description)를 받을 수도 있습니다:
 
 ```js
-// props.id가 변경되면 re-fetch 됩니다.
+// props.id가 변경될 때마다 다시 패칭
 const { data, error } = useFetch(() => `/posts/${props.id}`)
 ```
 
-우리는 [`watchEffect()`](/api/reactivity-core#watcheffect)와 [`toValue()`](/api/reactivity-utilities#tovalue) API를 이용하여 기존의 구현을 리팩토링 할 수 있습니다:
+기존 구현을 [`watchEffect()`](/api/reactivity-core.html#watcheffect)와 [`toValue()`](/api/reactivity-utilities.html#tovalue) API로 리팩터링할 수 있습니다:
 
 ```js{8,13}
 // fetch.js
@@ -236,7 +217,7 @@ export function useFetch(url) {
   const error = ref(null)
 
   const fetchData = () => {
-    // reset state before fetching..
+    // 패칭 전에 상태를 초기화합니다..
     data.value = null
     error.value = null
 
@@ -254,95 +235,87 @@ export function useFetch(url) {
 }
 ```
 
-`toValue()`는 3.3 버전에서 추가된 API로, ref나 getter를 값으로 정규화하는 데 사용됩니다. 인자가 ref인 경우 ref의 값을 반환하고, 인자가 함수인 경우 함수를 호출하고 그 반환값을 반환합니다. 그 외의 경우에는 인자를 그대로 반환합니다. 이는 [`unref()`](/api/reactivity-utilities#unref)와 유사하게 작동하지만, 함수에 대한 특별한 처리가 있습니다.
+`toValue()`는 3.3에 추가된 API입니다. ref나 getter를 값으로 정규화하기 위해 설계되었습니다. 인자가 ref라면 ref의 값을 반환하고, 함수라면 함수를 호출해 반환값을 반환합니다. 그렇지 않으면 인자를 그대로 반환합니다. [`unref()`](/api/reactivity-utilities.html#unref)와 유사하지만, 함수에 대해 특별히 처리합니다.
 
-`toValue(url)`이 `watchEffect` 콜백 내부에서 호출되는 것에 주목하세요. 이는 `toValue()` 정규화 과정 중에 접근한 모든 리액티브 의존성이 watcher에 의해 추적되도록 보장합니다.
+`toValue(url)`이 **watchEffect 콜백 내부**에서 호출된다는 점에 주목하세요. 이렇게 하면 `toValue()` 정규화 과정에서 접근한 모든 반응형 의존성이 watcher에 의해 추적됩니다.
 
-이 버전의 `useFetch()`는 이제 정적 URL 문자열, ref, getter를 받아들이므로 훨씬 더 유연합니다. watch 효과는 즉시 실행되며, `toValue(url)` 중에 접근한 모든 의존성을 추적합니다. 추적된 의존성이 없는 경우 (예: url이 이미 문자열인 경우) 효과는 한 번만 실행됩니다; 그렇지 않으면 추적된 의존성이 변경될 때마다 다시 실행됩니다.
+이 버전의 `useFetch()`는 이제 정적 URL 문자열, ref, getter를 모두 받아들일 수 있어 훨씬 유연해졌습니다. watch effect는 즉시 실행되며, `toValue(url)`에서 접근한 모든 의존성을 추적합니다. 만약 추적된 의존성이 없다면(예: url이 이미 문자열인 경우), effect는 한 번만 실행되고, 그렇지 않으면 추적된 의존성이 변경될 때마다 다시 실행됩니다.
 
-다음은 인공적인 지연과 데모 목적으로 무작위 오류가 있는 [useFetch()의 업데이트 된 버전](https://play.vuejs.org/#eNp9Vdtu20YQ/ZUpUUA0qpAOjL4YktCbC7Rom8BN8sSHrMihtfZql9iLZEHgv2dml6SpxMiDIWkuZ+acmR2fs1+7rjgEzG6zlaut7Dw49KHbVFruO2M9nMFiu4Ta7LvgsYEeWmv2sKCkxSwoOPwTfb2b/EU5mopHR5GVro12HrbC4UerYA2Lnfeduy3LR2d0p0SNO6MatIU/dbI2DRZUtPSmMa4kgJQuG8qkjvLF28XVaAwRb2wxz69gvZkK/UQ5xUGogBQ/ZpyhEV4sAa01lnpeTwRyApsFWvT2RO6Eea40THBMgfq6NLwlS1/pVZnUJB3ph8c98fNIvwD+MaKBzkQut2xYbYP3RsPhTWvsusokSA0/Vxn8UitZP7GFSX/+8Sz7z1W2OZ9BQt+vypQXS1R+1cgDQciW4iMrimR0wu8270znfoC7SBaJWdAeLTa3QFgxuNijc+IBIy5PPyYOjU19RDEI954/Z/UptKTy6VvqA5XD1AwLTTl/0Aco4s5lV51F5sG+VJJ+v4qxYbmkfiiKYvSvyknPbJnNtoyW+HJpj4Icd22LtV+CN5/ikC4XuNL4HFPaoGsvie3FIqSJp1WIzabl00HxkoyetEVfufhv1kAu3EnX8z0CKEtKofcGzhMb2CItAELL1SPlFMV1pwVj+GROc/vWPoc26oDgdxhfSArlLnbWaBOcOoEzIP3CgbeifqLXLRyICaDBDnVD+3KC7emCSyQ4sifspOx61Hh4Qy/d8BsaOEdkYb1sZS2FoiJKnIC6FbqhsaTVZfk8gDgK6cHLPZowFGUzAQTNWl/BUSrFbzRYHXmSdeAp28RMsI0fyFDaUJg9Spd0SbERZcvZDBRleCPdQMCPh8ARwdRRnBCTjGz5WkT0i0GlSMqixTR6VKyHmmWEHIfV+naSOETyRx8vEYwMv7pa8dJU+hU9Kz2t86ReqjcgaTzCe3oGpEOeD4uyJOcjTXe+obScHwaAi82lo9dC/q/wuyINjrwbuC5uZrS4WAQeyTN9ftOXIVwy537iecoX92kR4q/F1UvqIMsSbq6vo5XF6ekCeEcTauVDFJpuQESvMv53IBXadx3r4KqMrt0w0kwoZY5/R5u3AZejvd5h/fSK/dE9s63K3vN7tQesssnnhX1An9x3//+Hz/R9cu5NExRFf8d5zyIF7jGF/RZ0Q23P4mK3f8XLRmfhg7t79qjdSIobjXLE+Cqju/b7d6i/tHtT3MQ8VrH/Ahstp5A=)입니다.
+[업데이트된 `useFetch()` 버전](https://play.vuejs.org/#eNp9Vdtu20YQ/ZUpUUA0qpAOjL4YktCbC7Rom8BN8sSHrMihtfZql9iLZEHgv2dml6SpxMiDIWkuZ+acmR2fs1+7rjgEzG6zlaut7Dw49KHbVFruO2M9nMFiu4Ta7LvgsYEeWmv2sKCkxSwoOPwTfb2b/EU5mopHR5GVro12HrbC4UerYA2Lnfeduy3LR2d0p0SNO6MatIU/dbI2DRZUtPSmMa4kgJQuG8qkjvLF28XVaAwRb2wxz69gvZkK/UQ5xUGogBQ/ZpyhEV4sAa01lnpeTwRyApsFWvT2RO6Eea40THBMgfq6NLwlS1/pVZnUJB3ph8c98fNIvwD+MaKBzkQut2xYbYP3RsPhTWvsusokSA0/Vxn8UitZP7GFSX/+8Sz7z1W2OZ9BQt+vypQXS1R+1cgDQciW4iMrimR0wu8270znfoC7SBaJWdAeLTa3QFgxuNijc+IBIy5PPyYOjU19RDEI954/Z/UptKTy6VvqA5XD1AwLTTl/0Aco4s5lV51F5sG+VJJ+v4qxYbmkfiiKYvSvyknPbJnNtoyW+HJpj4Icd22LtV+CN5/ikC4XuNL4HFPaoGsvie3FIqSJp1WIzabl00HxkoyetEVfufhv1kAu3EnX8z0CKEtKofcGzhMb2CItAELL1SPlFMV1pwVj+GROc/vWPoc26oDgdxhfSArlLnbWaBOcOoEzIP3CgbeifqLXLRyICaDBDnVD+3KC7emCSyQ4sifspOx61Hh4Qy/d8BsaOEdkYb1sZS2FoiJKnIC6FbqhsaTVZfk8gDgK6cHLPZowFGUzAQTNWl/BUSrFbzRYHXmSdeAp28RMsI0fyFDaUJg9Spd0SbERZcvZDBRleCPdQMCPh8ARwdRRnBCTjGz5WkT0i0GlSMqixTR6VKyHmmWEHIfV+naSOETyRx8vEYwMv7pa8dJU+hU9Kz2t86ReqjcgaTzCe3oGpEOeD4uyJOcjTXe+obScHwaAi82lo9dC/q/wuyINjrwbuC5uZrS4WAQeyTN9ftOXIVwy537iecoX92kR4q/F1UvqIMsSbq6vo5XF6ekCeEcTauVDFJpuQESvMv53IBXadx3r4KqMrt0w0kwoZY5/R5u3AZejvd5h/fSK/dE9s63K3vN7tQesssnnhX1An9x3//+Hz/R9cu5NExRFf8d5zyIF7jGF/RZ0Q23P4mK3f8XLRmfhg7t79qjdSIobjXLE+Cqju/b7d6i/tHtT3MQ8VrH/Ahstp5A=)는 데모를 위해 인위적인 지연과 무작위 에러가 추가되어 있습니다.
 
 ## 관례와 모범 사례 {#conventions-and-best-practices}
 
-### 작명 {#naming}
+### 네이밍 {#naming}
 
-"use"로 시작하는 camelCase 이름으로 컴포저블 함수의 이름을 지정하는 것이 관례입니다.
+컴포저블 함수는 camelCase로 작성하며 "use"로 시작하는 것이 관례입니다.
 
 ### 입력 인자 {#input-arguments}
 
-composable은 리액티비티에 따라 그것들을 사용하지 않아도 ref 또는 getter 인수를 받아들일 수 있습니다. 다른 개발자가 사용할 수 있는 composable을 작성하는 경우, 입력 인수가 원시 값 대신 ref나 getter인 경우를 처리하는 것이 좋습니다. 이럴 때 [`toValue()`](/api/reactivity-utilities#tovalue) 유틸리티 함수가 유용하게 사용될 수 있습니다:
+컴포저블은 반응성을 위해 ref나 getter 인자를 받지 않더라도 이를 입력값으로 받을 수 있습니다. 다른 개발자가 사용할 수 있는 컴포저블을 작성할 때는 입력 인자가 원시 값이 아닌 ref나 getter일 수도 있음을 처리하는 것이 좋습니다. 이를 위해 [`toValue()`](/api/reactivity-utilities#tovalue) 유틸리티 함수를 사용할 수 있습니다:
 
 ```js
 import { toValue } from 'vue'
 
 function useFeature(maybeRefOrGetter) {
-  // MaybeRefOrGetter가 ref 또는 getter인 경우,
+  // maybeRefOrGetter가 ref나 getter라면,
   // 정규화된 값이 반환됩니다.
-  // 그렇지 않으면 있는 그대로 반환됩니다.
+  // 그렇지 않으면 그대로 반환됩니다.
   const value = toValue(maybeRefOrGetter)
 }
 ```
 
-입력이 ref 또는 getter일 때 composable이 반응형 효과를 생성하면, 반드시 `watch()`로 ref / getter를 명시적으로 감시하거나, 적절히 추적되도록 `watchEffect()` 내에서 `toValue()`를 호출해야 합니다.
+입력값이 ref나 getter일 때 컴포저블이 반응형 효과를 생성한다면, 반드시 `watch()`로 ref/getter를 명시적으로 감시하거나, `watchEffect()` 내부에서 `toValue()`를 호출하여 제대로 추적되도록 하세요.
 
-[앞서 논의한 useFetch() 구현](#accepting-reactive-state)은 입력 인수로 ref, getter, 그리고 일반 값을 받아들이는 composable의 구체적인 예를 제공합니다.
+[앞서 논의한 useFetch() 구현](#accepting-reactive-state)은 ref, getter, 일반 값을 모두 입력 인자로 받는 컴포저블의 구체적인 예시입니다.
 
-### 반환 값 {#return-values}
+### 반환값 {#return-values}
 
-컴포저블에서 `reactive()` 대신 `ref()`를 독점적으로 사용하고 있다는 것을 눈치챘을 것입니다.
-컴포넌트에서 항상 ref 객체를 반환하여 반응성을 유지하면서 컴포넌트에서 구조화할 수 있도록 하는 것이 좋습니다.
+지금까지 컴포저블에서 `reactive()` 대신 `ref()`만을 사용해왔다는 점을 눈치채셨을 것입니다. 권장되는 관례는 컴포저블이 여러 ref를 포함하는 평범한, 비반응형 객체를 항상 반환하는 것입니다. 이렇게 하면 컴포넌트에서 구조 분해 할당을 하더라도 반응성이 유지됩니다:
 
 ```js
-// x와 y는 ref
+// x와 y는 ref입니다.
 const { x, y } = useMouse()
 ```
 
-컴포저블 함수에서 reactive 객체를 반환하는 경우, 위 코드처럼 분해 할당 문법을 사용하면 컴포저블 함수 내부 상태에 대한 반응성 연결이 끊어지지만, 분해 할당 문법을 사용하지 않는 경우에는 ref 연결상태가 유지됩니다.
+컴포저블에서 반응형 객체를 반환하면 구조 분해 할당 시 컴포저블 내부 상태와의 반응성 연결이 끊기지만, ref는 그 연결을 유지합니다.
 
-컴포저블 함수로 반환된 ref 상태를 감싸는 객체를 `.value` 접두사 없이 객체 속성처럼 사용하고 싶다면, 반환된 일반 객체를 `reactive()`로 래핑하여 ref가 래핑되지 않도록 할 수 있습니다:
+컴포저블에서 반환된 상태를 객체 속성으로 사용하고 싶다면, 반환 객체를 `reactive()`로 감싸 ref가 언랩되도록 할 수 있습니다. 예를 들어:
 
 ```js
 const mouse = reactive(useMouse())
-// mouse.x는 원본 ref에 연결되어 있습니다.
+// mouse.x는 원래 ref와 연결되어 있습니다.
 console.log(mouse.x)
 ```
 
 ```vue-html
-마우스 위치: {{ mouse.x }}, {{ mouse.y }}
+Mouse position is at: {{ mouse.x }}, {{ mouse.y }}
 ```
 
-### 사이드 이펙트 {#side-effects}
+### 부수 효과 {#side-effects}
 
-컴포저블에서 사이드 이펙트(예: DOM 이벤트 리스너 추가 또는 데이터 가져오기)를 수행하는 것은 괜찮지만 다음 규칙에 주의하십시오:
+컴포저블에서 부수 효과(예: DOM 이벤트 리스너 추가, 데이터 패칭)를 수행해도 괜찮지만, 다음 규칙을 유의하세요:
 
-- [서버 사이드 렌더링](/guide/scaling-up/ssr)(SSR)을 사용하는 앱에서 작업하는 경우,
-  마운트 후 생명주기 훅인 `onMounted()`에서 DOM 관련 사이드 이펙트를 수행해야 합니다.
-  이 훅은 브라우저에서만 호출되므로 내부 코드가 DOM에 접근할 수 있는지 알 수 있습니다.
+- [서버 사이드 렌더링](/guide/scaling-up/ssr) (SSR)을 사용하는 애플리케이션이라면, DOM 관련 부수 효과는 반드시 post-mount 생명주기 훅(예: `onMounted()`)에서 수행하세요. 이 훅들은 브라우저에서만 호출되므로, 내부 코드가 DOM에 접근할 수 있음을 보장합니다.
 
-- `onUnmounted()`에서 사이드 이펙트를 마무리 지었는지 확인하십시오.
-  예를 들어, 컴포저블 코드에서 DOM 이벤트 리스너를 사용하는 경우, `onUnmounted()`에서 해당 리스너를 제거해야 합니다([`useMouse()`](#mouse-tracker-example) 예제에서 본 것처럼).
-  [`useEventListener()`](#use-event-listener) 예제와 같이 자동으로 이를 수행하는 컴포저블 코드를 구성하는 것도 좋은 아이디어일 수 있습니다.
+- `onUnmounted()`에서 부수 효과를 반드시 정리하세요. 예를 들어, 컴포저블이 DOM 이벤트 리스너를 설정했다면, `useMouse()` 예제에서처럼 `onUnmounted()`에서 해당 리스너를 제거해야 합니다. `useEventListener()` 예제처럼 자동으로 정리해주는 컴포저블을 사용하는 것도 좋은 방법입니다.
 
-### 제한사항 {#usage-restrictions}
+### 사용 제한 {#usage-restrictions}
 
-컴포저블(Composable)은 `<script setup>` 또는 `setup()` 훅에서만 호출해야 합니다. 이러한 컨텍스트에서는 컴포저블을 **동기적으로** 호출해야 합니다. 일부 경우에는 `onMounted()`와 같은 라이프사이클 훅에서도 호출할 수 있습니다.
+컴포저블은 `<script setup>` 또는 `setup()` 훅에서만 호출해야 합니다. 또한 이들 컨텍스트에서 **동기적으로** 호출해야 합니다. 경우에 따라 `onMounted()`와 같은 생명주기 훅에서도 호출할 수 있습니다.
 
-이러한 제한은 중요합니다. 왜냐하면 이러한 컨텍스트에서 Vue가 현재 활성 컴포넌트 인스턴스를 결정할 수 있기 때문입니다. 활성 컴포넌트 인스턴스에 대한 접근은 다음과 같은 이유로 필요합니다:
+이러한 제한은 Vue가 현재 활성 컴포넌트 인스턴스를 결정할 수 있는 컨텍스트이기 때문에 중요합니다. 활성 컴포넌트 인스턴스에 접근해야 하는 이유는 다음과 같습니다:
 
-1. 생명주기 훅을 등록할 수 있다.
+1. 생명주기 훅을 등록할 수 있습니다.
 
-2. 계산된 속성과 감시자는 컴포넌트 마운트 해제 시, 관련 작업을 처리하기 위해 연결될 수 있다.
+2. 계산 속성과 watcher를 인스턴스에 연결하여, 인스턴스가 언마운트될 때 이들이 해제되어 메모리 누수를 방지할 수 있습니다.
 
 :::tip
-`<script setup>`은 `await`를 사용한 **후** 컴포저블 함수를 호출할 수 있는 유일한 곳입니다.
-컴파일러는 비동기 작업 후 활성 인스턴스 컨텍스트를 자동으로 복원합니다.
+`<script setup>`은 `await` 사용 **이후**에도 컴포저블을 호출할 수 있는 유일한 곳입니다. 컴파일러가 비동기 작업 이후에도 활성 인스턴스 컨텍스트를 자동으로 복원해줍니다.
 :::
 
-## 체계적인 코드를 위해 컴포저블로 추출하기 {#extracting-composables-for-code-organization}
+## 코드 조직화를 위한 컴포저블 추출 {#extracting-composables-for-code-organization}
 
-컴포저블은 재사용뿐만 아니라 코드 체계화를 위해 추출할 수 있습니다.
-컴포넌트의 복잡성이 증가함에 따라 탐색 및 추론하기에 너무 큰 컴포넌트가 생길 수 있습니다.
-컴포지션 API는 논리적 문제를 기반으로 컴포넌트 코드를 더 작은 기능으로 구성할 수 있는 완전한 유연성을 제공합니다:
+컴포저블은 재사용뿐만 아니라 코드 조직화를 위해서도 추출할 수 있습니다. 컴포넌트의 복잡성이 커지면, 너무 커져서 탐색하거나 이해하기 어려운 컴포넌트가 생길 수 있습니다. Composition API는 논리적 관심사에 따라 컴포넌트 코드를 더 작은 함수로 자유롭게 조직할 수 있게 해줍니다:
 
 ```vue
 <script setup>
@@ -356,11 +329,11 @@ const { qux } = useFeatureC(baz)
 </script>
 ```
 
-이렇게 추출된 컴포저블 코드는 협업을 위해 컴포넌트 범위 내에서 제공할 수 있습니다.
+어느 정도까지는, 이렇게 추출된 컴포저블을 서로 통신할 수 있는 컴포넌트 범위의 서비스로 생각할 수 있습니다.
 
-## 옵션 API에서 컴포저블 적용 {#using-composables-in-options-api}
+## Options API에서 컴포저블 사용하기 {#using-composables-in-options-api}
 
-옵션 API를 사용하는 경우, 컴포저블 함수는 `setup()` 내에서 호출되어야 하고 반환된 바인딩은 `this`와 템플릿에 노출되도록 `setup()`에서 반환되어야 합니다:
+Options API를 사용하는 경우, 컴포저블은 반드시 `setup()` 내부에서 호출해야 하며, 반환된 바인딩은 `setup()`에서 반환되어야 `this`와 템플릿에서 노출됩니다:
 
 ```js
 import { useMouse } from './mouse.js'
@@ -376,57 +349,39 @@ export default {
     // setup()에서 노출된 속성은 `this`에서 접근할 수 있습니다.
     console.log(this.x)
   }
-  // ...다른 옵션 코드 로직
+  // ...기타 옵션
 }
 ```
 
-## 다른 기술과의 비교 {#comparisons-with-other-techniques}
+## 다른 기법과의 비교 {#comparisons-with-other-techniques}
 
-### vs. Mixins {#vs-mixins}
+### 믹스인과의 비교 {#vs-mixins}
 
-Vue 2를 사용한 개발자는 [mixins](/api/options-composition#mixins) 옵션에 익숙할 것입니다.
-이 옵션을 사용해 컴포넌트 로직을 재사용 가능한 단위로 추출할 수도 있습니다.
-mixins에는 세 가지 주요 단점이 있습니다:
+Vue 2에서 온 사용자라면 [믹스인](/api/options-composition#mixins) 옵션에 익숙할 수 있습니다. 믹스인 역시 컴포넌트 로직을 재사용 가능한 단위로 추출할 수 있게 해줍니다. 하지만 믹스인에는 세 가지 주요 단점이 있습니다:
 
-1. **불분명한 출처의 속성**:
-   많은 mixins를 사용할 때, 어떤 인스턴스 속성이 어떤 mixins에 의해 주입되는지 명확하지 않아 구현을 추적하고 컴포넌트의 동작을 이해하기 어렵습니다.
-   이것이 컴포저블에 refs + destructure 패턴을 사용하는 것을 권장하는 이유이기도 합니다.
-   컴포넌트가 속성을 사용할 때 그 출처를 명확하게 만듭니다.
+1. **속성의 출처가 불분명함**: 여러 믹스인을 사용할 때, 어떤 인스턴스 속성이 어떤 믹스인에 의해 주입되었는지 불분명해져 구현을 추적하고 컴포넌트의 동작을 이해하기 어려워집니다. 이것이 컴포저블에서 ref + 구조 분해 패턴을 권장하는 이유이기도 합니다: 소비하는 컴포넌트에서 속성의 출처가 명확해집니다.
 
-2. **네임스페이스 충돌**:
-   다른 작성자의 여러 mixins이 잠재적으로 동일한 속성 키를 등록하여 네임스페이스 충돌을 일으킬 수 있습니다.
-   컴포저블을 사용하면 다른 컴포저블과 충돌하는 키가 있는 경우 분해 할당 문법으로 변수의 이름을 바꿀 수 있습니다.
+2. **네임스페이스 충돌**: 서로 다른 작성자의 여러 믹스인이 동일한 속성 키를 등록할 수 있어 네임스페이스 충돌이 발생할 수 있습니다. 컴포저블에서는 서로 다른 컴포저블에서 충돌하는 키가 있을 경우 구조 분해 변수명을 변경할 수 있습니다.
 
-3. **암시적 mixins 간 통신**:
-   서로 상호 작용해야 하는 여러 mixins은 공유 속성 키에 의존해야 하므로 암시적으로 결합됩니다.
-   컴포저블을 사용하면 일반 함수와 마찬가지로 한 컴포저블에서 반환된 값을 다른 컴포저블에 인자로 전달할 수 있습니다.
+3. **암묵적 믹스인 간 통신**: 서로 상호작용해야 하는 여러 믹스인은 공유 속성 키에 의존해야 하므로 암묵적으로 결합됩니다. 컴포저블에서는 한 컴포저블에서 반환된 값을 인자로 다른 컴포저블에 전달할 수 있으므로, 일반 함수처럼 명시적으로 연결할 수 있습니다.
 
-위의 이유로 Vue 3에서는 더 이상 mixins를 사용하지 않는 것이 좋습니다.
-이 기능은 마이그레이션 및 익숙함을 위해서만 유지됩니다.
+이러한 이유로, Vue 3에서는 믹스인 사용을 더 이상 권장하지 않습니다. 이 기능은 마이그레이션 및 익숙함을 위해서만 유지됩니다.
 
-### vs. 렌더리스 컴포넌트 {#vs-renderless-components}
+### 렌더리스 컴포넌트와의 비교 {#vs-renderless-components}
 
-컴포넌트 심화의 슬롯 챕터에서는 범위가 지정된 슬롯을 기반으로 하는 [렌더리스 컴포넌트](/guide/components/slots#renderless-components) 패턴에 대해 논의했습니다.
-렌더리스 컴포넌트를 사용하여 동일한 마우스 추적 데모도 구현했습니다.
+컴포넌트 슬롯 챕터에서, 스코프 슬롯을 기반으로 한 [렌더리스 컴포넌트](/guide/components/slots#renderless-components) 패턴을 논의했습니다. 마우스 추적 데모도 렌더리스 컴포넌트로 구현한 바 있습니다.
 
-렌더리스 컴포넌트에 비해 컴포저블의 주요 이점은 컴포저블이 추가적인 컴포넌트 인스턴스 오버헤드를 발생시키지 않는다는 것입니다.
-전체 앱에서 사용될 때 렌더리스 컴포넌트 패턴에 의해 생성된 추가 컴포넌트 인스턴스의 양이 눈에 띄게 성능 오버헤드가 될 수 있습니다.
+컴포저블이 렌더리스 컴포넌트보다 가지는 주요 이점은, 컴포저블은 추가적인 컴포넌트 인스턴스 오버헤드가 없다는 점입니다. 전체 애플리케이션에서 렌더리스 컴포넌트 패턴을 사용할 경우, 생성되는 추가 컴포넌트 인스턴스의 양이 성능 오버헤드로 이어질 수 있습니다.
 
-권장 사항은 순수 로직을 재사용할 때 컴포저블을 사용하고 로직과 시각적 레이아웃을 모두 재사용할 때 컴포넌트를 사용하는 것입니다.
+순수 로직을 재사용할 때는 컴포저블을, 로직과 시각적 레이아웃을 모두 재사용할 때는 컴포넌트를 사용하는 것이 권장됩니다.
 
-### vs. React 훅 {#vs-react-hooks}
+### React 훅과의 비교 {#vs-react-hooks}
 
-React에 대한 경험이 있다면 이것이 커스텀 React 훅과 매우 유사하다는 것을 알 수 있습니다.
-컴포지션 API는 부분적으로 React 훅에서 영감을 얻었고 Vue 컴포저블은 실제로 로직 구성 기능 측면에서 React 훅와 유사합니다.
-그러나 Vue 컴포저블은 Vue의 세분화된 반응성 시스템을 기반으로 하며, 이는 React 훅의 실행 모델과 근본적으로 다릅니다.
-이는 [컴포지션 API FAQ](/guide/extras/composition-api-faq#comparison-with-react-hooks)에서 자세히 설명합니다.
+React 경험이 있다면, 이 패턴이 커스텀 React 훅과 매우 유사하다는 것을 알 수 있습니다. Composition API는 부분적으로 React 훅에서 영감을 받았으며, Vue 컴포저블은 로직 조합 능력 측면에서 React 훅과 매우 유사합니다. 하지만 Vue 컴포저블은 Vue의 세밀한 반응성 시스템을 기반으로 하며, 이는 React 훅의 실행 모델과 근본적으로 다릅니다. 이에 대한 자세한 내용은 [Composition API FAQ](/guide/extras/composition-api-faq#comparison-with-react-hooks)에서 다룹니다.
 
-## 추가적인 읽을거리 {#further-reading}
+## 추가 읽을거리 {#further-reading}
 
-- [반응형 심화](/guide/extras/reactivity-in-depth): Vue의 반응형 시스템이 어떻게 작동하는지에 대한 심화 수준의 이해를 위해.
-
-- [상태 관리](/guide/scaling-up/state-management): 여러 컴포넌트가 공유하는 상태를 관리하는 패턴입니다.
-
-- [테스팅 컴포저블](/guide/scaling-up/testing#testing-composables): 단위 테스트 컴포저블에 대한 팁.
-
-- [VueUse](https://vueuse.org/): 계속 증가하는 Vue 컴포저블 컬렉션입니다. 또한 소스 코드는 훌륭한 학습 자료입니다.
+- [반응성 심층 분석](/guide/extras/reactivity-in-depth): Vue의 반응성 시스템이 어떻게 동작하는지 저수준에서 이해할 수 있습니다.
+- [상태 관리](/guide/scaling-up/state-management): 여러 컴포넌트에서 공유하는 상태를 관리하는 패턴을 다룹니다.
+- [컴포저블 테스트하기](/guide/scaling-up/testing#testing-composables): 컴포저블의 단위 테스트 팁을 제공합니다.
+- [VueUse](https://vueuse.org/): 계속 성장하는 Vue 컴포저블 모음집입니다. 소스 코드도 훌륭한 학습 자료입니다.

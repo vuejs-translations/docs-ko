@@ -112,54 +112,54 @@ updateExample()
 </script>
 
 <template>
-<section class="tutorial">
-<article class="instruction" ref="instruction">
-  <PreferenceSwitch />
-  <VTFlyout :button="`${currentStepIndex} / ${totalSteps}`">
-  <VTLink
-    v-for="(step, i) of allSteps"
-  class="vt-menu-link"
-:class="{ active: i + 1 === currentStepIndex }"
-:href="step.link"
-  >{{ step.text }}</VTLink
->
-</VTFlyout>
-<div class="vt-doc" v-html="currentDescription"></div>
-  <div class="hint" v-if="data[currentStep]?._hint">
-<button @click="toggleResult">
-  {{ showingHint ? 'Reset' : 'Show me!' }}
-</button>
-</div>
-<footer>
-<a v-if="prevStep" :href="`#${prevStep}`"
-><VTIconChevronLeft class="vt-link-icon" style="margin: 0" />
-Prev</a
->
-<a class="next-step" v-if="nextStep" :href="`#${nextStep}`"
-  >Next <VTIconChevronRight class="vt-link-icon"
-  /></a>
-  </footer>
-  </article>
-  <Repl
-layout="vertical"
-:editor="CodeMirror"
-:store="store"
-:showCompileOutput="false"
-:clearConsole="false"
-:showImportMap="false"
-@keyup="showingHint = false"
-  />
+  <section class="tutorial">
+    <article class="instruction" ref="instruction">
+      <PreferenceSwitch />
+      <VTFlyout :button="`${currentStepIndex} / ${totalSteps}`">
+        <VTLink
+          v-for="(step, i) of allSteps"
+          class="vt-menu-link"
+          :class="{ active: i + 1 === currentStepIndex }"
+          :href="step.link"
+          >{{ step.text }}</VTLink
+        >
+      </VTFlyout>
+      <div class="vt-doc" v-html="currentDescription"></div>
+      <div class="hint" v-if="data[currentStep]?._hint">
+        <button @click="toggleResult">
+          {{ showingHint ? 'Reset' : 'Show me!' }}
+        </button>
+      </div>
+      <footer>
+        <a v-if="prevStep" :href="`#${prevStep}`"
+          ><VTIconChevronLeft class="vt-link-icon" style="margin: 0" />
+          Prev</a
+        >
+        <a class="next-step" v-if="nextStep" :href="`#${nextStep}`"
+          >Next <VTIconChevronRight class="vt-link-icon"
+        /></a>
+      </footer>
+    </article>
+    <Repl
+      layout="vertical"
+      :editor="CodeMirror"
+      :store="store"
+      :showCompileOutput="false"
+      :clearConsole="false"
+      :showImportMap="false"
+      @keyup="showingHint = false"
+    />
   </section>
-  </template>
+</template>
 
-  <style scoped>
+<style scoped>
 .tutorial {
   display: flex;
   max-width: 1440px;
   margin: 0 auto;
   --height: calc(
     100vh - var(--vt-nav-height) - var(--vt-banner-height, 0px)
-);
+  );
 }
 
 .preference-switch {
@@ -245,13 +245,13 @@ button {
 }
 
 @media (min-width: 1377px) {
-.vue-repl {
+  .vue-repl {
     border-right: 1px solid var(--vt-c-divider-light);
   }
 }
 
 @media (min-width: 1441px) {
-.tutorial {
+  .tutorial {
     padding-right: 32px;
   }
 }
@@ -261,26 +261,26 @@ button {
 }
 
 @media (max-width: 720px) {
-.tutorial {
+  .tutorial {
     display: block;
   }
-.instruction {
+  .instruction {
     width: 100%;
     border-right: none;
     border-bottom: 1px solid var(--vt-c-divider-light);
     height: 30vh;
     padding: 0 24px 24px;
   }
-.vue-repl {
+  .vue-repl {
     width: 100%;
     height: calc(
       70vh - var(--vt-nav-height) - var(--vt-banner-height, 0px)
-  );
+    );
   }
-:deep(.wide) {
+  :deep(.wide) {
     display: none;
   }
-:deep(.narrow) {
+  :deep(.narrow) {
     display: inline;
   }
 }

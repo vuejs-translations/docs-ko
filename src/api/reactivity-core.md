@@ -1,15 +1,15 @@
-# 반응형 API: 핵심 {#reactivity-api-core}
+# 반응성 API: 코어 {#reactivity-api-core}
 
 :::info 참고
-반응형 API를 더 이해하고 싶은 경우, 다음 가이드 문서를 읽는 것을 추천합니다:
+반응성 API를 더 잘 이해하려면 다음 가이드 챕터를 읽는 것이 좋습니다:
 
-- [반응형 기초](/guide/essentials/reactivity-fundamentals) (API 스타일을 **컴포지션 API**로 설정하고 읽으세요)
-- [반응형 심화](/guide/extras/reactivity-in-depth)
+- [반응성 기본](/guide/essentials/reactivity-fundamentals) (API 선호도를 Composition API로 설정)
+- [반응성 심층 분석](/guide/extras/reactivity-in-depth)
   :::
 
 ## ref() {#ref}
 
-전달된 값을 갖게 되고, 이것을 가리키는 단일 속성 `.value`가 있는 변경 가능한 반응형 ref 객체를 반환합니다.
+내부 값을 받아서 반응형이며 변경 가능한 ref 객체를 반환합니다. 이 객체는 내부 값을 가리키는 단일 속성 `.value`를 가집니다.
 
 - **타입**
 
@@ -21,15 +21,15 @@
   }
   ```
 
-- **세부 사항**
+- **세부사항**
 
-  ref 객체는 반응형이며, `.value` 속성에 새 값을 할당할 수 있습니다. 즉, `.value`에 대한 모든 읽기 작업이 추적되고, 쓰기 작업은 관련 이펙트를 트리거합니다.
+  ref 객체는 변경 가능합니다. 즉, `.value`에 새로운 값을 할당할 수 있습니다. 또한 반응형이기도 하여, `.value`에 대한 읽기 작업은 추적되고, 쓰기 작업은 관련된 효과를 트리거합니다.
 
-  객체가 ref의 값(`.value`)으로 할당되면, [reactive()](#reactive)로 내부 깊숙이(deeply) 반응하게 됩니다. 이러한 동작은 객체 내부 깊숙이 ref가 포함되어 있으면, 언래핑됨을 의미합니다.
+  객체가 ref의 값으로 할당되면, 해당 객체는 [reactive()](#reactive)로 깊게 반응형이 됩니다. 이는 객체에 중첩된 ref가 있을 경우, 이들도 깊게 언랩된다는 의미입니다.
 
-  내부 깊숙이까지 변환되는 것을 방지하려면, [`shallowRef()`](./reactivity-advanced#shallowref)를 사용해야 합니다.
+  깊은 변환을 피하려면 [`shallowRef()`](./reactivity-advanced#shallowref)를 사용하세요.
 
-- **예제**
+- **예시**
 
   ```js
   const count = ref(0)
@@ -40,12 +40,12 @@
   ```
 
 - **참고**
-  - [가이드 - `ref()`를 사용한 반응형 변수](/guide/essentials/reactivity-fundamentals#reactive-variables-with-ref)
-  - [가이드 - `ref()`에 타입 지정하기](/guide/typescript/composition-api#typing-ref) <sup class="vt-badge ts" />
+  - [가이드 - `ref()`와 함께하는 반응성 기본](/guide/essentials/reactivity-fundamentals#ref)
+  - [가이드 - `ref()` 타입 지정](/guide/typescript/composition-api#typing-ref) <sup class="vt-badge ts" />
 
 ## computed() {#computed}
 
-[getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description)를 받아서 getter로부터 반환된 값에 대한 읽기 전용 반응형 [ref](#ref) 객체를 반환합니다. 또한, `get` 및 `set` 함수가 있는 객체를 받아 쓰기 가능한 ref 객체를 생성할 수 있습니다.
+[getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description)를 받아, getter에서 반환된 값에 대한 읽기 전용 반응형 [ref](#ref) 객체를 반환합니다. 또한 `get`과 `set` 함수가 포함된 객체를 받아서 쓰기 가능한 ref 객체를 생성할 수도 있습니다.
 
 - **타입**
 
@@ -53,7 +53,7 @@
   // 읽기 전용
   function computed<T>(
     getter: (oldValue: T | undefined) => T,
-    // 아래의 "계산된 속성 디버깅" 링크를 참고하세요
+    // 아래 "Computed Debugging" 링크 참고
     debuggerOptions?: DebuggerOptions
   ): Readonly<Ref<Readonly<T>>>
 
@@ -67,9 +67,9 @@
   ): Ref<T>
   ```
 
-- **예제**
+- **예시**
 
-  읽기 전용 계산된 속성 ref 만들기:
+  읽기 전용 computed ref 생성:
 
   ```js
   const count = ref(1)
@@ -77,10 +77,10 @@
 
   console.log(plusOne.value) // 2
 
-  plusOne.value++ // error
+  plusOne.value++ // 에러
   ```
 
-  쓰기 가능한 계산된 속성 ref 만들기:
+  쓰기 가능한 computed ref 생성:
 
   ```js
   const count = ref(1)
@@ -110,13 +110,13 @@
 
 - **참고**
   - [가이드 - 계산된 속성](/guide/essentials/computed)
-  - [가이드 - 계산된 속성 디버깅](/guide/extras/reactivity-in-depth#computed-debugging)
-  - [가이드 - `computed()`에 타입 지정하기](/guide/typescript/composition-api#typing-computed) <sup class="vt-badge ts" />
-  - [가이드 - 성능 - Computed Stability](/guide/best-practices/performance#computed-stability) <sup class="vt-badge" data-text="3.4+" />
+  - [가이드 - Computed 디버깅](/guide/extras/reactivity-in-depth#computed-debugging)
+  - [가이드 - `computed()` 타입 지정](/guide/typescript/composition-api#typing-computed) <sup class="vt-badge ts" />
+  - [가이드 - 성능 - Computed 안정성](/guide/best-practices/performance#computed-stability)
 
 ## reactive() {#reactive}
 
-객체의 반응형 프록시(proxy)를 반환합니다.
+객체의 반응형 프록시를 반환합니다.
 
 - **타입**
 
@@ -124,17 +124,17 @@
   function reactive<T extends object>(target: T): UnwrapNestedRefs<T>
   ```
 
-- **세부 사항**
+- **세부사항**
 
-  반응형 변환은 "내부 깊숙이 있는(deep)" 모든 중첩 속성에 영향을 줍니다. 또한, 반응형 객체는 내부 깊숙이 있는 모든 [refs](#ref) 속성의 반응형을 유지하면서 언래핑합니다.
+  반응형 변환은 "깊게" 이루어집니다: 모든 중첩 속성에 영향을 미칩니다. 반응형 객체는 [ref](#ref) 속성도 깊게 언랩하면서 반응성을 유지합니다.
 
-  그러나 `Map` 같은 네이티브 컬렉션 타입 또는 반응형 배열의 요소인 ref로 접근할 때는 언래핑 되지 않음에 유의해야 합니다.
+  또한 ref가 반응형 배열이나 `Map`과 같은 네이티브 컬렉션 타입의 요소로 접근될 때는 ref 언래핑이 수행되지 않는다는 점에 유의해야 합니다.
 
-  내부 깊은 곳까지의 변환은 피하고 루트 수준에서만 반응형을 유지하려면, [shallowReactive()](./reactivity-advanced#shallowreactive)를 사용해야 합니다.
+  깊은 변환을 피하고 루트 레벨에서만 반응성을 유지하려면 [shallowReactive()](./reactivity-advanced#shallowreactive)를 사용하세요.
 
-  반환된 객체와 중첩된 객체는 [프록시(Proxy)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)로 래핑되므로, 원본 객체와 **동일하지 않습니다**. 그러므로 반응형 프록시로만 작업하고, 원본 객체에 의존하지 않는 것이 좋습니다.
+  반환된 객체와 그 중첩 객체들은 [ES Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)로 래핑되며, **원본 객체와 동일하지 않습니다**. 반응형 프록시만을 사용하고 원본 객체에 의존하지 않는 것이 권장됩니다.
 
-- **예제**
+- **예시**
 
   반응형 객체 생성:
 
@@ -143,39 +143,39 @@
   obj.count++
   ```
 
-  Ref 언래핑:
+  ref 언래핑:
 
   ```ts
   const count = ref(1)
   const obj = reactive({ count })
 
-  // obj.count인 ref는 언래핑 됨
+  // ref가 언랩됩니다
   console.log(obj.count === count.value) // true
 
-  // `obj.count`도 업데이트 됨
+  // `obj.count`가 업데이트됩니다
   count.value++
   console.log(count.value) // 2
   console.log(obj.count) // 2
 
-  // `count` ref도 업데이트 됨
+  // `count` ref도 업데이트됩니다
   obj.count++
   console.log(obj.count) // 3
   console.log(count.value) // 3
   ```
 
-  배열 또는 컬렉션 앨리먼트인 ref에 접근시, **언래핑 되지 않습니다**:
+  ref가 배열이나 컬렉션 요소로 접근될 때는 **언랩되지 않습니다**:
 
   ```js
   const books = reactive([ref('Vue 3 Guide')])
-  // .value 필요
+  // 여기서는 .value가 필요합니다
   console.log(books[0].value)
 
   const map = reactive(new Map([['count', ref(0)]]))
-  // .value 필요
+  // 여기서도 .value가 필요합니다
   console.log(map.get('count').value)
   ```
 
-  [ref](#ref)를 `reactive` 속성에 할당하면, 해당 ref도 자동으로 언래핑됩니다:
+  [ref](#ref)를 `reactive` 속성에 할당하면, 해당 ref도 자동으로 언랩됩니다:
 
   ```ts
   const count = ref(1)
@@ -188,12 +188,12 @@
   ```
 
 - **참고**
-  - [가이드 - 반응형 기초](/guide/essentials/reactivity-fundamentals)
-  - [가이드 - `reactive()`에 타입 지정하기](/guide/typescript/composition-api#typing-reactive) <sup class="vt-badge ts" />
+  - [가이드 - 반응성 기본](/guide/essentials/reactivity-fundamentals)
+  - [가이드 - `reactive()` 타입 지정](/guide/typescript/composition-api#typing-reactive) <sup class="vt-badge ts" />
 
 ## readonly() {#readonly}
 
-객체(반응형 또는 일반) 또는 [ref](#ref)를 가져와서 원본에 대한 읽기 전용 프록시를 반환합니다.
+객체(반응형 또는 일반 객체)나 [ref](#ref)를 받아 원본에 대한 읽기 전용 프록시를 반환합니다.
 
 - **타입**
 
@@ -203,13 +203,13 @@
   ): DeepReadonly<UnwrapNestedRefs<T>>
   ```
 
-- **세부 사항**
+- **세부사항**
 
-  읽기 전용 프록시는 접근하게 될 모든 중첩 속성 깊숙이까지 읽기 전용입니다. 또한 `reactive()`처럼 ref를 언래핑하며, 언래핑 값도 읽기 전용으로 변환됩니다.
+  읽기 전용 프록시는 깊게 적용됩니다: 중첩된 모든 속성도 읽기 전용이 됩니다. 또한 `reactive()`와 동일한 ref 언래핑 동작을 가지지만, 언랩된 값도 읽기 전용이 됩니다.
 
-  내부 깊은 곳까지의 변환을 피하려면, [shallowReadonly()](./reactivity-advanced#shallowreadonly)를 사용해야 합니다.
+  깊은 변환을 피하려면 [shallowReadonly()](./reactivity-advanced#shallowreadonly)를 사용하세요.
 
-- **예제**
+- **예시**
 
   ```js
   const original = reactive({ count: 0 })
@@ -217,20 +217,20 @@
   const copy = readonly(original)
 
   watchEffect(() => {
-    // 반응형 추적으로 작동됨
+    // 반응성 추적에 사용 가능
     console.log(copy.count)
   })
 
-  // original을 변경하면 copy를 의존하는 감시자가 트리거됨
+  // 원본을 변경하면 copy를 참조하는 watcher가 트리거됨
   original.count++
 
-  // copy를 변경하려 해도 변경되지 않으며, 경고가 발생함
+  // copy를 변경하려고 하면 실패하고 경고가 발생함
   copy.count++ // 경고!
   ```
 
 ## watchEffect() {#watcheffect}
 
-즉시 함수를 실행하고 의존성을 반응적으로 추적하며, 의존성이 변경될 때마다 다시 실행합니다.
+함수를 즉시 실행하면서 그 의존성을 반응적으로 추적하고, 의존성이 변경될 때마다 다시 실행합니다.
 
 - **타입**
 
@@ -243,96 +243,86 @@
   type OnCleanup = (cleanupFn: () => void) => void
 
   interface WatchEffectOptions {
-    flush?: 'pre' | 'post' | 'sync' // 기본 값: 'pre'
+    flush?: 'pre' | 'post' | 'sync' // 기본값: 'pre'
     onTrack?: (event: DebuggerEvent) => void
     onTrigger?: (event: DebuggerEvent) => void
   }
 
   interface WatchHandle {
-    (): void // callable, same as `stop`
+    (): void // 호출 가능, `stop`과 동일
     pause: () => void
     resume: () => void
     stop: () => void
   }
   ```
 
-- **세부 사항**
+- **세부사항**
 
-  첫 번째 인자는 실행할 이펙트 함수입니다. 이펙트 함수는 인자로 클린업(cleanup) 콜백을 등록해 실행할 수 있는 함수를 받습니다. 클린업 콜백은 다음에 이펙트가 다시 실행되기 직전에 호출되며, 무효화된 사이드 이펙트를 정리하는 데 사용할 수 있습니다. 예를들어 비동기 요청의 결과 대기중(pending)에 사용할 수 있습니다.(아래 예제 참고)
+  첫 번째 인자는 실행할 effect 함수입니다. effect 함수는 정리 콜백을 등록할 수 있는 함수를 인자로 받습니다. 정리 콜백은 effect가 다음에 다시 실행되기 직전에 호출되며, 예를 들어 대기 중인 비동기 요청과 같은 무효화된 부수 효과를 정리하는 데 사용할 수 있습니다(아래 예시 참고).
 
-  두 번째 인자는 이펙트의 발생(flush) 타이밍을 조정하거나, 이펙트의 의존성을 디버그하는 데 사용할 수 있는 선택적 옵션 객체입니다.
+  두 번째 인자는 선택적 옵션 객체로, effect의 flush 타이밍을 조정하거나 의존성 디버깅에 사용할 수 있습니다.
 
-  기본적으로 와처는 컴포넌트 렌더링 직전에 실행됩니다. `flush: 'post'`를 설정하면 컴포넌트 렌더링 이후까지 와처가 지연됩니다. 자세한 내용은 [콜백 플러시 타이밍](/guide/essentials/watchers#callback-flush-timing)을 참조하세요. 드물지만 캐시 무효화와 같이 반응형 의존성이 변경될 때 즉시 와처를 트리거해야 하는 경우가 있을 수 있습니다. 이는 `flush: 'sync'`를 사용하여 수행할 수 있습니다. 그러나 이 설정은 여러 프로퍼티가 동시에 업데이트되는 경우 성능 및 데이터 일관성 문제를 일으킬 수 있으므로 주의해서 사용해야 합니다.
+  기본적으로 watcher는 컴포넌트 렌더링 직전에 실행됩니다. `flush: 'post'`로 설정하면 watcher가 컴포넌트 렌더링 후에 실행됩니다. 자세한 내용은 [콜백 flush 타이밍](/guide/essentials/watchers#callback-flush-timing)을 참고하세요. 드물게, 반응형 의존성이 변경될 때 watcher를 즉시 트리거해야 할 필요가 있을 수 있습니다(예: 캐시 무효화). 이 경우 `flush: 'sync'`를 사용할 수 있습니다. 단, 이 설정은 여러 속성이 동시에 업데이트될 때 성능 및 데이터 일관성 문제를 일으킬 수 있으므로 주의해서 사용해야 합니다.
 
-  반환 값은 이펙트가 다시 실행되지 않도록 호출할 수 있는 핸들 함수입니다.
+  반환값은 effect의 재실행을 중지할 수 있는 핸들 함수입니다.
 
-- **예제**
+- **예시**
 
   ```js
   const count = ref(0)
 
   watchEffect(() => console.log(count.value))
-  // -> logs 0
+  // -> 0 출력
 
   count.value++
-  // -> logs 1
+  // -> 1 출력
   ```
 
-
-감시자 중단:
+  watcher 중지:
 
   ```js
   const stop = watchEffect(() => {})
 
-  // 더이상 감시자가 필요 없을때:
+  // watcher가 더 이상 필요 없을 때:
   stop()
   ```
 
-감시자를 임시중지 하거나 재개하기: <sup class="vt-badge" data-text="3.5+" />
+  watcher 일시정지 / 재개: <sup class="vt-badge" data-text="3.5+" />
 
   ```js
   const { stop, pause, resume } = watchEffect(() => {})
 
-  // 임시로 감시자를 중지함
+  // watcher를 일시적으로 정지
   pause()
 
   // 나중에 재개
   resume()
 
-  // 중단
+  // 중지
   stop()
   ```
 
-  사이드 이펙트 정리:
+  부수 효과 정리:
 
   ```js
   watchEffect(async (onCleanup) => {
-    const { response, cancel } = doAsyncWork(id.value)
-    // `id`가 변경되면 `cancel`이 호출됩니다.
-    // 이럴경우, 이전 요청이 완료되지 않고 여전히 대기중이라면,
-    // 취소할 수 있습니다.(cancel 콜백 로직을 그렇게 정의한 경우)
+    const { response, cancel } = doAsyncWork(newId)
+    // `cancel`은 `id`가 변경되면 호출되어,
+    // 이전 요청이 아직 완료되지 않았다면 취소합니다
     onCleanup(cancel)
     data.value = await response
   })
   ```
 
-  감시자 중지하기:
-
-  ```js
-  const stop = watchEffect(() => {})
-
-  // 감시자가 더 이상 필요하지 않을 때:
-  stop()
-  ```
-
-  3.5+  버전에서 감시자 정리:
+  3.5+에서의 부수 효과 정리:
 
   ```js
   import { onWatcherCleanup } from 'vue'
 
   watchEffect(async () => {
     const { response, cancel } = doAsyncWork(newId)
-    //  `id` 가 변경되면  `cancel`  이 호출되어 이전 요청이 아직 끝나지 않았다면 취소함
+    // `cancel`은 `id`가 변경되면 호출되어,
+    // 이전 요청이 아직 완료되지 않았다면 취소합니다
     onWatcherCleanup(cancel)
     data.value = await response
   })
@@ -353,32 +343,32 @@
   ```
 
 - **참고**
-  - [가이드 - 감시자](/guide/essentials/watchers#watcheffect)
-  - [가이드 - 감시자 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging)
+  - [가이드 - Watcher](/guide/essentials/watchers#watcheffect)
+  - [가이드 - Watcher 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging)
 
 ## watchPostEffect() {#watchposteffect}
 
-`flush: 'post'` 옵션 값을 사용하는 [`watchEffect()`](#watcheffect)의 별칭.
+[`watchEffect()`](#watcheffect)에서 `flush: 'post'` 옵션을 사용한 별칭입니다.
 
 ## watchSyncEffect() {#watchsynceffect}
 
-`flush: 'sync'` 옵션 값을 사용하는 [`watchEffect()`](#watcheffect)의 별칭.
+[`watchEffect()`](#watcheffect)에서 `flush: 'sync'` 옵션을 사용한 별칭입니다.
 
 ## watch() {#watch}
 
-하나 이상의 반응형 데이터 소스를 감시하고, 소스가 변경되면 콜백 함수를 호출합니다.
+하나 이상의 반응형 데이터 소스를 감시하고, 소스가 변경될 때 콜백 함수를 호출합니다.
 
 - **타입**
 
   ```ts
-  // 하나의 소스 감시
+  // 단일 소스 감시
   function watch<T>(
     source: WatchSource<T>,
     callback: WatchCallback<T>,
     options?: WatchOptions
   ): WatchHandle
 
-  // 여러 개의 소스 감시
+  // 다중 소스 감시
   function watch<T>(
     sources: WatchSource<T>[],
     callback: WatchCallback<T[]>,
@@ -397,16 +387,16 @@
     | (T extends object ? T : never) // 반응형 객체
 
   interface WatchOptions extends WatchEffectOptions {
-    immediate?: boolean // 기본 값: false
-    deep?: boolean | number // 기본 값: false
-    flush?: 'pre' | 'post' | 'sync' // 기본 값: 'pre'
+    immediate?: boolean // 기본값: false
+    deep?: boolean | number // 기본값: false
+    flush?: 'pre' | 'post' | 'sync' // 기본값: 'pre'
     onTrack?: (event: DebuggerEvent) => void
     onTrigger?: (event: DebuggerEvent) => void
-    once?: boolean // 기본 값: false (3.4+)
+    once?: boolean // 기본값: false (3.4+)
   }
-  
+
   interface WatchHandle {
-    (): void // `stop` 과 마찬가지로 호출 가능
+    (): void // 호출 가능, `stop`과 동일
     pause: () => void
     resume: () => void
     stop: () => void
@@ -415,38 +405,38 @@
 
   > 타입은 가독성을 위해 단순화되었습니다.
 
-- **세부 사항**
+- **세부사항**
 
-  `watch()`는 기본적으로 게으릅니다(lazy). 그러므로 콜백은 감시된 소스가 변경되었을 때만 호출됩니다.
+  `watch()`는 기본적으로 lazy(지연) 방식입니다. 즉, 감시하는 소스가 변경될 때만 콜백이 호출됩니다.
 
-  첫 번째 인자는 감시될 **소스**입니다. 소스는 다음 중 하나일 수 있습니다:
+  첫 번째 인자는 watcher의 **소스**입니다. 소스는 다음 중 하나일 수 있습니다:
 
   - 값을 반환하는 getter 함수
   - ref
   - 반응형 객체
-  - 또는 위에 나열한 것들의 배열
+  - ...또는 위의 항목들의 배열
 
-  두 번째 인자는 소스가 변경될 때 호출될 콜백입니다. 콜백은 "변경된 값", "이전 값", "사이드 이펙트 클린업 콜백을 등록하기 위한 함수" 이렇게 세 가지 인자를 받습니다. 클린업 콜백은 다음에 이펙트가 다시 실행되기 직전에 호출되며, 무효화된 사이드 이펙트를 정리하는 데 사용할 수 있습니다. 예를들어 비동기 요청의 결과 대기중(pending)에 사용할 수 있습니다.
+  두 번째 인자는 소스가 변경될 때 호출되는 콜백입니다. 콜백은 세 개의 인자를 받습니다: 새로운 값, 이전 값, 그리고 부수 효과 정리 콜백을 등록하는 함수. 정리 콜백은 effect가 다음에 다시 실행되기 직전에 호출되며, 예를 들어 대기 중인 비동기 요청과 같은 무효화된 부수 효과를 정리하는 데 사용할 수 있습니다.
 
-  여러 소스를 감시할 때, 콜백은 소스 배열에 해당하는 변경된 값 배열, 이전 값 배열 두 개를 수신합니다.
+  여러 소스를 감시할 때, 콜백은 소스 배열에 대응하는 새로운 값/이전 값의 두 배열을 받습니다.
 
-  세 번째 인자는 선택적이며, 다음을 지원하는 옵션 객체입니다:
+  세 번째 선택적 인자는 옵션 객체로, 다음과 같은 옵션을 지원합니다:
 
-  - **`immediate`** 감시자가 생성되는 즉시 콜백이 호출됩니다. 최초 호출 시, 이전 값은 `undefined`입니다.
-  - **`deep`** 소스가 객체인 경우, 깊은 변경사항에서도 콜백이 실행되도록 합니다. 참고: [깊은 감시자](/guide/essentials/watchers#deep-watchers).
-  - **`flush`** 콜백의 발생(flush) 타이밍을 조정합니다. 참고: [콜백 실행 타이밍](/guide/essentials/watchers#callback-flush-timing), [`watchEffect()`](/api/reactivity-core#watcheffect).
-  - **`onTrack / onTrigger`** 감시자의 의존성을 디버그합니다. 참고: [감시자 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging).
-  - **`once`** 콜백을 한 번만 실행합니다. 감시자는 첫 번째 콜백 실행 후 자동으로 중지됩니다. <sup class="vt-badge" data-text="3.4+" />
+  - **`immediate`**: watcher 생성 시 콜백을 즉시 트리거합니다. 첫 호출 시 이전 값은 `undefined`입니다.
+  - **`deep`**: 소스가 객체일 경우 깊은 탐색을 강제하여, 깊은 변경에도 콜백이 실행됩니다. 3.5+에서는 최대 탐색 깊이를 나타내는 숫자도 허용됩니다. [깊은 Watcher](/guide/essentials/watchers#deep-watchers) 참고.
+  - **`flush`**: 콜백의 flush 타이밍을 조정합니다. [콜백 flush 타이밍](/guide/essentials/watchers#callback-flush-timing) 및 [`watchEffect()`](/api/reactivity-core#watcheffect) 참고.
+  - **`onTrack / onTrigger`**: watcher의 의존성 디버깅. [Watcher 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging) 참고.
+  - **`once`**: (3.4+) 콜백을 한 번만 실행합니다. 첫 콜백 실행 후 watcher가 자동으로 중지됩니다.
 
-  [`watchEffect()`](#watcheffect)와 비교하여 `watch()`를 사용하면 다음을 수행할 수 있습니다:
+  [`watchEffect()`](#watcheffect)와 비교했을 때, `watch()`는 다음을 할 수 있습니다:
 
-  - 사이드 이펙트를 게으르게(lazily) 실행합니다.
-  - 어떤 상태가 변경면 감시자가 다시 실행될지 더 자세하게 정의할 수 있습니다.
-  - 감시하는 상태의 변경 전후 값을 알 수 있습니다.
+  - 부수 효과를 lazy하게 수행
+  - watcher를 재실행시킬 상태를 더 구체적으로 지정
+  - 감시하는 상태의 이전 값과 현재 값 모두에 접근
 
-- **예제**
+- **예시**
 
-  getter를 감시:
+  getter 감시:
 
   ```js
   const state = reactive({ count: 0 })
@@ -458,7 +448,7 @@
   )
   ```
 
-  ref를 감시:
+  ref 감시:
 
   ```js
   const count = ref(0)
@@ -467,7 +457,7 @@
   })
   ```
 
-  여러 소스를 감시할 때, 콜백은 소스 배열에 해당하는 변경된 값 배열, 이전 값 배열 두 개를 수신합니다:
+  여러 소스를 감시할 때, 콜백은 소스 배열에 대응하는 새로운 값/이전 값의 배열을 받습니다:
 
   ```js
   watch([fooRef, barRef], ([foo, bar], [prevFoo, prevBar]) => {
@@ -475,7 +465,7 @@
   })
   ```
 
-  getter 소스를 사용할 때, 감시자는 getter의 반환 값이 변경된 경우에만 실행됩니다. 깊은 변경사항에서도 콜백을 실행하려면, `{ deep: true }`를 사용하여 감시자를 딥 모드로 설정해야 합니다. 딥 모드에서 콜백이 깊은 변경사항으로 트리거된 경우, 새 값과 이전 값은 동일한 객체입니다.
+  getter 소스를 사용할 때, getter의 반환값이 변경된 경우에만 watcher가 실행됩니다. 깊은 변경에도 콜백이 실행되길 원한다면, `{ deep: true }`로 watcher를 명시적으로 깊은 모드로 설정해야 합니다. 깊은 모드에서는, 콜백이 깊은 변경에 의해 트리거된 경우 새 값과 이전 값이 동일한 객체가 됩니다:
 
   ```js
   const state = reactive({ count: 0 })
@@ -488,16 +478,16 @@
   )
   ```
 
-  반응형 객체를 직접 감시할 때, 감시자는 자동으로 딥 모드가 됩니다:
+  반응형 객체를 직접 감시할 때는 watcher가 자동으로 깊은 모드가 됩니다:
 
   ```js
   const state = reactive({ count: 0 })
   watch(state, () => {
-    /* 상태의 깊은 변경사항에도 트리거 됨 */
+    /* state의 깊은 변경에도 트리거됨 */
   })
   ```
 
-  `watch()`는 [`watchEffect()`](#watcheffect)와 동일한 발생(flush) 타이밍 및 디버깅 옵션을 공유합니다:
+  `watch()`는 [`watchEffect()`](#watcheffect)와 동일한 flush 타이밍 및 디버깅 옵션을 공유합니다:
 
   ```js
   watch(source, callback, {
@@ -511,21 +501,21 @@
   })
   ```
 
-  와처 종료하기:
+  watcher 중지:
 
   ```js
   const stop = watch(source, callback)
 
-  // 더이상 필요하지 않을때:
+  // watcher가 더 이상 필요 없을 때:
   stop()
   ```
 
- 감시자 임시중단/재개하기 : <sup class="vt-badge" data-text="3.5+" />
+  watcher 일시정지 / 재개: <sup class="vt-badge" data-text="3.5+" />
 
   ```js
   const { stop, pause, resume } = watch(() => {})
 
-  // 감시자를 임시로 중단
+  // watcher를 일시적으로 정지
   pause()
 
   // 나중에 재개
@@ -534,18 +524,20 @@
   // 중지
   stop()
   ```
-  
-  부작용(Side effect) 제거:
+
+  부수 효과 정리:
 
   ```js
   watch(id, async (newId, oldId, onCleanup) => {
     const { response, cancel } = doAsyncWork(newId)
-    //`id`가 변경되면 `cancel`이 호출되어 이전 요청이 아직 완료되지 않은 경우 취소합니다.    
+    // `cancel`은 `id`가 변경되면 호출되어,
+    // 이전 요청이 아직 완료되지 않았다면 취소합니다
     onCleanup(cancel)
     data.value = await response
   })
   ```
-  3.5+ 버전에서 부작용(Side effect) 제거:
+
+  3.5+에서의 부수 효과 정리:
 
   ```js
   import { onWatcherCleanup } from 'vue'
@@ -559,14 +551,12 @@
 
 - **참고**
 
-  - [가이드 - 감시자](/guide/essentials/watchers)
-  - [가이드 - 감시자 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging)
-
-
+  - [가이드 - Watcher](/guide/essentials/watchers)
+  - [가이드 - Watcher 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging)
 
 ## onWatcherCleanup() <sup class="vt-badge" data-text="3.5+" /> {#onwatchercleanup}
 
-현재 감시자가 다시 실행되기 직전에 실행될 정리(cleanup) 함수를 등록합니다. 이 함수는 `watchEffect`의 효과 함수(effect function) 또는 `watch`의 콜백 함수가 동기적으로 실행되는 동안에만 호출할 수 있습니다. 즉, 비동기 함수 내에서 `await` 문 이후에는 호출할 수 없습니다.
+현재 watcher가 다시 실행되기 직전에 실행할 정리 함수를 등록합니다. `watchEffect` 효과 함수나 `watch` 콜백 함수의 동기 실행 중에만 호출할 수 있습니다(즉, async 함수에서 `await` 이후에는 호출할 수 없습니다).
 
 - **타입**
 
@@ -577,14 +567,15 @@
   ): void
   ```
 
-- **예제**
+- **예시**
 
   ```ts
   import { watch, onWatcherCleanup } from 'vue'
 
   watch(id, (newId) => {
     const { response, cancel } = doAsyncWork(newId)
-    // `id`가 변경되면 `cancel`이 호출되어, 이전 요청이 아직 완료되지 않았다면 이를 취소합니다.
+    // `cancel`은 `id`가 변경되면 호출되어,
+    // 이전 요청이 아직 완료되지 않았다면 취소합니다
     onWatcherCleanup(cancel)
   })
   ```
