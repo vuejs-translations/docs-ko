@@ -64,7 +64,7 @@
 
 - **세부사항**
 
-  The first argument is the injection key. Vue will walk up the parent chain to locate a provided value with a matching key. If multiple components in the parent chain provide the same key, the one closest to the injecting component will "shadow" those higher up the chain and its value will be used. If no value with matching key was found, `inject()` returns `undefined` unless a default value is provided.
+  첫 번째 인자는 주입 키입니다. Vue는 부모 체인을 따라 올라가며 일치하는 키로 제공된 값을 찾습니다. 부모 체인에 여러 컴포넌트가 동일한 키를 제공하는 경우, 주입하는 컴포넌트에 가장 가까운 값이 "가려지며" 해당 값이 사용됩니다. 일치하는 키의 값이 없으면, 기본값이 제공되지 않은 경우 `inject()`는 `undefined`를 반환합니다.
 
   두 번째 인자는 선택 사항이며, 일치하는 값이 없을 때 사용할 기본값입니다.
 

@@ -1,9 +1,5 @@
 # 컴포넌트 기본 {#components-basics}
 
-<ScrimbaLink href="https://scrimba.com/links/vue-component-basics" title="Free Vue.js Components Basics Lesson" type="scrimba">
-  Watch an interactive video lesson on Scrimba
-</ScrimbaLink>
-
 <ScrimbaLink href="https://scrimba.com/links/vue-component-basics" title="무료 Vue.js 컴포넌트 기본 강의" type="scrimba">
   Scrimba에서 인터랙티브 비디오 강의를 시청하세요
 </ScrimbaLink>
@@ -188,11 +184,11 @@ SFC에서는 자식 컴포넌트의 태그 이름에 `PascalCase`를 사용하�
 
 블로그를 만든다고 가정하면, 블로그 포스트를 나타내는 컴포넌트가 필요할 것입니다. 모든 블로그 포스트가 동일한 시각적 레이아웃을 공유하되, 내용은 다르게 하고 싶습니다. 이런 컴포넌트는, 표시할 특정 포스트의 제목과 내용 등 데이터를 전달할 수 없다면 쓸모가 없습니다. 이때 props가 필요합니다.
 
-```vue [BlogPost.vue]
+Props는 컴포넌트에 등록할 수 있는 사용자 지정 속성입니다. 블로그 포스트 컴포넌트에 제목을 전달하려면, 이 컴포넌트가 허용하는 props 목록에 이를 선언해야 합니다. <span class="options-api">[`props`](/api/options-state#props) 옵션</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup#defineprops-defineemits) 매크로</span>를 사용합니다:
+
 <div class="options-api">
 
-```vue
-<!-- BlogPost.vue -->
+```vue [BlogPost.vue]
 <script>
 export default {
   props: ['title']
@@ -205,11 +201,11 @@ export default {
 ```
 
 prop 속성에 값을 전달하면, 해당 값이 컴포넌트 인스턴스의 속성이 됩니다. 이 속성의 값은 템플릿 내와 컴포넌트의 `this` 컨텍스트에서 다른 컴포넌트 속성과 마찬가지로 접근할 수 있습니다.
-```vue [BlogPost.vue]
+
+</div>
 <div class="composition-api">
 
-```vue
-<!-- BlogPost.vue -->
+```vue [BlogPost.vue]
 <script setup>
 defineProps(['title'])
 </script>
@@ -350,12 +346,12 @@ const postFontSize = ref(1)
     :title="post.title"
    />
 </div>
-```vue{5} [BlogPost.vue]
-<!-- omitting <script> -->
+```
+
 이제 `<BlogPost>` 컴포넌트의 템플릿에 버튼을 추가해봅시다:
 
-```vue{5}
-<!-- BlogPost.vue, <script> 생략 -->
+```vue{5} [BlogPost.vue]
+<!-- <script> 생략 -->
 <template>
   <div class="blog-post">
     <h4>{{ title }}</h4>
@@ -371,12 +367,12 @@ const postFontSize = ref(1)
   ...
   @enlarge-text="postFontSize += 0.1"
  />
-```vue{5} [BlogPost.vue]
-<!-- omitting <script> -->
+```
+
 그런 다음 자식 컴포넌트는 내장 [**`$emit`** 메서드](/api/component-instance#emit)를 호출하여 자신에게 이벤트를 발생시킬 수 있습니다. 이벤트 이름을 전달합니다:
 
-```vue{5}
-<!-- BlogPost.vue, <script> 생략 -->
+```vue{5} [BlogPost.vue]
+<!-- omitting <script> -->
 <template>
   <div class="blog-post">
     <h4>{{ title }}</h4>
@@ -398,11 +394,11 @@ const postFontSize = ref(1)
 
 </div>
 
-```vue{4} [BlogPost.vue]
+발생시키는 이벤트를 <span class="options-api">[`emits`](/api/options-state#emits) 옵션</span><span class="composition-api">[`defineEmits`](/api/sfc-script-setup#defineprops-defineemits) 매크로</span>로 선언할 수도 있습니다:
+
 <div class="options-api">
 
-```vue{5}
-<!-- BlogPost.vue -->
+```vue{4} [BlogPost.vue]
 <script>
 export default {
   props: ['title'],
@@ -410,11 +406,11 @@ export default {
 }
 </script>
 ```
-```vue{3} [BlogPost.vue]
+
+</div>
 <div class="composition-api">
 
-```vue{4}
-<!-- BlogPost.vue -->
+```vue{3} [BlogPost.vue]
 <script setup>
 defineProps(['title'])
 defineEmits(['enlarge-text'])
@@ -468,11 +464,11 @@ HTML 요소와 마찬가지로, 컴포넌트에 콘텐츠를 전달할 수 있�
 
 :::danger 이것은 데모용 오류입니다
 Something bad happened.
-```vue{4} [AlertBox.vue]
+:::
+
 이것은 Vue의 커스텀 `<slot>` 요소를 사용해 구현할 수 있습니다:
 
-```vue{5}
-<!-- AlertBox.vue -->
+```vue{4} [AlertBox.vue]
 <template>
   <div class="alert-box">
     <strong>이것은 데모용 오류입니다</strong>

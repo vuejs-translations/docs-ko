@@ -20,7 +20,7 @@ Vue 3는 Vue의 최신 주 버전입니다. 여기에는 텔레포트, 서스펜
 
 ## Vue 2가 계속 지원되나요? {#is-vue-2-still-supported}
 
-Vue 2.7, which was shipped in July 2022, is the final minor release of the Vue 2 version range. Vue 2 has entered maintenance mode: it will no longer ship new features, but will continue to receive critical bug fixes and security updates for 18 months starting from the 2.7 release date. This means **Vue 2 reached End of Life on December 31st, 2023**.
+2022년 7월에 출시된 Vue 2.7은 Vue 2 버전 범위의 마지막 마이너 릴리스입니다. Vue 2는 이제 유지 관리 모드로 전환되어 더 이상 새로운 기능을 제공하지 않지만 2.7 릴리스 날짜부터 18개월 동안 중요한 버그 수정 및 보안 업데이트가 계속 제공됩니다. 즉, **Vue 2는 2023년 12월 31일에 수명이 종료됩니다**.
 
 이를 통해 대부분의 생태계가 Vue 3로 마이그레이션할 수 있는 충분한 시간을 확보할 수 있을 것으로 생각합니다. 하지만 보안 및 규정 준수 요건을 충족해야 하는 상황에서 이 일정까지 업그레이드할 수 없는 팀이나 프로젝트가 있을 수 있다는 점도 잘 알고 있습니다. 이러한 요구 사항이 있는 팀을 위해 업계 전문가와 협력하여 Vue 2에 대한 연장 지원을 제공하고 있습니다. 2023년 말 이후에도 Vue 2를 사용해야 하는 팀이라면 미리 계획을 세우고 [Vue 2 Extended LTS](https://v2.vuejs.org/lts/)에 대해 자세히 알아보세요.
 
@@ -57,7 +57,6 @@ Vue 3는 가장 성능이 뛰어난 메인스트림 프론트엔드 프레임워
 빌드 도구 없이 Vue를 사용하면 트리 흔들림이 사라질 뿐만 아니라 템플릿 컴파일러를 브라우저로 전송해야 합니다. 이렇게 하면 크기가 약 **41KB**로 부풀어 오릅니다. 따라서 빌드 단계 없이 주로 점진적 개선을 위해 Vue를 사용하는 경우 [petite-vue](https://github.com/vuejs/petite-vue)(**6KB**에 불과)를 대신 사용하는 것이 좋습니다.
 
 Svelte와 같은 일부 프레임워크는 단일 컴포넌트 시나리오에서 매우 가벼운 출력을 생성하는 컴파일 전략을 사용합니다. 그러나 [우리의 연구](https://github.com/yyx990803/vue-svelte-size-analysis)에 따르면 애플리케이션의 컴포넌트 수에 따라 크기 차이가 크게 달라지는 것으로 나타났습니다. Vue는 기준 크기가 더 무겁지만 컴포넌트당 생성되는 코드가 더 적습니다. 실제 시나리오에서는 Vue 앱이 더 가벼워질 수 있습니다.
-
 
 ## Vue는 확장되나요? {#does-vue-scale}
 
@@ -96,7 +95,6 @@ Vue는 웹 컴포넌트가 기본적으로 제공되기 전에 만들어졌으�
 웹 컴포넌트 사양은 사용자 정의 앨리먼트를 정의하는 데 중점을 두기 때문에 상대적으로 낮은 수준입니다. 프레임워크인 Vue는 효율적인 DOM 렌더링, 반응형 상태 관리, 툴링, 클라이언트 측 라우팅 및 서버 측 렌더링과 같은 추가적인 상위 수준의 문제를 해결합니다.
 
 Vue는 네이티브 사용자 정의 앨리먼트를 사용하거나 내보내는 기능도 완벽하게 지원합니다. 자세한 내용은 [Vue 및 웹 컴포넌트 가이드](/guide/extras/web-components)를 참조하세요.
-
 
 <!-- ## TODO How does Vue compare to React? -->
 

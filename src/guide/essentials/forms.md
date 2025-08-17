@@ -74,7 +74,7 @@ const multiSelected = ref([])
 
 <span id="vmodel-ime-tip"></span>
 ::: tip 참고
-For languages that require an [IME](https://en.wikipedia.org/wiki/Input_method) (Chinese, Japanese, Korean, etc.), you'll notice that `v-model` doesn't get updated during IME composition. If you want to respond to these updates as well, use your own `input` event listener and `value` binding instead of using `v-model`.
+[IME](https://ko.wikipedia.org/wiki/%EC%9E%85%EB%A0%A5_%EB%B0%A9%EC%8B%9D) (중국어, 일본어, 한국어 등)이 필요한 언어의 경우, IME 조합 중에는 `v-model`이 업데이트되지 않는다는 것을 알 수 있습니다. 이러한 업데이트에도 반응하고 싶다면, `v-model` 대신 직접 `input` 이벤트 리스너와 `value` 바인딩을 사용하세요.
 :::
 
 ### 여러 줄 텍스트 {#multiline-text}

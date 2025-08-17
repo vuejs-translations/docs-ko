@@ -38,7 +38,7 @@
 
 ## triggerRef() {#triggerref}
 
-Force trigger effects that depend on a [shallow ref](#shallowref). This is typically used after making deep mutations to the inner value of a shallow ref.
+[shallow ref](#shallowref)에 의존하는 효과를 강제로 트리거합니다. 이는 일반적으로 shallow ref의 내부 값을 깊게 변경한 후에 사용됩니다.
 
 - **타입**
 

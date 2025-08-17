@@ -155,14 +155,8 @@ JavaScript는 `var`, `import`, 함수 선언과 같은 일부 구조에 대해 �
 
 In a Vue context, the compiler applies *hoisting* to improve performance. When compiling a component, static values are moved out of the component's scope. These static values are described as 'hoisted' because they are created outside the component.
 
-## cache static {#cache-static}
-
-The term *cache* is used to describe the temporary storage of frequently accessed data to improve performance.
-
-The Vue template compiler identifies those static VNodes, caches them during the initial render, and reuses the same VNodes for every subsequent re-render.
-
 ## 정적 캐시 {#cache-static}
-- [Guide - Rendering Mechanism - Cache Static](/guide/extras/rendering-mechanism.html#cache-static)
+
 *캐시*라는 용어는 성능 향상을 위해 자주 접근하는 데이터를 임시로 저장하는 것을 설명할 때 사용됩니다.
 
 Vue 템플릿 컴파일러는 이러한 정적 VNode를 식별하여, 초기 렌더링 시 캐시에 저장하고 이후의 모든 리렌더링에서 동일한 VNode를 재사용합니다.

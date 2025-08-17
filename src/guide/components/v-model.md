@@ -1,9 +1,5 @@
 # 컴포넌트 v-model {#component-v-model}
 
-<ScrimbaLink href="https://scrimba.com/links/vue-component-v-model" title="Free Vue.js Component v-model Lesson" type="scrimba">
-  Watch an interactive video lesson on Scrimba
-</ScrimbaLink>
-
 <ScrimbaLink href="https://scrimba.com/links/vue-component-v-model" title="무료 Vue.js 컴포넌트 v-model 강의" type="scrimba">
   Scrimba에서 인터랙티브 비디오 강의 시청하기
 </ScrimbaLink>
@@ -12,11 +8,11 @@
 
 `v-model`은 컴포넌트에서 양방향 바인딩을 구현하는 데 사용할 수 있습니다.
 
-```vue [Child.vue]
+<div class="composition-api">
+
 Vue 3.4부터, 이를 달성하는 권장 방법은 [`defineModel()`](/api/sfc-script-setup#definemodel) 매크로를 사용하는 것입니다:
 
-```vue
-<!-- Child.vue -->
+```vue [Child.vue]
 <script setup>
 const model = defineModel()
 
@@ -30,10 +26,10 @@ function update() {
   <button @click="update">증가</button>
 </template>
 ```vue-html [Parent.vue]
+
 부모는 `v-model`로 값을 바인딩할 수 있습니다:
 
-```vue-html
-<!-- Parent.vue -->
+```vue-html [Parent.vue]
 <Child v-model="countModel" />
 ```
 
@@ -61,11 +57,11 @@ const model = defineModel()
 `defineModel`은 편의 매크로입니다. 컴파일러는 이를 다음과 같이 확장합니다:
 
 - 로컬 ref의 값과 동기화되는 `modelValue`라는 prop;
-```vue [Child.vue]
+- 로컬 ref의 값이 변경될 때 발생하는 `update:modelValue`라는 이벤트.
+
 아래는 3.4 이전에 동일한 자식 컴포넌트를 구현하는 방법입니다:
 
-```vue
-<!-- Child.vue -->
+```vue [Child.vue]
 <script setup>
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
@@ -77,11 +73,11 @@ const emit = defineEmits(['update:modelValue'])
     @input="emit('update:modelValue', $event.target.value)"
   />
 </template>
-```vue-html [Parent.vue]
+```
+
 그런 다음, 부모 컴포넌트에서 `v-model="foo"`는 다음과 같이 컴파일됩니다:
 
-```vue-html
-<!-- Parent.vue -->
+```vue-html [Parent.vue]
 <Child
   :modelValue="foo"
   @update:modelValue="$event => (foo = $event)"
@@ -99,24 +95,24 @@ const model = defineModel({ required: true })
 // 기본값 제공
 const model = defineModel({ default: 0 })
 ```
+
+:::warning
+`defineModel` prop에 `default` 값을 지정하고 부모 컴포넌트에서 이 prop에 값을 제공하지 않으면, 부모와 자식 컴포넌트 간에 동기화가 깨질 수 있습니다. 아래 예시에서, 부모의 `myRef`는 undefined이지만, 자식의 `model`은 1입니다:
+
 ```vue [Child.vue]
 <script setup>
-
+const model = defineModel({ default: 1 })
 </script>
-**자식 컴포넌트:**
+```
 
 ```vue [Parent.vue]
 <script setup>
-
+const myRef = ref()
 </script>
 
 <template>
   <Child v-model="myRef"></Child>
 </template>
-```
-
-```html
-<Child v-model="myRef"></Child>
 ```
 
 :::
@@ -152,11 +148,11 @@ const model = defineModel({ default: 0 })
 이것이 실제로 동작하려면, `<CustomInput>` 컴포넌트는 두 가지를 해야 합니다:
 
 1. 네이티브 `<input>` 요소의 `value` 속성을 `modelValue` prop에 바인딩
-```vue [CustomInput.vue]
+2. 네이티브 `input` 이벤트가 발생하면, 새로운 값으로 `update:modelValue` 커스텀 이벤트를 emit
+
 아래는 그 예시입니다:
 
-```vue
-<!-- CustomInput.vue -->
+```vue [CustomInput.vue]
 <script>
 export default {
   props: ['modelValue'],
@@ -178,11 +174,11 @@ export default {
 <CustomInput v-model="searchText" />
 ```
 
-```vue [CustomInput.vue]
+[플레이그라운드에서 직접 해보기](https://play.vuejs.org/#eNqFkctqwzAQRX9lEAEn4Np744aWrvoD3URdiHiSGvRCHpmC8b93JDfGKYGCkJjXvTrSJF69r8aIohHtcA69p6O0vfEuELzFgZx5tz4SXIIzUFT1JpfGCmmlxe/c3uFFRU0wSQtwdqxh0dLQwHSnNJep3ilS+8PSCxCQYrC3CMDgMKgrNlB8odaOXVJ2TgdvvNp6vSwHhMZrRcgRQLs1G5+M61A/S/ErKQXUR5immwXMWW1VEKX4g3j3Mo9QfXCeKU9FtvpQmp/lM0Oi6RP/qYieebHZNvyL0acLLODNmGYSxCogxVJ6yW1c2iWz/QOnEnY48kdUpMIVGSllD8t8zVZb+PkHqPG4iw==)
+
 이 컴포넌트 내에서 `v-model`을 구현하는 또 다른 방법은 getter와 setter가 모두 있는 쓰기 가능한 `computed` 속성을 사용하는 것입니다. `get` 메서드는 `modelValue` 속성을 반환하고, `set` 메서드는 해당 이벤트를 emit해야 합니다:
 
-```vue
-<!-- CustomInput.vue -->
+```vue [CustomInput.vue]
 <script>
 export default {
   props: ['modelValue'],
@@ -203,7 +199,7 @@ export default {
 <template>
   <input v-model="value" />
 </template>
-## `v-model` Arguments {#v-model-arguments}
+```
 
 </div>
 
@@ -215,11 +211,11 @@ export default {
 <MyComponent v-model:title="bookTitle" />
 ```
 
-```vue [MyComponent.vue]
+<div class="composition-api">
+
 자식 컴포넌트에서는, `defineModel()`의 첫 번째 인자로 문자열을 전달하여 해당 인자를 지원할 수 있습니다:
 
-```vue
-<!-- MyComponent.vue -->
+```vue [MyComponent.vue]
 <script setup>
 const title = defineModel('title')
 </script>
@@ -236,11 +232,11 @@ prop 옵션도 필요하다면, 모델 이름 뒤에 전달해야 합니다:
 ```js
 const title = defineModel('title', { required: true })
 ```
-```vue [MyComponent.vue]
+
+<details>
 <summary>3.4 이전 사용법</summary>
 
-```vue
-<!-- MyComponent.vue -->
+```vue [MyComponent.vue]
 <script setup>
 defineProps({
   title: {
@@ -263,11 +259,11 @@ defineEmits(['update:title'])
 
 </details>
 </div>
-```vue [MyComponent.vue]
+<div class="options-api">
+
 이 경우, 기본 `modelValue` prop과 `update:modelValue` 이벤트 대신, 자식 컴포넌트는 `title` prop을 기대하고, 부모 값을 업데이트하기 위해 `update:title` 이벤트를 emit해야 합니다:
 
-```vue
-<!-- MyComponent.vue -->
+```vue [MyComponent.vue]
 <script>
 export default {
   props: ['title'],
@@ -284,7 +280,7 @@ export default {
 </template>
 ```
 
-## Multiple `v-model` Bindings {#multiple-v-model-bindings}
+[플레이그라운드에서 직접 해보기](https://play.vuejs.org/#eNqFUNFqwzAM/BVhCm6ha9hryMrGnvcFdR9Mo26B2DGuHFJC/n2yvZakDAohtuTTne5G8eHcrg8oSlFdTr5xtFe2Ma7zBF/Xz45vFi3B2XcG5K6Y9eKYVFZZHBK8xrMOLcGoLMDphrqUMC6Ypm18rzXp9SZjATxS8PZWAVBDLZYg+xfT1diC9t/BxGEctHFtlI2wKR78468q7ttzQcgoTcgVQPXzuh/HzAnTVBVcp/58qz+lMqHelEinElAwtCrufGIrHhJYBPdfEs53jkM4yEQpj8k+miYmc5DBcRKYZeXxqZXGukDZPF1dWhQHUiK3yl63YbZ97r6nIe6uoup6KbmFFfbRCnHGyI4iwyaPPnqffgGMlsEM)
 
 </div>
 
@@ -375,7 +371,7 @@ export default {
 </template>
 ```
 
-## Handling `v-model` Modifiers {#handling-v-model-modifiers}
+[플레이그라운드에서 직접 해보기](https://play.vuejs.org/#eNqNkk1rg0AQhv/KIAETSJRexYYWeuqhl9JTt4clmSSC7i7rKCnif+/ObtYkELAiujPzztejQ/JqTNZ3mBRJ2e5sZWgrVNUYbQm+WrQfskE4WN1AmuXRwQmpUELh2Qv3eJBdTTAIBbDTLluhoraA4VpjXHNwL0kuV0EIYJE6q6IFcKhsSwWk7/qkUq/nq5be+aa5JztGfrmHu8t8GtoZhI2pJaGzAMrT03YYQk0YR3BnruSOZe5CXhKnC3X7TaP3WBc+ZaOc/1kk3hDJvYILRQGfQzx3Rct8GiJZJ7fA7gg/AmesNszMrUIXFpxbwCfZSh09D0Hc7tbN6sAWm4qZf6edcZgxrMHSdA3RF7PTn1l8lTIdhbXp1/CmhOeJRNHLupv4eIaXyItPdJEFD7R8NM0Ce/d/ZCTtESnzlVZXhP/vHbeZaT0tPdf59uONfx7mDVM=)
 
 </div>
 
@@ -403,11 +399,11 @@ console.log(modifiers) // { capitalize: true }
 <template>
   <input type="text" v-model="model" />
 </template>
-```vue{4-6}
+```
 
 수식어에 따라 값을 읽거나 쓸 때 조건부로 조정하려면, `defineModel()`에 `get`과 `set` 옵션을 전달할 수 있습니다. 이 두 옵션은 모델 ref의 get/set 시 값을 받아 변환된 값을 반환해야 합니다. 아래는 `set` 옵션을 사용해 `capitalize` 수식어를 구현하는 방법입니다:
 
-```vue{6-8}
+```vue{4-6}
 <script setup>
 const [model, modifiers] = defineModel({
   set(value) {
@@ -517,7 +513,7 @@ export default {
 </template>
 ```
 
-### Modifiers for `v-model` with Arguments {#modifiers-for-v-model-with-arguments}
+[플레이그라운드에서 직접 해보기](https://play.vuejs.org/#eNqFks1qg0AQgF9lkIKGpqa9iikNOefUtJfaw6KTZEHdZR1DbPDdO7saf0qgIq47//PNXL2N1uG5Ri/y4io1UtNrUspCK0Owa7aK/0osCQ5GFeCHq4nMuvlJCZCUeHEOGR5EnRNcrTS92VURXGex2qXVZ4JEsOhsAQxSbcrbDaBo9nihCHyXAaC1B3/4jVdDoXwhLHQuCPkGsD/JCmSpa4JUaEkilz9YAZ7RNHSS5REaVQPXgCay9vG0rPNToTLMw9FznXhdHYkHK04Qr4Zs3tL7g2JG8B4QbZS2LLqGXK5PkdcYwTsZrs1R6RU7lcmDRDPaM7AuWARMbf0KwbVdTNk4dyyk5f3l15r5YjRm8b+dQYF0UtkY1jo4fYDDLAByZBxWCmvAkIQ5IvdoBTcLeYCAiVbhvNwJvEk4GIK5M0xPwmwoeF6EpD60RrMVFXJXj72+ymWKwUvfXt+gfVzGB1tzcKfDZec+o/LfxsTdtlCj7bSpm3Xk4tjpD8FZ+uZMWTowu7MW7S+CWR77)
 
 </div>
 
@@ -568,14 +564,14 @@ console.log(lastNameModifiers) // { uppercase: true }
 
 <details>
 <summary>3.4 이전 사용법</summary>
+
+```vue{5,6,10,11}
+<script setup>
+const props = defineProps({
   firstName: String,
   lastName: String,
   firstNameModifiers: { default: () => ({}) },
   lastNameModifiers: { default: () => ({}) }
-firstName: String,
-lastName: String,
-firstNameModifiers: { default: () => ({}) },
-lastNameModifiers: { default: () => ({}) }
 })
 defineEmits(['update:firstName', 'update:lastName'])
 

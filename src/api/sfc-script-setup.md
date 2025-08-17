@@ -526,18 +526,6 @@ defineProps<{
 </script>
 ```
 
-You can use `@vue-generic` the directive to pass in explicit types, for when the type cannot be inferred:
-
-```vue
-<template>
-  <!-- @vue-generic {import('@/api').Actor} -->
-  <ApiSelect v-model="peopleIds" endpoint="/api/actors" id-prop="actorId" />
-
-  <!-- @vue-generic {import('@/api').Genre} -->
-  <ApiSelect v-model="genreIds" endpoint="/api/genres" id-prop="genreId" />
-</template>
-```
-
 타입을 추론할 수 없는 경우, `@vue-generic` 디렉티브를 사용해 명시적으로 타입을 전달할 수 있습니다:
 
 ```vue

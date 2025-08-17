@@ -386,9 +386,11 @@ type VueEmit<T extends EventMap> = EmitFn<{
 We marked `$props` and `$emit` as deprecated so that when we get a `ref` to a custom element we will not be tempted to use these properties, as these properties are for type checking purposes only when it comes to custom elements. These properties do not actually exist on the custom element instances.
 :::
 
-```ts
-// 파일: some-lib/src/SomeElement.vue.ts
+이 타입 헬퍼를 사용해 Vue 템플릿에서 타입 체크에 노출할 JS 속성을 선택할 수 있습니다:
+
 ```ts [some-lib/src/SomeElement.vue.ts]
+import {
+  SomeElement,
   SomeElementAttributes,
   SomeElementEvents
 } from './SomeElement.js'
@@ -409,9 +411,9 @@ declare module 'vue' {
 
 `some-lib`가 소스 TypeScript 파일을 `dist/` 폴더로 빌드한다고 가정합시다. `some-lib`의 사용자는 다음과 같이 `SomeElement`를 임포트해 Vue SFC에서 사용할 수 있습니다:
 
-```vue
-<script setup lang="ts">
 ```vue [SomeElementImpl.vue]
+<script setup lang="ts">
+// 이 코드는 엘리먼트를 생성하고 브라우저에 등록합니다.
 import 'some-lib/dist/SomeElement.js'
 
 // TypeScript와 Vue를 사용하는 사용자는 추가로
@@ -455,9 +457,9 @@ onMounted(() => {
 
 엘리먼트에 타입 정의가 없는 경우, 속성과 이벤트의 타입을 더 수동적으로 정의할 수 있습니다:
 
-```vue
-<script setup lang="ts">
 ```vue [SomeElementImpl.vue]
+<script setup lang="ts">
+// `some-lib`가 타입 정의가 없는 순수 JS라서
 // TypeScript가 타입을 추론할 수 없는 경우:
 import { SomeElement } from 'some-lib'
 

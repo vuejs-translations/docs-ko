@@ -264,20 +264,13 @@ const fullName = computed({
 - 3.4+에서만 지원
 
 <p class="options-api">
-In case you need it, you can get the previous value returned by the computed property accessing
-the second argument of the getter:
-</p>
-
-<p class="composition-api">
-<p class="options-api">
 필요한 경우, 계산된 속성 getter의 두 번째 인자를 통해
-</p>
-계산된 속성이 반환한 이전 값을 가져올 수 있습니다.
+계산된 속성이 반환한 이전 값을 가져올 수 있습니다:
 </p>
 
 <p class="composition-api">
 필요한 경우, 계산된 속성 getter의 첫 번째 인자를 통해
-계산된 속성이 반환한 이전 값을 가져올 수 있습니다.
+계산된 속성이 반환한 이전 값을 가져올 수 있습니다:
 </p>
 
 <div class="options-api">
@@ -286,7 +279,7 @@ the second argument of the getter:
 export default {
   data() {
     return {
-    alwaysSmall(_, previous) {
+      count: 2
     }
   },
   computed: {
@@ -333,7 +326,7 @@ const alwaysSmall = computed((previous) => {
 
 ```js
 export default {
-      get(_, previous) {
+  data() {
     return {
       count: 2
     }

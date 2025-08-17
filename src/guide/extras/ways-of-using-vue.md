@@ -53,7 +53,7 @@ Vue 팀은 [VitePress](https://vitepress.dev/)라는 정적 사이트 생성기�
 
 Vue는 주로 웹 애플리케이션을 구축하기 위해 설계되었지만, 브라우저에만 국한되지 않습니다. 다음과 같은 작업이 가능합니다:
 
-- Build desktop apps with [Electron](https://www.electronjs.org/) or [Wails](https://wails.io)
+- [Electron](https://www.electronjs.org/) 또는 [Wails](https://wails.io)로 데스크톱 앱 만들기
 - [Ionic Vue](https://ionicframework.com/docs/vue/overview)로 모바일 앱 만들기
 - [Quasar](https://quasar.dev/) 또는 [Tauri](https://tauri.app)로 동일한 코드베이스에서 데스크톱 및 모바일 앱 만들기
 - [TresJS](https://tresjs.org/)로 3D WebGL 경험 만들기

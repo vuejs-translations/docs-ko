@@ -113,6 +113,113 @@ watchEffect(() => {
 
 </div>
 
+## 컴포넌트에 ref 사용하기 {#ref-on-component}
+
+> 이 섹션은 [컴포넌트](/guide/essentials/component-basics)에 대한 지식을 전제로 합니다. 필요하다면 건너뛰고 나중에 다시 오세요.
+
+`ref`는 자식 컴포넌트에도 사용할 수 있습니다. 이 경우 참조는 컴포넌트 인스턴스가 됩니다:
+
+<div class="composition-api">
+
+```vue
+<script setup>
+import { useTemplateRef, onMounted } from 'vue'
+import Child from './Child.vue'
+
+const childRef = useTemplateRef('child')
+
+onMounted(() => {
+  // childRef.value는 <Child />의 인스턴스를 가집니다
+})
+</script>
+
+<template>
+  <Child ref="child" />
+</template>
+```
+
+<details>
+<summary>3.5 이전 버전에서의 사용법</summary>
+
+```vue
+<script setup>
+import { ref, onMounted } from 'vue'
+import Child from './Child.vue'
+
+const child = ref(null)
+
+onMounted(() => {
+  // child.value는 <Child />의 인스턴스를 가집니다
+})
+</script>
+
+<template>
+  <Child ref="child" />
+</template>
+```
+
+</details>
+
+</div>
+<div class="options-api">
+
+```vue
+<script>
+import Child from './Child.vue'
+
+export default {
+  components: {
+    Child
+  },
+  mounted() {
+    // this.$refs.child는 <Child />의 인스턴스를 가집니다
+  }
+}
+</script>
+
+<template>
+  <Child ref="child" />
+</template>
+```
+
+</div>
+
+<span class="composition-api">자식 컴포넌트가 Options API를 사용하거나 `<script setup>`을 사용하지 않는 경우,</span><span class="options-api">참조된 인스턴스는</span> 자식 컴포넌트의 `this`와 동일합니다. 즉, 부모 컴포넌트는 자식 컴포넌트의 모든 속성과 메서드에 완전히 접근할 수 있습니다. 이는 부모와 자식 간에 강하게 결합된 구현 세부사항을 쉽게 만들 수 있으므로, 컴포넌트 ref는 반드시 필요할 때만 사용해야 합니다. 대부분의 경우, 표준 props와 emit 인터페이스를 사용하여 부모/자식 상호작용을 구현하는 것이 좋습니다.
+
+<div class="composition-api">
+
+예외적으로, `<script setup>`을 사용하는 컴포넌트는 **기본적으로 비공개**입니다: 부모 컴포넌트가 `<script setup>`을 사용하는 자식 컴포넌트를 참조할 경우, 자식 컴포넌트가 `defineExpose` 매크로를 사용해 공개 인터페이스를 노출하지 않는 한 아무것도 접근할 수 없습니다:
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const a = 1
+const b = ref(2)
+
+// defineExpose와 같은 컴파일러 매크로는 import가 필요하지 않습니다
+defineExpose({
+  a,
+  b
+})
+</script>
+```
+
+부모가 템플릿 ref를 통해 이 컴포넌트의 인스턴스를 얻으면, 반환된 인스턴스는 `{ a: number, b: number }` 형태가 됩니다 (ref는 일반 인스턴스처럼 자동으로 언래핑됩니다).
+
+defineExpose는 반드시 await 연산 이전에 호출되어야 합니다. 그렇지 않으면 await 이후에 노출된 속성과 메서드는 접근할 수 없습니다.
+
+참고: [컴포넌트 템플릿 ref 타입 지정](/guide/typescript/composition-api#typing-component-template-refs) <sup class="vt-badge ts" />
+
+</div>
+<div class="options-api">
+
+`expose` 옵션을 사용하여 자식 인스턴스에 대한 접근을 제한할 수 있습니다:
+
+```js
+export default {
+  expose: ['publicData', 'publicMethod'],
+  data() {
     return {
       publicData: 'foo',
       privateData: 'bar'
@@ -239,110 +346,3 @@ ref 배열은 소스 배열과 **동일한 순서를 보장하지 않는다**는
 ```
 
 함수 대신 ref 이름 문자열을 전달하는 것이 아니라, 동적 `:ref` 바인딩을 사용하고 있습니다. 요소가 언마운트될 때 인자는 `null`이 됩니다. 물론, 인라인 함수 대신 메서드를 사용할 수도 있습니다.
-
-## Refs inside `v-for` {#refs-inside-v-for}
-
-> Requires v3.5 or above
-
-<div class="composition-api">
-
-When `ref` is used inside `v-for`, the corresponding ref should contain an Array value, which will be populated with the elements after mount:
-
-```vue
-<script setup>
-import { ref, useTemplateRef, onMounted } from 'vue'
-
-const list = ref([
-  /* ... */
-])
-
-const itemRefs = useTemplateRef('items')
-
-onMounted(() => console.log(itemRefs.value))
-</script>
-
-<template>
-  <ul>
-    <li v-for="item in list" ref="items">
-      {{ item }}
-    </li>
-  </ul>
-</template>
-```
-
-[Try it in the Playground](https://play.vuejs.org/#eNp9UsluwjAQ/ZWRLwQpDepyQoDUIg6t1EWUW91DFAZq6tiWF4oU5d87dtgqVRyyzLw3b+aN3bB7Y4ptQDZkI1dZYTw49MFMuBK10dZDAxZXOQSHC6yNLD3OY6zVsw7K4xJaWFldQ49UelxxVWnlPEhBr3GszT6uc7jJ4fazf4KFx5p0HFH+Kme9CLle4h6bZFkfxhNouAIoJVqfHQSKbSkDFnVpMhEpovC481NNVcr3SaWlZzTovJErCqgydaMIYBRk+tKfFLC9Wmk75iyqg1DJBWfRxT7pONvTAZom2YC23QsMpOg0B0l0NDh2YjnzjpyvxLrYOK1o3ckLZ5WujSBHr8YL2gxnw85lxEop9c9TynkbMD/kqy+svv/Jb9wu5jh7s+jQbpGzI+ZLu0byEuHZ+wvt6Ays9TJIYl8A5+i0DHHGjvYQ1JLGPuOlaR/TpRFqvXCzHR2BO5iKg0Zmm/ic0W2ZXrB+Gve2uEt1dJKs/QXbwePE)
-
-<details>
-<summary>Usage before 3.5</summary>
-
-In versions before 3.5 where `useTemplateRef()` was not introduced, we need to declare a ref with a name that matches the template ref attribute's value. The ref should also contain an array value:
-
-```vue
-<script setup>
-import { ref, onMounted } from 'vue'
-
-const list = ref([
-  /* ... */
-])
-
-const itemRefs = ref([])
-
-onMounted(() => console.log(itemRefs.value))
-</script>
-
-<template>
-  <ul>
-    <li v-for="item in list" ref="itemRefs">
-      {{ item }}
-    </li>
-  </ul>
-</template>
-```
-
-</details>
-
-</div>
-<div class="options-api">
-
-When `ref` is used inside `v-for`, the resulting ref value will be an array containing the corresponding elements:
-
-```vue
-<script>
-export default {
-  data() {
-    return {
-      list: [
-        /* ... */
-      ]
-    }
-  },
-  mounted() {
-    console.log(this.$refs.items)
-  }
-}
-</script>
-
-<template>
-  <ul>
-    <li v-for="item in list" ref="items">
-      {{ item }}
-    </li>
-  </ul>
-</template>
-```
-
-[Try it in the Playground](https://play.vuejs.org/#eNpFjk0KwjAQha/yCC4Uaou6kyp4DuOi2KkGYhKSiQildzdNa4WQmTc/37xeXJwr35HEUdTh7pXjszT0cdYzWuqaqBm9NEDbcLPeTDngiaM3PwVoFfiI667AvsDhNpWHMQzF+L9sNEztH3C3JlhNpbaPNT9VKFeeulAqplfY5D1p0qurxVQSqel0w5QUUEedY8q0wnvbWX+SYgRAmWxIiuSzm4tBinkc6HvkuSE7TIBKq4lZZWhdLZfE8AWp4l3T)
-
-</div>
-
-It should be noted that the ref array does **not** guarantee the same order as the source array.
-
-## Function Refs {#function-refs}
-
-Instead of a string key, the `ref` attribute can also be bound to a function, which will be called on each component update and gives you full flexibility on where to store the element reference. The function receives the element reference as the first argument:
-
-```vue-html
-<input :ref="(el) => { /* assign el to a property or ref */ }">
-```
-
-Note we are using a dynamic `:ref` binding so we can pass it a function instead of a ref name string. When the element is unmounted, the argument will be `null`. You can, of course, use a method instead of an inline function.

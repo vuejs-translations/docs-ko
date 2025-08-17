@@ -91,7 +91,7 @@ const posts = await res.json()
 
 한 번 해결 상태에 들어가면, `<Suspense>`는 `#default` 슬롯의 루트 노드가 교체될 때만 다시 대기 상태로 돌아갑니다. 트리에서 더 깊이 중첩된 새로운 비동기 의존성은 `<Suspense>`가 다시 대기 상태로 돌아가게 하지 **않습니다**.
 
-When a revert happens, fallback content will not be immediately displayed. Instead, `<Suspense>` will display the previous `#default` content while waiting for the new content and its async dependencies to be resolved. This behavior can be configured with the `timeout` prop: `<Suspense>` will switch to fallback content if it takes longer than `timeout` milliseconds to render the new default content. A `timeout` value of `0` will cause the fallback content to be displayed immediately when default content is replaced.
+되돌림이 발생하면, fallback 콘텐츠가 즉시 표시되지 않습니다. 대신, `<Suspense>`는 새 콘텐츠와 그 비동기 의존성이 해결될 때까지 이전 `#default` 콘텐츠를 표시합니다. 이 동작은 `timeout` prop으로 설정할 수 있습니다: 새 기본 콘텐츠 렌더링에 `timeout`보다 오래 걸리면 `<Suspense>`는 fallback 콘텐츠로 전환합니다. `timeout` 값이 `0`이면 기본 콘텐츠가 교체될 때 fallback 콘텐츠가 즉시 표시됩니다.
 
 ## 이벤트 {#events}
 

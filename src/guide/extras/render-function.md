@@ -722,23 +722,20 @@ export default {
 ```
 
 <details>
-<summary>Usage before 3.5</summary>
-
-In versions before 3.5 where useTemplateRef() was not introduced, template refs are created by passing the ref() itself as a prop to the vnode:
 <summary>3.5 이전 버전에서의 사용법</summary>
 
-import { h, ref } from 'vue'
+useTemplateRef()가 도입되지 않은 3.5 이전 버전에서는, ref() 자체를 vnode의 prop으로 전달하여 템플릿 ref를 생성합니다:
 
 ```js
 import { h, ref } from 'vue'
-    const divEl = ref()
+
 export default {
   setup() {
-    return () => h('div', { ref: divEl })
+    const divEl = ref()
 
     // <div ref="divEl">
     return () => h('div', { ref: divEl })
-</details>
+  }
 }
 ```
 </details>
