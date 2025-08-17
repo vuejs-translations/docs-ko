@@ -24,7 +24,7 @@
 
   - Fathom Analytics의 개인정보 보호정책: https://usefathom.com/legal/privacy
 
-- **검색 기능 사용 데이터.** 당사의 검색 기능은 [Algolia DocSearch](https://docsearch.algolia.com/)에 의해 제공되며, 사용자 추적이나 지문 채취를 수행하지 않으며 쿠키를 사용하지 않습니다. Algolia 서비스는 GDPR, CCPA를 준수하며 TRUSTe 인증을 받았습니다.
+- **Usage data of the search functionality.** Our search functionality is powered by [Algolia DocSearch](https://docsearch.algolia.com/), which does not perform any type of user tracking or fingerprinting, and does not use cookies. Algolia services are GDPR compliant, CCPA compliant, and TRUSTe Certified.
 
   - Algolia의 개인정보 보호정책: https://www.algolia.com/policies/privacy/
   - Algolia의 보안 및 개인정보 보호 준수: https://www.algolia.com/distributed-secure/security-compliance/

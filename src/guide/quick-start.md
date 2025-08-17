@@ -16,6 +16,8 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 
 - Node.js와 빌드 도구 개념에 익숙하다면, [StackBlitz](https://vite.new/vue)에서 브라우저 내에서 완전한 빌드 환경을 바로 체험할 수 있습니다.
 
+- To get a walkthrough of the recommended setup, watch this interactive [Scrimba](http://scrimba.com/links/vue-quickstart) tutorial that shows you how to run, edit, and deploy your first Vue app.
+
 - 권장 설정에 대한 안내가 필요하다면, 첫 Vue 앱을 실행, 수정, 배포하는 방법을 보여주는 대화형 [Scrimba](http://scrimba.com/links/vue-quickstart) 튜토리얼을 시청하세요.
 
 ## Vue 애플리케이션 생성하기 {#creating-a-vue-application}
@@ -28,43 +30,31 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 
 이 섹션에서는 로컬 컴퓨터에서 Vue [싱글 페이지 애플리케이션](/guide/extras/ways-of-using-vue#single-page-application-spa)을 스캐폴딩하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vitejs.dev)를 기반으로 한 빌드 환경을 사용하며, Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc) (SFC)를 사용할 수 있습니다.
 
-최신 버전의 [Node.js](https://nodejs.org/)가 설치되어 있는지 확인하고, 현재 작업 디렉터리가 프로젝트를 생성하려는 위치인지 확인하세요. 커맨드 라인에서 다음 명령어를 실행하세요(`$` 기호는 입력하지 않습니다):
-
+::: code-group
 <VTCodeGroup>
-  <VTCodeGroupTab label="npm">
-
-  ```sh
-  $ npm create vue@latest
-  ```
-
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="pnpm">
-
-  ```sh
+```sh [npm]
+$ npm create vue@latest
+```
   $ pnpm create vue@latest
-  ```
-
+```sh [pnpm]
+$ pnpm create vue@latest
+```
   </VTCodeGroupTab>
-  <VTCodeGroupTab label="yarn">
-
-  ```sh
+```sh [yarn]
+# For Yarn (v1+)
+$ yarn create vue
   # Yarn (v1+)용
-  $ yarn create vue
-
+# For Yarn Modern (v2+)
+$ yarn create vue@latest
   # Yarn Modern (v2+)용
-  $ yarn create vue@latest
-  
-  # Yarn ^v4.11용
-  $ yarn dlx create-vue@latest
-  ```
-
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="bun">
-
-  ```sh
+# For Yarn ^v4.11
+$ yarn dlx create-vue@latest
+```
   $ bun create vue@latest
-  ```
-
+```sh [bun]
+$ bun create vue@latest
+```
+:::
   </VTCodeGroupTab>
 </VTCodeGroup>
 
@@ -84,44 +74,34 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 <span style="color:#A6ACCD;">./<span style="color:#89DDFF;">&lt;</span><span style="color:#888;">your-project-name</span><span style="color:#89DDFF;">&gt;</span>에 프로젝트 스캐폴딩 중...</span>
 <span style="color:#A6ACCD;">완료.</span></code></pre></div>
 
-옵션이 확실하지 않다면, 일단 엔터를 눌러 `아니오`를 선택하세요. 프로젝트가 생성되면, 의존성 설치 및 개발 서버 실행을 위한 안내에 따라 진행하세요:
-
-<VTCodeGroup>
-  <VTCodeGroupTab label="npm">
-
-  ```sh-vue
-  $ cd {{'<your-project-name>'}}
-  $ npm install
+::: code-group
   $ npm run dev
-  ```
-
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="pnpm">
-
-  ```sh-vue
-  $ cd {{'<your-project-name>'}}
-  $ pnpm install
+```sh-vue [npm]
+$ cd {{'<your-project-name>'}}
+$ npm install
+$ npm run dev
+```
   $ pnpm run dev
-  ```
-
+```sh-vue [pnpm]
+$ cd {{'<your-project-name>'}}
+$ pnpm install
+$ pnpm run dev
+```
   </VTCodeGroupTab>
-  <VTCodeGroupTab label="yarn">
-
-  ```sh-vue
-  $ cd {{'<your-project-name>'}}
-  $ yarn
+```sh-vue [yarn]
+$ cd {{'<your-project-name>'}}
+$ yarn
+$ yarn dev
+```
   $ yarn dev
-  ```
-
+```sh-vue [bun]
+$ cd {{'<your-project-name>'}}
+$ bun install
+$ bun run dev
+```
   </VTCodeGroupTab>
-  <VTCodeGroupTab label="bun">
-
-  ```sh-vue
-  $ cd {{'<your-project-name>'}}
-  $ bun install
+:::
   $ bun run dev
-  ```
-
   </VTCodeGroupTab>
 </VTCodeGroup>
 
@@ -132,36 +112,26 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 - 빌드 도구 Vite에 대해 더 알고 싶다면 [Vite 문서](https://vitejs.dev)를 참고하세요.
 - TypeScript를 사용하기로 했다면 [TypeScript 사용 가이드](typescript/overview)를 참고하세요.
 
-앱을 프로덕션에 배포할 준비가 되면 다음 명령어를 실행하세요:
-
-<VTCodeGroup>
-  <VTCodeGroupTab label="npm">
-
-  ```sh
+::: code-group
   $ npm run build
-  ```
-
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="pnpm">
-
-  ```sh
+```sh [npm]
+$ npm run build
+```
   $ pnpm run build
-  ```
-
+```sh [pnpm]
+$ pnpm run build
+```
   </VTCodeGroupTab>
-  <VTCodeGroupTab label="yarn">
-
-  ```sh
+```sh [yarn]
+$ yarn build
+```
   $ yarn build
-  ```
-
+```sh [bun]
+$ bun run build
+```
   </VTCodeGroupTab>
-  <VTCodeGroupTab label="bun">
-
-  ```sh
+:::
   $ bun run build
-  ```
-
   </VTCodeGroupTab>
 </VTCodeGroup>
 
@@ -381,8 +351,7 @@ Import Maps는 비교적 새로운 브라우저 기능입니다. [지원 범위]
 
 ### 모듈 분리하기 {#splitting-up-the-modules}
 
-가이드가 더 깊어질수록, 코드를 관리하기 쉽게 여러 자바스크립트 파일로 분리해야 할 수도 있습니다. 예를 들어:
-
+```html [index.html]
 ```html
 <!-- index.html -->
 <div id="app"></div>
@@ -395,8 +364,7 @@ Import Maps는 비교적 새로운 브라우저 기능입니다. [지원 범위]
 </script>
 ```
 
-<div class="options-api">
-
+```js [my-component.js]
 ```js
 // my-component.js
 export default {
@@ -408,8 +376,7 @@ export default {
 ```
 
 </div>
-<div class="composition-api">
-
+```js [my-component.js]
 ```js
 // my-component.js
 import { ref } from 'vue'

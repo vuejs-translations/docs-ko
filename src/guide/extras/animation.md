@@ -160,6 +160,8 @@ const tweened = reactive({
   number: 0
 })
 
+// Note: For inputs greater than Number.MAX_SAFE_INTEGER (9007199254740991),
+// the result may be inaccurate due to limitations in JavaScript number precision.
 // 참고: Number.MAX_SAFE_INTEGER(9007199254740991)보다 큰 입력의 경우,
 // JavaScript 숫자 정밀도의 한계로 인해 결과가 부정확할 수 있습니다.
 watch(number, (n) => {
@@ -183,6 +185,8 @@ export default {
     return {
       number: 0,
       tweened: 0
+  // Note: For inputs greater than Number.MAX_SAFE_INTEGER (9007199254740991),
+  // the result may be inaccurate due to limitations in JavaScript number precision.
     }
   },
   // 참고: Number.MAX_SAFE_INTEGER(9007199254740991)보다 큰 입력의 경우,

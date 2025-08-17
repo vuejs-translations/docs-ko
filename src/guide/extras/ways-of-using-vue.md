@@ -6,7 +6,7 @@
 
 Vue는 독립형 스크립트 파일로 사용할 수 있습니다. 빌드 단계가 필요하지 않습니다! 이미 백엔드 프레임워크가 대부분의 HTML을 렌더링하고 있거나, 프론트엔드 로직이 빌드 단계를 정당화할 만큼 복잡하지 않다면, 이 방법이 Vue를 스택에 통합하는 가장 쉬운 방법입니다. 이런 경우 Vue를 jQuery의 더 선언적인 대체재로 생각할 수 있습니다.
 
-Vue는 또한 기존 HTML을 점진적으로 향상시키는 데 최적화된 [petite-vue](https://github.com/vuejs/petite-vue)라는 대안 배포판도 제공합니다. 이 버전은 기능이 더 적지만, 매우 가볍고 빌드 단계가 없는 시나리오에서 더 효율적인 구현을 사용합니다.
+We previously provided an alternative distribution called [petite-vue](https://github.com/vuejs/petite-vue) that was specifically optimized for progressively enhancing existing HTML. However, petite-vue is no longer actively maintained, with the last version published at Vue 3.2.27.
 
 ## 내장 웹 컴포넌트 {#embedded-web-components}
 
@@ -53,7 +53,7 @@ Vue 팀은 [VitePress](https://vitepress.dev/)라는 정적 사이트 생성기�
 
 Vue는 주로 웹 애플리케이션을 구축하기 위해 설계되었지만, 브라우저에만 국한되지 않습니다. 다음과 같은 작업이 가능합니다:
 
-- [Electron](https://www.electronjs.org/) 또는 [Wails](https://wails.io)로 데스크톱 앱 만들기
+- Build desktop apps with [Electron](https://www.electronjs.org/) or [Wails](https://wails.io)
 - [Ionic Vue](https://ionicframework.com/docs/vue/overview)로 모바일 앱 만들기
 - [Quasar](https://quasar.dev/) 또는 [Tauri](https://tauri.app)로 동일한 코드베이스에서 데스크톱 및 모바일 앱 만들기
 - [TresJS](https://tresjs.org/)로 3D WebGL 경험 만들기

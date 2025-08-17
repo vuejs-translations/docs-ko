@@ -132,3 +132,7 @@ TypeScript를 사용하는 경우, [`defineSlots()`](/api/sfc-script-setup#defin
   `useId()`로 생성된 ID는 서버와 클라이언트 렌더링 간에도 안정적으로 유지되므로, SSR 애플리케이션에서 하이드레이션 불일치 없이 사용할 수 있습니다.
 
   동일한 페이지에 여러 Vue 애플리케이션 인스턴스가 있는 경우, [`app.config.idPrefix`](/api/application#app-config-idprefix)를 통해 각 앱에 ID 접두사를 지정하여 ID 충돌을 방지할 수 있습니다.
+
+  :::warning Caution
+  `useId()` should be not be called inside a `computed()` property as it may cause instance conflicts. Instead, declare the ID outside of `computed()` and reference it within the computed function.
+  :::

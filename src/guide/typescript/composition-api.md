@@ -1,5 +1,9 @@
 # 컴포지션 API와 TypeScript {#typescript-with-composition-api}
 
+<ScrimbaLink href="https://scrimba.com/links/vue-ts-composition-api" title="Free Vue.js TypeScript with Composition API Lesson" type="scrimba">
+  Watch an interactive video lesson on Scrimba
+</ScrimbaLink>
+
 <ScrimbaLink href="https://scrimba.com/links/vue-ts-composition-api" title="무료 Vue.js TypeScript와 Composition API 강의" type="scrimba">
   Scrimba에서 인터랙티브 비디오 강의 시청하기
 </ScrimbaLink>
@@ -414,8 +418,7 @@ onMounted(() => {
 
 Vue 3.5와 `@vue/language-tools` 2.1(IDE 언어 서비스와 `vue-tsc` 모두 지원)에서는 SFC에서 `useTemplateRef()`로 생성된 ref의 타입이, 해당 `ref` 속성이 사용된 요소나 컴포넌트를 기반으로 **자동 추론**될 수 있습니다.
 
-자동 추론이 불가능한 경우(예: SFC가 아닌 사용, 동적 컴포넌트 등)에는 여전히 제네릭 인자를 통해 템플릿 ref를 명시적으로 타입 캐스팅할 수 있습니다.
-
+```vue{6,7} [App.vue]
 import된 컴포넌트의 인스턴스 타입을 얻으려면, 먼저 `typeof`로 타입을 얻은 후 TypeScript의 내장 `InstanceType` 유틸리티를 사용해 인스턴스 타입을 추출해야 합니다:
 
 ```vue{5}
@@ -443,8 +446,7 @@ import { useTemplateRef } from 'vue'
 import type { ComponentPublicInstance } from 'vue'
 
 const child = useTemplateRef<ComponentPublicInstance>('child')
-```
-
+```vue [MyGenericModal.vue]
 참조된 컴포넌트가 [제네릭 컴포넌트](/guide/typescript/overview.html#generic-components)인 경우, 예를 들어 `MyGenericModal`:
 
 ```vue
@@ -460,8 +462,7 @@ defineExpose({
   open
 })
 </script>
-```
-
+```vue [App.vue]
 이 경우 `InstanceType`이 동작하지 않으므로, [`vue-component-type-helpers`](https://www.npmjs.com/package/vue-component-type-helpers) 라이브러리의 `ComponentExposed`를 사용해 참조해야 합니다.
 
 ```vue

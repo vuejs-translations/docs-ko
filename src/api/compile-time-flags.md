@@ -40,8 +40,7 @@ Vue를 빌드 단계와 함께 사용할 때, 여러 컴파일 타임 플래그�
 
 `@vitejs/plugin-vue`는 이 플래그들에 대한 기본값을 자동으로 제공합니다. 기본값을 변경하려면 Vite의 [`define` 설정 옵션](https://vitejs.dev/config/shared-options.html#define)을 사용하세요:
 
-```js
-// vite.config.js
+```js [vite.config.js]
 import { defineConfig } from 'vite'
 
 export default defineConfig({
@@ -56,8 +55,7 @@ export default defineConfig({
 
 `@vue/cli-service`는 이 플래그들 중 일부에 대한 기본값을 자동으로 제공합니다. 값을 설정/변경하려면 다음과 같이 하세요:
 
-```js
-// vue.config.js
+```js [vue.config.js]
 module.exports = {
   chainWebpack: (config) => {
     config.plugin('define').tap((definitions) => {
@@ -76,8 +74,7 @@ module.exports = {
 
 플래그는 webpack의 [DefinePlugin](https://webpack.js.org/plugins/define-plugin/)을 사용하여 정의해야 합니다:
 
-```js
-// webpack.config.js
+```js [webpack.config.js]
 module.exports = {
   // ...
   plugins: [
@@ -94,8 +91,7 @@ module.exports = {
 
 플래그는 [@rollup/plugin-replace](https://github.com/rollup/plugins/tree/master/packages/replace)를 사용하여 정의해야 합니다:
 
-```js
-// rollup.config.js
+```js [rollup.config.js]
 import replace from '@rollup/plugin-replace'
 
 export default {

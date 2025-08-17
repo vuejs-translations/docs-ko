@@ -706,7 +706,7 @@ const vnode = withDirectives(h('div'), [
 
 <div class="composition-api">
 
-Composition API에서 [`useTemplateRef()`](/api/composition-api-helpers#usetemplateref) <sup class="vt-badge" data-text="3.5+" />를 사용할 때, 템플릿 ref는 문자열 값을 vnode의 prop으로 전달하여 생성합니다:
+With the Composition API, when using [`useTemplateRef()`](/api/composition-api-helpers#usetemplateref) <sup class="vt-badge" data-text="3.5+" />  template refs are created by passing the string value as prop to the vnode:
 
 ```js
 import { h, useTemplateRef } from 'vue'
@@ -722,20 +722,23 @@ export default {
 ```
 
 <details>
+<summary>Usage before 3.5</summary>
+
+In versions before 3.5 where useTemplateRef() was not introduced, template refs are created by passing the ref() itself as a prop to the vnode:
 <summary>3.5 이전 버전에서의 사용법</summary>
 
-useTemplateRef()가 도입되지 않은 3.5 이전 버전에서는, ref() 자체를 vnode의 prop으로 전달하여 템플릿 ref를 생성합니다:
+import { h, ref } from 'vue'
 
 ```js
 import { h, ref } from 'vue'
-
+    const divEl = ref()
 export default {
   setup() {
-    const divEl = ref()
+    return () => h('div', { ref: divEl })
 
     // <div ref="divEl">
     return () => h('div', { ref: divEl })
-  }
+</details>
 }
 ```
 </details>

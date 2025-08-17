@@ -32,8 +32,7 @@ import { ... } from 'vue/dist/vue.esm-bundler.js'
 
 스크립트 내부에서 위와 같이 작성하거나, 빌드 도구에서 `vue`를 올바르게 해석하도록 설정해야 합니다. [Vite](https://vitejs.dev/)의 예시 설정:
 
-```js
-// vite.config.js
+```js [vite.config.js]
 export default {
   resolve: {
     alias: {

@@ -123,6 +123,8 @@ const message = inject('message')
 </script>
 ```
 
+If multiple parents provide data with the same key, inject will resolve to the value from the closest parent in component's parent chain.
+
 여러 부모가 동일한 키로 데이터를 제공하는 경우, inject는 컴포넌트의 부모 체인에서 가장 가까운 부모의 값을 사용합니다.
 
 제공된 값이 ref인 경우, 해당 값은 그대로 주입되며 **자동으로 언래핑되지 않습니다**. 이를 통해 주입자 컴포넌트가 제공자 컴포넌트와의 반응형 연결을 유지할 수 있습니다.
@@ -169,7 +171,7 @@ export default {
     }
   }
 }
-```
+If multiple parents provide data with the same key, inject will resolve to the value from the closest parent in component's parent chain.
 
 여러 부모가 동일한 키로 데이터를 제공하는 경우, inject는 컴포넌트의 부모 체인에서 가장 가까운 부모의 값을 사용합니다.
 
@@ -295,7 +297,7 @@ provide('read-only-count', readonly(count))
 
 <div class="options-api">
 
-주입이 제공자와 반응형으로 연결되도록 하려면, [computed()](/api/reactivity-core#computed) 함수를 사용해 계산 속성을 제공해야 합니다:
+```js{12}
 
 ```js{10}
 import { computed } from 'vue'
@@ -325,8 +327,7 @@ export default {
 
 지금까지 예제에서는 문자열 주입 키를 사용했습니다. 많은 의존성 제공자가 있는 대규모 애플리케이션을 개발하거나, 다른 개발자가 사용할 컴포넌트를 작성하는 경우, 잠재적 충돌을 피하기 위해 Symbol 주입 키를 사용하는 것이 가장 좋습니다.
 
-Symbol을 별도의 파일에 export하는 것이 권장됩니다:
-
+```js [keys.js]
 ```js
 // keys.js
 export const myInjectionKey = Symbol()

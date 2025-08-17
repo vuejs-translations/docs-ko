@@ -25,40 +25,29 @@ Vue SFC를 사용해보려면 컴퓨터에 아무것도 설치할 필요가 없�
 
 Vite + Vue로 시작하려면 다음 명령어를 실행하세요:
 
-<VTCodeGroup>
-  <VTCodeGroupTab label="npm">
+::: code-group
 
-  ```sh
-  $ npm create vue@latest
-  ```
+```sh [npm]
+$ npm create vue@latest
+```
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="pnpm">
+```sh [pnpm]
+$ pnpm create vue@latest
+```
   
-  ```sh
-  $ pnpm create vue@latest
-  ```
-
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="yarn">
+```sh [yarn]
+# For Yarn Modern (v2+)
+$ yarn create vue@latest
   
-  ```sh
-  # Yarn Modern (v2+)용
-  $ yarn create vue@latest
+# For Yarn ^v4.11
+$ yarn dlx create-vue@latest
+```
   
-  # Yarn ^v4.11용
-  $ yarn dlx create-vue@latest
-  ```
+```sh [bun]
+$ bun create vue@latest
+```
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="bun">
-  
-  ```sh
-  $ bun create vue@latest
-  ```
-
-  </VTCodeGroupTab>
-</VTCodeGroup>
+:::
 
 이 명령어는 공식 Vue 프로젝트 스캐폴딩 도구인 [create-vue](https://github.com/vuejs/create-vue)를 설치하고 실행합니다.
 
@@ -113,7 +102,7 @@ Vue 브라우저 개발자 도구 확장 프로그램을 사용하면 Vue 앱의
 ![devtools screenshot](./images/devtools.png)
 
 - [문서](https://devtools.vuejs.org/)
-- [Chrome 확장 프로그램](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+- [Chrome Extension](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
 - [Vite 플러그인](https://devtools.vuejs.org/guide/vite-plugin)
 - [독립 실행형 Electron 앱](https://devtools.vuejs.org/guide/standalone)
 

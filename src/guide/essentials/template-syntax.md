@@ -1,5 +1,9 @@
 # 템플릿 문법 {#template-syntax}
 
+<ScrimbaLink href="https://scrimba.com/links/vue-template-syntax" title="Free Vue.js Template Syntax Lesson" type="scrimba">
+  Watch an interactive video lesson on Scrimba
+</ScrimbaLink>
+
 <ScrimbaLink href="https://scrimba.com/links/vue-template-syntax" title="무료 Vue.js 템플릿 문법 강의" type="scrimba">
   Scrimba에서 인터랙티브 비디오 강의 시청하기
 </ScrimbaLink>
@@ -68,7 +72,7 @@ Virtual DOM 개념에 익숙하고 JavaScript의 강력한 기능을 선호한�
 
 > 이후 가이드에서는 코드 예제에서 축약 문법을 사용할 것입니다. 이는 Vue 개발자들이 가장 많이 사용하는 방식이기 때문입니다.
 
-### 동일 이름 축약 문법 {#same-name-shorthand}
+If the attribute has the same name as the variable name of the JavaScript value being bound, the syntax can be further shortened to omit the attribute value:
 
 - 3.4+에서만 지원
 

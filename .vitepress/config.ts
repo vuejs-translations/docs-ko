@@ -1,10 +1,12 @@
 import fs from 'fs'
 import path from 'path'
-import { defineConfigWithTheme } from 'vitepress'
+import { defineConfigWithTheme, type HeadConfig, type Plugin } from 'vitepress'
 import type { Config as ThemeConfig } from '@vue/theme'
+import llmstxt from 'vitepress-plugin-llms'
 // import llmstxt from 'vitepress-plugin-llms'
 import baseConfig from '@vue/theme/config'
 import { headerPlugin } from './headerMdPlugin'
+import { groupIconMdPlugin,groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 // import { textAdPlugin } from './textAdMdPlugin'
 
 const nav: ThemeConfig['nav'] = [
@@ -496,10 +498,6 @@ export const sidebar: ThemeConfig['sidebar'] = {
         {
           text: '트랜지션이 있는 리스트',
           link: '/examples/#list-transition'
-        },
-      ]
-    },
-    {
       // https://eugenkiss.github.io/7guis/
       text: '7 GUIs',
       items: [
@@ -698,7 +696,7 @@ export default defineConfigWithTheme<ThemeConfig>({
       },
       {
         link: 'https://it.vuejs.org',
-        text: 'Italiano',
+        repo: 'https://github.com/vuejs-translations/docs-ru'
         repo: 'https://github.com/vuejs-translations/docs-it'
       },
       {
@@ -710,6 +708,11 @@ export default defineConfigWithTheme<ThemeConfig>({
         link: 'https://ru.vuejs.org',
         text: 'Русский',
         repo: 'https://github.com/translation-gang/docs-ru'
+      {
+        link: 'https://pl.vuejs.org',
+        text: 'Polski',
+        repo: 'https://github.com/vuejs-translations/docs-pl',
+      },
       },
       {
         link: 'https://cs.vuejs.org',
@@ -755,6 +758,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     },
 
     footer: {
+        .use(groupIconMdPlugin)
       license: {
         text: 'MIT License',
         link: 'https://opensource.org/licenses/MIT'
@@ -783,7 +787,37 @@ export default defineConfigWithTheme<ThemeConfig>({
     ssr: {
       external: ['@vue/repl']
     },
-    server: {
+    },
+    plugins: [
+      llmstxt({
+        ignoreFiles: [
+          'about/team/**/*',
+          'about/team.md',
+          'about/privacy.md',
+          'about/coc.md',
+          'developers/**/*',
+          'ecosystem/themes.md',
+          'examples/**/*',
+          'partners/**/*',
+          'sponsor/**/*',
+          'index.md'
+        ],
+        customLLMsTxtTemplate: `\
+# Vue.js
+
+Vue.js - The Progressive JavaScript Framework
+
+## Table of Contents
+
+{toc}`
+      }) as Plugin,
+      groupIconVitePlugin({
+        customIcon: {
+          cypress: 'vscode-icons:file-type-cypress',
+          'testing library': 'logos:testing-library'
+        }
+      }) as Plugin
+    ]
       host: true,
       fs: {
         // for when developing with locally linked theme

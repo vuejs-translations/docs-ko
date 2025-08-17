@@ -24,8 +24,7 @@ app.config.compilerOptions.isCustomElement = (tag) => tag.includes('-')
 
 #### Vite 설정 예시 {#example-vite-config}
 
-```js
-// vite.config.js
+```js [vite.config.js]
 import vue from '@vitejs/plugin-vue'
 
 export default {
@@ -44,8 +43,7 @@ export default {
 
 #### Vue CLI 설정 예시 {#example-vue-cli-config}
 
-```js
-// vue.config.js
+```js [vue.config.js]
 module.exports = {
   chainWebpack: (config) => {
     config.module
@@ -219,8 +217,7 @@ Vue로 커스텀 엘리먼트를 빌드할 때, 엘리먼트는 Vue 런타임에
 
 사용자가 원하는 태그 이름으로 필요할 때마다 임포트하고 등록할 수 있도록, 개별 엘리먼트 생성자를 내보내는 것이 좋습니다. 모든 엘리먼트를 자동으로 등록하는 편의 함수도 내보낼 수 있습니다. 다음은 Vue 커스텀 엘리먼트 라이브러리의 예시 진입점입니다:
 
-```js
-// elements.js
+```js [elements.js]
 
 import { defineCustomElement } from 'vue'
 import Foo from './MyFoo.ce.vue'
@@ -306,15 +303,13 @@ declare module 'vue' {
 
 Vue로 빌드되지 않은 커스텀 엘리먼트의 SFC 템플릿에서 타입 체크를 활성화하는 권장 방법은 다음과 같습니다.
 
-:::tip 참고
-이 방법은 가능한 한 가지 방법일 뿐이며, 커스텀 엘리먼트를 생성하는 프레임워크에 따라 다를 수 있습니다.
+:::tip Note
+This approach is one possible way to do it, but it may vary depending on the framework being used to create the custom elements.
 :::
 
 JS 속성과 이벤트가 정의된 커스텀 엘리먼트가 있고, `some-lib`라는 라이브러리로 배포된다고 가정해봅시다:
 
-```ts
-// 파일: some-lib/src/SomeElement.ts
-
+```ts [some-lib/src/SomeElement.ts]
 // 타입이 지정된 JS 속성을 가진 클래스를 정의
 export class SomeElement extends HTMLElement {
   foo: number = 123
@@ -352,9 +347,7 @@ export class AppleFellEvent extends Event {
 
 Vue에서 커스텀 엘리먼트 타입 정의를 쉽게 등록할 수 있는 타입 헬퍼를 만들어봅시다:
 
-```ts
-// 파일: some-lib/src/DefineCustomElement.ts
-
+```ts [some-lib/src/DefineCustomElement.ts]
 // 각 엘리먼트마다 재사용할 수 있는 타입 헬퍼입니다.
 type DefineCustomElement<
   ElementType extends HTMLElement,
@@ -389,17 +382,13 @@ type VueEmit<T extends EventMap> = EmitFn<{
 }>
 ```
 
-:::tip 참고
-`$props`와 `$emit`에 deprecated를 표시한 이유는, 커스텀 엘리먼트의 ref를 사용할 때 이 속성을 실제로 사용하지 않도록 하기 위함입니다. 이 속성들은 커스텀 엘리먼트의 타입 체크 용도로만 존재하며, 실제 인스턴스에는 존재하지 않습니다.
+:::tip Note
+We marked `$props` and `$emit` as deprecated so that when we get a `ref` to a custom element we will not be tempted to use these properties, as these properties are for type checking purposes only when it comes to custom elements. These properties do not actually exist on the custom element instances.
 :::
-
-이 타입 헬퍼를 사용해 Vue 템플릿에서 타입 체크에 노출할 JS 속성을 선택할 수 있습니다:
 
 ```ts
 // 파일: some-lib/src/SomeElement.vue.ts
-
-import {
-  SomeElement,
+```ts [some-lib/src/SomeElement.vue.ts]
   SomeElementAttributes,
   SomeElementEvents
 } from './SomeElement.js'
@@ -422,7 +411,7 @@ declare module 'vue' {
 
 ```vue
 <script setup lang="ts">
-// 이 코드는 엘리먼트를 생성하고 브라우저에 등록합니다.
+```vue [SomeElementImpl.vue]
 import 'some-lib/dist/SomeElement.js'
 
 // TypeScript와 Vue를 사용하는 사용자는 추가로
@@ -468,7 +457,7 @@ onMounted(() => {
 
 ```vue
 <script setup lang="ts">
-// `some-lib`가 타입 정의가 없는 순수 JS라서
+```vue [SomeElementImpl.vue]
 // TypeScript가 타입을 추론할 수 없는 경우:
 import { SomeElement } from 'some-lib'
 

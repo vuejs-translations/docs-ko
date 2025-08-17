@@ -20,7 +20,7 @@ Vue 3는 Vue의 최신 주 버전입니다. 여기에는 텔레포트, 서스펜
 
 ## Vue 2가 계속 지원되나요? {#is-vue-2-still-supported}
 
-2022년 7월에 출시된 Vue 2.7은 Vue 2 버전 범위의 마지막 마이너 릴리스입니다. Vue 2는 이제 유지 관리 모드로 전환되어 더 이상 새로운 기능을 제공하지 않지만 2.7 릴리스 날짜부터 18개월 동안 중요한 버그 수정 및 보안 업데이트가 계속 제공됩니다. 즉, **Vue 2는 2023년 12월 31일에 수명이 종료됩니다**.
+Vue 2.7, which was shipped in July 2022, is the final minor release of the Vue 2 version range. Vue 2 has entered maintenance mode: it will no longer ship new features, but will continue to receive critical bug fixes and security updates for 18 months starting from the 2.7 release date. This means **Vue 2 reached End of Life on December 31st, 2023**.
 
 이를 통해 대부분의 생태계가 Vue 3로 마이그레이션할 수 있는 충분한 시간을 확보할 수 있을 것으로 생각합니다. 하지만 보안 및 규정 준수 요건을 충족해야 하는 상황에서 이 일정까지 업그레이드할 수 없는 팀이나 프로젝트가 있을 수 있다는 점도 잘 알고 있습니다. 이러한 요구 사항이 있는 팀을 위해 업계 전문가와 협력하여 Vue 2에 대한 연장 지원을 제공하고 있습니다. 2023년 말 이후에도 Vue 2를 사용해야 하는 팀이라면 미리 계획을 세우고 [Vue 2 Extended LTS](https://v2.vuejs.org/lts/)에 대해 자세히 알아보세요.
 

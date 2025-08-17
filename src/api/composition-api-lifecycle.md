@@ -210,7 +210,7 @@
   프로덕션 환경에서는 세 번째 인자(`info`)가 전체 정보 문자열 대신 축약된 코드로 제공됩니다. 코드와 문자열 매핑은 [프로덕션 오류 코드 참조](/error-reference/#runtime-errors)에서 확인할 수 있습니다.
   :::
 
-  `onErrorCaptured()`에서 컴포넌트 상태를 수정하여 사용자에게 오류 상태를 표시할 수 있습니다. 하지만 오류 상태가 오류를 발생시킨 원래 콘텐츠를 렌더링하지 않도록 주의해야 합니다. 그렇지 않으면 컴포넌트가 무한 렌더 루프에 빠질 수 있습니다.
+  You can modify component state in `onErrorCaptured()` to display an error state to the user. However, it is important that the error state should not render the original content that caused the error; otherwise the component will be thrown into an infinite render loop.
 
   이 훅은 `false`를 반환하여 오류의 추가 전파를 중단할 수 있습니다. 아래의 오류 전파 규칙을 참고하세요.
 
