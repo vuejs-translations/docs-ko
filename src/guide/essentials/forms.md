@@ -11,6 +11,12 @@ const checkedNames = ref([])
 const picked = ref('')
 const selected = ref('')
 const multiSelected = ref([])
+const dynamicSelected = ref('A')
+const options = ref([
+  { text: 'One', value: 'A' },
+  { text: 'Two', value: 'B' },
+  { text: 'Three', value: 'C' }
+])
 </script>
 
 # 폼 입력 바인딩 {#form-input-bindings}
@@ -348,6 +354,15 @@ export default {
 
 <div>선택됨: {{ selected }}</div>
 ```
+<div class="demo">
+  <div>선택됨: {{ dynamicSelected }}</div>
+  
+  <select v-model="dynamicSelected">
+    <option v-for="option in options" :value="option.value">
+      {{ option.text }}
+    </option>
+  </select>
+</div>
 
 <div class="composition-api">
 

@@ -83,7 +83,8 @@ function loadLazy() {
 import { defineAsyncComponent } from 'vue'
 
 // Foo.vue와 그 의존성에 대해 별도의 청크가 생성됩니다.
-// 비동기 컴포넌트가 페이지에 렌더링될 때만 요청됩니다.
+// 비동기 컴포넌트가 페이지에 렌더링될 때만
+// 요청됩니다.
 const Foo = defineAsyncComponent(() => import('./Foo.vue'))
 ```
 

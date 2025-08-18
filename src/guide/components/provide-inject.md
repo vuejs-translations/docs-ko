@@ -328,7 +328,6 @@ export default {
 Symbol을 별도의 파일에 export하는 것이 권장됩니다:
 
 ```js [keys.js]
-// keys.js
 export const myInjectionKey = Symbol()
 ```
 
