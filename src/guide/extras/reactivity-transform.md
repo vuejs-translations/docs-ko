@@ -293,8 +293,7 @@ Vue는 이 매크로들에 대한 타입 정의(전역적으로 사용 가능)�
 - SFC 및 js(x)/ts(x) 파일에 적용됩니다. 매크로를 사용하지 않는 파일에는 성능 저하가 없도록, 변환 적용 전 빠른 사용 여부 체크가 수행됩니다.
 - `reactivityTransform`은 이제 SFC뿐 아니라 전체에 영향을 주므로, 플러그인 루트 옵션입니다(`script.refSugar` 내부가 아님).
 
-```js
-// vite.config.js
+```js [vite.config.js]
 export default {
   plugins: [
     vue({
@@ -309,8 +308,7 @@ export default {
 - 현재 SFC에만 적용됩니다
 - `vue-loader@>=17.0.0` 필요
 
-```js
-// vue.config.js
+```js [vue.config.js]
 module.exports = {
   chainWebpack: (config) => {
     config.module
@@ -331,8 +329,7 @@ module.exports = {
 - 현재 SFC에만 적용됩니다
 - `vue-loader@>=17.0.0` 필요
 
-```js
-// webpack.config.js
+```js [webpack.config.js]
 module.exports = {
   module: {
     rules: [

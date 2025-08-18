@@ -156,8 +156,8 @@ app.mount('#app')
 
 여기서는 가장 기본적인 구조를 보여줍니다. 먼저, 앱 생성 로직을 `app.js`라는 전용 파일로 분리해봅시다:
 
-```js
-// app.js (서버와 클라이언트에서 공유)
+```js [app.js]
+// (서버와 클라이언트에서 공유)
 import { createSSRApp } from 'vue'
 
 export function createApp() {
@@ -172,8 +172,7 @@ export function createApp() {
 
 클라이언트 엔트리에서는 유니버설 코드를 import하고, 앱을 생성한 뒤 마운트합니다:
 
-```js
-// client.js
+```js [client.js]
 import { createApp } from './app.js'
 
 createApp().mount('#app')
@@ -181,8 +180,8 @@ createApp().mount('#app')
 
 서버에서도 요청 핸들러에서 동일한 앱 생성 로직을 사용합니다:
 
-```js{2,5}
-// server.js (불필요한 코드는 생략)
+```js{2,5} [server.js]
+// (불필요한 코드는 생략)
 import { createApp } from './app.js'
 
 server.get('/', (req, res) => {
@@ -267,8 +266,8 @@ SSR 중에는 각 요청 URL이 애플리케이션의 원하는 상태에 매핑
 
 권장되는 해결책은 각 요청마다 라우터와 글로벌 스토어를 포함한 전체 애플리케이션의 새 인스턴스를 생성하는 것입니다. 그리고 컴포넌트에서 직접 import하는 대신, [앱 레벨 provide](/guide/components/provide-inject#app-level-provide)를 사용해 공유 상태를 제공하고, 필요한 컴포넌트에서 inject합니다:
 
-```js
-// app.js (서버와 클라이언트에서 공유)
+```js [app.js]
+// (서버와 클라이언트에서 공유)
 import { createSSRApp } from 'vue'
 import { createStore } from './store.js'
 

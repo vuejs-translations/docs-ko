@@ -469,8 +469,7 @@ export default {
 
 트랜지션은 Vue의 컴포넌트 시스템을 통해 재사용할 수 있습니다. 재사용 가능한 트랜지션을 만들기 위해, `<Transition>` 컴포넌트를 감싸고 슬롯 콘텐츠를 전달하는 컴포넌트를 만들 수 있습니다:
 
-```vue{5}
-<!-- MyTransition.vue -->
+```vue{6} [MyTransition.vue]
 <script>
 // 자바스크립트 훅 로직...
 </script>

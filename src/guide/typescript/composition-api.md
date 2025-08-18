@@ -418,8 +418,7 @@ Vue 3.5와 `@vue/language-tools` 2.1(IDE 언어 서비스와 `vue-tsc` 모두 �
 
 import된 컴포넌트의 인스턴스 타입을 얻으려면, 먼저 `typeof`로 타입을 얻은 후 TypeScript의 내장 `InstanceType` 유틸리티를 사용해 인스턴스 타입을 추출해야 합니다:
 
-```vue{5}
-<!-- App.vue -->
+```vue{6,7} [App.vue]
 <script setup lang="ts">
 import { useTemplateRef } from 'vue'
 import Foo from './Foo.vue'
@@ -447,8 +446,7 @@ const child = useTemplateRef<ComponentPublicInstance>('child')
 
 참조된 컴포넌트가 [제네릭 컴포넌트](/guide/typescript/overview.html#generic-components)인 경우, 예를 들어 `MyGenericModal`:
 
-```vue
-<!-- MyGenericModal.vue -->
+```vue [MyGenericModal.vue]
 <script setup lang="ts" generic="ContentType extends string | number">
 import { ref } from 'vue'
 
@@ -464,8 +462,7 @@ defineExpose({
 
 이 경우 `InstanceType`이 동작하지 않으므로, [`vue-component-type-helpers`](https://www.npmjs.com/package/vue-component-type-helpers) 라이브러리의 `ComponentExposed`를 사용해 참조해야 합니다.
 
-```vue
-<!-- App.vue -->
+```vue [App.vue]
 <script setup lang="ts">
 import { useTemplateRef } from 'vue'
 import MyGenericModal from './MyGenericModal.vue'

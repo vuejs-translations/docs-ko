@@ -25,40 +25,29 @@ Vue SFC를 사용해보려면 컴퓨터에 아무것도 설치할 필요가 없�
 
 Vite + Vue로 시작하려면 다음 명령어를 실행하세요:
 
-<VTCodeGroup>
-  <VTCodeGroupTab label="npm">
+::: code-group
 
-  ```sh
-  $ npm create vue@latest
-  ```
+```sh [npm]
+$ npm create vue@latest
+```
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="pnpm">
+```sh [pnpm]
+$ pnpm create vue@latest
+```
   
-  ```sh
-  $ pnpm create vue@latest
-  ```
-
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="yarn">
+```sh [yarn]
+# Yarn Modern (v2+)용
+$ yarn create vue@latest
   
-  ```sh
-  # Yarn Modern (v2+)용
-  $ yarn create vue@latest
+# Yarn ^v4.11 용
+$ yarn dlx create-vue@latest
+```
   
-  # Yarn ^v4.11용
-  $ yarn dlx create-vue@latest
-  ```
+```sh [bun]
+$ bun create vue@latest
+```
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="bun">
-  
-  ```sh
-  $ bun create vue@latest
-  ```
-
-  </VTCodeGroupTab>
-</VTCodeGroup>
+:::
 
 이 명령어는 공식 Vue 프로젝트 스캐폴딩 도구인 [create-vue](https://github.com/vuejs/create-vue)를 설치하고 실행합니다.
 

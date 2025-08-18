@@ -30,43 +30,31 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 
 최신 버전의 [Node.js](https://nodejs.org/)가 설치되어 있는지 확인하고, 현재 작업 디렉터리가 프로젝트를 생성하려는 위치인지 확인하세요. 커맨드 라인에서 다음 명령어를 실행하세요(`$` 기호는 입력하지 않습니다):
 
-<VTCodeGroup>
-  <VTCodeGroupTab label="npm">
+::: code-group
 
-  ```sh
-  $ npm create vue@latest
-  ```
+```sh [npm]
+$ npm create vue@latest
+```
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="pnpm">
+```sh [pnpm]
+$ pnpm create vue@latest
+```
 
-  ```sh
-  $ pnpm create vue@latest
-  ```
+```sh [yarn]
+# Yarn (v1+)용
+$ yarn create vue
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="yarn">
+# Yarn Modern (v2+)용
+$ yarn create vue@latest
 
-  ```sh
-  # Yarn (v1+)용
-  $ yarn create vue
+# Yarn ^v4.11 용
+$ yarn dlx create-vue@latest
+```
 
-  # Yarn Modern (v2+)용
-  $ yarn create vue@latest
-  
-  # Yarn ^v4.11용
-  $ yarn dlx create-vue@latest
-  ```
-
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="bun">
-
-  ```sh
-  $ bun create vue@latest
-  ```
-
-  </VTCodeGroupTab>
-</VTCodeGroup>
+```sh [bun]
+$ bun create vue@latest
+```
+:::
 
 이 명령어는 공식 Vue 프로젝트 스캐폴딩 도구인 [create-vue](https://github.com/vuejs/create-vue)를 설치하고 실행합니다. TypeScript 및 테스트 지원과 같은 여러 선택적 기능에 대한 프롬프트가 표시됩니다:
 
@@ -84,46 +72,36 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 <span style="color:#A6ACCD;">./<span style="color:#89DDFF;">&lt;</span><span style="color:#888;">your-project-name</span><span style="color:#89DDFF;">&gt;</span>에 프로젝트 스캐폴딩 중...</span>
 <span style="color:#A6ACCD;">완료.</span></code></pre></div>
 
-옵션이 확실하지 않다면, 일단 엔터를 눌러 `아니오`를 선택하세요. 프로젝트가 생성되면, 의존성 설치 및 개발 서버 실행을 위한 안내에 따라 진행하세요:
+옵션이 확실하지 않다면, 일단 엔터를 눌러 `No`를 선택하세요. 프로젝트가 생성되면, 의존성 설치 및 개발 서버 실행을 위한 안내에 따라 진행하세요:
 
-<VTCodeGroup>
-  <VTCodeGroupTab label="npm">
+::: code-group
 
-  ```sh-vue
-  $ cd {{'<your-project-name>'}}
-  $ npm install
-  $ npm run dev
-  ```
+```sh-vue [npm]
+$ cd {{'<your-project-name>'}}
+$ npm install
+$ npm run dev
+```
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="pnpm">
+```sh-vue [pnpm]
+$ cd {{'<your-project-name>'}}
+$ pnpm install
+$ pnpm run dev
+```
 
-  ```sh-vue
-  $ cd {{'<your-project-name>'}}
-  $ pnpm install
-  $ pnpm run dev
-  ```
+```sh-vue [yarn]
+$ cd {{'<your-project-name>'}}
+$ yarn
+$ yarn dev
+```
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="yarn">
+```sh-vue [bun]
+$ cd {{'<your-project-name>'}}
+$ bun install
+$ bun run dev
+```
 
-  ```sh-vue
-  $ cd {{'<your-project-name>'}}
-  $ yarn
-  $ yarn dev
-  ```
+:::
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="bun">
-
-  ```sh-vue
-  $ cd {{'<your-project-name>'}}
-  $ bun install
-  $ bun run dev
-  ```
-
-  </VTCodeGroupTab>
-</VTCodeGroup>
 
 이제 첫 번째 Vue 프로젝트가 실행되고 있을 것입니다! 생성된 프로젝트의 예제 컴포넌트는 [옵션 API](/guide/introduction#options-api)가 아닌 [컴포지션 API](/guide/introduction#composition-api)와 `<script setup>`을 사용하여 작성되어 있습니다. 추가 팁은 다음과 같습니다:
 
@@ -134,36 +112,26 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 
 앱을 프로덕션에 배포할 준비가 되면 다음 명령어를 실행하세요:
 
-<VTCodeGroup>
-  <VTCodeGroupTab label="npm">
+::: code-group
 
-  ```sh
-  $ npm run build
-  ```
+```sh [npm]
+$ npm run build
+```
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="pnpm">
+```sh [pnpm]
+$ pnpm run build
+```
 
-  ```sh
-  $ pnpm run build
-  ```
+```sh [yarn]
+$ yarn build
+```
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="yarn">
+```sh [bun]
+$ bun run build
+```
 
-  ```sh
-  $ yarn build
-  ```
+:::
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="bun">
-
-  ```sh
-  $ bun run build
-  ```
-
-  </VTCodeGroupTab>
-</VTCodeGroup>
 
 이 명령어는 프로젝트의 `./dist` 디렉터리에 프로덕션용 빌드를 생성합니다. 앱을 프로덕션에 배포하는 방법에 대해서는 [프로덕션 배포 가이드](/guide/best-practices/production-deployment)를 참고하세요.
 
@@ -383,8 +351,7 @@ Import Maps는 비교적 새로운 브라우저 기능입니다. [지원 범위]
 
 가이드가 더 깊어질수록, 코드를 관리하기 쉽게 여러 자바스크립트 파일로 분리해야 할 수도 있습니다. 예를 들어:
 
-```html
-<!-- index.html -->
+```html [index.html]
 <div id="app"></div>
 
 <script type="module">
@@ -397,8 +364,7 @@ Import Maps는 비교적 새로운 브라우저 기능입니다. [지원 범위]
 
 <div class="options-api">
 
-```js
-// my-component.js
+```js [my-component.js]
 export default {
   data() {
     return { count: 0 }
@@ -410,8 +376,7 @@ export default {
 </div>
 <div class="composition-api">
 
-```js
-// my-component.js
+```js [my-component.js]
 import { ref } from 'vue'
 export default {
   setup() {

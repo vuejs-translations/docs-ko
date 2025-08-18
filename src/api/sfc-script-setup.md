@@ -298,16 +298,20 @@ function inc() {
 :::warning
 `defineModel` prop에 `default` 값을 지정하고, 부모 컴포넌트에서 이 prop에 값을 제공하지 않으면 부모와 자식 컴포넌트 간 동기화가 깨질 수 있습니다. 아래 예시에서 부모의 `myRef`는 undefined이지만, 자식의 `model`은 1입니다:
 
-```js
-// 자식 컴포넌트:
+```vue [Child.vue]
+<script setup>
 const model = defineModel({ default: 1 })
-
-// 부모 컴포넌트:
-const myRef = ref()
+</script>
 ```
 
-```html
-<Child v-model="myRef"></Child>
+```vue [Parent.vue]
+<script setup>
+const myRef = ref()
+</script>
+
+<template>
+  <Child v-model="myRef"></Child>
+</template>
 ```
 
 :::

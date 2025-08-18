@@ -1,11 +1,15 @@
 import fs from 'fs'
 import path from 'path'
-import { defineConfigWithTheme } from 'vitepress'
+import { defineConfigWithTheme, type Plugin } from 'vitepress'
 import type { Config as ThemeConfig } from '@vue/theme'
 // import llmstxt from 'vitepress-plugin-llms'
 import baseConfig from '@vue/theme/config'
 import { headerPlugin } from './headerMdPlugin'
 // import { textAdPlugin } from './textAdMdPlugin'
+import {
+  groupIconMdPlugin,
+  groupIconVitePlugin
+} from 'vitepress-plugin-group-icons'
 
 const nav: ThemeConfig['nav'] = [
   {
@@ -496,7 +500,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
         {
           text: '트랜지션이 있는 리스트',
           link: '/examples/#list-transition'
-        },
+        }
       ]
     },
     {
@@ -709,7 +713,7 @@ export default defineConfigWithTheme<ThemeConfig>({
       {
         link: 'https://ru.vuejs.org',
         text: 'Русский',
-        repo: 'https://github.com/translation-gang/docs-ru'
+        repo: 'https://github.com/vuejs-translations/docs-ru'
       },
       {
         link: 'https://cs.vuejs.org',
@@ -722,6 +726,11 @@ export default defineConfigWithTheme<ThemeConfig>({
         repo: 'https://github.com/vuejs-translations/docs-zh-hk'
       },
       {
+        link: 'https://pl.vuejs.org',
+        text: 'Polski',
+        repo: 'https://github.com/vuejs-translations/docs-pl'
+      },
+      {
         link: '/translations/',
         text: '번역에 참가하세요!',
         isTranslationsDesc: true
@@ -732,7 +741,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     algolia: {
       indexName: 'vuejs-korea',
       appId: 'MEIERGO63D',
-      apiKey: '736f8ceee537a06dcd6ecea297cb7942',
+      apiKey: '736f8ceee537a06dcd6ecea297cb7942'
       // searchParameters: {
       //   facetFilters: ['version:v3']
       // }
@@ -766,7 +775,7 @@ export default defineConfigWithTheme<ThemeConfig>({
   markdown: {
     theme: 'github-dark',
     config(md) {
-      md.use(headerPlugin)
+      md.use(headerPlugin).use(groupIconMdPlugin)
       // .use(textAdPlugin)
     }
   },
@@ -795,6 +804,14 @@ export default defineConfigWithTheme<ThemeConfig>({
     },
     json: {
       stringify: true
-    }
+    },
+    plugins: [
+      groupIconVitePlugin({
+        customIcon: {
+          cypress: 'vscode-icons:file-type-cypress',
+          'testing library': 'logos:testing-library'
+        }
+      }) as Plugin
+    ]
   }
 })

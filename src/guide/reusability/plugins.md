@@ -40,8 +40,7 @@ const myPlugin = {
 
 먼저 플러그인 객체를 설정해봅시다. 아래와 같이 별도의 파일에 생성하고 내보내는 것이 로직을 분리하고 유지하는 데 권장됩니다.
 
-```js
-// plugins/i18n.js
+```js [plugins/i18n.js]
 export default {
   install: (app, options) => {
     // 플러그인 코드는 여기에 작성합니다
@@ -57,8 +56,7 @@ export default {
 
 이 함수가 모든 템플릿에서 전역적으로 사용 가능해야 하므로, 플러그인에서 `app.config.globalProperties`에 추가하여 전역적으로 사용할 수 있게 만듭니다:
 
-```js{4-11}
-// plugins/i18n.js
+```js{3-10} [plugins/i18n.js]
 export default {
   install: (app, options) => {
     // 전역적으로 사용 가능한 $translate() 메서드를 주입합니다
@@ -99,8 +97,7 @@ app.use(i18nPlugin, {
 
 플러그인을 사용하면 `provide`를 통해 플러그인 사용자에게 함수나 속성에 접근할 수 있도록 할 수도 있습니다. 예를 들어, 애플리케이션이 번역 객체를 사용할 수 있도록 `options` 매개변수에 접근할 수 있게 할 수 있습니다.
 
-```js{10}
-// plugins/i18n.js
+```js{3} [plugins/i18n.js]
 export default {
   install: (app, options) => {
     app.provide('i18n', options)
@@ -112,7 +109,7 @@ export default {
 
 <div class="composition-api">
 
-```vue
+```vue{4}
 <script setup>
 import { inject } from 'vue'
 
@@ -125,7 +122,7 @@ console.log(i18n.greetings.hello)
 </div>
 <div class="options-api">
 
-```js
+```js{2}
 export default {
   inject: ['i18n'],
   created() {

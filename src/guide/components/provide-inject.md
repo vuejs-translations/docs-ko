@@ -297,7 +297,7 @@ provide('read-only-count', readonly(count))
 
 주입이 제공자와 반응형으로 연결되도록 하려면, [computed()](/api/reactivity-core#computed) 함수를 사용해 계산 속성을 제공해야 합니다:
 
-```js{10}
+```js{12}
 import { computed } from 'vue'
 
 export default {
@@ -327,8 +327,7 @@ export default {
 
 Symbol을 별도의 파일에 export하는 것이 권장됩니다:
 
-```js
-// keys.js
+```js [keys.js]
 export const myInjectionKey = Symbol()
 ```
 

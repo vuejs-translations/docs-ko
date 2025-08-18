@@ -50,7 +50,6 @@ components/
 
 파스칼 케이스는 코드 편집기의 자동 완성 기능에서 가장 잘 작동하며, 가능한 경우 JSX 및 템플릿에서 컴포넌트를 참조하는 방식과 일치하기 때문입니다. 그러나 대소문자를 구분하지 않는 파일 시스템에서는 대소문자가 혼합된 파일 이름으로 인해 문제가 발생할 수 있으므로 케밥 케이스도 완벽하게 사용할 수 있습니다.
 
-
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
 
@@ -80,7 +79,6 @@ components/
 ```
 
 </div>
-
 
 ## 기본 컴포넌트 이름 {#base-component-names}
 
@@ -171,7 +169,6 @@ components/
 ::: details 상세 설명
 부모 컴포넌트의 이름을 딴 디렉터리에 자식 컴포넌트를 중첩하여 이 문제를 해결하고 싶을 수 있습니다. 예를 들어
 
-
 ```
 components/
 |- TodoList/
@@ -196,7 +193,6 @@ components/
 
 - 이름이 비슷한 파일이 많아 코드 편집기에서 파일을 빠르게 전환하기가 더 어려워집니다.
 - 중첩된 하위 디렉터리가 많아 에디터 사이드바에서 컴포넌트를 탐색하는 데 걸리는 시간이 늘어납니다.
-
   :::
 
 <div class="style-example style-example-bad">
@@ -234,7 +230,6 @@ components/
 ```
 
 </div>
-
 
 ## 컴포넌트 이름 내 단어 순서 {#order-of-words-in-component-names}
 
@@ -323,7 +318,6 @@ components/
 자체 닫히는 컴포넌트는 콘텐츠가 없을 뿐만 아니라 콘텐츠가 없는 것으로 **의미**된다는 것을 알립니다. 책에서 빈 페이지와 "이 페이지는 의도적으로 비워 두었습니다."라고 표시된 페이지의 차이입니다. 불필요한 닫는 태그가 없는 코드도 더 깔끔해집니다.
 
 안타깝게도 HTML에서는 사용자 정의 앨리먼트가 자체적으로 닫히는 것을 허용하지 않으며, [공식적인 "무효" 앨리먼트](https://www.w3.org/TR/html/syntax.html#void-elements)만 허용합니다. 그렇기 때문에 이 전략은 Vue의 템플릿 컴파일러가 DOM보다 먼저 템플릿에 도달한 다음 DOM 사양을 준수하는 HTML을 제공할 수 있을 때만 가능합니다.
-
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -414,7 +408,6 @@ OR
 ## JS/JSX에서의 컴포넌트 이름 표기법 {#component-name-casing-in-js-jsx}
 
 **JS/[JSX](/guide/extras/render-function#jsx-tsx)의 컴포넌트 이름은 항상 파스칼 케이스(PascalCase)를 사용해야 하지만, `app.component`를 통한 전역 컴포넌트 등록만 사용하는 간단한 애플리케이션의 경우 문자열 내부에 케밥 케이스(kebab-case)를 사용할 수 있습니다.**
-
 
 ::: details 자세한 설명
 자바스크립트에서 파스칼케이스는 클래스 및 프로토타입 생성자, 즉 본질적으로 별개의 인스턴스를 가질 수 있는 모든 것에 대한 규칙입니다. Vue 컴포넌트에도 인스턴스가 있으므로 파스칼케이스도 사용하는 것이 합리적입니다. 추가적인 이점으로, JSX(및 템플릿) 내에서 파스칼케이스를 사용하면 코드 독자가 컴포넌트와 HTML 앨리먼트를 더 쉽게 구분할 수 있습니다.
@@ -511,7 +504,6 @@ components/
 </div>
 
 ## prop 이름 표기법 {#prop-name-casing}
-
 
 **Prop 이름은 선언 시 항상 camelCase를 사용해야 합니다. DOM 내에서 직접 사용하는 템플릿에서는 props를 kebab-case로 작성해야 합니다. 반면, Single-File Component(SFC) 템플릿과 [JSX](/guide/extras/render-function#jsx-tsx)에서는 kebab-case 또는 camelCase 중 하나를 선택하여 사용할 수 있습니다. 일관성을 유지하는 것이 중요합니다. camelCase를 선택했다면, 애플리케이션 전체에서 kebab-case props를 혼용하지 않도록 주의해야 합니다.**
 
@@ -810,7 +802,6 @@ const finalPrice = computed(() => basePrice.value - discount.value)
 ## 디렉티브 단축 표기법 {#directive-shorthands}
 
 **디렉티브 단축(`v-bind:`의 경우 `:`, `v-on:`의 경우 `@`, `v-slot`의 경우 `#`)는 항상 사용하거나 절대 사용하지 않아야 합니다.**
-
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>

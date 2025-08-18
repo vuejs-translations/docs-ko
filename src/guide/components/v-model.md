@@ -12,8 +12,7 @@
 
 Vue 3.4부터, 이를 달성하는 권장 방법은 [`defineModel()`](/api/sfc-script-setup#definemodel) 매크로를 사용하는 것입니다:
 
-```vue
-<!-- Child.vue -->
+```vue [Child.vue]
 <script setup>
 const model = defineModel()
 
@@ -26,12 +25,11 @@ function update() {
   <div>부모에 바인딩된 v-model 값: {{ model }}</div>
   <button @click="update">증가</button>
 </template>
-```
+```vue-html [Parent.vue]
 
 부모는 `v-model`로 값을 바인딩할 수 있습니다:
 
-```vue-html
-<!-- Parent.vue -->
+```vue-html [Parent.vue]
 <Child v-model="countModel" />
 ```
 
@@ -63,8 +61,7 @@ const model = defineModel()
 
 아래는 3.4 이전에 동일한 자식 컴포넌트를 구현하는 방법입니다:
 
-```vue
-<!-- Child.vue -->
+```vue [Child.vue]
 <script setup>
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
@@ -80,8 +77,7 @@ const emit = defineEmits(['update:modelValue'])
 
 그런 다음, 부모 컴포넌트에서 `v-model="foo"`는 다음과 같이 컴파일됩니다:
 
-```vue-html
-<!-- Parent.vue -->
+```vue-html [Parent.vue]
 <Child
   :modelValue="foo"
   @update:modelValue="$event => (foo = $event)"
@@ -103,20 +99,20 @@ const model = defineModel({ default: 0 })
 :::warning
 `defineModel` prop에 `default` 값을 지정하고 부모 컴포넌트에서 이 prop에 값을 제공하지 않으면, 부모와 자식 컴포넌트 간에 동기화가 깨질 수 있습니다. 아래 예시에서, 부모의 `myRef`는 undefined이지만, 자식의 `model`은 1입니다:
 
-**자식 컴포넌트:**
-
-```js
+```vue [Child.vue]
+<script setup>
 const model = defineModel({ default: 1 })
+</script>
 ```
 
-**부모 컴포넌트:**
-
-```js
+```vue [Parent.vue]
+<script setup>
 const myRef = ref()
-```
+</script>
 
-```html
-<Child v-model="myRef"></Child>
+<template>
+  <Child v-model="myRef"></Child>
+</template>
 ```
 
 :::
@@ -156,8 +152,7 @@ const myRef = ref()
 
 아래는 그 예시입니다:
 
-```vue
-<!-- CustomInput.vue -->
+```vue [CustomInput.vue]
 <script>
 export default {
   props: ['modelValue'],
@@ -183,8 +178,7 @@ export default {
 
 이 컴포넌트 내에서 `v-model`을 구현하는 또 다른 방법은 getter와 setter가 모두 있는 쓰기 가능한 `computed` 속성을 사용하는 것입니다. `get` 메서드는 `modelValue` 속성을 반환하고, `set` 메서드는 해당 이벤트를 emit해야 합니다:
 
-```vue
-<!-- CustomInput.vue -->
+```vue [CustomInput.vue]
 <script>
 export default {
   props: ['modelValue'],
@@ -221,8 +215,7 @@ export default {
 
 자식 컴포넌트에서는, `defineModel()`의 첫 번째 인자로 문자열을 전달하여 해당 인자를 지원할 수 있습니다:
 
-```vue
-<!-- MyComponent.vue -->
+```vue [MyComponent.vue]
 <script setup>
 const title = defineModel('title')
 </script>
@@ -243,8 +236,7 @@ const title = defineModel('title', { required: true })
 <details>
 <summary>3.4 이전 사용법</summary>
 
-```vue
-<!-- MyComponent.vue -->
+```vue [MyComponent.vue]
 <script setup>
 defineProps({
   title: {
@@ -271,8 +263,7 @@ defineEmits(['update:title'])
 
 이 경우, 기본 `modelValue` prop과 `update:modelValue` 이벤트 대신, 자식 컴포넌트는 `title` prop을 기대하고, 부모 값을 업데이트하기 위해 `update:title` 이벤트를 emit해야 합니다:
 
-```vue
-<!-- MyComponent.vue -->
+```vue [MyComponent.vue]
 <script>
 export default {
   props: ['title'],
@@ -412,7 +403,7 @@ console.log(modifiers) // { capitalize: true }
 
 수식어에 따라 값을 읽거나 쓸 때 조건부로 조정하려면, `defineModel()`에 `get`과 `set` 옵션을 전달할 수 있습니다. 이 두 옵션은 모델 ref의 get/set 시 값을 받아 변환된 값을 반환해야 합니다. 아래는 `set` 옵션을 사용해 `capitalize` 수식어를 구현하는 방법입니다:
 
-```vue{6-8}
+```vue{4-6}
 <script setup>
 const [model, modifiers] = defineModel({
   set(value) {
@@ -577,10 +568,10 @@ console.log(lastNameModifiers) // { uppercase: true }
 ```vue{5,6,10,11}
 <script setup>
 const props = defineProps({
-firstName: String,
-lastName: String,
-firstNameModifiers: { default: () => ({}) },
-lastNameModifiers: { default: () => ({}) }
+  firstName: String,
+  lastName: String,
+  firstNameModifiers: { default: () => ({}) },
+  lastNameModifiers: { default: () => ({}) }
 })
 defineEmits(['update:firstName', 'update:lastName'])
 

@@ -21,7 +21,7 @@ Vue 애플리케이션의 맥락에서 "컴포저블"이란 Vue의 Composition A
 
 만약 Composition API를 사용하여 마우스 추적 기능을 컴포넌트 내부에 직접 구현한다면, 다음과 같이 작성할 수 있습니다:
 
-```vue
+```vue [MouseComponent.vue]
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
@@ -42,8 +42,7 @@ onUnmounted(() => window.removeEventListener('mousemove', update))
 
 하지만 동일한 로직을 여러 컴포넌트에서 재사용하고 싶다면, 로직을 외부 파일의 컴포저블 함수로 추출할 수 있습니다:
 
-```js
-// mouse.js
+```js [mouse.js]
 import { ref, onMounted, onUnmounted } from 'vue'
 
 // 관례상, 컴포저블 함수 이름은 "use"로 시작합니다.
@@ -70,7 +69,7 @@ export function useMouse() {
 
 그리고 컴포넌트에서는 다음과 같이 사용할 수 있습니다:
 
-```vue
+```vue [MouseComponent.vue]
 <script setup>
 import { useMouse } from './mouse.js'
 
@@ -92,8 +91,7 @@ const { x, y } = useMouse()
 
 예를 들어, DOM 이벤트 리스너를 추가하고 제거하는 로직을 별도의 컴포저블로 추출할 수 있습니다:
 
-```js
-// event.js
+```js [event.js]
 import { onMounted, onUnmounted } from 'vue'
 
 export function useEventListener(target, event, callback) {
@@ -106,8 +104,7 @@ export function useEventListener(target, event, callback) {
 
 이제 우리의 `useMouse()` 컴포저블은 다음과 같이 더 간단해질 수 있습니다:
 
-```js{3,9-12}
-// mouse.js
+```js{2,8-11} [mouse.js]
 import { ref } from 'vue'
 import { useEventListener } from './event'
 
@@ -157,8 +154,7 @@ fetch('...')
 
 이 패턴을 데이터를 패칭해야 하는 모든 컴포넌트에서 반복하는 것은 번거롭습니다. 이를 컴포저블로 추출해봅시다:
 
-```js
-// fetch.js
+```js [fetch.js]
 import { ref } from 'vue'
 
 export function useFetch(url) {
@@ -208,8 +204,7 @@ const { data, error } = useFetch(() => `/posts/${props.id}`)
 
 기존 구현을 [`watchEffect()`](/api/reactivity-core.html#watcheffect)와 [`toValue()`](/api/reactivity-utilities.html#tovalue) API로 리팩터링할 수 있습니다:
 
-```js{8,13}
-// fetch.js
+```js{7,12} [fetch.js]
 import { ref, watchEffect, toValue } from 'vue'
 
 export function useFetch(url) {

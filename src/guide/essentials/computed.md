@@ -265,12 +265,12 @@ const fullName = computed({
 
 <p class="options-api">
 필요한 경우, 계산된 속성 getter의 두 번째 인자를 통해
-계산된 속성이 반환한 이전 값을 가져올 수 있습니다.
+계산된 속성이 반환한 이전 값을 가져올 수 있습니다:
 </p>
 
 <p class="composition-api">
 필요한 경우, 계산된 속성 getter의 첫 번째 인자를 통해
-계산된 속성이 반환한 이전 값을 가져올 수 있습니다.
+계산된 속성이 반환한 이전 값을 가져올 수 있습니다:
 </p>
 
 <div class="options-api">

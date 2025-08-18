@@ -188,8 +188,7 @@ Props는 컴포넌트에 등록할 수 있는 사용자 지정 속성입니다. 
 
 <div class="options-api">
 
-```vue
-<!-- BlogPost.vue -->
+```vue [BlogPost.vue]
 <script>
 export default {
   props: ['title']
@@ -206,8 +205,7 @@ prop 속성에 값을 전달하면, 해당 값이 컴포넌트 인스턴스의 �
 </div>
 <div class="composition-api">
 
-```vue
-<!-- BlogPost.vue -->
+```vue [BlogPost.vue]
 <script setup>
 defineProps(['title'])
 </script>
@@ -352,8 +350,8 @@ const postFontSize = ref(1)
 
 이제 `<BlogPost>` 컴포넌트의 템플릿에 버튼을 추가해봅시다:
 
-```vue{5}
-<!-- BlogPost.vue, <script> 생략 -->
+```vue{5} [BlogPost.vue]
+<!-- <script> 생략 -->
 <template>
   <div class="blog-post">
     <h4>{{ title }}</h4>
@@ -373,8 +371,8 @@ const postFontSize = ref(1)
 
 그런 다음 자식 컴포넌트는 내장 [**`$emit`** 메서드](/api/component-instance#emit)를 호출하여 자신에게 이벤트를 발생시킬 수 있습니다. 이벤트 이름을 전달합니다:
 
-```vue{5}
-<!-- BlogPost.vue, <script> 생략 -->
+```vue{5} [BlogPost.vue]
+<!-- omitting <script> -->
 <template>
   <div class="blog-post">
     <h4>{{ title }}</h4>
@@ -400,8 +398,7 @@ const postFontSize = ref(1)
 
 <div class="options-api">
 
-```vue{5}
-<!-- BlogPost.vue -->
+```vue{4} [BlogPost.vue]
 <script>
 export default {
   props: ['title'],
@@ -413,8 +410,7 @@ export default {
 </div>
 <div class="composition-api">
 
-```vue{4}
-<!-- BlogPost.vue -->
+```vue{3} [BlogPost.vue]
 <script setup>
 defineProps(['title'])
 defineEmits(['enlarge-text'])
@@ -472,8 +468,7 @@ Something bad happened.
 
 이것은 Vue의 커스텀 `<slot>` 요소를 사용해 구현할 수 있습니다:
 
-```vue{5}
-<!-- AlertBox.vue -->
+```vue{4} [AlertBox.vue]
 <template>
   <div class="alert-box">
     <strong>이것은 데모용 오류입니다</strong>

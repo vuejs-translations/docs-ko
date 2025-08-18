@@ -61,8 +61,7 @@ Vue 애플리케이션의 테스트 전략을 설계할 때, 다음과 같은 �
 
 예를 들어, 다음과 같은 `increment` 함수가 있습니다:
 
-```js
-// helpers.js
+```js [helpers.js]
 export function increment(current, max = 10) {
   if (current < max) {
     return current + 1
@@ -75,8 +74,7 @@ export function increment(current, max = 10) {
 
 이러한 검증 중 하나라도 실패한다면, 문제는 `increment` 함수 내부에 있다는 것이 명확합니다.
 
-```js{4-16}
-// helpers.spec.js
+```js{3-15} [helpers.spec.js]
 import { increment } from './helpers'
 
 describe('increment', () => {
@@ -149,10 +147,9 @@ Vue 애플리케이션에서 컴포넌트는 UI의 주요 빌딩 블록입니다
 
   Stepper의 구현에 대해 아무것도 알지 못하며, "입력"은 `max` prop이고 "출력"은 사용자가 보게 될 DOM의 상태임을 알 수 있습니다.
 
-<VTCodeGroup>
-  <VTCodeGroupTab label="Vue Test Utils">
+::: code-group
 
-```js
+```js [Vue Test Utils]
 const valueSelector = '[data-testid=stepper-value]'
 const buttonSelector = '[data-testid=increment]'
 
@@ -169,10 +166,7 @@ await wrapper.find(buttonSelector).trigger('click')
 expect(wrapper.find(valueSelector).text()).toContain('1')
 ```
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="Cypress">
-
-```js
+```js [Cypress]
 const valueSelector = '[data-testid=stepper-value]'
 const buttonSelector = '[data-testid=increment]'
 
@@ -191,10 +185,7 @@ cy.get(valueSelector)
   .should('contain.text', '1')
 ```
 
-  </VTCodeGroupTab>
-  <VTCodeGroupTab label="Testing Library">
-
-```js
+```js [Testing Library]
 const { getByText } = render(Stepper, {
   props: {
     max: 1
@@ -213,8 +204,7 @@ getByText('1')
 await fireEvent.click(button)
 ```
 
-  </VTCodeGroupTab>
-</VTCodeGroup>
+:::
 
 **하지 말아야 할 것**
 
@@ -320,8 +310,7 @@ Vite 기반 Vue 프로젝트에서 다음을 실행하세요:
 
 다음으로, Vite 설정에 `test` 옵션 블록을 추가하세요:
 
-```js{6-12}
-// vite.config.js
+```js{5-11} [vite.config.js]
 import { defineConfig } from 'vite'
 
 export default defineConfig({
@@ -339,9 +328,7 @@ export default defineConfig({
 :::tip
 TypeScript를 사용하는 경우, `tsconfig.json`의 `types` 필드에 `vitest/globals`를 추가하세요.
 
-```json
-// tsconfig.json
-
+```json [tsconfig.json]
 {
   "compilerOptions": {
     "types": ["vitest/globals"]
@@ -353,8 +340,7 @@ TypeScript를 사용하는 경우, `tsconfig.json`의 `types` 필드에 `vitest/
 
 그런 다음, 프로젝트에 `*.test.js`로 끝나는 파일을 만드세요. 모든 테스트 파일을 프로젝트 루트의 test 디렉터리나 소스 파일 옆의 test 디렉터리에 둘 수 있습니다. Vitest는 네이밍 규칙에 따라 자동으로 검색합니다.
 
-```js
-// MyComponent.test.js
+```js [MyComponent.test.js]
 import { render } from '@testing-library/vue'
 import MyComponent from './MyComponent.vue'
 
@@ -372,7 +358,7 @@ test('정상 동작해야 한다', () => {
 
 마지막으로, `package.json`에 테스트 스크립트를 추가하고 실행하세요:
 
-```json{4}
+```json{4} [package.json]
 {
   // ...
   "scripts": {
@@ -398,8 +384,7 @@ test('정상 동작해야 한다', () => {
 
 컴포저블이 반응성 API만 사용한다면, 직접 호출하고 반환된 상태/메서드를 검증하여 테스트할 수 있습니다:
 
-```js
-// counter.js
+```js [counter.js]
 import { ref } from 'vue'
 
 export function useCounter() {
@@ -413,8 +398,7 @@ export function useCounter() {
 }
 ```
 
-```js
-// counter.test.js
+```js [counter.test.js]
 import { useCounter } from './counter.js'
 
 test('useCounter', () => {
@@ -428,8 +412,7 @@ test('useCounter', () => {
 
 라이프사이클 훅이나 Provide / Inject에 의존하는 컴포저블은 테스트를 위해 호스트 컴포넌트로 감싸야 합니다. 다음과 같은 헬퍼를 만들 수 있습니다:
 
-```js
-// test-utils.js
+```js [test-utils.js]
 import { createApp } from 'vue'
 
 export function withSetup(composable) {
@@ -448,7 +431,7 @@ export function withSetup(composable) {
 }
 ```
 
-```js
+```js [foo.test.js]
 import { withSetup } from './test-utils'
 import { useFoo } from './foo'
 

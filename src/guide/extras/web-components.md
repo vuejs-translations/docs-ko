@@ -24,8 +24,7 @@ app.config.compilerOptions.isCustomElement = (tag) => tag.includes('-')
 
 #### Vite 설정 예시 {#example-vite-config}
 
-```js
-// vite.config.js
+```js [vite.config.js]
 import vue from '@vitejs/plugin-vue'
 
 export default {
@@ -44,8 +43,7 @@ export default {
 
 #### Vue CLI 설정 예시 {#example-vue-cli-config}
 
-```js
-// vue.config.js
+```js [vue.config.js]
 module.exports = {
   chainWebpack: (config) => {
     config.module
@@ -219,8 +217,7 @@ Vue로 커스텀 엘리먼트를 빌드할 때, 엘리먼트는 Vue 런타임에
 
 사용자가 원하는 태그 이름으로 필요할 때마다 임포트하고 등록할 수 있도록, 개별 엘리먼트 생성자를 내보내는 것이 좋습니다. 모든 엘리먼트를 자동으로 등록하는 편의 함수도 내보낼 수 있습니다. 다음은 Vue 커스텀 엘리먼트 라이브러리의 예시 진입점입니다:
 
-```js
-// elements.js
+```js [elements.js]
 
 import { defineCustomElement } from 'vue'
 import Foo from './MyFoo.ce.vue'
@@ -312,9 +309,7 @@ Vue로 빌드되지 않은 커스텀 엘리먼트의 SFC 템플릿에서 타입 
 
 JS 속성과 이벤트가 정의된 커스텀 엘리먼트가 있고, `some-lib`라는 라이브러리로 배포된다고 가정해봅시다:
 
-```ts
-// 파일: some-lib/src/SomeElement.ts
-
+```ts [some-lib/src/SomeElement.ts]
 // 타입이 지정된 JS 속성을 가진 클래스를 정의
 export class SomeElement extends HTMLElement {
   foo: number = 123
@@ -352,9 +347,7 @@ export class AppleFellEvent extends Event {
 
 Vue에서 커스텀 엘리먼트 타입 정의를 쉽게 등록할 수 있는 타입 헬퍼를 만들어봅시다:
 
-```ts
-// 파일: some-lib/src/DefineCustomElement.ts
-
+```ts [some-lib/src/DefineCustomElement.ts]
 // 각 엘리먼트마다 재사용할 수 있는 타입 헬퍼입니다.
 type DefineCustomElement<
   ElementType extends HTMLElement,
@@ -395,9 +388,7 @@ type VueEmit<T extends EventMap> = EmitFn<{
 
 이 타입 헬퍼를 사용해 Vue 템플릿에서 타입 체크에 노출할 JS 속성을 선택할 수 있습니다:
 
-```ts
-// 파일: some-lib/src/SomeElement.vue.ts
-
+```ts [some-lib/src/SomeElement.vue.ts]
 import {
   SomeElement,
   SomeElementAttributes,
@@ -420,7 +411,7 @@ declare module 'vue' {
 
 `some-lib`가 소스 TypeScript 파일을 `dist/` 폴더로 빌드한다고 가정합시다. `some-lib`의 사용자는 다음과 같이 `SomeElement`를 임포트해 Vue SFC에서 사용할 수 있습니다:
 
-```vue
+```vue [SomeElementImpl.vue]
 <script setup lang="ts">
 // 이 코드는 엘리먼트를 생성하고 브라우저에 등록합니다.
 import 'some-lib/dist/SomeElement.js'
@@ -466,7 +457,7 @@ onMounted(() => {
 
 엘리먼트에 타입 정의가 없는 경우, 속성과 이벤트의 타입을 더 수동적으로 정의할 수 있습니다:
 
-```vue
+```vue [SomeElementImpl.vue]
 <script setup lang="ts">
 // `some-lib`가 타입 정의가 없는 순수 JS라서
 // TypeScript가 타입을 추론할 수 없는 경우:
