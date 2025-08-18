@@ -36,10 +36,10 @@ $ pnpm create vue@latest
 ```
   
 ```sh [yarn]
-# For Yarn Modern (v2+)
+# Yarn Modern (v2+)용
 $ yarn create vue@latest
   
-# For Yarn ^v4.11
+# Yarn ^v4.11 용
 $ yarn dlx create-vue@latest
 ```
   
@@ -102,7 +102,7 @@ Vue 브라우저 개발자 도구 확장 프로그램을 사용하면 Vue 앱의
 ![devtools screenshot](./images/devtools.png)
 
 - [문서](https://devtools.vuejs.org/)
-- [Chrome Extension](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+- [Chrome 확장 프로그램](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
 - [Vite 플러그인](https://devtools.vuejs.org/guide/vite-plugin)
 - [독립 실행형 Electron 앱](https://devtools.vuejs.org/guide/standalone)
 

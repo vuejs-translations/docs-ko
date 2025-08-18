@@ -310,7 +310,7 @@ Mouse position is at: {{ mouse.x }}, {{ mouse.y }}
 
 ## 코드 조직화를 위한 컴포저블 추출 {#extracting-composables-for-code-organization}
 
-Composables can be extracted not only for reuse, but also for code organization. As the complexity of your components grows, you may end up with components that are too large to navigate and reason about. Composition API gives you the full flexibility to organize your component code into smaller functions based on logical concerns:
+컴포저블은 재사용뿐만 아니라 코드 조직화를 위해서도 추출할 수 있습니다. 컴포넌트의 복잡성이 커지면, 너무 커져서 탐색하거나 이해하기 어려운 컴포넌트가 생길 수 있습니다. Composition API는 논리적 관심사에 따라 컴포넌트 코드를 더 작은 함수로 자유롭게 조직할 수 있게 해줍니다:
 
 ```vue
 <script setup>

@@ -47,7 +47,7 @@ $ yarn create vue
 # Yarn Modern (v2+)용
 $ yarn create vue@latest
 
-# For Yarn ^v4.11
+# Yarn ^v4.11 용
 $ yarn dlx create-vue@latest
 ```
 

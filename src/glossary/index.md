@@ -153,7 +153,7 @@ Vue는 커스텀 디렉티브 생성도 지원하지만, 일반적으로 DOM 노
 
 JavaScript는 `var`, `import`, 함수 선언과 같은 일부 구조에 대해 호이스팅을 사용합니다.
 
-In a Vue context, the compiler applies *hoisting* to improve performance. When compiling a component, static values are moved out of the component's scope. These static values are described as 'hoisted' because they are created outside the component.
+Vue에서는 컴파일러가 성능 향상을 위해 *호이스팅*을 적용합니다. 컴포넌트를 컴파일할 때, 정적인 값들은 컴포넌트의 스코프 밖으로 이동됩니다. 이러한 정적 값들은 컴포넌트 외부에서 생성되기 때문에 '호이스팅'되었다고 표현합니다.
 
 ## 정적 캐시 {#cache-static}
 

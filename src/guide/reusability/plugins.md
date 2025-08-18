@@ -95,7 +95,7 @@ app.use(i18nPlugin, {
 
 ### 플러그인에서 Provide / Inject 사용하기 {#provide-inject-with-plugins}
 
-Plugins also allow us to use `provide` to give plugin users access to a function or attribute. For example, we can allow the application to have access to the `options` parameter to be able to use the translations object.
+플러그인을 사용하면 `provide`를 통해 플러그인 사용자에게 함수나 속성에 접근할 수 있도록 할 수도 있습니다. 예를 들어, 애플리케이션이 번역 객체를 사용할 수 있도록 `options` 매개변수에 접근할 수 있게 할 수 있습니다.
 
 ```js{3} [plugins/i18n.js]
 export default {

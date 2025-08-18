@@ -133,6 +133,6 @@ TypeScript를 사용하는 경우, [`defineSlots()`](/api/sfc-script-setup#defin
 
   동일한 페이지에 여러 Vue 애플리케이션 인스턴스가 있는 경우, [`app.config.idPrefix`](/api/application#app-config-idprefix)를 통해 각 앱에 ID 접두사를 지정하여 ID 충돌을 방지할 수 있습니다.
 
-  :::warning Caution
-  `useId()` should be not be called inside a `computed()` property as it may cause instance conflicts. Instead, declare the ID outside of `computed()` and reference it within the computed function.
+  :::warning 주의
+  `useId()`는 인스턴스 충돌을 일으킬 수 있으므로 `computed()` 속성 내부에서 호출하지 않아야 합니다. 대신 ID를 `computed()` 바깥에서 선언하고, 계산 함수 내부에서 이를 참조하세요.
   :::

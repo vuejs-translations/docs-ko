@@ -303,8 +303,8 @@ declare module 'vue' {
 
 Vue로 빌드되지 않은 커스텀 엘리먼트의 SFC 템플릿에서 타입 체크를 활성화하는 권장 방법은 다음과 같습니다.
 
-:::tip Note
-This approach is one possible way to do it, but it may vary depending on the framework being used to create the custom elements.
+:::tip 참고
+이 방법은 가능한 한 가지 방법일 뿐이며, 커스텀 엘리먼트를 생성하는 프레임워크에 따라 다를 수 있습니다.
 :::
 
 JS 속성과 이벤트가 정의된 커스텀 엘리먼트가 있고, `some-lib`라는 라이브러리로 배포된다고 가정해봅시다:
@@ -382,8 +382,8 @@ type VueEmit<T extends EventMap> = EmitFn<{
 }>
 ```
 
-:::tip Note
-We marked `$props` and `$emit` as deprecated so that when we get a `ref` to a custom element we will not be tempted to use these properties, as these properties are for type checking purposes only when it comes to custom elements. These properties do not actually exist on the custom element instances.
+:::tip 참고
+`$props`와 `$emit`에 deprecated를 표시한 이유는, 커스텀 엘리먼트의 ref를 사용할 때 이 속성을 실제로 사용하지 않도록 하기 위함입니다. 이 속성들은 커스텀 엘리먼트의 타입 체크 용도로만 존재하며, 실제 인스턴스에는 존재하지 않습니다.
 :::
 
 이 타입 헬퍼를 사용해 Vue 템플릿에서 타입 체크에 노출할 JS 속성을 선택할 수 있습니다:
