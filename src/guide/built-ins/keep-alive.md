@@ -79,7 +79,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 
 ## 최대 캐시 인스턴스 수 {#max-cached-instances}
 
-`max` prop을 통해 캐시할 수 있는 컴포넌트 인스턴스의 최대 개수를 제한할 수 있습니다. `max`가 지정되면, `<KeepAlive>`는 [LRU 캐시](<https://ko.wikipedia.org/wiki/%EC%B9%B4%EC%8B%9C_%EA%B5%90%EC%B2%B4_%EC%A0%95%EC%B1%85#%EA%B7%80%EC%9E%91%EC%9D%B4_%EA%B0%80%EC%9E%A5_%EC%98%A4%EB%9E%98%EB%90%9C_%EA%B2%BD%EC%9A%B0_(LRU)>)처럼 동작합니다. 캐시된 인스턴스의 수가 지정한 최대 개수를 초과하려고 하면, 가장 오랫동안 접근하지 않은 캐시 인스턴스가 파괴되어 새로운 인스턴스를 위한 공간을 만듭니다.
+`max` prop을 통해 캐시할 수 있는 컴포넌트 인스턴스의 최대 개수를 제한할 수 있습니다. `max`가 지정되면, `<KeepAlive>`는 [LRU 캐시](<https://ko.wikipedia.org/wiki/%EC%BA%90%EC%8B%9C_%EA%B5%90%EC%B2%B4_%EC%A0%95%EC%B1%85#%EC%B5%9C%EA%B7%BC_%EC%B5%9C%EC%86%8C_%EC%82%AC%EC%9A%A9_(LRU)>)처럼 동작합니다. 캐시된 인스턴스의 수가 지정한 최대 개수를 초과하려고 하면, 가장 오랫동안 접근하지 않은 캐시 인스턴스가 파괴되어 새로운 인스턴스를 위한 공간을 만듭니다.
 
 ```vue-html
 <KeepAlive :max="10">
