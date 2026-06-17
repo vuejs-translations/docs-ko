@@ -402,7 +402,7 @@ export function useMachine(options) {
 
 다른 여러 프레임워크가 Vue의 컴포지션 API의 ref와 유사한 반응성 프리미티브를 "시그널"이라는 용어로 도입했습니다:
 
-- [Solid Signals](https://www.solidjs.com/docs/latest/api#createsignal)
+- [Solid Signals](https://docs.solidjs.com/concepts/signals)
 - [Angular Signals](https://angular.dev/guide/signals)
 - [Preact Signals](https://preactjs.com/guide/v10/signals/)
 - [Qwik Signals](https://qwik.builder.io/docs/components/state/#usesignal)
