@@ -28,7 +28,7 @@ onMounted(async () => {
 - Vue 3.5은 2024년 9월 3일에 릴리스되었습니다.
 - 실제 3.5 릴리즈 내역은 [여기](https://github.com/vuejs/core/blob/main/CHANGELOG.md)에서 확인할수 있습니다.
 - Reactivity: 버전 카운팅·이중 연결 리스트로 구조를 재설계해 성능을 높이고, 배열 추적을 최적화했습니다. 새 API(예: `onEffectCleanup`)와 워치(`watch`) 일시중지·재개 기능도 추가되었습니다.
-- SSR: `useId()`와 `app.config.idPrefi`x로 ID 관리가 유연해졌으며, 일부 컴포넌트의 지연(lazy) 하이드레이션과 `data-allow-mismatch` 지원이 도입되었습니다.
+- SSR: `useId()`와 `app.config.idPrefix`로 ID 관리가 유연해졌으며, 일부 컴포넌트의 지연(lazy) 하이드레이션과 `data-allow-mismatch` 지원이 도입되었습니다.
 - Custom Element: `useHost()`, `useShadowRoot()` 등으로 커스텀 엘리먼트 호스트·섀도우 루트 접근이 쉬워졌으며, `defineCustomElement()` 관련 설정 옵션이 크게 확장되었습니다.
 - Teleport: 텔레포트 시점을 늦출 수 있는 Deferred Teleport가 추가되고, Transition 안에 Teleport를 직접 배치해 트랜지션을 결합할 수 있게 되었습니다.
 - Misc: `useTemplateRef()`, `app.onUnmount()` 등이 새로 도입되었고, `app.config.throwUnhandledErrorInProduction`으로 프로덕션 에러 처리를 세밀하게 제어할 수 있습니다.
