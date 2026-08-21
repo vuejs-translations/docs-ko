@@ -1,12 +1,12 @@
-# 속성 바인딩 {#attribute-bindings}
+# 속성 바인딩(binding) {#attribute-bindings}
 
-Vue에서 머스태시는 텍스트 보간에만 사용됩니다. 속성을 동적 값에 바인딩하려면 `v-bind` 디렉티브를 사용합니다:
+Vue에서 이중 중괄호(mustache)는 텍스트 보간(interpolation)에만 사용됩니다. 속성을 동적 값에 바인딩하려면 `v-bind` 디렉티브(directive)를 사용합니다:
 
 ```vue-html
 <div v-bind:id="dynamicId"></div>
 ```
 
-**디렉티브**는 `v-` 접두사로 시작하는 특별한 속성입니다. 이들은 Vue의 템플릿 문법의 일부입니다. 텍스트 보간과 마찬가지로, 디렉티브의 값은 컴포넌트의 상태에 접근할 수 있는 JavaScript 표현식입니다. `v-bind`와 디렉티브 문법의 전체 내용은 <a target="_blank" href="/guide/essentials/template-syntax.html">가이드 - 템플릿 문법</a>에서 다룹니다.
+**디렉티브**는 `v-` 접두사로 시작하는 특별한 속성입니다. 이들은 Vue의 템플릿(template) 문법의 일부입니다. 텍스트 보간과 마찬가지로, 디렉티브의 값은 컴포넌트(component)의 상태에 접근할 수 있는 JavaScript 표현식입니다. `v-bind`와 디렉티브 문법의 전체 내용은 <a target="_blank" href="/guide/essentials/template-syntax.html">가이드 - 템플릿 문법</a>에서 다룹니다.
 
 콜론(`:id`) 뒤의 부분은 디렉티브의 "인자"입니다. 여기서, 엘리먼트의 `id` 속성은 컴포넌트 상태의 `dynamicId` 속성과 동기화됩니다.
 

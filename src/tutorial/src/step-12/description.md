@@ -1,6 +1,6 @@
 # Props {#props}
 
-자식 컴포넌트는 **props**를 통해 부모로부터 입력을 받을 수 있습니다. 먼저, 자식 컴포넌트는 자신이 받을 props를 선언해야 합니다:
+자식 컴포넌트(component)는 **props**를 통해 부모로부터 입력을 받을 수 있습니다. 먼저, 자식 컴포넌트는 자신이 받을 props를 선언해야 합니다:
 
 <div class="composition-api">
 <div class="sfc">
@@ -13,7 +13,7 @@ const props = defineProps({
 </script>
 ```
 
-`defineProps()`는 컴파일 타임 매크로이므로 import할 필요가 없습니다. 선언이 완료되면, `msg` prop은 자식 컴포넌트의 템플릿에서 사용할 수 있습니다. 또한 `defineProps()`가 반환하는 객체를 통해 JavaScript에서도 접근할 수 있습니다.
+`defineProps()`는 컴파일 타임 매크로이므로 import할 필요가 없습니다. 선언이 완료되면, `msg` prop은 자식 컴포넌트의 템플릿(template)에서 사용할 수 있습니다. 또한 `defineProps()`가 반환하는 객체를 통해 JavaScript에서도 접근할 수 있습니다.
 
 </div>
 

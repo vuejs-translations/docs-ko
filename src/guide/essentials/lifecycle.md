@@ -1,10 +1,10 @@
 # 라이프사이클 훅 {#lifecycle-hooks}
 
-각 Vue 컴포넌트 인스턴스는 생성될 때 일련의 초기화 단계를 거칩니다. 예를 들어, 데이터 관찰을 설정하고, 템플릿을 컴파일하며, 인스턴스를 DOM에 마운트하고, 데이터가 변경될 때 DOM을 업데이트해야 합니다. 이 과정에서 라이프사이클 훅이라고 불리는 함수들이 실행되며, 사용자는 특정 단계에서 자신만의 코드를 추가할 수 있습니다.
+각 Vue 컴포넌트 인스턴스는 생성될 때 일련의 초기화 단계를 거칩니다. 예를 들어, 데이터 관찰을 설정하고, 템플릿(template)을 컴파일하며, 인스턴스(instance)를 DOM에 마운트(mount)하고, 데이터가 변경될 때 DOM을 업데이트해야 합니다. 이 과정에서 라이프사이클(lifecycle) 훅(hook)이라고 불리는 함수들이 실행되며, 사용자는 특정 단계에서 자신만의 코드를 추가할 수 있습니다.
 
 ## 라이프사이클 훅 등록하기 {#registering-lifecycle-hooks}
 
-예를 들어, <span class="composition-api">`onMounted`</span><span class="options-api">`mounted`</span> 훅은 컴포넌트가 초기 렌더링을 마치고 DOM 노드를 생성한 후에 코드를 실행하는 데 사용할 수 있습니다:
+예를 들어, <span class="composition-api">`onMounted`</span><span class="options-api">`mounted`</span> 훅은 컴포넌트(component)가 초기 렌더링(rendering)을 마치고 DOM 노드를 생성한 후에 코드를 실행하는 데 사용할 수 있습니다:
 
 <div class="composition-api">
 
@@ -41,7 +41,7 @@ export default {
 
 <div class="composition-api">
 
-`onMounted`를 호출할 때, Vue는 등록된 콜백 함수를 현재 활성 컴포넌트 인스턴스와 자동으로 연결합니다. 이로 인해 이러한 훅들은 컴포넌트 setup 중에 **동기적으로** 등록되어야 합니다. 예를 들어, 이렇게 하면 안 됩니다:
+`onMounted`를 호출할 때, Vue는 등록된 콜백(callback) 함수를 현재 활성 컴포넌트 인스턴스와 자동으로 연결합니다. 이로 인해 이러한 훅들은 컴포넌트 setup 중에 **동기적으로** 등록되어야 합니다. 예를 들어, 이렇게 하면 안 됩니다:
 
 ```js
 setTimeout(() => {

@@ -6,11 +6,11 @@ import ListStagger from './transition-demos/ListStagger.vue'
 
 # TransitionGroup {#transitiongroup}
 
-`<TransitionGroup>`는 리스트로 렌더링되는 요소 또는 컴포넌트의 삽입, 제거, 순서 변경을 애니메이션화하기 위해 설계된 내장 컴포넌트입니다.
+`<TransitionGroup>`는 리스트로 렌더링(rendering)되는 요소 또는 컴포넌트(component)의 삽입, 제거, 순서 변경을 애니메이션화하기 위해 설계된 내장 컴포넌트입니다.
 
 ## `<Transition>`과의 차이점 {#differences-from-transition}
 
-`<TransitionGroup>`는 `<Transition>`과 동일한 props, CSS 트랜지션 클래스, JavaScript 훅 리스너를 지원하지만, 다음과 같은 차이점이 있습니다:
+`<TransitionGroup>`는 `<Transition>`과 동일한 props, CSS 트랜지션(transition) 클래스, JavaScript 훅(hook) 리스너(listener)를 지원하지만, 다음과 같은 차이점이 있습니다:
 
 - 기본적으로 래퍼 요소를 렌더링하지 않습니다. 하지만 `tag` prop을 사용하여 렌더링할 요소를 지정할 수 있습니다.
 
@@ -21,7 +21,7 @@ import ListStagger from './transition-demos/ListStagger.vue'
 - CSS 트랜지션 클래스는 그룹/컨테이너 자체가 아니라 리스트의 개별 요소에 적용됩니다.
 
 :::tip
-[DOM 내 템플릿](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에서 사용할 때는 `<transition-group>`으로 참조해야 합니다.
+[DOM 내 템플릿(template)](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에서 사용할 때는 `<transition-group>`으로 참조해야 합니다.
 :::
 
 ## 입장 / 퇴장 트랜지션 {#enter-leave-transitions}

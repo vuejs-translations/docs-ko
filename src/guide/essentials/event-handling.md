@@ -16,7 +16,7 @@
 
 1. **인라인 핸들러:** 이벤트가 발생할 때 실행될 인라인 JavaScript(네이티브 `onclick` 속성과 유사).
 
-2. **메서드 핸들러:** 컴포넌트에 정의된 메서드를 가리키는 속성 이름 또는 경로.
+2. **메서드 핸들러:** 컴포넌트(component)에 정의된 메서드를 가리키는 속성 이름 또는 경로.
 
 ## 인라인 핸들러 {#inline-handlers}
 
@@ -131,11 +131,11 @@ methods: {
 
 ### 메서드 vs. 인라인 감지 {#method-vs-inline-detection}
 
-템플릿 컴파일러는 `v-on` 값 문자열이 유효한 JavaScript 식별자 또는 속성 접근 경로인지 확인하여 메서드 핸들러를 감지합니다. 예를 들어, `foo`, `foo.bar`, `foo['bar']`는 메서드 핸들러로 처리되고, `foo()`와 `count++`는 인라인 핸들러로 처리됩니다.
+템플릿(template) 컴파일러는 `v-on` 값 문자열이 유효한 JavaScript 식별자 또는 속성 접근 경로인지 확인하여 메서드 핸들러를 감지합니다. 예를 들어, `foo`, `foo.bar`, `foo['bar']`는 메서드 핸들러로 처리되고, `foo()`와 `count++`는 인라인 핸들러로 처리됩니다.
 
 ## 인라인 핸들러에서 메서드 호출하기 {#calling-methods-in-inline-handlers}
 
-메서드 이름에 직접 바인딩하는 대신, 인라인 핸들러에서 메서드를 호출할 수도 있습니다. 이를 통해 네이티브 이벤트 대신 메서드에 커스텀 인자를 전달할 수 있습니다:
+메서드 이름에 직접 바인딩(binding)하는 대신, 인라인 핸들러에서 메서드를 호출할 수도 있습니다. 이를 통해 네이티브 이벤트 대신 메서드에 커스텀 인자를 전달할 수 있습니다:
 
 <div class="composition-api">
 
@@ -223,7 +223,7 @@ methods: {
 
 이벤트 핸들러 내부에서 `event.preventDefault()`나 `event.stopPropagation()`을 호출해야 하는 경우가 매우 흔합니다. 물론 메서드 내부에서 쉽게 할 수 있지만, 메서드가 DOM 이벤트 세부사항을 처리하지 않고 데이터 로직에만 집중할 수 있다면 더 좋을 것입니다.
 
-이 문제를 해결하기 위해 Vue는 `v-on`에 **이벤트 수식어**를 제공합니다. 수식어는 점으로 표시되는 디렉티브 접미사입니다.
+이 문제를 해결하기 위해 Vue는 `v-on`에 **이벤트 수식어**를 제공합니다. 수식어는 점으로 표시되는 디렉티브(directive) 접미사입니다.
 
 - `.stop`
 - `.prevent`
@@ -271,7 +271,7 @@ methods: {
 <div @scroll.passive="onScroll">...</div>
 ```
 
-`.passive` 수식어는 일반적으로 [모바일 기기에서 성능 향상을 위해](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scroll_performance_using_passive_listeners) 터치 이벤트 리스너와 함께 사용됩니다.
+`.passive` 수식어는 일반적으로 [모바일 기기에서 성능 향상을 위해](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scroll_performance_using_passive_listeners) 터치 이벤트 리스너(listener)와 함께 사용됩니다.
 
 ::: tip
 `.passive`와 `.prevent`를 함께 사용하지 마세요. `.passive`는 이미 브라우저에 이벤트의 기본 동작을 막지 않을 것임을 알리므로, 함께 사용하면 브라우저에서 경고가 발생할 수 있습니다.

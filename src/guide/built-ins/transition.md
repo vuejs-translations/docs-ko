@@ -8,21 +8,21 @@ import BetweenElements from './transition-demos/BetweenElements.vue'
 import BetweenComponents from './transition-demos/BetweenComponents.vue'
 </script>
 
-# 트랜지션 {#transition}
+# 트랜지션(transition) {#transition}
 
-Vue는 상태 변화에 따라 트랜지션과 애니메이션을 다루는 데 도움이 되는 두 개의 내장 컴포넌트를 제공합니다:
+Vue는 상태 변화에 따라 트랜지션과 애니메이션을 다루는 데 도움이 되는 두 개의 내장 컴포넌트(component)를 제공합니다:
 
 - `<Transition>`: 요소나 컴포넌트가 DOM에 진입하거나 퇴장할 때 애니메이션을 적용합니다. 이 페이지에서 다룹니다.
 
 - `<TransitionGroup>`: `v-for` 리스트에서 요소나 컴포넌트가 삽입, 제거, 이동될 때 애니메이션을 적용합니다. [다음 장](/guide/built-ins/transition-group)에서 다룹니다.
 
-이 두 컴포넌트 외에도, CSS 클래스 토글이나 스타일 바인딩을 통한 상태 기반 애니메이션 등 다른 기법을 사용하여 Vue에서 애니메이션을 적용할 수 있습니다. 이러한 추가 기법들은 [애니메이션 기법](/guide/extras/animation) 장에서 다룹니다.
+이 두 컴포넌트 외에도, CSS 클래스 토글이나 스타일 바인딩(binding)을 통한 상태 기반 애니메이션 등 다른 기법을 사용하여 Vue에서 애니메이션을 적용할 수 있습니다. 이러한 추가 기법들은 [애니메이션 기법](/guide/extras/animation) 장에서 다룹니다.
 
 ## `<Transition>` 컴포넌트 {#the-transition-component}
 
-`<Transition>`은 내장 컴포넌트입니다: 즉, 어떤 컴포넌트의 템플릿에서도 별도의 등록 없이 사용할 수 있습니다. 기본 슬롯을 통해 전달된 요소나 컴포넌트에 진입 및 퇴장 애니메이션을 적용할 수 있습니다. 진입 또는 퇴장은 다음 중 하나에 의해 트리거될 수 있습니다:
+`<Transition>`은 내장 컴포넌트입니다: 즉, 어떤 컴포넌트의 템플릿(template)에서도 별도의 등록 없이 사용할 수 있습니다. 기본 슬롯(slot)을 통해 전달된 요소나 컴포넌트에 진입 및 퇴장 애니메이션을 적용할 수 있습니다. 진입 또는 퇴장은 다음 중 하나에 의해 트리거될 수 있습니다:
 
-- `v-if`를 통한 조건부 렌더링
+- `v-if`를 통한 조건부 렌더링(rendering)
 - `v-show`를 통한 조건부 표시
 - `<component>` 특수 요소를 통한 동적 컴포넌트 토글
 - 특수 `key` 속성 변경
@@ -70,7 +70,7 @@ Vue는 상태 변화에 따라 트랜지션과 애니메이션을 다루는 데 
 
 1. Vue는 대상 요소에 CSS 트랜지션 또는 애니메이션이 적용되어 있는지 자동으로 감지합니다. 적용되어 있다면, [CSS 트랜지션 클래스](#transition-classes)들이 적절한 타이밍에 추가/제거됩니다.
 
-2. [자바스크립트 훅](#javascript-hooks)에 대한 리스너가 있다면, 이 훅들이 적절한 타이밍에 호출됩니다.
+2. [자바스크립트 훅(hook)](#javascript-hooks)에 대한 리스너(listener)가 있다면, 이 훅들이 적절한 타이밍에 호출됩니다.
 
 3. CSS 트랜지션/애니메이션이 감지되지 않고 자바스크립트 훅도 제공되지 않은 경우, 삽입 및/또는 제거에 대한 DOM 조작이 브라우저의 다음 애니메이션 프레임에 실행됩니다.
 
@@ -448,7 +448,7 @@ export default {
 </Transition>
 ```
 
-`:css="false"`를 사용하면 트랜지션 종료 시점을 완전히 직접 제어해야 합니다. 이 경우, `@enter`와 `@leave` 훅에서 `done` 콜백이 필수입니다. 그렇지 않으면 훅이 동기적으로 호출되어 트랜지션이 즉시 끝나게 됩니다.
+`:css="false"`를 사용하면 트랜지션 종료 시점을 완전히 직접 제어해야 합니다. 이 경우, `@enter`와 `@leave` 훅에서 `done` 콜백(callback)이 필수입니다. 그렇지 않으면 훅이 동기적으로 호출되어 트랜지션이 즉시 끝나게 됩니다.
 
 아래는 [GSAP 라이브러리](https://gsap.com/)를 사용하여 애니메이션을 수행하는 데모입니다. 물론 [Anime.js](https://animejs.com/)나 [Motion One](https://motion.dev/) 등 다른 애니메이션 라이브러리도 사용할 수 있습니다:
 

@@ -10,7 +10,7 @@ Vue는 [Custom Elements Everywhere 테스트에서 100% 만점을 기록](https:
 
 ### 컴포넌트 해석 건너뛰기 {#skipping-component-resolution}
 
-기본적으로 Vue는 네이티브 HTML 태그가 아닌 태그를 등록된 Vue 컴포넌트로 해석하려 시도한 후, 실패하면 커스텀 엘리먼트로 렌더링합니다. 이로 인해 개발 중에 "컴포넌트 해석 실패" 경고가 발생할 수 있습니다. 특정 엘리먼트를 커스텀 엘리먼트로 처리하고 컴포넌트 해석을 건너뛰도록 Vue에 알리려면 [`compilerOptions.isCustomElement` 옵션](/api/application#app-config-compileroptions)을 지정할 수 있습니다.
+기본적으로 Vue는 네이티브 HTML 태그가 아닌 태그를 등록된 Vue 컴포넌트(component)로 해석하려 시도한 후, 실패하면 커스텀 엘리먼트로 렌더링(rendering)합니다. 이로 인해 개발 중에 "컴포넌트 해석 실패" 경고가 발생할 수 있습니다. 특정 엘리먼트를 커스텀 엘리먼트로 처리하고 컴포넌트 해석을 건너뛰도록 Vue에 알리려면 [`compilerOptions.isCustomElement` 옵션](/api/application#app-config-compileroptions)을 지정할 수 있습니다.
 
 Vue를 빌드 환경에서 사용할 경우, 이 옵션은 컴파일 타임 옵션이므로 빌드 설정을 통해 전달해야 합니다.
 
@@ -64,7 +64,7 @@ module.exports = {
 
 DOM 속성(attribute)은 문자열만 허용하므로, 복잡한 데이터를 커스텀 엘리먼트에 전달하려면 DOM 속성(property)으로 전달해야 합니다. 커스텀 엘리먼트에 props를 설정할 때, Vue 3는 `in` 연산자를 사용해 DOM 속성 존재 여부를 자동으로 확인하고, 키가 존재하면 DOM 속성으로 값을 설정하는 것을 우선시합니다. 즉, 커스텀 엘리먼트가 [권장 모범 사례](https://web.dev/custom-elements-best-practices/)를 따르면 대부분의 경우 별도로 신경 쓸 필요가 없습니다.
 
-하지만 드물게 데이터를 DOM 속성으로 전달해야 하지만, 커스텀 엘리먼트가 해당 속성을 제대로 정의/반영하지 않아(`in` 체크가 실패) 문제가 발생할 수 있습니다. 이 경우 `.prop` 수식어(modifier)를 사용해 `v-bind` 바인딩을 DOM 속성으로 강제 설정할 수 있습니다:
+하지만 드물게 데이터를 DOM 속성으로 전달해야 하지만, 커스텀 엘리먼트가 해당 속성을 제대로 정의/반영하지 않아(`in` 체크가 실패) 문제가 발생할 수 있습니다. 이 경우 `.prop` 수식어(modifier)를 사용해 `v-bind` 바인딩(binding)을 DOM 속성으로 강제 설정할 수 있습니다:
 
 ```vue-html
 <my-element :user.prop="{ name: 'jack' }"></my-element>
@@ -112,15 +112,15 @@ document.body.appendChild(
 )
 ```
 
-#### 라이프사이클 {#lifecycle}
+#### 라이프사이클(lifecycle) {#lifecycle}
 
-- Vue 커스텀 엘리먼트는 엘리먼트의 [`connectedCallback`](https://developer.mozilla.org/ko/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks)이 처음 호출될 때, 내부적으로 Vue 컴포넌트 인스턴스를 shadow root에 마운트합니다.
+- Vue 커스텀 엘리먼트는 엘리먼트의 [`connectedCallback`](https://developer.mozilla.org/ko/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks)이 처음 호출될 때, 내부적으로 Vue 컴포넌트 인스턴스(instance)를 shadow root에 마운트(mount)합니다.
 
 - 엘리먼트의 `disconnectedCallback`이 호출되면, Vue는 마이크로태스크 틱 이후 엘리먼트가 문서에서 분리되었는지 확인합니다.
 
   - 엘리먼트가 여전히 문서에 있으면 이동(move)으로 간주되어 컴포넌트 인스턴스가 유지됩니다.
 
-  - 엘리먼트가 문서에서 분리되면 제거(removal)로 간주되어 컴포넌트 인스턴스가 언마운트됩니다.
+  - 엘리먼트가 문서에서 분리되면 제거(removal)로 간주되어 컴포넌트 인스턴스가 언마운트(unmount)됩니다.
 
 #### Props {#props}
 
@@ -151,13 +151,13 @@ document.body.appendChild(
 
 `this.$emit` 또는 setup의 `emit`을 통해 발생시킨 이벤트는 커스텀 엘리먼트에서 네이티브 [CustomEvent](https://developer.mozilla.org/ko/docs/Web/Events/Creating_and_triggering_events#adding_custom_data_%E2%80%93_customevent)로 디스패치됩니다. 추가 이벤트 인자(페이로드)는 CustomEvent 객체의 `detail` 속성에 배열로 노출됩니다.
 
-#### 슬롯 {#slots}
+#### 슬롯(slot) {#slots}
 
 컴포넌트 내부에서는 평소처럼 `<slot/>` 엘리먼트를 사용해 슬롯을 렌더링할 수 있습니다. 하지만, 결과 엘리먼트를 사용할 때는 [네이티브 슬롯 문법](https://developer.mozilla.org/ko/docs/Web/Web_Components/Using_templates_and_slots)만 허용됩니다:
 
 - [스코프 슬롯(scoped slots)](/guide/components/slots#scoped-slots)은 지원되지 않습니다.
 
-- 명명된 슬롯을 전달할 때는 `v-slot` 디렉티브 대신 `slot` 속성을 사용하세요:
+- 명명된 슬롯을 전달할 때는 `v-slot` 디렉티브(directive) 대신 `slot` 속성을 사용하세요:
 
   ```vue-html
   <my-element>
@@ -204,7 +204,7 @@ const ExampleElement = defineCustomElement(Example)
 customElements.define('my-example', ExampleElement)
 ```
 
-커스텀 엘리먼트 모드로 임포트할 파일을 커스터마이즈하고 싶다면(예: _모든_ SFC를 커스텀 엘리먼트로 처리), 해당 빌드 플러그인에 `customElement` 옵션을 전달할 수 있습니다:
+커스텀 엘리먼트 모드로 임포트할 파일을 커스터마이즈하고 싶다면(예: _모든_ SFC를 커스텀 엘리먼트로 처리), 해당 빌드 플러그인(plugin)에 `customElement` 옵션을 전달할 수 있습니다:
 
 - [@vitejs/plugin-vue](https://github.com/vitejs/vite-plugin-vue/tree/main/packages/plugin-vue#using-vue-sfcs-as-custom-elements)
 - [vue-loader](https://github.com/vuejs/vue-loader/tree/next#v16-only-options)
@@ -269,7 +269,7 @@ export function MyComponent() {
 
 ### Vue 기반 웹 컴포넌트와 TypeScript {#web-components-and-typescript}
 
-Vue SFC 템플릿을 작성할 때, 커스텀 엘리먼트로 정의된 컴포넌트를 포함해 [타입 체크](/guide/scaling-up/tooling.html#typescript)를 하고 싶을 수 있습니다.
+Vue SFC 템플릿(template)을 작성할 때, 커스텀 엘리먼트로 정의된 컴포넌트를 포함해 [타입 체크](/guide/scaling-up/tooling.html#typescript)를 하고 싶을 수 있습니다.
 
 커스텀 엘리먼트는 브라우저의 내장 API를 통해 전역적으로 등록되며, 기본적으로 Vue 템플릿에서 사용할 때 타입 추론이 되지 않습니다. Vue에서 커스텀 엘리먼트로 등록된 컴포넌트에 타입 지원을 제공하려면, Vue 템플릿에서 타입 체크를 위해 [`GlobalComponents` 인터페이스](https://github.com/vuejs/language-tools/wiki/Global-Component-Types)를 보강(augment)하여 전역 컴포넌트 타입을 등록할 수 있습니다(JSX 사용자는 [JSX.IntrinsicElements](https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements) 타입을 보강할 수 있습니다. 여기서는 다루지 않습니다).
 

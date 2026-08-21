@@ -4,9 +4,9 @@ outline: deep
 
 # 렌더 함수 & JSX {#render-functions-jsx}
 
-Vue는 대부분의 경우 애플리케이션을 빌드할 때 템플릿 사용을 권장합니다. 하지만 JavaScript의 완전한 프로그래밍적 힘이 필요한 상황도 있습니다. 이럴 때 **렌더 함수**를 사용할 수 있습니다.
+Vue는 대부분의 경우 애플리케이션을 빌드할 때 템플릿(template) 사용을 권장합니다. 하지만 JavaScript의 완전한 프로그래밍적 힘이 필요한 상황도 있습니다. 이럴 때 **렌더 함수**를 사용할 수 있습니다.
 
-> 가상 DOM과 렌더 함수 개념이 처음이라면, 먼저 [렌더링 메커니즘](/guide/extras/rendering-mechanism) 챕터를 읽어보세요.
+> 가상 DOM과 렌더 함수 개념이 처음이라면, 먼저 [렌더링(rendering) 메커니즘](/guide/extras/rendering-mechanism) 챕터를 읽어보세요.
 
 ## 기본 사용법 {#basic-usage}
 
@@ -80,7 +80,7 @@ vnode.key // null
 
 <div class="composition-api">
 
-Composition API에서 템플릿을 사용할 때는 `setup()` 훅의 반환값이 템플릿에 데이터를 노출하는 데 사용됩니다. 하지만 렌더 함수를 사용할 때는, 렌더 함수를 직접 반환할 수 있습니다:
+Composition API에서 템플릿을 사용할 때는 `setup()` 훅(hook)의 반환값이 템플릿에 데이터를 노출하는 데 사용됩니다. 하지만 렌더 함수를 사용할 때는, 렌더 함수를 직접 반환할 수 있습니다:
 
 ```js
 import { ref, h } from 'vue'
@@ -126,7 +126,7 @@ export default {
 ```
 
 :::tip
-값을 직접 반환하는 대신 반드시 함수를 반환해야 합니다! `setup()` 함수는 컴포넌트당 한 번만 호출되지만, 반환된 렌더 함수는 여러 번 호출됩니다.
+값을 직접 반환하는 대신 반드시 함수를 반환해야 합니다! `setup()` 함수는 컴포넌트(component)당 한 번만 호출되지만, 반환된 렌더 함수는 여러 번 호출됩니다.
 :::
 
 </div>
@@ -149,7 +149,7 @@ export default {
 }
 ```
 
-`render()` 함수는 `this`를 통해 컴포넌트 인스턴스에 접근할 수 있습니다.
+`render()` 함수는 `this`를 통해 컴포넌트 인스턴스(instance)에 접근할 수 있습니다.
 
 단일 vnode를 반환하는 것 외에도, 문자열이나 배열을 반환할 수도 있습니다:
 
@@ -262,7 +262,7 @@ const vnode = <div id={dynamicId}>hello, {userName}</div>
 JSX는 React에서 처음 도입되었지만, 실제로는 정의된 런타임 의미가 없으며 다양한 출력으로 컴파일될 수 있습니다. JSX를 사용해본 경험이 있다면, **Vue의 JSX 변환은 React의 JSX 변환과 다르다는 점**에 유의하세요. 따라서 React의 JSX 변환을 Vue 애플리케이션에서 사용할 수 없습니다. React JSX와의 주요 차이점은 다음과 같습니다:
 
 - `class`와 `for`와 같은 HTML 속성을 props로 사용할 수 있습니다. `className`이나 `htmlFor`를 사용할 필요가 없습니다.
-- 컴포넌트에 자식(즉, 슬롯)을 전달하는 방식이 [다릅니다](#passing-slots).
+- 컴포넌트에 자식(즉, 슬롯(slot))을 전달하는 방식이 [다릅니다](#passing-slots).
 
 Vue의 타입 정의는 TSX 사용 시 타입 추론도 제공합니다. TSX를 사용할 때는 `tsconfig.json`에 `"jsx": "preserve"`를 지정하여 TypeScript가 JSX 문법을 그대로 남겨두고 Vue JSX 변환이 처리할 수 있도록 해야 합니다.
 
@@ -384,7 +384,7 @@ h(
 
 ### `v-on` {#v-on}
 
-`on`으로 시작하고 그 뒤에 대문자가 오는 props 이름은 이벤트 리스너로 처리됩니다. 예를 들어, `onClick`은 템플릿의 `@click`과 동일합니다.
+`on`으로 시작하고 그 뒤에 대문자가 오는 props 이름은 이벤트 리스너(listener)로 처리됩니다. 예를 들어, `onClick`은 템플릿의 `@click`과 동일합니다.
 
 ```js
 h(
@@ -672,7 +672,7 @@ export default {
 
 ### `v-model` {#v-model}
 
-`v-model` 디렉티브는 템플릿 컴파일 시 `modelValue`와 `onUpdate:modelValue` props로 확장됩니다. 따라서 이 props를 직접 제공해야 합니다:
+`v-model` 디렉티브(directive)는 템플릿 컴파일 시 `modelValue`와 `onUpdate:modelValue` props로 확장됩니다. 따라서 이 props를 직접 제공해야 합니다:
 
 <div class="composition-api">
 
@@ -784,7 +784,7 @@ export default {
 
 ## 함수형 컴포넌트 {#functional-components}
 
-함수형 컴포넌트는 자체 상태가 없는 컴포넌트의 대안 형태입니다. 이들은 순수 함수처럼 동작합니다: props를 입력받아 vnode를 출력합니다. 컴포넌트 인스턴스를 생성하지 않고(즉, `this`가 없음), 일반적인 컴포넌트 라이프사이클 훅도 없습니다.
+함수형 컴포넌트는 자체 상태가 없는 컴포넌트의 대안 형태입니다. 이들은 순수 함수처럼 동작합니다: props를 입력받아 vnode를 출력합니다. 컴포넌트 인스턴스를 생성하지 않고(즉, `this`가 없음), 일반적인 컴포넌트 라이프사이클(lifecycle) 훅도 없습니다.
 
 함수형 컴포넌트를 만들려면 옵션 객체 대신 일반 함수를 사용합니다. 이 함수는 사실상 컴포넌트의 `render` 함수입니다.
 

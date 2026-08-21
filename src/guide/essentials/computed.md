@@ -10,7 +10,7 @@
 
 ## 기본 예제 {#basic-example}
 
-템플릿 내 표현식은 매우 편리하지만, 단순한 연산을 위한 것입니다. 템플릿에 너무 많은 로직을 넣으면 템플릿이 복잡해지고 유지보수가 어려워질 수 있습니다. 예를 들어, 중첩 배열이 있는 객체가 있다고 가정해봅시다:
+템플릿(template) 내 표현식은 매우 편리하지만, 단순한 연산을 위한 것입니다. 템플릿에 너무 많은 로직을 넣으면 템플릿이 복잡해지고 유지보수가 어려워질 수 있습니다. 예를 들어, 중첩 배열이 있는 객체가 있다고 가정해봅시다:
 
 <div class="options-api">
 
@@ -95,7 +95,7 @@ export default {
 
 애플리케이션의 `data`에 있는 `books` 배열의 값을 변경해보면 `publishedBooksMessage`가 그에 따라 변경되는 것을 볼 수 있습니다.
 
-템플릿에서 계산된 속성에 일반 속성처럼 데이터 바인딩할 수 있습니다. Vue는 `this.publishedBooksMessage`가 `this.author.books`에 의존한다는 것을 알고 있으므로, `this.author.books`가 변경될 때 `this.publishedBooksMessage`에 의존하는 모든 바인딩을 업데이트합니다.
+템플릿에서 계산된 속성에 일반 속성처럼 데이터 바인딩(binding)할 수 있습니다. Vue는 `this.publishedBooksMessage`가 `this.author.books`에 의존한다는 것을 알고 있으므로, `this.author.books`가 변경될 때 `this.publishedBooksMessage`에 의존하는 모든 바인딩을 업데이트합니다.
 
 참고: [계산된 속성 타입 지정](/guide/typescript/options-api#typing-computed-properties) <sup class="vt-badge ts" />
 

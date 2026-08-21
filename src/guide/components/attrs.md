@@ -4,13 +4,13 @@ outline: deep
 
 # 폴스루 속성 {#fallthrough-attributes}
 
-> 이 페이지는 이미 [컴포넌트 기본](/guide/essentials/component-basics)을 읽었다고 가정합니다. 컴포넌트가 처음이라면 먼저 해당 내용을 읽어보세요.
+> 이 페이지는 이미 [컴포넌트 기본](/guide/essentials/component-basics)을 읽었다고 가정합니다. 컴포넌트(component)가 처음이라면 먼저 해당 내용을 읽어보세요.
 
 ## 속성 상속 {#attribute-inheritance}
 
-"폴스루 속성(fallthrough attributes)"이란 컴포넌트에 전달되었지만, 해당 컴포넌트의 [props](./props)나 [emits](./events#declaring-emitted-events)에 명시적으로 선언되지 않은 속성이나 `v-on` 이벤트 리스너를 의미합니다. 일반적인 예로는 `class`, `style`, `id` 속성이 있습니다.
+"폴스루 속성(fallthrough attributes)"이란 컴포넌트에 전달되었지만, 해당 컴포넌트의 [props](./props)나 [emits](./events#declaring-emitted-events)에 명시적으로 선언되지 않은 속성이나 `v-on` 이벤트 리스너(listener)를 의미합니다. 일반적인 예로는 `class`, `style`, `id` 속성이 있습니다.
 
-컴포넌트가 하나의 루트 엘리먼트만 렌더링할 때, 폴스루 속성은 자동으로 루트 엘리먼트의 속성에 추가됩니다. 예를 들어, 다음과 같은 템플릿을 가진 `<MyButton>` 컴포넌트가 있다고 가정해봅시다:
+컴포넌트가 하나의 루트 엘리먼트만 렌더링(rendering)할 때, 폴스루 속성은 자동으로 루트 엘리먼트의 속성에 추가됩니다. 예를 들어, 다음과 같은 템플릿(template)을 가진 `<MyButton>` 컴포넌트가 있다고 가정해봅시다:
 
 ```vue-html
 <!-- <MyButton>의 템플릿 -->
@@ -54,7 +54,7 @@ outline: deep
 <MyButton @click="onClick" />
 ```
 
-`click` 리스너는 `<MyButton>`의 루트 엘리먼트, 즉 네이티브 `<button>` 엘리먼트에 추가됩니다. 네이티브 `<button>`이 클릭되면 부모 컴포넌트의 `onClick` 메서드가 실행됩니다. 만약 네이티브 `<button>`에 이미 `v-on`으로 바인딩된 `click` 리스너가 있다면, 두 리스너가 모두 실행됩니다.
+`click` 리스너는 `<MyButton>`의 루트 엘리먼트, 즉 네이티브 `<button>` 엘리먼트에 추가됩니다. 네이티브 `<button>`이 클릭되면 부모 컴포넌트의 `onClick` 메서드가 실행됩니다. 만약 네이티브 `<button>`에 이미 `v-on`으로 바인딩(binding)된 `click` 리스너가 있다면, 두 리스너가 모두 실행됩니다.
 
 ### 중첩 컴포넌트 상속 {#nested-component-inheritance}
 
@@ -181,7 +181,7 @@ export default {
 
 <div class="options-api">
 
-필요하다면, 컴포넌트의 폴스루 속성에 `$attrs` 인스턴스 속성을 통해 접근할 수 있습니다:
+필요하다면, 컴포넌트의 폴스루 속성에 `$attrs` 인스턴스(instance) 속성을 통해 접근할 수 있습니다:
 
 ```js
 export default {

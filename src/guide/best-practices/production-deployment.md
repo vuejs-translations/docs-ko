@@ -6,7 +6,7 @@
 
 - 일반적인 오류 및 함정에 대한 경고
 - Props / 이벤트 유효성 검사
-- [반응성(reactivity) 디버깅 훅](/guide/extras/reactivity-in-depth#reactivity-debugging)
+- [반응성(reactivity) 디버깅 훅(hook)](/guide/extras/reactivity-in-depth#reactivity-debugging)
 - Devtools 통합
 
 하지만 이러한 기능들은 프로덕션 환경에서는 쓸모가 없습니다. 일부 경고 체크는 소량의 성능 오버헤드를 유발할 수도 있습니다. 프로덕션에 배포할 때는 사용하지 않는 개발 전용 코드 분기를 모두 제거하여 페이로드 크기를 줄이고 성능을 향상시켜야 합니다.
@@ -22,7 +22,7 @@ CDN이나 자체 호스팅 스크립트에서 Vue를 로드하여 빌드 도구 
 
 ## 빌드 도구 사용 시 {#with-build-tools}
 
-`create-vue`(Vite 기반)나 Vue CLI(webpack 기반)로 스캐폴딩된 프로젝트는 프로덕션 빌드에 맞게 사전 구성되어 있습니다.
+`create-vue`(Vite 기반)나 Vue CLI(webpack 기반)로 스캐폴딩(scaffolding)된 프로젝트는 프로덕션 빌드에 맞게 사전 구성되어 있습니다.
 
 커스텀 설정을 사용하는 경우, 다음을 반드시 확인하세요:
 

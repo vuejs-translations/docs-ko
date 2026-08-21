@@ -6,7 +6,7 @@
 Vue는 옵션 API와 함께 TypeScript 사용을 지원하지만, 더 간단하고 효율적이며 견고한 타입 추론을 제공하는 컴포지션 API를 통해 TypeScript와 함께 Vue를 사용하는 것이 권장됩니다.
 :::
 
-## 컴포넌트 Props 타입 지정하기 {#typing-component-props}
+## 컴포넌트(component) Props 타입 지정하기 {#typing-component-props}
 
 옵션 API에서 props의 타입 추론을 위해서는 컴포넌트를 `defineComponent()`로 감싸야 합니다. 이를 통해 Vue는 `props` 옵션을 기반으로, `required: true`나 `default`와 같은 추가 옵션을 고려하여 props의 타입을 추론할 수 있습니다:
 
@@ -215,7 +215,7 @@ export default defineComponent({
 
 ## 전역 속성 확장하기 {#augmenting-global-properties}
 
-일부 플러그인은 [`app.config.globalProperties`](/api/application#app-config-globalproperties)를 통해 모든 컴포넌트 인스턴스에 전역적으로 사용할 수 있는 속성을 설치합니다. 예를 들어, 데이터 패칭을 위한 `this.$http`나 국제화를 위한 `this.$translate`를 설치할 수 있습니다. TypeScript와 잘 연동되도록, Vue는 [TypeScript 모듈 보강](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)을 통해 확장할 수 있도록 설계된 `ComponentCustomProperties` 인터페이스를 제공합니다:
+일부 플러그인(plugin)은 [`app.config.globalProperties`](/api/application#app-config-globalproperties)를 통해 모든 컴포넌트 인스턴스(instance)에 전역적으로 사용할 수 있는 속성을 설치합니다. 예를 들어, 데이터 패칭을 위한 `this.$http`나 국제화를 위한 `this.$translate`를 설치할 수 있습니다. TypeScript와 잘 연동되도록, Vue는 [TypeScript 모듈 보강](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)을 통해 확장할 수 있도록 설계된 `ComponentCustomProperties` 인터페이스를 제공합니다:
 
 ```ts
 import axios from 'axios'
@@ -272,7 +272,7 @@ export default defineComponent({
 })
 ```
 
-적절한 타입 보강이 없으면 이 훅의 인자들은 암시적으로 `any` 타입을 갖게 됩니다. 이러한 커스텀 옵션을 지원하려면 `ComponentCustomOptions` 인터페이스를 확장할 수 있습니다:
+적절한 타입 보강이 없으면 이 훅(hook)의 인자들은 암시적으로 `any` 타입을 갖게 됩니다. 이러한 커스텀 옵션을 지원하려면 `ComponentCustomOptions` 인터페이스를 확장할 수 있습니다:
 
 ```ts
 import { Route } from 'vue-router'
@@ -292,6 +292,6 @@ declare module 'vue' {
 
 - [컴포넌트 타입 확장에 대한 TypeScript 단위 테스트](https://github.com/vuejs/core/blob/main/packages-private/dts-test/componentTypeExtensions.test-d.tsx)
 
-## 전역 커스텀 디렉티브 타입 지정하기 {#typing-global-custom-directives}
+## 전역 커스텀 디렉티브(directive) 타입 지정하기 {#typing-global-custom-directives}
 
 참고: [전역 커스텀 디렉티브 타입 지정하기](/guide/typescript/composition-api#typing-global-custom-directives) <sup class="vt-badge ts" />

@@ -15,7 +15,7 @@ watch(count, (newCount) => {
 })
 ```
 
-`watch()`는 ref를 직접 감시할 수 있으며, `count`의 값이 변경될 때마다 콜백이 실행됩니다. `watch()`는 다른 유형의 데이터 소스도 감시할 수 있습니다. 자세한 내용은 <a target="_blank" href="/guide/essentials/watchers.html">가이드 - 감시자</a>에서 확인할 수 있습니다.
+`watch()`는 ref를 직접 감시할 수 있으며, `count`의 값이 변경될 때마다 콜백(callback)이 실행됩니다. `watch()`는 다른 유형의 데이터 소스도 감시할 수 있습니다. 자세한 내용은 <a target="_blank" href="/guide/essentials/watchers.html">가이드 - 감시자</a>에서 확인할 수 있습니다.
 
 </div>
 <div class="options-api">
@@ -40,4 +40,4 @@ export default {
 
 </div>
 
-콘솔에 로그를 남기는 것보다 더 실용적인 예시는 ID가 변경될 때마다 새로운 데이터를 가져오는 것입니다. 아래 코드는 컴포넌트가 마운트될 때 mock API에서 todos 데이터를 가져오고 있습니다. 또한, 가져올 todo ID를 증가시키는 버튼도 있습니다. 버튼을 클릭할 때마다 새로운 todo를 가져오도록 감시자를 구현해 보세요.
+콘솔에 로그를 남기는 것보다 더 실용적인 예시는 ID가 변경될 때마다 새로운 데이터를 가져오는 것입니다. 아래 코드는 컴포넌트(component)가 마운트(mount)될 때 mock API에서 todos 데이터를 가져오고 있습니다. 또한, 가져올 todo ID를 증가시키는 버튼도 있습니다. 버튼을 클릭할 때마다 새로운 todo를 가져오도록 감시자를 구현해 보세요.

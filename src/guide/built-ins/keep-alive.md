@@ -4,7 +4,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 
 # KeepAlive {#keepalive}
 
-`<KeepAlive>`는 여러 컴포넌트 간을 동적으로 전환할 때 컴포넌트 인스턴스를 조건부로 캐시할 수 있게 해주는 내장 컴포넌트입니다.
+`<KeepAlive>`는 여러 컴포넌트(component) 간을 동적으로 전환할 때 컴포넌트 인스턴스(instance)를 조건부로 캐시할 수 있게 해주는 내장 컴포넌트입니다.
 
 ## 기본 사용법 {#basic-usage}
 
@@ -14,7 +14,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 <component :is="activeComponent" />
 ```
 
-기본적으로 활성화된 컴포넌트 인스턴스는 전환 시 언마운트됩니다. 이로 인해 해당 컴포넌트가 가지고 있던 변경된 상태는 모두 사라집니다. 다시 이 컴포넌트를 표시하면, 오직 초기 상태만을 가진 새로운 인스턴스가 생성됩니다.
+기본적으로 활성화된 컴포넌트 인스턴스는 전환 시 언마운트(unmount)됩니다. 이로 인해 해당 컴포넌트가 가지고 있던 변경된 상태는 모두 사라집니다. 다시 이 컴포넌트를 표시하면, 오직 초기 상태만을 가진 새로운 인스턴스가 생성됩니다.
 
 아래 예시에서는 상태를 가진 두 개의 컴포넌트가 있습니다. A는 카운터를, B는 `v-model`을 통해 입력값과 동기화된 메시지를 가지고 있습니다. 둘 중 하나의 상태를 변경한 뒤, 다른 컴포넌트로 전환했다가 다시 돌아와 보세요:
 
@@ -47,7 +47,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 </div>
 
 :::tip
-[DOM 내 템플릿](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에서 사용할 때는 `<keep-alive>`로 참조해야 합니다.
+[DOM 내 템플릿(template)](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에서 사용할 때는 `<keep-alive>`로 참조해야 합니다.
 :::
 
 ## 포함 / 제외 {#include-exclude}
@@ -87,13 +87,13 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 </KeepAlive>
 ```
 
-## 캐시된 인스턴스의 생명주기 {#lifecycle-of-cached-instance}
+## 캐시된 인스턴스의 생명주기(lifecycle) {#lifecycle-of-cached-instance}
 
 컴포넌트 인스턴스가 DOM에서 제거되지만 `<KeepAlive>`로 캐시된 컴포넌트 트리의 일부라면, 언마운트되는 대신 **비활성화(deactivated)** 상태로 전환됩니다. 캐시된 트리의 일부로 DOM에 다시 삽입되면 **활성화(activated)** 됩니다.
 
 <div class="composition-api">
 
-캐시된 컴포넌트는 [`onActivated()`](/api/composition-api-lifecycle#onactivated)와 [`onDeactivated()`](/api/composition-api-lifecycle#ondeactivated)를 사용해 이 두 상태에 대한 생명주기 훅을 등록할 수 있습니다:
+캐시된 컴포넌트는 [`onActivated()`](/api/composition-api-lifecycle#onactivated)와 [`onDeactivated()`](/api/composition-api-lifecycle#ondeactivated)를 사용해 이 두 상태에 대한 생명주기 훅(hook)을 등록할 수 있습니다:
 
 ```vue
 <script setup>
@@ -133,7 +133,7 @@ export default {
 
 다음 사항에 유의하세요:
 
-- <span class="composition-api">`onActivated`</span><span class="options-api">`activated`</span>는 마운트 시에도 호출되며, <span class="composition-api">`onDeactivated`</span><span class="options-api">`deactivated`</span>는 언마운트 시에도 호출됩니다.
+- <span class="composition-api">`onActivated`</span><span class="options-api">`activated`</span>는 마운트(mount) 시에도 호출되며, <span class="composition-api">`onDeactivated`</span><span class="options-api">`deactivated`</span>는 언마운트 시에도 호출됩니다.
 
 - 두 훅 모두 `<KeepAlive>`로 캐시된 루트 컴포넌트뿐만 아니라, 캐시된 트리 내의 하위 컴포넌트에도 적용됩니다.
 ---

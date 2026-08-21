@@ -111,7 +111,7 @@ const nav: ThemeConfig['nav'] = [
     items: [
       { text: 'FAQ', link: '/about/faq' },
       { text: '팀', link: '/about/team' },
-      { text: '릴리즈', link: '/about/releases' },
+      { text: '릴리스', link: '/about/releases' },
       {
         text: '커뮤니티 가이드',
         link: '/about/community-guide'

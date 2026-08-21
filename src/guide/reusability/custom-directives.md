@@ -21,11 +21,11 @@ const vHighlight = {
 
 ## 소개 {#introduction}
 
-코어에 기본적으로 포함된 디렉티브 집합(예: `v-model` 또는 `v-show`) 외에도, Vue는 사용자 정의 커스텀 디렉티브를 등록할 수 있도록 지원합니다.
+코어에 기본적으로 포함된 디렉티브(directive) 집합(예: `v-model` 또는 `v-show`) 외에도, Vue는 사용자 정의 커스텀 디렉티브를 등록할 수 있도록 지원합니다.
 
-Vue에서는 두 가지 형태의 코드 재사용을 도입했습니다: [컴포넌트](/guide/essentials/component-basics)와 [컴포저블](./composables)입니다. 컴포넌트는 주요 빌딩 블록이며, 컴포저블은 상태 기반 로직의 재사용에 중점을 둡니다. 반면, 커스텀 디렉티브는 일반적으로 일반 엘리먼트에서 저수준 DOM 접근이 필요한 로직을 재사용할 때 주로 사용됩니다.
+Vue에서는 두 가지 형태의 코드 재사용을 도입했습니다: [컴포넌트(component)](/guide/essentials/component-basics)와 [컴포저블(composable)](./composables)입니다. 컴포넌트는 주요 빌딩 블록이며, 컴포저블은 상태 기반 로직의 재사용에 중점을 둡니다. 반면, 커스텀 디렉티브는 일반적으로 일반 엘리먼트에서 저수준 DOM 접근이 필요한 로직을 재사용할 때 주로 사용됩니다.
 
-커스텀 디렉티브는 컴포넌트의 라이프사이클 훅과 유사한 라이프사이클 훅을 포함하는 객체로 정의됩니다. 훅은 디렉티브가 바인딩된 엘리먼트를 인자로 받습니다. 다음은 Vue가 DOM에 엘리먼트를 삽입할 때 클래스가 추가되는 디렉티브의 예시입니다:
+커스텀 디렉티브는 컴포넌트의 라이프사이클(lifecycle) 훅과 유사한 라이프사이클 훅을 포함하는 객체로 정의됩니다. 훅(hook)은 디렉티브가 바인딩(binding)된 엘리먼트를 인자로 받습니다. 다음은 Vue가 DOM에 엘리먼트를 삽입할 때 클래스가 추가되는 디렉티브의 예시입니다:
 
 <div class="composition-api">
 
@@ -73,7 +73,7 @@ export default {
 
 <div class="composition-api">
 
-`<script setup>`에서는 `v` 접두사로 시작하는 카멜케이스 변수는 커스텀 디렉티브로 사용할 수 있습니다. 위 예시에서 `vHighlight`는 템플릿에서 `v-highlight`로 사용할 수 있습니다.
+`<script setup>`에서는 `v` 접두사로 시작하는 카멜케이스 변수는 커스텀 디렉티브로 사용할 수 있습니다. 위 예시에서 `vHighlight`는 템플릿(template)에서 `v-highlight`로 사용할 수 있습니다.
 
 `<script setup>`을 사용하지 않는 경우, 커스텀 디렉티브는 `directives` 옵션을 사용하여 등록할 수 있습니다:
 
@@ -160,7 +160,7 @@ export default {
 
 이 디렉티브는 `autofocus` 속성보다 더 유용합니다. 왜냐하면 페이지 로드 시뿐만 아니라, Vue가 엘리먼트를 동적으로 삽입할 때도 동작하기 때문입니다!
 
-내장 디렉티브(예: `v-bind`)를 사용한 선언적 템플릿 작성이 가능하다면, 더 효율적이고 서버 렌더링에도 친화적이므로 이를 권장합니다.
+내장 디렉티브(예: `v-bind`)를 사용한 선언적 템플릿 작성이 가능하다면, 더 효율적이고 서버 렌더링(rendering)에도 친화적이므로 이를 권장합니다.
 
 ## 디렉티브 훅 {#directive-hooks}
 
@@ -202,7 +202,7 @@ const myDirective = {
   - `oldValue`: 이전 값으로, `beforeUpdate`와 `updated`에서만 사용 가능합니다. 값이 변경되지 않았더라도 항상 제공됩니다.
   - `arg`: 디렉티브에 전달된 인자(있는 경우). 예를 들어 `v-my-directive:foo`에서 arg는 `"foo"`입니다.
   - `modifiers`: 수정자가 있는 경우, 이를 포함하는 객체입니다. 예를 들어 `v-my-directive.foo.bar`에서 modifiers 객체는 `{ foo: true, bar: true }`입니다.
-  - `instance`: 디렉티브가 사용된 컴포넌트의 인스턴스입니다.
+  - `instance`: 디렉티브가 사용된 컴포넌트의 인스턴스(instance)입니다.
   - `dir`: 디렉티브 정의 객체입니다.
 
 - `vnode`: 바인딩된 엘리먼트를 나타내는 내부 VNode입니다.

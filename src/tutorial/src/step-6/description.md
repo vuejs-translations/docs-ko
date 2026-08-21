@@ -1,6 +1,6 @@
-# 조건부 렌더링 {#conditional-rendering}
+# 조건부 렌더링(rendering) {#conditional-rendering}
 
-`v-if` 디렉티브를 사용하여 요소를 조건부로 렌더링할 수 있습니다:
+`v-if` 디렉티브(directive)를 사용하여 요소를 조건부로 렌더링할 수 있습니다:
 
 ```vue-html
 <h1 v-if="awesome">Vue는 멋져요!</h1>

@@ -5,7 +5,7 @@ pageClass: api
 # 내장 컴포넌트 {#built-in-components}
 
 :::info 등록 및 사용법
-내장 컴포넌트는 등록 없이 템플릿에서 바로 사용할 수 있습니다. 또한 트리 셰이킹이 가능합니다. 즉, 사용된 경우에만 빌드에 포함됩니다.
+내장 컴포넌트는 등록 없이 템플릿(template)에서 바로 사용할 수 있습니다. 또한 트리 셰이킹(tree-shaking)이 가능합니다. 즉, 사용된 경우에만 빌드에 포함됩니다.
 
 [렌더 함수](/guide/extras/render-function)에서 사용할 때는 명시적으로 import 해야 합니다. 예시:
 
@@ -21,7 +21,7 @@ h(Transition, {
 
 ## `<Transition>` {#transition}
 
-**하나의** 요소 또는 컴포넌트에 애니메이션 전환 효과를 제공합니다.
+**하나의** 요소 또는 컴포넌트(component)에 애니메이션 전환 효과를 제공합니다.
 
 - **Props**
 
@@ -156,7 +156,7 @@ h(Transition, {
 
 - **상세 설명**
 
-  기본적으로 `<TransitionGroup>`은 래퍼 DOM 요소를 렌더링하지 않지만, `tag` prop을 통해 정의할 수 있습니다.
+  기본적으로 `<TransitionGroup>`은 래퍼 DOM 요소를 렌더링(rendering)하지 않지만, `tag` prop을 통해 정의할 수 있습니다.
 
   `<transition-group>` 내의 모든 자식은 애니메이션이 제대로 동작하려면 [**고유한 key**](/guide/essentials/list#maintaining-state-with-key)가 있어야 합니다.
 
@@ -203,11 +203,11 @@ h(Transition, {
 
 - **상세 설명**
 
-  동적 컴포넌트를 감쌀 때, `<KeepAlive>`는 비활성 컴포넌트 인스턴스를 파괴하지 않고 캐시합니다.
+  동적 컴포넌트를 감쌀 때, `<KeepAlive>`는 비활성 컴포넌트 인스턴스(instance)를 파괴하지 않고 캐시합니다.
 
   한 번에 `<KeepAlive>`의 직접 자식으로는 하나의 활성 컴포넌트 인스턴스만 존재할 수 있습니다.
 
-  `<KeepAlive>` 내부에서 컴포넌트가 토글될 때, 해당 컴포넌트의 `activated` 및 `deactivated` 라이프사이클 훅이 호출됩니다. 이는 `mounted`와 `unmounted`의 대안으로, 이 둘은 호출되지 않습니다. 이 동작은 `<KeepAlive>`의 직접 자식뿐만 아니라 모든 하위 컴포넌트에도 적용됩니다.
+  `<KeepAlive>` 내부에서 컴포넌트가 토글될 때, 해당 컴포넌트의 `activated` 및 `deactivated` 라이프사이클(lifecycle) 훅(hook)이 호출됩니다. 이는 `mounted`와 `unmounted`의 대안으로, 이 둘은 호출되지 않습니다. 이 동작은 `<KeepAlive>`의 직접 자식뿐만 아니라 모든 하위 컴포넌트에도 적용됩니다.
 
 - **예시**
 
@@ -269,7 +269,7 @@ h(Transition, {
 
 ## `<Teleport>` {#teleport}
 
-슬롯 콘텐츠를 DOM의 다른 위치에 렌더링합니다.
+슬롯(slot) 콘텐츠를 DOM의 다른 위치에 렌더링합니다.
 
 - **Props**
 

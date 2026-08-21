@@ -1,4 +1,4 @@
-# 선언적 렌더링 {#declarative-rendering}
+# 선언적 렌더링(rendering) {#declarative-rendering}
 
 <div class="sfc">
 
@@ -6,7 +6,7 @@
 
 </div>
 
-Vue의 핵심 기능은 **선언적 렌더링**입니다. HTML을 확장한 템플릿 문법을 사용하여, JavaScript 상태에 따라 HTML이 어떻게 보여야 하는지 설명할 수 있습니다. 상태가 변경되면 HTML도 자동으로 업데이트됩니다.
+Vue의 핵심 기능은 **선언적 렌더링**입니다. HTML을 확장한 템플릿(template) 문법을 사용하여, JavaScript 상태에 따라 HTML이 어떻게 보여야 하는지 설명할 수 있습니다. 상태가 변경되면 HTML도 자동으로 업데이트됩니다.
 
 <div class="composition-api">
 
@@ -38,7 +38,7 @@ message.value = 'Changed'
 
 <div class="sfc">
 
-컴포넌트의 `<script setup>` 블록에서 선언된 반응형 상태는 템플릿에서 직접 사용할 수 있습니다. 이렇게 하면 `counter` 객체와 `message` ref의 값을 기반으로 동적 텍스트를 머스태시 문법으로 렌더링할 수 있습니다:
+컴포넌트의 `<script setup>` 블록에서 선언된 반응형 상태는 템플릿에서 직접 사용할 수 있습니다. 이렇게 하면 `counter` 객체와 `message` ref의 값을 기반으로 동적 텍스트를 이중 중괄호(mustache) 문법으로 렌더링할 수 있습니다:
 
 </div>
 
@@ -57,7 +57,7 @@ setup() {
 }
 ```
 
-반환된 객체의 속성들은 템플릿에서 사용할 수 있게 됩니다. 이렇게 하면 `message`의 값을 기반으로 머스태시 문법을 사용해 동적 텍스트를 렌더링할 수 있습니다:
+반환된 객체의 속성들은 템플릿에서 사용할 수 있게 됩니다. 이렇게 하면 `message`의 값을 기반으로 이중 중괄호(mustache) 문법을 사용해 동적 텍스트를 렌더링할 수 있습니다:
 
 </div>
 
@@ -103,7 +103,7 @@ createApp({
 
 </div>
 
-`message` 속성은 템플릿에서 사용할 수 있게 됩니다. 이렇게 하면 `message`의 값을 기반으로 머스태시 문법을 사용해 동적 텍스트를 렌더링할 수 있습니다:
+`message` 속성은 템플릿에서 사용할 수 있게 됩니다. 이렇게 하면 `message`의 값을 기반으로 이중 중괄호(mustache) 문법을 사용해 동적 텍스트를 렌더링할 수 있습니다:
 
 ```vue-html
 <h1>{{ message }}</h1>
@@ -111,7 +111,7 @@ createApp({
 
 </div>
 
-머스태시 내부의 내용은 식별자나 경로에만 국한되지 않습니다. 어떤 유효한 JavaScript 표현식도 사용할 수 있습니다:
+이중 중괄호 내부의 내용은 식별자나 경로에만 국한되지 않습니다. 어떤 유효한 JavaScript 표현식도 사용할 수 있습니다:
 
 ```vue-html
 <h1>{{ message.split('').reverse().join('') }}</h1>

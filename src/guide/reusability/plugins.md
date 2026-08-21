@@ -2,7 +2,7 @@
 
 ## 소개 {#introduction}
 
-플러그인은 일반적으로 Vue에 앱 수준의 기능을 추가하는 독립적인 코드입니다. 플러그인을 설치하는 방법은 다음과 같습니다:
+플러그인(plugin)은 일반적으로 Vue에 앱 수준의 기능을 추가하는 독립적인 코드입니다. 플러그인을 설치하는 방법은 다음과 같습니다:
 
 ```js
 import { createApp } from 'vue'
@@ -14,7 +14,7 @@ app.use(myPlugin, {
 })
 ```
 
-플러그인은 `install()` 메서드를 노출하는 객체이거나, 설치 함수 자체로 동작하는 함수로 정의됩니다. 설치 함수는 [앱 인스턴스](/api/application)와 함께, `app.use()`에 전달된 추가 옵션(있을 경우)을 받습니다:
+플러그인은 `install()` 메서드를 노출하는 객체이거나, 설치 함수 자체로 동작하는 함수로 정의됩니다. 설치 함수는 [앱 인스턴스(instance)](/api/application)와 함께, `app.use()`에 전달된 추가 옵션(있을 경우)을 받습니다:
 
 ```js
 const myPlugin = {
@@ -26,7 +26,7 @@ const myPlugin = {
 
 플러그인에 엄격하게 정의된 범위는 없지만, 플러그인이 유용한 일반적인 시나리오는 다음과 같습니다:
 
-1. 하나 이상의 전역 컴포넌트 또는 커스텀 디렉티브를 [`app.component()`](/api/application#app-component) 및 [`app.directive()`](/api/application#app-directive)로 등록합니다.
+1. 하나 이상의 전역 컴포넌트(component) 또는 커스텀 디렉티브(directive)를 [`app.component()`](/api/application#app-component) 및 [`app.directive()`](/api/application#app-directive)로 등록합니다.
 
 2. [`app.provide()`](/api/application#app-provide)를 호출하여 앱 전체에서 [주입 가능한](/guide/components/provide-inject) 리소스를 만듭니다.
 
@@ -48,7 +48,7 @@ export default {
 }
 ```
 
-번역 함수를 만들고자 합니다. 이 함수는 점으로 구분된 `key` 문자열을 받아, 사용자로부터 제공받은 옵션에서 번역된 문자열을 찾아 반환합니다. 템플릿에서의 사용 예시는 다음과 같습니다:
+번역 함수를 만들고자 합니다. 이 함수는 점으로 구분된 `key` 문자열을 받아, 사용자로부터 제공받은 옵션에서 번역된 문자열을 찾아 반환합니다. 템플릿(template)에서의 사용 예시는 다음과 같습니다:
 
 ```vue-html
 <h1>{{ $translate('greetings.hello') }}</h1>
@@ -133,6 +133,6 @@ export default {
 
 </div>
 
-### NPM용 번들링 {#bundle-for-npm}
+### NPM용 번들링(bundling) {#bundle-for-npm}
 
 플러그인을 빌드하여 다른 사람들이 사용할 수 있도록 배포하고 싶다면, [Vite의 라이브러리 모드 섹션](https://vite.dev/guide/build.html#library-mode)을 참고하세요.

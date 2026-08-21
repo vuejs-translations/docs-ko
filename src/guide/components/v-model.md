@@ -6,7 +6,7 @@
 
 ## 기본 사용법 {#basic-usage}
 
-`v-model`은 컴포넌트에서 양방향 바인딩을 구현하는 데 사용할 수 있습니다.
+`v-model`은 컴포넌트(component)에서 양방향 바인딩(binding)을 구현하는 데 사용할 수 있습니다.
 
 <div class="composition-api">
 
@@ -128,7 +128,7 @@ const myRef = ref()
 <input v-model="searchText" />
 ```
 
-내부적으로, 템플릿 컴파일러는 `v-model`을 더 장황한 동등 코드로 확장합니다. 따라서 위 코드는 다음과 동일합니다:
+내부적으로, 템플릿(template) 컴파일러는 `v-model`을 더 장황한 동등 코드로 확장합니다. 따라서 위 코드는 다음과 동일합니다:
 
 ```vue-html
 <input
@@ -287,7 +287,7 @@ export default {
 
 ## 다중 `v-model` 바인딩 {#multiple-v-model-bindings}
 
-[`v-model` 인자](#v-model-arguments)에서 배운 대로, 특정 prop과 이벤트를 지정하는 기능을 활용하여, 이제 하나의 컴포넌트 인스턴스에 여러 개의 `v-model` 바인딩을 만들 수 있습니다.
+[`v-model` 인자](#v-model-arguments)에서 배운 대로, 특정 prop과 이벤트를 지정하는 기능을 활용하여, 이제 하나의 컴포넌트 인스턴스(instance)에 여러 개의 `v-model` 바인딩을 만들 수 있습니다.
 
 각 `v-model`은 별도의 prop과 동기화되며, 컴포넌트에 추가 옵션이 필요하지 않습니다:
 

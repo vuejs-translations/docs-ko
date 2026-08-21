@@ -10,15 +10,15 @@ Vue는 자체적으로 TypeScript로 작성되었으며, 일급 TypeScript 지�
 
 ## 프로젝트 설정 {#project-setup}
 
-[`create-vue`](https://github.com/vuejs/create-vue)는 공식 프로젝트 스캐폴딩 도구로, [Vite](https://vite.dev/) 기반의 TypeScript 준비가 완료된 Vue 프로젝트를 스캐폴딩할 수 있는 옵션을 제공합니다.
+[`create-vue`](https://github.com/vuejs/create-vue)는 공식 프로젝트 스캐폴딩(scaffolding) 도구로, [Vite](https://vite.dev/) 기반의 TypeScript 준비가 완료된 Vue 프로젝트를 스캐폴딩할 수 있는 옵션을 제공합니다.
 
 ### 개요 {#overview}
 
-Vite 기반 설정에서는 개발 서버와 번들러가 트랜스파일만 수행하며 타입 체크는 하지 않습니다. 이를 통해 TypeScript를 사용할 때에도 Vite 개발 서버의 속도가 매우 빠르게 유지됩니다.
+Vite 기반 설정에서는 개발 서버와 번들러(bundler)가 트랜스파일(transpile)만 수행하며 타입 체크는 하지 않습니다. 이를 통해 TypeScript를 사용할 때에도 Vite 개발 서버의 속도가 매우 빠르게 유지됩니다.
 
 - 개발 중에는 타입 오류에 대한 즉각적인 피드백을 위해 좋은 [IDE 설정](#ide-support)에 의존하는 것을 권장합니다.
 
-- SFC를 사용하는 경우, 커맨드라인 타입 체크 및 타입 선언 생성을 위해 [`vue-tsc`](https://github.com/vuejs/language-tools/tree/master/packages/tsc) 유틸리티를 사용하세요. `vue-tsc`는 TypeScript의 커맨드라인 인터페이스인 `tsc`의 래퍼입니다. TypeScript 파일뿐만 아니라 Vue SFC도 지원한다는 점을 제외하면 `tsc`와 거의 동일하게 동작합니다. `vue-tsc`를 워치 모드로 Vite 개발 서버와 병렬로 실행하거나, [vite-plugin-checker](https://vite-plugin-checker.netlify.app/)와 같은 Vite 플러그인을 사용해 별도의 워커 스레드에서 체크를 실행할 수 있습니다.
+- SFC를 사용하는 경우, 커맨드라인 타입 체크 및 타입 선언 생성을 위해 [`vue-tsc`](https://github.com/vuejs/language-tools/tree/master/packages/tsc) 유틸리티를 사용하세요. `vue-tsc`는 TypeScript의 커맨드라인 인터페이스인 `tsc`의 래퍼입니다. TypeScript 파일뿐만 아니라 Vue SFC도 지원한다는 점을 제외하면 `tsc`와 거의 동일하게 동작합니다. `vue-tsc`를 워치 모드로 Vite 개발 서버와 병렬로 실행하거나, [vite-plugin-checker](https://vite-plugin-checker.netlify.app/)와 같은 Vite 플러그인(plugin)을 사용해 별도의 워커 스레드에서 체크를 실행할 수 있습니다.
 
 - Vue CLI도 TypeScript를 지원하지만, 더 이상 권장되지 않습니다. [아래 참고 사항](#note-on-vue-cli-and-ts-loader)을 확인하세요.
 
@@ -42,7 +42,7 @@ Vite 기반 설정에서는 개발 서버와 번들러가 트랜스파일만 수
 
 - [`compilerOptions.isolatedModules`](https://www.typescriptlang.org/tsconfig#isolatedModules)는 `true`로 설정되어 있습니다. 이는 Vite가 TypeScript 트랜스파일에 [esbuild](https://esbuild.github.io/)를 사용하며, 단일 파일 트랜스파일의 한계가 있기 때문입니다. [`compilerOptions.verbatimModuleSyntax`](https://www.typescriptlang.org/tsconfig#verbatimModuleSyntax)는 [`isolatedModules`](https://github.com/microsoft/TypeScript/issues/53601)의 상위 집합으로, [`@vue/tsconfig`](https://github.com/vuejs/tsconfig)에서 사용하는 좋은 선택지입니다.
 
-- Options API를 사용하는 경우, [`compilerOptions.strict`](https://www.typescriptlang.org/tsconfig#strict)를 `true`로(또는 최소한 `strict` 플래그의 일부인 [`compilerOptions.noImplicitThis`](https://www.typescriptlang.org/tsconfig#noImplicitThis)를 활성화) 설정해야 컴포넌트 옵션에서 `this`의 타입 체크를 활용할 수 있습니다. 그렇지 않으면 `this`가 `any`로 처리됩니다.
+- Options API를 사용하는 경우, [`compilerOptions.strict`](https://www.typescriptlang.org/tsconfig#strict)를 `true`로(또는 최소한 `strict` 플래그의 일부인 [`compilerOptions.noImplicitThis`](https://www.typescriptlang.org/tsconfig#noImplicitThis)를 활성화) 설정해야 컴포넌트(component) 옵션에서 `this`의 타입 체크를 활용할 수 있습니다. 그렇지 않으면 `this`가 `any`로 처리됩니다.
 
 - 빌드 도구에서 리졸버 별칭을 설정한 경우, 예를 들어 `create-vue` 프로젝트에서 기본으로 설정된 `@/*` 별칭 등, TypeScript에서도 [`compilerOptions.paths`](https://www.typescriptlang.org/tsconfig#paths)를 통해 별칭을 설정해야 합니다.
 
@@ -111,7 +111,7 @@ export default defineComponent({
 
 참고:
 
-- [webpack 트리쉐이킹 참고 사항](/api/general#note-on-webpack-treeshaking)
+- [webpack 트리 셰이킹(tree-shaking) 참고 사항](/api/general#note-on-webpack-treeshaking)
 - [`defineComponent` 타입 테스트](https://github.com/vuejs/core/blob/main/packages-private/dts-test/defineComponent.test-d.tsx)
 
 :::tip
@@ -120,7 +120,7 @@ export default defineComponent({
 
 ### 싱글 파일 컴포넌트에서의 사용 {#usage-in-single-file-components}
 
-SFC에서 TypeScript를 사용하려면 `<script>` 태그에 `lang="ts"` 속성을 추가하세요. `lang="ts"`가 있으면 모든 템플릿 표현식에도 더 엄격한 타입 체크가 적용됩니다.
+SFC에서 TypeScript를 사용하려면 `<script>` 태그에 `lang="ts"` 속성을 추가하세요. `lang="ts"`가 있으면 모든 템플릿(template) 표현식에도 더 엄격한 타입 체크가 적용됩니다.
 
 ```vue
 <script lang="ts">
@@ -159,7 +159,7 @@ const count = ref(1)
 
 ### 템플릿에서의 TypeScript {#typescript-in-templates}
 
-`<script lang="ts">` 또는 `<script setup lang="ts">`를 사용할 때 `<template>`에서도 바인딩 표현식에 TypeScript를 사용할 수 있습니다. 이는 템플릿 표현식에서 타입 캐스팅이 필요한 경우 유용합니다.
+`<script lang="ts">` 또는 `<script setup lang="ts">`를 사용할 때 `<template>`에서도 바인딩(binding) 표현식에 TypeScript를 사용할 수 있습니다. 이는 템플릿 표현식에서 타입 캐스팅이 필요한 경우 유용합니다.
 
 다음은 인위적인 예시입니다:
 

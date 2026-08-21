@@ -1,6 +1,6 @@
 # 클래스와 스타일 바인딩 {#class-and-style-bindings}
 
-데이터 바인딩에서 흔히 필요한 것은 엘리먼트의 클래스 목록과 인라인 스타일을 조작하는 것입니다. `class`와 `style`은 모두 속성이기 때문에, 다른 속성들과 마찬가지로 `v-bind`를 사용해 문자열 값을 동적으로 할당할 수 있습니다. 하지만 이러한 값을 문자열 결합으로 생성하려고 하면 번거롭고 오류가 발생하기 쉽습니다. 이런 이유로 Vue는 `v-bind`를 `class`와 `style`에 사용할 때 특별한 기능을 제공합니다. 문자열뿐만 아니라, 해당 표현식이 객체나 배열로 평가될 수도 있습니다.
+데이터 바인딩(binding)에서 흔히 필요한 것은 엘리먼트의 클래스 목록과 인라인 스타일을 조작하는 것입니다. `class`와 `style`은 모두 속성이기 때문에, 다른 속성들과 마찬가지로 `v-bind`를 사용해 문자열 값을 동적으로 할당할 수 있습니다. 하지만 이러한 값을 문자열 결합으로 생성하려고 하면 번거롭고 오류가 발생하기 쉽습니다. 이런 이유로 Vue는 `v-bind`를 `class`와 `style`에 사용할 때 특별한 기능을 제공합니다. 문자열뿐만 아니라, 해당 표현식이 객체나 배열로 평가될 수도 있습니다.
 
 ## HTML 클래스 바인딩 {#binding-html-classes}
 
@@ -22,7 +22,7 @@
 
 위의 문법은 `active` 클래스의 존재 여부가 데이터 속성 `isActive`의 [truthiness](https://developer.mozilla.org/en-US/docs/Glossary/Truthy)에 의해 결정됨을 의미합니다.
 
-객체에 더 많은 필드를 추가하여 여러 클래스를 토글할 수 있습니다. 또한, `:class` 디렉티브는 일반 `class` 속성과 함께 사용할 수도 있습니다. 다음과 같은 상태가 있다고 가정해봅시다:
+객체에 더 많은 필드를 추가하여 여러 클래스를 토글할 수 있습니다. 또한, `:class` 디렉티브(directive)는 일반 `class` 속성과 함께 사용할 수도 있습니다. 다음과 같은 상태가 있다고 가정해봅시다:
 
 <div class="composition-api">
 
@@ -46,7 +46,7 @@ data() {
 
 </div>
 
-그리고 다음과 같은 템플릿이 있다고 할 때:
+그리고 다음과 같은 템플릿(template)이 있다고 할 때:
 
 ```vue-html
 <div
@@ -55,7 +55,7 @@ data() {
 ></div>
 ```
 
-렌더링 결과는 다음과 같습니다:
+렌더링(rendering) 결과는 다음과 같습니다:
 
 ```vue-html
 <div class="static active"></div>
@@ -194,7 +194,7 @@ data() {
 
 ### 컴포넌트와 함께 사용하기 {#with-components}
 
-> 이 섹션은 [컴포넌트](/guide/essentials/component-basics)에 대한 지식을 전제로 합니다. 건너뛰고 나중에 다시 와도 괜찮습니다.
+> 이 섹션은 [컴포넌트(component)](/guide/essentials/component-basics)에 대한 지식을 전제로 합니다. 건너뛰고 나중에 다시 와도 괜찮습니다.
 
 단일 루트 엘리먼트를 가진 컴포넌트에 `class` 속성을 사용하면, 해당 클래스들은 컴포넌트의 루트 엘리먼트에 추가되고 이미 존재하는 클래스와 병합됩니다.
 
@@ -347,7 +347,7 @@ data() {
 
 ### 자동 접두사 추가 {#auto-prefixing}
 
-`:style`에서 [벤더 접두사](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix)가 필요한 CSS 속성을 사용할 때, Vue는 적절한 접두사를 자동으로 추가합니다. Vue는 런타임에 현재 브라우저에서 어떤 스타일 속성이 지원되는지 확인하여 이를 수행합니다. 브라우저가 특정 속성을 지원하지 않으면 다양한 접두사 버전을 테스트하여 지원되는 속성을 찾으려고 시도합니다.
+`:style`에서 [벤더(vendor) 접두사](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix)가 필요한 CSS 속성을 사용할 때, Vue는 적절한 접두사를 자동으로 추가합니다. Vue는 런타임에 현재 브라우저에서 어떤 스타일 속성이 지원되는지 확인하여 이를 수행합니다. 브라우저가 특정 속성을 지원하지 않으면 다양한 접두사 버전을 테스트하여 지원되는 속성을 찾으려고 시도합니다.
 
 ### 여러 값 {#multiple-values}
 

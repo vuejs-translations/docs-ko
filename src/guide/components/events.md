@@ -20,7 +20,7 @@ if (typeof window !== 'undefined') {
 
 # 컴포넌트 이벤트 {#component-events}
 
-> 이 페이지는 이미 [컴포넌트 기본](/guide/essentials/component-basics)을 읽었다고 가정합니다. 컴포넌트가 처음이라면 먼저 해당 내용을 읽으세요.
+> 이 페이지는 이미 [컴포넌트 기본](/guide/essentials/component-basics)을 읽었다고 가정합니다. 컴포넌트(component)가 처음이라면 먼저 해당 내용을 읽으세요.
 
 <div class="options-api">
   <VueSchoolLink href="https://vueschool.io/lessons/defining-custom-events-emits" title="사용자 정의 이벤트 정의에 대한 무료 Vue.js 강의"/>
@@ -28,7 +28,7 @@ if (typeof window !== 'undefined') {
 
 ## 이벤트 발생 및 리스닝 {#emitting-and-listening-to-events}
 
-컴포넌트는 내장된 `$emit` 메서드를 사용하여 템플릿 표현식(예: `v-on` 핸들러)에서 직접 커스텀 이벤트를 발생시킬 수 있습니다:
+컴포넌트는 내장된 `$emit` 메서드를 사용하여 템플릿(template) 표현식(예: `v-on` 핸들러)에서 직접 커스텀 이벤트를 발생시킬 수 있습니다:
 
 ```vue-html
 <!-- MyComponent -->
@@ -37,7 +37,7 @@ if (typeof window !== 'undefined') {
 
 <div class="options-api">
 
-`$emit()` 메서드는 컴포넌트 인스턴스에서 `this.$emit()`으로도 사용할 수 있습니다:
+`$emit()` 메서드는 컴포넌트 인스턴스(instance)에서 `this.$emit()`으로도 사용할 수 있습니다:
 
 ```js
 export default {
@@ -57,7 +57,7 @@ export default {
 <MyComponent @some-event="callback" />
 ```
 
-컴포넌트 이벤트 리스너에서도 `.once` 수식어(modifier)를 사용할 수 있습니다:
+컴포넌트 이벤트 리스너(listener)에서도 `.once` 수식어(modifier)를 사용할 수 있습니다:
 
 ```vue-html
 <MyComponent @some-event.once="callback" />

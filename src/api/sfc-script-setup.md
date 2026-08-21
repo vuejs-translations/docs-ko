@@ -2,9 +2,9 @@
 
 `<script setup>`은 싱글 파일 컴포넌트(SFC) 내에서 Composition API를 사용할 때의 컴파일 타임 문법 설탕입니다. SFC와 Composition API를 모두 사용하는 경우 권장되는 문법입니다. 일반 `<script>` 문법에 비해 여러 가지 장점이 있습니다:
 
-- 보일러플레이트가 적고 더 간결한 코드
+- 보일러플레이트(boilerplate)가 적고 더 간결한 코드
 - 순수 TypeScript로 props와 emit 이벤트 선언 가능
-- 더 나은 런타임 성능(템플릿이 중간 프록시 없이 동일한 스코프의 렌더 함수로 컴파일됨)
+- 더 나은 런타임 성능(템플릿이 중간 프록시(proxy) 없이 동일한 스코프의 렌더 함수로 컴파일됨)
 - 더 나은 IDE 타입 추론 성능(코드에서 타입을 추출하는 언어 서버의 작업량 감소)
 
 ## 기본 문법 {#basic-syntax}
@@ -17,11 +17,11 @@ console.log('hello script setup')
 </script>
 ```
 
-내부 코드는 컴포넌트의 `setup()` 함수의 내용으로 컴파일됩니다. 즉, 일반 `<script>`와 달리, `<script setup>` 내부의 코드는 **컴포넌트 인스턴스가 생성될 때마다 실행**됩니다(일반 `<script>`는 컴포넌트가 처음 import될 때 한 번만 실행됨).
+내부 코드는 컴포넌트(component)의 `setup()` 함수의 내용으로 컴파일됩니다. 즉, 일반 `<script>`와 달리, `<script setup>` 내부의 코드는 **컴포넌트 인스턴스(instance)가 생성될 때마다 실행**됩니다(일반 `<script>`는 컴포넌트가 처음 import될 때 한 번만 실행됨).
 
 ### 최상위 바인딩은 템플릿에 노출됨 {#top-level-bindings-are-exposed-to-template}
 
-`<script setup>`을 사용할 때, `<script setup>` 내부에 선언된 모든 최상위 바인딩(변수, 함수 선언, import 등)은 템플릿에서 직접 사용할 수 있습니다:
+`<script setup>`을 사용할 때, `<script setup>` 내부에 선언된 모든 최상위 바인딩(변수, 함수 선언, import 등)은 템플릿(template)에서 직접 사용할 수 있습니다:
 
 ```vue
 <script setup>
@@ -85,7 +85,7 @@ import MyComponent from './MyComponent.vue'
 
 ### 동적 컴포넌트 {#dynamic-components}
 
-컴포넌트가 문자열 키로 등록되는 것이 아니라 변수로 참조되기 때문에, `<script setup>` 내부에서 동적 컴포넌트를 사용할 때는 동적 `:is` 바인딩을 사용해야 합니다:
+컴포넌트가 문자열 키로 등록되는 것이 아니라 변수로 참조되기 때문에, `<script setup>` 내부에서 동적 컴포넌트를 사용할 때는 동적 `:is` 바인딩(binding)을 사용해야 합니다:
 
 ```vue
 <script setup>
@@ -129,7 +129,7 @@ import * as Form from './form-components'
 
 ## 커스텀 디렉티브 사용하기 {#using-custom-directives}
 
-전역 등록된 커스텀 디렉티브는 평소처럼 동작합니다. 로컬 커스텀 디렉티브는 `<script setup>`에서 명시적으로 등록할 필요가 없지만, `vNameOfDirective`라는 네이밍 규칙을 따라야 합니다:
+전역 등록된 커스텀 디렉티브(directive)는 평소처럼 동작합니다. 로컬 커스텀 디렉티브는 `<script setup>`에서 명시적으로 등록할 필요가 없지만, `vNameOfDirective`라는 네이밍 규칙을 따라야 합니다:
 
 ```vue
 <script setup>
@@ -173,7 +173,7 @@ const emit = defineEmits(['change', 'delete'])
 
 - `defineProps`와 `defineEmits`는 전달된 옵션을 기반으로 올바른 타입 추론을 제공합니다.
 
-- `defineProps`와 `defineEmits`에 전달된 옵션은 setup 바깥의 모듈 스코프로 호이스팅됩니다. 따라서 옵션은 setup 스코프에서 선언된 로컬 변수를 참조할 수 없습니다. 그렇게 하면 컴파일 에러가 발생합니다. 하지만 import된 바인딩은 모듈 스코프에 있으므로 참조할 수 있습니다.
+- `defineProps`와 `defineEmits`에 전달된 옵션은 setup 바깥의 모듈 스코프로 호이스팅(hoisting)됩니다. 따라서 옵션은 setup 스코프에서 선언된 로컬 변수를 참조할 수 없습니다. 그렇게 하면 컴파일 에러가 발생합니다. 하지만 import된 바인딩은 모듈 스코프에 있으므로 참조할 수 있습니다.
 
 ### 타입 전용 props/emit 선언<sup class="vt-badge ts" /> {#type-only-props-emit-declarations}
 
@@ -407,7 +407,7 @@ defineOptions({
 
 - 3.3+에서만 지원
 
-이 매크로는 슬롯 이름과 props 타입 체크를 위한 IDE 타입 힌트를 제공하는 데 사용할 수 있습니다.
+이 매크로는 슬롯(slot) 이름과 props 타입 체크를 위한 IDE 타입 힌트를 제공하는 데 사용할 수 있습니다.
 
 `defineSlots()`는 타입 파라미터만 받고 런타임 인자는 받지 않습니다. 타입 파라미터는 속성 키가 슬롯 이름이고, 값 타입이 슬롯 함수인 타입 리터럴이어야 합니다. 함수의 첫 번째 인자는 슬롯이 받을 props이며, 이 타입이 템플릿에서 슬롯 props로 사용됩니다. 반환 타입은 현재 무시되며 any가 될 수 있지만, 향후 슬롯 내용 체크에 활용될 수 있습니다.
 
@@ -440,7 +440,7 @@ const attrs = useAttrs()
 
 `<script setup>`은 일반 `<script>`와 함께 사용할 수 있습니다. 일반 `<script>`가 필요한 경우는 다음과 같습니다:
 
-- `<script setup>`에서 표현할 수 없는 옵션 선언(예: `inheritAttrs` 또는 플러그인으로 활성화된 커스텀 옵션, 3.3+에서는 [`defineOptions`](/api/sfc-script-setup#defineoptions)로 대체 가능)
+- `<script setup>`에서 표현할 수 없는 옵션 선언(예: `inheritAttrs` 또는 플러그인(plugin)으로 활성화된 커스텀 옵션, 3.3+에서는 [`defineOptions`](/api/sfc-script-setup#defineoptions)로 대체 가능)
 - 명명된 export 선언
 - 한 번만 실행되어야 하는 부수 효과 실행 또는 객체 생성
 

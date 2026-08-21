@@ -16,7 +16,7 @@
 
   TypeScript를 사용할 때, key는 `InjectionKey`로 캐스팅된 심볼일 수 있습니다. `InjectionKey`는 Vue에서 제공하는 유틸리티 타입으로, `Symbol`을 확장하며 `provide()`와 `inject()` 간의 값 타입을 동기화하는 데 사용할 수 있습니다.
 
-  라이프사이클 훅 등록 API와 유사하게, `provide()`는 컴포넌트의 `setup()` 단계에서 동기적으로 호출되어야 합니다.
+  라이프사이클(lifecycle) 훅 등록 API와 유사하게, `provide()`는 컴포넌트(component)의 `setup()` 단계에서 동기적으로 호출되어야 합니다.
 
 - **예시**
 
@@ -70,7 +70,7 @@
 
   두 번째 인자는 값 생성 비용이 큰 경우 값을 반환하는 팩토리 함수가 될 수도 있습니다. 이 경우, 세 번째 인자로 `true`를 전달하여 해당 함수가 값 자체가 아닌 팩토리로 사용되어야 함을 나타내야 합니다.
 
-  라이프사이클 훅 등록 API와 유사하게, `inject()`는 컴포넌트의 `setup()` 단계에서 동기적으로 호출되어야 합니다.
+  라이프사이클 훅(hook) 등록 API와 유사하게, `inject()`는 컴포넌트의 `setup()` 단계에서 동기적으로 호출되어야 합니다.
 
   TypeScript를 사용할 때, key는 `InjectionKey` 타입일 수 있습니다. `InjectionKey`는 Vue에서 제공하는 유틸리티 타입으로, `Symbol`을 확장하며 `provide()`와 `inject()` 간의 값 타입을 동기화하는 데 사용할 수 있습니다.
 
