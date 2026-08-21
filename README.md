@@ -11,7 +11,7 @@ pnpm i
 pnpm run dev
 ```
 
-이 프로젝트는 코드에서 선택적 체이닝과 같은 새로운 JavaScript 기능을 사용하기 때문에 Node.js가 `v18` 이상이어야 합니다.  코어팩을 활성화하는 것이 좋습니다:
+이 프로젝트를 실행하려면 Node.js가 `v20` 이상이어야 합니다. 코어팩을 활성화하는 것이 좋습니다:
 
 ```bash
 corepack enable

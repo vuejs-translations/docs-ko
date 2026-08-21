@@ -13,7 +13,7 @@ const { page } = useData()
 type Source = 'url-query' | 'url-header' | 'default'
 let source: Source | false =
   inBrowser && localStorage.getItem(preferCompositionKey) === null
-    ? 'default'
+    ? 'default' as Source
     : false
 
 if (inBrowser) {
@@ -104,7 +104,7 @@ function dismiss() {
           일부 페이지에는 선택한 API 스타일에 따라 다른 콘텐츠가 포함되어 있습니다. API 스타일 간에 전환하려면 이 스위치를 사용합니다.
         </p>
       </template>
-      <template v-if="source && source.startsWith('url')">
+      <template v-else-if="source && source.startsWith('url')">
         <p>
           {{ preferComposition ? 'Composition' : 'Options' }} API에 대한 내용을 보여주고 있습니다. 이유는
           {{

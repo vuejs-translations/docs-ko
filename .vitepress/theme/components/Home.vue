@@ -85,21 +85,21 @@ onMounted(load)
 
   <section id="highlights" class="vt-box-container">
     <div class="vt-box">
-      <h2>접근성</h2>
-      <p>
-        HTML,CSS, 자바스크립트 표준을 기반으로, 쓰기 편한 API와 최고 수준의 문서를 제공합니다.
-      </p>
-    </div>
-    <div class="vt-box">
-      <h2>고성능</h2>
-      <p>
-        진정한 반응형(Reactive) 구조를 갖춘 컴파일러 최적화 렌더링 시스템으로, 수동 최적화가 거의 필요하지 않습니다.
-      </p>
-    </div>
-    <div class="vt-box">
-      <h2>유연성</h2>
+      <h2>다재다능함</h2>
       <p>
         풍부하고 점진적으로 도입할 수 있는 생태계로, 라이브러리부터 완전한 기능을 갖춘 프레임워크까지 확장할 수 있습니다.
+      </p>
+    </div>
+    <div class="vt-box">
+      <h2>사용자 친화적</h2>
+      <p>
+        HTML, CSS, 자바스크립트 표준을 기반으로, 쓰기 편한 API와 최고 수준의 문서를 제공합니다.
+      </p>
+    </div>
+    <div class="vt-box">
+      <h2>효율성</h2>
+      <p>
+        진정한 반응형(Reactive) 구조를 갖춘 컴파일러 최적화 렌더링 시스템으로, 수동 최적화가 거의 필요하지 않습니다.
       </p>
     </div>
   </section>

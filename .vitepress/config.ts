@@ -14,12 +14,13 @@ import {
 const nav: ThemeConfig['nav'] = [
   {
     text: '문서',
-    activeMatch: `^/(guide|style-guide|cookbook|examples)/`,
+    activeMatch: `^/(guide|tutorial|examples|api|glossary|error-reference)/`,
     items: [
+      { text: '빠른 시작', link: '/guide/quick-start' },
       { text: '가이드', link: '/guide/introduction' },
       { text: '튜토리얼', link: '/tutorial/' },
       { text: '예제', link: '/examples/' },
-      { text: '빠른 시작', link: '/guide/quick-start' },
+      { text: 'API', link: '/api/' },
       // { text: '스타일 가이드', link: '/style-guide/' },
       { text: '용어집', link: '/glossary/' },
       { text: '에러 참조', link: '/error-reference/' },
@@ -34,11 +35,6 @@ const nav: ThemeConfig['nav'] = [
     ]
   },
   {
-    text: 'API',
-    activeMatch: `^/api/`,
-    link: '/api/'
-  },
-  {
     text: '플레이그라운드',
     link: 'https://play.vuejs.org'
   },
@@ -49,10 +45,12 @@ const nav: ThemeConfig['nav'] = [
       {
         text: '리소스',
         items: [
-          { text: '파트너', link: '/partners/' },
-          { text: '개발자', link: '/developers/' },
           { text: '테마', link: '/ecosystem/themes' },
           { text: 'UI 컴포넌트', link: 'https://ui-libs.vercel.app/' },
+          {
+            text: '플러그인 모음',
+            link: 'https://www.vue-plugins.org/'
+          },
           {
             text: '인증서',
             link: 'https://certificates.dev/vuejs/?ref=vuejs-nav'
@@ -100,7 +98,7 @@ const nav: ThemeConfig['nav'] = [
         text: '뉴스',
         items: [
           { text: '블로그', link: 'https://blog.vuejs.org/' },
-          { text: '트위터', link: 'https://twitter.com/vuejs' },
+          { text: '트위터', link: 'https://x.com/vuejs' },
           { text: '이벤트', link: 'https://events.vuejs.org/' },
           { text: '뉴스레터', link: '/ecosystem/newsletters' }
         ]
@@ -127,16 +125,11 @@ const nav: ThemeConfig['nav'] = [
     ]
   },
   {
-    text: '스폰서',
-    link: '/sponsor/'
-  },
-  {
-    text: '전문가',
-    badge: { text: 'NEW' },
-    activeMatch: `^/(partners|developers)/`,
+    text: '지원',
+    activeMatch: `^/(sponsor|partners)/`,
     items: [
-      { text: '파트너', link: '/partners/' },
-      { text: '개발자', link: '/developers/', badge: { text: 'NEW' } }
+      { text: '스폰서', link: '/sponsor/' },
+      { text: '파트너', link: '/partners/' }
     ]
   }
 ]
@@ -186,7 +179,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
           link: '/guide/essentials/event-handling'
         },
         { text: '폼 입력 바인딩', link: '/guide/essentials/forms' },
-        { text: '워처', link: '/guide/essentials/watchers' },
+        { text: '감시자(Watchers)', link: '/guide/essentials/watchers' },
         { text: '템플릿 ref', link: '/guide/essentials/template-refs' },
         {
           text: '컴포넌트 기초',
@@ -647,7 +640,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     [
       'script',
       {
-        src: 'https://vueschool.io/banner.js?affiliate=vuejs&type=top',
+        src: 'https://media.bitterbrains.com/main.js?from=vuejs&type=top',
         async: 'true'
       }
     ]
@@ -684,6 +677,11 @@ export default defineConfigWithTheme<ThemeConfig>({
         link: 'https://fr.vuejs.org',
         text: 'Français',
         repo: 'https://github.com/vuejs-translations/docs-fr'
+      },
+      {
+        link: 'https://de.vuejs.org',
+        text: 'Deutsch',
+        repo: 'https://github.com/vuejs-translations/docs-de'
       },
       {
         link: 'https://ko.vuejs.org',
@@ -754,7 +752,7 @@ export default defineConfigWithTheme<ThemeConfig>({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/' },
-      { icon: 'twitter', link: 'https://twitter.com/vuejs' },
+      { icon: 'twitter', link: 'https://x.com/vuejs' },
       { icon: 'discord', link: 'https://discord.com/invite/vue' }
     ],
 
