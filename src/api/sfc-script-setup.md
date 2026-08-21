@@ -51,7 +51,7 @@ import { capitalize } from './helpers'
 </template>
 ```
 
-## 반응성 {#reactivity}
+## 반응성(reactivity) {#reactivity}
 
 반응형 상태는 [반응성 API](./reactivity-core)를 사용해 명시적으로 생성해야 합니다. `setup()` 함수에서 반환된 값과 마찬가지로, ref는 템플릿에서 참조할 때 자동으로 언래핑됩니다:
 
@@ -199,9 +199,9 @@ const emit = defineEmits<{
 
 - `defineProps` 또는 `defineEmits`는 런타임 선언 또는 타입 선언 중 하나만 사용할 수 있습니다. 둘을 동시에 사용하면 컴파일 에러가 발생합니다.
 
-- 타입 선언을 사용할 때, 동적 분석을 통해 동등한 런타임 선언이 자동으로 생성되어 중복 선언 없이도 올바른 런타임 동작을 보장합니다.
+- 타입 선언을 사용할 때, 정적 분석을 통해 동등한 런타임 선언이 자동으로 생성되어 중복 선언 없이도 올바른 런타임 동작을 보장합니다.
 
-  - 개발 모드에서는 컴파일러가 타입에서 해당 런타임 유효성 검사를 추론하려고 시도합니다. 예를 들어 여기서 `foo: string` 타입은 `foo: String`으로 추론됩니다. 타입이 import된 타입을 참조하는 경우, 컴파일러가 외부 파일 정보를 알 수 없으므로 추론 결과는 `foo: null`(즉, any 타입과 동일)입니다.
+  - 개발 모드에서는 컴파일러가 타입에서 해당 런타임 유효성 검사를 추론하려고 시도합니다. 예를 들어 여기서 `foo: string` 타입은 `foo: String`으로 추론됩니다. TypeScript가 peer dependency로 설치되어 있다면, import된 타입도 해석됩니다.
 
   - 프로덕션 모드에서는 번들 크기를 줄이기 위해 배열 형식 선언이 생성됩니다(여기서 props는 `['foo', 'bar']`로 컴파일됨).
 
@@ -314,6 +314,7 @@ const myRef = ref()
 </template>
 ```
 
+또한 `defineProps`에 `withDefaults`를 사용할 때와 마찬가지로, `defineModel`에서도 배열이나 객체 같은 변경 가능한 참조 타입의 기본값은 의도하지 않은 수정과 외부 부작용을 방지하기 위해 함수로 감싸서 지정해야 합니다.
 :::
 
 ### 수정자와 변환기 {#modifiers-and-transformers}
@@ -422,7 +423,7 @@ const slots = defineSlots<{
 
 ## `useSlots()` & `useAttrs()` {#useslots-useattrs}
 
-`<script setup>` 내부에서 `slots`와 `attrs`를 사용할 일은 드물지만, 템플릿에서는 `$slots`와 `$attrs`로 직접 접근할 수 있습니다. 드물게 필요할 경우 각각 `useSlots`와 `useAttrs` 헬퍼를 사용하세요:
+템플릿에서는 `$slots`와 `$attrs`로 직접 접근할 수 있으므로, `<script setup>` 내부에서 `slots`와 `attrs`를 사용할 일은 비교적 드뭅니다. 드물게 필요할 경우 각각 `useSlots`와 `useAttrs` 헬퍼를 사용하세요:
 
 ```vue
 <script setup>

@@ -6,7 +6,7 @@ const { x, y } = useMouse()
 </script>
 
 :::tip
-이 섹션은 Composition API에 대한 기본 지식을 전제로 합니다. 만약 Options API만으로 Vue를 학습해왔다면, 왼쪽 사이드바 상단의 토글을 사용해 API Preference를 Composition API로 설정하고 [반응성의 기초](/guide/essentials/reactivity-fundamentals) 및 [생명주기 훅](/guide/essentials/lifecycle) 챕터를 다시 읽어보세요.
+이 섹션은 Composition API에 대한 기본 지식을 전제로 합니다. 만약 Options API만으로 Vue를 학습해왔다면, 왼쪽 사이드바 상단의 토글을 사용해 API Preference를 Composition API로 설정하고 [반응성(reactivity)의 기초](/guide/essentials/reactivity-fundamentals) 및 [생명주기 훅](/guide/essentials/lifecycle) 챕터를 다시 읽어보세요.
 :::
 
 ## "컴포저블"이란? {#what-is-a-composable}
@@ -246,7 +246,7 @@ export function useFetch(url) {
 
 ### 입력 인자 {#input-arguments}
 
-컴포저블은 반응성을 위해 ref나 getter 인자를 받지 않더라도 이를 입력값으로 받을 수 있습니다. 다른 개발자가 사용할 수 있는 컴포저블을 작성할 때는 입력 인자가 원시 값이 아닌 ref나 getter일 수도 있음을 처리하는 것이 좋습니다. 이를 위해 [`toValue()`](/api/reactivity-utilities#tovalue) 유틸리티 함수를 사용할 수 있습니다:
+컴포저블은 반응성을 위해 ref나 getter 인자에 의존하지 않더라도 이를 인자로 받을 수 있습니다. 다른 개발자가 사용할 수 있는 컴포저블을 작성할 때는 입력 인자가 원시 값이 아닌 ref나 getter일 수도 있음을 처리하는 것이 좋습니다. 이를 위해 [`toValue()`](/api/reactivity-utilities#tovalue) 유틸리티 함수를 사용할 수 있습니다:
 
 ```js
 import { toValue } from 'vue'
@@ -302,7 +302,7 @@ Mouse position is at: {{ mouse.x }}, {{ mouse.y }}
 
 1. 생명주기 훅을 등록할 수 있습니다.
 
-2. 계산 속성과 watcher를 인스턴스에 연결하여, 인스턴스가 언마운트될 때 이들이 해제되어 메모리 누수를 방지할 수 있습니다.
+2. watcher를 인스턴스에 연결하여, 인스턴스가 언마운트될 때 watcher가 해제되어 메모리 누수를 방지할 수 있습니다.
 
 :::tip
 `<script setup>`은 `await` 사용 **이후**에도 컴포저블을 호출할 수 있는 유일한 곳입니다. 컴파일러가 비동기 작업 이후에도 활성 인스턴스 컨텍스트를 자동으로 복원해줍니다.
@@ -364,7 +364,7 @@ Vue 2에서 온 사용자라면 [믹스인](/api/options-composition#mixins) 옵
 
 ### 렌더리스 컴포넌트와의 비교 {#vs-renderless-components}
 
-컴포넌트 슬롯 챕터에서, 스코프 슬롯을 기반으로 한 [렌더리스 컴포넌트](/guide/components/slots#renderless-components) 패턴을 논의했습니다. 마우스 추적 데모도 렌더리스 컴포넌트로 구현한 바 있습니다.
+컴포넌트 슬롯 챕터에서, 스코프 슬롯(scoped slots)을 기반으로 한 [렌더리스 컴포넌트](/guide/components/slots#renderless-components) 패턴을 논의했습니다. 마우스 추적 데모도 렌더리스 컴포넌트로 구현한 바 있습니다.
 
 컴포저블이 렌더리스 컴포넌트보다 가지는 주요 이점은, 컴포저블은 추가적인 컴포넌트 인스턴스 오버헤드가 없다는 점입니다. 전체 애플리케이션에서 렌더리스 컴포넌트 패턴을 사용할 경우, 생성되는 추가 컴포넌트 인스턴스의 양이 성능 오버헤드로 이어질 수 있습니다.
 

@@ -131,7 +131,7 @@
 
 ## computed {#computed}
 
-컴포넌트 인스턴스에 노출할 계산된 속성을 선언합니다.
+컴포넌트 인스턴스에 노출할 계산된 속성(computed property)을 선언합니다.
 
 - **타입**
 
@@ -144,7 +144,8 @@
 
   type ComputedGetter<T> = (
     this: ComponentPublicInstance,
-    vm: ComponentPublicInstance
+    vm: ComponentPublicInstance,
+    previous?: T
   ) => T
 
   type ComputedSetter<T> = (
@@ -291,9 +292,9 @@
 
   루트 레벨 속성 외에도, 키는 점(.)으로 구분된 경로(`a.b.c`)일 수도 있습니다. 이 사용법은 **복잡한 표현식은 지원하지 않으며** 점으로 구분된 경로만 지원합니다. 복잡한 데이터 소스를 감시해야 한다면, 명령형 [`$watch()`](/api/component-instance#watch) API를 사용하세요.
 
-  값은 메서드 이름(문자열), 콜백 함수, 또는 추가 옵션이 포함된 객체일 수 있습니다. 객체 문법을 사용할 때 콜백은 `handler` 필드에 선언해야 합니다. 추가 옵션은 다음과 같습니다:
+  값은 (`methods`를 통해 선언된) 메서드 이름의 문자열이거나, 추가 옵션이 포함된 객체일 수도 있습니다. 객체 문법을 사용할 때 콜백은 `handler` 필드에 선언해야 합니다. 추가 옵션은 다음과 같습니다:
 
-  - **`immediate`**: 감시자가 생성될 때 즉시 콜백을 트리거합니다. 첫 호출 시 이전 값은 `undefined`입니다.
+  - **`immediate`**: 감시자(watcher)가 생성될 때 즉시 콜백을 트리거합니다. 첫 호출 시 이전 값은 `undefined`입니다.
   - **`deep`**: 소스가 객체나 배열인 경우 깊은 탐색을 강제하여, 깊은 변경에도 콜백이 실행됩니다. [깊은 감시자](/guide/essentials/watchers#deep-watchers) 참고.
   - **`flush`**: 콜백의 실행 타이밍을 조정합니다. [콜백 플러시 타이밍](/guide/essentials/watchers#callback-flush-timing) 및 [`watchEffect()`](/api/reactivity-core#watcheffect) 참고.
   - **`onTrack / onTrigger`**: 감시자의 의존성 디버깅. [감시자 디버깅](/guide/extras/reactivity-in-depth#watcher-debugging) 참고.

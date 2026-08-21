@@ -12,7 +12,7 @@ outline: deep
 
 ## 반응형 상태 선언하기 \* {#declaring-reactive-state}
 
-Options API에서는 컴포넌트의 반응형 상태를 선언하기 위해 `data` 옵션을 사용합니다. 이 옵션의 값은 객체를 반환하는 함수여야 합니다. Vue는 새로운 컴포넌트 인스턴스를 생성할 때 이 함수를 호출하고, 반환된 객체를 반응성 시스템으로 감쌉니다. 이 객체의 최상위 속성들은 컴포넌트 인스턴스(`methods`와 라이프사이클 훅에서의 `this`)에 프록시됩니다:
+Options API에서는 컴포넌트의 반응형 상태를 선언하기 위해 `data` 옵션을 사용합니다. 이 옵션의 값은 객체를 반환하는 함수여야 합니다. Vue는 새로운 컴포넌트 인스턴스를 생성할 때 이 함수를 호출하고, 반환된 객체를 반응성(reactivity) 시스템으로 감쌉니다. 이 객체의 최상위 속성들은 컴포넌트 인스턴스(`methods`와 라이프사이클 훅에서의 `this`)에 프록시됩니다:
 
 ```js{2-6}
 export default {
@@ -580,7 +580,7 @@ export default {
 export default {
   created() {
     // 이제 각 인스턴스마다 디바운스 핸들러의 복사본을 가집니다
-    this.debouncedClick = _.debounce(this.click, 500)
+    this.debouncedClick = debounce(this.click, 500)
   },
   unmounted() {
     // 컴포넌트가 제거될 때

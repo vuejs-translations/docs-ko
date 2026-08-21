@@ -1,6 +1,6 @@
 # 라이프사이클과 템플릿 ref {#lifecycle-and-template-refs}
 
-지금까지 Vue는 반응성과 선언적 렌더링 덕분에 모든 DOM 업데이트를 자동으로 처리해주었습니다. 하지만, 결국에는 DOM을 수동으로 다루어야 하는 경우가 생기기 마련입니다.
+지금까지 Vue는 반응성(reactivity)과 선언적 렌더링 덕분에 모든 DOM 업데이트를 자동으로 처리해주었습니다. 하지만, 결국에는 DOM을 수동으로 다루어야 하는 경우가 생기기 마련입니다.
 
 **템플릿 ref** - 즉, 템플릿 내의 요소에 대한 참조 - 를 요청하려면 <a target="_blank" href="/api/built-in-special-attributes.html#ref">특수 `ref` 속성</a>을 사용할 수 있습니다:
 

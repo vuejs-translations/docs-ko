@@ -347,7 +347,7 @@ h(Transition, {
 
   `<Suspense>`는 두 개의 슬롯을 받습니다: `#default` 슬롯과 `#fallback` 슬롯. 기본 슬롯을 메모리에서 렌더링하는 동안 fallback 슬롯의 내용을 표시합니다.
 
-  기본 슬롯을 렌더링하는 동안 비동기 의존성([비동기 컴포넌트](/guide/components/async) 및 [`async setup()`](/guide/built-ins/suspense#async-setup)이 있는 컴포넌트를 만나면, 모든 의존성이 해결될 때까지 기본 슬롯을 표시하지 않습니다.
+  기본 슬롯을 렌더링하는 동안 비동기 의존성([비동기 컴포넌트](/guide/components/async) 및 [`async setup()`](/guide/built-ins/suspense#async-setup)이 있는 컴포넌트)을 만나면, 모든 의존성이 해결될 때까지 기본 슬롯을 표시하지 않습니다.
 
   Suspense를 `suspensible`로 설정하면, 모든 비동기 의존성 처리가 부모 Suspense에 의해 처리됩니다. [구현 세부사항](https://github.com/vuejs/core/pull/6736) 참고
 

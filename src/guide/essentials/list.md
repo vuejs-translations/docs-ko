@@ -250,7 +250,7 @@ data() {
 
 이렇게 하고 싶어지는 일반적인 두 가지 경우가 있습니다:
 
-- 리스트에서 항목을 필터링할 때(예: `v-for="user in users" v-if="user.isActive"`). 이 경우, `users`를 필터링된 리스트(예: `activeUsers`)를 반환하는 새로운 계산 속성으로 대체하세요.
+- 리스트에서 항목을 필터링할 때(예: `v-for="user in users" v-if="user.isActive"`). 이 경우, `users`를 필터링된 리스트(예: `activeUsers`)를 반환하는 새로운 계산 속성(computed property)으로 대체하세요.
 
 - 리스트가 숨겨져야 할 때 렌더링을 피하고 싶을 때(예: `v-for="user in users" v-if="shouldShowUsers"`). 이 경우, `v-if`를 컨테이너 요소(예: `ul`, `ol`)로 옮기세요.
 :::
@@ -353,7 +353,7 @@ this.items = this.items.filter((item) => item.message.match(/Foo/))
 
 </div>
 
-이렇게 하면 Vue가 기존 DOM을 버리고 전체 리스트를 다시 렌더링할 것이라고 생각할 수 있지만, 다행히도 그렇지 않습니다. Vue는 DOM 요소 재사용을 극대화하기 위한 스마트한 휴리스틱을 구현하고 있으므로, 중첩된 객체가 포함된 배열을 다른 배열로 교체하는 작업도 매우 효율적으로 처리됩니다.
+이렇게 하면 Vue가 기존 DOM을 버리고 전체 리스트를 다시 렌더링할 것이라고 생각할 수 있지만, 다행히도 그렇지 않습니다. Vue는 DOM 요소 재사용을 극대화하기 위한 스마트한 휴리스틱을 구현하고 있으므로, 기존 배열과 겹치는 객체들이 포함된 다른 배열로 교체하는 작업도 매우 효율적으로 처리됩니다.
 
 ## 필터링/정렬된 결과 표시하기 {#displaying-filtered-sorted-results}
 

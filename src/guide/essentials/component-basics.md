@@ -6,7 +6,7 @@
 
 컴포넌트를 사용하면 UI를 독립적이고 재사용 가능한 조각으로 분할하고, 각 조각을 개별적으로 생각할 수 있습니다. 앱이 중첩된 컴포넌트의 트리 구조로 구성되는 것이 일반적입니다:
 
-![컴포넌트 트리](./images/components.png)
+![루트 컴포넌트가 여러 자식 컴포넌트와 중첩된 하위 자식 컴포넌트로 가지를 뻗는 컴포넌트 트리 구조를 보여주는 다이어그램](./images/components.png)
 
 <!-- https://www.figma.com/file/qa7WHDQRWuEZNRs7iZRZSI/components -->
 
@@ -539,7 +539,7 @@ Something bad happened.
 
 `is` 속성을 사용해 일반 HTML 요소를 생성할 수도 있습니다.
 
-`<component :is="...">`로 여러 컴포넌트 간 전환 시, 전환된 컴포넌트는 언마운트됩니다. 비활성 컴포넌트를 "살려두려면" 내장 [`<KeepAlive>` 컴포넌트](/guide/built-ins/keep-alive)를 사용할 수 있습니다.
+`<component :is="...">`로 여러 컴포넌트 간 전환 시, 다른 컴포넌트로 전환되어 화면에서 사라지는 컴포넌트는 언마운트됩니다. 비활성 컴포넌트를 "살려두려면" 내장 [`<KeepAlive>` 컴포넌트](/guide/built-ins/keep-alive)를 사용할 수 있습니다.
 
 ## in-DOM 템플릿 파싱 주의사항 {#in-dom-template-parsing-caveats}
 

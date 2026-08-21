@@ -211,7 +211,7 @@
   console.log(state.foo) // 3
   ```
 
-  `toRefs`는 컴포저블 함수에서 반응형 객체를 반환할 때, 소비하는 컴포넌트가 반환된 객체를 구조 분해/스프레드해도 반응성을 잃지 않도록 할 때 유용합니다:
+  `toRefs`는 컴포저블 함수에서 반응형 객체를 반환할 때, 소비하는 컴포넌트가 반환된 객체를 구조 분해/스프레드해도 반응성(reactivity)을 잃지 않도록 할 때 유용합니다:
 
   ```js
   function useFeatureX() {
@@ -262,4 +262,14 @@
 
   ```ts
   function isReadonly(value: unknown): boolean
+  ```
+
+## isShallow() {#isshallow}
+
+객체가 [`shallowRef`](./reactivity-advanced#shallowref), [`shallowReactive()`](./reactivity-advanced#shallowreactive) 또는 [`shallowReadonly()`](./reactivity-advanced#shallowreadonly)로 생성된 프록시인지 확인합니다.
+
+- **타입**
+
+  ```ts
+  function isShallow(value: unknown): boolean
   ```

@@ -54,7 +54,7 @@ const props = defineProps<Props>()
 </script>
 ```
 
-`Props`가 외부 소스에서 import된 경우에도 동작합니다. 이 기능은 TypeScript가 Vue의 peer dependency로 필요합니다.
+`Props`가 상대 경로 import, 경로 별칭(예: `@/types`), 외부 의존성(예: `node_modules`) 등 다른 파일에서 import된 경우에도 동작합니다. 이 기능은 TypeScript가 Vue의 peer dependency로 필요합니다.
 
 ```vue
 <script setup lang="ts">
@@ -375,7 +375,7 @@ const foo = inject('foo') as string
 
 ## 템플릿 ref 타입 지정하기 {#typing-template-refs}
 
-Vue 3.5와 `@vue/language-tools` 2.1(IDE 언어 서비스와 `vue-tsc` 모두 지원)에서는 SFC에서 `useTemplateRef()`로 생성된 ref의 타입이, 해당 `ref` 속성이 사용된 요소를 기반으로 **자동 추론**될 수 있습니다.
+Vue 3.5와 `@vue/language-tools` 2.1(IDE 언어 서비스와 `vue-tsc` 모두 지원)에서는 SFC에서 `useTemplateRef()`로 생성된 ref의 타입이, 정적 ref의 경우 해당 `ref` 속성이 사용된 요소를 기반으로 **자동 추론**될 수 있습니다.
 
 자동 추론이 불가능한 경우, 여전히 제네릭 인자를 통해 템플릿 ref를 명시적으로 타입 캐스팅할 수 있습니다:
 
@@ -412,7 +412,7 @@ onMounted(() => {
 
 ## 컴포넌트 템플릿 ref 타입 지정하기 {#typing-component-template-refs}
 
-Vue 3.5와 `@vue/language-tools` 2.1(IDE 언어 서비스와 `vue-tsc` 모두 지원)에서는 SFC에서 `useTemplateRef()`로 생성된 ref의 타입이, 해당 `ref` 속성이 사용된 요소나 컴포넌트를 기반으로 **자동 추론**될 수 있습니다.
+Vue 3.5와 `@vue/language-tools` 2.1(IDE 언어 서비스와 `vue-tsc` 모두 지원)에서는 SFC에서 `useTemplateRef()`로 생성된 ref의 타입이, 정적 ref의 경우 해당 `ref` 속성이 사용된 요소나 컴포넌트를 기반으로 **자동 추론**될 수 있습니다.
 
 자동 추론이 불가능한 경우(예: SFC가 아닌 사용, 동적 컴포넌트 등)에는 여전히 제네릭 인자를 통해 템플릿 ref를 명시적으로 타입 캐스팅할 수 있습니다.
 
@@ -468,7 +468,8 @@ import { useTemplateRef } from 'vue'
 import MyGenericModal from './MyGenericModal.vue'
 import type { ComponentExposed } from 'vue-component-type-helpers'
 
-const modal = useTemplateRef<ComponentExposed<typeof MyGenericModal>>('modal')
+const modal =
+  useTemplateRef<ComponentExposed<typeof MyGenericModal>>('modal')
 
 const openModal = () => {
   modal.value?.open('newValue')
@@ -477,3 +478,41 @@ const openModal = () => {
 ```
 
 `@vue/language-tools` 2.1+에서는 정적 템플릿 ref의 타입이 자동으로 추론될 수 있으므로, 위와 같은 처리는 특수한 경우에만 필요합니다.
+
+## 전역 커스텀 디렉티브 타입 지정하기 {#typing-global-custom-directives}
+
+`app.directive()`로 선언된 전역 커스텀 디렉티브에 대한 타입 힌트와 타입 검사를 사용하려면, `GlobalDirectives`를 확장하면 됩니다.
+
+```ts [src/directives/highlight.ts]
+import type { Directive } from 'vue'
+
+export type HighlightDirective = Directive<HTMLElement, string>
+
+declare module 'vue' {
+  export interface GlobalDirectives {
+    // v 접두사를 붙입니다 (v-highlight)
+    vHighlight: HighlightDirective
+  }
+}
+
+export default {
+  mounted: (el, binding) => {
+    el.style.backgroundColor = binding.value
+  }
+} satisfies HighlightDirective
+```
+
+```ts [main.ts]
+import highlight from './directives/highlight'
+// ...다른 코드
+const app = createApp(App)
+app.directive('highlight', highlight)
+```
+
+컴포넌트에서는 다음과 같이 사용합니다:
+
+```vue [App.vue]
+<template>
+  <p v-highlight="'blue'">This sentence is important!</p>
+</template>
+```

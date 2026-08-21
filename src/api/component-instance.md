@@ -135,7 +135,7 @@
 
   각 슬롯은 해당 슬롯 이름에 해당하는 키로 `this.$slots`에 함수로 노출되며, 이 함수는 vnode 배열을 반환합니다. 기본 슬롯은 `this.$slots.default`로 노출됩니다.
 
-  슬롯이 [스코프 슬롯](/guide/components/slots#scoped-slots)인 경우, 슬롯 함수에 전달된 인자는 슬롯의 슬롯 props로 사용할 수 있습니다.
+  슬롯이 [스코프 슬롯(scoped slots)](/guide/components/slots#scoped-slots)인 경우, 슬롯 함수에 전달된 인자는 슬롯의 슬롯 props로 사용할 수 있습니다.
 
 - **참고** [렌더 함수 - 슬롯 렌더링](/guide/extras/render-function#rendering-slots)
 
@@ -158,7 +158,7 @@
 
 ## $attrs {#attrs}
 
-컴포넌트의 전달 속성(fallthrough attributes)을 포함하는 객체입니다.
+컴포넌트의 폴스루 속성(fallthrough attributes)을 포함하는 객체입니다.
 
 - **타입**
 
@@ -170,17 +170,17 @@
 
 - **세부사항**
 
-  [전달 속성](/guide/components/attrs)은 부모 컴포넌트에 의해 전달되었지만, 자식에서 prop이나 emit 이벤트로 선언되지 않은 속성과 이벤트 핸들러입니다.
+  [폴스루 속성](/guide/components/attrs)은 부모 컴포넌트에 의해 전달되었지만, 자식에서 prop이나 emit 이벤트로 선언되지 않은 속성과 이벤트 핸들러입니다.
 
   기본적으로, `$attrs`의 모든 내용은 컴포넌트에 단일 루트 엘리먼트가 있을 경우 해당 루트 엘리먼트에 자동으로 상속됩니다. 컴포넌트에 여러 루트 노드가 있으면 이 동작은 비활성화되며, [`inheritAttrs`](./options-misc#inheritattrs) 옵션으로 명시적으로 비활성화할 수 있습니다.
 
 - **참고**
 
-  - [전달 속성](/guide/components/attrs)
+  - [폴스루 속성](/guide/components/attrs)
 
 ## $watch() {#watch}
 
-감시자를 생성하는 명령형 API입니다.
+감시자(watcher)를 생성하는 명령형 API입니다.
 
 - **타입**
 
@@ -305,7 +305,7 @@
 
 - **세부사항**
 
-  Vue의 완전 자동 반응성 시스템 덕분에 이 기능이 필요할 일은 거의 없습니다. 고급 반응성 API를 사용하여 명시적으로 비반응성 컴포넌트 상태를 생성한 경우에만 필요할 수 있습니다.
+  Vue의 완전 자동 반응성(reactivity) 시스템 덕분에 이 기능이 필요할 일은 거의 없습니다. 고급 반응성 API를 사용하여 명시적으로 비반응성 컴포넌트 상태를 생성한 경우에만 필요할 수 있습니다.
 
 ## $nextTick() {#nexttick}
 

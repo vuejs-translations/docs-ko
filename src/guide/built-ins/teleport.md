@@ -150,7 +150,7 @@ const open = ref(false)
 `<Teleport>`와 [`<Transition>`](./transition)을 결합하여 애니메이션 모달을 만들 수 있습니다 - [예제 보기](/examples/#modal).
 
 :::tip
-텔레포트의 `to` 대상은 `<Teleport>` 컴포넌트가 마운트될 때 이미 DOM에 존재해야 합니다. 이상적으로는 전체 Vue 애플리케이션 외부의 요소여야 합니다. 만약 Vue가 렌더링한 다른 요소를 대상으로 한다면, 해당 요소가 `<Teleport>`보다 먼저 마운트되었는지 확인해야 합니다.
+텔레포트의 `to` 대상은 `<Teleport>` 컴포넌트가 마운트될 때 이미 DOM에 존재해야 합니다. 이상적으로는 전체 Vue 애플리케이션 외부의 요소여야 합니다. 만약 Vue가 렌더링한 다른 요소를 대상으로 한다면, 해당 요소가 `<Teleport>`보다 먼저 마운트되었는지 확인해야 합니다. SSR을 사용하고 있다면 [SSR에서 텔레포트 다루기](/guide/scaling-up/ssr#teleports)를 참고하세요.
 :::
 
 ## 컴포넌트와 함께 사용하기 {#using-with-components}

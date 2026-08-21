@@ -8,7 +8,7 @@ outline: deep
 
 ## 속성 상속 {#attribute-inheritance}
 
-"폴스루 속성"이란 컴포넌트에 전달되었지만, 해당 컴포넌트의 [props](./props)나 [emits](./events#declaring-emitted-events)에 명시적으로 선언되지 않은 속성이나 `v-on` 이벤트 리스너를 의미합니다. 일반적인 예로는 `class`, `style`, `id` 속성이 있습니다.
+"폴스루 속성(fallthrough attributes)"이란 컴포넌트에 전달되었지만, 해당 컴포넌트의 [props](./props)나 [emits](./events#declaring-emitted-events)에 명시적으로 선언되지 않은 속성이나 `v-on` 이벤트 리스너를 의미합니다. 일반적인 예로는 `class`, `style`, `id` 속성이 있습니다.
 
 컴포넌트가 하나의 루트 엘리먼트만 렌더링할 때, 폴스루 속성은 자동으로 루트 엘리먼트의 속성에 추가됩니다. 예를 들어, 다음과 같은 템플릿을 가진 `<MyButton>` 컴포넌트가 있다고 가정해봅시다:
 
@@ -175,7 +175,7 @@ export default {
 }
 ```
 
-여기서 `attrs` 객체는 항상 최신 폴스루 속성을 반영하지만(성능상의 이유로) 반응형이 아닙니다. 변경 사항을 감지하기 위해 watcher를 사용할 수 없습니다. 반응성이 필요하다면 prop을 사용하세요. 또는, 각 업데이트마다 최신 `attrs`로 부수 효과를 수행하려면 `onUpdated()`를 사용할 수 있습니다.
+여기서 `attrs` 객체는 항상 최신 폴스루 속성을 반영하지만(성능상의 이유로) 반응형이 아닙니다. 변경 사항을 감지하기 위해 watcher를 사용할 수 없습니다. 반응성(reactivity)이 필요하다면 prop을 사용하세요. 또는, 각 업데이트마다 최신 `attrs`로 부수 효과를 수행하려면 `onUpdated()`를 사용할 수 있습니다.
 
 </div>
 

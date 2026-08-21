@@ -94,7 +94,7 @@ SFC 내부의 `<style>` 태그는 개발 중에는 핫 업데이트를 지원하
 
 [SFC Playground](https://play.vuejs.org/)에서 SFC를 실험해보고 컴파일 과정을 탐색할 수 있습니다.
 
-실제 프로젝트에서는 보통 SFC 컴파일러를 [Vite](https://vitejs.dev/)나 [Vue CLI](http://cli.vuejs.org/) (이는 [webpack](https://webpack.js.org/) 기반)과 같은 빌드 도구와 통합하여 사용하며, Vue는 SFC를 최대한 빠르게 시작할 수 있도록 공식 스캐폴딩 도구를 제공합니다. 자세한 내용은 [SFC 도구](/guide/scaling-up/tooling) 섹션을 참고하세요.
+실제 프로젝트에서는 보통 SFC 컴파일러를 [Vite](https://vite.dev/)나 [Vue CLI](http://cli.vuejs.org/) (이는 [webpack](https://webpack.js.org/) 기반)과 같은 빌드 도구와 통합하여 사용하며, Vue는 SFC를 최대한 빠르게 시작할 수 있도록 공식 스캐폴딩 도구를 제공합니다. 자세한 내용은 [SFC 도구](/guide/scaling-up/tooling) 섹션을 참고하세요.
 
 ## 관심사의 분리는 어떻게 되나요? {#what-about-separation-of-concerns}
 

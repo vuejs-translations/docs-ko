@@ -38,7 +38,7 @@ Vue를 빌드 단계와 함께 사용할 때, 여러 컴파일 타임 플래그�
 
 ### Vite {#vite}
 
-`@vitejs/plugin-vue`는 이 플래그들에 대한 기본값을 자동으로 제공합니다. 기본값을 변경하려면 Vite의 [`define` 설정 옵션](https://vitejs.dev/config/shared-options.html#define)을 사용하세요:
+`@vitejs/plugin-vue`는 이 플래그들에 대한 기본값을 자동으로 제공합니다. 기본값을 변경하려면 Vite의 [`define` 설정 옵션](https://vite.dev/config/shared-options.html#define)을 사용하세요:
 
 ```js [vite.config.js]
 import { defineConfig } from 'vite'

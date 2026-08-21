@@ -229,6 +229,31 @@ Chrome DevTools에서 이 요소를 검사하여 접근 가능한 이름이 어�
 
 ![Chrome 개발자 도구에서 aria-labelledby로부터 입력의 접근 가능한 이름을 보여주는 화면](./images/AccessibleARIAlabelledbyDevTools.png)
 
+이 패턴을 재사용 가능한 컴포넌트 내부에서 사용할 때는, ID를 하드코딩하는 대신 [`useId()`](/api/composition-api-helpers.html#useid)로 생성하세요. 이렇게 하면 화면에 보이는 텍스트를 폼 컨트롤과 연결하면서도, 각 컴포넌트 인스턴스의 `id` 값을 고유하게 유지할 수 있습니다:
+
+```vue
+<script setup>
+import { useId } from 'vue'
+
+const sectionId = useId()
+const nameId = useId()
+</script>
+
+<template>
+  <section class="form-section">
+    <h2 :id="sectionId">Billing</h2>
+
+    <label :id="nameId" :for="`${nameId}-input`">Name: </label>
+    <input
+      :id="`${nameId}-input`"
+      type="text"
+      name="name"
+      :aria-labelledby="`${sectionId} ${nameId}`"
+    />
+  </section>
+</template>
+```
+
 #### `aria-describedby` {#aria-describedby}
 
 [aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby)는 `aria-labelledby`와 동일한 방식으로 사용되지만, 사용자가 필요로 할 수 있는 추가 정보를 설명하는 데 사용됩니다. 이는 입력의 기준을 설명하는 데 사용할 수 있습니다:

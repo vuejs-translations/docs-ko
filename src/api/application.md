@@ -384,7 +384,7 @@ console.log(app.config)
   - 이벤트 핸들러
   - 라이프사이클 훅
   - `setup()` 함수
-  - 워처
+  - 감시자(watchers)
   - 커스텀 디렉티브 훅
   - 트랜지션 훅
 
@@ -399,6 +399,11 @@ console.log(app.config)
     // 에러 처리, 예: 서비스에 리포트
   }
   ```
+
+- **기본값**
+
+  기본 에러 핸들러는 개발 환경에서는 에러를 다시 throw하고, 프로덕션 환경에서는 에러를 로그로 출력합니다.
+  이 동작은 [throwUnhandledErrorInProduction](#app-config-throwunhandlederrorinproduction) 속성으로 설정할 수 있습니다.
 
 ## app.config.warnHandler {#app-config-warnhandler}
 

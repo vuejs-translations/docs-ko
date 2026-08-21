@@ -39,7 +39,7 @@ h('div', { id: 'foo' })
 // Vue가 자동으로 올바른 할당 방식을 선택합니다
 h('div', { class: 'bar', innerHTML: 'hello' })
 
-// `.prop` 및 `.attr`과 같은 props 수식자는
+// `.prop` 및 `.attr`과 같은 props 수식어는
 // 각각 `.` 및 `^` 접두사로 추가할 수 있습니다
 h('div', { '.name': 'some-name', '^width': '100' })
 
@@ -216,6 +216,33 @@ function render() {
 }
 ```
 
+### `<template>`에서 Vnode 사용하기 {#using-vnodes-in-template}
+
+```vue
+<script setup>
+import { h } from 'vue'
+
+const vnode = h('button', ['Hello'])
+</script>
+
+<template>
+  <!-- <component />를 통해 사용 -->
+  <component :is="vnode">Hi</component>
+
+  <!-- 또는 엘리먼트로 직접 사용 -->
+  <vnode />
+  <vnode>Hi</vnode>
+</template>
+```
+
+`setup()`에서 vnode 객체를 선언했다면, 렌더링할 때 일반 컴포넌트처럼 사용할 수 있습니다.
+
+:::warning
+vnode는 컴포넌트 정의가 아니라 이미 생성된 렌더링 출력을 나타냅니다. `<template>`에서 vnode를 사용해도 새로운 컴포넌트 인스턴스가 생성되지 않으며, vnode는 있는 그대로 렌더링됩니다.
+
+이 패턴은 신중하게 사용해야 하며, 일반 컴포넌트를 대체하는 방법이 아닙니다.
+:::
+
 ## JSX / TSX {#jsx-tsx}
 
 [JSX](https://facebook.github.io/jsx/)는 JavaScript에 XML과 유사한 확장 문법을 제공하여 다음과 같은 코드를 작성할 수 있게 해줍니다:
@@ -381,9 +408,9 @@ h(
 </button>
 ```
 
-#### 이벤트 수식자 {#event-modifiers}
+#### 이벤트 수식어 {#event-modifiers}
 
-`.passive`, `.capture`, `.once` 이벤트 수식자는 이벤트 이름 뒤에 camelCase로 연결할 수 있습니다.
+`.passive`, `.capture`, `.once` 이벤트 수식어는 이벤트 이름 뒤에 camelCase로 연결할 수 있습니다.
 
 예시:
 
@@ -409,7 +436,7 @@ h('input', {
 />
 ```
 
-기타 이벤트 및 키 수식자의 경우, [`withModifiers`](/api/render-function#withmodifiers) 헬퍼를 사용할 수 있습니다:
+기타 이벤트 및 키 수식어의 경우, [`withModifiers`](/api/render-function#withmodifiers) 헬퍼를 사용할 수 있습니다:
 
 ```js
 import { withModifiers } from 'vue'
@@ -579,7 +606,7 @@ JSX 동등 코드:
 
 ### 스코프 슬롯 {#scoped-slots}
 
-부모 컴포넌트에서 스코프 슬롯을 렌더링하려면, 슬롯을 자식에게 전달합니다. 이제 슬롯에 `text`라는 매개변수가 있음을 주목하세요. 슬롯은 자식 컴포넌트에서 호출되며, 자식 컴포넌트의 데이터가 부모 컴포넌트로 전달됩니다.
+부모 컴포넌트에서 스코프 슬롯(scoped slots)을 렌더링하려면, 슬롯을 자식에게 전달합니다. 이제 슬롯에 `text`라는 매개변수가 있음을 주목하세요. 슬롯은 자식 컴포넌트에서 호출되며, 자식 컴포넌트의 데이터가 부모 컴포넌트로 전달됩니다.
 
 ```js
 // 부모 컴포넌트

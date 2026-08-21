@@ -219,11 +219,11 @@ methods: {
 
 </div>
 
-## 이벤트 수식자 {#event-modifiers}
+## 이벤트 수식어 {#event-modifiers}
 
 이벤트 핸들러 내부에서 `event.preventDefault()`나 `event.stopPropagation()`을 호출해야 하는 경우가 매우 흔합니다. 물론 메서드 내부에서 쉽게 할 수 있지만, 메서드가 DOM 이벤트 세부사항을 처리하지 않고 데이터 로직에만 집중할 수 있다면 더 좋을 것입니다.
 
-이 문제를 해결하기 위해 Vue는 `v-on`에 **이벤트 수식자**를 제공합니다. 수식자는 점으로 표시되는 디렉티브 접미사입니다.
+이 문제를 해결하기 위해 Vue는 `v-on`에 **이벤트 수식어**를 제공합니다. 수식어는 점으로 표시되는 디렉티브 접미사입니다.
 
 - `.stop`
 - `.prevent`
@@ -239,10 +239,10 @@ methods: {
 <!-- submit 이벤트가 더 이상 페이지를 새로고침하지 않습니다 -->
 <form @submit.prevent="onSubmit"></form>
 
-<!-- 수식자는 체이닝할 수 있습니다 -->
+<!-- 수식어는 체이닝할 수 있습니다 -->
 <a @click.stop.prevent="doThat"></a>
 
-<!-- 수식자만 사용 -->
+<!-- 수식어만 사용 -->
 <form @submit.prevent></form>
 
 <!-- event.target이 해당 엘리먼트일 때만 핸들러가 실행됩니다 -->
@@ -251,10 +251,10 @@ methods: {
 ```
 
 ::: tip
-수식자를 사용할 때는 순서가 중요합니다. 관련 코드는 같은 순서로 생성되기 때문입니다. 따라서 `@click.prevent.self`는 **해당 엘리먼트와 자식 모두에서 클릭의 기본 동작을 막고**, `@click.self.prevent`는 해당 엘리먼트에서만 클릭의 기본 동작을 막습니다.
+수식어를 사용할 때는 순서가 중요합니다. 관련 코드는 같은 순서로 생성되기 때문입니다. 따라서 `@click.prevent.self`는 **해당 엘리먼트와 자식 모두에서 클릭의 기본 동작을 막고**, `@click.self.prevent`는 해당 엘리먼트에서만 클릭의 기본 동작을 막습니다.
 :::
 
-`.capture`, `.once`, `.passive` 수식자는 [네이티브 `addEventListener` 메서드의 옵션](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#options)과 동일하게 동작합니다:
+`.capture`, `.once`, `.passive` 수식어는 [네이티브 `addEventListener` 메서드의 옵션](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#options)과 동일하게 동작합니다:
 
 ```vue-html
 <!-- 이벤트 리스너를 추가할 때 캡처 모드 사용     -->
@@ -271,22 +271,22 @@ methods: {
 <div @scroll.passive="onScroll">...</div>
 ```
 
-`.passive` 수식자는 일반적으로 [모바일 기기에서 성능 향상을 위해](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scroll_performance_using_passive_listeners) 터치 이벤트 리스너와 함께 사용됩니다.
+`.passive` 수식어는 일반적으로 [모바일 기기에서 성능 향상을 위해](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scroll_performance_using_passive_listeners) 터치 이벤트 리스너와 함께 사용됩니다.
 
 ::: tip
 `.passive`와 `.prevent`를 함께 사용하지 마세요. `.passive`는 이미 브라우저에 이벤트의 기본 동작을 막지 않을 것임을 알리므로, 함께 사용하면 브라우저에서 경고가 발생할 수 있습니다.
 :::
 
-## 키 수식자 {#key-modifiers}
+## 키 수식어 {#key-modifiers}
 
-키보드 이벤트를 리스닝할 때, 특정 키를 확인해야 하는 경우가 많습니다. Vue는 키 이벤트를 리스닝할 때 `v-on` 또는 `@`에 키 수식자를 추가할 수 있습니다:
+키보드 이벤트를 리스닝할 때, 특정 키를 확인해야 하는 경우가 많습니다. Vue는 키 이벤트를 리스닝할 때 `v-on` 또는 `@`에 키 수식어를 추가할 수 있습니다:
 
 ```vue-html
 <!-- `key`가 `Enter`일 때만 `submit` 호출 -->
 <input @keyup.enter="submit" />
 ```
 
-[`KeyboardEvent.key`](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)에서 노출되는 유효한 키 이름을 케밥 케이스로 변환하여 수식자로 직접 사용할 수 있습니다.
+[`KeyboardEvent.key`](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)에서 노출되는 유효한 키 이름을 케밥 케이스로 변환하여 수식어로 직접 사용할 수 있습니다.
 
 ```vue-html
 <input @keyup.page-down="onPageDown" />
@@ -310,7 +310,7 @@ Vue는 자주 사용되는 키에 대해 별칭을 제공합니다:
 
 ### 시스템 수정 키 {#system-modifier-keys}
 
-다음 수식자를 사용하여 해당 수정 키가 눌렸을 때만 마우스 또는 키보드 이벤트 리스너가 트리거되도록 할 수 있습니다:
+다음 수식어를 사용하여 해당 수정 키가 눌렸을 때만 마우스 또는 키보드 이벤트 리스너가 트리거되도록 할 수 있습니다:
 
 - `.ctrl`
 - `.alt`
@@ -335,9 +335,9 @@ Macintosh 키보드에서 meta는 command 키(⌘)입니다. Windows 키보드�
 수정 키는 일반 키와 다르며, `keyup` 이벤트와 함께 사용할 때는 이벤트가 발생할 때 반드시 눌려 있어야 합니다. 즉, `keyup.ctrl`은 ctrl을 누른 상태에서 다른 키를 뗄 때만 트리거됩니다. ctrl 키만 뗄 때는 트리거되지 않습니다.
 :::
 
-### `.exact` 수식자 {#exact-modifier}
+### `.exact` 수식어 {#exact-modifier}
 
-`.exact` 수식자를 사용하면 이벤트를 트리거하는 데 필요한 시스템 수정 키의 정확한 조합을 제어할 수 있습니다.
+`.exact` 수식어를 사용하면 이벤트를 트리거하는 데 필요한 시스템 수정 키의 정확한 조합을 제어할 수 있습니다.
 
 ```vue-html
 <!-- Alt 또는 Shift가 함께 눌려도 실행됩니다 -->
@@ -350,12 +350,12 @@ Macintosh 키보드에서 meta는 command 키(⌘)입니다. Windows 키보드�
 <button @click.exact="onClick">A</button>
 ```
 
-## 마우스 버튼 수식자 {#mouse-button-modifiers}
+## 마우스 버튼 수식어 {#mouse-button-modifiers}
 
 - `.left`
 - `.right`
 - `.middle`
 
-이 수식자들은 특정 마우스 버튼으로 트리거된 이벤트에만 핸들러를 제한합니다.
+이 수식어들은 특정 마우스 버튼으로 트리거된 이벤트에만 핸들러를 제한합니다.
 
-단, `.left`, `.right`, `.middle` 수식자 이름은 일반적인 오른손잡이 마우스 레이아웃을 기준으로 하지만, 실제로는 각각 "주", "보조", "보조2" 포인팅 장치 이벤트 트리거를 의미하며, 실제 물리적 버튼과는 다를 수 있습니다. 예를 들어, 왼손잡이 마우스 레이아웃에서는 "주" 버튼이 실제로 오른쪽 버튼일 수 있지만 `.left` 수식자 핸들러가 트리거됩니다. 트랙패드의 경우 한 손가락 탭은 `.left`, 두 손가락 탭은 `.right`, 세 손가락 탭은 `.middle` 핸들러를 트리거할 수 있습니다. 이와 같이, "마우스" 이벤트를 생성하는 다른 장치나 이벤트 소스도 "left"와 "right"와는 무관한 트리거 모드를 가질 수 있습니다.
+단, `.left`, `.right`, `.middle` 수식어 이름은 일반적인 오른손잡이 마우스 레이아웃을 기준으로 하지만, 실제로는 각각 "주", "보조", "보조2" 포인팅 장치 이벤트 트리거를 의미하며, 실제 물리적 버튼과는 다를 수 있습니다. 예를 들어, 왼손잡이 마우스 레이아웃에서는 "주" 버튼이 실제로 오른쪽 버튼일 수 있지만 `.left` 수식어 핸들러가 트리거됩니다. 트랙패드의 경우 한 손가락 탭은 `.left`, 두 손가락 탭은 `.right`, 세 손가락 탭은 `.middle` 핸들러를 트리거할 수 있습니다. 이와 같이, "마우스" 이벤트를 생성하는 다른 장치나 이벤트 소스도 "left"와 "right"와는 무관한 트리거 모드를 가질 수 있습니다.

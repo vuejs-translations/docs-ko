@@ -34,7 +34,7 @@ console.log(message.value) // "Hello World!"
 message.value = 'Changed'
 ```
 
-`reactive()`와 `ref()`에 대한 자세한 내용은 <a target="_blank" href="/guide/essentials/reactivity-fundamentals.html">가이드 - 반응성 기초</a>에서 다룹니다.
+`reactive()`와 `ref()`에 대한 자세한 내용은 <a target="_blank" href="/guide/essentials/reactivity-fundamentals.html">가이드 - 반응성(reactivity) 기초</a>에서 다룹니다.
 
 <div class="sfc">
 

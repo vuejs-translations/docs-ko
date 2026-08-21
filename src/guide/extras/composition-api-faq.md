@@ -14,11 +14,11 @@ outline: deep
 
 컴포지션 API는 옵션을 선언하는 대신 가져온 함수를 사용하여 Vue 컴포넌트를 작성할 수 있게 해주는 API 집합입니다. 다음과 같은 API를 포괄하는 상위 개념입니다:
 
-- [반응성 API](/api/reactivity-core), 예: `ref()`와 `reactive()`, 이를 통해 반응형 상태, 계산된 상태, 감시자를 직접 생성할 수 있습니다.
+- [반응성(reactivity) API](/api/reactivity-core), 예: `ref()`와 `reactive()`, 이를 통해 반응형 상태, 계산된 상태, 감시자(watchers)를 직접 생성할 수 있습니다.
 
 - [생명주기 훅](/api/composition-api-lifecycle), 예: `onMounted()`와 `onUnmounted()`, 이를 통해 컴포넌트 생명주기에 프로그래밍적으로 연결할 수 있습니다.
 
-- [의존성 주입](/api/composition-api-dependency-injection), 즉 `provide()`와 `inject()`, 이를 통해 Reactivity API를 사용하면서 Vue의 의존성 주입 시스템을 활용할 수 있습니다.
+- [의존성 주입(dependency injection)](/api/composition-api-dependency-injection), 즉 `provide()`와 `inject()`, 이를 통해 Reactivity API를 사용하면서 Vue의 의존성 주입 시스템을 활용할 수 있습니다.
 
 컴포지션 API는 Vue 3와 [Vue 2.7](https://blog.vuejs.org/posts/vue-2-7-naruto.html)의 내장 기능입니다. 이전 Vue 2 버전에서는 공식적으로 관리되는 [`@vue/composition-api`](https://github.com/vuejs/composition-api) 플러그인을 사용하세요. Vue 3에서는 주로 Single-File Component에서 [`<script setup>`](/api/sfc-script-setup) 문법과 함께 사용됩니다. 다음은 컴포지션 API를 사용하는 컴포넌트의 기본 예시입니다:
 
@@ -76,7 +76,7 @@ Vue CLI의 GUI에 있는 폴더 탐색기 컴포넌트를 예로 들어보겠습
 
 동일한 논리적 관심사를 다루는 코드가 서로 다른 옵션 아래로 분리되어 파일의 여러 부분에 위치해야 하는 것을 볼 수 있습니다. 수백 줄에 달하는 컴포넌트에서 단일 논리적 관심사를 이해하고 탐색하려면 파일을 계속 위아래로 스크롤해야 하므로, 생각보다 훨씬 더 어렵습니다. 또한 논리적 관심사를 재사용 가능한 유틸리티로 추출하려고 할 때, 파일의 여러 부분에서 올바른 코드를 찾아 추출하는 데 상당한 노력이 필요합니다.
 
-다음은 [컴포지션 API로 리팩터링한 후](https://gist.github.com/yyx990803/8854f8f6a97631576c14b63c8acd8f2e)의 동일한 컴포넌트입니다:
+다음은 동일한 컴포넌트를 [컴포지션 API로 리팩터링](https://gist.github.com/yyx990803/8854f8f6a97631576c14b63c8acd8f2e)하기 전과 후의 모습입니다:
 
 ![folder component after](./images/composition-api-after.png)
 
@@ -152,7 +152,7 @@ React Hooks는 컴포넌트가 업데이트될 때마다 반복적으로 호출�
 
 - `setup()` 또는 `<script setup>` 코드를 한 번만 호출합니다. 이로 인해 오래된 클로저를 걱정할 필요가 없으므로, 코드가 관용적 JavaScript 사용 직관과 더 잘 맞습니다. 컴포지션 API 호출은 호출 순서에 민감하지 않으며, 조건부로 사용할 수 있습니다.
 
-- Vue의 런타임 반응성 시스템은 계산 속성과 감시자에서 사용된 반응형 의존성을 자동으로 수집하므로, 수동으로 의존성을 선언할 필요가 없습니다.
+- Vue의 런타임 반응성 시스템은 계산 속성(computed property)과 감시자에서 사용된 반응형 의존성을 자동으로 수집하므로, 수동으로 의존성을 선언할 필요가 없습니다.
 
 - 불필요한 자식 업데이트를 방지하기 위해 콜백 함수를 수동으로 캐시할 필요가 없습니다. 일반적으로 Vue의 세밀한 반응성 시스템은 자식 컴포넌트가 필요할 때만 업데이트되도록 보장합니다. 수동 자식 업데이트 최적화는 Vue 개발자에게 거의 걱정거리가 아닙니다.
 

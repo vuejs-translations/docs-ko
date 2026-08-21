@@ -57,7 +57,7 @@ export default {
 <MyComponent @some-event="callback" />
 ```
 
-컴포넌트 이벤트 리스너에서도 `.once` 수식어를 사용할 수 있습니다:
+컴포넌트 이벤트 리스너에서도 `.once` 수식어(modifier)를 사용할 수 있습니다:
 
 ```vue-html
 <MyComponent @some-event.once="callback" />
@@ -208,7 +208,7 @@ const emit = defineEmits<{
 </div>
 <div class="options-api">
 
-```js
+```ts
 export default {
   emits: {
     submit(payload: { email: string, password: string }) {
@@ -223,7 +223,7 @@ export default {
 
 </div>
 
-선택 사항이지만, 컴포넌트가 어떻게 동작해야 하는지 더 잘 문서화하기 위해 모든 발생시킬 이벤트를 정의하는 것이 좋습니다. 또한 Vue가 [전달 속성](/guide/components/attrs#v-on-listener-inheritance)에서 알려진 리스너를 제외할 수 있게 하여, 서드파티 코드가 수동으로 디스패치한 DOM 이벤트로 인한 예외적인 상황을 방지할 수 있습니다.
+선택 사항이지만, 컴포넌트가 어떻게 동작해야 하는지 더 잘 문서화하기 위해 모든 발생시킬 이벤트를 정의하는 것이 좋습니다. 또한 Vue가 [폴스루 속성(fallthrough attributes)](/guide/components/attrs#v-on-listener-inheritance)에서 알려진 리스너를 제외할 수 있게 하여, 서드파티 코드가 수동으로 디스패치한 DOM 이벤트로 인한 예외적인 상황을 방지할 수 있습니다.
 
 :::tip
 네이티브 이벤트(예: `click`)가 `emits` 옵션에 정의되어 있으면, 리스너는 이제 컴포넌트에서 발생시킨 `click` 이벤트만 리스닝하며, 더 이상 네이티브 `click` 이벤트에는 반응하지 않습니다.

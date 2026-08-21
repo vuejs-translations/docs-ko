@@ -21,7 +21,7 @@ Vue SFC를 사용해보려면 컴퓨터에 아무것도 설치할 필요가 없�
 
 ### Vite {#vite}
 
-[Vite](https://vitejs.dev/)는 Vue SFC를 1급으로 지원하는 가볍고 빠른 빌드 도구입니다. Vue의 저자인 Evan You가 만들었습니다!
+[Vite](https://vite.dev/)는 Vue SFC를 1급으로 지원하는 가볍고 빠른 빌드 도구입니다. Vue의 저자인 Evan You가 만들었습니다!
 
 Vite + Vue로 시작하려면 다음 명령어를 실행하세요:
 
@@ -51,7 +51,7 @@ $ bun create vue@latest
 
 이 명령어는 공식 Vue 프로젝트 스캐폴딩 도구인 [create-vue](https://github.com/vuejs/create-vue)를 설치하고 실행합니다.
 
-- Vite에 대해 더 알아보려면 [Vite 문서](https://vitejs.dev)를 참고하세요.
+- Vite에 대해 더 알아보려면 [Vite 문서](https://vite.dev/)를 참고하세요.
 - Vite 프로젝트에서 Vue 관련 동작(예: Vue 컴파일러에 옵션 전달 등)을 설정하려면 [@vitejs/plugin-vue](https://github.com/vitejs/vite-plugin-vue/tree/main/packages/plugin-vue#readme) 문서를 참고하세요.
 
 위에서 언급한 온라인 플레이그라운드 모두 Vite 프로젝트로 파일 다운로드를 지원합니다.
@@ -110,7 +110,7 @@ Vue 브라우저 개발자 도구 확장 프로그램을 사용하면 Vue 앱의
 
 주요 문서: [Vue와 TypeScript 사용하기](/guide/typescript/overview).
 
-- [Vue - Official 확장](https://github.com/vuejs/language-tools)은 `<script lang="ts">` 블록을 사용하는 SFC에 대해 타입 검사, 템플릿 표현식 및 컴포넌트 간 props 검증을 제공합니다.
+- [Vue - Official 확장](https://github.com/vuejs/language-tools)은 `<script lang="ts">` 블록을 사용하는 SFC에 대해 템플릿 표현식과 컴포넌트 간 props 검증을 포함한 타입 검사를 제공합니다.
 
 - [`vue-tsc`](https://github.com/vuejs/language-tools/tree/master/packages/tsc)를 사용하면 커맨드라인에서 동일한 타입 검사를 수행하거나 SFC용 `d.ts` 파일을 생성할 수 있습니다.
 
@@ -126,7 +126,7 @@ Vue 브라우저 개발자 도구 확장 프로그램을 사용하면 Vue 앱의
 
 ## 린팅 {#linting}
 
-Vue 팀은 SFC 전용 린팅 규칙을 지원하는 [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)와 [ESLint](https://eslint.org/) 플러그인을 유지 관리하고 있습니다.
+Vue 팀은 SFC 전용 린팅 규칙을 지원하는 [ESLint](https://eslint.org/) 플러그인인 [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)를 유지 관리하고 있습니다.
 
 이전에 Vue CLI를 사용했던 사용자는 webpack 로더를 통해 린터가 설정되는 것에 익숙할 수 있습니다. 하지만 Vite 기반 빌드 환경에서는 다음을 권장합니다:
 
@@ -186,4 +186,8 @@ webpack에서 Vue SFC 지원을 제공하는 공식 로더입니다. Vue CLI를 
 - [Vue on Codepen](https://codepen.io/pen/editor/vue)
 - [Vue on WebComponents.dev](https://webcomponents.dev/create/cevue)
 
-<!-- TODO ## Backend Framework Integrations -->
+## 백엔드 프레임워크 통합 {#backend-framework-integrations}
+
+Vue를 [Laravel](https://laravel.com/)과 함께 사용한다면, Laravel이 공식 [Vite 플러그인](https://laravel.com/docs/vite)을 제공하므로 에셋 번들링과 핫 모듈 교체(HMR)를 별도 설정 없이 바로 사용할 수 있습니다.
+
+다른 백엔드를 사용한다면, Vite의 [백엔드 통합 가이드](https://vite.dev/guide/backend-integration.html)를 참고하여 직접 연동을 설정하세요.

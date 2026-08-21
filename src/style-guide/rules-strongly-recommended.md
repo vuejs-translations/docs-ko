@@ -1,9 +1,5 @@
 # 우선순위 B 규칙: 강력히 권장 {#priority-b-rules-strongly-recommended}
 
-::: warning 주의  
-이 Vue.js 스타일 가이드는 오래된 내용이므로 검토가 필요합니다. 질문이나 제안 사항이 있다면 [이슈를 등록](https://github.com/vuejs/docs/issues/new)해 주세요.  
-:::
-
 이 규칙은 대부분의 프로젝트에서 가독성 및/또는 개발자 경험을 개선하는 것으로 밝혀졌습니다. 이 규칙을 위반해도 코드는 계속 실행되지만 위반하는 경우는 드물고 정당한 이유가 있어야 합니다.
 
 ## 컴포넌트 파일 {#component-files}
@@ -93,7 +89,7 @@ components/
 
 그러나 글로벌 상태(예: [Pinia](https://pinia.vuejs.org/) 스토어)는 **절대로** 포함하지 않습니다.
 
-특정 목적에 맞는 앨리먼트가 존재하지 않는 한(예: `BaseIcon`) 이름에 래핑하는 앨리먼트의 이름이 포함되는 경우가 많습니다(예: `BaseButton`, `BaseTable`). 보다 구체적인 컨텍스트에 대해 유사한 컴포넌트를 빌드하는 경우 거의 항상 이러한 컴포넌트를 사용하게 됩니다(예: `BaseButton`은 `ButtonSubmit`에서 사용될 수 있음).
+이러한 컴포넌트의 이름에는 래핑하는 앨리먼트의 이름이 포함되는 경우가 많지만(예: `BaseButton`, `BaseTable`), 특정 목적에 맞는 앨리먼트가 존재하지 않는 경우는 예외입니다(예: `BaseIcon`). 보다 구체적인 컨텍스트에 대해 유사한 컴포넌트를 빌드하는 경우 거의 항상 이러한 컴포넌트를 사용하게 됩니다(예: `BaseButton`은 `ButtonSubmit`에서 사용될 수 있음).
 
 이 규칙에는 몇 가지 장점이 있습니다:
 
@@ -101,23 +97,15 @@ components/
 
 - 컴포넌트 이름은 항상 여러 단어로 구성해야 하므로 이 규칙을 사용하면 간단한 컴포넌트 래퍼에 임의의 접두사(예: `MyButton`, `VueButton`)를 선택하지 않아도 됩니다.
 
-- 이러한 컴포넌트는 자주 사용되기 때문에 모든 곳에서 임포트하는 대신 전역으로 만들고 싶을 수 있습니다. 접두사를 사용하면 Webpack에서 이를 가능하게 합니다:
+- 이러한 컴포넌트는 자주 사용되기 때문에 모든 곳에서 임포트하는 대신 전역으로 만들고 싶을 수 있습니다. 접두사를 사용하면 Vite에서 이를 가능하게 합니다:
 
   ```js
-  const requireComponent = require.context(
-    './src',
-    true,
-    /Base[A-Z]\w+\.(vue|js)$/
-  )
-  requireComponent.keys().forEach(function (fileName) {
-    let baseComponentConfig = requireComponent(fileName)
-    baseComponentConfig =
-      baseComponentConfig.default || baseComponentConfig
-    const baseComponentName =
-      baseComponentConfig.name ||
-      fileName.replace(/^.+\//, '').replace(/\.\w+$/, '')
-    app.component(baseComponentName, baseComponentConfig)
-  })
+  const modules = import.meta.glob('./src/**/Base*.vue', { eager: true })
+  for (const path in modules) {
+    const config = modules[path].default
+    const name = config.name || path.match(/Base[A-Z]\w+/)[0]
+    app.component(name, config)
+  }
   ```
 
   :::
@@ -178,7 +166,7 @@ components/
    |- index.vue
 ```
 
-or:
+또는:
 
 ```
 components/
@@ -274,7 +262,7 @@ components/
 
 편집기는 일반적으로 파일을 알파벳순으로 정리하기 때문에 이제 컴포넌트 간의 모든 중요한 관계를 한 눈에 알 수 있습니다.
 
-모든 검색 컴포넌트를 "검색" 디렉토리 아래에 중첩하고 모든 설정 컴포넌트를 "설정" 디렉토리 아래에 중첩하는 등 이 문제를 다른 방식으로 해결하고 싶을 수도 있습니다. 이러한 이유로 이 접근 방식은 매우 큰 앱(예: 100개 이상의 컴포넌트)에서만 고려하는 것이 좋습니다:
+모든 검색 컴포넌트를 "검색" 디렉토리 아래에 중첩하고 모든 설정 컴포넌트를 "설정" 디렉토리 아래에 중첩하는 등 이 문제를 다른 방식으로 해결하고 싶을 수도 있습니다. 다음과 같은 이유로 이 접근 방식은 매우 큰 앱(예: 100개 이상의 컴포넌트)에서만 고려하는 것이 좋습니다:
 
 - 일반적으로 단일 `components` 디렉터리를 스크롤하는 것보다 중첩된 하위 디렉터리를 탐색하는 데 더 많은 시간이 걸립니다.
 - 이름 충돌(예: 여러 개의 `ButtonDelete.vue` 컴포넌트)로 인해 코드 편집기에서 특정 컴포넌트로 빠르게 이동하기가 더 어려워집니다.
@@ -317,7 +305,7 @@ components/
 
 자체 닫히는 컴포넌트는 콘텐츠가 없을 뿐만 아니라 콘텐츠가 없는 것으로 **의미**된다는 것을 알립니다. 책에서 빈 페이지와 "이 페이지는 의도적으로 비워 두었습니다."라고 표시된 페이지의 차이입니다. 불필요한 닫는 태그가 없는 코드도 더 깔끔해집니다.
 
-안타깝게도 HTML에서는 사용자 정의 앨리먼트가 자체적으로 닫히는 것을 허용하지 않으며, [공식적인 "무효" 앨리먼트](https://www.w3.org/TR/html/syntax.html#void-elements)만 허용합니다. 그렇기 때문에 이 전략은 Vue의 템플릿 컴파일러가 DOM보다 먼저 템플릿에 도달한 다음 DOM 사양을 준수하는 HTML을 제공할 수 있을 때만 가능합니다.
+안타깝게도 HTML에서는 사용자 정의 앨리먼트가 자체적으로 닫히는 것을 허용하지 않으며, [공식적인 "무효" 앨리먼트](https://html.spec.whatwg.org/multipage/syntax.html#void-elements)만 허용합니다. 그렇기 때문에 이 전략은 Vue의 템플릿 컴파일러가 DOM보다 먼저 템플릿에 도달한 다음 DOM 사양을 준수하는 HTML을 제공할 수 있을 때만 가능합니다.
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -355,11 +343,11 @@ components/
 
 파스칼케이스는 케밥케이스에 비해 몇 가지 장점이 있습니다:
 
-- 파스칼케이스는 자바스크립트에서도 사용되기 때문에 편집자는 템플릿에서 컴포넌트 이름을 자동 완성할 수 있습니다.
+- 파스칼케이스는 자바스크립트에서도 사용되기 때문에 편집기는 템플릿에서 컴포넌트 이름을 자동 완성할 수 있습니다.
 - `<MyComponent>`는 한 글자(하이픈)가 아닌 두 글자(대문자 두 개)의 차이가 있기 때문에 `<my-component>`보다 단일 단어 HTML 앨리먼트와 시각적으로 더 잘 구분됩니다.
 - 템플릿에서 웹 컴포넌트와 같이 Vue가 아닌 사용자 정의 앨리먼트를 사용하는 경우 파스칼 대소문자를 사용하면 Vue 컴포넌트가 명확하게 표시됩니다.
 
-안타깝게도 HTML의 대소문자를 구분하지 않기 때문에 in-DOM 템플릿은 여전히 케밥 케이스를 사용해야 합니다.
+안타깝게도 HTML은 대소문자를 구분하지 않기 때문에 in-DOM 템플릿은 여전히 케밥 케이스를 사용해야 합니다.
 
 또한 이미 케밥 케이스에 많은 투자를 했다면 HTML 규칙과의 일관성 및 모든 프로젝트에서 동일한 대소문자를 사용할 수 있는 것이 위에 나열된 장점보다 더 중요할 수 있습니다. 이러한 경우에는 **모든 곳에 케밥 케이스를 사용하는 것도 허용됩니다**.
 
@@ -396,7 +384,7 @@ components/
 <my-component></my-component>
 ```
 
-OR
+또는
 
 ```vue-html
 <!-- Everywhere -->
@@ -415,7 +403,7 @@ OR
 그러나 `app.component`를 통해 전역 컴포넌트 정의만 사용하는 애플리케이션의 경우 케밥 케이스를 사용하는 것이 좋습니다. 그 이유는 다음과 같습니다:
 
 - 자바스크립트에서 전역 컴포넌트를 참조하는 경우는 거의 없으므로 자바스크립트 규칙을 따르는 것이 덜 합리적입니다.
-- 이러한 애플리케이션에는 항상 많은 인-DOM 템플릿이 포함되며, 여기에는 [kebab-case **필수** 사용](#component-name-casing-in-templates)이 사용됩니다.
+- 이러한 애플리케이션에는 항상 많은 in-DOM 템플릿이 포함되며, 여기에서는 [케밥 케이스를 **반드시** 사용](#component-name-casing-in-templates)해야 합니다.
   :::
 
 <div class="style-example style-example-bad">
@@ -579,7 +567,7 @@ const props = defineProps({
 
 **여러 속성을 가진 앨리먼트는 여러 줄에 걸쳐 있어야 하며, 한 줄당 하나의 속성을 사용해야 합니다.**
 
-자바스크립트에서는 여러 속성을 가진 객체를 여러 줄에 걸쳐 분할하는 것이 훨씬 읽기 쉽기 때문에 좋은 관습으로 널리 알려져 있습니다. 워드프레스닷컴의 템플릿과 [JSX](/guide/extras/render-function#jsx-tsx)도 이와 동일하게 고려할 가치가 있습니다.
+자바스크립트에서는 여러 속성을 가진 객체를 여러 줄에 걸쳐 분할하는 것이 훨씬 읽기 쉽기 때문에 좋은 관습으로 널리 알려져 있습니다. 우리의 템플릿과 [JSX](/guide/extras/render-function#jsx-tsx)도 이와 동일하게 고려할 가치가 있습니다.
 
 <div class="style-example style-example-bad">
 <h3>Bad</h3>
@@ -616,7 +604,7 @@ const props = defineProps({
 
 ## 템플릿의 간단한 표현식 {#simple-expressions-in-templates}
 
-**컴포넌트 템플릿에는 단순한 표현식만 포함해야 하며, 복잡한 표현식은 계산된 속성이나 메서드로 리팩터링해야 합니다.**
+**컴포넌트 템플릿에는 단순한 표현식만 포함해야 하며, 복잡한 표현식은 계산된 속성(computed property)이나 메서드로 리팩터링해야 합니다.**
 
 템플릿에 복잡한 표현식이 있으면 선언적 표현이 줄어듭니다. 값을 계산하는 '방법'이 아니라 '무엇'이 표시되어야 하는지를 설명하기 위해 노력해야 합니다. 계산된 프로퍼티와 메서드는 코드를 재사용할 수 있게 해줍니다.
 
@@ -677,7 +665,7 @@ const normalizedFullName = computed(() =>
 **복잡한 계산 프로퍼티는 가능한 한 많은 단순한 프로퍼티로 분할해야 합니다.**
 
 ::: details 자세한 설명
-더 간단하고 이름이 잘 지정된 계산된 프로퍼티입니다:
+더 간단하고 이름이 잘 지정된 계산된 프로퍼티는 다음과 같은 장점이 있습니다:
 
 - **테스트하기 쉬움**
 

@@ -92,7 +92,7 @@ export default defineComponent({
 })
 ```
 
-이렇게 하면 이러한 함수 내부에서 `this`의 타입을 TypeScript가 추론해야 하는 상황을 방지할 수 있습니다. 이는 이전의 [설계 제한](https://github.com/microsoft/TypeScript/issues/38845)이었으며, [TypeScript 4.7](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#improved-function-inference-in-objects-and-methods)에서 개선되었습니다.
+이렇게 하면 이러한 함수 내부에서 `this`의 타입을 TypeScript가 추론해야 하는 상황을 방지할 수 있습니다. `this` 타입을 추론하게 되면 아쉽게도 타입 추론이 실패할 수 있기 때문입니다. 이는 이전의 [설계 제한](https://github.com/microsoft/TypeScript/issues/38845)이었으며, [TypeScript 4.7](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#improved-function-inference-in-objects-and-methods)에서 개선되었습니다.
 
 ## 컴포넌트 Emits 타입 지정하기 {#typing-component-emits}
 
@@ -122,7 +122,7 @@ export default defineComponent({
 
 ## 계산된 속성 타입 지정하기 {#typing-computed-properties}
 
-계산된 속성은 반환값을 기반으로 타입을 추론합니다:
+계산된 속성(computed property)은 반환값을 기반으로 타입을 추론합니다:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -291,3 +291,7 @@ declare module 'vue' {
 참고:
 
 - [컴포넌트 타입 확장에 대한 TypeScript 단위 테스트](https://github.com/vuejs/core/blob/main/packages-private/dts-test/componentTypeExtensions.test-d.tsx)
+
+## 전역 커스텀 디렉티브 타입 지정하기 {#typing-global-custom-directives}
+
+참고: [전역 커스텀 디렉티브 타입 지정하기](/guide/typescript/composition-api#typing-global-custom-directives) <sup class="vt-badge ts" />

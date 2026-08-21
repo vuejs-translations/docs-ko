@@ -1,9 +1,5 @@
 # 우선 순위 A 규칙: 필수 {#priority-a-rules-essential}
 
-::: warning 주의  
-이 Vue.js 스타일 가이드는 오래된 내용이므로 검토가 필요합니다. 질문이나 제안 사항이 있다면 [이슈를 등록](https://github.com/vuejs/docs/issues/new)해 주세요.  
-:::
-
 이 규칙들은 오류를 방지하는 데 도움이 되므로, 반드시 숙지하고 따라야 합니다. 예외는 있을 수 있지만, JavaScript와 Vue에 대한 전문 지식을 가진 사람만이 드물게 만들어야 합니다.
 
 ## 멀티 워드 컴포넌트 이름 사용 {#use-multi-word-component-names}
@@ -135,7 +131,7 @@ const props = defineProps({
 
 ## `v-for`에 `key` 사용하기 {#use-keyed-v-for}
 
-컴포넌트 내에서 하위 트리의 내부 컴포넌트 상태를 유지하기 위해, `v-for`와 함께 `key`는 _항상_ 필요합니다. 심지어 요소에 대해서도, [객체의 일관성](https://bost.ocks.org/mike/constancy/)과 같은 예측 가능한 동작을 유지하는 것이 좋은 관행입니다.
+하위 트리의 내부 컴포넌트 상태를 유지하기 위해, 컴포넌트에 `v-for`를 사용할 때는 `key`가 _항상_ 필요합니다. 심지어 요소에 대해서도, 애니메이션에서의 [객체의 일관성](https://bost.ocks.org/mike/constancy/)과 같은 예측 가능한 동작을 유지하는 것이 좋은 관행입니다.
 
 ::: details 상세한 설명
 할 일 목록이 있다고 가정해 봅시다:
@@ -220,7 +216,7 @@ const todos = ref([
 
 이것이 유혹적일 수 있는 두 가지 일반적인 경우가 있습니다:
 
-- 목록의 항목을 필터링하기 위해 (예: `v-for="user in users" v-if="user.isActive"`). 이 경우에는 `users`를 새로운 계산된 속성으로 대체하여 필터링된 목록을 반환하도록 합니다 (예: `activeUsers`).
+- 목록의 항목을 필터링하기 위해 (예: `v-for="user in users" v-if="user.isActive"`). 이 경우에는 `users`를 새로운 계산된 속성(computed property)으로 대체하여 필터링된 목록을 반환하도록 합니다 (예: `activeUsers`).
 
 - 목록이 숨겨져야 할 경우 목록을 렌더링하지 않기 위해 (예: `v-for="user in users" v-if="shouldShowUsers"`). 이 경우에는 `v-if`를 컨테이너 요소 (예: `ul`, `ol`)로 이동시킵니다.
 
@@ -337,7 +333,7 @@ const activeUsers = computed(() => {
 
 어플리케이션에서는 최상위 `App` 컴포넌트와 레이아웃 컴포넌트의 스타일이 전역적일 수 있지만, 다른 모든 컴포넌트는 항상 범위가 지정되어야 합니다.
 
-이것은 [싱글 파일 컴포넌트](/guide/scaling-up/sfc)에만 관련이 있습니다. 이것은 [`scoped` 속성](https://vue-loader.vuejs.org/en/features/scoped-css.html)을 사용해야 한다는 것을 의미하지는 _않습니다_. 범위 지정은 [CSS 모듈](https://vue-loader.vuejs.org/en/features/css-modules), [BEM](http://getbem.com/)과 같은 클래스 기반 전략 또는 다른 라이브러리/관례를 통해 이루어질 수 있습니다.
+이것은 [싱글 파일 컴포넌트](/guide/scaling-up/sfc)에만 관련이 있습니다. 이것은 [`scoped` 속성](/api/sfc-css-features#scoped-css)을 사용해야 한다는 것을 의미하지는 _않습니다_. 범위 지정은 [CSS 모듈](/api/sfc-css-features#css-modules), [BEM](https://getbem.com/)과 같은 클래스 기반 전략 또는 다른 라이브러리/관례를 통해 이루어질 수 있습니다.
 
 **하지만, 컴포넌트 라이브러리는 `scoped` 속성을 사용하기보다는 클래스 기반 전략을 선호해야 합니다.**
 

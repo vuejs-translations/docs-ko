@@ -26,7 +26,7 @@
 
 `<slot>` 요소는 **슬롯 아웃렛**으로, 부모에서 제공한 **슬롯 콘텐츠**가 렌더링될 위치를 나타냅니다.
 
-![slot diagram](./images/slots.png)
+![부모가 전달한 슬롯 콘텐츠가 자식 컴포넌트의 슬롯 아웃렛에 삽입되는 모습을 보여주는 다이어그램](./images/slots.png)
 
 <!-- https://www.figma.com/file/LjKTYVL97Ck6TEmBbstavX/slot -->
 
@@ -157,7 +157,7 @@ Vue 컴포넌트의 슬롯 메커니즘은 [네이티브 웹 컴포넌트 `<slot
 
 </div>
 
-## 네임드 슬롯 {#named-slots}
+## 명명된 슬롯(Named Slots) {#named-slots}
 
 하나의 컴포넌트에 여러 슬롯 아웃렛이 필요할 때가 있습니다. 예를 들어, 다음과 같은 템플릿을 가진 `<BaseLayout>` 컴포넌트가 있다고 가정해봅시다:
 
@@ -193,9 +193,9 @@ Vue 컴포넌트의 슬롯 메커니즘은 [네이티브 웹 컴포넌트 `<slot
 
 `name`이 없는 `<slot>` 아웃렛은 암묵적으로 "default"라는 이름을 가집니다.
 
-`<BaseLayout>`을 사용하는 부모 컴포넌트에서는, 서로 다른 슬롯 아웃렛을 대상으로 하는 여러 슬롯 콘텐츠 조각을 전달할 방법이 필요합니다. 이때 **네임드 슬롯**이 사용됩니다.
+`<BaseLayout>`을 사용하는 부모 컴포넌트에서는, 서로 다른 슬롯 아웃렛을 대상으로 하는 여러 슬롯 콘텐츠 조각을 전달할 방법이 필요합니다. 이때 **명명된 슬롯**이 사용됩니다.
 
-네임드 슬롯을 전달하려면, `v-slot` 디렉티브가 있는 `<template>` 요소를 사용하고, `v-slot`에 슬롯 이름을 인자로 전달해야 합니다:
+명명된 슬롯을 전달하려면, `v-slot` 디렉티브가 있는 `<template>` 요소를 사용하고, `v-slot`에 슬롯 이름을 인자로 전달해야 합니다:
 
 ```vue-html
 <BaseLayout>
@@ -207,7 +207,7 @@ Vue 컴포넌트의 슬롯 메커니즘은 [네이티브 웹 컴포넌트 `<slot
 
 `v-slot`에는 전용 축약형 `#`이 있으므로, `<template v-slot:header>`는 `<template #header>`로 줄일 수 있습니다. 이는 "이 템플릿 조각을 자식 컴포넌트의 'header' 슬롯에 렌더링하라"는 의미로 생각할 수 있습니다.
 
-![named slots diagram](./images/named-slots.png)
+![레이아웃 컴포넌트에 있는 여러 이름이 있는 슬롯을 보여주는 다이어그램. 부모가 전달한 콘텐츠가 각각 대응하는 header, main, footer 슬롯으로 전달됩니다.](./images/named-slots.png)
 
 <!-- https://www.figma.com/file/2BhP8gVZevttBu9oUmUUyz/named-slot -->
 
@@ -230,7 +230,7 @@ Vue 컴포넌트의 슬롯 메커니즘은 [네이티브 웹 컴포넌트 `<slot
 </BaseLayout>
 ```
 
-컴포넌트가 기본 슬롯과 네임드 슬롯을 모두 허용할 때, 모든 최상위의 `<template>`이 아닌 노드는 암묵적으로 기본 슬롯의 콘텐츠로 처리됩니다. 따라서 위 코드는 다음과 같이 쓸 수도 있습니다:
+컴포넌트가 기본 슬롯과 명명된 슬롯을 모두 허용할 때, 모든 최상위의 `<template>`이 아닌 노드는 암묵적으로 기본 슬롯의 콘텐츠로 처리됩니다. 따라서 위 코드는 다음과 같이 쓸 수도 있습니다:
 
 ```vue-html
 <BaseLayout>
@@ -276,7 +276,7 @@ Vue 컴포넌트의 슬롯 메커니즘은 [네이티브 웹 컴포넌트 `<slot
 
 </div>
 
-다시 한 번, 네임드 슬롯을 JavaScript 함수에 비유하면 더 잘 이해할 수 있습니다:
+다시 한 번, 명명된 슬롯을 JavaScript 함수에 비유하면 더 잘 이해할 수 있습니다:
 
 ```js
 // 서로 다른 이름의 여러 슬롯 조각을 전달
@@ -344,41 +344,44 @@ header / footer / default에 대한 콘텐츠가 있을 때, 추가 스타일링
 
 이때 표현식은 [동적 디렉티브 인자의 문법 제약](/guide/essentials/template-syntax.md#dynamic-argument-syntax-constraints)을 따릅니다.
 
-## 스코프드 슬롯 {#scoped-slots}
+## 스코프드 슬롯(scoped slots) {#scoped-slots}
 
 [렌더 스코프](#render-scope)에서 논의한 것처럼, 슬롯 콘텐츠는 자식 컴포넌트의 상태에 접근할 수 없습니다.
 
 하지만 슬롯의 콘텐츠가 부모 스코프와 자식 스코프의 데이터를 모두 사용할 수 있으면 유용한 경우가 있습니다. 이를 위해서는 자식이 슬롯을 렌더링할 때 데이터를 슬롯에 전달할 방법이 필요합니다.
 
-실제로 우리는 그렇게 할 수 있습니다. 컴포넌트에 props를 전달하듯이, 슬롯 아웃렛에도 속성을 전달할 수 있습니다:
+실제로 우리는 그렇게 할 수 있습니다. 컴포넌트에 props를 전달하듯이, 슬롯 아웃렛에도 속성을 전달할 수 있습니다. 부모 템플릿은 `v-slot`으로 슬롯 props를 받고, 자식 템플릿은 렌더링할 때 슬롯 아웃렛에 props를 전달합니다:
 
 ```vue-html
-<!-- <MyComponent> 템플릿 -->
-<div>
-  <slot :text="greetingMessage" :count="1"></slot>
-</div>
+<!-- 부모 템플릿 (사용처) -->
+<ChildComponent v-slot="receivedProps">
+  {{ receivedProps.text }} {{ receivedProps.count }}
+</ChildComponent>
 ```
-
-슬롯 props를 받는 방법은 단일 기본 슬롯을 사용할 때와 네임드 슬롯을 사용할 때 약간 다릅니다. 먼저 단일 기본 슬롯을 사용할 때, 자식 컴포넌트 태그에 직접 `v-slot`을 사용해 props를 받는 방법을 보여드리겠습니다:
 
 ```vue-html
-<MyComponent v-slot="slotProps">
-  {{ slotProps.text }} {{ slotProps.count }}
-</MyComponent>
+<!-- 자식 템플릿 (슬롯 정의) -->
+<!-- props와 함께 렌더링! -->
+<slot
+  text="hello"
+  :count="1"
+/>
 ```
 
-![scoped slots diagram](./images/scoped-slots.svg)
+슬롯 props를 받는 방법은 단일 기본 슬롯을 사용할 때와 명명된 슬롯을 사용할 때 약간 다릅니다. 위의 예제는 `ChildComponent` 태그에 직접 `v-slot`을 사용하여, 단일 기본 슬롯으로 props를 받는 방법을 보여줍니다.
+
+![자식 컴포넌트가 부모가 제공한 슬롯 콘텐츠로 데이터를 다시 전달하는 스코프드 슬롯을 보여주는 다이어그램](./images/scoped-slots.svg)
 
 <!-- https://www.figma.com/file/QRneoj8eIdL1kw3WQaaEyc/scoped-slot -->
 
 <div class="composition-api">
 
-[플레이그라운드에서 실행해보기](https://play.vuejs.org/#eNp9kMEKgzAMhl8l9OJlU3aVOhg7C3uAXsRlTtC2tFE2pO++dA5xMnZqk+b/8/2dxMnadBxQ5EL62rWWwCMN9qh021vjCMrn2fBNoya4OdNDkmarXhQnSstsVrOOC8LedhVhrEiuHca97wwVSsTj4oz1SvAUgKJpgqWZEj4IQoCvZm0Gtgghzss1BDvIbFkqdmID+CNdbbQnaBwitbop0fuqQSgguWPXmX+JePe1HT/QMtJBHnE51MZOCcjfzPx04JxsydPzp2Szxxo7vABY1I/p)
+[플레이그라운드에서 실행해보기](https://play.vuejs.org/#eJxlj00Kg0AMha8SsnHTKt2KDhQv0ANkUzTFgfljJkpBvHsZhYK6fS+878uCzxDKeWKssUl91EEgsUxBkdM2+CjQjdoMnbfBO3YCn+gtFGV1jPNEQa6p9g1FjlwjbIN5CytyAM1pZ74n46UljNyznnl4RR8S4XYMsCxwKErhr8C6XoveTy43G+SkpbLSXwNveLXOjx9Fs9cukZkt4cjGeMI9qzdeS/jYk+rEWH9AQHet)
 
 </div>
 <div class="options-api">
 
-[플레이그라운드에서 실행해보기](https://play.vuejs.org/#eNqFkNFqxCAQRX9l8CUttAl9DbZQ+rzQD/AlJLNpwKjoJGwJ/nvHpAnusrAg6FzHO567iE/nynlCUQsZWj84+lBmGJ31BKffL8sng4bg7O0IRVllWnpWKAOgDF7WBx2em0kTLElt975QbwLkhkmIyvCS1TGXC8LR6YYwVSTzH8yvQVt6VyJt3966oAR38XhaFjjEkvBCECNcia2d2CLyOACZQ7CDrI6h4kXcAF7lcg+za6h5et4JPdLkzV4B9B6RBtOfMISmxxqKH9TarrGtATxMgf/bDfM/qExEUCdEDuLGXAmoV06+euNs2JK7tyCrzSNHjX9aurQf)
+[플레이그라운드에서 실행해보기](https://play.vuejs.org/#eJxlkMEKgzAMhl8l5LLLpuwqKoy9wB4gl6GRCTUtNYogffdRywbq9f+Tfl+64sO5bJ4YCyzHxvdOa5J+cNYrPD+9aZ92cFZYFDpvB7hk+T6OyxcSEl62pZa792QUVhKA5jc1FimAw6MxCySBpMz/eJJSeXDmrVzHgfIgMt9GY7Ui9NxwP3P78taNhHUirCvsikx5UQjhXDR2kthskMNddVT6a+AVz2fHP9uLRq8kEZkV4YeNsYQpKzZeRXhPSX5ghC8NDY0G)
 
 </div>
 
@@ -387,35 +390,32 @@ header / footer / default에 대한 콘텐츠가 있을 때, 추가 스타일링
 스코프드 슬롯을 자식 컴포넌트에 전달되는 함수로 생각할 수 있습니다. 자식 컴포넌트는 이를 호출하면서 props를 인자로 전달합니다:
 
 ```js
-MyComponent({
+ChildComponent({
   // 기본 슬롯을 함수로 전달
-  default: (slotProps) => {
-    return `${slotProps.text} ${slotProps.count}`
+  default: (receivedProps) => {
+    return `${receivedProps.text} ${receivedProps.count}`
   }
 })
 
-function MyComponent(slots) {
-  const greetingMessage = 'hello'
-  return `<div>${
-    // 슬롯 함수를 props와 함께 호출!
-    slots.default({ text: greetingMessage, count: 1 })
-  }</div>`
+function ChildComponent(slots) {
+  // 슬롯 함수를 props와 함께 호출!
+  return slots.default({ text: 'hello', count: 1 })
 }
 ```
 
 실제로, 이것은 스코프드 슬롯이 컴파일되는 방식과 수동 [렌더 함수](/guide/extras/render-function)에서 스코프드 슬롯을 사용하는 방식과 매우 유사합니다.
 
-`v-slot="slotProps"`가 슬롯 함수 시그니처와 일치하는 것에 주목하세요. 함수 인자와 마찬가지로, `v-slot`에서 구조 분해 할당을 사용할 수도 있습니다:
+`v-slot="receivedProps"`가 슬롯 함수 시그니처와 일치하는 것에 주목하세요. 함수 인자와 마찬가지로, `v-slot`에서 구조 분해 할당을 사용할 수도 있습니다:
 
 ```vue-html
-<MyComponent v-slot="{ text, count }">
+<ChildComponent v-slot="{ text, count }">
   {{ text }} {{ count }}
-</MyComponent>
+</ChildComponent>
 ```
 
 ### 네임드 스코프드 슬롯 {#named-scoped-slots}
 
-네임드 스코프드 슬롯도 비슷하게 동작합니다. 슬롯 props는 `v-slot` 디렉티브의 값으로 접근할 수 있습니다: `v-slot:name="slotProps"`. 축약형을 사용할 때는 다음과 같습니다:
+네임드 스코프드 슬롯도 비슷하게 동작합니다. 슬롯 props는 `v-slot` 디렉티브의 값으로 접근할 수 있습니다: `v-slot:name="receivedProps"`. 축약형을 사용할 때는 다음과 같습니다:
 
 ```vue-html
 <MyComponent>
@@ -433,20 +433,20 @@ function MyComponent(slots) {
 </MyComponent>
 ```
 
-네임드 슬롯에 props를 전달하는 방법:
+명명된 슬롯에 props를 전달하는 방법:
 
 ```vue-html
-<slot name="header" message="hello"></slot>
+<slot name="header" message="hello" />
 ```
 
 슬롯의 `name`은 예약어이므로 props에 포함되지 않는다는 점에 유의하세요. 따라서 `headerProps`는 `{ message: 'hello' }`가 됩니다.
 
-네임드 슬롯과 기본 스코프드 슬롯을 혼합해서 사용할 경우, 기본 슬롯에는 명시적으로 `<template>` 태그를 사용해야 합니다. 컴포넌트에 직접 `v-slot` 디렉티브를 배치하면 컴파일 오류가 발생합니다. 이는 기본 슬롯의 props 스코프에 대한 모호성을 방지하기 위함입니다. 예를 들어:
+명명된 슬롯과 기본 스코프드 슬롯을 혼합해서 사용할 경우, 기본 슬롯에는 명시적으로 `<template>` 태그를 사용해야 합니다. 컴포넌트에 직접 `v-slot` 디렉티브를 배치하면 컴파일 오류가 발생합니다. 이는 기본 슬롯의 props 스코프에 대한 모호성을 방지하기 위함입니다. 예를 들어:
 
 ```vue-html
 <!-- <MyComponent> 템플릿 -->
 <div>
-  <slot :message="hello"></slot>
+  <slot message="hello" />
   <slot name="footer" />
 </div>
 ```
@@ -497,7 +497,7 @@ function MyComponent(slots) {
 ```vue-html
 <ul>
   <li v-for="item in items">
-    <slot name="item" v-bind="item"></slot>
+    <slot name="item" v-bind="item" />
   </li>
 </ul>
 ```
