@@ -92,7 +92,7 @@ export default {
 
 객체 선언 문법에서 각 속성의 키는 prop의 이름이고, 값은 기대하는 타입의 생성자 함수여야 합니다.
 
-이렇게 하면 컴포넌트의 문서화뿐만 아니라, 브라우저 콘솔에서 잘못된 타입이 전달될 경우 다른 개발자에게 경고도 해줍니다. [prop 검증](#prop-validation)에 대한 자세한 내용은 이 페이지 아래에서 다룹니다.
+이렇게 하면 컴포넌트가 문서화될 뿐만 아니라, 잘못된 타입이 전달될 경우 브라우저 콘솔에서 다른 개발자에게 경고도 표시됩니다. [prop 검증](#prop-validation)에 대한 자세한 내용은 이 페이지 아래에서 다룹니다.
 
 <div class="options-api">
 
@@ -135,7 +135,7 @@ watchEffect(() => {
 })
 ```
 
-3.4 버전 이하에서는 `foo`가 실제 상수이기 때문에 절대 변경되지 않습니다. 3.5 버전 이상에서는, Vue의 컴파일러가 동일한 `<script setup>` 블록 내에서 `defineProps`에서 구조 분해된 변수를 접근할 때 자동으로 `props.`를 앞에 붙입니다. 따라서 위 코드는 다음과 동일하게 변환됩니다:
+3.4 버전 이하에서는 `foo`가 실제 상수이기 때문에 절대 변경되지 않습니다. 3.5 버전 이상에서는, Vue의 컴파일러가 동일한 `<script setup>` 블록 내에서 `defineProps`에서 구조 분해된 변수에 접근할 때 자동으로 `props.`를 앞에 붙입니다. 따라서 위 코드는 다음과 동일하게 변환됩니다:
 
 ```js {5}
 const props = defineProps(['foo'])
@@ -152,7 +152,7 @@ watchEffect(() => {
 const { foo = 'hello' } = defineProps<{ foo?: string }>()
 ```
 
-IDE에서 구조 분해된 props와 일반 변수를 시각적으로 구분하고 싶다면, Vue의 VSCode 확장 프로그램에서 구조 분해된 props에 대한 인레이 힌트(inlay-hints)를 활성화하는 설정이 있습니다.
+IDE에서 구조 분해된 props와 일반 변수를 시각적으로 구분하고 싶다면, Vue의 VSCode 확장 프로그램에서 구조 분해된 props에 대한 인레이 힌트(inlay-hints)를 활성화하는 설정을 사용할 수 있습니다.
 
 ### 구조 분해된 Props를 함수에 전달하기 {#passing-destructured-props-into-functions}
 
@@ -164,7 +164,7 @@ const { foo } = defineProps(['foo'])
 watch(foo, /* ... */)
 ```
 
-이 코드는 기대한 대로 동작하지 않습니다. 왜냐하면 이는 `watch(props.foo, ...)`와 동일하기 때문입니다. 즉, 반응형 데이터 소스가 아닌 값을 전달하게 됩니다. 실제로 Vue의 컴파일러는 이러한 경우를 감지하여 경고를 발생시킵니다.
+이 코드는 기대한 대로 동작하지 않습니다. `watch(props.foo, ...)`와 동일해서, 반응형 데이터 소스가 아닌 값을 전달하는 셈이기 때문입니다. 실제로 Vue의 컴파일러는 이러한 경우를 감지하여 경고를 발생시킵니다.
 
 일반 prop을 `watch(() => props.foo, ...)`로 감시할 수 있는 것처럼, 구조 분해된 prop도 getter로 감싸서 감시할 수 있습니다:
 
@@ -178,7 +178,7 @@ watch(() => foo, /* ... */)
 useComposable(() => foo)
 ```
 
-외부 함수는 getter를 호출하거나([toValue](/api/reactivity-utilities.html#tovalue)로 정규화)하여, 예를 들어 계산된 값이나 watcher getter에서 전달된 prop의 변화를 추적할 수 있습니다.
+외부 함수는 getter를 호출하거나 [toValue](/api/reactivity-utilities.html#tovalue)로 정규화하여, 예를 들어 계산된 값이나 watcher getter에서 전달된 prop의 변화를 추적할 수 있습니다.
 
 </div>
 
@@ -186,7 +186,7 @@ useComposable(() => foo)
 
 ### Prop 이름 표기법 {#prop-name-casing}
 
-긴 prop 이름은 camelCase로 선언합니다. 이렇게 하면 속성 키로 사용할 때 따옴표를 사용할 필요가 없고, 템플릿(template) 표현식에서 직접 참조할 수 있습니다. camelCase는 유효한 JavaScript 식별자이기 때문입니다:
+긴 prop 이름은 camelCase로 선언합니다. 이렇게 하면 속성 키로 사용할 때 따옴표를 붙일 필요가 없고, 템플릿(template) 표현식에서 직접 참조할 수 있습니다. camelCase는 유효한 JavaScript 식별자이기 때문입니다:
 
 <div class="composition-api">
 
@@ -219,7 +219,7 @@ export default {
 <MyComponent greeting-message="hello" />
 ```
 
-[컴포넌트 태그에는 PascalCase를 사용](/guide/components/registration#component-name-casing)하는 것이 가능하다면 권장됩니다. 이렇게 하면 Vue 컴포넌트와 네이티브 요소를 구분하여 템플릿 가독성이 향상됩니다. 하지만 props를 전달할 때 camelCase를 사용하는 실질적인 이점은 크지 않으므로, 각 언어의 관례를 따릅니다.
+가능하다면 [컴포넌트 태그에는 PascalCase를 사용](/guide/components/registration#component-name-casing)하는 것이 권장됩니다. 이렇게 하면 Vue 컴포넌트와 네이티브 요소를 구분하여 템플릿 가독성이 향상됩니다. 하지만 props를 전달할 때 camelCase를 사용하는 실질적인 이점은 크지 않으므로, 각 언어의 관례를 따릅니다.
 
 ### 정적 vs. 동적 Props {#static-vs-dynamic-props}
 
@@ -297,7 +297,7 @@ export default {
 
 ### 객체를 사용하여 여러 속성 바인딩하기 {#binding-multiple-properties-using-an-object}
 
-객체의 모든 속성을 props로 전달하고 싶다면, [`v-bind`에 인자 없이](/guide/essentials/template-syntax#dynamically-binding-multiple-attributes) 사용할 수 있습니다(`:prop-name` 대신 `v-bind`). 예를 들어, `post` 객체가 있다고 가정해봅시다:
+객체의 모든 속성을 props로 전달하고 싶다면, [`v-bind`를 인자 없이](/guide/essentials/template-syntax#dynamically-binding-multiple-attributes) 사용할 수 있습니다(`:prop-name` 대신 `v-bind`). 예를 들어, `post` 객체가 있다고 가정해봅시다:
 
 <div class="options-api">
 
@@ -364,9 +364,9 @@ const post = {
 
 ## 단방향 데이터 흐름 {#one-way-data-flow}
 
-모든 prop은 자식 속성과 부모 속성 간에 **하향식 단방향 바인딩**을 형성합니다. 즉, 부모 속성이 업데이트되면 자식에게 전달되지만, 반대 방향은 아닙니다. 이렇게 하면 자식 컴포넌트가 실수로 부모의 상태를 변경하는 것을 방지하여 앱의 데이터 흐름을 더 쉽게 이해할 수 있습니다.
+모든 prop은 자식 속성과 부모 속성 간에 **하향식 단방향 바인딩**을 형성합니다. 즉, 부모 속성이 업데이트되면 자식에게 전달되지만, 반대 방향은 아닙니다. 이렇게 하면 자식 컴포넌트가 실수로 부모의 상태를 변경하는 일이 방지되어, 앱의 데이터 흐름을 이해하기가 더 쉬워집니다.
 
-또한, 부모 컴포넌트가 업데이트될 때마다 자식 컴포넌트의 모든 prop이 최신 값으로 갱신됩니다. 즉, 자식 컴포넌트 내부에서 prop을 **변경하려고 시도해서는 안 됩니다**. 만약 그렇게 하면, Vue는 콘솔에 경고를 표시합니다:
+또한, 부모 컴포넌트가 업데이트될 때마다 자식 컴포넌트의 모든 prop이 최신 값으로 갱신됩니다. 따라서 자식 컴포넌트 내부에서 prop을 **변경하려고 시도해서는 안 됩니다**. 만약 그렇게 하면, Vue는 콘솔에 경고를 표시합니다:
 
 <div class="composition-api">
 
@@ -394,7 +394,7 @@ export default {
 
 props를 변경하고 싶은 유혹을 느끼는 경우는 보통 두 가지입니다:
 
-1. **prop이 초기값을 전달하는 용도로 사용되고, 자식 컴포넌트가 이후에 이를 로컬 데이터 속성으로 사용하고 싶을 때.** 이 경우, prop을 초기값으로 사용하는 로컬 데이터 속성을 정의하는 것이 가장 좋습니다:
+1. **prop이 초기값을 전달하는 용도로 사용되고, 자식 컴포넌트가 이후에 이를 로컬 데이터 속성으로 사용하고 싶을 때.** 이 경우, prop을 초기값으로 삼는 로컬 데이터 속성을 정의하는 것이 가장 좋습니다:
 
    <div class="composition-api">
 
@@ -585,11 +585,11 @@ export default {
 
 - 모든 prop은 기본적으로 선택 사항이며, `required: true`가 지정된 경우에만 필수입니다.
 
-- `Boolean`이 아닌 선택적 prop이 없으면 값은 `undefined`가 됩니다.
+- `Boolean`이 아닌 선택적 prop은 전달되지 않으면 값이 `undefined`가 됩니다.
 
-- `Boolean` prop이 없으면 `false`로 변환됩니다. 이를 변경하려면 `default`를 설정할 수 있습니다. 예: `default: undefined`로 설정하면 Boolean이 아닌 prop처럼 동작합니다.
+- `Boolean` prop은 전달되지 않으면 `false`로 변환됩니다. 이를 변경하려면 `default`를 설정할 수 있습니다. 예: `default: undefined`로 설정하면 Boolean이 아닌 prop처럼 동작합니다.
 
-- `default` 값이 지정된 경우, prop 값이 `undefined`로 해석되면(즉, prop이 없거나 명시적으로 `undefined`가 전달된 경우) 해당 값이 사용됩니다.
+- `default` 값이 지정된 경우, prop 값이 `undefined`로 해석되면(즉, prop이 없거나 명시적으로 `undefined`가 전달된 경우) 지정된 기본값이 사용됩니다.
 
 prop 검증에 실패하면, Vue는 콘솔에 경고를 출력합니다(개발 빌드 사용 시).
 
@@ -691,7 +691,7 @@ export default {
 
 ## Boolean 변환 {#boolean-casting}
 
-`Boolean` 타입의 prop은 네이티브 불리언 속성의 동작을 모방하기 위해 특별한 변환 규칙을 가집니다. 다음과 같이 선언된 `<MyComponent>`가 있다고 가정해봅시다:
+`Boolean` 타입의 prop은 네이티브 불리언 속성의 동작을 모방하기 위해 특별한 변환 규칙을 따릅니다. 다음과 같이 선언된 `<MyComponent>`가 있다고 가정해봅시다:
 
 <div class="composition-api">
 

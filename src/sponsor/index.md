@@ -16,11 +16,11 @@ onMounted(load)
 # Vue.js 스폰서 되기 {#become-a-vue-js-sponsor}
 
 Vue.js는 MIT 라이선스를 받은 오픈 소스 프로젝트이며 완전히 무료로 사용할 수 있습니다.
-대규모 에코시스템을 유지하고 프로젝트를 위한 새로운 기능을 개발하는 데 필요한 엄청난 노력은 후원자의 관대한 재정적 지원 덕분에 지속 가능합니다.
+대규모 에코시스템을 유지하고 프로젝트를 위한 새로운 기능을 개발하는 데 필요한 엄청난 노력은 후원자의 아낌없는 재정적 지원 덕분에 지속 가능합니다.
 
 ## 후원 방법 {#how-to-sponsor}
 
-Vue.js를 후원하려면 [GitHub Sponsors](https://github.com/sponsors/yyx990803) 또는 [OpenCollective](https://opencollective.com/vuejs)를 통해 후원할 수 있습니다. GitHub의 결제 시스템을 통해 후원에 대한 청구서를 받을 수도 있습니다. 월 정기 후원과 1회성 기부 모두 가능합니다. 정기 후원자는 [후원 등급](#tier-benefits)에 따라 로고 노출 혜택을 받을 수 있습니다.
+Vue.js는 [GitHub Sponsors](https://github.com/sponsors/yyx990803) 또는 [OpenCollective](https://opencollective.com/vuejs)를 통해 후원할 수 있습니다. GitHub의 결제 시스템을 통해 후원에 대한 청구서를 받을 수도 있습니다. 월 정기 후원과 1회성 기부 모두 가능합니다. 정기 후원자는 [후원 등급](#tier-benefits)에 따라 로고 노출 혜택을 받을 수 있습니다.
 
 후원 등급, 결제 방식, 후원 노출 데이터에 대해 궁금한 점이 있다면 [sponsor@vuejs.org](mailto:sponsor@vuejs.org?subject=Vue.js%20sponsorship%20inquiry)로 문의해 주세요.
 
@@ -36,7 +36,7 @@ Vue를 활용하여 수익을 창출하는 제품을 개발하고 있다면, Vue
 
 Vue를 사용하며 생산성이 향상되었다고 느끼셨다면, 감사의 의미로 기부를 고려해 보세요. 마치 가끔 커피 한 잔을 사주는 것과 같습니다. Vue 팀의 많은 멤버들이 GitHub Sponsors를 통해 후원 및 기부를 받고 있습니다. Vue [팀 페이지](/about/team)에서 각 팀원의 프로필에 있는 "Sponsor" 버튼을 찾아보세요.
 
-또한, 다니고 있는 회사가 Vue를 비즈니스 차원에서 후원하도록 설득해 볼 수도 있습니다. 쉽지는 않겠지만, 비즈니스 후원이 개인 기부보다 오픈 소스 프로젝트의 지속 가능성에 훨씬 더 큰 영향을 미칩니다. 만약 회사 후원을 성사시킨다면, Vue 프로젝트에 훨씬 더 큰 도움이 될 것입니다.
+또한, 다니고 있는 회사가 Vue를 비즈니스 차원에서 후원하도록 설득해 볼 수도 있습니다. 쉽지는 않겠지만, 비즈니스 후원이 개인 기부보다 오픈 소스 프로젝트의 지속 가능성에 훨씬 더 큰 영향을 미칩니다. 만약 회사 후원을 성사시킨다면, Vue 프로젝트에 그만큼 더 큰 도움이 될 것입니다.
 
 
 ## 등급 혜택 {#tier-benefits}

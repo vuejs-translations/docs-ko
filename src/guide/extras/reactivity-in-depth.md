@@ -8,11 +8,11 @@ import SpreadSheet from './demos/SpreadSheet.vue'
 
 # 반응성 심층 분석 {#reactivity-in-depth}
 
-Vue의 가장 두드러진 특징 중 하나는 눈에 띄지 않는 반응성(reactivity) 시스템입니다. 컴포넌트(component) 상태는 반응형 JavaScript 객체로 구성됩니다. 이 객체를 수정하면 뷰가 업데이트됩니다. 이는 상태 관리를 간단하고 직관적으로 만들어주지만, 몇 가지 일반적인 함정들을 피하기 위해서도 그 동작 방식을 이해하는 것이 중요합니다. 이 섹션에서는 Vue의 반응성 시스템의 저수준 세부 사항을 파고들어 보겠습니다.
+Vue의 가장 두드러진 특징 중 하나는 눈에 띄지 않는 반응성(reactivity) 시스템입니다. 컴포넌트(component) 상태는 반응형 JavaScript 객체로 구성됩니다. 이 객체를 수정하면 뷰가 업데이트됩니다. 이는 상태 관리를 간단하고 직관적으로 만들어주지만, 흔히 겪는 몇 가지 함정을 피하려면 그 동작 방식을 이해하는 것도 중요합니다. 이 섹션에서는 Vue 반응성 시스템의 저수준 세부 사항을 파고들어 보겠습니다.
 
 ## 반응성이란? {#what-is-reactivity}
 
-이 용어는 요즘 프로그래밍에서 자주 등장하지만, 사람들이 이 말을 할 때 실제로 무엇을 의미할까요? 반응성은 선언적인 방식으로 변화에 적응할 수 있게 해주는 프로그래밍 패러다임입니다. 사람들이 보통 보여주는 대표적인 예시는, 훌륭한 예시이기도 한, 엑셀 스프레드시트입니다:
+이 용어는 요즘 프로그래밍에서 자주 등장하지만, 사람들이 이 말을 할 때 실제로 무엇을 의미할까요? 반응성은 선언적인 방식으로 변화에 적응할 수 있게 해주는 프로그래밍 패러다임입니다. 사람들이 보통 드는 대표적인 예시는 엑셀 스프레드시트인데, 실제로도 훌륭한 예시입니다:
 
 <SpreadSheet />
 
@@ -47,9 +47,9 @@ function update() {
 
 - `update()` 함수는 프로그램의 상태를 변경하므로 **부수 효과** 또는 줄여서 **이펙트**를 발생시킵니다.
 
-- `A0`와 `A1`은 이 이펙트의 **의존성**입니다. 이 값들이 이펙트를 수행하는 데 사용되기 때문입니다. 이펙트는 자신의 의존성에 **구독자**가 되었다고 할 수 있습니다.
+- `A0`와 `A1`은 이 이펙트의 **의존성**입니다. 이 값들이 이펙트를 수행하는 데 사용되기 때문입니다. 이펙트는 자신의 의존성에 대한 **구독자**가 되었다고 할 수 있습니다.
 
-우리가 필요한 것은 `A0`이나 `A1`(즉, **의존성**)이 변경될 때마다 `update()`(**이펙트**)를 호출해주는 마법 같은 함수입니다:
+우리에게 필요한 것은 `A0`이나 `A1`(즉, **의존성**)이 변경될 때마다 `update()`(**이펙트**)를 호출해주는 마법 같은 함수입니다:
 
 ```js
 whenDepsChange(update)
@@ -104,11 +104,11 @@ function ref(value) {
 
 이것은 우리가 기본 섹션에서 논의했던 [반응형 객체의 몇 가지 제한 사항](/guide/essentials/reactivity-fundamentals#limitations-of-reactive)을 설명해줍니다:
 
-- 반응형 객체의 속성을 지역 변수에 할당하거나 구조 분해 할당하면, 그 변수에 접근하거나 할당해도 더 이상 원본 객체의 get / set 프록시(proxy) 트랩을 트리거하지 않으므로 반응형이 아닙니다. 이 "연결 해제"는 변수 바인딩(binding)에만 영향을 미치며, 만약 변수가 객체와 같은 비원시 값을 가리킨다면, 그 객체를 변경하는 것은 여전히 반응형입니다.
+- 반응형 객체의 속성을 지역 변수에 할당하거나 구조 분해 할당하면 반응성이 사라집니다. 그 변수에 접근하거나 값을 할당해도 더 이상 원본 객체의 get / set 프록시(proxy) 트랩을 트리거하지 않기 때문입니다. 이 "연결 해제"는 변수 바인딩(binding)에만 영향을 미치며, 만약 변수가 객체와 같은 비원시 값을 가리킨다면, 그 객체를 변경하는 것은 여전히 반응형입니다.
 
 - `reactive()`에서 반환된 프록시는 원본과 거의 동일하게 동작하지만, `===` 연산자로 비교하면 원본과는 다른 정체성을 가집니다.
 
-`track()` 내부에서는 현재 실행 중인 이펙트가 있는지 확인합니다. 있다면, 추적 중인 속성에 대한 구독자 이펙트(집합에 저장됨)를 찾아서 그 이펙트를 집합에 추가합니다:
+`track()` 내부에서는 현재 실행 중인 이펙트가 있는지 확인합니다. 있다면, 추적 중인 속성의 구독자 이펙트들(집합에 저장됨)을 찾아서, 현재 실행 중인 이펙트를 그 집합에 추가합니다:
 
 ```js
 // 이 값은 이펙트가 실행되기 직전에 설정됩니다.
@@ -123,7 +123,7 @@ function track(target, key) {
 }
 ```
 
-이펙트 구독은 전역 `WeakMap<target, Map<key, Set<effect>>>` 데이터 구조에 저장됩니다. 속성에 대한 구독 이펙트 집합이 없다면(처음 추적되는 경우), 새로 생성됩니다. 이것이 `getSubscribersForProperty()` 함수가 하는 일입니다. 단순화를 위해 세부 구현은 생략합니다.
+이펙트 구독은 전역 `WeakMap<target, Map<key, Set<effect>>>` 데이터 구조에 저장됩니다. 속성에 대한 구독자 이펙트 집합이 없다면(처음 추적되는 경우), 새로 생성됩니다. 이것이 `getSubscribersForProperty()` 함수가 하는 일입니다. 단순화를 위해 세부 구현은 생략합니다.
 
 `trigger()` 내부에서는 다시 한 번 해당 속성의 구독자 이펙트를 찾습니다. 하지만 이번에는 그것들을 호출합니다:
 
@@ -169,7 +169,7 @@ watchEffect(() => {
 A0.value = 2
 ```
 
-반응형 이펙트를 사용해 ref를 변경하는 것은 그다지 흥미로운 사용 사례는 아닙니다. 사실, 계산 속성(computed property)을 사용하는 것이 더 선언적입니다:
+반응형 이펙트를 사용해 ref를 변경하는 것은 그다지 흥미로운 사용 사례는 아닙니다. 사실, 계산된 속성(computed property)을 사용하는 것이 더 선언적입니다:
 
 ```js
 import { ref, computed } from 'vue'
@@ -208,9 +208,9 @@ count.value++
 
 ## 런타임 vs. 컴파일타임 반응성 {#runtime-vs-compile-time-reactivity}
 
-Vue의 반응성 시스템은 주로 런타임 기반입니다: 추적과 트리거링이 모두 브라우저에서 코드가 실행되는 동안 수행됩니다. 런타임 반응성의 장점은 빌드 단계 없이도 동작할 수 있고, 예외적인 경우가 적다는 점입니다. 반면, 이는 JavaScript의 문법적 한계에 제약을 받게 하여, Vue ref와 같은 값 컨테이너가 필요하게 만듭니다.
+Vue의 반응성 시스템은 주로 런타임 기반입니다: 추적과 트리거링이 모두 브라우저에서 코드가 실행되는 동안 수행됩니다. 런타임 반응성의 장점은 빌드 단계 없이도 동작할 수 있고, 예외적인 경우가 적다는 점입니다. 반면, 런타임 반응성은 JavaScript의 문법적 한계에 제약을 받기 때문에, Vue ref와 같은 값 컨테이너가 필요해집니다.
 
-[Svelte](https://svelte.dev/)와 같은 일부 프레임워크는 컴파일 시점에 반응성을 구현하여 이러한 한계를 극복합니다. 코드를 분석하고 변환하여 반응성을 시뮬레이션합니다. 컴파일 단계에서는 프레임워크가 JavaScript 자체의 의미를 변경할 수 있습니다. 예를 들어, 지역 변수 접근 시 의존성 분석과 이펙트 트리거링을 수행하는 코드를 암묵적으로 삽입할 수 있습니다. 단점은 이러한 변환이 빌드 단계를 필요로 하고, JavaScript의 의미를 변경하는 것은 본질적으로 JavaScript처럼 보이지만 실제로는 다른 것으로 컴파일되는 언어를 만드는 것과 같습니다.
+[Svelte](https://svelte.dev/)와 같은 일부 프레임워크는 컴파일 시점에 반응성을 구현하여 이러한 한계를 극복합니다. 코드를 분석하고 변환하여 반응성을 시뮬레이션합니다. 컴파일 단계에서는 프레임워크가 JavaScript 자체의 의미를 변경할 수 있습니다. 예를 들어, 지역 변수 접근 시 의존성 분석과 이펙트 트리거링을 수행하는 코드를 암묵적으로 삽입할 수 있습니다. 단점도 있습니다. 이러한 변환에는 빌드 단계가 필요하며, JavaScript의 의미를 변경하는 것은 본질적으로 JavaScript처럼 보이지만 실제로는 다른 것으로 컴파일되는 언어를 만드는 것과 같습니다.
 
 Vue 팀도 [Reactivity Transform](/guide/extras/reactivity-transform)이라는 실험적 기능을 통해 이 방향을 탐구했지만, [여기서 설명한 이유](https://github.com/vuejs/rfcs/discussions/369#discussioncomment-5059028)로 인해 프로젝트에 적합하지 않다고 판단했습니다.
 
@@ -220,7 +220,7 @@ Vue의 반응성 시스템이 자동으로 의존성을 추적해주는 것은 �
 
 ### 컴포넌트 디버깅 훅(hook) {#component-debugging-hooks}
 
-컴포넌트의 렌더링 중 어떤 의존성이 사용되고, 어떤 의존성이 업데이트를 트리거하는지 디버깅하려면 <span class="options-api">`renderTracked`</span><span class="composition-api">`onRenderTracked`</span>와 <span class="options-api">`renderTriggered`</span><span class="composition-api">`onRenderTriggered`</span> 라이프사이클(lifecycle) 훅을 사용할 수 있습니다. 두 훅 모두 해당 의존성에 대한 정보를 담은 디버거 이벤트를 받습니다. 콜백(callback)에 `debugger` 문을 넣어 상호작용적으로 의존성을 검사하는 것이 좋습니다:
+컴포넌트의 렌더링 중 어떤 의존성이 사용되고, 어떤 의존성이 업데이트를 트리거하는지 디버깅하려면 <span class="options-api">`renderTracked`</span><span class="composition-api">`onRenderTracked`</span>와 <span class="options-api">`renderTriggered`</span><span class="composition-api">`onRenderTriggered`</span> 라이프사이클(lifecycle) 훅을 사용할 수 있습니다. 두 훅 모두 해당 의존성에 대한 정보를 담은 디버거 이벤트를 받습니다. 콜백(callback)에 `debugger` 문을 넣어 대화형으로 의존성을 검사하는 것이 좋습니다:
 
 <div class="composition-api">
 
@@ -276,11 +276,11 @@ type DebuggerEvent = {
 }
 ```
 
-### 계산 속성 디버깅 {#computed-debugging}
+### 계산된 속성 디버깅 {#computed-debugging}
 
 <div class="composition-api">
 
-`computed()`에 두 번째 옵션 객체로 `onTrack`과 `onTrigger` 콜백을 전달하여 계산 속성을 디버깅할 수 있습니다:
+`computed()`에 두 번째 옵션 객체로 `onTrack`과 `onTrigger` 콜백을 전달하여 계산된 속성을 디버깅할 수 있습니다:
 
 - `onTrack`은 반응형 속성이나 ref가 의존성으로 추적될 때 호출됩니다.
 - `onTrigger`는 의존성의 변경으로 인해 watcher 콜백이 트리거될 때 호출됩니다.
@@ -307,14 +307,14 @@ count.value++
 ```
 
 :::tip
-`onTrack`과 `onTrigger` 계산 속성 옵션은 개발 모드에서만 동작합니다.
+`onTrack`과 `onTrigger` 계산된 속성 옵션은 개발 모드에서만 동작합니다.
 :::
 
 </div>
 
 <div class="options-api">
 
-계산 속성 디버깅 옵션은 컴포지션 API의 `computed()` 함수를 통해서만 사용할 수 있습니다.
+계산된 속성 디버깅 옵션은 컴포지션 API의 `computed()` 함수를 통해서만 사용할 수 있습니다.
 
 </div>
 
@@ -376,7 +376,7 @@ export default {
 
 ## 외부 상태 시스템과의 통합 {#integration-with-external-state-systems}
 
-Vue의 반응성 시스템은 일반 JavaScript 객체를 깊게 변환하여 반응형 프록시로 만듭니다. 외부 상태 관리 시스템과 통합할 때(예: 외부 솔루션도 Proxy를 사용하는 경우), 깊은 변환이 불필요하거나 원치 않을 수 있습니다.
+Vue의 반응성 시스템은 일반 JavaScript 객체를 깊게 변환하여 반응형 프록시로 만듭니다. 외부 상태 관리 시스템과 통합할 때(예: 외부 솔루션도 Proxy를 사용하는 경우), 깊은 변환이 불필요하거나 바람직하지 않을 수 있습니다.
 
 Vue의 반응성 시스템을 외부 상태 관리 솔루션과 통합하는 일반적인 방법은 외부 상태를 [`shallowRef`](/api/reactivity-advanced#shallowref)에 보관하는 것입니다. shallow ref는 `.value` 속성에 접근할 때만 반응형이며, 내부 값은 그대로 남아 있습니다. 외부 상태가 변경되면 ref 값을 교체하여 업데이트를 트리거합니다.
 
@@ -384,7 +384,7 @@ Vue의 반응성 시스템을 외부 상태 관리 솔루션과 통합하는 일
 
 실행 취소 / 다시 실행 기능을 구현하려면, 사용자가 편집할 때마다 애플리케이션의 상태 스냅샷을 저장하고 싶을 것입니다. 하지만 Vue의 변경 가능한 반응성 시스템은 상태 트리가 크면 적합하지 않습니다. 매번 전체 상태 객체를 직렬화하는 것은 CPU와 메모리 비용이 많이 들 수 있기 때문입니다.
 
-[불변 데이터 구조](https://ko.wikipedia.org/wiki/%EC%A7%84%ED%96%89_%EB%8D%B0%EC%9D%B4%ED%84%B0_%EA%B5%AC%EC%A1%B0)는 상태 객체를 절대 변경하지 않고, 대신 이전 객체와 동일한 변경되지 않은 부분을 공유하는 새 객체를 만듭니다. JavaScript에서 불변 데이터를 사용하는 방법은 여러 가지가 있지만, [Immer](https://immerjs.github.io/immer/)를 Vue와 함께 사용하는 것을 추천합니다. Immer를 사용하면 더 편리한 변경 가능한 문법을 유지하면서 불변 데이터를 사용할 수 있습니다.
+[불변 데이터 구조](https://ko.wikipedia.org/wiki/%EC%A7%84%ED%96%89_%EB%8D%B0%EC%9D%B4%ED%84%B0_%EA%B5%AC%EC%A1%B0)는 상태 객체를 절대 변경하지 않고, 대신 변경되지 않은 부분을 이전 객체와 공유하는 새 객체를 만듭니다. JavaScript에서 불변 데이터를 다루는 방법은 여러 가지가 있지만, [Immer](https://immerjs.github.io/immer/)를 Vue와 함께 사용하는 것을 추천합니다. Immer를 이용하면 더 편리한 변경 가능한 문법을 유지하면서 불변 데이터를 다룰 수 있습니다.
 
 Immer를 Vue와 통합하는 간단한 컴포저블(composable)은 다음과 같습니다:
 
@@ -434,7 +434,7 @@ export function useMachine(options) {
 
 ## 시그널과의 연결 {#connection-to-signals}
 
-다른 여러 프레임워크가 Vue의 컴포지션 API의 ref와 유사한 반응성 프리미티브를 "시그널"이라는 용어로 도입했습니다:
+다른 여러 프레임워크가 Vue 컴포지션 API의 ref와 유사한 반응성 프리미티브를 "시그널"이라는 용어로 도입했습니다:
 
 - [Solid Signals](https://docs.solidjs.com/concepts/signals)
 - [Angular Signals](https://angular.dev/guide/signals)
@@ -443,7 +443,7 @@ export function useMachine(options) {
 
 근본적으로, 시그널은 Vue ref와 동일한 종류의 반응성 프리미티브입니다. 값 컨테이너로서 접근 시 의존성 추적을 제공하고, 변경 시 부수 효과를 트리거합니다. 이러한 반응성 프리미티브 기반 패러다임은 프론트엔드 세계에서 특별히 새로운 개념이 아닙니다. 10년이 넘은 [Knockout observables](https://knockoutjs.com/documentation/observables.html)과 [Meteor Tracker](https://docs.meteor.com/api/tracker.html)와 같은 구현까지 거슬러 올라갑니다. Vue 옵션 API와 React 상태 관리 라이브러리 [MobX](https://mobx.js.org/)도 동일한 원리에 기반하지만, 프리미티브를 객체 속성 뒤에 숨깁니다.
 
-시그널로 분류되기 위해 반드시 필요한 특성은 아니지만, 오늘날 이 개념은 종종 미세한 구독을 통해 업데이트가 수행되는 렌더링 모델과 함께 논의됩니다. Virtual DOM을 사용하는 Vue는 현재 [컴파일러를 통해 유사한 최적화를 달성](/guide/extras/rendering-mechanism#compiler-informed-virtual-dom)합니다. 하지만, Vue는 Virtual DOM에 의존하지 않고 Vue의 내장 반응성 시스템을 더 많이 활용하는 [Vapor Mode](https://github.com/vuejs/core-vapor)라는 Solid에서 영감을 받은 새로운 컴파일 전략도 탐구하고 있습니다.
+시그널로 분류되기 위해 반드시 필요한 특성은 아니지만, 오늘날 이 개념은 종종 미세한 구독을 통해 업데이트가 수행되는 렌더링 모델과 함께 논의됩니다. Virtual DOM을 사용하는 Vue는 현재 [컴파일러를 통해 유사한 최적화를 달성](/guide/extras/rendering-mechanism#compiler-informed-virtual-dom)합니다. 하지만 Vue는 Solid에서 영감을 받은 [Vapor Mode](https://github.com/vuejs/core-vapor)라는 새로운 컴파일 전략도 탐구하고 있습니다. Vapor Mode는 Virtual DOM에 의존하지 않고 Vue의 내장 반응성 시스템을 더 많이 활용합니다.
 
 ### API 설계의 트레이드오프 {#api-design-trade-offs}
 
@@ -490,7 +490,7 @@ count.set(1) // 새 값 설정
 count.update((v) => v + 1) // 이전 값을 기반으로 업데이트
 ```
 
-역시, Vue에서 이 API를 쉽게 구현할 수 있습니다:
+이 API 역시 Vue에서 쉽게 구현할 수 있습니다:
 
 ```js
 import { shallowRef } from 'vue'
@@ -515,4 +515,4 @@ Vue ref와 비교할 때, Solid와 Angular의 getter 기반 API 스타일은 Vue
 - `()`는 `.value`보다 약간 덜 장황하지만, 값을 업데이트하는 것은 더 장황합니다.
 - ref 언래핑이 없습니다: 값에 접근할 때 항상 `()`가 필요합니다. 이는 어디서나 값 접근이 일관됨을 의미합니다. 또한, 원시 시그널을 컴포넌트 props로 그대로 전달할 수 있습니다.
 
-이러한 API 스타일이 본인에게 맞는지는 어느 정도 주관적입니다. 여기서의 목표는 이러한 다양한 API 설계 간의 근본적인 유사성과 트레이드오프를 보여주는 것입니다. 또한 Vue가 유연하다는 점도 보여주고자 합니다. 기존 API에 얽매이지 않고, 필요하다면 더 구체적인 요구에 맞는 자체 반응성 프리미티브 API를 만들 수도 있습니다.
+이러한 API 스타일이 본인에게 맞는지는 어느 정도 주관적입니다. 여기서의 목표는 다양한 API 설계 간의 근본적인 유사성과 트레이드오프를 보여주는 것입니다. 또한 Vue가 유연하다는 점도 보여주고자 합니다. 기존 API에 얽매이지 않고, 필요하다면 더 구체적인 요구에 맞는 자체 반응성 프리미티브 API를 만들 수도 있습니다.

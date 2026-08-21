@@ -4,8 +4,8 @@
 
 `setup()` 훅(hook)은 다음과 같은 경우 컴포지션 API를 컴포넌트(component)에서 사용할 수 있는 진입점 역할을 합니다:
 
-1. 빌드 단계 없이 컴포지션 API를 사용할 때;
-2. 옵션 API 컴포넌트에서 컴포지션 API 기반 코드와 통합할 때.
+1. 빌드 단계 없이 컴포지션 API를 사용할 때
+2. 옵션 API 컴포넌트에서 컴포지션 API 기반 코드와 통합할 때
 
 :::info 참고
 싱글 파일 컴포넌트에서 컴포지션 API를 사용하는 경우, 더 간결하고 사용하기 쉬운 문법을 위해 [`<script setup>`](/api/sfc-script-setup) 사용을 강력히 권장합니다.
@@ -38,15 +38,15 @@ export default {
 </template>
 ```
 
-`setup`에서 반환된 [ref](/api/reactivity-core#ref)는 템플릿에서 접근할 때 [자동으로 얕게 언래핑](/guide/essentials/reactivity-fundamentals#deep-reactivity)되므로 접근 시 `.value`를 사용할 필요가 없습니다. `this`에서 접근할 때도 동일하게 언래핑됩니다.
+`setup`에서 반환된 [ref](/api/reactivity-core#ref)는 템플릿에서 접근할 때 [자동으로 얕게 언래핑](/guide/essentials/reactivity-fundamentals#deep-reactivity)되므로 `.value`를 사용할 필요가 없습니다. `this`에서 접근할 때도 동일하게 언래핑됩니다.
 
-`setup()` 자체는 컴포넌트 인스턴스에 접근할 수 없습니다 - `setup()` 내부에서 `this`는 `undefined` 값을 가집니다. 옵션 API에서 컴포지션 API로 노출된 값에는 접근할 수 있지만, 그 반대는 불가능합니다.
+`setup()` 자체는 컴포넌트 인스턴스에 접근할 수 없습니다. `setup()` 내부에서 `this`는 `undefined` 값을 가집니다. 옵션 API에서는 컴포지션 API로 노출된 값에 접근할 수 있지만, 그 반대는 불가능합니다.
 
-`setup()`은 _동기적으로_ 객체를 반환해야 합니다. `async setup()`을 사용할 수 있는 유일한 경우는 컴포넌트가 [Suspense](../guide/built-ins/suspense) 컴포넌트의 하위 컴포넌트인 경우입니다.
+`setup()`은 _동기적으로_ 객체를 반환해야 합니다. `async setup()`은 컴포넌트가 [Suspense](../guide/built-ins/suspense) 컴포넌트의 하위 컴포넌트인 경우에만 사용할 수 있습니다.
 
 ## Props 접근하기 {#accessing-props}
 
-`setup` 함수의 첫 번째 인자는 `props` 인자입니다. 일반 컴포넌트에서 기대하는 것처럼, `setup` 함수 내부의 `props`는 반응형이며 새로운 props가 전달될 때 업데이트됩니다.
+`setup` 함수의 첫 번째 인자는 `props`입니다. 일반 컴포넌트에서 기대하는 것처럼, `setup` 함수 내부의 `props`는 반응형이며 새로운 props가 전달될 때 업데이트됩니다.
 
 ```js
 export default {
@@ -134,7 +134,7 @@ export default {
 
 ## 렌더 함수와 함께 사용하기 {#usage-with-render-functions}
 
-`setup`은 [렌더 함수](/guide/extras/render-function)를 반환할 수도 있으며, 동일한 스코프에서 선언된 반응형 상태를 직접 사용할 수 있습니다:
+`setup`은 [렌더 함수](/guide/extras/render-function)를 반환할 수도 있으며, 이 렌더 함수는 동일한 스코프에서 선언된 반응형 상태를 직접 사용할 수 있습니다:
 
 ```js{6}
 import { h, ref } from 'vue'

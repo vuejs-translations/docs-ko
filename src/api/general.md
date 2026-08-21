@@ -117,7 +117,7 @@
 
 - **세부사항**
 
-  첫 번째 인자는 컴포넌트 옵션 객체를 기대합니다. 반환값은 동일한 옵션 객체이며, 이 함수는 타입 추론 목적을 위한 런타임 no-op입니다.
+  첫 번째 인자로 컴포넌트 옵션 객체를 받습니다. 반환값은 동일한 옵션 객체이며, 이 함수는 타입 추론을 위한 런타임 no-op입니다.
 
   반환 타입은 약간 특별합니다: 옵션을 기반으로 추론된 컴포넌트 인스턴스(instance) 타입의 생성자 타입이 됩니다. 이는 반환 타입이 TSX에서 태그로 사용될 때 타입 추론에 사용됩니다.
 
@@ -133,9 +133,9 @@
 
   - 3.3+에서만 지원
 
-  `defineComponent()`는 Composition API 및 [렌더 함수 또는 JSX](/guide/extras/render-function.html)와 함께 사용하기 위한 대체 시그니처도 제공합니다.
+  `defineComponent()`는 컴포지션 API 및 [렌더 함수 또는 JSX](/guide/extras/render-function.html)와 함께 사용하기 위한 대체 시그니처도 제공합니다.
 
-  옵션 객체를 전달하는 대신, 함수를 전달해야 합니다. 이 함수는 Composition API의 [`setup()`](/api/composition-api-setup.html#composition-api-setup) 함수와 동일하게 동작하며, props와 setup context를 받습니다. 반환값은 렌더 함수여야 하며, `h()`와 JSX 모두 지원됩니다:
+  옵션 객체를 전달하는 대신, 함수를 전달해야 합니다. 이 함수는 컴포지션 API의 [`setup()`](/api/composition-api-setup.html#composition-api-setup) 함수와 동일하게 동작하며, props와 setup context를 받습니다. 반환값은 렌더 함수여야 하며, `h()`와 JSX 모두 지원됩니다:
 
   ```js
   import { ref, h } from 'vue'
@@ -179,11 +179,11 @@
   )
   ```
 
-  앞으로는 런타임 props 선언을 생략할 수 있도록, Babel 플러그인(plugin)을 제공하여(마치 SFC의 `defineProps`처럼) 런타임 props를 자동으로 추론하고 주입할 계획입니다.
+  앞으로는 (마치 SFC의 `defineProps`처럼) 런타임 props를 자동으로 추론하고 주입하는 Babel 플러그인(plugin)을 제공하여, 런타임 props 선언을 생략할 수 있도록 할 계획입니다.
 
   ### webpack 트리 셰이킹에 대한 참고 {#note-on-webpack-treeshaking}
 
-  `defineComponent()`는 함수 호출이기 때문에, 일부 빌드 도구(예: webpack)에서는 부작용이 있는 것으로 간주할 수 있습니다. 이로 인해 컴포넌트가 실제로 사용되지 않더라도 트리 셰이킹되지 않을 수 있습니다.
+  `defineComponent()`는 함수 호출이기 때문에, 일부 빌드 도구(예: webpack)에서는 부수 효과이 있는 것으로 간주할 수 있습니다. 이로 인해 컴포넌트가 실제로 사용되지 않더라도 트리 셰이킹되지 않을 수 있습니다.
 
   이 함수 호출이 트리 셰이킹에 안전하다는 것을 webpack에 알리려면, 함수 호출 앞에 `/*#__PURE__*/` 주석을 추가할 수 있습니다:
 
@@ -191,7 +191,7 @@
   export default /*#__PURE__*/ defineComponent(/* ... */)
   ```
 
-  Vite를 사용하는 경우에는 필요하지 않습니다. Vite의 기본 프로덕션 번들러(bundler)인 Rollup은 수동 주석 없이도 `defineComponent()`가 실제로 부작용이 없다는 것을 충분히 판단할 수 있습니다.
+  Vite를 사용하는 경우에는 이 주석이 필요하지 않습니다. Vite의 기본 프로덕션 번들러(bundler)인 Rollup은 수동 주석 없이도 `defineComponent()`가 실제로 부수 효과이 없다는 것을 충분히 판단할 수 있습니다.
 
 - **관련 항목** [가이드 - TypeScript와 함께 Vue 사용하기](/guide/typescript/overview#general-usage-notes)
 

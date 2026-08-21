@@ -12,7 +12,7 @@ outline: deep
 
 ## 비동기 의존성 {#async-dependencies}
 
-`<Suspense>`가 해결하려는 문제와 이 비동기 의존성과 어떻게 상호작용하는지 설명하기 위해, 다음과 같은 컴포넌트 계층 구조를 상상해봅시다:
+`<Suspense>`가 해결하려는 문제가 무엇이고 `<Suspense>`가 이러한 비동기 의존성과 어떻게 상호작용하는지 설명하기 위해, 다음과 같은 컴포넌트 계층 구조를 상상해봅시다:
 
 ```
 <Suspense>
@@ -24,7 +24,7 @@ outline: deep
       └─ <Stats> (비동기 컴포넌트)
 ```
 
-컴포넌트 트리에는 렌더링이 먼저 해결되어야 하는 비동기 리소스에 의존하는 여러 중첩 컴포넌트가 있습니다. `<Suspense>` 없이 각 컴포넌트는 자체적으로 로딩/에러 및 로드 완료 상태를 처리해야 합니다. 최악의 경우, 페이지에 세 개의 로딩 스피너가 표시되고, 콘텐츠가 서로 다른 시점에 표시될 수 있습니다.
+컴포넌트 트리에는, 렌더링하려면 비동기 리소스가 먼저 해결되어야 하는 중첩 컴포넌트가 여럿 있습니다. `<Suspense>` 없이 각 컴포넌트는 자체적으로 로딩/에러 및 로드 완료 상태를 처리해야 합니다. 최악의 경우, 페이지에 세 개의 로딩 스피너가 표시되고, 콘텐츠가 서로 다른 시점에 표시될 수 있습니다.
 
 `<Suspense>` 컴포넌트를 사용하면 이러한 중첩된 비동기 의존성이 해결될 때까지 상위 수준의 로딩/에러 상태를 표시할 수 있습니다.
 
@@ -36,7 +36,7 @@ outline: deep
 
 ### `async setup()` {#async-setup}
 
-Composition API 컴포넌트의 `setup()` 훅은 비동기로 만들 수 있습니다:
+컴포지션 API 컴포넌트의 `setup()` 훅은 비동기로 만들 수 있습니다:
 
 ```js
 export default {
@@ -67,11 +67,11 @@ const posts = await res.json()
 
 비동기 컴포넌트는 기본적으로 **"suspensible"** 합니다. 즉, 부모 체인에 `<Suspense>`가 있으면 해당 `<Suspense>`의 비동기 의존성으로 처리됩니다. 이 경우, 로딩 상태는 `<Suspense>`가 제어하며, 컴포넌트 자체의 로딩, 에러, 지연 및 타임아웃 옵션은 무시됩니다.
 
-비동기 컴포넌트는 옵션에서 `suspensible: false`를 지정하여 `Suspense` 제어를 비활성화하고 항상 자체적으로 로딩 상태를 제어할 수 있습니다.
+비동기 컴포넌트는 옵션에 `suspensible: false`를 지정하면 `Suspense`의 제어를 받지 않고 항상 자체적으로 로딩 상태를 제어할 수 있습니다.
 
 ## 로딩 상태 {#loading-state}
 
-`<Suspense>` 컴포넌트에는 두 개의 슬롯(slot): `#default`와 `#fallback`이 있습니다. 두 슬롯 모두 **하나의** 직계 자식 노드만 허용합니다. 기본 슬롯의 노드는 가능하다면 표시됩니다. 그렇지 않으면 fallback 슬롯의 노드가 대신 표시됩니다.
+`<Suspense>` 컴포넌트에는 `#default`와 `#fallback`이라는 두 개의 슬롯(slot)이 있습니다. 두 슬롯 모두 **하나의** 직계 자식 노드만 허용합니다. 기본 슬롯의 노드는 가능하다면 표시됩니다. 그렇지 않으면 fallback 슬롯의 노드가 대신 표시됩니다.
 
 ```vue-html
 <Suspense>
@@ -95,21 +95,21 @@ const posts = await res.json()
 
 ## 이벤트 {#events}
 
-`<Suspense>` 컴포넌트는 3개의 이벤트를 발생시킵니다: `pending`, `resolve`, `fallback`. `pending` 이벤트는 대기 상태로 진입할 때 발생합니다. `resolve` 이벤트는 `default` 슬롯의 새 콘텐츠가 해결되었을 때 발생합니다. `fallback` 이벤트는 fallback 슬롯의 내용이 표시될 때 발생합니다.
+`<Suspense>` 컴포넌트는 3개의 이벤트를 발생시킵니다: `pending`, `resolve`, `fallback`. `pending` 이벤트는 대기 상태로 진입할 때, `resolve` 이벤트는 `default` 슬롯의 새 콘텐츠가 해결되었을 때, `fallback` 이벤트는 fallback 슬롯의 내용이 표시될 때 발생합니다.
 
 이 이벤트들은 예를 들어, 새 컴포넌트가 로드되는 동안 이전 DOM 앞에 로딩 인디케이터를 표시하는 데 사용할 수 있습니다.
 
 ## 에러 처리 {#error-handling}
 
-`<Suspense>`는 현재 컴포넌트 자체를 통한 에러 처리를 제공하지 않습니다. 하지만, [`errorCaptured`](/api/options-lifecycle#errorcaptured) 옵션이나 [`onErrorCaptured()`](/api/composition-api-lifecycle#onerrorcaptured) 훅을 사용하여 `<Suspense>`의 부모 컴포넌트에서 비동기 에러를 포착하고 처리할 수 있습니다.
+`<Suspense>`는 현재로서는 컴포넌트 자체를 통한 에러 처리를 제공하지 않습니다. 하지만, [`errorCaptured`](/api/options-lifecycle#errorcaptured) 옵션이나 [`onErrorCaptured()`](/api/composition-api-lifecycle#onerrorcaptured) 훅을 사용하여 `<Suspense>`의 부모 컴포넌트에서 비동기 에러를 포착하고 처리할 수 있습니다.
 
 ## 다른 컴포넌트와의 조합 {#combining-with-other-components}
 
-[`<Transition>`](./transition) 및 [`<KeepAlive>`](./keep-alive) 컴포넌트와 `<Suspense>`를 함께 사용하는 경우가 많습니다. 이 컴포넌트들의 중첩 순서는 모두 올바르게 동작하도록 하는 데 중요합니다.
+[`<Transition>`](./transition) 및 [`<KeepAlive>`](./keep-alive) 컴포넌트와 `<Suspense>`를 함께 사용하는 경우가 많습니다. 이 컴포넌트들이 모두 올바르게 동작하려면 중첩 순서가 중요합니다.
 
 또한, 이 컴포넌트들은 [Vue Router](https://router.vuejs.org/)의 `<RouterView>` 컴포넌트와 함께 자주 사용됩니다.
 
-다음 예시는 이 컴포넌트들을 중첩하여 모두 기대한 대로 동작하도록 하는 방법을 보여줍니다. 더 간단한 조합이 필요하다면 필요 없는 컴포넌트는 제거할 수 있습니다:
+다음 예시는 이 컴포넌트들을 중첩하여 모두 기대한 대로 동작하도록 하는 방법을 보여줍니다. 더 간단한 조합을 원한다면, 쓰지 않는 컴포넌트는 제거할 수 있습니다:
 
 ```vue-html
 <RouterView v-slot="{ Component }">
@@ -131,7 +131,7 @@ const posts = await res.json()
 </RouterView>
 ```
 
-Vue Router는 동적 import를 사용하여 [컴포넌트 지연 로딩(lazy loading)](https://router.vuejs.org/guide/advanced/lazy-loading.html)을 기본적으로 지원합니다. 이는 비동기 컴포넌트와는 다르며, 현재로서는 `<Suspense>`를 트리거하지 않습니다. 하지만, 이들 컴포넌트가 하위에 비동기 컴포넌트를 가질 수 있고, 이 경우에는 평소와 같이 `<Suspense>`를 트리거할 수 있습니다.
+Vue Router는 동적 import를 사용하여 [컴포넌트 지연 로딩(lazy loading)](https://router.vuejs.org/guide/advanced/lazy-loading.html)을 기본적으로 지원합니다. 이는 비동기 컴포넌트와는 다르며, 현재로서는 `<Suspense>`를 트리거하지 않습니다. 하지만, 이렇게 지연 로딩되는 컴포넌트도 하위에 비동기 컴포넌트를 가질 수 있고, 이 경우에는 평소와 같이 `<Suspense>`를 트리거할 수 있습니다.
 
 ## 중첩 Suspense {#nested-suspense}
 
@@ -147,7 +147,7 @@ Vue Router는 동적 import를 사용하여 [컴포넌트 지연 로딩(lazy loa
 </Suspense>
 ```
 
-`<Suspense>`는 예상대로 트리 아래의 모든 비동기 컴포넌트를 해결하는 경계를 만듭니다. 하지만, `DynamicAsyncOuter`를 변경하면 `<Suspense>`가 올바르게 대기하지만, `DynamicAsyncInner`를 변경하면 중첩된 `DynamicAsyncInner`가 해결될 때까지 빈 노드를 렌더링합니다(이전 노드나 fallback 슬롯 대신).
+`<Suspense>`는 예상대로 트리 아래의 모든 비동기 컴포넌트를 해결하는 경계를 만듭니다. 그런데 `DynamicAsyncOuter`를 변경하면 `<Suspense>`가 올바르게 대기하지만, `DynamicAsyncInner`를 변경하면 중첩된 `DynamicAsyncInner`가 해결될 때까지 빈 노드를 렌더링합니다(이전 노드나 fallback 슬롯 대신).
 
 이를 해결하기 위해, 중첩된 컴포넌트의 패치를 처리할 중첩 suspense를 둘 수 있습니다. 예를 들면:
 
@@ -161,7 +161,7 @@ Vue Router는 동적 import를 사용하여 [컴포넌트 지연 로딩(lazy loa
 </Suspense>
 ```
 
-`suspensible` prop을 설정하지 않으면, 내부 `<Suspense>`는 부모 `<Suspense>`에 의해 동기 컴포넌트로 처리됩니다. 즉, 자체 fallback 슬롯이 있으며, 두 `Dynamic` 컴포넌트가 동시에 변경되면 자식 `<Suspense>`가 자체 의존성 트리를 로딩하는 동안 빈 노드와 여러 패치 사이클이 발생할 수 있습니다. 이는 바람직하지 않을 수 있습니다. 설정하면, 모든 비동기 의존성 처리는 부모 `<Suspense>`에 위임되고(이벤트 발생 포함), 내부 `<Suspense>`는 의존성 해결 및 패칭을 위한 또 다른 경계 역할만 하게 됩니다.
+`suspensible` prop을 설정하지 않으면, 내부 `<Suspense>`는 부모 `<Suspense>`에 의해 동기 컴포넌트로 처리됩니다. 즉, 자체 fallback 슬롯이 있으며, 두 `Dynamic` 컴포넌트가 동시에 변경되면 자식 `<Suspense>`가 자체 의존성 트리를 로딩하는 동안 빈 노드와 여러 패치 사이클이 발생할 수 있습니다. 이는 바람직하지 않을 수 있습니다. `suspensible`을 설정하면, 모든 비동기 의존성 처리는 부모 `<Suspense>`에 위임되고(이벤트 발생 포함), 내부 `<Suspense>`는 의존성 해결 및 패칭을 위한 또 다른 경계 역할만 하게 됩니다.
 
 ---
 

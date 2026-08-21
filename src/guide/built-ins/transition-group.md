@@ -6,11 +6,11 @@ import ListStagger from './transition-demos/ListStagger.vue'
 
 # TransitionGroup {#transitiongroup}
 
-`<TransitionGroup>`는 리스트로 렌더링(rendering)되는 요소 또는 컴포넌트(component)의 삽입, 제거, 순서 변경을 애니메이션화하기 위해 설계된 내장 컴포넌트입니다.
+`<TransitionGroup>`은 리스트로 렌더링(rendering)되는 요소 또는 컴포넌트(component)의 삽입, 제거, 순서 변경에 애니메이션을 적용하도록 설계된 내장 컴포넌트입니다.
 
 ## `<Transition>`과의 차이점 {#differences-from-transition}
 
-`<TransitionGroup>`는 `<Transition>`과 동일한 props, CSS 트랜지션(transition) 클래스, JavaScript 훅(hook) 리스너(listener)를 지원하지만, 다음과 같은 차이점이 있습니다:
+`<TransitionGroup>`은 `<Transition>`과 동일한 props, CSS 트랜지션(transition) 클래스, JavaScript 훅(hook) 리스너(listener)를 지원하지만, 다음과 같은 차이점이 있습니다:
 
 - 기본적으로 래퍼 요소를 렌더링하지 않습니다. 하지만 `tag` prop을 사용하여 렌더링할 요소를 지정할 수 있습니다.
 
@@ -24,9 +24,9 @@ import ListStagger from './transition-demos/ListStagger.vue'
 [DOM 내 템플릿(template)](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에서 사용할 때는 `<transition-group>`으로 참조해야 합니다.
 :::
 
-## 입장 / 퇴장 트랜지션 {#enter-leave-transitions}
+## 진입 / 퇴장 트랜지션 {#enter-leave-transitions}
 
-다음은 `<TransitionGroup>`을 사용하여 `v-for` 리스트에 입장/퇴장 트랜지션을 적용하는 예시입니다:
+다음은 `<TransitionGroup>`을 사용하여 `v-for` 리스트에 진입/퇴장 트랜지션을 적용하는 예시입니다:
 
 ```vue-html
 <TransitionGroup name="list" tag="ul">
@@ -52,7 +52,7 @@ import ListStagger from './transition-demos/ListStagger.vue'
 
 ## 이동 트랜지션 {#move-transitions}
 
-위의 데모에는 몇 가지 명백한 결함이 있습니다: 항목이 삽입되거나 제거될 때, 주변 항목들이 부드럽게 이동하지 않고 즉시 "점프"합니다. 몇 가지 추가 CSS 규칙을 추가하여 이를 개선할 수 있습니다:
+위의 데모에는 몇 가지 명백한 결함이 있습니다: 항목이 삽입되거나 제거될 때, 주변 항목들이 부드럽게 이동하지 않고 즉시 "점프"합니다. CSS 규칙을 몇 개 더 추가하면 이를 개선할 수 있습니다:
 
 ```css{1,13-17}
 .list-move, /* 이동하는 요소에 트랜지션 적용 */
@@ -86,7 +86,7 @@ import ListStagger from './transition-demos/ListStagger.vue'
 
 ## 리스트 트랜지션의 스태거링 {#staggering-list-transitions}
 
-데이터 속성을 통해 JavaScript 트랜지션과 통신함으로써, 리스트 내 트랜지션을 스태거(순차적으로 지연)하는 것도 가능합니다. 먼저, 항목의 인덱스를 DOM 요소의 데이터 속성으로 렌더링합니다:
+데이터 속성을 통해 JavaScript 트랜지션과 통신하면, 리스트 내 트랜지션을 스태거(순차적으로 지연)할 수도 있습니다. 먼저, 항목의 인덱스를 DOM 요소의 데이터 속성으로 렌더링합니다:
 
 ```vue-html{11}
 <TransitionGroup
@@ -106,7 +106,7 @@ import ListStagger from './transition-demos/ListStagger.vue'
 </TransitionGroup>
 ```
 
-그런 다음, JavaScript 훅에서 데이터 속성을 기반으로 지연을 주어 요소를 애니메이션화합니다. 이 예제에서는 [GSAP 라이브러리](https://gsap.com/)를 사용하여 애니메이션을 수행합니다:
+그런 다음, JavaScript 훅에서 데이터 속성을 기반으로 지연을 주어 요소에 애니메이션을 적용합니다. 이 예제에서는 [GSAP 라이브러리](https://gsap.com/)를 사용하여 애니메이션을 수행합니다:
 
 ```js{5}
 function onEnter(el, done) {

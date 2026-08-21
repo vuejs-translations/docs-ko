@@ -54,7 +54,7 @@ const author = reactive({
 <span>{{ author.books.length > 0 ? '예' : '아니오' }}</span>
 ```
 
-이 시점에서 템플릿이 약간 복잡해지고 있습니다. `author.books`에 따라 계산이 수행된다는 것을 알아차리기 위해 잠시 들여다봐야 합니다. 더 중요한 것은, 이 계산을 템플릿에서 여러 번 포함해야 한다면 반복하지 않기를 원할 것입니다.
+이 시점에서 템플릿이 약간 복잡해지고 있습니다. 잠시 들여다봐야 `author.books`에 따라 계산이 수행된다는 것을 알아차릴 수 있습니다. 더 중요한 것은, 이 계산을 템플릿에 여러 번 포함해야 한다면 같은 코드를 반복하고 싶지 않을 것이라는 점입니다.
 
 이런 이유로, 반응형 데이터를 포함하는 복잡한 로직에는 **계산된 속성(computed property)**을 사용하는 것이 권장됩니다. 다음은 동일한 예제를 리팩토링한 것입니다:
 
@@ -91,7 +91,7 @@ export default {
 
 [Playground에서 실행해보기](https://play.vuejs.org/#eNqFkN1KxDAQhV/l0JsqaFfUq1IquwiKsF6JINaLbDNui20S8rO4lL676c82eCFCIDOZMzkzXxetlUoOjqI0ykypa2XzQtC3ktqC0ydzjUVXCIAzy87OpxjQZJ0WpwxgzlZSp+EBEKylFPGTrATuJcUXobST8sukeA8vQPzqCNe4xJofmCiJ48HV/FfbLLrxog0zdfmn4tYrXirC9mgs6WMcBB+nsJ+C8erHH0rZKmeJL0sot2tqUxHfDONuyRi2p4BggWCr2iQTgGTcLGlI7G2FHFe4Q/xGJoYn8SznQSbTQviTrRboPrHUqoZZ8hmQqfyRmTDFTC1bqalsFBN5183o/3NG33uvoWUwXYyi/gdTEpwK)
 
-여기서 우리는 계산된 속성 `publishedBooksMessage`를 선언했습니다.
+여기서는 계산된 속성 `publishedBooksMessage`를 선언했습니다.
 
 애플리케이션의 `data`에 있는 `books` 배열의 값을 변경해보면 `publishedBooksMessage`가 그에 따라 변경되는 것을 볼 수 있습니다.
 
@@ -130,7 +130,7 @@ const publishedBooksMessage = computed(() => {
 
 [Playground에서 실행해보기](https://play.vuejs.org/#eNp1kE9Lw0AQxb/KI5dtoTainkoaaREUoZ5EEONhm0ybYLO77J9CCfnuzta0vdjbzr6Zeb95XbIwZroPlMySzJW2MR6OfDB5oZrWaOvRwZIsfbOnCUrdmuCpQo+N1S0ET4pCFarUynnI4GttMT9PjLpCAUq2NIN41bXCkyYxiZ9rrX/cDF/xDYiPQLjDDRbVXqqSHZ5DUw2tg3zP8lK6pvxHe2DtvSasDs6TPTAT8F2ofhzh0hTygm5pc+I1Yb1rXE3VMsKsyDm5JcY/9Y5GY8xzHI+wnIpVw4nTI/10R2rra+S4xSPEJzkBvvNNs310ztK/RDlLLjy1Zic9cQVkJn+R7gIwxJGlMXiWnZEq77orhH3Pq2NH9DjvTfpfSBSbmA==)
 
-여기서 우리는 계산된 속성 `publishedBooksMessage`를 선언했습니다. `computed()` 함수는 [getter 함수](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/get#description)를 인자로 받으며, 반환값은 **계산된 ref**입니다. 일반 ref와 유사하게, 계산된 결과는 `publishedBooksMessage.value`로 접근할 수 있습니다. 계산된 ref는 템플릿에서 자동으로 언래핑되므로, 템플릿 표현식에서는 `.value` 없이 참조할 수 있습니다.
+여기서는 계산된 속성 `publishedBooksMessage`를 선언했습니다. `computed()` 함수는 [getter 함수](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/get#description)를 인자로 받으며, 반환값은 **계산된 ref**입니다. 일반 ref와 유사하게, 계산된 결과는 `publishedBooksMessage.value`로 접근할 수 있습니다. 계산된 ref는 템플릿에서 자동으로 언래핑되므로, 템플릿 표현식에서는 `.value` 없이 참조할 수 있습니다.
 
 계산된 속성은 자동으로 자신의 반응형 의존성을 추적합니다. Vue는 `publishedBooksMessage`의 계산이 `author.books`에 의존한다는 것을 알고 있으므로, `author.books`가 변경될 때 `publishedBooksMessage`에 의존하는 모든 바인딩을 업데이트합니다.
 
@@ -170,9 +170,9 @@ function calculateBooksMessage() {
 
 </div>
 
-계산된 속성 대신 동일한 함수를 메서드로 정의할 수 있습니다. 최종 결과는 두 접근 방식이 실제로 완전히 동일합니다. 그러나 **계산된 속성은 자신의 반응형 의존성에 따라 캐시됩니다.** 계산된 속성은 반응형 의존성 중 일부가 변경될 때만 다시 평가됩니다. 즉, `author.books`가 변경되지 않는 한, `publishedBooksMessage`에 여러 번 접근해도 getter 함수를 다시 실행하지 않고 이전에 계산된 결과를 즉시 반환합니다.
+계산된 속성 대신 동일한 함수를 메서드로 정의할 수 있습니다. 최종 결과만 보면, 두 접근 방식은 실제로 완전히 동일합니다. 그러나 **계산된 속성은 자신의 반응형 의존성에 따라 캐시됩니다.** 계산된 속성은 반응형 의존성 중 일부가 변경될 때만 다시 평가됩니다. 즉, `author.books`가 변경되지 않는 한, `publishedBooksMessage`에 여러 번 접근해도 getter 함수를 다시 실행하지 않고 이전에 계산된 결과를 즉시 반환합니다.
 
-이것은 또한 다음과 같은 계산된 속성은 절대 업데이트되지 않는다는 것을 의미합니다. 왜냐하면 `Date.now()`는 반응형 의존성이 아니기 때문입니다:
+이는 `Date.now()`가 반응형 의존성이 아니기 때문에, 다음과 같은 계산된 속성이 절대 업데이트되지 않는다는 뜻이기도 합니다:
 
 <div class="options-api">
 
@@ -196,7 +196,7 @@ const now = computed(() => Date.now())
 
 반면, 메서드 호출은 리렌더가 발생할 때마다 **항상** 함수를 실행합니다.
 
-왜 캐싱이 필요할까요? 예를 들어, 대용량 배열을 반복하고 많은 계산을 수행해야 하는 비용이 큰 계산된 속성 `list`가 있다고 가정해봅시다. 그리고 다른 계산된 속성이 다시 `list`에 의존할 수 있습니다. 캐싱이 없다면, `list`의 getter를 불필요하게 여러 번 실행하게 됩니다! 캐싱이 필요하지 않은 경우에는 메서드 호출을 대신 사용하세요.
+왜 캐싱이 필요할까요? 예를 들어, 대용량 배열을 반복하고 많은 계산을 수행해야 하는 비용이 큰 계산된 속성 `list`가 있다고 가정해봅시다. 그리고 또 다른 계산된 속성이 `list`에 의존할 수도 있습니다. 캐싱이 없다면, `list`의 getter를 불필요하게 여러 번 실행하게 됩니다! 캐싱이 필요하지 않은 경우에는 메서드 호출을 대신 사용하세요.
 
 ## 쓰기 가능한 계산된 속성 {#writable-computed}
 
@@ -377,9 +377,9 @@ const alwaysSmall = computed({
 
 ## 모범 사례 {#best-practices}
 
-### Getter는 부작용이 없어야 합니다 {#getters-should-be-side-effect-free}
+### Getter는 부수 효과이 없어야 합니다 {#getters-should-be-side-effect-free}
 
-계산된 getter 함수는 순수 계산만 수행하고 부작용이 없어야 한다는 점을 기억하는 것이 중요합니다. 예를 들어, **다른 상태를 변경하거나, 비동기 요청을 하거나, 계산된 getter 내부에서 DOM을 변경하지 마세요!** 계산된 속성은 다른 값을 기반으로 값을 도출하는 방법을 선언적으로 설명하는 것으로 생각하세요. 그 유일한 책임은 해당 값을 계산하고 반환하는 것입니다. 가이드의 뒷부분에서 [watchers](./watchers)를 사용하여 상태 변경에 반응하여 부작용을 수행하는 방법에 대해 다룰 것입니다.
+계산된 getter 함수는 순수 계산만 수행하고 부수 효과이 없어야 한다는 점을 기억하는 것이 중요합니다. 예를 들어, **계산된 getter 내부에서 다른 상태를 변경하거나, 비동기 요청을 하거나, DOM을 변경하지 마세요!** 계산된 속성은 다른 값을 기반으로 값을 도출하는 방법을 선언적으로 설명하는 것으로 생각하세요. 그 유일한 책임은 해당 값을 계산하고 반환하는 것입니다. 가이드의 뒷부분에서 [watchers](./watchers)를 사용해 상태 변경에 반응하여 부수 효과을 수행하는 방법을 다룰 것입니다.
 
 ### 계산된 값 변경 피하기 {#avoid-mutating-computed-value}
 

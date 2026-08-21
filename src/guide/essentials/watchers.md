@@ -2,7 +2,7 @@
 
 ## 기본 예제 {#basic-example}
 
-계산 속성(computed property)은 파생 값을 선언적으로 계산할 수 있게 해줍니다. 하지만 상태 변화에 반응하여 "부수 효과"를 수행해야 하는 경우가 있습니다. 예를 들어, DOM을 변경하거나 비동기 작업의 결과에 따라 다른 상태를 변경하는 경우가 있습니다.
+계산된 속성(computed property)은 파생 값을 선언적으로 계산할 수 있게 해줍니다. 하지만 상태 변화에 반응하여 "부수 효과"를 수행해야 하는 경우가 있습니다. 예를 들어, DOM을 변경해야 하거나 비동기 작업의 결과에 따라 다른 상태를 변경해야 할 때가 그렇습니다.
 
 <div class="options-api">
 
@@ -69,7 +69,7 @@ export default {
 
 <div class="composition-api">
 
-Composition API에서는 [`watch` 함수](/api/reactivity-core#watch)를 사용하여 반응형 상태가 변경될 때마다 콜백(callback)을 실행할 수 있습니다:
+컴포지션 API에서는 [`watch` 함수](/api/reactivity-core#watch)를 사용하여 반응형 상태가 변경될 때마다 콜백(callback)을 실행할 수 있습니다:
 
 ```vue
 <script setup>
@@ -109,7 +109,7 @@ watch(question, async (newQuestion, oldQuestion) => {
 
 ### Watch 소스 타입 {#watch-source-types}
 
-`watch`의 첫 번째 인자는 다양한 타입의 반응형 "소스"가 될 수 있습니다: ref(계산된 ref 포함), 반응형 객체, [getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description), 또는 여러 소스의 배열이 될 수 있습니다:
+`watch`의 첫 번째 인자는 다양한 타입의 반응형 "소스"가 될 수 있습니다. ref(계산된 ref 포함), 반응형 객체, [getter 함수](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get#description), 여러 소스의 배열이 모두 가능합니다:
 
 ```js
 const x = ref(0)
@@ -184,7 +184,7 @@ export default {
 
 <div class="composition-api">
 
-`watch()`를 반응형 객체에 직접 호출하면 암묵적으로 깊은 감시자가 생성됩니다 - 콜백은 모든 중첩된 변경에 대해 실행됩니다:
+`watch()`를 반응형 객체에 직접 호출하면 암묵적으로 깊은 감시자가 생성되어, 콜백이 모든 중첩된 변경에 대해 실행됩니다:
 
 ```js
 const obj = reactive({ count: 0 })
@@ -198,7 +198,7 @@ watch(obj, (newValue, oldValue) => {
 obj.count++
 ```
 
-반응형 객체를 반환하는 getter와는 구분해야 합니다 - 이 경우에는 getter가 다른 객체를 반환할 때만 콜백이 실행됩니다:
+반응형 객체를 반환하는 getter와는 구분해야 합니다. 이 경우에는 getter가 다른 객체를 반환할 때만 콜백이 실행됩니다:
 
 ```js
 watch(
@@ -224,7 +224,7 @@ watch(
 
 </div>
 
-Vue 3.5+에서는 `deep` 옵션에 최대 탐색 깊이를 나타내는 숫자를 지정할 수도 있습니다. 즉, Vue가 객체의 중첩 속성을 몇 단계까지 탐색할지 지정할 수 있습니다.
+Vue 3.5+에서는 `deep` 옵션에 최대 탐색 깊이를 나타내는 숫자를 지정할 수도 있습니다. 즉, Vue가 객체의 중첩 속성을 몇 단계까지 탐색할지 정할 수 있습니다.
 
 :::warning 주의해서 사용하세요
 깊은 감시는 감시하는 객체의 모든 중첩 속성을 순회해야 하므로, 대용량 데이터 구조에 사용하면 비용이 많이 들 수 있습니다. 꼭 필요한 경우에만 사용하고, 성능에 주의하세요.
@@ -232,7 +232,7 @@ Vue 3.5+에서는 `deep` 옵션에 최대 탐색 깊이를 나타내는 숫자�
 
 ## 즉시 실행 감시자(Eager Watchers) {#eager-watchers}
 
-`watch`는 기본적으로 지연(lazy) 실행됩니다: 감시하는 소스가 변경되기 전까지 콜백이 호출되지 않습니다. 하지만 경우에 따라 동일한 콜백 로직을 즉시 실행하고 싶을 수 있습니다. 예를 들어, 초기 데이터를 가져오고, 관련 상태가 변경될 때마다 다시 데이터를 가져오고 싶을 때가 있습니다.
+`watch`는 기본적으로 지연(lazy) 실행됩니다: 감시하는 소스가 변경되기 전까지 콜백이 호출되지 않습니다. 하지만 경우에 따라 동일한 콜백 로직을 즉시 실행하고 싶을 수 있습니다. 예를 들어, 초기 데이터를 가져온 뒤 관련 상태가 변경될 때마다 다시 가져오고 싶을 때가 있습니다.
 
 <div class="options-api">
 
@@ -346,7 +346,7 @@ watchEffect(async () => {
 })
 ```
 
-여기서 콜백은 즉시 실행되며, `immediate: true`를 명시할 필요가 없습니다. 실행 중에 `todoId.value`가 의존성으로 자동 추적됩니다(계산 속성과 유사). `todoId.value`가 변경될 때마다 콜백이 다시 실행됩니다. `watchEffect()`를 사용하면 더 이상 소스 값을 명시적으로 전달할 필요가 없습니다.
+여기서 콜백은 즉시 실행되며, `immediate: true`를 명시할 필요가 없습니다. 실행 중에 `todoId.value`가 의존성으로 자동 추적됩니다(계산된 속성과 유사). `todoId.value`가 변경될 때마다 콜백이 다시 실행됩니다. `watchEffect()`를 사용하면 소스 값을 더 이상 명시적으로 전달하지 않아도 됩니다.
 
 `watchEffect()`와 반응형 데이터 패칭이 실제로 동작하는 [이 예제](/examples/#fetching-data)를 확인해보세요.
 
@@ -397,7 +397,7 @@ export default {
 
 </div>
 
-하지만 요청이 완료되기 전에 `id`가 변경된다면 어떻게 될까요? 이전 요청이 완료되면 이미 오래된 ID 값으로 콜백이 실행됩니다. 이상적으로는, `id`가 새 값으로 변경될 때 이전 요청을 취소할 수 있으면 좋겠습니다.
+하지만 요청이 완료되기 전에 `id`가 변경된다면 어떻게 될까요? 이전 요청이 완료되는 시점에는 이미 오래된 ID 값으로 콜백이 실행됩니다. 이상적으로는, `id`가 새 값으로 변경될 때 이전 요청을 취소할 수 있으면 좋겠습니다.
 
 [`onWatcherCleanup()`](/api/reactivity-core#onwatchercleanup) <sup class="vt-badge" data-text="3.5+" /> API를 사용하면 감시자가 무효화되어 다시 실행되기 직전에 호출될 정리 함수를 등록할 수 있습니다:
 
@@ -448,7 +448,7 @@ export default {
 
 `onWatcherCleanup`은 Vue 3.5+에서만 지원되며, 반드시 `watchEffect` 효과 함수나 `watch` 콜백 함수의 동기 실행 중에 호출해야 합니다. 비동기 함수에서 `await` 이후에 호출할 수 없습니다.
 
-또는, 감시자 콜백의 3번째 인자<span class="composition-api">, 그리고 `watchEffect` 효과 함수의 첫 번째 인자</span>로 `onCleanup` 함수가 전달됩니다:
+또는, 감시자 콜백의 세 번째 인자<span class="composition-api">, 그리고 `watchEffect` 효과 함수의 첫 번째 인자</span>로 `onCleanup` 함수가 전달됩니다:
 
 <div class="composition-api">
 
@@ -494,7 +494,7 @@ export default {
 
 컴포넌트 업데이트와 마찬가지로, 사용자가 만든 감시자 콜백도 중복 호출을 방지하기 위해 배치 처리됩니다. 예를 들어, 감시하는 배열에 동기적으로 1,000개 항목을 추가할 때 감시자가 1,000번 실행되는 것을 원하지 않을 것입니다.
 
-기본적으로 감시자 콜백은 **상위 컴포넌트 업데이트 이후**(있다면), 그리고 **소유 컴포넌트의 DOM 업데이트 이전**에 호출됩니다. 즉, 감시자 콜백에서 소유 컴포넌트의 DOM에 접근하면, DOM이 업데이트되기 전 상태임을 의미합니다.
+기본적으로 감시자 콜백은 **상위 컴포넌트 업데이트 이후**(있다면), 그리고 **소유 컴포넌트의 DOM 업데이트 이전**에 호출됩니다. 즉, 감시자 콜백에서 소유 컴포넌트의 DOM에 접근하면, 그 DOM은 업데이트되기 전 상태입니다.
 
 ### 후처리 감시자(Post Watchers) {#post-watchers}
 

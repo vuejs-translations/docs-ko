@@ -2,7 +2,7 @@
 
 ## 기본 사용법 {#basic-usage}
 
-대형 애플리케이션에서는 앱을 더 작은 청크로 나누고, 필요할 때만 서버에서 컴포넌트(component)를 로드해야 할 수 있습니다. 이를 가능하게 하기 위해 Vue는 [`defineAsyncComponent`](/api/general#defineasynccomponent) 함수를 제공합니다:
+대형 애플리케이션에서는 앱을 더 작은 청크로 나누고, 필요할 때만 서버에서 컴포넌트(component)를 로드해야 할 수 있습니다. 이를 위해 Vue는 [`defineAsyncComponent`](/api/general#defineasynccomponent) 함수를 제공합니다:
 
 ```js
 import { defineAsyncComponent } from 'vue'
@@ -18,7 +18,7 @@ const AsyncComp = defineAsyncComponent(() => {
 
 보시다시피, `defineAsyncComponent`는 Promise를 반환하는 로더 함수를 인자로 받습니다. 서버에서 컴포넌트 정의를 가져왔을 때 Promise의 `resolve` 콜백(callback)을 호출해야 합니다. 로드에 실패했음을 나타내려면 `reject(reason)`을 호출할 수도 있습니다.
 
-[ES 모듈 동적 import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)도 Promise를 반환하므로, 대부분의 경우 `defineAsyncComponent`와 함께 사용합니다. Vite와 webpack 같은 번들러(bundler)도 이 문법을 지원하며(번들 분할 지점으로 사용), 이를 통해 Vue SFC를 import할 수 있습니다:
+[ES 모듈 동적 import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)도 Promise를 반환하므로, 대부분의 경우 `defineAsyncComponent`와 함께 사용합니다. Vite와 webpack 같은 번들러(bundler)도 이 문법을 지원하며(번들 분할 지점으로 사용), 이 문법으로 Vue SFC를 import할 수 있습니다:
 
 ```js
 import { defineAsyncComponent } from 'vue'
@@ -104,7 +104,7 @@ const AsyncComp = defineAsyncComponent({
 })
 ```
 
-로딩 컴포넌트가 제공되면, 내부 컴포넌트가 로드되는 동안 먼저 표시됩니다. 로딩 컴포넌트가 표시되기 전 기본 200ms의 지연이 있는데, 이는 빠른 네트워크에서 즉시 로딩 상태가 너무 빨리 대체되어 깜빡임처럼 보일 수 있기 때문입니다.
+로딩 컴포넌트가 제공되면, 내부 컴포넌트가 로드되는 동안 먼저 표시됩니다. 로딩 컴포넌트가 표시되기 전 기본 200ms의 지연이 있는데, 이는 빠른 네트워크에서는 즉시 표시된 로딩 상태가 너무 빨리 대체되어 깜빡임처럼 보일 수 있기 때문입니다.
 
 에러 컴포넌트가 제공되면, 로더 함수가 반환한 Promise가 거부(reject)될 때 표시됩니다. 요청이 너무 오래 걸릴 때 에러 컴포넌트를 표시하도록 타임아웃을 지정할 수도 있습니다.
 
@@ -116,7 +116,7 @@ Vue 3.5+에서는 비동기 컴포넌트가 하이드레이션(hydration) 전략
 
 - Vue는 여러 내장 하이드레이션 전략을 제공합니다. 이 내장 전략들은 사용하지 않을 경우 트리 셰이킹(tree-shaking)이 가능하도록 개별적으로 import해야 합니다.
 
-- 설계는 유연성을 위해 의도적으로 저수준입니다. 향후 코어 또는 [Vue 프레임워크](/guide/quick-start#frameworks)와 같은 상위 레벨 솔루션에서 컴파일러 문법 설탕이 추가될 수 있습니다.
+- 설계는 유연성을 위해 의도적으로 저수준으로 되어 있습니다. 향후 코어 또는 [Vue 프레임워크](/guide/quick-start#frameworks)와 같은 상위 레벨 솔루션에서 컴파일러 문법 설탕이 추가될 수 있습니다.
 
 ### Idle 시 하이드레이션 {#hydrate-on-idle}
 
@@ -176,7 +176,7 @@ const AsyncComp = defineAsyncComponent({
 })
 ```
 
-여러 이벤트 타입의 리스트도 전달할 수 있습니다:
+여러 이벤트 타입을 목록으로 전달할 수도 있습니다:
 
 ```js
 hydrateOnInteraction(['wheel', 'mouseover'])
@@ -209,4 +209,4 @@ const AsyncComp = defineAsyncComponent({
 
 ## Suspense와 함께 사용하기 {#using-with-suspense}
 
-비동기 컴포넌트는 내장 컴포넌트인 `<Suspense>`와 함께 사용할 수 있습니다. `<Suspense>`와 비동기 컴포넌트 간의 상호작용은 [`<Suspense>` 전용 챕터](/guide/built-ins/suspense)에서 문서화되어 있습니다.
+비동기 컴포넌트는 내장 컴포넌트인 `<Suspense>`와 함께 사용할 수 있습니다. `<Suspense>`와 비동기 컴포넌트 간의 상호작용은 [`<Suspense>` 전용 챕터](/guide/built-ins/suspense)에 문서화되어 있습니다.

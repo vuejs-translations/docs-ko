@@ -32,9 +32,9 @@ function onInput(e) {
 
 </div>
 
-입력 상자에 타이핑해 보세요 - 입력할 때마다 `<p>`의 텍스트가 업데이트되는 것을 볼 수 있습니다.
+입력 상자에 타이핑해 보세요. 입력할 때마다 `<p>`의 텍스트가 업데이트되는 것을 볼 수 있습니다.
 
-양방향 바인딩을 더 간단하게 하기 위해, Vue는 `v-model`이라는 디렉티브(directive)를 제공합니다. 이는 본질적으로 위의 예시를 위한 문법적 설탕(syntactic sugar)입니다:
+양방향 바인딩을 더 간단하게 하기 위해, Vue는 `v-model`이라는 디렉티브(directive)를 제공합니다. 이는 본질적으로 위 예시에 대한 문법적 설탕(syntactic sugar)입니다:
 
 ```vue-html
 <input v-model="text">

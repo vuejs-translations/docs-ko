@@ -63,7 +63,7 @@ export default {
 <MyComponent @some-event.once="callback" />
 ```
 
-컴포넌트와 props처럼, 이벤트 이름도 자동으로 케이스 변환이 적용됩니다. 우리는 camelCase 이벤트를 발생시켰지만, 부모에서는 kebab-case 리스너로 리스닝할 수 있습니다. [props 케이스](/guide/components/props#prop-name-casing)와 마찬가지로, 템플릿에서는 kebab-case 이벤트 리스너 사용을 권장합니다.
+컴포넌트와 props처럼, 이벤트 이름도 자동으로 케이스 변환이 적용됩니다. 위에서는 camelCase 이벤트를 발생시켰지만, 부모에서는 kebab-case 리스너로 리스닝할 수 있습니다. [props 케이스](/guide/components/props#prop-name-casing)와 마찬가지로, 템플릿에서는 kebab-case 이벤트 리스너 사용을 권장합니다.
 
 :::tip
 네이티브 DOM 이벤트와 달리, 컴포넌트에서 발생한 이벤트는 **버블링되지 않습니다**. 직접적인 자식 컴포넌트가 발생시킨 이벤트만 리스닝할 수 있습니다. 형제 또는 깊게 중첩된 컴포넌트 간에 통신이 필요하다면 외부 이벤트 버스나 [글로벌 상태 관리 솔루션](/guide/scaling-up/state-management)을 사용하세요.
@@ -115,7 +115,7 @@ function increaseCount(n) {
 </div>
 
 :::tip
-이벤트 이름 뒤에 `$emit()`에 전달된 모든 추가 인자는 리스너로 전달됩니다. 예를 들어, `$emit('foo', 1, 2, 3)`의 경우 리스너 함수는 세 개의 인자를 받게 됩니다.
+`$emit()`을 호출할 때 이벤트 이름 뒤에 전달한 모든 추가 인자는 리스너로 전달됩니다. 예를 들어, `$emit('foo', 1, 2, 3)`의 경우 리스너 함수는 세 개의 인자를 받게 됩니다.
 :::
 
 ## 발생시킬 이벤트 선언하기 {#declaring-emitted-events}
@@ -144,7 +144,7 @@ function buttonClick() {
 
 `defineEmits()` 매크로는 **함수 내부에서 사용할 수 없으며**, 위 예시처럼 반드시 `<script setup>` 내에 직접 위치해야 합니다.
 
-명시적인 `setup` 함수를 `<script setup>` 대신 사용하는 경우, 이벤트는 [`emits`](/api/options-state#emits) 옵션을 사용해 선언해야 하며, `emit` 함수는 `setup()` 컨텍스트에서 노출됩니다:
+명시적인 `setup` 함수를 `<script setup>` 대신 사용하는 경우, 이벤트는 [`emits`](/api/options-state#emits) 옵션을 사용해 선언해야 하며, `emit` 함수는 `setup()` 컨텍스트에 노출됩니다:
 
 ```js
 export default {
@@ -223,7 +223,7 @@ export default {
 
 </div>
 
-선택 사항이지만, 컴포넌트가 어떻게 동작해야 하는지 더 잘 문서화하기 위해 모든 발생시킬 이벤트를 정의하는 것이 좋습니다. 또한 Vue가 [폴스루 속성(fallthrough attributes)](/guide/components/attrs#v-on-listener-inheritance)에서 알려진 리스너를 제외할 수 있게 하여, 서드파티 코드가 수동으로 디스패치한 DOM 이벤트로 인한 예외적인 상황을 방지할 수 있습니다.
+선택 사항이지만, 컴포넌트가 어떻게 동작해야 하는지 더 잘 문서화하기 위해 발생시킬 모든 이벤트를 정의하는 것이 좋습니다. 또한 Vue가 [폴스루 속성(fallthrough attributes)](/guide/components/attrs#v-on-listener-inheritance)에서 알려진 리스너를 제외할 수 있게 하여, 서드파티 코드가 수동으로 디스패치한 DOM 이벤트로 인한 예외적인 상황을 방지할 수 있습니다.
 
 :::tip
 네이티브 이벤트(예: `click`)가 `emits` 옵션에 정의되어 있으면, 리스너는 이제 컴포넌트에서 발생시킨 `click` 이벤트만 리스닝하며, 더 이상 네이티브 `click` 이벤트에는 반응하지 않습니다.

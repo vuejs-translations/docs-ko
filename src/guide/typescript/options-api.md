@@ -3,7 +3,7 @@
 > 이 페이지는 [TypeScript와 함께 Vue 사용하기](./overview) 개요를 이미 읽었다고 가정합니다.
 
 :::tip
-Vue는 옵션 API와 함께 TypeScript 사용을 지원하지만, 더 간단하고 효율적이며 견고한 타입 추론을 제공하는 컴포지션 API를 통해 TypeScript와 함께 Vue를 사용하는 것이 권장됩니다.
+Vue는 옵션 API에서도 TypeScript 사용을 지원하지만, 더 간단하고 효율적이며 견고한 타입 추론을 제공하는 컴포지션 API로 TypeScript를 사용하는 것을 권장합니다.
 :::
 
 ## 컴포넌트(component) Props 타입 지정하기 {#typing-component-props}
@@ -92,11 +92,11 @@ export default defineComponent({
 })
 ```
 
-이렇게 하면 이러한 함수 내부에서 `this`의 타입을 TypeScript가 추론해야 하는 상황을 방지할 수 있습니다. `this` 타입을 추론하게 되면 아쉽게도 타입 추론이 실패할 수 있기 때문입니다. 이는 이전의 [설계 제한](https://github.com/microsoft/TypeScript/issues/38845)이었으며, [TypeScript 4.7](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#improved-function-inference-in-objects-and-methods)에서 개선되었습니다.
+이렇게 하면 함수 내부에서 `this`의 타입을 TypeScript가 추론해야 하는 상황을 방지할 수 있습니다. `this` 타입을 추론하게 되면 아쉽게도 타입 추론이 실패할 수 있기 때문입니다. 이는 이전의 [설계 제한](https://github.com/microsoft/TypeScript/issues/38845)이었으며, [TypeScript 4.7](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#improved-function-inference-in-objects-and-methods)에서 개선되었습니다.
 
 ## 컴포넌트 Emits 타입 지정하기 {#typing-component-emits}
 
-`emits` 옵션의 객체 문법을 사용하여 발생시킬 이벤트의 예상 페이로드 타입을 선언할 수 있습니다. 또한, 선언되지 않은 모든 이벤트를 발생시키면 타입 오류가 발생합니다:
+`emits` 옵션의 객체 문법을 사용하여 발생시킬 이벤트의 예상 페이로드 타입을 선언할 수 있습니다. 또한, 선언되지 않은 이벤트를 발생시키면 모두 타입 오류가 발생합니다:
 
 ```ts
 import { defineComponent } from 'vue'
@@ -215,7 +215,7 @@ export default defineComponent({
 
 ## 전역 속성 확장하기 {#augmenting-global-properties}
 
-일부 플러그인(plugin)은 [`app.config.globalProperties`](/api/application#app-config-globalproperties)를 통해 모든 컴포넌트 인스턴스(instance)에 전역적으로 사용할 수 있는 속성을 설치합니다. 예를 들어, 데이터 패칭을 위한 `this.$http`나 국제화를 위한 `this.$translate`를 설치할 수 있습니다. TypeScript와 잘 연동되도록, Vue는 [TypeScript 모듈 보강](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)을 통해 확장할 수 있도록 설계된 `ComponentCustomProperties` 인터페이스를 제공합니다:
+일부 플러그인(plugin)은 [`app.config.globalProperties`](/api/application#app-config-globalproperties)를 통해 모든 컴포넌트 인스턴스(instance)에 전역적으로 사용할 수 있는 속성을 설치합니다. 예를 들어, 데이터 패칭을 위한 `this.$http`나 국제화를 위한 `this.$translate`가 여기에 해당합니다. TypeScript와 잘 연동되도록, Vue는 [TypeScript 모듈 보강](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)을 통해 확장할 수 있게 설계된 `ComponentCustomProperties` 인터페이스를 제공합니다:
 
 ```ts
 import axios from 'axios'

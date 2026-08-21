@@ -8,9 +8,9 @@
 
 - **세부사항**
 
-  key가 없으면, Vue는 요소의 이동을 최소화하고 같은 타입의 요소를 최대한 제자리에서 패치/재사용하려는 알고리즘을 사용합니다. key가 있으면, key의 순서 변경에 따라 요소를 재정렬하고, 더 이상 존재하지 않는 key를 가진 요소는 항상 제거/파괴됩니다.
+  key가 없으면, Vue는 요소의 이동을 최소화하고 같은 타입의 요소를 최대한 제자리에서 패치/재사용하려는 알고리즘을 사용합니다. key가 있으면, key의 순서 변경에 따라 요소가 재정렬되고, 더 이상 존재하지 않는 key를 가진 요소는 항상 제거/파괴됩니다.
 
-  동일한 공통 부모를 가진 자식들은 **고유한 key**를 가져야 합니다. 중복된 key는 렌더링(rendering) 오류를 일으킵니다.
+  같은 부모를 둔 자식들은 **고유한 key**를 가져야 합니다. 중복된 key는 렌더링(rendering) 오류를 일으킵니다.
 
   가장 일반적인 사용 사례는 `v-for`와 결합하는 것입니다:
 
@@ -20,7 +20,7 @@
   </ul>
   ```
 
-  또한 요소/컴포넌트(component)의 재사용 대신 교체를 강제로 할 때 사용할 수 있습니다. 이는 다음과 같은 경우에 유용할 수 있습니다:
+  또한 요소/컴포넌트(component)를 재사용하는 대신 교체하도록 강제할 때도 사용할 수 있습니다. 이는 다음과 같은 경우에 유용할 수 있습니다:
 
   - 컴포넌트의 라이프사이클(lifecycle) 훅(hook)을 제대로 트리거하고 싶을 때
   - 트랜지션(transition)을 트리거하고 싶을 때
@@ -33,7 +33,7 @@
   </transition>
   ```
 
-  `text`가 변경되면, `<span>`은 항상 패치되는 대신 교체되어 트랜지션이 트리거됩니다.
+  `text`가 변경되면, `<span>`은 패치되는 대신 항상 교체되므로 트랜지션이 트리거됩니다.
 
 - **관련 문서** [가이드 - 리스트 렌더링 - `key`로 상태 유지하기](/guide/essentials/list#maintaining-state-with-key)
 
@@ -70,7 +70,7 @@
 
   일반 DOM 요소에 사용하면 참조는 해당 요소가 되고, 자식 컴포넌트에 사용하면 참조는 자식 컴포넌트 인스턴스(instance)가 됩니다.
 
-  또는 `ref`는 함수 값을 받아 참조를 어디에 저장할지 완전히 제어할 수 있습니다:
+  또는 `ref`에 함수 값을 전달하여, 참조를 어디에 저장할지 완전히 제어할 수도 있습니다:
 
   ```vue-html
   <ChildComponent :ref="(el) => child = el" />
@@ -97,7 +97,7 @@
 
   `is` 속성이 네이티브 HTML 요소에 사용되면, [커스터마이즈드 내장 요소](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example)로 해석되며, 이는 웹 플랫폼의 네이티브 기능입니다.
 
-  하지만 [in-DOM 템플릿 파싱 주의사항](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에서 설명한 것처럼, 네이티브 요소를 Vue 컴포넌트로 대체해야 할 필요가 있을 수 있습니다. 이 경우 `is` 속성 값 앞에 `vue:`를 붙이면 Vue가 해당 요소를 Vue 컴포넌트로 렌더링합니다:
+  하지만 [in-DOM 템플릿 파싱 주의사항](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에서 설명한 것처럼, 네이티브 요소를 Vue 컴포넌트로 대체할 필요가 있을 수 있습니다. 이 경우 `is` 속성 값 앞에 `vue:`를 붙이면 Vue가 해당 요소를 Vue 컴포넌트로 렌더링합니다:
 
   ```vue-html
   <table>

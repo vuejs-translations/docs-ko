@@ -1,6 +1,6 @@
 # 클래스와 스타일 바인딩 {#class-and-style-bindings}
 
-데이터 바인딩(binding)에서 흔히 필요한 것은 엘리먼트의 클래스 목록과 인라인 스타일을 조작하는 것입니다. `class`와 `style`은 모두 속성이기 때문에, 다른 속성들과 마찬가지로 `v-bind`를 사용해 문자열 값을 동적으로 할당할 수 있습니다. 하지만 이러한 값을 문자열 결합으로 생성하려고 하면 번거롭고 오류가 발생하기 쉽습니다. 이런 이유로 Vue는 `v-bind`를 `class`와 `style`에 사용할 때 특별한 기능을 제공합니다. 문자열뿐만 아니라, 해당 표현식이 객체나 배열로 평가될 수도 있습니다.
+데이터 바인딩(binding)에서는 엘리먼트의 클래스 목록과 인라인 스타일을 조작해야 하는 경우가 흔합니다. `class`와 `style`은 모두 속성이기 때문에, 다른 속성들과 마찬가지로 `v-bind`를 사용해 문자열 값을 동적으로 할당할 수 있습니다. 하지만 이러한 값을 문자열 결합으로 생성하려고 하면 번거롭고 오류가 발생하기 쉽습니다. 이런 이유로 Vue는 `v-bind`를 `class`와 `style`에 사용할 때 특별한 기능을 제공합니다. 문자열뿐만 아니라, 해당 표현식이 객체나 배열로 평가될 수도 있습니다.
 
 ## HTML 클래스 바인딩 {#binding-html-classes}
 
@@ -20,7 +20,7 @@
 <div :class="{ active: isActive }"></div>
 ```
 
-위의 문법은 `active` 클래스의 존재 여부가 데이터 속성 `isActive`의 [truthiness](https://developer.mozilla.org/en-US/docs/Glossary/Truthy)에 의해 결정됨을 의미합니다.
+위의 문법은 `active` 클래스의 존재 여부가 데이터 속성 `isActive`의 [truthiness](https://developer.mozilla.org/en-US/docs/Glossary/Truthy)에 의해 결정된다는 뜻입니다.
 
 객체에 더 많은 필드를 추가하여 여러 클래스를 토글할 수 있습니다. 또한, `:class` 디렉티브(directive)는 일반 `class` 속성과 함께 사용할 수도 있습니다. 다음과 같은 상태가 있다고 가정해봅시다:
 
@@ -178,7 +178,7 @@ data() {
 <div class="active text-danger"></div>
 ```
 
-리스트 내의 클래스를 조건부로 토글하고 싶다면, 삼항 연산자를 사용할 수 있습니다:
+배열 내의 클래스를 조건부로 토글하고 싶다면, 삼항 연산자를 사용할 수 있습니다:
 
 ```vue-html
 <div :class="[isActive ? activeClass : '', errorClass]"></div>
@@ -205,7 +205,7 @@ data() {
 <p class="foo bar">Hi!</p>
 ```
 
-사용 시에 클래스를 추가하면:
+이 컴포넌트를 사용할 때 클래스를 추가하면:
 
 ```vue-html
 <!-- 컴포넌트 사용 시 -->
@@ -230,7 +230,7 @@ data() {
 <p class="foo bar active">Hi!</p>
 ```
 
-컴포넌트에 루트 엘리먼트가 여러 개라면, 어떤 엘리먼트가 이 클래스를 받을지 정의해야 합니다. 이는 `$attrs` 컴포넌트 속성을 사용하여 할 수 있습니다:
+컴포넌트에 루트 엘리먼트가 여러 개라면, 어떤 엘리먼트가 이 클래스를 받을지 정의해야 합니다. 이때는 `$attrs` 컴포넌트 속성을 사용합니다:
 
 ```vue-html
 <!-- $attrs를 사용하는 MyComponent 템플릿 -->
@@ -283,13 +283,13 @@ data() {
 <div :style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
 ```
 
-카멜케이스 키를 권장하지만, `:style`은 케밥 케이스 CSS 속성 키도 지원합니다(실제 CSS에서 사용하는 방식과 동일). 예를 들어:
+카멜케이스 키를 권장하지만, `:style`은 케밥케이스 CSS 속성 키도 지원합니다(실제 CSS에서 사용하는 방식과 동일). 예를 들어:
 
 ```vue-html
 <div :style="{ 'font-size': fontSize + 'px' }"></div>
 ```
 
-템플릿을 더 깔끔하게 만들기 위해 스타일 객체에 직접 바인딩하는 것이 종종 좋습니다:
+템플릿을 더 깔끔하게 유지할 수 있도록, 스타일 객체에 직접 바인딩하는 것이 좋을 때가 많습니다:
 
 <div class="composition-api">
 
@@ -323,7 +323,7 @@ data() {
 
 마찬가지로, 객체 스타일 바인딩은 객체를 반환하는 계산된 속성과 함께 자주 사용됩니다.
 
-`:style` 디렉티브는 `:class`와 마찬가지로 일반 style 속성과 함께 사용할 수 있습니다.
+`:style` 디렉티브도 `:class`처럼 일반 style 속성과 함께 사용할 수 있습니다.
 
 템플릿:
 
@@ -347,7 +347,7 @@ data() {
 
 ### 자동 접두사 추가 {#auto-prefixing}
 
-`:style`에서 [벤더(vendor) 접두사](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix)가 필요한 CSS 속성을 사용할 때, Vue는 적절한 접두사를 자동으로 추가합니다. Vue는 런타임에 현재 브라우저에서 어떤 스타일 속성이 지원되는지 확인하여 이를 수행합니다. 브라우저가 특정 속성을 지원하지 않으면 다양한 접두사 버전을 테스트하여 지원되는 속성을 찾으려고 시도합니다.
+`:style`에서 [벤더(vendor) 접두사](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix)가 필요한 CSS 속성을 사용할 때, Vue는 적절한 접두사를 자동으로 추가합니다. Vue는 런타임에 현재 브라우저가 어떤 스타일 속성을 지원하는지 확인하는 방식으로 이 작업을 수행합니다. 브라우저가 특정 속성을 지원하지 않으면 다양한 접두사 버전을 테스트하여 지원되는 속성을 찾으려고 시도합니다.
 
 ### 여러 값 {#multiple-values}
 
@@ -357,4 +357,4 @@ data() {
 <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
 ```
 
-이 경우, 브라우저가 지원하는 배열의 마지막 값만 렌더링됩니다. 이 예시에서는 flexbox의 접두사 없는 버전을 지원하는 브라우저에서는 `display: flex`가 렌더링됩니다.
+이 경우, 배열에서 브라우저가 지원하는 마지막 값만 렌더링됩니다. 이 예시에서 접두사 없는 flexbox를 지원하는 브라우저라면 `display: flex`가 렌더링됩니다.

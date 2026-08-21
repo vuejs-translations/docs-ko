@@ -16,7 +16,7 @@
 
   `template` 옵션을 통해 제공된 템플릿(template)은 런타임에 즉석에서 컴파일됩니다. 이는 템플릿 컴파일러가 포함된 Vue 빌드를 사용할 때만 지원됩니다. 템플릿 컴파일러는 이름에 `runtime`이 포함된 Vue 빌드(예: `vue.runtime.esm-bundler.js`)에는 **포함되어 있지 않습니다**. 다양한 빌드에 대한 자세한 내용은 [dist 파일 가이드](https://github.com/vuejs/core/tree/main/packages/vue#which-dist-file-to-use)를 참고하세요.
 
-  문자열이 `#`로 시작하면 `querySelector`로 사용되어 선택된 요소의 `innerHTML`을 템플릿 문자열로 사용합니다. 이를 통해 소스 템플릿을 네이티브 `<template>` 요소를 사용하여 작성할 수 있습니다.
+  문자열이 `#`로 시작하면 `querySelector`의 선택자로 사용되며, 선택된 요소의 `innerHTML`이 템플릿 문자열이 됩니다. 이를 통해 네이티브 `<template>` 요소로 소스 템플릿을 작성할 수 있습니다.
 
   동일한 컴포넌트에 `render` 옵션도 존재하는 경우, `template`은 무시됩니다.
 

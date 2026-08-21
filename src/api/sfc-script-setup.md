@@ -1,6 +1,6 @@
 # \<script setup> {#script-setup}
 
-`<script setup>`은 싱글 파일 컴포넌트(SFC) 내에서 Composition API를 사용할 때의 컴파일 타임 문법 설탕입니다. SFC와 Composition API를 모두 사용하는 경우 권장되는 문법입니다. 일반 `<script>` 문법에 비해 여러 가지 장점이 있습니다:
+`<script setup>`은 싱글 파일 컴포넌트(SFC) 내에서 컴포지션 API를 사용할 때의 컴파일 타임 문법 설탕입니다. SFC와 컴포지션 API를 모두 사용하는 경우 권장되는 문법입니다. 일반 `<script>` 문법에 비해 여러 가지 장점이 있습니다:
 
 - 보일러플레이트(boilerplate)가 적고 더 간결한 코드
 - 순수 TypeScript로 props와 emit 이벤트 선언 가능
@@ -81,7 +81,7 @@ import MyComponent from './MyComponent.vue'
 </template>
 ```
 
-`MyComponent`를 변수로 참조한다고 생각하면 됩니다. JSX를 사용해본 적이 있다면 비슷한 개념입니다. 케밥 케이스의 `<my-component>`도 템플릿에서 동작하지만, 일관성을 위해 PascalCase 컴포넌트 태그 사용을 강력히 권장합니다. 또한 네이티브 커스텀 엘리먼트와 구분하는 데 도움이 됩니다.
+`MyComponent`를 변수로 참조한다고 생각하면 됩니다. JSX를 사용해본 적이 있다면 비슷한 개념입니다. 케밥 케이스의 `<my-component>`도 템플릿에서 동작하지만, 일관성을 위해 PascalCase 컴포넌트 태그 사용을 강력히 권장합니다. PascalCase를 사용하면 네이티브 커스텀 엘리먼트와 구분하는 데에도 도움이 됩니다.
 
 ### 동적 컴포넌트 {#dynamic-components}
 
@@ -154,7 +154,7 @@ import { myDirective as vMyDirective } from './MyDirective.js'
 
 ## defineProps() & defineEmits() {#defineprops-defineemits}
 
-`props`와 `emits` 같은 옵션을 완전한 타입 추론 지원과 함께 선언하려면, `<script setup>` 내부에서 자동으로 사용할 수 있는 `defineProps`와 `defineEmits` API를 사용할 수 있습니다:
+`props`와 `emits` 같은 옵션을 완전한 타입 추론을 지원받으면서 선언하려면, `<script setup>` 내부에서 자동으로 사용할 수 있는 `defineProps`와 `defineEmits` API를 사용할 수 있습니다:
 
 ```vue
 <script setup>
@@ -197,13 +197,13 @@ const emit = defineEmits<{
 }>()
 ```
 
-- `defineProps` 또는 `defineEmits`는 런타임 선언 또는 타입 선언 중 하나만 사용할 수 있습니다. 둘을 동시에 사용하면 컴파일 에러가 발생합니다.
+- `defineProps`와 `defineEmits`는 런타임 선언과 타입 선언 중 하나만 사용할 수 있습니다. 둘을 동시에 사용하면 컴파일 에러가 발생합니다.
 
 - 타입 선언을 사용할 때, 정적 분석을 통해 동등한 런타임 선언이 자동으로 생성되어 중복 선언 없이도 올바른 런타임 동작을 보장합니다.
 
-  - 개발 모드에서는 컴파일러가 타입에서 해당 런타임 유효성 검사를 추론하려고 시도합니다. 예를 들어 여기서 `foo: string` 타입은 `foo: String`으로 추론됩니다. TypeScript가 peer dependency로 설치되어 있다면, import된 타입도 해석됩니다.
+  - 개발 모드에서는 컴파일러가 타입에서 해당 런타임 유효성 검사를 추론하려고 시도합니다. 예를 들어 위 예시에서 `foo: string` 타입은 `foo: String`으로 추론됩니다. TypeScript가 peer dependency로 설치되어 있다면, import된 타입도 해석됩니다.
 
-  - 프로덕션 모드에서는 번들 크기를 줄이기 위해 배열 형식 선언이 생성됩니다(여기서 props는 `['foo', 'bar']`로 컴파일됨).
+  - 프로덕션 모드에서는 번들 크기를 줄이기 위해 배열 형식 선언이 생성됩니다(위 예시에서 props는 `['foo', 'bar']`로 컴파일됨).
 
 - 3.2 이하 버전에서는 `defineProps()`의 제네릭 타입 파라미터가 타입 리터럴 또는 로컬 인터페이스 참조로 제한되었습니다.
 
@@ -211,7 +211,7 @@ const emit = defineEmits<{
 
 ### 반응형 props 구조 분해 <sup class="vt-badge" data-text="3.5+" /> {#reactive-props-destructure}
 
-Vue 3.5 이상에서는 `defineProps`의 반환값에서 구조 분해된 변수들이 반응형이 됩니다. Vue의 컴파일러는 동일한 `<script setup>` 블록 내에서 `defineProps`로 구조 분해된 변수를 접근할 때 자동으로 `props.`를 앞에 붙입니다:
+Vue 3.5 이상에서는 `defineProps`의 반환값에서 구조 분해된 변수들이 반응형이 됩니다. Vue의 컴파일러는 동일한 `<script setup>` 블록 내에서 `defineProps`로 구조 분해된 변수에 접근할 때 자동으로 `props.`를 앞에 붙입니다:
 
 ```ts
 const { foo } = defineProps(['foo'])
@@ -223,7 +223,7 @@ watchEffect(() => {
 })
 ```
 
-위 코드는 다음과 같이 동등하게 컴파일됩니다:
+위 코드는 다음과 동등한 코드로 컴파일됩니다:
 
 ```js {5}
 const props = defineProps(['foo'])
@@ -264,14 +264,14 @@ const props = withDefaults(defineProps<Props>(), {
 이 코드는 동등한 런타임 props `default` 옵션으로 컴파일됩니다. 또한, `withDefaults` 헬퍼는 기본값에 대한 타입 검사를 제공하고, 기본값이 선언된 속성에 대해 반환된 `props` 타입에서 선택적 플래그를 제거합니다.
 
 :::info
-`withDefaults`를 사용할 때 배열이나 객체와 같은 변경 가능한 참조 타입의 기본값은 함수로 감싸야 합니다. 이는 실수로 인한 수정 및 외부 부작용을 방지하기 위함입니다. 이렇게 하면 각 컴포넌트 인스턴스가 기본값의 고유한 복사본을 갖게 됩니다. 구조 분해를 사용할 때는 이 작업이 **필요하지 않습니다**.
+`withDefaults`를 사용할 때 배열이나 객체와 같은 변경 가능한 참조 타입의 기본값은 함수로 감싸야 합니다. 이는 실수로 인한 수정 및 외부 부수 효과을 방지하기 위함입니다. 이렇게 하면 각 컴포넌트 인스턴스가 기본값의 고유한 복사본을 갖게 됩니다. 구조 분해를 사용할 때는 이 작업이 **필요하지 않습니다**.
 :::
 
 ## defineModel() {#definemodel}
 
 - 3.4+에서만 사용 가능
 
-이 매크로는 부모 컴포넌트에서 `v-model`로 사용할 수 있는 양방향 바인딩 prop을 선언할 때 사용할 수 있습니다. 예시 사용법은 [컴포넌트 `v-model`](/guide/components/v-model) 가이드에서도 다룹니다.
+이 매크로는 부모 컴포넌트에서 `v-model`로 사용할 수 있는 양방향 바인딩 prop을 선언합니다. 예시 사용법은 [컴포넌트 `v-model`](/guide/components/v-model) 가이드에서도 다룹니다.
 
 내부적으로 이 매크로는 모델 prop과 해당 값 업데이트 이벤트를 선언합니다. 첫 번째 인자가 리터럴 문자열이면 prop 이름으로 사용되고, 그렇지 않으면 prop 이름은 기본값 `"modelValue"`가 됩니다. 두 경우 모두 prop 옵션과 모델 ref의 값 변환 옵션을 포함하는 추가 객체를 전달할 수 있습니다.
 
@@ -314,7 +314,7 @@ const myRef = ref()
 </template>
 ```
 
-또한 `defineProps`에 `withDefaults`를 사용할 때와 마찬가지로, `defineModel`에서도 배열이나 객체 같은 변경 가능한 참조 타입의 기본값은 의도하지 않은 수정과 외부 부작용을 방지하기 위해 함수로 감싸서 지정해야 합니다.
+또한 `defineProps`에 `withDefaults`를 사용할 때와 마찬가지로, `defineModel`에서도 배열이나 객체 같은 변경 가능한 참조 타입의 기본값은 의도하지 않은 수정과 외부 부수 효과을 방지하기 위해 함수로 감싸서 지정해야 합니다.
 :::
 
 ### 수정자와 변환기 {#modifiers-and-transformers}
@@ -330,7 +330,7 @@ if (modelModifiers.trim) {
 }
 ```
 
-수정자가 있을 때는 값을 읽거나 부모에 동기화할 때 값을 변환해야 할 수 있습니다. `get`과 `set` 변환기 옵션을 사용해 이를 구현할 수 있습니다:
+수정자가 있을 때는 값을 읽거나 부모에 동기화하는 시점에 변환이 필요할 수 있습니다. `get`과 `set` 변환기 옵션을 사용해 이를 구현할 수 있습니다:
 
 ```js
 const [modelValue, modelModifiers] = defineModel({
@@ -434,7 +434,7 @@ const attrs = useAttrs()
 </script>
 ```
 
-`useSlots`와 `useAttrs`는 실제 런타임 함수로, 각각 `setupContext.slots`와 `setupContext.attrs`와 동일한 값을 반환합니다. 일반 Composition API 함수에서도 사용할 수 있습니다.
+`useSlots`와 `useAttrs`는 실제 런타임 함수로, 각각 `setupContext.slots` 및 `setupContext.attrs`와 동일한 값을 반환합니다. 일반 컴포지션 API 함수에서도 사용할 수 있습니다.
 
 ## 일반 `<script>`와 함께 사용하기 {#usage-alongside-normal-script}
 
@@ -464,7 +464,7 @@ export default {
 동일 컴포넌트에서 `<script setup>`과 `<script>`를 조합하는 것은 위에서 설명한 시나리오에 한정됩니다. 구체적으로:
 
 - 이미 `<script setup>`에서 정의할 수 있는 옵션(예: `props`, `emits`)을 별도의 `<script>` 섹션에서 선언하지 마세요.
-- `<script setup>` 내부에서 생성된 변수는 컴포넌트 인스턴스의 속성으로 추가되지 않으므로 Options API에서 접근할 수 없습니다. 이런 방식의 API 혼용은 강력히 권장하지 않습니다.
+- `<script setup>` 내부에서 생성된 변수는 컴포넌트 인스턴스의 속성으로 추가되지 않으므로 옵션 API에서 접근할 수 없습니다. 이런 방식의 API 혼용은 강력히 권장하지 않습니다.
 
 지원되지 않는 시나리오에 해당한다면, `<script setup>` 대신 명시적인 [`setup()`](/api/composition-api-setup) 함수를 사용하는 것을 고려하세요.
 
@@ -559,5 +559,5 @@ ref<ComponentExposed<typeof genericComponent>>();
 
 ## 제약 사항 {#restrictions}
 
-- 모듈 실행 방식의 차이로 인해, `<script setup>` 내부 코드는 SFC의 컨텍스트에 의존합니다. 외부 `.js` 또는 `.ts` 파일로 이동하면 개발자와 도구 모두 혼란을 초래할 수 있습니다. 따라서 **`<script setup>`**은 `src` 속성과 함께 사용할 수 없습니다.
+- 모듈 실행 방식의 차이로 인해, `<script setup>` 내부 코드는 SFC의 컨텍스트에 의존합니다. 외부 `.js` 또는 `.ts` 파일로 이동하면 개발자와 도구 모두에게 혼란을 초래할 수 있습니다. 따라서 **`<script setup>`**은 `src` 속성과 함께 사용할 수 없습니다.
 - `<script setup>`은 In-DOM 루트 컴포넌트 템플릿을 지원하지 않습니다.([관련 논의](https://github.com/vuejs/core/issues/8391))

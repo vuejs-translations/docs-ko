@@ -4,11 +4,11 @@
 
 <VueSchoolLink href="https://vueschool.io/lessons/vue-3-global-vs-local-vue-components" title="무료 Vue.js 컴포넌트 등록 강의"/>
 
-Vue 컴포넌트는 템플릿(template)에서 해당 구현체를 찾을 수 있도록 "등록"되어야 합니다. 컴포넌트를 등록하는 방법에는 전역 등록과 지역 등록, 두 가지가 있습니다.
+Vue 컴포넌트는 템플릿(template)에서 Vue가 해당 구현체를 찾을 수 있도록 "등록"되어야 합니다. 컴포넌트를 등록하는 방법에는 전역 등록과 지역 등록, 두 가지가 있습니다.
 
 ## 전역 등록 {#global-registration}
 
-현재 [Vue 애플리케이션](/guide/essentials/application)에서 `.component()` 메서드를 사용하여 컴포넌트를 전역적으로 사용할 수 있습니다:
+현재 [Vue 애플리케이션](/guide/essentials/application)에서 `.component()` 메서드를 이용하면 컴포넌트를 전역적으로 사용할 수 있습니다:
 
 ```js
 import { createApp } from 'vue'
@@ -51,13 +51,13 @@ app
 <ComponentC/>
 ```
 
-이것은 모든 하위 컴포넌트에도 적용되므로, 이 세 컴포넌트는 _서로 내부에서도_ 사용할 수 있습니다.
+이 규칙은 모든 하위 컴포넌트에도 적용되므로, 이 세 컴포넌트는 _서로의 내부에서도_ 사용할 수 있습니다.
 
 ## 지역 등록 {#local-registration}
 
 전역 등록은 편리하지만 몇 가지 단점이 있습니다:
 
-1. 전역 등록은 빌드 시스템이 사용하지 않는 컴포넌트를 제거(일명 "트리 셰이킹(tree-shaking)")하지 못하게 합니다. 컴포넌트를 전역으로 등록했지만 앱 어디에서도 사용하지 않는다면, 최종 번들에 여전히 포함됩니다.
+1. 전역 등록은 사용하지 않는 컴포넌트를 빌드 시스템이 제거(일명 "트리 셰이킹(tree-shaking)")하지 못하게 합니다. 컴포넌트를 전역으로 등록했지만 앱 어디에서도 사용하지 않는다면, 최종 번들에 여전히 포함됩니다.
 
 2. 전역 등록은 대규모 애플리케이션에서 의존성 관계를 덜 명확하게 만듭니다. 부모 컴포넌트에서 자식 컴포넌트의 구현체를 찾기 어렵게 하여, 너무 많은 전역 변수를 사용하는 것과 비슷하게 장기적인 유지보수에 영향을 줄 수 있습니다.
 
@@ -95,7 +95,7 @@ export default {
 </div>
 <div class="options-api">
 
-지역 등록은 `components` 옵션을 사용하여 이루어집니다:
+지역 등록에는 `components` 옵션을 사용합니다:
 
 ```vue
 <script>
@@ -138,4 +138,4 @@ export default {
 
 SFC나 문자열 템플릿을 사용할 때는 이 스타일을 권장합니다. 하지만 [in-DOM 템플릿 파싱 주의사항](/guide/essentials/component-basics#in-dom-template-parsing-caveats)에서 논의한 것처럼, in-DOM 템플릿에서는 PascalCase 태그를 사용할 수 없습니다.
 
-다행히도, Vue는 케밥-케이스 태그를 PascalCase로 등록된 컴포넌트로 해석하는 것을 지원합니다. 즉, `MyComponent`로 등록된 컴포넌트는 Vue 템플릿(또는 Vue가 렌더링(rendering)한 HTML 요소) 내에서 `<MyComponent>`와 `<my-component>` 모두로 참조할 수 있습니다. 이를 통해 템플릿 소스에 상관없이 동일한 JavaScript 컴포넌트 등록 코드를 사용할 수 있습니다.
+다행히도, Vue는 케밥-케이스 태그를 PascalCase로 등록된 컴포넌트로 해석할 수 있습니다. 즉, `MyComponent`로 등록된 컴포넌트는 Vue 템플릿(또는 Vue가 렌더링(rendering)한 HTML 요소) 내에서 `<MyComponent>`와 `<my-component>` 모두로 참조할 수 있습니다. 이를 통해 템플릿 소스에 상관없이 동일한 JavaScript 컴포넌트 등록 코드를 사용할 수 있습니다.

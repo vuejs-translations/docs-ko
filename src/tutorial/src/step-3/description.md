@@ -6,7 +6,7 @@ Vue에서 이중 중괄호(mustache)는 텍스트 보간(interpolation)에만 �
 <div v-bind:id="dynamicId"></div>
 ```
 
-**디렉티브**는 `v-` 접두사로 시작하는 특별한 속성입니다. 이들은 Vue의 템플릿(template) 문법의 일부입니다. 텍스트 보간과 마찬가지로, 디렉티브의 값은 컴포넌트(component)의 상태에 접근할 수 있는 JavaScript 표현식입니다. `v-bind`와 디렉티브 문법의 전체 내용은 <a target="_blank" href="/guide/essentials/template-syntax.html">가이드 - 템플릿 문법</a>에서 다룹니다.
+**디렉티브**는 `v-` 접두사로 시작하는 특별한 속성으로, Vue 템플릿(template) 문법의 일부입니다. 텍스트 보간과 마찬가지로, 디렉티브의 값은 컴포넌트(component)의 상태에 접근할 수 있는 JavaScript 표현식입니다. `v-bind`와 디렉티브 문법의 전체 내용은 <a target="_blank" href="/guide/essentials/template-syntax.html">가이드 - 템플릿 문법</a>에서 다룹니다.
 
 콜론(`:id`) 뒤의 부분은 디렉티브의 "인자"입니다. 여기서, 엘리먼트의 `id` 속성은 컴포넌트 상태의 `dynamicId` 속성과 동기화됩니다.
 

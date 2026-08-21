@@ -134,7 +134,7 @@ h(Transition, {
 
 - **Props**
 
-  `<TransitionGroup>`은 `mode`를 제외한 `<Transition>`과 동일한 props를 받으며, 두 가지 추가 props가 있습니다:
+  `<TransitionGroup>`은 `mode`를 제외하면 `<Transition>`과 동일한 props를 받으며, 두 가지 props를 추가로 받습니다:
 
   ```ts
   interface TransitionGroupProps extends Omit<TransitionProps, 'mode'> {
@@ -156,11 +156,11 @@ h(Transition, {
 
 - **상세 설명**
 
-  기본적으로 `<TransitionGroup>`은 래퍼 DOM 요소를 렌더링(rendering)하지 않지만, `tag` prop을 통해 정의할 수 있습니다.
+  기본적으로 `<TransitionGroup>`은 래퍼 DOM 요소를 렌더링(rendering)하지 않지만, `tag` prop으로 래퍼 요소를 렌더링하도록 지정할 수 있습니다.
 
-  `<transition-group>` 내의 모든 자식은 애니메이션이 제대로 동작하려면 [**고유한 key**](/guide/essentials/list#maintaining-state-with-key)가 있어야 합니다.
+  애니메이션이 제대로 동작하려면 `<transition-group>` 내의 모든 자식에 [**고유한 key**](/guide/essentials/list#maintaining-state-with-key)가 있어야 합니다.
 
-  `<TransitionGroup>`은 CSS transform을 통한 이동 전환을 지원합니다. 업데이트 후 자식의 화면 위치가 변경되면, 이동 CSS 클래스( `name` 속성에서 자동 생성되거나 `move-class` prop으로 지정됨)가 적용됩니다. 이동 클래스가 적용될 때 CSS `transform` 속성이 "전환 가능"하다면, [FLIP 기법](https://aerotwist.com/blog/flip-your-animations/)을 사용하여 부드럽게 목적지로 애니메이션됩니다.
+  `<TransitionGroup>`은 CSS transform을 통한 이동 전환을 지원합니다. 업데이트 후 자식의 화면 위치가 변경되면, 이동 CSS 클래스(`name` 속성에서 자동 생성되거나 `move-class` prop으로 지정됨)가 적용됩니다. 이동 클래스가 적용될 때 CSS `transform` 속성이 "전환 가능"하다면, [FLIP 기법](https://aerotwist.com/blog/flip-your-animations/)을 사용하여 목적지까지 부드럽게 이동하는 애니메이션이 적용됩니다.
 
 - **예시**
 
@@ -176,7 +176,7 @@ h(Transition, {
 
 ## `<KeepAlive>` {#keepalive}
 
-내부에 감싼 동적으로 토글되는 컴포넌트를 캐시합니다.
+내부에 감싸인, 동적으로 토글되는 컴포넌트를 캐시합니다.
 
 - **Props**
 
@@ -207,7 +207,7 @@ h(Transition, {
 
   한 번에 `<KeepAlive>`의 직접 자식으로는 하나의 활성 컴포넌트 인스턴스만 존재할 수 있습니다.
 
-  `<KeepAlive>` 내부에서 컴포넌트가 토글될 때, 해당 컴포넌트의 `activated` 및 `deactivated` 라이프사이클(lifecycle) 훅(hook)이 호출됩니다. 이는 `mounted`와 `unmounted`의 대안으로, 이 둘은 호출되지 않습니다. 이 동작은 `<KeepAlive>`의 직접 자식뿐만 아니라 모든 하위 컴포넌트에도 적용됩니다.
+  `<KeepAlive>` 내부에서 컴포넌트가 토글될 때, 해당 컴포넌트의 `activated` 및 `deactivated` 라이프사이클(lifecycle) 훅(hook)이 호출됩니다. 이는 `mounted`와 `unmounted`의 대안으로, 이 두 훅은 호출되지 않습니다. 이 동작은 `<KeepAlive>`의 직접 자식뿐만 아니라 모든 하위 컴포넌트에도 적용됩니다.
 
 - **예시**
 
@@ -345,10 +345,10 @@ h(Transition, {
 
 - **상세 설명**
 
-  `<Suspense>`는 두 개의 슬롯을 받습니다: `#default` 슬롯과 `#fallback` 슬롯. 기본 슬롯을 메모리에서 렌더링하는 동안 fallback 슬롯의 내용을 표시합니다.
+  `<Suspense>`는 `#default` 슬롯과 `#fallback` 슬롯, 두 개의 슬롯을 받습니다. 기본 슬롯을 메모리에서 렌더링하는 동안 fallback 슬롯의 내용을 표시합니다.
 
   기본 슬롯을 렌더링하는 동안 비동기 의존성([비동기 컴포넌트](/guide/components/async) 및 [`async setup()`](/guide/built-ins/suspense#async-setup)이 있는 컴포넌트)을 만나면, 모든 의존성이 해결될 때까지 기본 슬롯을 표시하지 않습니다.
 
-  Suspense를 `suspensible`로 설정하면, 모든 비동기 의존성 처리가 부모 Suspense에 의해 처리됩니다. [구현 세부사항](https://github.com/vuejs/core/pull/6736) 참고
+  Suspense를 `suspensible`로 설정하면, 모든 비동기 의존성이 부모 Suspense에서 처리됩니다. [구현 세부사항](https://github.com/vuejs/core/pull/6736)을 참고하세요.
 
 - **더 알아보기** [가이드 - Suspense](/guide/built-ins/suspense)

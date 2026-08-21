@@ -2,7 +2,7 @@
 
 [웹 컴포넌트](https://developer.mozilla.org/ko/docs/Web/Web_Components)는 개발자가 재사용 가능한 커스텀 엘리먼트를 만들 수 있도록 해주는 웹 네이티브 API 집합을 일컫는 용어입니다.
 
-Vue와 웹 컴포넌트는 주로 상호 보완적인 기술로 간주됩니다. Vue는 커스텀 엘리먼트의 소비와 생성 모두에 대해 뛰어난 지원을 제공합니다. 기존 Vue 애플리케이션에 커스텀 엘리먼트를 통합하든, Vue를 사용해 커스텀 엘리먼트를 빌드하고 배포하든, 좋은 선택입니다.
+Vue와 웹 컴포넌트는 주로 상호 보완적인 기술로 간주됩니다. Vue는 커스텀 엘리먼트를 소비하는 것과 생성하는 것 모두를 훌륭하게 지원합니다. 기존 Vue 애플리케이션에 커스텀 엘리먼트를 통합하든, Vue를 사용해 커스텀 엘리먼트를 빌드하고 배포하든, Vue는 좋은 선택입니다.
 
 ## Vue에서 커스텀 엘리먼트 사용하기 {#using-custom-elements-in-vue}
 
@@ -10,7 +10,7 @@ Vue는 [Custom Elements Everywhere 테스트에서 100% 만점을 기록](https:
 
 ### 컴포넌트 해석 건너뛰기 {#skipping-component-resolution}
 
-기본적으로 Vue는 네이티브 HTML 태그가 아닌 태그를 등록된 Vue 컴포넌트(component)로 해석하려 시도한 후, 실패하면 커스텀 엘리먼트로 렌더링(rendering)합니다. 이로 인해 개발 중에 "컴포넌트 해석 실패" 경고가 발생할 수 있습니다. 특정 엘리먼트를 커스텀 엘리먼트로 처리하고 컴포넌트 해석을 건너뛰도록 Vue에 알리려면 [`compilerOptions.isCustomElement` 옵션](/api/application#app-config-compileroptions)을 지정할 수 있습니다.
+기본적으로 Vue는 네이티브 HTML 태그가 아닌 태그를 등록된 Vue 컴포넌트(component)로 해석하려 시도한 후, 실패하면 커스텀 엘리먼트로 렌더링(rendering)합니다. 이로 인해 개발 중에 "컴포넌트 해석 실패" 경고가 발생할 수 있습니다. 특정 엘리먼트를 커스텀 엘리먼트로 처리하고 컴포넌트 해석을 건너뛰도록 Vue에 알리려면 [`compilerOptions.isCustomElement` 옵션](/api/application#app-config-compileroptions)을 지정하면 됩니다.
 
 Vue를 빌드 환경에서 사용할 경우, 이 옵션은 컴파일 타임 옵션이므로 빌드 설정을 통해 전달해야 합니다.
 
@@ -62,9 +62,9 @@ module.exports = {
 
 ### DOM 속성 전달하기 {#passing-dom-properties}
 
-DOM 속성(attribute)은 문자열만 허용하므로, 복잡한 데이터를 커스텀 엘리먼트에 전달하려면 DOM 속성(property)으로 전달해야 합니다. 커스텀 엘리먼트에 props를 설정할 때, Vue 3는 `in` 연산자를 사용해 DOM 속성 존재 여부를 자동으로 확인하고, 키가 존재하면 DOM 속성으로 값을 설정하는 것을 우선시합니다. 즉, 커스텀 엘리먼트가 [권장 모범 사례](https://web.dev/custom-elements-best-practices/)를 따르면 대부분의 경우 별도로 신경 쓸 필요가 없습니다.
+DOM 속성(attribute)은 문자열만 허용하므로, 복잡한 데이터를 커스텀 엘리먼트에 전달하려면 DOM 속성(property)으로 전달해야 합니다. 커스텀 엘리먼트에 props를 설정할 때, Vue 3는 `in` 연산자를 사용해 DOM 속성 존재 여부를 자동으로 확인하고, 키가 존재하면 값을 DOM 속성으로 우선 설정합니다. 즉, 커스텀 엘리먼트가 [권장 모범 사례](https://web.dev/custom-elements-best-practices/)를 따르면 대부분의 경우 별도로 신경 쓸 필요가 없습니다.
 
-하지만 드물게 데이터를 DOM 속성으로 전달해야 하지만, 커스텀 엘리먼트가 해당 속성을 제대로 정의/반영하지 않아(`in` 체크가 실패) 문제가 발생할 수 있습니다. 이 경우 `.prop` 수식어(modifier)를 사용해 `v-bind` 바인딩(binding)을 DOM 속성으로 강제 설정할 수 있습니다:
+다만 드물게, 데이터를 DOM 속성으로 전달해야 하는데 커스텀 엘리먼트가 해당 속성을 제대로 정의/반영하지 않아(`in` 체크가 실패) 문제가 발생할 수 있습니다. 이 경우 `.prop` 수식어(modifier)를 사용해 `v-bind` 바인딩(binding)을 DOM 속성으로 강제 설정할 수 있습니다:
 
 ```vue-html
 <my-element :user.prop="{ name: 'jack' }"></my-element>
@@ -75,7 +75,7 @@ DOM 속성(attribute)은 문자열만 허용하므로, 복잡한 데이터를 �
 
 ## Vue로 커스텀 엘리먼트 빌드하기 {#building-custom-elements-with-vue}
 
-커스텀 엘리먼트의 주요 장점은 어떤 프레임워크와도, 심지어 프레임워크 없이도 사용할 수 있다는 점입니다. 이는 최종 사용자가 동일한 프론트엔드 스택을 사용하지 않을 수 있는 컴포넌트 배포나, 최종 애플리케이션을 컴포넌트의 구현 세부사항으로부터 격리하고 싶을 때 이상적입니다.
+커스텀 엘리먼트의 주요 장점은 어떤 프레임워크와도, 심지어 프레임워크 없이도 사용할 수 있다는 점입니다. 이는 최종 사용자가 동일한 프론트엔드 스택을 사용하지 않을 수도 있는 상황에서 컴포넌트를 배포하거나, 최종 애플리케이션을 컴포넌트의 구현 세부사항으로부터 격리하고 싶을 때 이상적입니다.
 
 ### defineCustomElement {#definecustomelement}
 
@@ -153,7 +153,7 @@ document.body.appendChild(
 
 #### 슬롯(slot) {#slots}
 
-컴포넌트 내부에서는 평소처럼 `<slot/>` 엘리먼트를 사용해 슬롯을 렌더링할 수 있습니다. 하지만, 결과 엘리먼트를 사용할 때는 [네이티브 슬롯 문법](https://developer.mozilla.org/ko/docs/Web/Web_Components/Using_templates_and_slots)만 허용됩니다:
+컴포넌트 내부에서는 평소처럼 `<slot/>` 엘리먼트를 사용해 슬롯을 렌더링할 수 있습니다. 하지만 이렇게 만들어진 엘리먼트를 사용할 때는 [네이티브 슬롯 문법](https://developer.mozilla.org/ko/docs/Web/Web_Components/Using_templates_and_slots)만 허용됩니다:
 
 - [스코프 슬롯(scoped slots)](/guide/components/slots#scoped-slots)은 지원되지 않습니다.
 
@@ -167,7 +167,7 @@ document.body.appendChild(
 
 #### Provide / Inject {#provide-inject}
 
-[Provide / Inject API](/guide/components/provide-inject#provide-inject)와 [Composition API 버전](/api/composition-api-dependency-injection#provide)도 Vue로 정의된 커스텀 엘리먼트 간에 동작합니다. 단, **커스텀 엘리먼트 간에만** 동작한다는 점에 유의하세요. 즉, Vue로 정의된 커스텀 엘리먼트는 커스텀 엘리먼트가 아닌 Vue 컴포넌트가 제공한 속성을 주입받을 수 없습니다.
+[Provide / Inject API](/guide/components/provide-inject#provide-inject)와 [컴포지션 API 버전](/api/composition-api-dependency-injection#provide)도 Vue로 정의된 커스텀 엘리먼트 간에 동작합니다. 단, **커스텀 엘리먼트 간에만** 동작한다는 점에 유의하세요. 즉, Vue로 정의된 커스텀 엘리먼트는 커스텀 엘리먼트가 아닌 Vue 컴포넌트가 제공한 속성을 주입받을 수 없습니다.
 
 #### 앱 레벨 설정 <sup class="vt-badge" data-text="3.5+" /> {#app-level-config}
 
@@ -213,7 +213,7 @@ customElements.define('my-example', ExampleElement)
 
 Vue로 커스텀 엘리먼트를 빌드할 때, 엘리먼트는 Vue 런타임에 의존하게 됩니다. 사용되는 기능에 따라 약 16kb의 기본 크기 비용이 발생합니다. 즉, 단일 커스텀 엘리먼트만 배포한다면 Vue를 사용하는 것이 이상적이지 않을 수 있습니다. 이 경우 바닐라 JavaScript, [petite-vue](https://github.com/vuejs/petite-vue), 또는 작은 런타임 크기에 특화된 프레임워크를 고려할 수 있습니다. 하지만 복잡한 로직을 가진 여러 커스텀 엘리먼트를 함께 배포한다면, Vue를 사용하면 각 컴포넌트를 훨씬 적은 코드로 작성할 수 있으므로 기본 크기 비용은 충분히 정당화됩니다. 더 많은 엘리먼트를 함께 배포할수록 이점이 커집니다.
 
-커스텀 엘리먼트가 Vue를 사용하는 애플리케이션에서 사용된다면, 빌드된 번들에서 Vue를 외부화하여 엘리먼트가 호스트 애플리케이션의 Vue 복사본을 사용하도록 할 수 있습니다.
+Vue를 사용하는 애플리케이션에서 커스텀 엘리먼트를 사용한다면, 빌드된 번들에서 Vue를 외부화하여 엘리먼트가 호스트 애플리케이션의 Vue 복사본을 쓰도록 만들 수 있습니다.
 
 사용자가 원하는 태그 이름으로 필요할 때마다 임포트하고 등록할 수 있도록, 개별 엘리먼트 생성자를 내보내는 것이 좋습니다. 모든 엘리먼트를 자동으로 등록하는 편의 함수도 내보낼 수 있습니다. 다음은 Vue 커스텀 엘리먼트 라이브러리의 예시 진입점입니다:
 
@@ -271,7 +271,7 @@ export function MyComponent() {
 
 Vue SFC 템플릿(template)을 작성할 때, 커스텀 엘리먼트로 정의된 컴포넌트를 포함해 [타입 체크](/guide/scaling-up/tooling.html#typescript)를 하고 싶을 수 있습니다.
 
-커스텀 엘리먼트는 브라우저의 내장 API를 통해 전역적으로 등록되며, 기본적으로 Vue 템플릿에서 사용할 때 타입 추론이 되지 않습니다. Vue에서 커스텀 엘리먼트로 등록된 컴포넌트에 타입 지원을 제공하려면, Vue 템플릿에서 타입 체크를 위해 [`GlobalComponents` 인터페이스](https://github.com/vuejs/language-tools/wiki/Global-Component-Types)를 보강(augment)하여 전역 컴포넌트 타입을 등록할 수 있습니다(JSX 사용자는 [JSX.IntrinsicElements](https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements) 타입을 보강할 수 있습니다. 여기서는 다루지 않습니다).
+커스텀 엘리먼트는 브라우저의 내장 API를 통해 전역적으로 등록되며, 기본적으로 Vue 템플릿에서 사용할 때 타입 추론이 되지 않습니다. Vue에서 커스텀 엘리먼트로 등록된 컴포넌트에 타입 지원을 제공하려면, Vue 템플릿에서 타입 체크를 위해 [`GlobalComponents` 인터페이스](https://github.com/vuejs/language-tools/wiki/Global-Component-Types)를 보강(augment)하여 전역 컴포넌트 타입을 등록하면 됩니다(JSX 사용자는 [JSX.IntrinsicElements](https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements) 타입을 보강할 수 있습니다. 여기서는 다루지 않습니다).
 
 다음은 Vue로 만든 커스텀 엘리먼트의 타입을 정의하는 방법입니다:
 
@@ -304,7 +304,7 @@ declare module 'vue' {
 Vue로 빌드되지 않은 커스텀 엘리먼트의 SFC 템플릿에서 타입 체크를 활성화하는 권장 방법은 다음과 같습니다.
 
 :::tip 참고
-이 방법은 가능한 한 가지 방법일 뿐이며, 커스텀 엘리먼트를 생성하는 프레임워크에 따라 다를 수 있습니다.
+이는 가능한 방법 중 하나일 뿐이며, 커스텀 엘리먼트를 생성하는 프레임워크에 따라 다를 수 있습니다.
 :::
 
 JS 속성과 이벤트가 정의된 커스텀 엘리먼트가 있고, `some-lib`라는 라이브러리로 배포된다고 가정해봅시다:
@@ -343,7 +343,7 @@ export class AppleFellEvent extends Event {
 }
 ```
 
-구현 세부사항은 생략했지만, 중요한 점은 prop 타입과 이벤트 타입에 대한 타입 정의가 있다는 것입니다.
+구현 세부사항은 생략했지만, 중요한 점은 prop과 이벤트의 타입 정의가 있다는 것입니다.
 
 Vue에서 커스텀 엘리먼트 타입 정의를 쉽게 등록할 수 있는 타입 헬퍼를 만들어봅시다:
 
@@ -455,7 +455,7 @@ onMounted(() => {
 </template>
 ```
 
-엘리먼트에 타입 정의가 없는 경우, 속성과 이벤트의 타입을 더 수동적으로 정의할 수 있습니다:
+엘리먼트에 타입 정의가 없는 경우, 속성과 이벤트의 타입을 직접 정의할 수 있습니다:
 
 ```vue [SomeElementImpl.vue]
 <script setup lang="ts">
@@ -490,7 +490,7 @@ declare module 'vue' {
 </template>
 ```
 
-커스텀 엘리먼트 작성자는 프레임워크 전용 커스텀 엘리먼트 타입 정의를 라이브러리에서 자동으로 내보내지 않아야 합니다. 예를 들어, 라이브러리의 나머지 부분과 함께 내보내는 `index.ts` 파일에서 내보내지 않아야 하며, 그렇지 않으면 사용자가 예기치 않은 모듈 보강 오류를 겪을 수 있습니다. 사용자는 필요한 프레임워크 전용 타입 정의 파일을 직접 임포트해야 합니다.
+커스텀 엘리먼트 작성자는 프레임워크 전용 커스텀 엘리먼트 타입 정의를 라이브러리에서 자동으로 내보내지 않아야 합니다. 예를 들어, 라이브러리의 나머지 부분을 내보내는 `index.ts` 파일에 포함해서는 안 되며, 그렇지 않으면 사용자가 예기치 않은 모듈 보강 오류를 겪을 수 있습니다. 사용자는 필요한 프레임워크 전용 타입 정의 파일을 직접 임포트해야 합니다.
 
 ## 웹 컴포넌트 vs. Vue 컴포넌트 {#web-components-vs-vue-components}
 
@@ -508,12 +508,12 @@ Vue의 컴포넌트 모델은 이러한 요구를 염두에 두고 일관된 시
 
 유능한 엔지니어링 팀이라면 네이티브 커스텀 엘리먼트 위에 이와 동등한 시스템을 구축할 수도 있겠지만, 이는 곧 사내 프레임워크의 장기 유지보수 부담을 떠안는 것이며, Vue와 같은 성숙한 프레임워크의 생태계 및 커뮤니티 혜택을 잃게 됩니다.
 
-커스텀 엘리먼트를 컴포넌트 모델의 기반으로 삼는 프레임워크도 있지만, 이들 역시 위에서 언급한 문제를 해결하기 위해 고유의 솔루션을 도입할 수밖에 없습니다. 이러한 프레임워크를 사용한다는 것은, 이 문제를 어떻게 해결할지에 대한 그들의 기술적 결정을 받아들이는 것이며, 이는 광고와 달리 미래의 변화로부터 자동으로 보호받는다는 의미는 아닙니다.
+커스텀 엘리먼트를 컴포넌트 모델의 기반으로 삼는 프레임워크도 있지만, 이들 역시 위에서 언급한 문제를 해결하기 위해 고유의 솔루션을 도입할 수밖에 없습니다. 이러한 프레임워크를 사용한다는 것은, 이 문제를 어떻게 해결할지에 대한 그들의 기술적 결정을 받아들이는 것이며, 이는 홍보 문구와 달리 미래의 변화로부터 자동으로 보호받는다는 의미는 아닙니다.
 
-또한 커스텀 엘리먼트가 한계가 있는 영역도 있습니다:
+또한 커스텀 엘리먼트에 한계가 있는 영역도 있습니다:
 
-- 즉시 평가되는 슬롯은 컴포넌트 조합을 방해합니다. Vue의 [스코프 슬롯](/guide/components/slots#scoped-slots)은 강력한 컴포넌트 조합 메커니즘이지만, 네이티브 슬롯의 즉시 평가 특성 때문에 커스텀 엘리먼트에서는 지원할 수 없습니다. 즉시 평가 슬롯은 또한 수신 컴포넌트가 슬롯 콘텐츠를 언제 렌더링할지, 또는 렌더링할지 여부를 제어할 수 없음을 의미합니다.
+- 즉시 평가되는 슬롯은 컴포넌트 조합을 방해합니다. Vue의 [스코프 슬롯](/guide/components/slots#scoped-slots)은 강력한 컴포넌트 조합 메커니즘이지만, 네이티브 슬롯의 즉시 평가 특성 때문에 커스텀 엘리먼트에서는 지원할 수 없습니다. 또한 즉시 평가 슬롯에서는, 슬롯을 받는 컴포넌트가 슬롯 콘텐츠를 언제 렌더링할지, 또는 렌더링할지 여부를 제어할 수 없습니다.
 
-- 오늘날 shadow DOM 범위 CSS와 함께 커스텀 엘리먼트를 배포하려면 CSS를 JavaScript에 임베드해 런타임에 shadow root에 주입해야 합니다. SSR 시에는 마크업에 중복된 스타일이 발생합니다. 이 영역에서 [플랫폼 기능](https://github.com/whatwg/html/pull/4898/)이 개발 중이지만, 아직 보편적으로 지원되지 않고, 프로덕션 성능/SSR 문제도 남아 있습니다. 그동안 Vue SFC는 스타일을 일반 CSS 파일로 추출할 수 있는 [CSS 범위 메커니즘](/api/sfc-css-features)을 제공합니다.
+- 오늘날 shadow DOM 범위 CSS와 함께 커스텀 엘리먼트를 배포하려면 CSS를 JavaScript에 임베드해 런타임에 shadow root에 주입해야 합니다. SSR 시에는 마크업에 중복된 스타일이 발생합니다. 이 영역에서 [플랫폼 기능](https://github.com/whatwg/html/pull/4898/)이 개발 중이지만, 아직 보편적으로 지원되지 않고, 프로덕션 성능/SSR 문제도 남아 있습니다. 그전까지는 Vue SFC가 스타일을 일반 CSS 파일로 추출할 수 있는 [CSS 범위 메커니즘](/api/sfc-css-features)을 제공합니다.
 
-Vue는 항상 웹 플랫폼의 최신 표준을 따라가며, 플랫폼이 우리의 작업을 더 쉽게 해준다면 기꺼이 이를 활용할 것입니다. 하지만 우리의 목표는 오늘 당장 잘 동작하는 솔루션을 제공하는 것입니다. 즉, 새로운 플랫폼 기능을 비판적으로 받아들이고, 표준이 부족한 부분은 그때까지 직접 보완해야 함을 의미합니다.
+Vue는 항상 웹 플랫폼의 최신 표준을 따라가며, 플랫폼이 우리의 작업을 더 쉽게 해준다면 기꺼이 이를 활용할 것입니다. 하지만 우리의 목표는 오늘 당장 잘 동작하는 솔루션을 제공하는 것입니다. 즉, 새로운 플랫폼 기능은 비판적인 시각으로 받아들이고, 표준이 부족한 부분은 그때까지 직접 보완해야 한다는 뜻입니다.

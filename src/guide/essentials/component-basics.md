@@ -122,7 +122,7 @@ export default {
 </template>
 ```
 
-import한 컴포넌트를 템플릿에서 사용하려면, `components` 옵션으로 [등록](/guide/components/registration)해야 합니다. 그러면 등록된 키를 태그로 사용하여 컴포넌트를 사용할 수 있습니다.
+import한 컴포넌트를 템플릿에서 사용하려면, `components` 옵션으로 [등록](/guide/components/registration)해야 합니다. 그러면 등록된 키를 태그 이름으로 삼아 컴포넌트를 사용할 수 있습니다.
 
 </div>
 
@@ -139,7 +139,7 @@ import ButtonCounter from './ButtonCounter.vue'
 </template>
 ```
 
-`<script setup>`을 사용하면, import한 컴포넌트가 자동으로 템플릿에서 사용할 수 있게 됩니다.
+`<script setup>`을 사용하면, import한 컴포넌트를 템플릿에서 자동으로 사용할 수 있게 됩니다.
 
 </div>
 
@@ -169,7 +169,7 @@ import ButtonCounter from './ButtonCounter.vue'
 
 SFC에서는 자식 컴포넌트의 태그 이름에 `PascalCase`를 사용하는 것이 권장됩니다. 이는 네이티브 HTML 요소와 구분하기 위함입니다. 네이티브 HTML 태그 이름은 대소문자를 구분하지 않지만, Vue SFC는 컴파일된 포맷이므로 대소문자를 구분하는 태그 이름을 사용할 수 있습니다. 또한 태그를 `/>`로 닫을 수도 있습니다.
 
-템플릿을 DOM에 직접 작성하는 경우(예: 네이티브 `<template>` 요소의 내용으로), 템플릿은 브라우저의 네이티브 HTML 파싱 동작을 따릅니다. 이런 경우 컴포넌트에 대해 `kebab-case`와 명시적 닫는 태그를 사용해야 합니다:
+템플릿을 DOM에 직접 작성하는 경우(예: 네이티브 `<template>` 요소의 내용으로), 템플릿은 브라우저의 네이티브 HTML 파싱 동작을 따릅니다. 이때는 컴포넌트에 `kebab-case`와 명시적 닫는 태그를 사용해야 합니다:
 
 ```vue-html
 <!-- 이 템플릿이 DOM에 작성된 경우 -->
@@ -184,7 +184,7 @@ SFC에서는 자식 컴포넌트의 태그 이름에 `PascalCase`를 사용하�
 
 블로그를 만든다고 가정하면, 블로그 포스트를 나타내는 컴포넌트가 필요할 것입니다. 모든 블로그 포스트가 동일한 시각적 레이아웃을 공유하되, 내용은 다르게 하고 싶습니다. 이런 컴포넌트는, 표시할 특정 포스트의 제목과 내용 등 데이터를 전달할 수 없다면 쓸모가 없습니다. 이때 props가 필요합니다.
 
-Props는 컴포넌트에 등록할 수 있는 사용자 지정 속성입니다. 블로그 포스트 컴포넌트에 제목을 전달하려면, 이 컴포넌트가 허용하는 props 목록에 이를 선언해야 합니다. <span class="options-api">[`props`](/api/options-state#props) 옵션</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup#defineprops-defineemits) 매크로</span>를 사용합니다:
+Props는 컴포넌트에 등록할 수 있는 사용자 지정 속성입니다. 블로그 포스트 컴포넌트에 제목을 전달하려면, 이 컴포넌트가 허용하는 props 목록에 제목을 선언해야 합니다. <span class="options-api">[`props`](/api/options-state#props) 옵션</span><span class="composition-api">[`defineProps`](/api/sfc-script-setup#defineprops-defineemits) 매크로</span>를 사용합니다:
 
 <div class="options-api">
 
@@ -200,7 +200,7 @@ export default {
 </template>
 ```
 
-prop 속성에 값을 전달하면, 해당 값이 컴포넌트 인스턴스의 속성이 됩니다. 이 속성의 값은 템플릿 내와 컴포넌트의 `this` 컨텍스트에서 다른 컴포넌트 속성과 마찬가지로 접근할 수 있습니다.
+prop 속성에 값을 전달하면, 해당 값이 컴포넌트 인스턴스의 속성이 됩니다. 이 속성의 값에는 템플릿 내에서든 컴포넌트의 `this` 컨텍스트에서든, 다른 컴포넌트 속성과 마찬가지로 접근할 수 있습니다.
 
 </div>
 <div class="composition-api">
@@ -300,13 +300,13 @@ const posts = ref([
 
 </div>
 
-동적 prop 값을 전달할 때는 [`v-bind` 문법](/api/built-in-directives#v-bind) (`:title="post.title"`)을 사용하는 것에 주목하세요. 이는 미리 렌더링할 내용을 알 수 없을 때 특히 유용합니다.
+동적 prop 값을 전달할 때 [`v-bind` 문법](/api/built-in-directives#v-bind) (`:title="post.title"`)을 사용했다는 점에 주목하세요. 이는 미리 렌더링할 내용을 알 수 없을 때 특히 유용합니다.
 
 지금은 props에 대해 이 정도만 알면 충분하지만, 이 페이지를 다 읽고 내용을 익힌 후에는 [Props](/guide/components/props) 전체 가이드를 다시 읽어보시길 권장합니다.
 
 ## 이벤트 리스닝 {#listening-to-events}
 
-`<BlogPost>` 컴포넌트를 개발하다 보면, 일부 기능은 부모에게 다시 소통해야 할 필요가 있습니다. 예를 들어, 블로그 포스트의 텍스트를 확대하는 접근성 기능을 추가하고 싶을 수 있습니다. 이때 페이지의 나머지 부분은 기본 크기를 유지합니다.
+`<BlogPost>` 컴포넌트를 개발하다 보면, 일부 기능은 부모와 다시 소통해야 할 수도 있습니다. 예를 들어, 블로그 포스트의 텍스트를 확대하는 접근성 기능을 추가하고 싶을 수 있습니다. 이때 페이지의 나머지 부분은 기본 크기를 유지합니다.
 
 부모에서는 `postFontSize` <span class="options-api">data 속성</span><span class="composition-api">ref</span>을 추가하여 이 기능을 지원할 수 있습니다:
 
@@ -360,7 +360,7 @@ const postFontSize = ref(1)
 </template>
 ```
 
-버튼은 아직 아무 동작도 하지 않습니다. 버튼을 클릭하면 부모에게 모든 포스트의 텍스트를 확대하라고 알려야 합니다. 이 문제를 해결하기 위해, 컴포넌트는 커스텀 이벤트 시스템을 제공합니다. 부모는 자식 컴포넌트 인스턴스의 어떤 이벤트든 `v-on` 또는 `@`로 리스닝할 수 있습니다. 이는 네이티브 DOM 이벤트와 동일합니다:
+버튼은 아직 아무 동작도 하지 않습니다. 버튼을 클릭하면 부모에게 모든 포스트의 텍스트를 확대하라고 알려야 합니다. 이 문제를 해결하기 위해, 컴포넌트는 커스텀 이벤트 시스템을 제공합니다. 부모는 자식 컴포넌트 인스턴스의 어떤 이벤트든 `v-on` 또는 `@`로 리스닝할 수 있습니다. 이는 네이티브 DOM 이벤트를 리스닝할 때와 동일합니다:
 
 ```vue-html{3}
 <BlogPost
@@ -369,7 +369,7 @@ const postFontSize = ref(1)
  />
 ```
 
-그런 다음 자식 컴포넌트는 내장 [**`$emit`** 메서드](/api/component-instance#emit)를 호출하여 자신에게 이벤트를 발생시킬 수 있습니다. 이벤트 이름을 전달합니다:
+그런 다음 자식 컴포넌트는 내장 [**`$emit`** 메서드](/api/component-instance#emit)를 호출하여 자신에게 이벤트를 발생시킬 수 있습니다. 이때 이벤트 이름을 전달합니다:
 
 ```vue{5} [BlogPost.vue]
 <!-- omitting <script> -->
@@ -394,7 +394,7 @@ const postFontSize = ref(1)
 
 </div>
 
-발생시키는 이벤트를 <span class="options-api">[`emits`](/api/options-state#emits) 옵션</span><span class="composition-api">[`defineEmits`](/api/sfc-script-setup#defineprops-defineemits) 매크로</span>로 선언할 수도 있습니다:
+컴포넌트가 발생시키는 이벤트를 <span class="options-api">[`emits`](/api/options-state#emits) 옵션</span><span class="composition-api">[`defineEmits`](/api/sfc-script-setup#defineprops-defineemits) 매크로</span>로 선언할 수도 있습니다:
 
 <div class="options-api">
 
@@ -423,7 +423,7 @@ defineEmits(['enlarge-text'])
 
 <div class="composition-api">
 
-`defineProps`와 마찬가지로, `defineEmits`는 `<script setup>`에서만 사용할 수 있으며 import할 필요가 없습니다. 이 함수는 `$emit` 메서드와 동등한 `emit` 함수를 반환합니다. `<script setup>` 섹션에서는 `$emit`에 직접 접근할 수 없으므로, 이 함수를 사용해 이벤트를 발생시킬 수 있습니다:
+`defineProps`와 마찬가지로, `defineEmits`는 `<script setup>`에서만 사용할 수 있으며 import할 필요가 없습니다. 이 함수는 `$emit` 메서드와 동등한 `emit` 함수를 반환합니다. `<script setup>` 섹션에서는 `$emit`에 직접 접근할 수 없으므로, 반환된 `emit` 함수를 사용해 이벤트를 발생시킬 수 있습니다:
 
 ```vue
 <script setup>
@@ -500,7 +500,7 @@ Something bad happened.
 
 ## 동적 컴포넌트 {#dynamic-components}
 
-탭 인터페이스처럼, 컴포넌트를 동적으로 전환해야 할 때가 있습니다:
+탭 인터페이스에서처럼, 컴포넌트를 동적으로 전환해야 할 때가 있습니다:
 
 <div class="options-api">
 
@@ -539,11 +539,11 @@ Something bad happened.
 
 `is` 속성을 사용해 일반 HTML 요소를 생성할 수도 있습니다.
 
-`<component :is="...">`로 여러 컴포넌트 간 전환 시, 다른 컴포넌트로 전환되어 화면에서 사라지는 컴포넌트는 언마운트(unmount)됩니다. 비활성 컴포넌트를 "살려두려면" 내장 [`<KeepAlive>` 컴포넌트](/guide/built-ins/keep-alive)를 사용할 수 있습니다.
+`<component :is="...">`로 여러 컴포넌트 간에 전환할 때, 다른 컴포넌트로 바뀌어 화면에서 사라지는 컴포넌트는 언마운트(unmount)됩니다. 비활성 컴포넌트를 "살려두려면" 내장 [`<KeepAlive>` 컴포넌트](/guide/built-ins/keep-alive)를 사용할 수 있습니다.
 
 ## in-DOM 템플릿 파싱 주의사항 {#in-dom-template-parsing-caveats}
 
-Vue 템플릿을 DOM에 직접 작성하는 경우, Vue는 DOM에서 템플릿 문자열을 가져와야 합니다. 이로 인해 브라우저의 네이티브 HTML 파싱 동작 때문에 몇 가지 주의사항이 있습니다.
+Vue 템플릿을 DOM에 직접 작성하는 경우, Vue는 DOM에서 템플릿 문자열을 가져와야 합니다. 이 때문에 브라우저의 네이티브 HTML 파싱 동작으로 인한 몇 가지 주의사항이 생깁니다.
 
 :::tip
 아래에서 논의하는 제한 사항은 템플릿을 DOM에 직접 작성하는 경우에만 적용됩니다. 다음 소스의 문자열 템플릿에는 적용되지 않습니다:
@@ -628,6 +628,6 @@ HTML 명세상 [일부 특정 요소](https://html.spec.whatwg.org/multipage/syn
 네이티브 HTML 요소에서 `is`를 사용할 때는, 값 앞에 `vue:`를 붙여야 Vue 컴포넌트로 인식됩니다. 이는 네이티브 [커스텀 빌트인 요소](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example)와 혼동을 피하기 위함입니다.
 :::
 
-지금은 in-DOM 템플릿 파싱 주의사항에 대해 이 정도만 알면 충분합니다. 그리고 사실, 이것이 Vue의 _Essentials_의 끝입니다. 아직 배울 것이 더 있지만, 우선 Vue로 직접 무언가를 만들어보거나, 아직 보지 않았다면 [예제](/examples/)를 살펴보는 등 잠시 쉬어가시길 추천합니다.
+지금은 in-DOM 템플릿 파싱 주의사항에 대해 이 정도만 알면 충분합니다. 그리고 사실, 여기까지가 Vue _Essentials_의 끝입니다. 아직 배울 것이 더 있지만, 우선 Vue로 직접 무언가를 만들어보거나, 아직 보지 않았다면 [예제](/examples/)를 살펴보는 등 잠시 쉬어가시길 추천합니다.
 
 방금 익힌 내용에 익숙해졌다면, 가이드의 다음 장으로 넘어가 컴포넌트에 대해 더 깊이 배워보세요.

@@ -10,7 +10,7 @@
 
 <div class="composition-api">
 
-Vue 3.4부터, 이를 달성하는 권장 방법은 [`defineModel()`](/api/sfc-script-setup#definemodel) 매크로를 사용하는 것입니다:
+Vue 3.4부터, 이를 위한 권장 방법은 [`defineModel()`](/api/sfc-script-setup#definemodel) 매크로를 사용하는 것입니다:
 
 ```vue [Child.vue]
 <script setup>
@@ -38,7 +38,7 @@ function update() {
 - `.value`는 부모 `v-model`에 바인딩된 값과 동기화됩니다;
 - 자식에서 변경되면, 부모에 바인딩된 값도 업데이트됩니다.
 
-즉, 이 ref를 네이티브 input 요소에 `v-model`로 바인딩할 수도 있으므로, 네이티브 input 요소를 감싸면서 동일한 `v-model` 사용법을 제공하는 것이 간단해집니다:
+즉, 이 ref를 네이티브 input 요소에 `v-model`로 바인딩할 수도 있으므로, 이러한 요소를 감싸면서 동일한 `v-model` 사용법을 제공하는 것이 간단해집니다:
 
 ```vue
 <script setup>
@@ -86,7 +86,7 @@ const emit = defineEmits(['update:modelValue'])
 
 보다시피, 훨씬 더 장황합니다. 하지만 내부에서 무슨 일이 일어나는지 이해하는 데 도움이 됩니다.
 
-`defineModel`이 prop을 선언하기 때문에, prop 옵션을 `defineModel`에 전달하여 선언할 수 있습니다:
+`defineModel`이 prop을 선언하기 때문에, 해당 prop의 옵션을 `defineModel`에 전달하여 선언할 수 있습니다:
 
 ```js
 // v-model을 필수로 만들기
@@ -115,7 +115,7 @@ const myRef = ref()
 </template>
 ```
 
-또한 `defineProps`에 `withDefaults`를 사용할 때와 마찬가지로, `defineModel`에서도 배열이나 객체 같은 변경 가능한 참조 타입의 기본값은 의도하지 않은 수정과 외부 부작용을 방지하기 위해 함수로 감싸서 지정해야 합니다.
+또한 `defineProps`에 `withDefaults`를 사용할 때와 마찬가지로, `defineModel`에서도 배열이나 객체 같은 변경 가능한 참조 타입의 기본값은 의도하지 않은 수정과 외부 부수 효과을 방지하기 위해 함수로 감싸서 지정해야 합니다.
 :::
 
 </div>
@@ -128,7 +128,7 @@ const myRef = ref()
 <input v-model="searchText" />
 ```
 
-내부적으로, 템플릿(template) 컴파일러는 `v-model`을 더 장황한 동등 코드로 확장합니다. 따라서 위 코드는 다음과 동일합니다:
+내부적으로, 템플릿(template) 컴파일러는 `v-model`을 더 장황하지만 동등한 코드로 확장합니다. 따라서 위 코드는 다음과 동일합니다:
 
 ```vue-html
 <input
@@ -378,7 +378,7 @@ export default {
 
 ## `v-model` 수식어(modifiers) 처리 {#handling-v-model-modifiers}
 
-폼 입력 바인딩에 대해 배울 때, `v-model`에는 [내장 수식어](/guide/essentials/forms#modifiers) - `.trim`, `.number`, `.lazy`가 있다는 것을 보았습니다. 경우에 따라, 커스텀 입력 컴포넌트의 `v-model`도 커스텀 수식어를 지원하길 원할 수 있습니다.
+폼 입력 바인딩에 대해 배울 때, `v-model`에는 [내장 수식어](/guide/essentials/forms#modifiers)인 `.trim`, `.number`, `.lazy`가 있다는 것을 보았습니다. 경우에 따라, 커스텀 입력 컴포넌트의 `v-model`도 커스텀 수식어를 지원하길 원할 수 있습니다.
 
 예시로, `v-model` 바인딩으로 전달된 문자열의 첫 글자를 대문자로 만드는 커스텀 수식어 `capitalize`를 만들어봅시다:
 
@@ -402,7 +402,7 @@ console.log(modifiers) // { capitalize: true }
 </template>
 ```
 
-수식어에 따라 값을 읽거나 쓸 때 조건부로 조정하려면, `defineModel()`에 `get`과 `set` 옵션을 전달할 수 있습니다. 이 두 옵션은 모델 ref의 get/set 시 값을 받아 변환된 값을 반환해야 합니다. 아래는 `set` 옵션을 사용해 `capitalize` 수식어를 구현하는 방법입니다:
+수식어에 따라 값을 읽거나 쓸 때 조건부로 조정하려면, `defineModel()`에 `get`과 `set` 옵션을 전달할 수 있습니다. 이 두 옵션은 모델 ref의 get/set 시점에 현재 값을 받아, 변환된 값을 반환해야 합니다. 아래는 `set` 옵션을 사용해 `capitalize` 수식어를 구현하는 방법입니다:
 
 ```vue{4-6}
 <script setup>
@@ -542,7 +542,7 @@ export default {
 
 </div>
 
-다음은 여러 인자와 각각 다른 수식어를 가진 다중 `v-model`에서 수식어를 사용하는 또 다른 예시입니다:
+다음은 인자마다 서로 다른 수식어를 사용하는 다중 `v-model`의 또 다른 예시입니다:
 
 ```vue-html
 <UserName

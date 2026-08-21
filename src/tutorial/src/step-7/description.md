@@ -16,7 +16,7 @@
 
 목록을 업데이트하는 방법에는 두 가지가 있습니다:
 
-1. 소스 배열에 [변경 메서드](https://stackoverflow.com/questions/9009879/which-javascript-array-functions-are-mutating)를 호출하는 방법:
+1. 소스 배열의 [변경 메서드](https://stackoverflow.com/questions/9009879/which-javascript-array-functions-are-mutating)를 호출하는 방법:
 
    <div class="composition-api">
 
@@ -50,6 +50,6 @@
 
    </div>
 
-여기 간단한 todo 리스트가 있습니다 - 작동하도록 `addTodo()`와 `removeTodo()` 메서드의 로직을 구현해 보세요!
+여기 간단한 할 일 목록이 있습니다. 목록이 작동하도록 `addTodo()`와 `removeTodo()` 메서드의 로직을 구현해 보세요!
 
 `v-for`에 대한 자세한 내용: <a target="_blank" href="/guide/essentials/list.html">가이드 - 리스트 렌더링</a>

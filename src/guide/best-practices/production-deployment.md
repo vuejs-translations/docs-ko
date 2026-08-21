@@ -9,7 +9,7 @@
 - [반응성(reactivity) 디버깅 훅(hook)](/guide/extras/reactivity-in-depth#reactivity-debugging)
 - Devtools 통합
 
-하지만 이러한 기능들은 프로덕션 환경에서는 쓸모가 없습니다. 일부 경고 체크는 소량의 성능 오버헤드를 유발할 수도 있습니다. 프로덕션에 배포할 때는 사용하지 않는 개발 전용 코드 분기를 모두 제거하여 페이로드 크기를 줄이고 성능을 향상시켜야 합니다.
+하지만 이러한 기능들은 프로덕션 환경에서는 쓸모가 없습니다. 일부 경고 체크는 약간의 성능 오버헤드를 유발할 수도 있습니다. 프로덕션에 배포할 때는 사용하지 않는 개발 전용 코드 분기를 모두 제거하여 페이로드 크기를 줄이고 성능을 향상시켜야 합니다.
 
 ## 빌드 도구 없이 {#without-build-tools}
 
@@ -50,4 +50,4 @@ app.config.errorHandler = (err, instance, info) => {
 }
 ```
 
-[Sentry](https://docs.sentry.io/platforms/javascript/guides/vue/) 및 [Bugsnag](https://docs.bugsnag.com/platforms/javascript/vue/)과 같은 서비스는 Vue를 위한 공식 통합도 제공합니다.
+[Sentry](https://docs.sentry.io/platforms/javascript/guides/vue/)와 [Bugsnag](https://docs.bugsnag.com/platforms/javascript/vue/) 같은 서비스는 Vue 공식 통합도 제공합니다.

@@ -14,7 +14,7 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 
 - 빌드 과정 없이 순수 HTML 환경을 선호한다면, 이 [JSFiddle](https://jsfiddle.net/yyx990803/2ke1ab0z/)을 시작점으로 사용할 수 있습니다.
 
-- Node.js와 빌드 도구 개념에 익숙하다면, [StackBlitz](https://vite.new/vue)에서 브라우저 내에서 완전한 빌드 환경을 바로 체험할 수 있습니다.
+- Node.js와 빌드 도구 개념에 익숙하다면, [StackBlitz](https://vite.new/vue)를 이용해 브라우저 안에서 완전한 빌드 환경을 바로 체험할 수 있습니다.
 
 - 권장 설정에 대한 안내가 필요하다면, 첫 Vue 앱을 실행, 수정, 배포하는 방법을 보여주는 대화형 [Scrimba](http://scrimba.com/links/vue-quickstart) 튜토리얼을 시청하세요.
 
@@ -26,9 +26,9 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 - [Node.js](https://nodejs.org/) `^22.18.0 || >=24.12.0` 버전 설치
   :::
 
-이 섹션에서는 로컬 컴퓨터에서 Vue [싱글 페이지 애플리케이션](/guide/extras/ways-of-using-vue#single-page-application-spa)을 스캐폴딩(scaffolding)하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vite.dev/)를 기반으로 한 빌드 환경을 사용하며, Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc) (SFC)를 사용할 수 있습니다.
+이 섹션에서는 로컬 컴퓨터에서 Vue [싱글 페이지 애플리케이션](/guide/extras/ways-of-using-vue#single-page-application-spa)을 스캐폴딩(scaffolding)하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vite.dev/)를 기반으로 한 빌드 환경을 갖추며, Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc) (SFC)를 사용할 수 있습니다.
 
-최신 버전의 [Node.js](https://nodejs.org/)가 설치되어 있는지 확인하고, 현재 작업 디렉터리가 프로젝트를 생성하려는 위치인지 확인하세요. 커맨드 라인에서 다음 명령어를 실행하세요(`$` 기호는 입력하지 않습니다):
+최신 버전의 [Node.js](https://nodejs.org/)가 설치되어 있는지, 그리고 현재 작업 디렉터리가 프로젝트를 생성하려는 위치인지 확인하세요. 커맨드 라인에서 다음 명령어를 실행하세요(`$` 기호는 입력하지 않습니다):
 
 ::: code-group
 
@@ -145,7 +145,7 @@ $ bun run build
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 ```
 
-여기서는 [unpkg](https://unpkg.com/)를 사용했지만, [jsdelivr](https://www.jsdelivr.com/package/npm/vue)나 [cdnjs](https://cdnjs.com/libraries/vue) 등 npm 패키지를 제공하는 다른 CDN도 사용할 수 있습니다. 물론 이 파일을 직접 다운로드하여 직접 서비스할 수도 있습니다.
+여기서는 [unpkg](https://unpkg.com/)를 사용했지만, [jsdelivr](https://www.jsdelivr.com/package/npm/vue)나 [cdnjs](https://cdnjs.com/libraries/vue) 등 npm 패키지를 제공하는 다른 CDN도 사용할 수 있습니다. 물론 이 파일을 다운로드하여 직접 서비스할 수도 있습니다.
 
 CDN에서 Vue를 사용할 때는 "빌드 단계"가 필요하지 않습니다. 이로 인해 설정이 훨씬 간단해지며, 정적 HTML을 보강하거나 백엔드 프레임워크와 통합할 때 적합합니다. 하지만 싱글 파일 컴포넌트(SFC) 문법은 사용할 수 없습니다.
 
@@ -201,7 +201,7 @@ CDN에서 Vue를 사용할 때는 "빌드 단계"가 필요하지 않습니다. 
 [CodePen 데모 >](https://codepen.io/vuejs-examples/pen/eYQpQEG)
 
 :::tip
-가이드 전반에 걸쳐 많은 컴포지션 API 예제가 `<script setup>` 문법을 사용할 예정이며, 이는 빌드 도구가 필요합니다. 빌드 단계 없이 컴포지션 API를 사용하려면 [`setup()` 옵션](/api/composition-api-setup) 사용법을 참고하세요.
+가이드 전반에 걸쳐 많은 컴포지션 API 예제가 `<script setup>` 문법을 사용할 예정인데, 이 문법을 사용하려면 빌드 도구가 필요합니다. 빌드 단계 없이 컴포지션 API를 사용하려면 [`setup()` 옵션](/api/composition-api-setup) 사용법을 참고하세요.
 :::
 
 </div>
@@ -344,12 +344,12 @@ Import Maps는 비교적 새로운 브라우저 기능입니다. [지원 범위]
 :::warning 프로덕션 사용 시 주의사항
 지금까지의 예제는 Vue의 개발용 빌드를 사용하고 있습니다. CDN에서 Vue를 프로덕션에 사용할 계획이라면 [프로덕션 배포 가이드](/guide/best-practices/production-deployment#without-build-tools)를 반드시 참고하세요.
 
-빌드 시스템 없이 Vue를 사용하는 것도 가능하지만, 과거에 [`jquery/jquery`](https://github.com/jquery/jquery)를, 혹은 현재 [`alpinejs/alpine`](https://github.com/alpinejs/alpine)을 사용할 만한 상황이라면, 대안으로 [`vuejs/petite-vue`](https://github.com/vuejs/petite-vue)를 사용하는 것이 더 적합할 수 있습니다.
+빌드 시스템 없이 Vue를 사용하는 것도 가능하지만, 예전 같으면 [`jquery/jquery`](https://github.com/jquery/jquery)를, 요즘이라면 [`alpinejs/alpine`](https://github.com/alpinejs/alpine)을 골랐을 만한 상황에서는 대안인 [`vuejs/petite-vue`](https://github.com/vuejs/petite-vue)가 더 적합할 수 있습니다.
 :::
 
 ### 모듈 분리하기 {#splitting-up-the-modules}
 
-가이드가 더 깊어질수록, 코드를 관리하기 쉽게 여러 자바스크립트 파일로 분리해야 할 수도 있습니다. 예를 들어:
+가이드를 따라 더 깊이 들어갈수록, 코드를 관리하기 쉽게 여러 JavaScript 파일로 분리해야 할 수도 있습니다. 예를 들어:
 
 ```html [index.html]
 <div id="app"></div>
@@ -395,7 +395,7 @@ export default {
 
 로컬 HTTP 서버를 시작하려면, 먼저 [Node.js](https://nodejs.org/en/)가 설치되어 있는지 확인한 후, HTML 파일이 있는 디렉터리에서 커맨드 라인으로 `npx serve`를 실행하세요. 정적 파일을 올바른 MIME 타입으로 제공할 수 있는 다른 HTTP 서버를 사용해도 됩니다.
 
-가져온 컴포넌트의 템플릿(template)이 자바스크립트 문자열로 인라인되어 있다는 점을 눈치챘을 수도 있습니다. VS Code를 사용한다면 [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) 확장 프로그램을 설치하고, 문자열 앞에 `/*html*/` 주석을 붙이면 문법 하이라이팅을 받을 수 있습니다.
+가져온 컴포넌트의 템플릿(template)이 JavaScript 문자열로 인라인되어 있다는 점을 눈치챘을 수도 있습니다. VS Code를 사용한다면 [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) 확장 프로그램을 설치하고, 문자열 앞에 `/*html*/` 주석을 붙이면 문법 하이라이팅을 받을 수 있습니다.
 
 ## 프레임워크 {#frameworks}
 
@@ -408,11 +408,11 @@ export default {
 :::tip
 일반적으로 SSR이 필요한 경우에만 프레임워크를 사용하는 것을 권장합니다.
 
-SSR이 필요하지 않다면 [Vite](https://vite.dev/)만 사용해도 충분합니다(위의 [Vue 애플리케이션 생성하기](#creating-a-vue-application) 섹션에서 스캐폴딩하는 구성이 바로 이 구성입니다).
+SSR이 필요하지 않다면 [Vite](https://vite.dev/)만 사용해도 충분합니다(위의 [Vue 애플리케이션 생성하기](#creating-a-vue-application) 섹션에서 스캐폴딩하는 것이 바로 이 구성입니다).
 :::
 
 :::info
-Vue 프레임워크는 일반적으로 내부에서 Vite를 사용하므로, SSR이 필요하지 않다면 Vue 프레임워크 대신 Vite를 직접 사용하는 편이 설정이 더 간단합니다. 다만 프레임워크는 UI 테마와 같은 추가 기능도 지원하므로, 이러한 추가 기능이 Vite만 사용하는 대신 Vue 프레임워크를 선택하는 이유가 될 수도 있습니다.
+Vue 프레임워크는 일반적으로 내부에서 Vite를 사용하므로, SSR이 필요하지 않다면 Vue 프레임워크 대신 Vite를 직접 사용하는 편이 설정이 더 간단합니다. 다만 프레임워크는 UI 테마와 같은 기능을 추가로 지원하므로, 이런 기능이 Vite만 사용하는 대신 Vue 프레임워크를 선택할 이유가 될 수도 있습니다.
 :::
 
 ## 다음 단계 {#next-steps}

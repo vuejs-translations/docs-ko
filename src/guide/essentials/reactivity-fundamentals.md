@@ -5,14 +5,14 @@ outline: deep
 # 반응성 기본 {#reactivity-fundamentals}
 
 :::tip API Preference
-이 페이지와 이후 가이드의 많은 챕터들은 Options API와 Composition API에 따라 다른 내용을 포함하고 있습니다. 현재 선택된 선호도는 <span class="options-api">Options API</span><span class="composition-api">Composition API</span>입니다. 왼쪽 사이드바 상단의 "API Preference" 스위치를 사용해 API 스타일을 전환할 수 있습니다.
+이 페이지와 이후 가이드의 많은 챕터들은 옵션 API와 컴포지션 API에 따라 서로 다른 내용을 담고 있습니다. 현재는 <span class="options-api">옵션 API</span><span class="composition-api">컴포지션 API</span>가 선택되어 있습니다. 왼쪽 사이드바 상단의 "API Preference" 스위치를 사용해 API 스타일을 전환할 수 있습니다.
 :::
 
 <div class="options-api">
 
 ## 반응형 상태 선언하기 \* {#declaring-reactive-state}
 
-Options API에서는 컴포넌트(component)의 반응형 상태를 선언하기 위해 `data` 옵션을 사용합니다. 이 옵션의 값은 객체를 반환하는 함수여야 합니다. Vue는 새로운 컴포넌트 인스턴스(instance)를 생성할 때 이 함수를 호출하고, 반환된 객체를 반응성(reactivity) 시스템으로 감쌉니다. 이 객체의 최상위 속성들은 컴포넌트 인스턴스(`methods`와 라이프사이클 훅에서의 `this`)에 프록시(proxy)됩니다:
+옵션 API에서는 컴포넌트(component)의 반응형 상태를 선언하기 위해 `data` 옵션을 사용합니다. 이 옵션의 값은 객체를 반환하는 함수여야 합니다. Vue는 새로운 컴포넌트 인스턴스(instance)를 생성할 때 이 함수를 호출하고, 반환된 객체를 반응성(reactivity) 시스템으로 감쌉니다. 이 객체의 최상위 속성들은 컴포넌트 인스턴스(`methods`와 라이프사이클 훅에서의 `this`)에 프록시(proxy)됩니다:
 
 ```js{2-6}
 export default {
@@ -43,7 +43,7 @@ Vue는 컴포넌트 인스턴스를 통해 자체 내장 API를 노출할 때 `$
 
 ### 반응형 프록시 vs. 원본 \* {#reactive-proxy-vs-original}
 
-Vue 3에서는 [JavaScript Proxy](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)를 활용해 데이터를 반응형으로 만듭니다. Vue 2에서 오신 분들은 다음과 같은 예외 케이스를 주의해야 합니다:
+Vue 3에서는 [JavaScript Proxy](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)를 활용해 데이터를 반응형으로 만듭니다. Vue 2를 사용하다 넘어왔다면 다음과 같은 예외 케이스에 주의해야 합니다:
 
 ```js
 export default {
@@ -61,7 +61,7 @@ export default {
 }
 ```
 
-할당 후 `this.someObject`에 접근하면, 값은 원본 `newObject`의 반응형 프록시입니다. **Vue 2와 달리, 원본 `newObject`는 그대로 남아 있고 반응형이 되지 않습니다: 항상 반응형 상태는 `this`의 속성으로 접근해야 합니다.**
+할당 후 `this.someObject`에 접근하면, 값은 원본 `newObject`의 반응형 프록시입니다. **Vue 2와 달리, 원본 `newObject`는 그대로 남아 있고 반응형이 되지 않습니다: 반응형 상태는 항상 `this`의 속성으로 접근해야 합니다.**
 
 </div>
 
@@ -71,7 +71,7 @@ export default {
 
 ### `ref()` \*\* {#ref}
 
-Composition API에서는 [`ref()`](/api/reactivity-core#ref) 함수를 사용해 반응형 상태를 선언하는 것이 권장됩니다:
+컴포지션 API에서는 [`ref()`](/api/reactivity-core#ref) 함수를 사용해 반응형 상태를 선언하는 것이 권장됩니다:
 
 ```js
 import { ref } from 'vue'
@@ -160,7 +160,7 @@ export default {
 
 ### `<script setup>` \*\* {#script-setup}
 
-`setup()`을 통해 상태와 메서드를 수동으로 노출하는 것은 다소 장황할 수 있습니다. 다행히 [싱글 파일 컴포넌트(SFC)](/guide/scaling-up/sfc)를 사용할 때는 이를 피할 수 있습니다. `<script setup>`을 사용하면 더 간단하게 작성할 수 있습니다:
+`setup()`을 통해 상태와 메서드를 수동으로 노출하는 것은 다소 장황할 수 있습니다. 다행히 [싱글 파일 컴포넌트(SFC)](/guide/scaling-up/sfc)를 사용한다면 이러한 번거로움을 피할 수 있습니다. `<script setup>`을 쓰면 더 간단하게 작성할 수 있습니다:
 
 ```vue{1}
 <script setup>
@@ -185,20 +185,20 @@ function increment() {
 `<script setup>`에서 선언된 최상위 import, 변수, 함수는 해당 컴포넌트의 템플릿에서 자동으로 사용할 수 있습니다. 템플릿을 같은 스코프에 선언된 JavaScript 함수라고 생각하면, 자연스럽게 함께 선언된 모든 것에 접근할 수 있습니다.
 
 :::tip
-이후 가이드에서는 Composition API 코드 예제에 SFC + `<script setup>` 문법을 주로 사용할 예정입니다. 이는 Vue 개발자들이 가장 많이 사용하는 방식입니다.
+이후 가이드에서는 컴포지션 API 코드 예제에 SFC + `<script setup>` 문법을 주로 사용할 예정입니다. 이는 Vue 개발자들이 가장 많이 사용하는 방식입니다.
 
-SFC를 사용하지 않는 경우에도 [`setup()`](/api/composition-api-setup) 옵션으로 Composition API를 사용할 수 있습니다.
+SFC를 사용하지 않는 경우에도 [`setup()`](/api/composition-api-setup) 옵션으로 컴포지션 API를 사용할 수 있습니다.
 :::
 
 ### 왜 Ref를 사용할까요? \*\* {#why-refs}
 
 왜 단순 변수 대신 `.value`가 있는 ref가 필요한지 궁금할 수 있습니다. 이를 설명하기 위해 Vue의 반응성 시스템이 어떻게 동작하는지 간단히 살펴보겠습니다.
 
-템플릿에서 ref를 사용하고, 이후 ref의 값을 변경하면, Vue는 변경을 자동으로 감지하고 DOM을 업데이트합니다. 이는 의존성 추적 기반의 반응성 시스템 덕분입니다. 컴포넌트가 처음 렌더링(rendering)될 때, Vue는 렌더링에 사용된 모든 ref를 **추적**합니다. 이후 ref가 변경되면, 이를 추적 중인 컴포넌트에 **재렌더링**을 트리거합니다.
+템플릿에서 ref를 사용하고, 이후 ref의 값을 변경하면, Vue는 변경을 자동으로 감지하고 DOM을 업데이트합니다. 이는 의존성 추적 기반의 반응성 시스템 덕분입니다. 컴포넌트가 처음 렌더링(rendering)될 때, Vue는 렌더링에 사용된 모든 ref를 **추적**합니다. 그 후 ref가 변경되면, 이를 추적 중인 컴포넌트의 **재렌더링**이 트리거됩니다.
 
 일반 JavaScript에서는 단순 변수의 접근이나 변경을 감지할 방법이 없습니다. 하지만 객체의 속성에 대해서는 getter와 setter를 사용해 get/set 연산을 가로챌 수 있습니다.
 
-`.value` 속성은 Vue가 ref에 접근하거나 변경될 때 이를 감지할 기회를 제공합니다. 내부적으로 Vue는 getter에서 추적을, setter에서 트리거를 수행합니다. 개념적으로 ref는 다음과 같은 객체라고 생각할 수 있습니다:
+`.value` 속성은 ref가 접근되거나 변경되는 시점을 Vue가 감지할 수 있게 해줍니다. 내부적으로 Vue는 getter에서 추적을, setter에서 트리거를 수행합니다. 개념적으로 ref는 다음과 같은 객체라고 생각할 수 있습니다:
 
 ```js
 // 의사 코드, 실제 구현이 아닙니다
@@ -275,7 +275,7 @@ export default {
 
 <div class="options-api">
 
-Vue에서는 상태가 기본적으로 깊게 반응형입니다. 즉, 중첩된 객체나 배열을 변경해도 변경 사항이 감지됩니다:
+Vue에서 상태는 기본적으로 깊은 반응성을 가집니다. 즉, 중첩된 객체나 배열을 변경해도 변경 사항이 감지됩니다:
 
 ```js
 export default {
@@ -322,7 +322,7 @@ function mutateDeeply() {
 
 비원시 값은 아래에서 설명할 [`reactive()`](#reactive)를 통해 반응형 프록시로 변환됩니다.
 
-[shallow ref](/api/reactivity-advanced#shallowref)를 사용해 깊은 반응성을 비활성화할 수도 있습니다. shallow ref에서는 `.value` 접근만 반응성 추적이 됩니다. shallow ref는 대용량 객체의 관찰 비용을 피하거나, 내부 상태가 외부 라이브러리에 의해 관리되는 경우 성능 최적화에 사용할 수 있습니다.
+[shallow ref](/api/reactivity-advanced#shallowref)를 사용해 깊은 반응성을 비활성화할 수도 있습니다. shallow ref에서는 `.value` 접근만 반응성 추적의 대상이 됩니다. 이는 대용량 객체의 관찰 비용을 피하거나, 내부 상태를 외부 라이브러리가 관리하는 경우의 성능 최적화에 사용할 수 있습니다.
 
 더 읽어보기:
 
@@ -390,9 +390,9 @@ const state = reactive({ count: 0 })
 </button>
 ```
 
-반응형 객체는 [JavaScript Proxy](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)이며, 일반 객체처럼 동작합니다. 차이점은 Vue가 반응성 추적 및 트리거를 위해 반응형 객체의 모든 속성 접근과 변경을 가로챌 수 있다는 점입니다.
+반응형 객체는 [JavaScript Proxy](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)이며, 일반 객체처럼 동작합니다. 차이점은 Vue가 반응성 추적과 트리거를 위해 반응형 객체의 모든 속성 접근과 변경을 가로챌 수 있다는 것입니다.
 
-`reactive()`는 객체를 깊게 변환합니다: 중첩 객체도 접근 시 `reactive()`로 감싸집니다. ref의 값이 객체일 때 내부적으로도 호출됩니다. shallow ref와 유사하게, 깊은 반응성을 비활성화할 수 있는 [`shallowReactive()`](/api/reactivity-advanced#shallowreactive) API도 있습니다.
+`reactive()`는 객체를 깊게 변환합니다: 중첩 객체도 접근 시 `reactive()`로 감싸집니다. ref의 값이 객체일 때는 내부적으로 `reactive()`가 호출됩니다. shallow ref와 유사하게, 깊은 반응성을 비활성화할 수 있는 [`shallowReactive()`](/api/reactivity-advanced#shallowreactive) API도 있습니다.
 
 ### 반응형 프록시 vs. 원본 \*\* {#reactive-proxy-vs-original-1}
 
@@ -406,7 +406,7 @@ const proxy = reactive(raw)
 console.log(proxy === raw) // false
 ```
 
-프록시만 반응형입니다 - 원본 객체를 변경해도 업데이트가 트리거되지 않습니다. 따라서 Vue의 반응성 시스템을 사용할 때는 **반드시 프록시 버전의 상태만 사용**하는 것이 모범 사례입니다.
+프록시만 반응형입니다. 원본 객체를 변경해도 업데이트가 트리거되지 않습니다. 따라서 Vue의 반응성 시스템을 사용할 때는 **반드시 프록시 버전의 상태만 사용**하는 것이 모범 사례입니다.
 
 프록시에 일관되게 접근할 수 있도록, 같은 객체에 대해 `reactive()`를 여러 번 호출해도 항상 같은 프록시가 반환되며, 이미 프록시인 객체에 `reactive()`를 호출해도 자기 자신을 반환합니다:
 
@@ -467,7 +467,7 @@ console.log(proxy.nested === raw) // false
 
 ### 반응형 객체 속성으로서 \*\* {#ref-unwrapping-as-reactive-object-property}
 
-ref는 반응형 객체의 속성으로 접근하거나 변경할 때 자동으로 언래핑됩니다. 즉, 일반 속성처럼 동작합니다:
+ref는 반응형 객체의 속성으로서 접근되거나 변경될 때 자동으로 언래핑됩니다. 즉, 일반 속성처럼 동작합니다:
 
 ```js
 const count = ref(0)
@@ -496,7 +496,7 @@ ref 언래핑은 깊은 반응형 객체 내부에 중첩된 경우에만 발생
 
 ### 배열 및 컬렉션에서의 주의사항 \*\* {#caveat-in-arrays-and-collections}
 
-반응형 객체와 달리, 반응형 배열이나 `Map`과 같은 네이티브 컬렉션 타입의 요소로 ref에 접근할 때는 **언래핑이 일어나지 않습니다**:
+반응형 객체와 달리, 반응형 배열이나 `Map`과 같은 네이티브 컬렉션 타입의 요소로서 ref에 접근할 때는 **언래핑이 일어나지 않습니다**:
 
 ```js
 const books = reactive([ref('Vue 3 Guide')])
@@ -541,7 +541,7 @@ const { id } = object
 {{ id + 1 }}
 ```
 
-이제 렌더 결과는 `2`가 됩니다.
+이제 렌더링 결과는 `2`가 됩니다.
 
 또 한 가지 주의할 점은, ref가 텍스트 보간(즉, <code v-pre>{{ }}</code> 태그)의 최종 평가 값일 경우에는 언래핑이 일어난다는 것입니다. 따라서 아래 코드는 `1`을 렌더링합니다:
 
@@ -572,7 +572,7 @@ export default {
 }
 ```
 
-하지만 이 방식은 컴포넌트가 재사용될 때 문제가 발생할 수 있습니다. 디바운스 함수는 **상태를 가집니다**: 경과 시간에 대한 내부 상태를 유지합니다. 여러 컴포넌트 인스턴스가 같은 디바운스 함수를 공유하면 서로 간섭하게 됩니다.
+하지만 이 방식에서는 컴포넌트가 재사용될 때 문제가 발생할 수 있습니다. 디바운스 함수는 **상태를 가집니다**: 경과 시간에 대한 내부 상태를 유지합니다. 여러 컴포넌트 인스턴스가 같은 디바운스 함수를 공유하면 서로 간섭하게 됩니다.
 
 각 컴포넌트 인스턴스의 디바운스 함수를 독립적으로 유지하려면, `created` 라이프사이클(lifecycle) 훅(hook)에서 디바운스 버전을 생성할 수 있습니다:
 

@@ -4,7 +4,7 @@
 
 ## Prop Drilling {#prop-drilling}
 
-일반적으로 부모에서 자식 컴포넌트로 데이터를 전달할 때는 [props](/guide/components/props)를 사용합니다. 하지만, 큰 컴포넌트 트리에서 깊이 중첩된 컴포넌트가 먼 조상 컴포넌트의 무언가가 필요하다고 상상해보세요. props만으로는 동일한 prop을 전체 부모 체인에 걸쳐 전달해야 합니다:
+일반적으로 부모에서 자식 컴포넌트로 데이터를 전달할 때는 [props](/guide/components/props)를 사용합니다. 하지만 큰 컴포넌트 트리에서, 깊이 중첩된 컴포넌트에 먼 조상 컴포넌트의 무언가가 필요한 상황을 상상해보세요. props만으로는 동일한 prop을 전체 부모 체인에 걸쳐 전달해야 합니다:
 
 ![깊이 중첩된 자식 컴포넌트에 도달하기 위해 여러 단계의 컴포넌트를 거쳐 props가 전달되는 모습을 보여주는 다이어그램](./images/prop-drilling.png)
 
@@ -55,7 +55,7 @@ const count = ref(0)
 provide('key', count)
 ```
 
-반응형 값을 제공하면, 제공된 값을 사용하는 자손 컴포넌트가 제공자 컴포넌트와 반응형 연결을 맺을 수 있습니다.
+반응형 값을 제공하면, 그 값을 사용하는 자손 컴포넌트가 제공자 컴포넌트와 반응형 연결을 맺을 수 있습니다.
 
 </div>
 
@@ -197,7 +197,7 @@ export default {
 
 ### Injection Default Values {#injection-default-values}
 
-기본적으로, `inject`는 주입된 키가 부모 체인 어딘가에서 제공된다고 가정합니다. 만약 키가 제공되지 않은 경우 런타임 경고가 발생합니다.
+기본적으로, `inject`는 주입 키가 부모 체인 어딘가에서 제공된다고 가정합니다. 키가 제공되지 않으면 런타임 경고가 발생합니다.
 
 주입된 프로퍼티가 선택적 제공자와 함께 동작하도록 하려면, props와 유사하게 기본값을 선언해야 합니다:
 
@@ -209,7 +209,7 @@ export default {
 const value = inject('message', 'default value')
 ```
 
-경우에 따라 기본값을 함수 호출이나 새 클래스 인스턴스화로 생성해야 할 수도 있습니다. 선택적 값이 사용되지 않을 때 불필요한 연산이나 부작용을 피하려면, 기본값 생성에 팩토리 함수를 사용할 수 있습니다:
+경우에 따라 기본값을 함수 호출이나 새 클래스 인스턴스화로 생성해야 할 수도 있습니다. 선택적 값이 사용되지 않을 때 불필요한 연산이나 부수 효과을 피하려면, 기본값 생성에 팩토리 함수를 사용할 수 있습니다:
 
 ```js
 const value = inject('key', () => new ExpensiveClass(), true)
@@ -245,9 +245,9 @@ export default {
 
 <div class="composition-api">
 
-반응형 provide / inject 값을 사용할 때는, **가능하다면 반응형 상태의 모든 변경을 _제공자_ 내부에서만 처리하는 것이 좋습니다**. 이렇게 하면 제공된 상태와 그 변이 로직이 동일 컴포넌트에 위치하게 되어, 향후 유지보수가 쉬워집니다.
+반응형 provide / inject 값을 사용할 때는, **가능하다면 반응형 상태의 모든 변경을 _제공자_ 내부에서만 처리하는 것이 좋습니다**. 이렇게 하면 제공된 상태와 그 변경 로직이 동일 컴포넌트에 위치하게 되어, 향후 유지보수가 쉬워집니다.
 
-주입자 컴포넌트에서 데이터를 업데이트해야 할 때도 있습니다. 이런 경우, 상태 변이를 담당하는 함수를 함께 제공하는 것을 권장합니다:
+주입자 컴포넌트에서 데이터를 업데이트해야 할 때도 있습니다. 이런 경우, 상태 변경을 담당하는 함수를 함께 제공하는 것을 권장합니다:
 
 ```vue{7-9,13}
 <!-- 제공자 컴포넌트 내부 -->
@@ -295,7 +295,7 @@ provide('read-only-count', readonly(count))
 
 <div class="options-api">
 
-주입이 제공자와 반응형으로 연결되도록 하려면, [computed()](/api/reactivity-core#computed) 함수를 사용해 계산 속성(computed property)을 제공해야 합니다:
+주입이 제공자와 반응형으로 연결되도록 하려면, [computed()](/api/reactivity-core#computed) 함수를 사용해 계산된 속성(computed property)을 제공해야 합니다:
 
 ```js{12}
 import { computed } from 'vue'
@@ -317,7 +317,7 @@ export default {
 
 [반응형을 포함한 provide + inject 전체 예제](https://play.vuejs.org/#eNqNUctqwzAQ/JVFFyeQxnfjBEoPPfULqh6EtYlV9EKWTcH43ytZtmPTQA0CsdqZ2dlRT16tPXctkoKUTeWE9VeqhbLGeXirheRwc0ZBds7HKkKzBdBDZZRtPXIYJlzqU40/I4LjjbUyIKmGEWw0at8UgZrUh1PscObZ4ZhQAA596/RcAShsGnbHArIapTRBP74O8Up060wnOO5QmP0eAvZyBV+L5jw1j2tZqsMp8yWRUHhUVjKPoQIohQ460L0ow1FeKJlEKEnttFweijJfiORElhCf5f3umObb0B9PU/I7kk17PJj7FloN/2t7a2Pj/Zkdob+x8gV8ZlMs2de/8+14AXwkBngD9zgVqjg2rNXPvwjD+EdlHilrn8MvtvD1+Q==)
 
-`computed()` 함수는 주로 Composition API 컴포넌트에서 사용되지만, Options API의 특정 용례를 보완하는 데도 사용할 수 있습니다. [반응성(reactivity) 기초](/guide/essentials/reactivity-fundamentals)와 [계산 속성](/guide/essentials/computed)에서 Composition API로 API 선호도를 설정해 더 자세히 배울 수 있습니다.
+`computed()` 함수는 주로 컴포지션 API 컴포넌트에서 사용되지만, 옵션 API의 특정 용례를 보완하는 데도 사용할 수 있습니다. [반응성(reactivity) 기초](/guide/essentials/reactivity-fundamentals)와 [계산된 속성](/guide/essentials/computed)에서 API 선호도를 컴포지션 API로 설정해 더 자세히 배울 수 있습니다.
 
 </div>
 

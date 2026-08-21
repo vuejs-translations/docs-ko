@@ -58,7 +58,7 @@ outline: deep
 
 ### 중첩 컴포넌트 상속 {#nested-component-inheritance}
 
-컴포넌트가 루트 노드로 또 다른 컴포넌트를 렌더링하는 경우, 예를 들어 `<MyButton>`을 리팩토링하여 루트로 `<BaseButton>`을 렌더링한다고 가정해봅시다:
+컴포넌트가 루트 노드로 또 다른 컴포넌트를 렌더링하는 경우가 있습니다. 예를 들어, `<MyButton>`을 리팩토링하여 루트로 `<BaseButton>`을 렌더링한다고 가정해봅시다:
 
 ```vue-html
 <!-- 또 다른 컴포넌트를 단순히 렌더링하는 <MyButton/>의 템플릿 -->
@@ -71,7 +71,7 @@ outline: deep
 
 1. 전달된 속성에는 prop으로 선언된 속성이나, `<MyButton>`에서 선언된 이벤트의 `v-on` 리스너는 포함되지 않습니다. 즉, 선언된 prop과 리스너는 `<MyButton>`에서 "소비"됩니다.
 
-2. 전달된 속성은 `<BaseButton>`에서 prop으로 선언되어 있다면 prop으로 받아질 수 있습니다.
+2. 전달된 속성이 `<BaseButton>`에 prop으로 선언되어 있다면, `<BaseButton>`은 이를 prop으로 받을 수 있습니다.
 
 ## 속성 상속 비활성화 {#disabling-attribute-inheritance}
 
@@ -92,7 +92,7 @@ defineOptions({
 
 </div>
 
-속성 상속을 비활성화하는 일반적인 시나리오는 속성을 루트 노드가 아닌 다른 엘리먼트에 적용해야 할 때입니다. `inheritAttrs` 옵션을 `false`로 설정하면 폴스루 속성을 어디에 적용할지 완전히 제어할 수 있습니다.
+속성 상속을 비활성화하는 일반적인 경우는, 속성을 루트 노드가 아닌 다른 엘리먼트에 적용해야 할 때입니다. `inheritAttrs` 옵션을 `false`로 설정하면 폴스루 속성을 어디에 적용할지 완전히 제어할 수 있습니다.
 
 이 폴스루 속성들은 템플릿 표현식에서 `$attrs`로 직접 접근할 수 있습니다:
 
@@ -106,9 +106,9 @@ defineOptions({
 
 - prop과 달리, 폴스루 속성은 JavaScript에서 원래의 케이싱을 유지하므로, `foo-bar`와 같은 속성은 `$attrs['foo-bar']`로 접근해야 합니다.
 
-- `@click`과 같은 `v-on` 이벤트 리스너는 `$attrs.onClick` 아래의 함수로 객체에 노출됩니다.
+- `@click`과 같은 `v-on` 이벤트 리스너는 `$attrs.onClick`과 같이 함수 형태로 객체에 노출됩니다.
 
-[이전 섹션](#attribute-inheritance)의 `<MyButton>` 컴포넌트 예시를 사용해보면, 실제 `<button>` 엘리먼트를 스타일링을 위해 추가적인 `<div>`로 감싸야 할 때가 있습니다:
+[이전 섹션](#attribute-inheritance)의 `<MyButton>` 컴포넌트 예시를 사용해보면, 스타일링을 위해 실제 `<button>` 엘리먼트를 추가적인 `<div>`로 감싸야 할 때가 있습니다:
 
 ```vue-html
 <div class="btn-wrapper">
@@ -150,7 +150,7 @@ defineOptions({
 <footer>...</footer>
 ```
 
-## 자바스크립트에서 폴스루 속성 접근하기 {#accessing-fallthrough-attributes-in-javascript}
+## JavaScript에서 폴스루 속성 접근하기 {#accessing-fallthrough-attributes-in-javascript}
 
 <div class="composition-api">
 
@@ -175,13 +175,13 @@ export default {
 }
 ```
 
-여기서 `attrs` 객체는 항상 최신 폴스루 속성을 반영하지만(성능상의 이유로) 반응형이 아닙니다. 변경 사항을 감지하기 위해 watcher를 사용할 수 없습니다. 반응성(reactivity)이 필요하다면 prop을 사용하세요. 또는, 각 업데이트마다 최신 `attrs`로 부수 효과를 수행하려면 `onUpdated()`를 사용할 수 있습니다.
+여기서 `attrs` 객체는 항상 최신 폴스루 속성을 반영하지만(성능상의 이유로) 반응형이 아닙니다. 변경 사항을 감지하기 위해 감시자(watcher)를 사용할 수는 없습니다. 반응성(reactivity)이 필요하다면 prop을 사용하세요. 또는, 업데이트될 때마다 최신 `attrs`로 부수 효과를 수행하려면 `onUpdated()`를 사용할 수 있습니다.
 
 </div>
 
 <div class="options-api">
 
-필요하다면, 컴포넌트의 폴스루 속성에 `$attrs` 인스턴스(instance) 속성을 통해 접근할 수 있습니다:
+필요하다면, `$attrs` 인스턴스(instance) 속성을 통해 컴포넌트의 폴스루 속성에 접근할 수 있습니다:
 
 ```js
 export default {
