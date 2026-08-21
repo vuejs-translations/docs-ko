@@ -158,11 +158,11 @@ export const sidebar: ThemeConfig['sidebar'] = {
           link: '/guide/essentials/template-syntax'
         },
         {
-          text: '반응성 기초',
+          text: '반응성 기초(Reactivity)',
           link: '/guide/essentials/reactivity-fundamentals'
         },
         {
-          text: '계산된 속성',
+          text: '계산된 속성(Computed)',
           link: '/guide/essentials/computed'
         },
         {
@@ -202,7 +202,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
         { text: '이벤트', link: '/guide/components/events' },
         { text: '컴포넌트 v-model', link: '/guide/components/v-model' },
         {
-          text: '속성 전달',
+          text: '폴스루 속성(Fallthrough)',
           link: '/guide/components/attrs'
         },
         { text: '슬롯', link: '/guide/components/slots' },
@@ -307,7 +307,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
           link: '/guide/extras/composition-api-faq'
         },
         {
-          text: '반응성 심화',
+          text: '반응성 심화(Reactivity in Depth)',
           link: '/guide/extras/reactivity-in-depth'
         },
         {
@@ -353,15 +353,15 @@ export const sidebar: ThemeConfig['sidebar'] = {
       items: [
         { text: 'setup()', link: '/api/composition-api-setup' },
         {
-          text: '반응성: 코어',
+          text: '반응성(Reactivity): 코어',
           link: '/api/reactivity-core'
         },
         {
-          text: '반응성: 유틸리티',
+          text: '반응성(Reactivity): 유틸리티',
           link: '/api/reactivity-utilities'
         },
         {
-          text: '반응성: 고급',
+          text: '반응성(Reactivity): 고급',
           link: '/api/reactivity-advanced'
         },
         {
@@ -369,7 +369,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
           link: '/api/composition-api-lifecycle'
         },
         {
-          text: '의존성 주입',
+          text: '의존성 주입(Dependency Injection)',
           link: '/api/composition-api-dependency-injection'
         },
         {
