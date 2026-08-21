@@ -300,7 +300,7 @@ vnode에 커스텀 디렉티브를 추가할 때 사용합니다.
 
 ## withModifiers() {#withmodifiers}
 
-이벤트 핸들러 함수에 내장 [`v-on` 수식어](/guide/essentials/event-handling#event-modifiers)를 추가할 때 사용합니다.
+이벤트 핸들러 함수에 내장 [`v-on` 수식어(modifiers)](/guide/essentials/event-handling#event-modifiers)를 추가할 때 사용합니다.
 
 - **타입**
 

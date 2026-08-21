@@ -59,7 +59,7 @@ setTimeout(() => {
 
 아래는 인스턴스 라이프사이클에 대한 다이어그램입니다. 지금 당장 모든 내용을 완전히 이해할 필요는 없지만, 더 많이 배우고 개발할수록 유용한 참고 자료가 될 것입니다.
 
-![컴포넌트 라이프사이클 다이어그램](./images/lifecycle.png)
+![Vue 컴포넌트가 생성부터 소멸까지 거치는 전체 라이프사이클을 보여주는 다이어그램. 모든 주요 라이프사이클 훅과 함께 템플릿 컴파일, 마운트 같은 내부 과정도 포함되어 있습니다.](./images/lifecycle.png)
 
 <!-- https://www.figma.com/file/Xw3UeNMOralY6NV7gSjWdS/Vue-Lifecycle -->
 

@@ -1,4 +1,4 @@
-# 계산 속성 {#computed-property}
+# 계산 속성(Computed Property) {#computed-property}
 
 이전 단계의 할 일 목록을 계속 확장해 봅시다. 여기서는 이미 각 할 일에 토글 기능을 추가했습니다. 이는 각 할 일 객체에 `done` 속성을 추가하고, 이를 체크박스에 `v-model`로 바인딩하여 구현합니다:
 

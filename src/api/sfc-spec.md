@@ -105,7 +105,7 @@ p {{ msg }}
 
 다양한 프리프로세서와의 통합은 도구 체인에 따라 다를 수 있습니다. 예시는 각 문서를 참고하세요:
 
-- [Vite](https://vitejs.dev/guide/features.html#css-pre-processors)
+- [Vite](https://vite.dev/guide/features.html#css-pre-processors)
 - [Vue CLI](https://cli.vuejs.org/guide/css.html#pre-processors)
 - [webpack + vue-loader](https://vue-loader.vuejs.org/guide/pre-processors.html#using-pre-processors)
 
@@ -119,7 +119,7 @@ p {{ msg }}
 <script src="./script.js"></script>
 ```
 
-`src` 임포트는 webpack 모듈 요청과 동일한 경로 해상 규칙을 따르므로 주의하세요:
+`src` 임포트는 webpack 모듈 요청과 동일한 경로 해석 규칙을 따르므로 주의하세요:
 
 - 상대 경로는 `./`로 시작해야 합니다.
 - npm 의존성에서 리소스를 임포트할 수 있습니다:

@@ -132,7 +132,7 @@
 
 - **상세 설명**
 
-  `<slot>` 엘리먼트는 `name` 속성을 사용하여 슬롯 이름을 지정할 수 있습니다. `name`이 지정되지 않으면 기본 슬롯이 렌더링됩니다. 슬롯 엘리먼트에 전달된 추가 속성들은 부모에서 정의된 스코프 슬롯에 슬롯 prop으로 전달됩니다.
+  `<slot>` 엘리먼트는 `name` 속성을 사용하여 슬롯 이름을 지정할 수 있습니다. `name`이 지정되지 않으면 기본 슬롯이 렌더링됩니다. 슬롯 엘리먼트에 전달된 추가 속성들은 부모에서 정의된 스코프 슬롯(scoped slots)에 슬롯 prop으로 전달됩니다.
 
   해당 엘리먼트 자체는 일치하는 슬롯 콘텐츠로 대체됩니다.
 
@@ -161,4 +161,4 @@
 - **관련 문서**
   - [가이드 - `<template>`에서의 `v-if`](/guide/essentials/conditional#v-if-on-template)
   - [가이드 - `<template>`에서의 `v-for`](/guide/essentials/list#v-for-on-template)
-  - [가이드 - 네임드 슬롯](/guide/components/slots#named-slots)
+  - [가이드 - 명명된 슬롯](/guide/components/slots#named-slots)

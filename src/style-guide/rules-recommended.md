@@ -1,9 +1,5 @@
 # 우선 순위 C 규칙: 권장 {#priority-c-rules-recommended}
 
-::: warning 주의  
-이 Vue.js 스타일 가이드는 오래된 내용이므로 검토가 필요합니다. 질문이나 제안 사항이 있다면 [이슈를 등록](https://github.com/vuejs/docs/issues/new)해 주세요.  
-:::
-
 여러 가지 동등하게 좋은 옵션이 존재할 때, 일관성을 유지하기 위해 임의적인 선택을 할 수 있습니다. 이 규칙에서는 각각의 허용 가능한 옵션을 설명하고 기본 선택을 제안합니다. 즉, 일관성을 유지하고 좋은 이유가 있다면 코드베이스에서 다른 선택을 자유롭게 할 수 있습니다. 하지만 좋은 이유가 있어야 합니다! 커뮤니티 표준에 적응함으로써 다음과 같은 이점이 있습니다:
 
 1. 대부분의 커뮤니티 코드를 더 쉽게 파악할 수 있도록 두뇌를 훈련시킵니다.
@@ -40,8 +36,9 @@
   - `inheritAttrs`
   - `props`
   - `emits`
+  - `expose`
 
-6. **구성 API** (구성 API 사용을 위한 진입점)
+6. **컴포지션 API** (컴포지션 API 사용을 위한 진입점)
 
   - `setup`
 
@@ -67,6 +64,7 @@
     - `errorCaptured`
     - `renderTracked`
     - `renderTriggered`
+    - `serverPrefetch` (SSR 전용)
 
 9. **비반응형 속성** (반응형 시스템과 독립적인 인스턴스 속성)
 
@@ -299,7 +297,7 @@ const inputClasses = computed(() => {
 <style>/* ... */</style>
 ```
 
-or
+또는
 
 ```vue-html  [ComponentA.vue]
 <template>...</template>

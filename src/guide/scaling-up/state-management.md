@@ -194,7 +194,7 @@ export const store = reactive({
 클릭 핸들러에서 `store.increment()`와 같이 괄호를 사용하는 것에 주의하세요. 이는 메서드를 올바른 `this` 컨텍스트로 호출하기 위해 필요합니다. 이 메서드는 컴포넌트 메서드가 아니기 때문입니다.
 :::
 
-여기서는 하나의 반응형 객체를 store로 사용하고 있지만, [`ref()`](https://vuejs.org/api/reactivity-core.html#ref)나 `computed()` 등 다른 [반응성 API](/api/reactivity-core)로 생성한 반응형 상태를 공유하거나, [Composable](/guide/reusability/composables)에서 전역 상태를 반환할 수도 있습니다:
+여기서는 하나의 반응형 객체를 store로 사용하고 있지만, `ref()`나 `computed()` 등 다른 [반응성(reactivity) API](/api/reactivity-core)로 생성한 반응형 상태를 공유하거나, [Composable](/guide/reusability/composables)에서 전역 상태를 반환할 수도 있습니다:
 
 ```js
 import { ref } from 'vue'
@@ -217,7 +217,7 @@ Vue의 반응성 시스템이 컴포넌트 모델과 분리되어 있다는 점�
 
 ## SSR 고려사항 {#ssr-considerations}
 
-[서버 사이드 렌더링(SSR)](./ssr)을 활용하는 애플리케이션을 구축하는 경우, 위 패턴은 store가 여러 요청에 걸쳐 공유되는 싱글턴이기 때문에 문제가 발생할 수 있습니다. 이에 대한 자세한 내용은 SSR 가이드의 [교차 요청 상태 오염](./ssr#cross-request-state-pollution)에서 다루고 있습니다.
+[서버 사이드 렌더링(SSR)](./ssr)을 활용하는 애플리케이션을 구축하는 경우, 위 패턴은 store가 여러 요청에 걸쳐 공유되는 싱글턴이기 때문에 문제가 발생할 수 있습니다. 이에 대한 자세한 내용은 SSR 가이드의 [요청 간 상태 오염](./ssr#cross-request-state-pollution)에서 다루고 있습니다.
 
 ## Pinia {#pinia}
 

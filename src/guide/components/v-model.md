@@ -25,7 +25,7 @@ function update() {
   <div>부모에 바인딩된 v-model 값: {{ model }}</div>
   <button @click="update">증가</button>
 </template>
-```vue-html [Parent.vue]
+```
 
 부모는 `v-model`로 값을 바인딩할 수 있습니다:
 
@@ -115,6 +115,7 @@ const myRef = ref()
 </template>
 ```
 
+또한 `defineProps`에 `withDefaults`를 사용할 때와 마찬가지로, `defineModel`에서도 배열이나 객체 같은 변경 가능한 참조 타입의 기본값은 의도하지 않은 수정과 외부 부작용을 방지하기 위해 함수로 감싸서 지정해야 합니다.
 :::
 
 </div>
@@ -375,7 +376,7 @@ export default {
 
 </div>
 
-## `v-model` 수식어 처리 {#handling-v-model-modifiers}
+## `v-model` 수식어(modifiers) 처리 {#handling-v-model-modifiers}
 
 폼 입력 바인딩에 대해 배울 때, `v-model`에는 [내장 수식어](/guide/essentials/forms#modifiers) - `.trim`, `.number`, `.lazy`가 있다는 것을 보았습니다. 경우에 따라, 커스텀 입력 컴포넌트의 `v-model`도 커스텀 수식어를 지원하길 원할 수 있습니다.
 
@@ -524,7 +525,7 @@ export default {
 인자와 수식어가 모두 있는 `v-model` 바인딩의 경우, 생성되는 prop 이름은 `arg + "Modifiers"`가 됩니다. 예를 들어:
 
 ```vue-html
-<MyComponent v-model:title.capitalize="myText">
+<MyComponent v-model:title.capitalize="myText" />
 ```
 
 해당 선언은 다음과 같아야 합니다:

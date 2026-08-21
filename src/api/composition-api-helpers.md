@@ -2,7 +2,7 @@
 
 ## useAttrs() {#useattrs}
 
-[Setup Context](/api/composition-api-setup#setup-context)에서 `attrs` 객체를 반환하며, 이 객체에는 현재 컴포넌트의 [전달 속성(fallthrough attributes)](/guide/components/attrs#fallthrough-attributes)이 포함되어 있습니다. 이 함수는 setup 컨텍스트 객체를 사용할 수 없는 `<script setup>`에서 사용하도록 설계되었습니다.
+[Setup Context](/api/composition-api-setup#setup-context)에서 `attrs` 객체를 반환하며, 이 객체에는 현재 컴포넌트의 [폴스루 속성(fallthrough attributes)](/guide/components/attrs#fallthrough-attributes)이 포함되어 있습니다. 이 함수는 setup 컨텍스트 객체를 사용할 수 없는 `<script setup>`에서 사용하도록 설계되었습니다.
 
 - **타입**
 

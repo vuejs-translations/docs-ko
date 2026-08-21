@@ -33,7 +33,7 @@ SPA는 일반적으로 백엔드가 API 엔드포인트를 노출해야 하지�
 
 Vue는 Vue 앱을 서버에서 HTML 문자열로 "렌더링"할 수 있는 일급 API를 제공합니다. 이를 통해 서버는 이미 렌더링된 HTML을 반환할 수 있어, 최종 사용자는 JavaScript가 다운로드되는 동안에도 즉시 콘텐츠를 볼 수 있습니다. 이후 Vue는 클라이언트 측에서 애플리케이션을 "하이드레이트"하여 상호작용이 가능하게 만듭니다. 이를 [서버 사이드 렌더링(SSR)](/guide/scaling-up/ssr)이라고 하며, [Largest Contentful Paint (LCP)](https://web.dev/lcp/)와 같은 Core Web Vital 지표를 크게 개선합니다.
 
-이 패러다임 위에 구축된 더 높은 수준의 Vue 기반 프레임워크도 있습니다. 예를 들어 [Nuxt](https://nuxt.com/)는 Vue와 JavaScript를 사용하여 풀스택 애플리케이션을 개발할 수 있게 해줍니다.
+이 패러다임 위에 구축된 더 높은 수준의 [Vue 프레임워크](/guide/quick-start#frameworks)도 있으며, 이러한 프레임워크는 풀스택 애플리케이션을 개발할 수 있도록 SSR을 기본적으로 지원합니다.
 
 ## JAMStack / SSG {#jamstack-ssg}
 
@@ -47,7 +47,7 @@ SSG에는 싱글 페이지와 멀티 페이지 두 가지 방식이 있습니다
 
 비트리비얼한 상호작용, 긴 세션, 내비게이션 간에 유지되는 요소/상태가 필요하다면 싱글 페이지 SSG가 더 적합합니다. 그렇지 않다면 멀티 페이지 SSG가 더 나은 선택이 될 수 있습니다.
 
-Vue 팀은 [VitePress](https://vitepress.dev/)라는 정적 사이트 생성기도 유지 관리하고 있습니다. 이 사이트도 VitePress로 구동되고 있습니다! VitePress는 두 가지 SSG 방식을 모두 지원합니다. [Nuxt](https://nuxt.com/)도 SSG를 지원합니다. 같은 Nuxt 앱 내에서 라우트별로 SSR과 SSG를 혼합해서 사용할 수도 있습니다.
+Vue 팀은 [VitePress](https://vitepress.dev/)라는 정적 사이트 생성기를 유지 관리하고 있습니다. 지금 읽고 있는 이 웹사이트도 VitePress로 구동되며, VitePress는 두 가지 SSG 방식을 모두 지원합니다! 또한 대부분 SSG를 지원하는 다른 [Vue 프레임워크](/guide/quick-start#frameworks)도 확인해보세요.
 
 ## 웹을 넘어서 {#beyond-the-web}
 

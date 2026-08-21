@@ -1,8 +1,8 @@
-# Watchers {#watchers}
+# 감시자(Watchers) {#watchers}
 
 ## 기본 예제 {#basic-example}
 
-계산 속성은 파생 값을 선언적으로 계산할 수 있게 해줍니다. 하지만 상태 변화에 반응하여 "부수 효과"를 수행해야 하는 경우가 있습니다. 예를 들어, DOM을 변경하거나 비동기 작업의 결과에 따라 다른 상태를 변경하는 경우가 있습니다.
+계산 속성(computed property)은 파생 값을 선언적으로 계산할 수 있게 해줍니다. 하지만 상태 변화에 반응하여 "부수 효과"를 수행해야 하는 경우가 있습니다. 예를 들어, DOM을 변경하거나 비동기 작업의 결과에 따라 다른 상태를 변경하는 경우가 있습니다.
 
 <div class="options-api">
 
@@ -399,7 +399,7 @@ export default {
 
 하지만 요청이 완료되기 전에 `id`가 변경된다면 어떻게 될까요? 이전 요청이 완료되면 이미 오래된 ID 값으로 콜백이 실행됩니다. 이상적으로는, `id`가 새 값으로 변경될 때 이전 요청을 취소할 수 있으면 좋겠습니다.
 
-[`onWatcherCleanup()`](/api/reactivity-core#onwatchercleanup) <sup class="vt-badge" data-text="3.5+" /> API를 사용하면 감시자가 무효화되어 다시 실행되기 직전에 정리 함수를 등록할 수 있습니다:
+[`onWatcherCleanup()`](/api/reactivity-core#onwatchercleanup) <sup class="vt-badge" data-text="3.5+" /> API를 사용하면 감시자가 무효화되어 다시 실행되기 직전에 호출될 정리 함수를 등록할 수 있습니다:
 
 <div class="composition-api">
 
@@ -486,7 +486,7 @@ export default {
 
 </div>
 
-이 방식은 3.5 이전 버전에서도 동작합니다. 또한, 함수 인자로 전달된 `onCleanup`은 감시자 인스턴스에 바인딩되어 있으므로, `onWatcherCleanup`의 동기 실행 제약을 받지 않습니다.
+함수 인자로 전달된 `onCleanup`은 감시자 인스턴스에 바인딩되어 있으므로, `onWatcherCleanup`의 동기 실행 제약을 받지 않습니다.
 
 ## 콜백 실행 타이밍(Callback Flush Timing) {#callback-flush-timing}
 

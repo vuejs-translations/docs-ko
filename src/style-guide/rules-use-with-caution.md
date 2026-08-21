@@ -1,9 +1,5 @@
 # 우선 순위 D 규칙: 주의해서 사용하기 {#priority-d-rules-use-with-caution}
 
-::: warning 주의  
-이 Vue.js 스타일 가이드는 오래된 내용이므로 검토가 필요합니다. 질문이나 제안 사항이 있다면 [이슈를 등록](https://github.com/vuejs/docs/issues/new)해 주세요.  
-:::
-
 Vue의 일부 기능은 드문 에지 케이스나 레거시 코드 베이스에서의 부드러운 마이그레이션을 수용하기 위해 존재합니다. 그러나 과도하게 사용되면 코드를 유지 관리하기 어렵게 만들거나 심지어 버그의 원인이 될 수 있습니다. 이 규칙들은 잠재적으로 위험한 기능에 대해 조명을 비추고, 언제 그리고 왜 피해야 하는지 설명합니다.
 
 ## `scoped`에서의 요소 선택자 {#element-selectors-with-scoped}
@@ -179,8 +175,6 @@ defineProps({
 
 ```vue
 <script setup>
-import { getCurrentInstance } from 'vue'
-
 const props = defineProps({
   todo: {
     type: Object,
@@ -188,22 +182,17 @@ const props = defineProps({
   }
 })
 
-const instance = getCurrentInstance()
-
-function removeTodo() {
-  const parent = instance.parent
-  if (!parent) return
-
-  parent.props.todos = parent.props.todos.filter((todo) => {
-    return todo.id !== props.todo.id
-  })
+function renameTodo() {
+  // prop을 통해 부모의 반응형 객체를 변경합니다.
+  // 다시 말해, 자식이 부모가 소유한 상태에 접근하여 변경하는 것입니다.
+  props.todo.text = 'renamed by child'
 }
 </script>
 
 <template>
   <span>
     {{ todo.text }}
-    <button @click="removeTodo">×</button>
+    <button @click="renameTodo">rename</button>
   </span>
 </template>
 ```
@@ -232,20 +221,25 @@ const emit = defineEmits(['input'])
 
 ```vue
 <script setup>
-defineProps({
+const props = defineProps({
   todo: {
     type: Object,
     required: true
   }
 })
 
-const emit = defineEmits(['delete'])
+const emit = defineEmits(['update:todo'])
+
+function renameTodo() {
+  // 새로운 객체를 emit합니다. 업데이트는 부모가 소유합니다.
+  emit('update:todo', { ...props.todo, text: 'renamed by parent' })
+}
 </script>
 
 <template>
   <span>
     {{ todo.text }}
-    <button @click="emit('delete')">×</button>
+    <button @click="renameTodo">rename</button>
   </span>
 </template>
 ```

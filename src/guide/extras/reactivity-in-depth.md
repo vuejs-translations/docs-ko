@@ -8,7 +8,7 @@ import SpreadSheet from './demos/SpreadSheet.vue'
 
 # 반응성 심층 분석 {#reactivity-in-depth}
 
-Vue의 가장 두드러진 특징 중 하나는 눈에 띄지 않는 반응성 시스템입니다. 컴포넌트 상태는 반응형 JavaScript 객체로 구성됩니다. 이 객체를 수정하면 뷰가 업데이트됩니다. 이는 상태 관리를 간단하고 직관적으로 만들어주지만, 몇 가지 일반적인 함정들을 피하기 위해서도 그 동작 방식을 이해하는 것이 중요합니다. 이 섹션에서는 Vue의 반응성 시스템의 저수준 세부 사항을 파고들어 보겠습니다.
+Vue의 가장 두드러진 특징 중 하나는 눈에 띄지 않는 반응성(reactivity) 시스템입니다. 컴포넌트 상태는 반응형 JavaScript 객체로 구성됩니다. 이 객체를 수정하면 뷰가 업데이트됩니다. 이는 상태 관리를 간단하고 직관적으로 만들어주지만, 몇 가지 일반적인 함정들을 피하기 위해서도 그 동작 방식을 이해하는 것이 중요합니다. 이 섹션에서는 Vue의 반응성 시스템의 저수준 세부 사항을 파고들어 보겠습니다.
 
 ## 반응성이란? {#what-is-reactivity}
 
@@ -169,7 +169,7 @@ watchEffect(() => {
 A0.value = 2
 ```
 
-반응형 이펙트를 사용해 ref를 변경하는 것은 그다지 흥미로운 사용 사례는 아닙니다. 사실, 계산 속성을 사용하는 것이 더 선언적입니다:
+반응형 이펙트를 사용해 ref를 변경하는 것은 그다지 흥미로운 사용 사례는 아닙니다. 사실, 계산 속성(computed property)을 사용하는 것이 더 선언적입니다:
 
 ```js
 import { ref, computed } from 'vue'
@@ -278,7 +278,7 @@ type DebuggerEvent = {
 
 ### 계산 속성 디버깅 {#computed-debugging}
 
-<!-- TODO options API equivalent -->
+<div class="composition-api">
 
 `computed()`에 두 번째 옵션 객체로 `onTrack`과 `onTrigger` 콜백을 전달하여 계산 속성을 디버깅할 수 있습니다:
 
@@ -310,11 +310,19 @@ count.value++
 `onTrack`과 `onTrigger` 계산 속성 옵션은 개발 모드에서만 동작합니다.
 :::
 
-### 워처 디버깅 {#watcher-debugging}
+</div>
 
-<!-- TODO options API equivalent -->
+<div class="options-api">
 
-`computed()`와 마찬가지로, 워처도 `onTrack`과 `onTrigger` 옵션을 지원합니다:
+계산 속성 디버깅 옵션은 컴포지션 API의 `computed()` 함수를 통해서만 사용할 수 있습니다.
+
+</div>
+
+### 감시자 디버깅 {#watcher-debugging}
+
+<div class="composition-api">
+
+`computed()`와 마찬가지로, 감시자(watchers)도 `onTrack`과 `onTrigger` 옵션을 지원합니다:
 
 ```js
 watch(source, callback, {
@@ -336,8 +344,34 @@ watchEffect(callback, {
 })
 ```
 
+</div>
+
+<div class="options-api">
+
+객체 문법으로 선언한 감시자도 `onTrack`과 `onTrigger` 옵션을 지원합니다:
+
+```js
+export default {
+  watch: {
+    source: {
+      handler() {
+        // ...
+      },
+      onTrack(e) {
+        debugger
+      },
+      onTrigger(e) {
+        debugger
+      }
+    }
+  }
+}
+```
+
+</div>
+
 :::tip
-`onTrack`과 `onTrigger` 워처 옵션은 개발 모드에서만 동작합니다.
+`onTrack`과 `onTrigger` 감시자 옵션은 개발 모드에서만 동작합니다.
 :::
 
 ## 외부 상태 시스템과의 통합 {#integration-with-external-state-systems}
@@ -409,7 +443,7 @@ export function useMachine(options) {
 
 근본적으로, 시그널은 Vue ref와 동일한 종류의 반응성 프리미티브입니다. 값 컨테이너로서 접근 시 의존성 추적을 제공하고, 변경 시 부수 효과를 트리거합니다. 이러한 반응성 프리미티브 기반 패러다임은 프론트엔드 세계에서 특별히 새로운 개념이 아닙니다. 10년이 넘은 [Knockout observables](https://knockoutjs.com/documentation/observables.html)과 [Meteor Tracker](https://docs.meteor.com/api/tracker.html)와 같은 구현까지 거슬러 올라갑니다. Vue 옵션 API와 React 상태 관리 라이브러리 [MobX](https://mobx.js.org/)도 동일한 원리에 기반하지만, 프리미티브를 객체 속성 뒤에 숨깁니다.
 
-시그널로 분류되기 위해 반드시 필요한 특성은 아니지만, 오늘날 이 개념은 종종 미세한 구독을 통해 업데이트가 수행되는 렌더링 모델과 함께 논의됩니다. Virtual DOM을 사용하는 Vue는 현재 [컴파일러를 통해 유사한 최적화를 달성](https://vuejs.org/guide/extras/rendering-mechanism#compiler-informed-virtual-dom)합니다. 하지만, Vue는 Virtual DOM에 의존하지 않고 Vue의 내장 반응성 시스템을 더 많이 활용하는 [Vapor Mode](https://github.com/vuejs/core-vapor)라는 Solid에서 영감을 받은 새로운 컴파일 전략도 탐구하고 있습니다.
+시그널로 분류되기 위해 반드시 필요한 특성은 아니지만, 오늘날 이 개념은 종종 미세한 구독을 통해 업데이트가 수행되는 렌더링 모델과 함께 논의됩니다. Virtual DOM을 사용하는 Vue는 현재 [컴파일러를 통해 유사한 최적화를 달성](/guide/extras/rendering-mechanism#compiler-informed-virtual-dom)합니다. 하지만, Vue는 Virtual DOM에 의존하지 않고 Vue의 내장 반응성 시스템을 더 많이 활용하는 [Vapor Mode](https://github.com/vuejs/core-vapor)라는 Solid에서 영감을 받은 새로운 컴파일 전략도 탐구하고 있습니다.
 
 ### API 설계의 트레이드오프 {#api-design-trade-offs}
 

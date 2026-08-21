@@ -6,7 +6,7 @@
 
 일반적으로 부모에서 자식 컴포넌트로 데이터를 전달할 때는 [props](/guide/components/props)를 사용합니다. 하지만, 큰 컴포넌트 트리에서 깊이 중첩된 컴포넌트가 먼 조상 컴포넌트의 무언가가 필요하다고 상상해보세요. props만으로는 동일한 prop을 전체 부모 체인에 걸쳐 전달해야 합니다:
 
-![prop drilling diagram](./images/prop-drilling.png)
+![깊이 중첩된 자식 컴포넌트에 도달하기 위해 여러 단계의 컴포넌트를 거쳐 props가 전달되는 모습을 보여주는 다이어그램](./images/prop-drilling.png)
 
 <!-- https://www.figma.com/file/yNDTtReM2xVgjcGVRzChss/prop-drilling -->
 
@@ -14,7 +14,7 @@
 
 `provide`와 `inject`를 사용하면 props drilling 문제를 해결할 수 있습니다. 부모 컴포넌트는 모든 자손을 위한 **의존성 제공자** 역할을 할 수 있습니다. 자손 트리 내의 어떤 컴포넌트든, 깊이에 상관없이 부모 체인 상단의 컴포넌트가 제공한 의존성을 **주입**할 수 있습니다.
 
-![Provide/inject scheme](./images/provide-inject.png)
+![부모 컴포넌트가 제공한 의존성을 중간 컴포넌트를 거치지 않고 깊이 중첩된 자식 컴포넌트가 직접 주입받는 provide/inject 메커니즘을 보여주는 다이어그램](./images/provide-inject.png)
 
 <!-- https://www.figma.com/file/PbTJ9oXis5KUawEOWdy2cE/provide-inject -->
 
@@ -295,7 +295,7 @@ provide('read-only-count', readonly(count))
 
 <div class="options-api">
 
-주입이 제공자와 반응형으로 연결되도록 하려면, [computed()](/api/reactivity-core#computed) 함수를 사용해 계산 속성을 제공해야 합니다:
+주입이 제공자와 반응형으로 연결되도록 하려면, [computed()](/api/reactivity-core#computed) 함수를 사용해 계산 속성(computed property)을 제공해야 합니다:
 
 ```js{12}
 import { computed } from 'vue'
@@ -317,13 +317,13 @@ export default {
 
 [반응형을 포함한 provide + inject 전체 예제](https://play.vuejs.org/#eNqNUctqwzAQ/JVFFyeQxnfjBEoPPfULqh6EtYlV9EKWTcH43ytZtmPTQA0CsdqZ2dlRT16tPXctkoKUTeWE9VeqhbLGeXirheRwc0ZBds7HKkKzBdBDZZRtPXIYJlzqU40/I4LjjbUyIKmGEWw0at8UgZrUh1PscObZ4ZhQAA596/RcAShsGnbHArIapTRBP74O8Up060wnOO5QmP0eAvZyBV+L5jw1j2tZqsMp8yWRUHhUVjKPoQIohQ460L0ow1FeKJlEKEnttFweijJfiORElhCf5f3umObb0B9PU/I7kk17PJj7FloN/2t7a2Pj/Zkdob+x8gV8ZlMs2de/8+14AXwkBngD9zgVqjg2rNXPvwjD+EdlHilrn8MvtvD1+Q==)
 
-`computed()` 함수는 주로 Composition API 컴포넌트에서 사용되지만, Options API의 특정 용례를 보완하는 데도 사용할 수 있습니다. [반응성 기초](/guide/essentials/reactivity-fundamentals)와 [계산 속성](/guide/essentials/computed)에서 Composition API로 API 선호도를 설정해 더 자세히 배울 수 있습니다.
+`computed()` 함수는 주로 Composition API 컴포넌트에서 사용되지만, Options API의 특정 용례를 보완하는 데도 사용할 수 있습니다. [반응성(reactivity) 기초](/guide/essentials/reactivity-fundamentals)와 [계산 속성](/guide/essentials/computed)에서 Composition API로 API 선호도를 설정해 더 자세히 배울 수 있습니다.
 
 </div>
 
-## Working with Symbol Keys {#working-with-symbol-keys}
+## Symbol 키 사용하기 {#working-with-symbol-keys}
 
-지금까지 예제에서는 문자열 주입 키를 사용했습니다. 많은 의존성 제공자가 있는 대규모 애플리케이션을 개발하거나, 다른 개발자가 사용할 컴포넌트를 작성하는 경우, 잠재적 충돌을 피하기 위해 Symbol 주입 키를 사용하는 것이 가장 좋습니다.
+지금까지 예제에서는 문자열 주입 키를 사용했습니다. 많은 의존성 제공자가 있는 대규모 애플리케이션을 개발하거나, 다른 개발자가 사용할 컴포넌트를 작성하는 경우, 잠재적 충돌을 피하기 위해 [Symbol](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Symbol) 주입 키를 사용하는 것이 가장 좋습니다.
 
 Symbol을 별도의 파일에 export하는 것이 권장됩니다:
 

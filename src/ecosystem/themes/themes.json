@@ -1,22 +1,22 @@
 [
   {
     "name": "Nuxt UI",
-    "description": "[Nuxt UI](https://ui.nuxt.com) is a free and open-source UI library for Vue.js. It is built on top of Tailwind CSS and includes a variety of components and utilities that can be used to quickly build modern, responsive web applications.",
-    "seeMoreUrl": "https://ui.nuxt.com/pro",
+    "description": "[Nuxt UI](https://ui.nuxt.com/) is an open-source UI library with 125+ accessible, Tailwind CSS components for Vue and Nuxt. Built on Reka UI with a flexible CSS-first design system, it works with Vite, Inertia, and SSR out of the box.",
+    "seeMoreUrl": "https://ui.nuxt.com/",
     "products": [
       {
-        "name": "UI Pro Components",
-        "price": 199,
-        "description": "Premium Vue components, composables, and utils based on Nuxt UI.",
-        "url": "https://ui.nuxt.com/pro",
-        "image": "https://res.cloudinary.com/nuxt/image/upload/v1742036103/nuxt-ui/nuxt-ui-pro-og-image_vzvwge.png"
+        "name": "Dashboard",
+        "price": 0,
+        "description": "Vue dashboard template with multi-column layout and charts.",
+        "url": "https://dashboard-vue-template.nuxt.dev",
+        "image": "https://ui.nuxt.com/assets/templates/vue/dashboard-light.png"
       },
       {
-        "name": "Dashboard",
-        "price": 199,
-        "description": "Vue Dashboard Template made with Nuxt UI Pro.",
-        "url": "https://vue-dashboard-template.nuxt.dev",
-        "image": "https://res.cloudinary.com/nuxt/image/upload/v1742036101/nuxt-ui/nuxt-ui-dashboard-social-card_kpeysq.png"
+        "name": "Chat",
+        "price": 0,
+        "description": "Vue AI chatbot template with streaming, auth, and chat history.",
+        "url": "https://chat-vue-template.nuxt.dev",
+        "image": "https://ui.nuxt.com/assets/templates/vue/chat-light.png"
       }
     ]
   },
@@ -273,20 +273,20 @@
       {
         "name": "Free Berry Vuetify VueJs Admin Template",
         "price": 0,
-        "description": "Free & Open Source VueJs Admin Template with well known desing of Berry",
+        "description": "Free & Open Source VueJs Admin Template with well known design of Berry",
         "url": "https://codedthemes.com/item/berry-free-vuetify-vuejs-admin-template/?ref=evan.vuejs",
         "image": "https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Berry-free-vue.png"
       },
       {
         "name": "Berry Vue3 Admin Dashboard",
-        "price": 49,
+        "price": 69,
         "description": "Discover our visually captivating Vue 3 Dashboard Theme!",
         "url": "https://codedthemes.com/item/berry-vue-admin-dashboard/?ref=evan.vuejs",
         "image": "https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Berry-pro-vue.png"
       },
       {
         "name": "Mantis Vue3 Admin Dashboard",
-        "price": 49,
+        "price": 69,
         "description": "Simple yet rebust to start any development with latest VueJs and Vuetify",
         "url": "https://codedthemes.com/item/mantis-vue-admin-template/?ref=evan.vuejs",
         "image": "https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Mantis-pro-vue.png"
@@ -306,11 +306,32 @@
         "image": "https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Able+pro-free-vue.png"
       },
       {
+        "name": "Free Datta Able Vue Admin Template",
+        "price": 0,
+        "description": "Free & Open Source VueJs Bootstrap Admin Template",
+        "url": "https://codedthemes.com/item/datta-able-free-vue-admin-template/?ref=evan.vuejs",
+        "image": "https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Datta+able-free-vue.png"
+      },
+      {
+        "name": "Datta Able Vue + Bootstrap Admin Template",
+        "price": 69,
+        "description": "Premium VueJs + Bootstrap + Vite + Typescript Admin Template",
+        "url": "https://codedthemes.com/item/datta-able-vue-admin-template/?ref=evan.vuejs",
+        "image": "https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Datta+able-pro-vue.png"
+      },
+      {
         "name": "Able Pro Vue3 + Vuetify Dashboard",
-        "price": 11,
-        "description": "Vue3 + Vite + Vuetify + Typescript",
+        "price": 69,
+        "description": "Vue3 + Vite + Vuetify + Typescript Dashboard Template",
         "url": "https://codedthemes.com/item/able-pro-vuejs-admin-dashboard/?ref=evan.vuejs",
         "image": "https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Able+pro-pro-vue.png"
+      },
+       {
+        "name": "Able Pro Vue Laravel Admin Dashboard Template",
+        "price": 69,
+        "description": "A powerful Vue + Laravel Dashboard Theme",
+        "url": "https://codedthemes.com/item/able-pro-vue-laravel-admin-dashboard/?ref=evan.vuejs",
+        "image": "https://org-public-assets.s3.us-west-2.amazonaws.com/Banners/Able+pro-pro-vue-laravel.png"
       }
     ]
   },

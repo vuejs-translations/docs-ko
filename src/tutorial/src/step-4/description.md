@@ -106,6 +106,6 @@ setup() {
 
 </div>
 
-이벤트 핸들러는 인라인 표현식도 사용할 수 있으며, 수식어를 통해 일반적인 작업을 간소화할 수 있습니다. 이러한 세부 사항은 <a target="_blank" href="/guide/essentials/event-handling.html">가이드 - 이벤트 핸들링</a>에서 다룹니다.
+이벤트 핸들러는 인라인 표현식도 사용할 수 있으며, 수식어(modifiers)를 통해 일반적인 작업을 간소화할 수 있습니다. 이러한 세부 사항은 <a target="_blank" href="/guide/essentials/event-handling.html">가이드 - 이벤트 핸들링</a>에서 다룹니다.
 
 이제 직접 `increment` <span class="options-api">메서드</span><span class="composition-api">함수</span>를 구현하고, `v-on`을 사용하여 버튼에 바인딩해 보세요.

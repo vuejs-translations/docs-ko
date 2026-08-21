@@ -21,7 +21,7 @@ Vue는 SPA를 구축하는 데 매우 적합합니다. 대부분의 SPA에서는
 
 ## 간단한 라우팅 직접 구현하기 {#simple-routing-from-scratch}
 
-아주 간단한 라우팅만 필요하고, 기능이 풍부한 라우터 라이브러리를 사용하고 싶지 않다면, [동적 컴포넌트](/guide/essentials/component-basics#dynamic-components)와 브라우저의 [`hashchange` 이벤트](https://developer.mozilla.org/ko/docs/Web/API/Window/hashchange_event) 또는 [History API](https://developer.mozilla.org/ko/docs/Web/API/History)를 감지하여 현재 컴포넌트 상태를 업데이트하는 방식으로 구현할 수 있습니다.
+아주 간단한 라우팅만 필요하고, 기능이 풍부한 라우터 라이브러리를 사용하고 싶지 않다면, [동적 컴포넌트](/guide/essentials/component-basics#dynamic-components)를 사용하고, 브라우저의 [`hashchange` 이벤트](https://developer.mozilla.org/ko/docs/Web/API/Window/hashchange_event)를 감지하거나 [History API](https://developer.mozilla.org/ko/docs/Web/API/History)를 사용하여 현재 컴포넌트 상태를 업데이트하는 방식으로 구현할 수 있습니다.
 
 다음은 최소한의 예시입니다:
 

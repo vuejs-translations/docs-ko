@@ -8,7 +8,7 @@
 
 - **세부사항**
 
-  `v-text`는 요소의 [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) 속성을 설정하여 동작하므로, 요소 내부의 기존 콘텐츠를 모두 덮어씁니다. `textContent`의 일부만 업데이트해야 한다면 [머스태시 보간법](/guide/essentials/template-syntax#text-interpolation)을 대신 사용해야 합니다.
+  `v-text`는 요소의 [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) 속성을 설정하여 동작하므로, 요소 내부의 기존 콘텐츠를 모두 덮어씁니다. `textContent`의 일부만 업데이트해야 한다면 [머스태시 보간법](/guide/essentials/template-syntax#text-interpolation)을 대신 사용해야 합니다(예: <span v-pre>`<span>Keep this but update a {{dynamicPortion}}</span>`</span>).
 
 - **예시**
 
@@ -192,7 +192,7 @@
 
 - **세부사항**
 
-  이벤트 타입은 인자로 표시됩니다. 표현식은 메서드 이름, 인라인 문장, 또는 수식어가 있을 경우 생략할 수 있습니다.
+  이벤트 타입은 인자로 표시됩니다. 표현식은 메서드 이름, 인라인 문장, 또는 수식어(modifiers)가 있을 경우 생략할 수 있습니다.
 
   일반 요소에 사용하면 [**네이티브 DOM 이벤트**](https://developer.mozilla.org/en-US/docs/Web/Events)만 리스닝합니다. 커스텀 엘리먼트 컴포넌트에 사용하면 해당 자식 컴포넌트에서 발생한 **커스텀 이벤트**를 리스닝합니다.
 
@@ -268,14 +268,14 @@
 - **수식어**
 
   - `.camel` - 케밥 케이스 속성명을 camelCase로 변환
-  - `.prop` - 바인딩을 DOM 속성으로 강제 설정 (3.2+)
-  - `.attr` - 바인딩을 DOM 속성으로 강제 설정 (3.2+)
+  - `.prop` - 바인딩을 DOM 속성(property)으로 강제 설정 (3.2+)
+  - `.attr` - 바인딩을 DOM 속성(attribute)으로 강제 설정 (3.2+)
 
 - **사용법**
 
   `class` 또는 `style` 속성에 바인딩할 때, `v-bind`는 Array 또는 Object와 같은 추가 값 타입을 지원합니다. 자세한 내용은 아래 가이드 섹션을 참고하세요.
 
-  요소에 바인딩을 설정할 때, Vue는 기본적으로 `in` 연산자 체크를 통해 해당 키가 속성으로 정의되어 있는지 확인합니다. 속성이 정의되어 있으면, Vue는 값을 속성이 아닌 DOM 속성으로 설정합니다. 대부분의 경우 이 방식이 잘 동작하지만, `.prop` 또는 `.attr` 수식어를 명시적으로 사용하여 이 동작을 오버라이드할 수 있습니다. 특히 [커스텀 엘리먼트 작업 시](/guide/extras/web-components#passing-dom-properties) 필요할 수 있습니다.
+  요소에 바인딩을 설정할 때, Vue는 기본적으로 `in` 연산자 체크를 통해 해당 키가 속성(property)으로 정의되어 있는지 확인합니다. 속성이 정의되어 있으면, Vue는 값을 HTML 속성(attribute)이 아닌 DOM 속성(property)으로 설정합니다. 대부분의 경우 이 방식이 잘 동작하지만, `.prop` 또는 `.attr` 수식어를 명시적으로 사용하여 이 동작을 오버라이드할 수 있습니다. 특히 [커스텀 엘리먼트 작업 시](/guide/extras/web-components#passing-dom-properties) 필요할 수 있습니다.
 
   컴포넌트 prop 바인딩에 사용할 때, prop은 자식 컴포넌트에서 올바르게 선언되어 있어야 합니다.
 
@@ -371,7 +371,7 @@
 
 ## v-slot {#v-slot}
 
-props를 받을 것으로 예상되는 명명된 슬롯 또는 스코프 슬롯을 나타냅니다.
+props를 받을 것으로 예상되는 명명된 슬롯(named slots) 또는 스코프 슬롯(scoped slots)을 나타냅니다.
 
 - **축약형:** `#`
 

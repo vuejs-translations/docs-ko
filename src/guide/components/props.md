@@ -8,7 +8,7 @@
 
 ## Props 선언 {#props-declaration}
 
-Vue 컴포넌트는 명시적인 props 선언이 필요합니다. 그래야 Vue가 컴포넌트에 전달된 외부 props 중 어떤 것을 통과 속성(fallthrough attributes)으로 처리해야 하는지 알 수 있습니다(이 내용은 [별도의 섹션](/guide/components/attrs)에서 다룹니다).
+Vue 컴포넌트는 명시적인 props 선언이 필요합니다. 그래야 Vue가 컴포넌트에 전달된 외부 props 중 어떤 것을 폴스루 속성(fallthrough attributes)으로 처리해야 하는지 알 수 있습니다(이 내용은 [별도의 섹션](/guide/components/attrs)에서 다룹니다).
 
 <div class="composition-api">
 
@@ -121,7 +121,7 @@ defineProps<{
 
 ## 반응형 Props 구조 분해 <sup class="vt-badge" data-text="3.5+" /> \*\* {#reactive-props-destructure}
 
-Vue의 반응성 시스템은 속성 접근을 기반으로 상태 사용을 추적합니다. 예를 들어, 계산된 getter나 watcher에서 `props.foo`에 접근하면, `foo` prop이 의존성으로 추적됩니다.
+Vue의 반응성(reactivity) 시스템은 속성 접근을 기반으로 상태 사용을 추적합니다. 예를 들어, 계산된 getter나 watcher에서 `props.foo`에 접근하면, `foo` prop이 의존성으로 추적됩니다.
 
 따라서 다음과 같은 코드가 있다고 가정해봅시다:
 
@@ -338,6 +338,30 @@ const post = {
 <BlogPost :id="post.id" :title="post.title" />
 ```
 
+### 바인딩을 함께 사용할 때의 병합 동작 {#merge-behavior-when-combining-bindings}
+
+동일한 컴포넌트에 `v-bind`와 명시적인 바인딩을 함께 사용하면, Vue는 내부적으로 `mergeProps()`를 호출하여 두 바인딩을 병합합니다. 병합 전략은 키의 타입에 따라 달라집니다:
+
+- **일반 prop**: 마지막 값이 우선합니다:
+
+```vue-html
+<!-- title === 'bar' -->
+<BlogPost title="foo" v-bind="{ title: 'bar' }" />
+```
+
+- **이벤트 리스너**: `v-bind` 객체로 리스너를 전달할 때는 [`onEventName` 키 규칙을 사용해야 합니다](/guide/extras/render-function#v-on). 동일한 이벤트에 등록된 모든 핸들러가 호출됩니다([`v-on` 리스너 상속](/guide/components/attrs#v-on-listener-inheritance) 참고):
+
+```vue-html
+<!-- 1과 2가 모두 출력됨 -->
+<BlogPost @click="console.log(1)" v-bind="{ onClick: () => console.log(2) }" />
+```
+
+- **`class`와 `style`**은 이와 유사한 병합 전략을 따릅니다([`class`와 `style` 병합](/guide/components/attrs#class-and-style-merging) 참고).
+
+:::tip
+전체 병합 규칙은 [`mergeProps()`](/api/render-function#mergeprops) API 레퍼런스에 설명되어 있습니다.
+:::
+
 ## 단방향 데이터 흐름 {#one-way-data-flow}
 
 모든 prop은 자식 속성과 부모 속성 간에 **하향식 단방향 바인딩**을 형성합니다. 즉, 부모 속성이 업데이트되면 자식에게 전달되지만, 반대 방향은 아닙니다. 이렇게 하면 자식 컴포넌트가 실수로 부모의 상태를 변경하는 것을 방지하여 앱의 데이터 흐름을 더 쉽게 이해할 수 있습니다.
@@ -400,7 +424,7 @@ props를 변경하고 싶은 유혹을 느끼는 경우는 보통 두 가지입�
 
    </div>
 
-2. **prop이 변환이 필요한 원시 값으로 전달될 때.** 이 경우, prop 값을 사용하는 계산된 속성을 정의하는 것이 가장 좋습니다:
+2. **prop이 변환이 필요한 원시 값으로 전달될 때.** 이 경우, prop 값을 사용하는 계산된 속성(computed property)을 정의하는 것이 가장 좋습니다:
 
    <div class="composition-api">
 

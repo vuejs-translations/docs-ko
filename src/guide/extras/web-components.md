@@ -64,7 +64,7 @@ module.exports = {
 
 DOM 속성(attribute)은 문자열만 허용하므로, 복잡한 데이터를 커스텀 엘리먼트에 전달하려면 DOM 속성(property)으로 전달해야 합니다. 커스텀 엘리먼트에 props를 설정할 때, Vue 3는 `in` 연산자를 사용해 DOM 속성 존재 여부를 자동으로 확인하고, 키가 존재하면 DOM 속성으로 값을 설정하는 것을 우선시합니다. 즉, 커스텀 엘리먼트가 [권장 모범 사례](https://web.dev/custom-elements-best-practices/)를 따르면 대부분의 경우 별도로 신경 쓸 필요가 없습니다.
 
-하지만 드물게 데이터를 DOM 속성으로 전달해야 하지만, 커스텀 엘리먼트가 해당 속성을 제대로 정의/반영하지 않아(`in` 체크가 실패) 문제가 발생할 수 있습니다. 이 경우 `.prop` 수식어를 사용해 `v-bind` 바인딩을 DOM 속성으로 강제 설정할 수 있습니다:
+하지만 드물게 데이터를 DOM 속성으로 전달해야 하지만, 커스텀 엘리먼트가 해당 속성을 제대로 정의/반영하지 않아(`in` 체크가 실패) 문제가 발생할 수 있습니다. 이 경우 `.prop` 수식어(modifier)를 사용해 `v-bind` 바인딩을 DOM 속성으로 강제 설정할 수 있습니다:
 
 ```vue-html
 <my-element :user.prop="{ name: 'jack' }"></my-element>
@@ -155,9 +155,9 @@ document.body.appendChild(
 
 컴포넌트 내부에서는 평소처럼 `<slot/>` 엘리먼트를 사용해 슬롯을 렌더링할 수 있습니다. 하지만, 결과 엘리먼트를 사용할 때는 [네이티브 슬롯 문법](https://developer.mozilla.org/ko/docs/Web/Web_Components/Using_templates_and_slots)만 허용됩니다:
 
-- [스코프 슬롯](/guide/components/slots#scoped-slots)은 지원되지 않습니다.
+- [스코프 슬롯(scoped slots)](/guide/components/slots#scoped-slots)은 지원되지 않습니다.
 
-- 네임드 슬롯을 전달할 때는 `v-slot` 디렉티브 대신 `slot` 속성을 사용하세요:
+- 명명된 슬롯을 전달할 때는 `v-slot` 디렉티브 대신 `slot` 속성을 사용하세요:
 
   ```vue-html
   <my-element>
@@ -211,7 +211,7 @@ customElements.define('my-example', ExampleElement)
 
 ### Vue 커스텀 엘리먼트 라이브러리 제작 팁 {#tips-for-a-vue-custom-elements-library}
 
-Vue로 커스텀 엘리먼트를 빌드할 때, 엘리먼트는 Vue 런타임에 의존하게 됩니다. 사용되는 기능에 따라 약 16kb의 기본 크기 비용이 발생합니다. 즉, 단일 커스텀 엘리먼트만 배포한다면 Vue를 사용하는 것이 이상적이지 않을 수 있습니다. 이 경우 바닐라 JavaScript, [petite-vue](https://github.com/vuejs/petite-vue), 또는 작은 런타임 크기에 특화된 프레임워크를 고려할 수 있습니다. 하지만 복잡한 로직을 가진 여러 커스텀 엘리먼트를 함께 배포한다면, Vue의 기본 크기 비용은 충분히 정당화됩니다. 더 많은 엘리먼트를 함께 배포할수록 이점이 커집니다.
+Vue로 커스텀 엘리먼트를 빌드할 때, 엘리먼트는 Vue 런타임에 의존하게 됩니다. 사용되는 기능에 따라 약 16kb의 기본 크기 비용이 발생합니다. 즉, 단일 커스텀 엘리먼트만 배포한다면 Vue를 사용하는 것이 이상적이지 않을 수 있습니다. 이 경우 바닐라 JavaScript, [petite-vue](https://github.com/vuejs/petite-vue), 또는 작은 런타임 크기에 특화된 프레임워크를 고려할 수 있습니다. 하지만 복잡한 로직을 가진 여러 커스텀 엘리먼트를 함께 배포한다면, Vue를 사용하면 각 컴포넌트를 훨씬 적은 코드로 작성할 수 있으므로 기본 크기 비용은 충분히 정당화됩니다. 더 많은 엘리먼트를 함께 배포할수록 이점이 커집니다.
 
 커스텀 엘리먼트가 Vue를 사용하는 애플리케이션에서 사용된다면, 빌드된 번들에서 Vue를 외부화하여 엘리먼트가 호스트 애플리케이션의 Vue 복사본을 사용하도록 할 수 있습니다.
 
@@ -512,7 +512,7 @@ Vue의 컴포넌트 모델은 이러한 요구를 염두에 두고 일관된 시
 
 또한 커스텀 엘리먼트가 한계가 있는 영역도 있습니다:
 
-- 즉시 평가되는 슬롯은 컴포넌트 조합을 방해합니다. Vue의 [스코프 슬롯](/guide/components/slots#scoped-slots)은 강력한 컴포넌트 조합 메커니즘이지만, 네이티브 슬롯의 즉시 평가 특성 때문에 커스텀 엘리먼트에서는 지원할 수 없습니다. 즉시 평가 슬롯은 또한 수신 컴포넌트가 슬롯 콘텐츠를 언제, 또는 렌더링할지 제어할 수 없음을 의미합니다.
+- 즉시 평가되는 슬롯은 컴포넌트 조합을 방해합니다. Vue의 [스코프 슬롯](/guide/components/slots#scoped-slots)은 강력한 컴포넌트 조합 메커니즘이지만, 네이티브 슬롯의 즉시 평가 특성 때문에 커스텀 엘리먼트에서는 지원할 수 없습니다. 즉시 평가 슬롯은 또한 수신 컴포넌트가 슬롯 콘텐츠를 언제 렌더링할지, 또는 렌더링할지 여부를 제어할 수 없음을 의미합니다.
 
 - 오늘날 shadow DOM 범위 CSS와 함께 커스텀 엘리먼트를 배포하려면 CSS를 JavaScript에 임베드해 런타임에 shadow root에 주입해야 합니다. SSR 시에는 마크업에 중복된 스타일이 발생합니다. 이 영역에서 [플랫폼 기능](https://github.com/whatwg/html/pull/4898/)이 개발 중이지만, 아직 보편적으로 지원되지 않고, 프로덕션 성능/SSR 문제도 남아 있습니다. 그동안 Vue SFC는 스타일을 일반 CSS 파일로 추출할 수 있는 [CSS 범위 메커니즘](/api/sfc-css-features)을 제공합니다.
 

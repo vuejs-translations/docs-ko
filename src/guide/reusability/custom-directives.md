@@ -110,6 +110,10 @@ app.directive('highlight', {
 })
 ```
 
+`vue`에서 제공하는 `GlobalDirectives` 인터페이스를 확장하면 전역 커스텀 디렉티브에 타입을 지정할 수 있습니다.
+
+자세한 내용: [전역 커스텀 디렉티브 타입 지정하기](/guide/typescript/composition-api#typing-global-custom-directives) <sup class="vt-badge ts" />
+
 ## 커스텀 디렉티브를 사용할 때 {#when-to-use}
 
 커스텀 디렉티브는 원하는 기능이 직접적인 DOM 조작을 통해서만 달성될 수 있을 때만 사용해야 합니다.
@@ -269,7 +273,7 @@ app.directive('demo', (el, binding) => {
 컴포넌트에서 커스텀 디렉티브를 사용하는 것은 권장하지 않습니다. 컴포넌트에 여러 루트 노드가 있을 경우 예기치 않은 동작이 발생할 수 있습니다.
 :::
 
-컴포넌트에서 사용될 때, 커스텀 디렉티브는 항상 컴포넌트의 루트 노드에 적용됩니다. 이는 [속성 전달(Fallthrough Attributes)](/guide/components/attrs)과 유사합니다.
+컴포넌트에서 사용될 때, 커스텀 디렉티브는 항상 컴포넌트의 루트 노드에 적용됩니다. 이는 [폴스루 속성(Fallthrough Attributes)](/guide/components/attrs)과 유사합니다.
 
 ```vue-html
 <MyComponent v-demo="test" />

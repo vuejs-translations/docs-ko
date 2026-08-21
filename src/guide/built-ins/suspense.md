@@ -71,7 +71,7 @@ const posts = await res.json()
 
 ## 로딩 상태 {#loading-state}
 
-`<Suspense>` 컴포넌트에는 두 개의 슬롯: `#default`와 `#fallback`이 있습니다. 두 슬롯 모두 **하나의** 즉시 자식 노드만 허용합니다. 기본 슬롯의 노드는 가능하다면 표시됩니다. 그렇지 않으면 fallback 슬롯의 노드가 대신 표시됩니다.
+`<Suspense>` 컴포넌트에는 두 개의 슬롯: `#default`와 `#fallback`이 있습니다. 두 슬롯 모두 **하나의** 직계 자식 노드만 허용합니다. 기본 슬롯의 노드는 가능하다면 표시됩니다. 그렇지 않으면 fallback 슬롯의 노드가 대신 표시됩니다.
 
 ```vue-html
 <Suspense>
@@ -91,7 +91,7 @@ const posts = await res.json()
 
 한 번 해결 상태에 들어가면, `<Suspense>`는 `#default` 슬롯의 루트 노드가 교체될 때만 다시 대기 상태로 돌아갑니다. 트리에서 더 깊이 중첩된 새로운 비동기 의존성은 `<Suspense>`가 다시 대기 상태로 돌아가게 하지 **않습니다**.
 
-되돌림이 발생하면, fallback 콘텐츠가 즉시 표시되지 않습니다. 대신, `<Suspense>`는 새 콘텐츠와 그 비동기 의존성이 해결될 때까지 이전 `#default` 콘텐츠를 표시합니다. 이 동작은 `timeout` prop으로 설정할 수 있습니다: 새 기본 콘텐츠 렌더링에 `timeout`보다 오래 걸리면 `<Suspense>`는 fallback 콘텐츠로 전환합니다. `timeout` 값이 `0`이면 기본 콘텐츠가 교체될 때 fallback 콘텐츠가 즉시 표시됩니다.
+되돌림이 발생하면, fallback 콘텐츠가 즉시 표시되지 않습니다. 대신, `<Suspense>`는 새 콘텐츠와 그 비동기 의존성이 해결될 때까지 이전 `#default` 콘텐츠를 표시합니다. 이 동작은 `timeout` prop으로 설정할 수 있습니다: 새 기본 콘텐츠 렌더링에 `timeout` 밀리초보다 오래 걸리면 `<Suspense>`는 fallback 콘텐츠로 전환합니다. `timeout` 값이 `0`이면 기본 콘텐츠가 교체될 때 fallback 콘텐츠가 즉시 표시됩니다.
 
 ## 이벤트 {#events}
 
@@ -131,7 +131,7 @@ const posts = await res.json()
 </RouterView>
 ```
 
-Vue Router는 동적 import를 사용하여 [컴포넌트 지연 로딩](https://router.vuejs.org/guide/advanced/lazy-loading.html)을 기본적으로 지원합니다. 이는 비동기 컴포넌트와는 다르며, 현재로서는 `<Suspense>`를 트리거하지 않습니다. 하지만, 이들 컴포넌트가 자식으로 비동기 컴포넌트를 가질 수 있고, 이 경우에는 평소와 같이 `<Suspense>`를 트리거할 수 있습니다.
+Vue Router는 동적 import를 사용하여 [컴포넌트 지연 로딩(lazy loading)](https://router.vuejs.org/guide/advanced/lazy-loading.html)을 기본적으로 지원합니다. 이는 비동기 컴포넌트와는 다르며, 현재로서는 `<Suspense>`를 트리거하지 않습니다. 하지만, 이들 컴포넌트가 하위에 비동기 컴포넌트를 가질 수 있고, 이 경우에는 평소와 같이 `<Suspense>`를 트리거할 수 있습니다.
 
 ## 중첩 Suspense {#nested-suspense}
 

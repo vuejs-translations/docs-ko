@@ -213,7 +213,7 @@
   import { useSSRContext } from 'vue'
 
   // 반드시 SSR 중에만 호출해야 합니다.
-  // https://vitejs.dev/guide/ssr.html#conditional-logic
+  // https://vite.dev/guide/ssr.html#conditional-logic
   if (import.meta.env.SSR) {
     const ctx = useSSRContext()
     // ...컨텍스트에 속성 추가

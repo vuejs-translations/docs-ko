@@ -59,7 +59,7 @@ export default {
 }
 ```
 
-`props` 객체를 구조 분해 할당하면, 구조 분해된 변수는 반응성을 잃게 됩니다. 따라서 항상 `props.xxx` 형태로 props에 접근하는 것이 권장됩니다.
+`props` 객체를 구조 분해 할당하면, 구조 분해된 변수는 반응성(reactivity)을 잃게 됩니다. 따라서 항상 `props.xxx` 형태로 props에 접근하는 것이 권장됩니다.
 
 정말로 props를 구조 분해해야 하거나, 반응성을 유지한 채로 외부 함수에 prop을 전달해야 하는 경우, [toRefs()](./reactivity-utilities#torefs) 및 [toRef()](/api/reactivity-utilities#toref) 유틸리티 API를 사용할 수 있습니다:
 

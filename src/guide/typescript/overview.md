@@ -10,7 +10,7 @@ Vue는 자체적으로 TypeScript로 작성되었으며, 일급 TypeScript 지�
 
 ## 프로젝트 설정 {#project-setup}
 
-[`create-vue`](https://github.com/vuejs/create-vue)는 공식 프로젝트 스캐폴딩 도구로, [Vite](https://vitejs.dev/) 기반의 TypeScript 준비가 완료된 Vue 프로젝트를 스캐폴딩할 수 있는 옵션을 제공합니다.
+[`create-vue`](https://github.com/vuejs/create-vue)는 공식 프로젝트 스캐폴딩 도구로, [Vite](https://vite.dev/) 기반의 TypeScript 준비가 완료된 Vue 프로젝트를 스캐폴딩할 수 있는 옵션을 제공합니다.
 
 ### 개요 {#overview}
 
@@ -36,7 +36,7 @@ Vite 기반 설정에서는 개발 서버와 번들러가 트랜스파일만 수
 
 ### `tsconfig.json` 설정하기 {#configuring-tsconfig-json}
 
-`create-vue`로 스캐폴딩된 프로젝트에는 미리 설정된 `tsconfig.json`이 포함되어 있습니다. 기본 설정은 [`@vue/tsconfig`](https://github.com/vuejs/tsconfig) 패키지에 추상화되어 있습니다. 프로젝트 내에서는 [프로젝트 참조](https://www.typescriptlang.org/docs/handbook/project-references.html)를 사용하여 서로 다른 환경에서 실행되는 코드(예: 앱 코드와 테스트 코드)에 대해 올바른 타입을 보장합니다.
+`create-vue`로 스캐폴딩된 프로젝트에는 미리 설정된 `tsconfig.json`이 포함되어 있습니다. 기본 설정은 [`@vue/tsconfig`](https://github.com/vuejs/tsconfig) 패키지에 추상화되어 있습니다. 프로젝트 내에서는 [프로젝트 참조](https://www.typescriptlang.org/docs/handbook/project-references.html)를 사용하여 서로 다른 환경에서 실행되는 코드(예: 앱 코드와 테스트 코드는 서로 다른 전역 변수를 가져야 함)에 대해 올바른 타입을 보장합니다.
 
 `tsconfig.json`을 수동으로 설정할 때 주목할 만한 옵션은 다음과 같습니다:
 

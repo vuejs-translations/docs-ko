@@ -133,6 +133,6 @@ export default {
 
 </div>
 
-### NPM용 번들링
+### NPM용 번들링 {#bundle-for-npm}
 
-플러그인을 빌드하여 다른 사람들이 사용할 수 있도록 배포하고 싶다면, [Vite의 라이브러리 모드 섹션](https://vitejs.dev/guide/build.html#library-mode)을 참고하세요.
+플러그인을 빌드하여 다른 사람들이 사용할 수 있도록 배포하고 싶다면, [Vite의 라이브러리 모드 섹션](https://vite.dev/guide/build.html#library-mode)을 참고하세요.
