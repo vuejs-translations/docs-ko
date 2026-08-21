@@ -2,7 +2,7 @@
 
 ## 개요 {#overview}
 
-Vue Single-File Component(SFC)는 관례적으로 `*.vue` 파일 확장자를 사용하며, Vue 컴포넌트를 설명하기 위해 HTML과 유사한 구문을 사용하는 커스텀 파일 형식입니다. Vue SFC는 문법적으로 HTML과 호환됩니다.
+Vue Single-File Component(SFC)는 관례적으로 `*.vue` 파일 확장자를 사용하며, Vue 컴포넌트(component)를 설명하기 위해 HTML과 유사한 구문을 사용하는 커스텀 파일 형식입니다. Vue SFC는 문법적으로 HTML과 호환됩니다.
 
 각 `*.vue` 파일은 세 가지 유형의 최상위 언어 블록(`<template>`, `<script>`, `<style>`)과 선택적으로 추가적인 커스텀 블록으로 구성됩니다:
 
@@ -52,7 +52,7 @@ export default {
 
 - 각 `*.vue` 파일에는 `<script setup>` 블록이 최대 한 개만 포함될 수 있습니다(일반 `<script>`는 제외).
 
-- 이 스크립트는 사전 처리되어 컴포넌트의 `setup()` 함수로 사용되며, 즉 **컴포넌트의 각 인스턴스마다 실행**됩니다. `<script setup>`의 최상위 바인딩은 템플릿에 자동으로 노출됩니다. 자세한 내용은 [`<script setup>` 전용 문서](/api/sfc-script-setup)를 참고하세요.
+- 이 스크립트는 사전 처리되어 컴포넌트의 `setup()` 함수로 사용되며, 즉 **컴포넌트의 각 인스턴스(instance)마다 실행**됩니다. `<script setup>`의 최상위 바인딩(binding)은 템플릿에 자동으로 노출됩니다. 자세한 내용은 [`<script setup>` 전용 문서](/api/sfc-script-setup)를 참고하세요.
 
 ### `<style>` {#style}
 
@@ -76,7 +76,7 @@ SFC는 다음과 같은 경우 **파일명**에서 컴포넌트의 이름을 자
 
 - 개발 경고 포맷팅
 - DevTools 검사
-- 재귀적 자기 참조, 예를 들어 `FooBar.vue`라는 파일은 템플릿에서 `<FooBar/>`로 자신을 참조할 수 있습니다. 이는 명시적으로 등록/임포트된 컴포넌트보다 우선순위가 낮습니다.
+- 재귀적 자기 참조, 예를 들어 `FooBar.vue`라는 파일은 템플릿(template)에서 `<FooBar/>`로 자신을 참조할 수 있습니다. 이는 명시적으로 등록/임포트된 컴포넌트보다 우선순위가 낮습니다.
 
 ## 프리프로세서 {#pre-processors}
 

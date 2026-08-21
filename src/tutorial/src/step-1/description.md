@@ -19,7 +19,7 @@ Vue 2 또는 다른 프레임워크에서 오신 경험 많은 개발자라면, 
 
 - Vue는 두 가지 API 스타일을 제공합니다: Options API와 Composition API. 이 튜토리얼은 두 가지 모두에 맞춰 설계되어 있으며, 상단의 **API Preference** 스위치를 통해 원하는 스타일을 선택할 수 있습니다. <a target="_blank" href="/guide/introduction.html#api-styles">API 스타일에 대해 더 알아보기</a>.
 
-- SFC 모드와 HTML 모드 간 전환도 가능합니다. SFC 모드는 <a target="_blank" href="/guide/introduction.html#single-file-components">싱글 파일 컴포넌트</a> (SFC) 형식의 코드 예제를 보여주며, 대부분의 개발자가 빌드 단계를 거쳐 Vue를 사용할 때 이 방식을 사용합니다. HTML 모드는 빌드 단계 없이 사용하는 방법을 보여줍니다.
+- SFC 모드와 HTML 모드 간 전환도 가능합니다. SFC 모드는 <a target="_blank" href="/guide/introduction.html#single-file-components">싱글 파일 컴포넌트(component)</a> (SFC) 형식의 코드 예제를 보여주며, 대부분의 개발자가 빌드 단계를 거쳐 Vue를 사용할 때 이 방식을 사용합니다. HTML 모드는 빌드 단계 없이 사용하는 방법을 보여줍니다.
 
 <div class="html">
 

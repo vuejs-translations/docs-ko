@@ -8,7 +8,7 @@ Vue의 개발은 주로 후원을 통해 이루어지며, 2016년부터 재정�
 
 ## Vue 2와 Vue 3의 차이점은 무엇인가요? {#what-s-the-difference-between-vue-2-and-vue-3}
 
-Vue 3는 Vue의 최신 주 버전입니다. 여기에는 텔레포트, 서스펜스 및 템플릿당 여러 루트 앨리먼트와 같이 Vue 2에는 없는 새로운 기능이 포함되어 있습니다. 또한 Vue 2와 호환되지 않는 중요한 변경 사항도 포함되어 있습니다. 자세한 내용은 [Vue 3 마이그레이션 가이드](https://v3-migration.vuejs.org/)에 문서화되어 있습니다.
+Vue 3는 Vue의 최신 주 버전입니다. 여기에는 텔레포트, 서스펜스 및 템플릿(template)당 여러 루트 앨리먼트와 같이 Vue 2에는 없는 새로운 기능이 포함되어 있습니다. 또한 Vue 2와 호환되지 않는 중요한 변경 사항도 포함되어 있습니다. 자세한 내용은 [Vue 3 마이그레이션 가이드](https://v3-migration.vuejs.org/)에 문서화되어 있습니다.
 
 차이점에도 불구하고 대부분의 Vue API는 두 주요 버전 간에 공유되므로 대부분의 Vue 2 지식은 Vue 3에서도 계속 작동합니다. 특히 컴포지션 API는 원래 Vue 3 전용 기능이었지만 이제 Vue 2로 백포트되어 [Vue 2.7](https://github.com/vuejs/vue/blob/main/CHANGELOG.md#270-2022-07-01)에서 사용할 수 있습니다.
 
@@ -30,7 +30,7 @@ Vue는 [MIT 라이선스](https://opensource.org/licenses/MIT)에 따라 공개�
 
 ## Vue는 어떤 브라우저를 지원하나요? {#what-browsers-does-vue-support}
 
-최신 버전의 Vue(3.x)는 [기본 ES2016를 지원하는 브라우저](https://caniuse.com/es2016)만 지원합니다. IE11은 제외됩니다. Vue 3.x는 레거시 브라우저에서 폴리필링할 수 없는 ES2016 기능을 사용하므로 레거시 브라우저를 지원해야 하는 경우 대신 Vue 2.x를 사용해야 합니다.
+최신 버전의 Vue(3.x)는 [기본 ES2016를 지원하는 브라우저](https://caniuse.com/es2016)만 지원합니다. IE11은 제외됩니다. Vue 3.x는 레거시 브라우저에서 폴리필링(polyfilling)할 수 없는 ES2016 기능을 사용하므로 레거시 브라우저를 지원해야 하는 경우 대신 Vue 2.x를 사용해야 합니다.
 
 ## Vue는 신뢰할 수 있나요? {#is-vue-reliable}
 
@@ -44,13 +44,13 @@ Vue 3는 가장 성능이 뛰어난 메인스트림 프론트엔드 프레임워
 
 스트레스 테스트 시나리오에서 Vue는 [js-framework-benchmark](https://krausest.github.io/js-framework-benchmark/current.html)에서 React 및 Angular를 상당한 차이로 능가합니다. 또한 벤치마크에서 가장 빠른 프로덕션 수준의 비-Virtual-DOM 프레임워크와도 나란히 경쟁합니다.
 
-위와 같은 합성 벤치마크는 전용 최적화가 적용된 원시 렌더링 성능에 중점을 두므로 실제 성능 결과를 완전히 대표하지 못할 수 있습니다. 페이지 로드 성능에 대해 더 자세히 알고 싶으시다면 [WebPageTest](https://www.webpagetest.org/lighthouse) 또는 [PageSpeed Insights](https://pagespeed.web.dev/)를 사용하여 바로 이 웹사이트를 테스트해 보시기 바랍니다. 이 웹사이트는 SSG 사전 렌더링, 전체 페이지 하이드레이션 및 SPA 클라이언트 측 탐색 기능을 갖춘 Vue 자체로 구동됩니다. 느린 4G 네트워크에서 4배 CPU 스로틀링으로 에뮬레이트된 Moto G4에서 성능 100점을 받았습니다.
+위와 같은 합성 벤치마크는 전용 최적화가 적용된 원시 렌더링(rendering) 성능에 중점을 두므로 실제 성능 결과를 완전히 대표하지 못할 수 있습니다. 페이지 로드 성능에 대해 더 자세히 알고 싶으시다면 [WebPageTest](https://www.webpagetest.org/lighthouse) 또는 [PageSpeed Insights](https://pagespeed.web.dev/)를 사용하여 바로 이 웹사이트를 테스트해 보시기 바랍니다. 이 웹사이트는 SSG 사전 렌더링, 전체 페이지 하이드레이션(hydration) 및 SPA 클라이언트 측 탐색 기능을 갖춘 Vue 자체로 구동됩니다. 느린 4G 네트워크에서 4배 CPU 스로틀링(throttling)으로 에뮬레이트된 Moto G4에서 성능 100점을 받았습니다.
 
 [렌더링 메커니즘](/guide/extras/rendering-mechanism) 섹션에서 Vue가 런타임 성능을 자동으로 최적화하는 방법에 대해 자세히 알아볼 수 있으며, 특히 까다로운 경우 Vue 앱을 최적화하는 방법은 [성능 최적화 가이드](/guide/best-practices/performance)에서 확인할 수 있습니다.
 
 ## Vue는 가볍나요? {#is-vue-lightweight}
 
-빌드 도구를 사용할 때 Vue의 많은 API는 ["트리 셰이킹(tree-shaking)"](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking)이 가능합니다. 예를 들어, 기본 제공 `<Transition>` 컴포넌트를 사용하지 않으면 최종 프로덕션 번들에 포함되지 않습니다.
+빌드 도구를 사용할 때 Vue의 많은 API는 ["트리 셰이킹(tree-shaking)"](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking)이 가능합니다. 예를 들어, 기본 제공 `<Transition>` 컴포넌트(component)를 사용하지 않으면 최종 프로덕션 번들에 포함되지 않습니다.
 
 최소한의 API만 사용하는 헬로 월드 Vue 앱의 기본 크기는 축소 및 브로틀리 압축을 통해 약 **16KB**에 불과합니다. 애플리케이션의 실제 크기는 프레임워크에서 사용하는 선택적 기능의 수에 따라 달라집니다. 드물지만 앱이 Vue가 제공하는 모든 기능을 사용하는 경우 총 런타임 크기는 약 **27KB**입니다.
 
@@ -90,9 +90,9 @@ TypeScript를 채택하려면 온보딩 복잡성과 장기적인 유지보수�
 
 ## Vue는 웹 컴포넌트와 어떻게 비교하나요? {#how-does-vue-compare-to-web-components}
 
-Vue는 웹 컴포넌트가 기본적으로 제공되기 전에 만들어졌으며, Vue 디자인의 일부 측면(예: 슬롯)은 웹 컴포넌트 모델에서 영감을 얻었습니다.
+Vue는 웹 컴포넌트가 기본적으로 제공되기 전에 만들어졌으며, Vue 디자인의 일부 측면(예: 슬롯(slot))은 웹 컴포넌트 모델에서 영감을 얻었습니다.
 
-웹 컴포넌트 사양은 사용자 정의 앨리먼트를 정의하는 데 중점을 두기 때문에 상대적으로 낮은 수준입니다. 프레임워크인 Vue는 효율적인 DOM 렌더링, 반응형 상태 관리, 툴링, 클라이언트 측 라우팅 및 서버 측 렌더링과 같은 추가적인 상위 수준의 문제를 해결합니다.
+웹 컴포넌트 사양은 사용자 정의 앨리먼트를 정의하는 데 중점을 두기 때문에 상대적으로 낮은 수준입니다. 프레임워크인 Vue는 효율적인 DOM 렌더링, 반응형 상태 관리, 툴링, 클라이언트 측 라우팅(routing) 및 서버 측 렌더링과 같은 추가적인 상위 수준의 문제를 해결합니다.
 
 Vue는 네이티브 사용자 정의 앨리먼트를 사용하거나 내보내는 기능도 완벽하게 지원합니다. 자세한 내용은 [Vue 및 웹 컴포넌트 가이드](/guide/extras/web-components)를 참조하세요.
 

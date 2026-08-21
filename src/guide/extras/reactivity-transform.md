@@ -1,9 +1,9 @@
 # 반응성 변환 {#reactivity-transform}
 
 :::danger 실험적 기능 제거됨
-반응성 변환(reactivity transform)은 실험적 기능이었으며, 최신 3.4 릴리즈에서 제거되었습니다. [관련 논의와 이유를 여기서 확인하세요](https://github.com/vuejs/rfcs/discussions/369#discussioncomment-5059028).
+반응성 변환(reactivity transform)은 실험적 기능이었으며, 최신 3.4 릴리스에서 제거되었습니다. [관련 논의와 이유를 여기서 확인하세요](https://github.com/vuejs/rfcs/discussions/369#discussioncomment-5059028).
 
-그래도 계속 사용하고 싶다면, 이제 [Vue Macros](https://vue-macros.sxzz.moe/features/reactivity-transform.html) 플러그인을 통해 사용할 수 있습니다.
+그래도 계속 사용하고 싶다면, 이제 [Vue Macros](https://vue-macros.sxzz.moe/features/reactivity-transform.html) 플러그인(plugin)을 통해 사용할 수 있습니다.
 :::
 
 :::tip Composition-API 전용
@@ -34,7 +34,7 @@ function increment() {
 
 여기서 `$ref()` 메서드는 **컴파일 타임 매크로**입니다. 런타임에 실제로 호출되는 메서드가 아닙니다. 대신 Vue 컴파일러가 이를 힌트로 사용하여 결과로 나오는 `count` 변수를 **반응형 변수**로 처리합니다.
 
-반응형 변수는 일반 변수처럼 접근하고 재할당할 수 있지만, 이러한 연산들은 `.value`가 붙은 ref로 컴파일됩니다. 예를 들어, 위 컴포넌트의 `<script>` 부분은 다음과 같이 컴파일됩니다:
+반응형 변수는 일반 변수처럼 접근하고 재할당할 수 있지만, 이러한 연산들은 `.value`가 붙은 ref로 컴파일됩니다. 예를 들어, 위 컴포넌트(component)의 `<script>` 부분은 다음과 같이 컴파일됩니다:
 
 ```js{5,8}
 import { ref } from 'vue'

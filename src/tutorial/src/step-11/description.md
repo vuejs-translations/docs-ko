@@ -1,8 +1,8 @@
-# 컴포넌트 {#components}
+# 컴포넌트(component) {#components}
 
 지금까지는 단일 컴포넌트만 다루었습니다. 실제 Vue 애플리케이션은 일반적으로 중첩된 컴포넌트로 만들어집니다.
 
-부모 컴포넌트는 템플릿에서 다른 컴포넌트를 자식 컴포넌트로 렌더링할 수 있습니다. 자식 컴포넌트를 사용하려면 먼저 이를 import해야 합니다:
+부모 컴포넌트는 템플릿(template)에서 다른 컴포넌트를 자식 컴포넌트로 렌더링(rendering)할 수 있습니다. 자식 컴포넌트를 사용하려면 먼저 이를 import해야 합니다:
 
 <div class="composition-api">
 <div class="sfc">

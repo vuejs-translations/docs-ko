@@ -36,7 +36,7 @@
 
 - 3.3+에서만 지원
 
-`T | Ref<T>`의 별칭입니다. [컴포저블](/guide/reusability/composables.html) 인자의 타입을 주석으로 달 때 유용합니다.
+`T | Ref<T>`의 별칭입니다. [컴포저블(composable)](/guide/reusability/composables.html) 인자의 타입을 주석으로 달 때 유용합니다.
 
 ## MaybeRefOrGetter\<T> {#maybereforgetter}
 
@@ -46,7 +46,7 @@
 
 ## ExtractPropTypes\<T> {#extractproptypes}
 
-런타임 props 옵션 객체에서 prop 타입을 추출합니다. 추출된 타입은 내부적으로 사용되는 타입입니다. 즉, 컴포넌트가 받는 props의 해석된 타입입니다. 이 말은 불리언 props와 기본값이 있는 props는 필수 여부와 상관없이 항상 정의되어 있다는 뜻입니다.
+런타임 props 옵션 객체에서 prop 타입을 추출합니다. 추출된 타입은 내부적으로 사용되는 타입입니다. 즉, 컴포넌트(component)가 받는 props의 해석된 타입입니다. 이 말은 불리언 props와 기본값이 있는 props는 필수 여부와 상관없이 항상 정의되어 있다는 뜻입니다.
 
 외부에서 전달 가능한 props, 즉 부모가 전달할 수 있는 props를 추출하려면 [`ExtractPublicPropTypes`](#extractpublicproptypes)를 사용하세요.
 
@@ -108,7 +108,7 @@
 
 ## ComponentCustomProperties {#componentcustomproperties}
 
-커스텀 전역 속성을 지원하기 위해 컴포넌트 인스턴스 타입을 확장할 때 사용합니다.
+커스텀 전역 속성을 지원하기 위해 컴포넌트 인스턴스(instance) 타입을 확장할 때 사용합니다.
 
 - **예시**
 
@@ -178,7 +178,7 @@ TSX 요소에서 선언되지 않은 props를 사용하기 위해 허용되는 T
 
 ## CSSProperties {#cssproperties}
 
-style 속성 바인딩에서 허용되는 값을 확장할 때 사용합니다.
+style 속성 바인딩(binding)에서 허용되는 값을 확장할 때 사용합니다.
 
 - **예시**
 

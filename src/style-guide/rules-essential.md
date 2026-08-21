@@ -4,7 +4,7 @@
 
 ## 멀티 워드 컴포넌트 이름 사용 {#use-multi-word-component-names}
 
-사용자 컴포넌트 이름은 항상 멀티 워드여야 하며, 루트 `App` 컴포넌트를 제외합니다. 이는 모든 HTML 요소가 단어 하나로 구성되어 있으므로, 기존 및 미래의 HTML 요소와의 [충돌을 방지](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name)합니다.
+사용자 컴포넌트(component) 이름은 항상 멀티 워드여야 하며, 루트 `App` 컴포넌트를 제외합니다. 이는 모든 HTML 요소가 단어 하나로 구성되어 있으므로, 기존 및 미래의 HTML 요소와의 [충돌을 방지](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name)합니다.
 
 <div class="style-example style-example-bad">
 <h3>잘못된 예</h3>
@@ -174,7 +174,7 @@ const todos = ref([
 
 </div>
 
-그런 다음 그것들을 알파벳 순으로 정렬합니다. DOM을 업데이트할 때, Vue는 가능한 가장 저렴한 DOM 변형을 수행하기 위해 렌더링을 최적화할 것입니다. 이것은 첫 번째 할 일 요소를 삭제한 다음 목록 끝에 다시 추가하는 것을 의미할 수 있습니다.
+그런 다음 그것들을 알파벳 순으로 정렬합니다. DOM을 업데이트할 때, Vue는 가능한 가장 저렴한 DOM 변형을 수행하기 위해 렌더링(rendering)을 최적화할 것입니다. 이것은 첫 번째 할 일 요소를 삭제한 다음 목록 끝에 다시 추가하는 것을 의미할 수 있습니다.
 
 문제는 DOM에 남아 있을 요소를 삭제하지 않는 것이 중요한 경우가 있다는 것입니다. 예를 들어, 목록 정렬을 애니메이션으로 표현하기 위해 `<transition-group>`을 사용하거나 렌더링된 요소가 `<input>`인 경우 포커스를 유지하고 싶을 수 있습니다. 이러한 경우에 각 항목에 고유한 키를 추가하는 것 (예: `:key="todo.id"`)은 Vue에게 더 예측 가능하게 행동하도록 지시합니다.
 
@@ -221,7 +221,7 @@ const todos = ref([
 - 목록이 숨겨져야 할 경우 목록을 렌더링하지 않기 위해 (예: `v-for="user in users" v-if="shouldShowUsers"`). 이 경우에는 `v-if`를 컨테이너 요소 (예: `ul`, `ol`)로 이동시킵니다.
 
 ::: details 상세한 설명
-Vue가 디렉티브를 처리할 때, `v-if`는 `v-for`보다 더 높은 우선 순위를 가지므로, 이 템플릿:
+Vue가 디렉티브(directive)를 처리할 때, `v-if`는 `v-for`보다 더 높은 우선 순위를 가지므로, 이 템플릿(template):
 
 ```vue-html
 <ul>
@@ -331,7 +331,7 @@ const activeUsers = computed(() => {
 
 ## 컴포넌트 범위 스타일 사용하기 {#use-component-scoped-styling}
 
-어플리케이션에서는 최상위 `App` 컴포넌트와 레이아웃 컴포넌트의 스타일이 전역적일 수 있지만, 다른 모든 컴포넌트는 항상 범위가 지정되어야 합니다.
+애플리케이션에서는 최상위 `App` 컴포넌트와 레이아웃 컴포넌트의 스타일이 전역적일 수 있지만, 다른 모든 컴포넌트는 항상 범위가 지정되어야 합니다.
 
 이것은 [싱글 파일 컴포넌트](/guide/scaling-up/sfc)에만 관련이 있습니다. 이것은 [`scoped` 속성](/api/sfc-css-features#scoped-css)을 사용해야 한다는 것을 의미하지는 _않습니다_. 범위 지정은 [CSS 모듈](/api/sfc-css-features#css-modules), [BEM](https://getbem.com/)과 같은 클래스 기반 전략 또는 다른 라이브러리/관례를 통해 이루어질 수 있습니다.
 

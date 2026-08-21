@@ -111,7 +111,7 @@
 
   위의 ref는 `state.foo`와 **동기화되지 않습니다**, 왜냐하면 `ref()`는 단순 숫자 값을 받기 때문입니다.
 
-  `toRef()`는 prop의 ref를 컴포저블 함수에 전달하고 싶을 때 유용합니다:
+  `toRef()`는 prop의 ref를 컴포저블(composable) 함수에 전달하고 싶을 때 유용합니다:
 
   ```vue
   <script setup>
@@ -128,7 +128,7 @@
   </script>
   ```
 
-  `toRef`를 컴포넌트 props와 함께 사용할 때는 props를 변경하는 일반적인 제한이 여전히 적용됩니다. ref에 새 값을 할당하려고 하면 prop을 직접 수정하려는 것과 동일하며 허용되지 않습니다. 이 경우 [`computed`](./reactivity-core#computed)의 `get`과 `set`을 사용하는 것을 고려할 수 있습니다. 자세한 내용은 [컴포넌트에서 `v-model` 사용하기](/guide/components/v-model) 가이드를 참고하세요.
+  `toRef`를 컴포넌트(component) props와 함께 사용할 때는 props를 변경하는 일반적인 제한이 여전히 적용됩니다. ref에 새 값을 할당하려고 하면 prop을 직접 수정하려는 것과 동일하며 허용되지 않습니다. 이 경우 [`computed`](./reactivity-core#computed)의 `get`과 `set`을 사용하는 것을 고려할 수 있습니다. 자세한 내용은 [컴포넌트에서 `v-model` 사용하기](/guide/components/v-model) 가이드를 참고하세요.
 
   객체 속성 시그니처를 사용할 때, `toRef()`는 소스 속성이 현재 존재하지 않더라도 사용 가능한 ref를 반환합니다. 이를 통해 [`toRefs`](#torefs)로는 감지되지 않는 선택적 속성도 다룰 수 있습니다.
 
@@ -234,7 +234,7 @@
 
 ## isProxy() {#isproxy}
 
-객체가 [`reactive()`](./reactivity-core#reactive), [`readonly()`](./reactivity-core#readonly), [`shallowReactive()`](./reactivity-advanced#shallowreactive) 또는 [`shallowReadonly()`](./reactivity-advanced#shallowreadonly)로 생성된 프록시인지 확인합니다.
+객체가 [`reactive()`](./reactivity-core#reactive), [`readonly()`](./reactivity-core#readonly), [`shallowReactive()`](./reactivity-advanced#shallowreactive) 또는 [`shallowReadonly()`](./reactivity-advanced#shallowreadonly)로 생성된 프록시(proxy)인지 확인합니다.
 
 - **타입**
 

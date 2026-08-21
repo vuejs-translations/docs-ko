@@ -8,7 +8,7 @@ outline: deep
 `<Suspense>`는 실험적 기능입니다. 안정적인 상태에 도달할 것이라는 보장이 없으며, 그 전에 API가 변경될 수 있습니다.
 :::
 
-`<Suspense>`는 컴포넌트 트리에서 비동기 의존성을 조율하기 위한 내장 컴포넌트입니다. 컴포넌트 트리 아래에 중첩된 여러 비동기 의존성이 해결될 때까지 로딩 상태를 렌더링할 수 있습니다.
+`<Suspense>`는 컴포넌트 트리에서 비동기 의존성을 조율하기 위한 내장 컴포넌트(component)입니다. 컴포넌트 트리 아래에 중첩된 여러 비동기 의존성이 해결될 때까지 로딩 상태를 렌더링(rendering)할 수 있습니다.
 
 ## 비동기 의존성 {#async-dependencies}
 
@@ -30,7 +30,7 @@ outline: deep
 
 `<Suspense>`가 대기할 수 있는 비동기 의존성에는 두 가지 유형이 있습니다:
 
-1. 비동기 `setup()` 훅을 가진 컴포넌트. 여기에는 최상위 `await` 표현식을 사용하는 `<script setup>` 컴포넌트도 포함됩니다.
+1. 비동기 `setup()` 훅(hook)을 가진 컴포넌트. 여기에는 최상위 `await` 표현식을 사용하는 `<script setup>` 컴포넌트도 포함됩니다.
 
 2. [비동기 컴포넌트](/guide/components/async).
 
@@ -71,7 +71,7 @@ const posts = await res.json()
 
 ## 로딩 상태 {#loading-state}
 
-`<Suspense>` 컴포넌트에는 두 개의 슬롯: `#default`와 `#fallback`이 있습니다. 두 슬롯 모두 **하나의** 직계 자식 노드만 허용합니다. 기본 슬롯의 노드는 가능하다면 표시됩니다. 그렇지 않으면 fallback 슬롯의 노드가 대신 표시됩니다.
+`<Suspense>` 컴포넌트에는 두 개의 슬롯(slot): `#default`와 `#fallback`이 있습니다. 두 슬롯 모두 **하나의** 직계 자식 노드만 허용합니다. 기본 슬롯의 노드는 가능하다면 표시됩니다. 그렇지 않으면 fallback 슬롯의 노드가 대신 표시됩니다.
 
 ```vue-html
 <Suspense>

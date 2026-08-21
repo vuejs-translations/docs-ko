@@ -69,7 +69,7 @@ export default {
 
 <div class="composition-api">
 
-Composition API에서는 [`watch` 함수](/api/reactivity-core#watch)를 사용하여 반응형 상태가 변경될 때마다 콜백을 실행할 수 있습니다:
+Composition API에서는 [`watch` 함수](/api/reactivity-core#watch)를 사용하여 반응형 상태가 변경될 때마다 콜백(callback)을 실행할 수 있습니다:
 
 ```vue
 <script setup>
@@ -254,7 +254,7 @@ export default {
 }
 ```
 
-핸들러 함수의 최초 실행은 `created` 훅 직전에 발생합니다. Vue는 이미 `data`, `computed`, `methods` 옵션을 처리했으므로, 첫 번째 호출 시 해당 속성들을 사용할 수 있습니다.
+핸들러 함수의 최초 실행은 `created` 훅(hook) 직전에 발생합니다. Vue는 이미 `data`, `computed`, `methods` 옵션을 처리했으므로, 첫 번째 호출 시 해당 속성들을 사용할 수 있습니다.
 
 </div>
 
@@ -486,11 +486,11 @@ export default {
 
 </div>
 
-함수 인자로 전달된 `onCleanup`은 감시자 인스턴스에 바인딩되어 있으므로, `onWatcherCleanup`의 동기 실행 제약을 받지 않습니다.
+함수 인자로 전달된 `onCleanup`은 감시자 인스턴스(instance)에 바인딩(binding)되어 있으므로, `onWatcherCleanup`의 동기 실행 제약을 받지 않습니다.
 
 ## 콜백 실행 타이밍(Callback Flush Timing) {#callback-flush-timing}
 
-반응형 상태를 변경하면, Vue 컴포넌트 업데이트와 사용자가 만든 감시자 콜백이 모두 트리거될 수 있습니다.
+반응형 상태를 변경하면, Vue 컴포넌트(component) 업데이트와 사용자가 만든 감시자 콜백이 모두 트리거될 수 있습니다.
 
 컴포넌트 업데이트와 마찬가지로, 사용자가 만든 감시자 콜백도 중복 호출을 방지하기 위해 배치 처리됩니다. 예를 들어, 감시하는 배열에 동기적으로 1,000개 항목을 추가할 때 감시자가 1,000번 실행되는 것을 원하지 않을 것입니다.
 
@@ -612,7 +612,7 @@ export default {
 
 <div class="options-api">
 
-`watch` 옵션이나 `$watch()` 인스턴스 메서드로 선언한 감시자는 소유 컴포넌트가 언마운트될 때 자동으로 중단되므로, 대부분의 경우 감시자를 직접 중단할 필요가 없습니다.
+`watch` 옵션이나 `$watch()` 인스턴스 메서드로 선언한 감시자는 소유 컴포넌트가 언마운트(unmount)될 때 자동으로 중단되므로, 대부분의 경우 감시자를 직접 중단할 필요가 없습니다.
 
 드물게 소유 컴포넌트가 언마운트되기 전에 감시자를 중단해야 하는 경우, `$watch()` API는 이를 위한 함수를 반환합니다:
 

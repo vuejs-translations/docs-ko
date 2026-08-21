@@ -30,13 +30,13 @@
 
 - **세부사항**
 
-  일반 컴포넌트 옵션 외에도, `defineCustomElement()`는 커스텀 엘리먼트 전용 옵션들을 추가로 지원합니다:
+  일반 컴포넌트(component) 옵션 외에도, `defineCustomElement()`는 커스텀 엘리먼트 전용 옵션들을 추가로 지원합니다:
 
   - **`styles`**: 엘리먼트의 섀도우 루트에 주입될 CSS를 제공하기 위한 인라인 CSS 문자열 배열입니다.
 
-  - **`configureApp`** <sup class="vt-badge" data-text="3.5+"/>: 커스텀 엘리먼트의 Vue 앱 인스턴스를 구성하는 데 사용할 수 있는 함수입니다.
+  - **`configureApp`** <sup class="vt-badge" data-text="3.5+"/>: 커스텀 엘리먼트의 Vue 앱 인스턴스(instance)를 구성하는 데 사용할 수 있는 함수입니다.
 
-  - **`shadowRoot`** <sup class="vt-badge" data-text="3.5+"/>: `boolean`, 기본값은 `true`입니다. `false`로 설정하면 커스텀 엘리먼트가 섀도우 루트 없이 렌더링됩니다. 이 경우 커스텀 엘리먼트 SFC 내의 `<style>`은 더 이상 캡슐화되지 않습니다.
+  - **`shadowRoot`** <sup class="vt-badge" data-text="3.5+"/>: `boolean`, 기본값은 `true`입니다. `false`로 설정하면 커스텀 엘리먼트가 섀도우 루트 없이 렌더링(rendering)됩니다. 이 경우 커스텀 엘리먼트 SFC 내의 `<style>`은 더 이상 캡슐화되지 않습니다.
 
   - **`nonce`** <sup class="vt-badge" data-text="3.5+"/>: `string`, 제공되면 섀도우 루트에 주입되는 style 태그의 `nonce` 속성으로 설정됩니다.
 

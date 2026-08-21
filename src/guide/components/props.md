@@ -1,6 +1,6 @@
 # Props {#props}
 
-> 이 페이지는 이미 [컴포넌트 기본](/guide/essentials/component-basics)을 읽었다고 가정합니다. 컴포넌트가 처음이라면 먼저 해당 내용을 읽어보세요.
+> 이 페이지는 이미 [컴포넌트 기본](/guide/essentials/component-basics)을 읽었다고 가정합니다. 컴포넌트(component)가 처음이라면 먼저 해당 내용을 읽어보세요.
 
 <div class="options-api">
   <VueSchoolLink href="https://vueschool.io/lessons/vue-3-reusable-components-with-props" title="무료 Vue.js Props 강의"/>
@@ -186,7 +186,7 @@ useComposable(() => foo)
 
 ### Prop 이름 표기법 {#prop-name-casing}
 
-긴 prop 이름은 camelCase로 선언합니다. 이렇게 하면 속성 키로 사용할 때 따옴표를 사용할 필요가 없고, 템플릿 표현식에서 직접 참조할 수 있습니다. camelCase는 유효한 JavaScript 식별자이기 때문입니다:
+긴 prop 이름은 camelCase로 선언합니다. 이렇게 하면 속성 키로 사용할 때 따옴표를 사용할 필요가 없고, 템플릿(template) 표현식에서 직접 참조할 수 있습니다. camelCase는 유효한 JavaScript 식별자이기 때문입니다:
 
 <div class="composition-api">
 
@@ -340,7 +340,7 @@ const post = {
 
 ### 바인딩을 함께 사용할 때의 병합 동작 {#merge-behavior-when-combining-bindings}
 
-동일한 컴포넌트에 `v-bind`와 명시적인 바인딩을 함께 사용하면, Vue는 내부적으로 `mergeProps()`를 호출하여 두 바인딩을 병합합니다. 병합 전략은 키의 타입에 따라 달라집니다:
+동일한 컴포넌트에 `v-bind`와 명시적인 바인딩(binding)을 함께 사용하면, Vue는 내부적으로 `mergeProps()`를 호출하여 두 바인딩을 병합합니다. 병합 전략은 키의 타입에 따라 달라집니다:
 
 - **일반 prop**: 마지막 값이 우선합니다:
 
@@ -349,7 +349,7 @@ const post = {
 <BlogPost title="foo" v-bind="{ title: 'bar' }" />
 ```
 
-- **이벤트 리스너**: `v-bind` 객체로 리스너를 전달할 때는 [`onEventName` 키 규칙을 사용해야 합니다](/guide/extras/render-function#v-on). 동일한 이벤트에 등록된 모든 핸들러가 호출됩니다([`v-on` 리스너 상속](/guide/components/attrs#v-on-listener-inheritance) 참고):
+- **이벤트 리스너(listener)**: `v-bind` 객체로 리스너를 전달할 때는 [`onEventName` 키 규칙을 사용해야 합니다](/guide/extras/render-function#v-on). 동일한 이벤트에 등록된 모든 핸들러가 호출됩니다([`v-on` 리스너 상속](/guide/components/attrs#v-on-listener-inheritance) 참고):
 
 ```vue-html
 <!-- 1과 2가 모두 출력됨 -->
@@ -601,7 +601,7 @@ prop 검증에 실패하면, Vue는 콘솔에 경고를 출력합니다(개발 �
 <div class="options-api">
 
 ::: tip 참고
-props는 컴포넌트 인스턴스가 생성되기 **전에** 검증되므로, 인스턴스 속성(예: `data`, `computed` 등)은 `default`나 `validator` 함수 내부에서 사용할 수 없습니다.
+props는 컴포넌트 인스턴스(instance)가 생성되기 **전에** 검증되므로, 인스턴스 속성(예: `data`, `computed` 등)은 `default`나 `validator` 함수 내부에서 사용할 수 없습니다.
 :::
 
 </div>

@@ -1,6 +1,6 @@
 # Provide / Inject {#provide-inject}
 
-> 이 페이지는 이미 [컴포넌트 기본](/guide/essentials/component-basics)을 읽었다고 가정합니다. 컴포넌트가 처음이라면 먼저 해당 내용을 읽어보세요.
+> 이 페이지는 이미 [컴포넌트 기본](/guide/essentials/component-basics)을 읽었다고 가정합니다. 컴포넌트(component)가 처음이라면 먼저 해당 내용을 읽어보세요.
 
 ## Prop Drilling {#prop-drilling}
 
@@ -71,9 +71,9 @@ export default {
 }
 ```
 
-`provide` 객체의 각 프로퍼티에서, 키는 자식 컴포넌트가 올바른 값을 주입받는 데 사용되며, 값은 실제로 주입되는 값입니다.
+`provide` 객체의 각 프로퍼티(property)에서, 키는 자식 컴포넌트가 올바른 값을 주입받는 데 사용되며, 값은 실제로 주입되는 값입니다.
 
-인스턴스별 상태(예: `data()`로 선언된 데이터)를 제공해야 하는 경우, `provide`는 함수 값을 사용해야 합니다:
+인스턴스(instance)별 상태(예: `data()`로 선언된 데이터)를 제공해야 하는 경우, `provide`는 함수 값을 사용해야 합니다:
 
 ```js{7-12}
 export default {
@@ -107,7 +107,7 @@ const app = createApp({})
 app.provide(/* key */ 'message', /* value */ 'hello!')
 ```
 
-앱 레벨에서 제공한 값은 앱에서 렌더링되는 모든 컴포넌트에서 사용할 수 있습니다. 이는 [플러그인](/guide/reusability/plugins)을 작성할 때 특히 유용합니다. 플러그인은 일반적으로 컴포넌트를 통해 값을 제공할 수 없기 때문입니다.
+앱 레벨에서 제공한 값은 앱에서 렌더링(rendering)되는 모든 컴포넌트에서 사용할 수 있습니다. 이는 [플러그인(plugin)](/guide/reusability/plugins)을 작성할 때 특히 유용합니다. 플러그인은 일반적으로 컴포넌트를 통해 값을 제공할 수 없기 때문입니다.
 
 ## Inject {#inject}
 

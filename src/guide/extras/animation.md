@@ -7,7 +7,7 @@ import AnimateWatcher from './demos/AnimateWatcher.vue'
 
 # 애니메이션 기법 {#animation-techniques}
 
-Vue는 진입/퇴장 및 리스트 전환을 처리하기 위해 [`<Transition>`](/guide/built-ins/transition) 및 [`<TransitionGroup>`](/guide/built-ins/transition-group) 컴포넌트를 제공합니다. 하지만 Vue 애플리케이션에서도 웹에서 애니메이션을 사용하는 다른 많은 방법들이 있습니다. 여기에서는 몇 가지 추가적인 기법에 대해 논의하겠습니다.
+Vue는 진입/퇴장 및 리스트 전환을 처리하기 위해 [`<Transition>`](/guide/built-ins/transition) 및 [`<TransitionGroup>`](/guide/built-ins/transition-group) 컴포넌트(component)를 제공합니다. 하지만 Vue 애플리케이션에서도 웹에서 애니메이션을 사용하는 다른 많은 방법들이 있습니다. 여기에서는 몇 가지 추가적인 기법에 대해 논의하겠습니다.
 
 ## 클래스 기반 애니메이션 {#class-based-animations}
 
@@ -90,7 +90,7 @@ export default {
 
 ## 상태 기반 애니메이션 {#state-driven-animations}
 
-일부 전환 효과는 값을 보간하여 적용할 수 있습니다. 예를 들어, 상호작용이 발생하는 동안 스타일을 요소에 바인딩하는 방식입니다. 예를 들어 다음과 같습니다:
+일부 전환 효과는 값을 보간(interpolation)하여 적용할 수 있습니다. 예를 들어, 상호작용이 발생하는 동안 스타일을 요소에 바인딩(binding)하는 방식입니다. 예를 들어 다음과 같습니다:
 
 <div class="composition-api">
 

@@ -1,6 +1,6 @@
 # Emits {#emits}
 
-자식 컴포넌트는 props를 받을 뿐만 아니라 부모에게 이벤트를 발생시킬 수도 있습니다:
+자식 컴포넌트(component)는 props를 받을 뿐만 아니라 부모에게 이벤트를 발생시킬 수도 있습니다:
 
 <div class="composition-api">
 <div class="sfc">
@@ -49,7 +49,7 @@ export default {
 
 </div>
 
-<span class="options-api">`this.$emit()`</span><span class="composition-api">`emit()`</span>의 첫 번째 인자는 이벤트 이름입니다. 추가 인자들은 이벤트 리스너로 전달됩니다.
+<span class="options-api">`this.$emit()`</span><span class="composition-api">`emit()`</span>의 첫 번째 인자는 이벤트 이름입니다. 추가 인자들은 이벤트 리스너(listener)로 전달됩니다.
 
 부모는 `v-on`을 사용하여 자식이 발생시킨 이벤트를 들을 수 있습니다. 아래 예시에서 핸들러는 자식의 emit 호출에서 전달된 추가 인자를 받아 로컬 상태에 할당합니다:
 

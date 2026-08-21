@@ -8,7 +8,7 @@ import SpreadSheet from './demos/SpreadSheet.vue'
 
 # 반응성 심층 분석 {#reactivity-in-depth}
 
-Vue의 가장 두드러진 특징 중 하나는 눈에 띄지 않는 반응성(reactivity) 시스템입니다. 컴포넌트 상태는 반응형 JavaScript 객체로 구성됩니다. 이 객체를 수정하면 뷰가 업데이트됩니다. 이는 상태 관리를 간단하고 직관적으로 만들어주지만, 몇 가지 일반적인 함정들을 피하기 위해서도 그 동작 방식을 이해하는 것이 중요합니다. 이 섹션에서는 Vue의 반응성 시스템의 저수준 세부 사항을 파고들어 보겠습니다.
+Vue의 가장 두드러진 특징 중 하나는 눈에 띄지 않는 반응성(reactivity) 시스템입니다. 컴포넌트(component) 상태는 반응형 JavaScript 객체로 구성됩니다. 이 객체를 수정하면 뷰가 업데이트됩니다. 이는 상태 관리를 간단하고 직관적으로 만들어주지만, 몇 가지 일반적인 함정들을 피하기 위해서도 그 동작 방식을 이해하는 것이 중요합니다. 이 섹션에서는 Vue의 반응성 시스템의 저수준 세부 사항을 파고들어 보겠습니다.
 
 ## 반응성이란? {#what-is-reactivity}
 
@@ -104,7 +104,7 @@ function ref(value) {
 
 이것은 우리가 기본 섹션에서 논의했던 [반응형 객체의 몇 가지 제한 사항](/guide/essentials/reactivity-fundamentals#limitations-of-reactive)을 설명해줍니다:
 
-- 반응형 객체의 속성을 지역 변수에 할당하거나 구조 분해 할당하면, 그 변수에 접근하거나 할당해도 더 이상 원본 객체의 get / set 프록시 트랩을 트리거하지 않으므로 반응형이 아닙니다. 이 "연결 해제"는 변수 바인딩에만 영향을 미치며, 만약 변수가 객체와 같은 비원시 값을 가리킨다면, 그 객체를 변경하는 것은 여전히 반응형입니다.
+- 반응형 객체의 속성을 지역 변수에 할당하거나 구조 분해 할당하면, 그 변수에 접근하거나 할당해도 더 이상 원본 객체의 get / set 프록시(proxy) 트랩을 트리거하지 않으므로 반응형이 아닙니다. 이 "연결 해제"는 변수 바인딩(binding)에만 영향을 미치며, 만약 변수가 객체와 같은 비원시 값을 가리킨다면, 그 객체를 변경하는 것은 여전히 반응형입니다.
 
 - `reactive()`에서 반환된 프록시는 원본과 거의 동일하게 동작하지만, `===` 연산자로 비교하면 원본과는 다른 정체성을 가집니다.
 
@@ -183,7 +183,7 @@ A0.value = 2
 
 내부적으로, `computed`는 반응형 이펙트를 사용해 무효화와 재계산을 관리합니다.
 
-그렇다면 일반적이고 유용한 반응형 이펙트의 예시는 무엇일까요? 바로 DOM 업데이트입니다! 다음과 같이 간단한 "반응형 렌더링"을 구현할 수 있습니다:
+그렇다면 일반적이고 유용한 반응형 이펙트의 예시는 무엇일까요? 바로 DOM 업데이트입니다! 다음과 같이 간단한 "반응형 렌더링(rendering)"을 구현할 수 있습니다:
 
 ```js
 import { ref, watchEffect } from 'vue'
@@ -198,7 +198,7 @@ watchEffect(() => {
 count.value++
 ```
 
-실제로, 이것은 Vue 컴포넌트가 상태와 DOM을 동기화하는 방식과 매우 유사합니다. 각 컴포넌트 인스턴스는 렌더링과 DOM 업데이트를 위해 반응형 이펙트를 생성합니다. 물론, Vue 컴포넌트는 `innerHTML`보다 훨씬 효율적인 방법으로 DOM을 업데이트합니다. 이에 대해서는 [렌더링 메커니즘](./rendering-mechanism)에서 다룹니다.
+실제로, 이것은 Vue 컴포넌트가 상태와 DOM을 동기화하는 방식과 매우 유사합니다. 각 컴포넌트 인스턴스(instance)는 렌더링과 DOM 업데이트를 위해 반응형 이펙트를 생성합니다. 물론, Vue 컴포넌트는 `innerHTML`보다 훨씬 효율적인 방법으로 DOM을 업데이트합니다. 이에 대해서는 [렌더링 메커니즘](./rendering-mechanism)에서 다룹니다.
 
 <div class="options-api">
 
@@ -218,9 +218,9 @@ Vue 팀도 [Reactivity Transform](/guide/extras/reactivity-transform)이라는 �
 
 Vue의 반응성 시스템이 자동으로 의존성을 추적해주는 것은 훌륭하지만, 경우에 따라 정확히 무엇이 추적되고 있는지, 또는 어떤 것이 컴포넌트의 리렌더를 유발하는지 알아내고 싶을 수 있습니다.
 
-### 컴포넌트 디버깅 훅 {#component-debugging-hooks}
+### 컴포넌트 디버깅 훅(hook) {#component-debugging-hooks}
 
-컴포넌트의 렌더링 중 어떤 의존성이 사용되고, 어떤 의존성이 업데이트를 트리거하는지 디버깅하려면 <span class="options-api">`renderTracked`</span><span class="composition-api">`onRenderTracked`</span>와 <span class="options-api">`renderTriggered`</span><span class="composition-api">`onRenderTriggered`</span> 라이프사이클 훅을 사용할 수 있습니다. 두 훅 모두 해당 의존성에 대한 정보를 담은 디버거 이벤트를 받습니다. 콜백에 `debugger` 문을 넣어 상호작용적으로 의존성을 검사하는 것이 좋습니다:
+컴포넌트의 렌더링 중 어떤 의존성이 사용되고, 어떤 의존성이 업데이트를 트리거하는지 디버깅하려면 <span class="options-api">`renderTracked`</span><span class="composition-api">`onRenderTracked`</span>와 <span class="options-api">`renderTriggered`</span><span class="composition-api">`onRenderTriggered`</span> 라이프사이클(lifecycle) 훅을 사용할 수 있습니다. 두 훅 모두 해당 의존성에 대한 정보를 담은 디버거 이벤트를 받습니다. 콜백(callback)에 `debugger` 문을 넣어 상호작용적으로 의존성을 검사하는 것이 좋습니다:
 
 <div class="composition-api">
 
@@ -386,7 +386,7 @@ Vue의 반응성 시스템을 외부 상태 관리 솔루션과 통합하는 일
 
 [불변 데이터 구조](https://ko.wikipedia.org/wiki/%EC%A7%84%ED%96%89_%EB%8D%B0%EC%9D%B4%ED%84%B0_%EA%B5%AC%EC%A1%B0)는 상태 객체를 절대 변경하지 않고, 대신 이전 객체와 동일한 변경되지 않은 부분을 공유하는 새 객체를 만듭니다. JavaScript에서 불변 데이터를 사용하는 방법은 여러 가지가 있지만, [Immer](https://immerjs.github.io/immer/)를 Vue와 함께 사용하는 것을 추천합니다. Immer를 사용하면 더 편리한 변경 가능한 문법을 유지하면서 불변 데이터를 사용할 수 있습니다.
 
-Immer를 Vue와 통합하는 간단한 컴포저블은 다음과 같습니다:
+Immer를 Vue와 통합하는 간단한 컴포저블(composable)은 다음과 같습니다:
 
 ```js
 import { produce } from 'immer'

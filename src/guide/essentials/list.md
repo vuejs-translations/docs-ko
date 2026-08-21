@@ -10,7 +10,7 @@
 
 ## `v-for` {#v-for}
 
-`v-for` 디렉티브를 사용하여 배열을 기반으로 항목 목록을 렌더링할 수 있습니다. `v-for` 디렉티브는 `item in items` 형태의 특별한 문법을 필요로 하며, 여기서 `items`는 소스 데이터 배열이고 `item`은 반복되는 배열 요소의 **별칭**입니다:
+`v-for` 디렉티브(directive)를 사용하여 배열을 기반으로 항목 목록을 렌더링(rendering)할 수 있습니다. `v-for` 디렉티브는 `item in items` 형태의 특별한 문법을 필요로 하며, 여기서 `items`는 소스 데이터 배열이고 `item`은 반복되는 배열 요소의 **별칭**입니다:
 
 <div class="composition-api">
 
@@ -38,7 +38,7 @@ data() {
 </li>
 ```
 
-`v-for`의 스코프 내에서는 템플릿 표현식이 모든 부모 스코프 속성에 접근할 수 있습니다. 또한, `v-for`는 현재 항목의 인덱스를 위한 두 번째 별칭도 지원합니다:
+`v-for`의 스코프 내에서는 템플릿(template) 표현식이 모든 부모 스코프 속성에 접근할 수 있습니다. 또한, `v-for`는 현재 항목의 인덱스를 위한 두 번째 별칭도 지원합니다:
 
 <div class="composition-api">
 
@@ -103,7 +103,7 @@ items.forEach((item, index) => {
 })
 ```
 
-`v-for` 값이 `forEach` 콜백의 함수 시그니처와 일치하는 것을 볼 수 있습니다. 실제로, 함수 인자 구조 분해와 유사하게 `v-for`의 항목 별칭에서도 구조 분해를 사용할 수 있습니다:
+`v-for` 값이 `forEach` 콜백(callback)의 함수 시그니처와 일치하는 것을 볼 수 있습니다. 실제로, 함수 인자 구조 분해와 유사하게 `v-for`의 항목 별칭에서도 구조 분해를 사용할 수 있습니다:
 
 ```vue-html
 <li v-for="{ message } in items">
@@ -259,7 +259,7 @@ data() {
 
 Vue가 `v-for`로 렌더링된 요소 목록을 업데이트할 때, 기본적으로 "제자리 패치(in-place patch)" 전략을 사용합니다. 데이터 항목의 순서가 변경된 경우, Vue는 DOM 요소를 항목 순서에 맞게 이동시키는 대신 각 요소를 제자리에 패치하여 해당 인덱스에 렌더링되어야 할 내용을 반영합니다.
 
-이 기본 모드는 효율적이지만, **리스트 렌더 출력이 자식 컴포넌트 상태나 임시 DOM 상태(예: 폼 입력 값)에 의존하지 않을 때만 적합합니다**.
+이 기본 모드는 효율적이지만, **리스트 렌더 출력이 자식 컴포넌트(component) 상태나 임시 DOM 상태(예: 폼 입력 값)에 의존하지 않을 때만 적합합니다**.
 
 Vue가 각 노드의 정체성을 추적하고, 기존 요소를 재사용 및 재정렬할 수 있도록 힌트를 주려면 각 항목에 고유한 `key` 속성을 제공해야 합니다:
 
@@ -278,7 +278,7 @@ Vue가 각 노드의 정체성을 추적하고, 기존 요소를 재사용 및 �
 ```
 
 :::tip 참고
-여기서 `key`는 `v-bind`로 바인딩되는 특별한 속성입니다. [객체에 대한 `v-for` 사용](#v-for-with-an-object)에서의 속성 키 변수와 혼동하지 마세요.
+여기서 `key`는 `v-bind`로 바인딩(binding)되는 특별한 속성입니다. [객체에 대한 `v-for` 사용](#v-for-with-an-object)에서의 속성 키 변수와 혼동하지 마세요.
 :::
 
 가능하다면, 반복되는 DOM 콘텐츠가 단순한 경우(즉, 컴포넌트나 상태를 가진 DOM 요소가 없는 경우)를 제외하고, 또는 성능 향상을 위해 기본 동작에 의존하려는 특별한 경우가 아니라면, `v-for`와 함께 항상 `key` 속성을 제공하는 것이 좋습니다.
@@ -310,7 +310,7 @@ Vue가 각 노드의 정체성을 추적하고, 기존 요소를 재사용 및 �
 
 <div class="composition-api">
 
-[간단한 투두 리스트 예제](https://play.vuejs.org/#eNp1U8Fu2zAM/RXCGGAHTWx02ylwgxZYB+ywYRhyq3dwLGYRYkuCJTsZjPz7KMmK3ay9JBQfH/meKA/Rk1Jp32G0jnJdtVwZ0Gg6tSkEb5RsDQzQ4h4usG9lAzGVxldoK5n8ZrAZsTQLCduRygAKUUmhDQg8WWyLZwMPtmESx4sAGkL0mH6xrMH+AHC2hvuljw03Na4h/iLBHBAY1wfUbsTFVcwoH28o2/KIIDuaQ0TTlvrwNu/TDe+7PDlKXZ6EZxTiN4kuRI3W0dk4u4yUf7bZfScqw6WAkrEf3m+y8AOcw7Qv6w5T1elDMhs7Nbq7e61gdmme60SQAvgfIhExiSSJeeb3SBukAy1D1aVBezL5XrYN9Csp1rrbNdykqsUehXkookl0EVGxlZHX5Q5rIBLhNHFlbRD6xBiUzlOeuZJQz4XqjI+BxjSSYe2pQWwRBZizV01DmsRWeJA1Qzv0Of2TwldE5hZRlVd+FkbuOmOksJLybIwtkmfWqg+7qz47asXpSiaN3lxikSVwwfC8oD+/sEnV+oh/qcxmU85mebepgLjDBD622Mg+oDrVquYVJm7IEu4XoXKTZ1dho3gnmdJhedEymn9ab3ysDPdc4M9WKp28xE5JbB+rzz/Trm3eK3LAu8/E7p2PNzYM/i3ChR7W7L7hsSIvR7L2Aal1EhqTp80vF95sw3WcG7r8A0XaeME=)를 확인하여, `v-for`로 컴포넌트 목록을 렌더링하고 각 인스턴스에 서로 다른 데이터를 전달하는 방법을 알아보세요.
+[간단한 투두 리스트 예제](https://play.vuejs.org/#eNp1U8Fu2zAM/RXCGGAHTWx02ylwgxZYB+ywYRhyq3dwLGYRYkuCJTsZjPz7KMmK3ay9JBQfH/meKA/Rk1Jp32G0jnJdtVwZ0Gg6tSkEb5RsDQzQ4h4usG9lAzGVxldoK5n8ZrAZsTQLCduRygAKUUmhDQg8WWyLZwMPtmESx4sAGkL0mH6xrMH+AHC2hvuljw03Na4h/iLBHBAY1wfUbsTFVcwoH28o2/KIIDuaQ0TTlvrwNu/TDe+7PDlKXZ6EZxTiN4kuRI3W0dk4u4yUf7bZfScqw6WAkrEf3m+y8AOcw7Qv6w5T1elDMhs7Nbq7e61gdmme60SQAvgfIhExiSSJeeb3SBukAy1D1aVBezL5XrYN9Csp1rrbNdykqsUehXkookl0EVGxlZHX5Q5rIBLhNHFlbRD6xBiUzlOeuZJQz4XqjI+BxjSSYe2pQWwRBZizV01DmsRWeJA1Qzv0Of2TwldE5hZRlVd+FkbuOmOksJLybIwtkmfWqg+7qz47asXpSiaN3lxikSVwwfC8oD+/sEnV+oh/qcxmU85mebepgLjDBD622Mg+oDrVquYVJm7IEu4XoXKTZ1dho3gnmdJhedEymn9ab3ysDPdc4M9WKp28xE5JbB+rzz/Trm3eK3LAu8/E7p2PNzYM/i3ChR7W7L7hsSIvR7L2Aal1EhqTp80vF95sw3WcG7r8A0XaeME=)를 확인하여, `v-for`로 컴포넌트 목록을 렌더링하고 각 인스턴스(instance)에 서로 다른 데이터를 전달하는 방법을 알아보세요.
 
 </div>
 <div class="options-api">

@@ -2,7 +2,7 @@
 
 ## useAttrs() {#useattrs}
 
-[Setup Context](/api/composition-api-setup#setup-context)에서 `attrs` 객체를 반환하며, 이 객체에는 현재 컴포넌트의 [폴스루 속성(fallthrough attributes)](/guide/components/attrs#fallthrough-attributes)이 포함되어 있습니다. 이 함수는 setup 컨텍스트 객체를 사용할 수 없는 `<script setup>`에서 사용하도록 설계되었습니다.
+[Setup Context](/api/composition-api-setup#setup-context)에서 `attrs` 객체를 반환하며, 이 객체에는 현재 컴포넌트(component)의 [폴스루 속성(fallthrough attributes)](/guide/components/attrs#fallthrough-attributes)이 포함되어 있습니다. 이 함수는 setup 컨텍스트 객체를 사용할 수 없는 `<script setup>`에서 사용하도록 설계되었습니다.
 
 - **타입**
 
@@ -12,7 +12,7 @@
 
 ## useSlots() {#useslots}
 
-[Setup Context](/api/composition-api-setup#setup-context)에서 `slots` 객체를 반환하며, 이 객체에는 부모로부터 전달된 슬롯이 Virtual DOM 노드를 반환하는 호출 가능한 함수로 포함되어 있습니다. 이 함수는 setup 컨텍스트 객체를 사용할 수 없는 `<script setup>`에서 사용하도록 설계되었습니다.
+[Setup Context](/api/composition-api-setup#setup-context)에서 `slots` 객체를 반환하며, 이 객체에는 부모로부터 전달된 슬롯(slot)이 Virtual DOM 노드를 반환하는 호출 가능한 함수로 포함되어 있습니다. 이 함수는 setup 컨텍스트 객체를 사용할 수 없는 `<script setup>`에서 사용하도록 설계되었습니다.
 
 TypeScript를 사용하는 경우, [`defineSlots()`](/api/sfc-script-setup#defineslots)를 대신 사용하는 것이 더 좋습니다.
 
@@ -67,7 +67,7 @@ TypeScript를 사용하는 경우, [`defineSlots()`](/api/sfc-script-setup#defin
 
 ## useTemplateRef() <sup class="vt-badge" data-text="3.5+" /> {#usetemplateref}
 
-일치하는 ref 속성을 가진 템플릿 요소 또는 컴포넌트와 동기화되는 얕은 ref를 반환합니다.
+일치하는 ref 속성을 가진 템플릿(template) 요소 또는 컴포넌트와 동기화되는 얕은 ref를 반환합니다.
 
 - **타입**
 
@@ -127,9 +127,9 @@ TypeScript를 사용하는 경우, [`defineSlots()`](/api/sfc-script-setup#defin
 
 - **상세 설명**
 
-  `useId()`로 생성된 ID는 애플리케이션별로 고유합니다. 폼 요소와 접근성 속성의 ID를 생성하는 데 사용할 수 있습니다. 동일한 컴포넌트 내에서 여러 번 호출하면 서로 다른 ID가 생성되며, 동일한 컴포넌트의 여러 인스턴스가 `useId()`를 호출해도 각각 다른 ID가 생성됩니다.
+  `useId()`로 생성된 ID는 애플리케이션별로 고유합니다. 폼 요소와 접근성 속성의 ID를 생성하는 데 사용할 수 있습니다. 동일한 컴포넌트 내에서 여러 번 호출하면 서로 다른 ID가 생성되며, 동일한 컴포넌트의 여러 인스턴스(instance)가 `useId()`를 호출해도 각각 다른 ID가 생성됩니다.
 
-  `useId()`로 생성된 ID는 서버와 클라이언트 렌더링 간에도 안정적으로 유지되므로, SSR 애플리케이션에서 하이드레이션 불일치 없이 사용할 수 있습니다.
+  `useId()`로 생성된 ID는 서버와 클라이언트 렌더링(rendering) 간에도 안정적으로 유지되므로, SSR 애플리케이션에서 하이드레이션(hydration) 불일치 없이 사용할 수 있습니다.
 
   동일한 페이지에 여러 Vue 애플리케이션 인스턴스가 있는 경우, [`app.config.idPrefix`](/api/application#app-config-idprefix)를 통해 각 앱에 ID 접두사를 지정하여 ID 충돌을 방지할 수 있습니다.
 

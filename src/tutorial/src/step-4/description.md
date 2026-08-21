@@ -1,6 +1,6 @@
-# 이벤트 리스너 {#event-listeners}
+# 이벤트 리스너(listener) {#event-listeners}
 
-`v-on` 디렉티브를 사용하여 DOM 이벤트를 감지할 수 있습니다:
+`v-on` 디렉티브(directive)를 사용하여 DOM 이벤트를 감지할 수 있습니다:
 
 ```vue-html
 <button v-on:click="increment">{{ count }}</button>
@@ -55,7 +55,7 @@ createApp({
 
 </div>
 
-메서드 내부에서 `this`를 사용하여 컴포넌트 인스턴스에 접근할 수 있습니다. 컴포넌트 인스턴스는 `data`에서 선언된 데이터 속성들을 노출합니다. 이러한 속성들을 변경하여 컴포넌트 상태를 업데이트할 수 있습니다.
+메서드 내부에서 `this`를 사용하여 컴포넌트(component) 인스턴스(instance)에 접근할 수 있습니다. 컴포넌트 인스턴스는 `data`에서 선언된 데이터 속성들을 노출합니다. 이러한 속성들을 변경하여 컴포넌트 상태를 업데이트할 수 있습니다.
 
 </div>
 
@@ -108,4 +108,4 @@ setup() {
 
 이벤트 핸들러는 인라인 표현식도 사용할 수 있으며, 수식어(modifiers)를 통해 일반적인 작업을 간소화할 수 있습니다. 이러한 세부 사항은 <a target="_blank" href="/guide/essentials/event-handling.html">가이드 - 이벤트 핸들링</a>에서 다룹니다.
 
-이제 직접 `increment` <span class="options-api">메서드</span><span class="composition-api">함수</span>를 구현하고, `v-on`을 사용하여 버튼에 바인딩해 보세요.
+이제 직접 `increment` <span class="options-api">메서드</span><span class="composition-api">함수</span>를 구현하고, `v-on`을 사용하여 버튼에 바인딩(binding)해 보세요.

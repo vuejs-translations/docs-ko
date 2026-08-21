@@ -32,7 +32,7 @@
 
   ### SSR 컨텍스트 {#ssr-context}
 
-  선택적으로 컨텍스트 객체를 전달할 수 있으며, 렌더링 중에 추가 데이터를 기록하는 데 사용할 수 있습니다. 예를 들어 [Teleport의 내용 접근](/guide/scaling-up/ssr#teleports)에 사용할 수 있습니다:
+  선택적으로 컨텍스트 객체를 전달할 수 있으며, 렌더링(rendering) 중에 추가 데이터를 기록하는 데 사용할 수 있습니다. 예를 들어 [Teleport의 내용 접근](/guide/scaling-up/ssr#teleports)에 사용할 수 있습니다:
 
   ```js
   const ctx = {}
@@ -41,7 +41,7 @@
   console.log(ctx.teleports) // { '#teleported': 'teleported content' }
   ```
 
-  이 페이지의 대부분의 다른 SSR API도 선택적으로 컨텍스트 객체를 받을 수 있습니다. 컨텍스트 객체는 컴포넌트 코드에서 [useSSRContext](#usessrcontext) 헬퍼를 통해 접근할 수 있습니다.
+  이 페이지의 대부분의 다른 SSR API도 선택적으로 컨텍스트 객체를 받을 수 있습니다. 컨텍스트 객체는 컴포넌트(component) 코드에서 [useSSRContext](#usessrcontext) 헬퍼를 통해 접근할 수 있습니다.
 
 - **관련 문서** [가이드 - 서버 사이드 렌더링](/guide/scaling-up/ssr)
 
@@ -73,7 +73,7 @@
 
 ## pipeToNodeWritable() {#pipetonodewritable}
 
-렌더링 후 기존 [Node.js Writable 스트림](https://nodejs.org/api/stream.html#stream_writable_streams) 인스턴스에 파이프합니다.
+렌더링 후 기존 [Node.js Writable 스트림](https://nodejs.org/api/stream.html#stream_writable_streams) 인스턴스(instance)에 파이프합니다.
 
 - **`vue/server-renderer`에서 내보냄**
 
@@ -223,7 +223,7 @@
 
 ## data-allow-mismatch <sup class="vt-badge" data-text="3.5+" /> {#data-allow-mismatch}
 
-[하이드레이션 불일치](/guide/scaling-up/ssr#hydration-mismatch) 경고를 억제하는 데 사용할 수 있는 특수 속성입니다.
+[하이드레이션(hydration) 불일치](/guide/scaling-up/ssr#hydration-mismatch) 경고를 억제하는 데 사용할 수 있는 특수 속성입니다.
 
 - **예시**
 

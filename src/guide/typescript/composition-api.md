@@ -6,7 +6,7 @@
 
 > 이 페이지는 이미 [TypeScript와 함께 Vue 사용하기](./overview) 개요를 읽었다고 가정합니다.
 
-## 컴포넌트 Props 타입 지정하기 {#typing-component-props}
+## 컴포넌트(component) Props 타입 지정하기 {#typing-component-props}
 
 ### `<script setup>` 사용하기 {#using-script-setup}
 
@@ -100,7 +100,7 @@ const props = withDefaults(defineProps<Props>(), {
 이 코드는 동등한 런타임 props `default` 옵션으로 컴파일됩니다. 추가로, `withDefaults` 헬퍼는 기본값에 대한 타입 검사를 제공하며, 기본값이 선언된 속성에 대해 반환된 `props` 타입에서 선택적 플래그를 제거합니다.
 
 :::info
-배열이나 객체와 같은 변경 가능한 참조 타입의 기본값은 `withDefaults`를 사용할 때 함수로 감싸야 하며, 이는 실수로 인한 수정 및 외부 부작용을 방지합니다. 이렇게 하면 각 컴포넌트 인스턴스가 기본값의 자체 복사본을 갖게 됩니다. 구조 분해 할당을 사용할 때는 이 작업이 **필요하지 않습니다**.
+배열이나 객체와 같은 변경 가능한 참조 타입의 기본값은 `withDefaults`를 사용할 때 함수로 감싸야 하며, 이는 실수로 인한 수정 및 외부 부작용을 방지합니다. 이렇게 하면 각 컴포넌트 인스턴스(instance)가 기본값의 자체 복사본을 갖게 됩니다. 구조 분해 할당을 사용할 때는 이 작업이 **필요하지 않습니다**.
 :::
 
 ### `<script setup>` 없이 {#without-script-setup}
@@ -373,7 +373,7 @@ const foo = inject<string>('foo', 'bar') // 타입: string
 const foo = inject('foo') as string
 ```
 
-## 템플릿 ref 타입 지정하기 {#typing-template-refs}
+## 템플릿(template) ref 타입 지정하기 {#typing-template-refs}
 
 Vue 3.5와 `@vue/language-tools` 2.1(IDE 언어 서비스와 `vue-tsc` 모두 지원)에서는 SFC에서 `useTemplateRef()`로 생성된 ref의 타입이, 정적 ref의 경우 해당 `ref` 속성이 사용된 요소를 기반으로 **자동 추론**될 수 있습니다.
 
@@ -408,7 +408,7 @@ onMounted(() => {
 
 적절한 DOM 인터페이스를 얻으려면 [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#technical_summary)과 같은 페이지를 참고할 수 있습니다.
 
-엄격한 타입 안전성을 위해서는 `el.value`에 접근할 때 옵셔널 체이닝 또는 타입 가드를 사용하는 것이 필요합니다. 이는 초기 ref 값이 컴포넌트가 마운트될 때까지 `null`이며, `v-if`로 참조된 요소가 언마운트될 경우에도 `null`이 될 수 있기 때문입니다.
+엄격한 타입 안전성을 위해서는 `el.value`에 접근할 때 옵셔널 체이닝 또는 타입 가드를 사용하는 것이 필요합니다. 이는 초기 ref 값이 컴포넌트가 마운트(mount)될 때까지 `null`이며, `v-if`로 참조된 요소가 언마운트(unmount)될 경우에도 `null`이 될 수 있기 때문입니다.
 
 ## 컴포넌트 템플릿 ref 타입 지정하기 {#typing-component-template-refs}
 
@@ -479,7 +479,7 @@ const openModal = () => {
 
 `@vue/language-tools` 2.1+에서는 정적 템플릿 ref의 타입이 자동으로 추론될 수 있으므로, 위와 같은 처리는 특수한 경우에만 필요합니다.
 
-## 전역 커스텀 디렉티브 타입 지정하기 {#typing-global-custom-directives}
+## 전역 커스텀 디렉티브(directive) 타입 지정하기 {#typing-global-custom-directives}
 
 `app.directive()`로 선언된 전역 커스텀 디렉티브에 대한 타입 힌트와 타입 검사를 사용하려면, `GlobalDirectives`를 확장하면 됩니다.
 

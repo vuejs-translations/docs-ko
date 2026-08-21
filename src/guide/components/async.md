@@ -2,7 +2,7 @@
 
 ## 기본 사용법 {#basic-usage}
 
-대형 애플리케이션에서는 앱을 더 작은 청크로 나누고, 필요할 때만 서버에서 컴포넌트를 로드해야 할 수 있습니다. 이를 가능하게 하기 위해 Vue는 [`defineAsyncComponent`](/api/general#defineasynccomponent) 함수를 제공합니다:
+대형 애플리케이션에서는 앱을 더 작은 청크로 나누고, 필요할 때만 서버에서 컴포넌트(component)를 로드해야 할 수 있습니다. 이를 가능하게 하기 위해 Vue는 [`defineAsyncComponent`](/api/general#defineasynccomponent) 함수를 제공합니다:
 
 ```js
 import { defineAsyncComponent } from 'vue'
@@ -16,9 +16,9 @@ const AsyncComp = defineAsyncComponent(() => {
 // ... `AsyncComp`을 일반 컴포넌트처럼 사용
 ```
 
-보시다시피, `defineAsyncComponent`는 Promise를 반환하는 로더 함수를 인자로 받습니다. 서버에서 컴포넌트 정의를 가져왔을 때 Promise의 `resolve` 콜백을 호출해야 합니다. 로드에 실패했음을 나타내려면 `reject(reason)`을 호출할 수도 있습니다.
+보시다시피, `defineAsyncComponent`는 Promise를 반환하는 로더 함수를 인자로 받습니다. 서버에서 컴포넌트 정의를 가져왔을 때 Promise의 `resolve` 콜백(callback)을 호출해야 합니다. 로드에 실패했음을 나타내려면 `reject(reason)`을 호출할 수도 있습니다.
 
-[ES 모듈 동적 import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)도 Promise를 반환하므로, 대부분의 경우 `defineAsyncComponent`와 함께 사용합니다. Vite와 webpack 같은 번들러도 이 문법을 지원하며(번들 분할 지점으로 사용), 이를 통해 Vue SFC를 import할 수 있습니다:
+[ES 모듈 동적 import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)도 Promise를 반환하므로, 대부분의 경우 `defineAsyncComponent`와 함께 사용합니다. Vite와 webpack 같은 번들러(bundler)도 이 문법을 지원하며(번들 분할 지점으로 사용), 이를 통해 Vue SFC를 import할 수 있습니다:
 
 ```js
 import { defineAsyncComponent } from 'vue'
@@ -28,7 +28,7 @@ const AsyncComp = defineAsyncComponent(() =>
 )
 ```
 
-결과로 생성된 `AsyncComp`는 실제로 페이지에 렌더링될 때만 로더 함수를 호출하는 래퍼 컴포넌트입니다. 또한, 모든 props와 slot을 내부 컴포넌트로 전달하므로, 비동기 래퍼를 사용해 원래 컴포넌트를 무리 없이 대체하면서 지연 로딩(lazy loading)을 구현할 수 있습니다.
+결과로 생성된 `AsyncComp`는 실제로 페이지에 렌더링(rendering)될 때만 로더 함수를 호출하는 래퍼 컴포넌트입니다. 또한, 모든 props와 slot을 내부 컴포넌트로 전달하므로, 비동기 래퍼를 사용해 원래 컴포넌트를 무리 없이 대체하면서 지연 로딩(lazy loading)을 구현할 수 있습니다.
 
 일반 컴포넌트와 마찬가지로, 비동기 컴포넌트도 `app.component()`를 사용해 [전역 등록](/guide/components/registration#global-registration)할 수 있습니다:
 
@@ -112,9 +112,9 @@ const AsyncComp = defineAsyncComponent({
 
 > 이 섹션은 [서버 사이드 렌더링](/guide/scaling-up/ssr)을 사용하는 경우에만 적용됩니다.
 
-Vue 3.5+에서는 비동기 컴포넌트가 하이드레이션 전략을 제공하여 언제 하이드레이션할지 제어할 수 있습니다.
+Vue 3.5+에서는 비동기 컴포넌트가 하이드레이션(hydration) 전략을 제공하여 언제 하이드레이션할지 제어할 수 있습니다.
 
-- Vue는 여러 내장 하이드레이션 전략을 제공합니다. 이 내장 전략들은 사용하지 않을 경우 트리 셰이킹이 가능하도록 개별적으로 import해야 합니다.
+- Vue는 여러 내장 하이드레이션 전략을 제공합니다. 이 내장 전략들은 사용하지 않을 경우 트리 셰이킹(tree-shaking)이 가능하도록 개별적으로 import해야 합니다.
 
 - 설계는 유연성을 위해 의도적으로 저수준입니다. 향후 코어 또는 [Vue 프레임워크](/guide/quick-start#frameworks)와 같은 상위 레벨 솔루션에서 컴파일러 문법 설탕이 추가될 수 있습니다.
 

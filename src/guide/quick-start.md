@@ -26,7 +26,7 @@ import { VTCodeGroup, VTCodeGroupTab } from '@vue/theme'
 - [Node.js](https://nodejs.org/) `^22.18.0 || >=24.12.0` 버전 설치
   :::
 
-이 섹션에서는 로컬 컴퓨터에서 Vue [싱글 페이지 애플리케이션](/guide/extras/ways-of-using-vue#single-page-application-spa)을 스캐폴딩하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vite.dev/)를 기반으로 한 빌드 환경을 사용하며, Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc) (SFC)를 사용할 수 있습니다.
+이 섹션에서는 로컬 컴퓨터에서 Vue [싱글 페이지 애플리케이션](/guide/extras/ways-of-using-vue#single-page-application-spa)을 스캐폴딩(scaffolding)하는 방법을 소개합니다. 생성된 프로젝트는 [Vite](https://vite.dev/)를 기반으로 한 빌드 환경을 사용하며, Vue [싱글 파일 컴포넌트](/guide/scaling-up/sfc) (SFC)를 사용할 수 있습니다.
 
 최신 버전의 [Node.js](https://nodejs.org/)가 설치되어 있는지 확인하고, 현재 작업 디렉터리가 프로젝트를 생성하려는 위치인지 확인하세요. 커맨드 라인에서 다음 명령어를 실행하세요(`$` 기호는 입력하지 않습니다):
 
@@ -103,7 +103,7 @@ $ bun run dev
 :::
 
 
-이제 첫 번째 Vue 프로젝트가 실행되고 있을 것입니다! 생성된 프로젝트의 예제 컴포넌트는 [옵션 API](/guide/introduction#options-api)가 아닌 [컴포지션 API](/guide/introduction#composition-api)와 `<script setup>`을 사용하여 작성되어 있습니다. 추가 팁은 다음과 같습니다:
+이제 첫 번째 Vue 프로젝트가 실행되고 있을 것입니다! 생성된 프로젝트의 예제 컴포넌트(component)는 [옵션 API](/guide/introduction#options-api)가 아닌 [컴포지션 API](/guide/introduction#composition-api)와 `<script setup>`을 사용하여 작성되어 있습니다. 추가 팁은 다음과 같습니다:
 
 - 권장 IDE 설정은 [Visual Studio Code](https://code.visualstudio.com/) + [Vue - 공식 확장 프로그램](https://marketplace.visualstudio.com/items?itemName=Vue.volar)입니다. 다른 에디터를 사용한다면 [IDE 지원 섹션](/guide/scaling-up/tooling#ide-support)을 참고하세요.
 - 백엔드 프레임워크와의 통합 등 더 많은 도구 관련 정보는 [도구 가이드](/guide/scaling-up/tooling)에서 다룹니다.
@@ -395,7 +395,7 @@ export default {
 
 로컬 HTTP 서버를 시작하려면, 먼저 [Node.js](https://nodejs.org/en/)가 설치되어 있는지 확인한 후, HTML 파일이 있는 디렉터리에서 커맨드 라인으로 `npx serve`를 실행하세요. 정적 파일을 올바른 MIME 타입으로 제공할 수 있는 다른 HTTP 서버를 사용해도 됩니다.
 
-가져온 컴포넌트의 템플릿이 자바스크립트 문자열로 인라인되어 있다는 점을 눈치챘을 수도 있습니다. VS Code를 사용한다면 [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) 확장 프로그램을 설치하고, 문자열 앞에 `/*html*/` 주석을 붙이면 문법 하이라이팅을 받을 수 있습니다.
+가져온 컴포넌트의 템플릿(template)이 자바스크립트 문자열로 인라인되어 있다는 점을 눈치챘을 수도 있습니다. VS Code를 사용한다면 [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) 확장 프로그램을 설치하고, 문자열 앞에 `/*html*/` 주석을 붙이면 문법 하이라이팅을 받을 수 있습니다.
 
 ## 프레임워크 {#frameworks}
 

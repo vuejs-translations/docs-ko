@@ -1,4 +1,4 @@
-# 폼 바인딩 {#form-bindings}
+# 폼 바인딩(binding) {#form-bindings}
 
 `v-bind`와 `v-on`을 함께 사용하면 폼 입력 요소에서 양방향 바인딩을 만들 수 있습니다:
 
@@ -34,7 +34,7 @@ function onInput(e) {
 
 입력 상자에 타이핑해 보세요 - 입력할 때마다 `<p>`의 텍스트가 업데이트되는 것을 볼 수 있습니다.
 
-양방향 바인딩을 더 간단하게 하기 위해, Vue는 `v-model`이라는 디렉티브를 제공합니다. 이는 본질적으로 위의 예시를 위한 문법적 설탕(syntactic sugar)입니다:
+양방향 바인딩을 더 간단하게 하기 위해, Vue는 `v-model`이라는 디렉티브(directive)를 제공합니다. 이는 본질적으로 위의 예시를 위한 문법적 설탕(syntactic sugar)입니다:
 
 ```vue-html
 <input v-model="text">

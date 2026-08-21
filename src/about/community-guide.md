@@ -27,7 +27,7 @@ Vue의 커뮤니티는 놀랍도록 빠르게 성장하고 있으며 이 글을 
 - [포럼](https://forum.vuejs.org/): Vue와 그 에코시스템에 대해 질문하고 답변을 얻을 수 있는 최고의 장소입니다.
 - [DEV Community](https://dev.to/t/vue): Dev.to에서 Vue 관련 주제를 공유하고 토론합니다.
 - [밋업](https://events.vuejs.org/meetups): 나와 같은 지역 Vue 애호가를 찾고 싶으신가요? 커뮤니티 리더가 되고 싶으신가요? 필요한 도움과 지원이 바로 여기에 있습니다!
-- [깃허브](https://github.com/vuejs): 보고할 버그나 요청할 기능이 있는 경우 GitHub 이슈를 이용하세요. 각 리포지토리의 이슈 템플릿에 명시된 규칙을 준수해 주세요.
+- [깃허브](https://github.com/vuejs): 보고할 버그나 요청할 기능이 있는 경우 GitHub 이슈를 이용하세요. 각 리포지토리의 이슈 템플릿(template)에 명시된 규칙을 준수해 주세요.
 - [트위터 커뮤니티(비공식)](https://x.com/i/communities/1516368750634840064): 다른 Vue 애호가를 만나거나 도움을 받거나 Vue에 대해 채팅할 수 있는 트위터 커뮤니티입니다.
 
 ### 생태계 탐색 {#explore-the-ecosystem}

@@ -44,7 +44,7 @@
 }
 ```
 
-사용자가 라우트를 변경하면, 페이지의 맨 처음, 즉 건너뛰기 링크 바로 앞에 포커스를 다시 가져와야 합니다. 이는 `backToTop` 템플릿 ref에 focus를 호출하여 달성할 수 있습니다(`vue-router` 사용을 가정):
+사용자가 라우트를 변경하면, 페이지의 맨 처음, 즉 건너뛰기 링크 바로 앞에 포커스를 다시 가져와야 합니다. 이는 `backToTop` 템플릿(template) ref에 focus를 호출하여 달성할 수 있습니다(`vue-router` 사용을 가정):
 
 <div class="options-api">
 
@@ -229,7 +229,7 @@ Chrome DevTools에서 이 요소를 검사하여 접근 가능한 이름이 어�
 
 ![Chrome 개발자 도구에서 aria-labelledby로부터 입력의 접근 가능한 이름을 보여주는 화면](./images/AccessibleARIAlabelledbyDevTools.png)
 
-이 패턴을 재사용 가능한 컴포넌트 내부에서 사용할 때는, ID를 하드코딩하는 대신 [`useId()`](/api/composition-api-helpers.html#useid)로 생성하세요. 이렇게 하면 화면에 보이는 텍스트를 폼 컨트롤과 연결하면서도, 각 컴포넌트 인스턴스의 `id` 값을 고유하게 유지할 수 있습니다:
+이 패턴을 재사용 가능한 컴포넌트(component) 내부에서 사용할 때는, ID를 하드코딩하는 대신 [`useId()`](/api/composition-api-helpers.html#useid)로 생성하세요. 이렇게 하면 화면에 보이는 텍스트를 폼 컨트롤과 연결하면서도, 각 컴포넌트 인스턴스(instance)의 `id` 값을 고유하게 유지할 수 있습니다:
 
 ```vue
 <script setup>
@@ -340,7 +340,7 @@ Chrome DevTools에서 설명을 확인할 수 있습니다:
 ### 안내문 {#instructions}
 
 입력 필드에 안내문을 추가할 때는 입력과 올바르게 연결되었는지 확인하세요.
-추가 안내문을 제공하고 [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby) 내에 여러 id를 바인딩할 수 있습니다. 이를 통해 더 유연한 디자인이 가능합니다.
+추가 안내문을 제공하고 [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby) 내에 여러 id를 바인딩(binding)할 수 있습니다. 이를 통해 더 유연한 디자인이 가능합니다.
 
 ```vue-html
 <fieldset>

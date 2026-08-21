@@ -8,7 +8,7 @@
 
 - **세부사항**
 
-  `v-text`는 요소의 [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) 속성을 설정하여 동작하므로, 요소 내부의 기존 콘텐츠를 모두 덮어씁니다. `textContent`의 일부만 업데이트해야 한다면 [머스태시 보간법](/guide/essentials/template-syntax#text-interpolation)을 대신 사용해야 합니다(예: <span v-pre>`<span>Keep this but update a {{dynamicPortion}}</span>`</span>).
+  `v-text`는 요소의 [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) 속성을 설정하여 동작하므로, 요소 내부의 기존 콘텐츠를 모두 덮어씁니다. `textContent`의 일부만 업데이트해야 한다면 [이중 중괄호(mustache) 보간](/guide/essentials/template-syntax#text-interpolation)을 대신 사용해야 합니다(예: <span v-pre>`<span>Keep this but update a {{dynamicPortion}}</span>`</span>).
 
 - **예시**
 
@@ -18,7 +18,7 @@
   <span>{{msg}}</span>
   ```
 
-- **참고** [템플릿 문법 - 텍스트 보간](/guide/essentials/template-syntax#text-interpolation)
+- **참고** [템플릿 문법 - 텍스트 보간(interpolation)](/guide/essentials/template-syntax#text-interpolation)
 
 ## v-html {#v-html}
 
@@ -28,10 +28,10 @@
 
 - **세부사항**
 
-  `v-html`의 내용은 일반 HTML로 삽입되며, Vue 템플릿 문법은 처리되지 않습니다. `v-html`을 사용해 템플릿을 조합하려고 한다면, 대신 컴포넌트를 사용하는 방식으로 해결책을 다시 생각해보세요.
+  `v-html`의 내용은 일반 HTML로 삽입되며, Vue 템플릿 문법은 처리되지 않습니다. `v-html`을 사용해 템플릿(template)을 조합하려고 한다면, 대신 컴포넌트(component)를 사용하는 방식으로 해결책을 다시 생각해보세요.
 
   ::: warning 보안 주의
-  웹사이트에서 임의의 HTML을 동적으로 렌더링하는 것은 매우 위험할 수 있습니다. 이는 쉽게 [XSS 공격](https://en.wikipedia.org/wiki/Cross-site_scripting)으로 이어질 수 있기 때문입니다. 신뢰할 수 있는 콘텐츠에만 `v-html`을 사용하고, **절대** 사용자로부터 제공된 콘텐츠에는 사용하지 마세요.
+  웹사이트에서 임의의 HTML을 동적으로 렌더링(rendering)하는 것은 매우 위험할 수 있습니다. 이는 쉽게 [XSS 공격](https://en.wikipedia.org/wiki/Cross-site_scripting)으로 이어질 수 있기 때문입니다. 신뢰할 수 있는 콘텐츠에만 `v-html`을 사용하고, **절대** 사용자로부터 제공된 콘텐츠에는 사용하지 마세요.
   :::
 
   [싱글 파일 컴포넌트](/guide/scaling-up/sfc)에서는, `scoped` 스타일이 `v-html` 내부의 콘텐츠에는 적용되지 않습니다. 이는 해당 HTML이 Vue의 템플릿 컴파일러에 의해 처리되지 않기 때문입니다. `v-html` 콘텐츠에 scoped CSS를 적용하려면 [CSS 모듈](./sfc-css-features#css-modules)이나 BEM과 같은 수동 스코핑 전략을 가진 추가적인 전역 `<style>` 요소를 사용할 수 있습니다.
@@ -52,7 +52,7 @@
 
 - **세부사항**
 
-  `v-show`는 인라인 스타일을 통해 `display` CSS 속성을 설정하여 동작하며, 요소가 보일 때 초기 `display` 값을 최대한 존중합니다. 또한 조건이 변경될 때 트랜지션을 트리거합니다.
+  `v-show`는 인라인 스타일을 통해 `display` CSS 속성을 설정하여 동작하며, 요소가 보일 때 초기 `display` 값을 최대한 존중합니다. 또한 조건이 변경될 때 트랜지션(transition)을 트리거합니다.
 
 - **참고** [조건부 렌더링 - v-show](/guide/essentials/conditional#v-show)
 
@@ -68,7 +68,7 @@
 
   `<template>`에 사용할 수 있어, 텍스트만 포함하거나 여러 요소를 포함하는 조건부 블록을 나타낼 수 있습니다.
 
-  이 디렉티브는 조건이 변경될 때 트랜지션을 트리거합니다.
+  이 디렉티브(directive)는 조건이 변경될 때 트랜지션을 트리거합니다.
 
   함께 사용할 때, `v-if`가 `v-for`보다 우선순위가 높습니다. 이 두 디렉티브를 하나의 요소에 함께 사용하는 것은 권장하지 않습니다. 자세한 내용은 [리스트 렌더링 가이드](/guide/essentials/list#v-for-with-v-if)를 참고하세요.
 
@@ -169,7 +169,7 @@
 
 ## v-on {#v-on}
 
-요소에 이벤트 리스너를 연결합니다.
+요소에 이벤트 리스너(listener)를 연결합니다.
 
 - **축약형:** `@`
 
@@ -198,7 +198,7 @@
 
   네이티브 DOM 이벤트를 리스닝할 때, 메서드는 네이티브 이벤트를 유일한 인자로 받습니다. 인라인 문장을 사용할 경우, 특별한 `$event` 속성에 접근할 수 있습니다: `v-on:click="handle('ok', $event)"`.
 
-  `v-on`은 인자 없이 이벤트/리스너 쌍의 객체에 바인딩하는 것도 지원합니다. 객체 문법을 사용할 때는 수식어를 지원하지 않습니다.
+  `v-on`은 인자 없이 이벤트/리스너 쌍의 객체에 바인딩(binding)하는 것도 지원합니다. 객체 문법을 사용할 때는 수식어를 지원하지 않습니다.
 
 - **예시**
 
@@ -428,7 +428,7 @@ props를 받을 것으로 예상되는 명명된 슬롯(named slots) 또는 스�
 
 - **세부사항**
 
-  `v-pre`가 있는 요소 내부에서는 모든 Vue 템플릿 문법이 그대로 보존되어 렌더링됩니다. 가장 일반적인 사용 사례는 원시 머스태시 태그를 표시하는 것입니다.
+  `v-pre`가 있는 요소 내부에서는 모든 Vue 템플릿 문법이 그대로 보존되어 렌더링됩니다. 가장 일반적인 사용 사례는 원시 이중 중괄호 태그를 표시하는 것입니다.
 
 - **예시**
 
@@ -476,7 +476,7 @@ props를 받을 것으로 예상되는 명명된 슬롯(named slots) 또는 스�
 
 - **세부사항**
 
-  템플릿의 서브 트리를 메모이즈합니다. 요소와 컴포넌트 모두에 사용할 수 있습니다. 디렉티브는 메모이제이션을 위해 비교할 고정 길이의 의존성 값 배열을 기대합니다. 배열의 모든 값이 마지막 렌더와 동일하다면, 전체 서브 트리에 대한 업데이트가 건너뜁니다. 예를 들어:
+  템플릿의 서브 트리를 메모이즈합니다. 요소와 컴포넌트 모두에 사용할 수 있습니다. 디렉티브는 메모이제이션(memoization)을 위해 비교할 고정 길이의 의존성 값 배열을 기대합니다. 배열의 모든 값이 마지막 렌더와 동일하다면, 전체 서브 트리에 대한 업데이트가 건너뜁니다. 예를 들어:
 
   ```vue-html
   <div v-memo="[valueA, valueB]">
@@ -520,9 +520,9 @@ props를 받을 것으로 예상되는 명명된 슬롯(named slots) 또는 스�
 
   **이 디렉티브는 빌드 단계가 없는 환경에서만 필요합니다.**
 
-  in-DOM 템플릿을 사용할 때, "컴파일되지 않은 템플릿의 깜빡임"이 발생할 수 있습니다. 즉, 마운트된 컴포넌트가 렌더링된 콘텐츠로 교체되기 전까지 사용자가 원시 머스태시 태그를 볼 수 있습니다.
+  in-DOM 템플릿을 사용할 때, "컴파일되지 않은 템플릿의 깜빡임"이 발생할 수 있습니다. 즉, 마운트(mount)된 컴포넌트가 렌더링된 콘텐츠로 교체되기 전까지 사용자가 원시 이중 중괄호 태그를 볼 수 있습니다.
 
-  `v-cloak`는 관련 컴포넌트 인스턴스가 마운트될 때까지 요소에 남아 있습니다. `[v-cloak] { display: none }`과 같은 CSS 규칙과 결합하여, 컴포넌트가 준비될 때까지 원시 템플릿을 숨기는 데 사용할 수 있습니다.
+  `v-cloak`는 관련 컴포넌트 인스턴스(instance)가 마운트될 때까지 요소에 남아 있습니다. `[v-cloak] { display: none }`과 같은 CSS 규칙과 결합하여, 컴포넌트가 준비될 때까지 원시 템플릿을 숨기는 데 사용할 수 있습니다.
 
 - **예시**
 

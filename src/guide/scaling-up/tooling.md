@@ -10,14 +10,14 @@ Vue SFC를 사용해보려면 컴퓨터에 아무것도 설치할 필요가 없�
 
 - [Vue SFC Playground](https://play.vuejs.org)
   - 항상 최신 커밋에서 배포됨
-  - 컴포넌트 컴파일 결과를 확인하는 데 최적화됨
+  - 컴포넌트(component) 컴파일 결과를 확인하는 데 최적화됨
 - [Vue + Vite on StackBlitz](https://vite.new/vue)
   - 실제 Vite 개발 서버가 브라우저에서 실행되는 IDE와 유사한 환경
   - 로컬 환경과 가장 유사함
 
 버그를 신고할 때 재현 예시를 제공하기 위해서도 이러한 온라인 플레이그라운드를 사용하는 것이 좋습니다.
 
-## 프로젝트 스캐폴딩 {#project-scaffolding}
+## 프로젝트 스캐폴딩(scaffolding) {#project-scaffolding}
 
 ### Vite {#vite}
 
@@ -63,9 +63,9 @@ $ bun create vue@latest
 Vue CLI에서 Vite로 마이그레이션하는 방법:
 
 - [VueSchool.io의 Vue CLI -> Vite 마이그레이션 가이드](https://vueschool.io/articles/vuejs-tutorials/how-to-migrate-from-vue-cli-to-vite/)
-- [자동 마이그레이션을 도와주는 도구/플러그인](https://github.com/vitejs/awesome-vite#vue-cli)
+- [자동 마이그레이션을 도와주는 도구/플러그인(plugin)](https://github.com/vitejs/awesome-vite#vue-cli)
 
-### 브라우저 내 템플릿 컴파일에 대한 참고 사항 {#note-on-in-browser-template-compilation}
+### 브라우저 내 템플릿(template) 컴파일에 대한 참고 사항 {#note-on-in-browser-template-compilation}
 
 빌드 단계를 거치지 않고 Vue를 사용할 때는 컴포넌트 템플릿을 페이지의 HTML에 직접 작성하거나 인라인 자바스크립트 문자열로 작성합니다. 이런 경우, Vue는 브라우저에서 즉석으로 템플릿을 컴파일하기 위해 템플릿 컴파일러를 함께 제공해야 합니다. 반면, 빌드 단계에서 미리 템플릿을 컴파일하면 컴파일러가 필요하지 않습니다. 클라이언트 번들 크기를 줄이기 위해 Vue는 [다양한 "빌드"](https://unpkg.com/browse/vue@3/dist/)를 제공하여 각 용도에 맞게 최적화합니다.
 
@@ -158,7 +158,7 @@ Vue 팀은 SFC 전용 린팅 규칙을 지원하는 [ESLint](https://eslint.org/
 
 - [문서](https://github.com/vuejs/core/tree/main/packages/compiler-sfc)
 
-이 패키지는 Vue 코어 모노레포의 일부이며, 항상 메인 `vue` 패키지와 동일한 버전으로 배포됩니다. 메인 `vue` 패키지의 의존성으로 포함되어 있으며, `vue/compiler-sfc`로 프록시되어 별도로 설치할 필요가 없습니다.
+이 패키지는 Vue 코어 모노레포의 일부이며, 항상 메인 `vue` 패키지와 동일한 버전으로 배포됩니다. 메인 `vue` 패키지의 의존성으로 포함되어 있으며, `vue/compiler-sfc`로 프록시(proxy)되어 별도로 설치할 필요가 없습니다.
 
 이 패키지는 Vue SFC를 처리하기 위한 하위 레벨 유틸리티를 제공하며, 커스텀 도구에서 Vue SFC를 지원해야 하는 도구 제작자를 위한 것입니다.
 
@@ -188,6 +188,6 @@ webpack에서 Vue SFC 지원을 제공하는 공식 로더입니다. Vue CLI를 
 
 ## 백엔드 프레임워크 통합 {#backend-framework-integrations}
 
-Vue를 [Laravel](https://laravel.com/)과 함께 사용한다면, Laravel이 공식 [Vite 플러그인](https://laravel.com/docs/vite)을 제공하므로 에셋 번들링과 핫 모듈 교체(HMR)를 별도 설정 없이 바로 사용할 수 있습니다.
+Vue를 [Laravel](https://laravel.com/)과 함께 사용한다면, Laravel이 공식 [Vite 플러그인](https://laravel.com/docs/vite)을 제공하므로 에셋 번들링(bundling)과 핫 모듈 교체(HMR)를 별도 설정 없이 바로 사용할 수 있습니다.
 
 다른 백엔드를 사용한다면, Vite의 [백엔드 통합 가이드](https://vite.dev/guide/backend-integration.html)를 참고하여 직접 연동을 설정하세요.

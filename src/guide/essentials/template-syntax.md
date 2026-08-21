@@ -4,25 +4,25 @@
   Scrimba에서 인터랙티브 비디오 강의 시청하기
 </ScrimbaLink>
 
-Vue는 HTML 기반의 템플릿 문법을 사용하여 렌더링된 DOM을 컴포넌트 인스턴스의 데이터에 선언적으로 바인딩할 수 있게 해줍니다. 모든 Vue 템플릿은 문법적으로 유효한 HTML이기 때문에, 표준을 준수하는 브라우저와 HTML 파서에서 파싱될 수 있습니다.
+Vue는 HTML 기반의 템플릿(template) 문법을 사용하여 렌더링(rendering)된 DOM을 컴포넌트 인스턴스(instance)의 데이터에 선언적으로 바인딩(binding)할 수 있게 해줍니다. 모든 Vue 템플릿은 문법적으로 유효한 HTML이기 때문에, 표준을 준수하는 브라우저와 HTML 파서에서 파싱될 수 있습니다.
 
-내부적으로 Vue는 템플릿을 고도로 최적화된 JavaScript 코드로 컴파일합니다. 반응성(reactivity) 시스템과 결합하여, Vue는 앱 상태가 변경될 때 다시 렌더링해야 할 최소한의 컴포넌트와 최소한의 DOM 조작만을 지능적으로 파악하여 적용할 수 있습니다.
+내부적으로 Vue는 템플릿을 고도로 최적화된 JavaScript 코드로 컴파일합니다. 반응성(reactivity) 시스템과 결합하여, Vue는 앱 상태가 변경될 때 다시 렌더링해야 할 최소한의 컴포넌트(component)와 최소한의 DOM 조작만을 지능적으로 파악하여 적용할 수 있습니다.
 
 Virtual DOM 개념에 익숙하고 JavaScript의 강력한 기능을 선호한다면, 템플릿 대신 [렌더 함수](/guide/extras/render-function)를 직접 작성할 수도 있으며, 선택적으로 JSX도 지원합니다. 하지만, 이 경우 템플릿만큼의 컴파일 타임 최적화는 누릴 수 없다는 점에 유의하세요.
 
 ## 텍스트 보간 {#text-interpolation}
 
-데이터 바인딩의 가장 기본적인 형태는 "머스태시" 문법(이중 중괄호)을 사용하는 텍스트 보간입니다:
+데이터 바인딩의 가장 기본적인 형태는 "이중 중괄호(mustache)" 문법을 사용하는 텍스트 보간(interpolation)입니다:
 
 ```vue-html
 <span>메시지: {{ msg }}</span>
 ```
 
-머스태시 태그는 [해당 컴포넌트 인스턴스](/guide/essentials/reactivity-fundamentals#declaring-reactive-state)의 `msg` 속성 값으로 대체됩니다. 또한 `msg` 속성이 변경될 때마다 자동으로 업데이트됩니다.
+이중 중괄호 태그는 [해당 컴포넌트 인스턴스](/guide/essentials/reactivity-fundamentals#declaring-reactive-state)의 `msg` 속성 값으로 대체됩니다. 또한 `msg` 속성이 변경될 때마다 자동으로 업데이트됩니다.
 
 ## 원시 HTML {#raw-html}
 
-이중 머스태시는 데이터를 일반 텍스트로 해석하며, HTML로 해석하지 않습니다. 실제 HTML을 출력하려면 [`v-html` 디렉티브](/api/built-in-directives#v-html)를 사용해야 합니다:
+이중 중괄호는 데이터를 일반 텍스트로 해석하며, HTML로 해석하지 않습니다. 실제 HTML을 출력하려면 [`v-html` 디렉티브(directive)](/api/built-in-directives#v-html)를 사용해야 합니다:
 
 ```vue-html
 <p>텍스트 보간 사용: {{ rawHtml }}</p>
@@ -48,7 +48,7 @@ Virtual DOM 개념에 익숙하고 JavaScript의 강력한 기능을 선호한�
 
 ## 속성 바인딩 {#attribute-bindings}
 
-머스태시는 HTML 속성 내부에서는 사용할 수 없습니다. 대신 [`v-bind` 디렉티브](/api/built-in-directives#v-bind)를 사용하세요:
+이중 중괄호는 HTML 속성 내부에서는 사용할 수 없습니다. 대신 [`v-bind` 디렉티브](/api/built-in-directives#v-bind)를 사용하세요:
 
 ```vue-html
 <div v-bind:id="dynamicId"></div>
@@ -82,7 +82,7 @@ Virtual DOM 개념에 익숙하고 JavaScript의 강력한 기능을 선호한�
 <div v-bind:id></div>
 ```
 
-이는 JavaScript에서 객체 선언 시 프로퍼티 축약 문법과 유사합니다. 이 기능은 Vue 3.4 이상에서만 사용할 수 있습니다.
+이는 JavaScript에서 객체 선언 시 프로퍼티(property) 축약 문법과 유사합니다. 이 기능은 Vue 3.4 이상에서만 사용할 수 있습니다.
 
 ### 불리언 속성 {#boolean-attributes}
 
@@ -150,7 +150,7 @@ data() {
 
 Vue 템플릿에서는 다음 위치에서 JavaScript 표현식을 사용할 수 있습니다:
 
-- 텍스트 보간(머스태시) 내부
+- 텍스트 보간(이중 중괄호) 내부
 - 모든 Vue 디렉티브(즉, `v-`로 시작하는 특수 속성)의 속성 값
 
 ### 표현식만 허용 {#expressions-only}

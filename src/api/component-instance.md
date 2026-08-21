@@ -1,14 +1,14 @@
 # 컴포넌트 인스턴스 {#component-instance}
 
 :::info
-이 페이지는 컴포넌트 공개 인스턴스, 즉 `this`에 노출되는 내장 속성과 메서드에 대해 문서화합니다.
+이 페이지는 컴포넌트 공개 인스턴스(instance), 즉 `this`에 노출되는 내장 속성과 메서드에 대해 문서화합니다.
 
 이 페이지에 나열된 모든 속성은 읽기 전용입니다(`$data`의 중첩 속성 제외).
 :::
 
 ## $data {#data}
 
-[`data`](./options-state#data) 옵션에서 반환된 객체로, 컴포넌트에 의해 반응형으로 만들어집니다. 컴포넌트 인스턴스는 자신의 데이터 객체의 속성에 대한 접근을 프록시합니다.
+[`data`](./options-state#data) 옵션에서 반환된 객체로, 컴포넌트(component)에 의해 반응형으로 만들어집니다. 컴포넌트 인스턴스는 자신의 데이터 객체의 속성에 대한 접근을 프록시(proxy)합니다.
 
 - **타입**
 
@@ -48,14 +48,14 @@
 
 - **세부사항**
 
-  컴포넌트가 [마운트](./options-lifecycle#mounted)되기 전까지 `$el`은 `undefined`입니다.
+  컴포넌트가 [마운트(mount)](./options-lifecycle#mounted)되기 전까지 `$el`은 `undefined`입니다.
 
   - 단일 루트 엘리먼트를 가진 컴포넌트의 경우, `$el`은 해당 엘리먼트를 가리킵니다.
   - 텍스트 루트를 가진 컴포넌트의 경우, `$el`은 텍스트 노드를 가리킵니다.
-  - 여러 루트 노드를 가진 컴포넌트의 경우, `$el`은 Vue가 DOM 내 컴포넌트의 위치를 추적하기 위해 사용하는 플레이스홀더 DOM 노드(텍스트 노드 또는 SSR 하이드레이션 모드의 주석 노드)입니다.
+  - 여러 루트 노드를 가진 컴포넌트의 경우, `$el`은 Vue가 DOM 내 컴포넌트의 위치를 추적하기 위해 사용하는 플레이스홀더 DOM 노드(텍스트 노드 또는 SSR 하이드레이션(hydration) 모드의 주석 노드)입니다.
 
   :::tip
-  일관성을 위해 `$el`에 의존하는 대신 [템플릿 ref](/guide/essentials/template-refs)를 사용하여 엘리먼트에 직접 접근하는 것이 권장됩니다.
+  일관성을 위해 `$el`에 의존하는 대신 [템플릿(template) ref](/guide/essentials/template-refs)를 사용하여 엘리먼트에 직접 접근하는 것이 권장됩니다.
   :::
 
 ## $options {#options}
@@ -74,7 +74,7 @@
 
   `$options` 객체는 현재 컴포넌트의 해석된 옵션을 노출하며, 다음과 같은 가능한 소스의 병합 결과입니다:
 
-  - 전역 믹스인
+  - 전역 믹스인(mixin)
   - 컴포넌트 `extends` 기반
   - 컴포넌트 믹스인
 
@@ -117,7 +117,7 @@
 
 ## $slots {#slots}
 
-부모 컴포넌트에 의해 전달된 [슬롯](/guide/components/slots)을 나타내는 객체입니다.
+부모 컴포넌트에 의해 전달된 [슬롯(slot)](/guide/components/slots)을 나타내는 객체입니다.
 
 - **타입**
 
@@ -137,7 +137,7 @@
 
   슬롯이 [스코프 슬롯(scoped slots)](/guide/components/slots#scoped-slots)인 경우, 슬롯 함수에 전달된 인자는 슬롯의 슬롯 props로 사용할 수 있습니다.
 
-- **참고** [렌더 함수 - 슬롯 렌더링](/guide/extras/render-function#rendering-slots)
+- **참고** [렌더 함수 - 슬롯 렌더링(rendering)](/guide/extras/render-function#rendering-slots)
 
 ## $refs {#refs}
 
@@ -214,7 +214,7 @@
 
   첫 번째 인자는 감시할 소스입니다. 컴포넌트 속성 이름 문자열, 단순 점(.)으로 구분된 경로 문자열, 또는 [getter 함수](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/get#description)일 수 있습니다.
 
-  두 번째 인자는 콜백 함수입니다. 콜백은 감시 대상의 새 값과 이전 값을 받습니다.
+  두 번째 인자는 콜백(callback) 함수입니다. 콜백은 감시 대상의 새 값과 이전 값을 받습니다.
 
   - **`immediate`**: 감시자 생성 시 즉시 콜백을 트리거합니다. 첫 호출 시 이전 값은 `undefined`입니다.
   - **`deep`**: 소스가 객체일 경우 깊은 탐색을 강제하여, 깊은 변경에도 콜백이 실행됩니다. [깊은 감시자](/guide/essentials/watchers#deep-watchers) 참고.
@@ -263,7 +263,7 @@
 
 ## $emit() {#emit}
 
-현재 인스턴스에서 커스텀 이벤트를 트리거합니다. 추가 인자는 리스너의 콜백 함수로 전달됩니다.
+현재 인스턴스에서 커스텀 이벤트를 트리거합니다. 추가 인자는 리스너(listener)의 콜백 함수로 전달됩니다.
 
 - **타입**
 
@@ -309,7 +309,7 @@
 
 ## $nextTick() {#nexttick}
 
-전역 [`nextTick()`](./general#nexttick)의 인스턴스 바인딩 버전입니다.
+전역 [`nextTick()`](./general#nexttick)의 인스턴스 바인딩(binding) 버전입니다.
 
 - **타입**
 

@@ -12,15 +12,15 @@ outline: deep
 
 <VueSchoolLink href="https://vueschool.io/lessons/introduction-to-the-vue-js-3-composition-api" title="무료 Composition API 강의"/>
 
-컴포지션 API는 옵션을 선언하는 대신 가져온 함수를 사용하여 Vue 컴포넌트를 작성할 수 있게 해주는 API 집합입니다. 다음과 같은 API를 포괄하는 상위 개념입니다:
+컴포지션 API는 옵션을 선언하는 대신 가져온 함수를 사용하여 Vue 컴포넌트(component)를 작성할 수 있게 해주는 API 집합입니다. 다음과 같은 API를 포괄하는 상위 개념입니다:
 
 - [반응성(reactivity) API](/api/reactivity-core), 예: `ref()`와 `reactive()`, 이를 통해 반응형 상태, 계산된 상태, 감시자(watchers)를 직접 생성할 수 있습니다.
 
-- [생명주기 훅](/api/composition-api-lifecycle), 예: `onMounted()`와 `onUnmounted()`, 이를 통해 컴포넌트 생명주기에 프로그래밍적으로 연결할 수 있습니다.
+- [생명주기(lifecycle) 훅(hook)](/api/composition-api-lifecycle), 예: `onMounted()`와 `onUnmounted()`, 이를 통해 컴포넌트 생명주기에 프로그래밍적으로 연결할 수 있습니다.
 
 - [의존성 주입(dependency injection)](/api/composition-api-dependency-injection), 즉 `provide()`와 `inject()`, 이를 통해 Reactivity API를 사용하면서 Vue의 의존성 주입 시스템을 활용할 수 있습니다.
 
-컴포지션 API는 Vue 3와 [Vue 2.7](https://blog.vuejs.org/posts/vue-2-7-naruto.html)의 내장 기능입니다. 이전 Vue 2 버전에서는 공식적으로 관리되는 [`@vue/composition-api`](https://github.com/vuejs/composition-api) 플러그인을 사용하세요. Vue 3에서는 주로 Single-File Component에서 [`<script setup>`](/api/sfc-script-setup) 문법과 함께 사용됩니다. 다음은 컴포지션 API를 사용하는 컴포넌트의 기본 예시입니다:
+컴포지션 API는 Vue 3와 [Vue 2.7](https://blog.vuejs.org/posts/vue-2-7-naruto.html)의 내장 기능입니다. 이전 Vue 2 버전에서는 공식적으로 관리되는 [`@vue/composition-api`](https://github.com/vuejs/composition-api) 플러그인(plugin)을 사용하세요. Vue 3에서는 주로 Single-File Component에서 [`<script setup>`](/api/sfc-script-setup) 문법과 함께 사용됩니다. 다음은 컴포지션 API를 사용하는 컴포넌트의 기본 예시입니다:
 
 ```vue
 <script setup>
@@ -53,7 +53,7 @@ onMounted(() => {
 
 ### 더 나은 로직 재사용 {#better-logic-reuse}
 
-컴포지션 API의 주요 장점은 [컴포저블 함수](/guide/reusability/composables) 형태로 깔끔하고 효율적인 로직 재사용이 가능하다는 점입니다. 이는 Options API의 주요 로직 재사용 메커니즘인 [믹스인](/guide/reusability/composables#vs-mixins)의 모든 단점을 해결합니다.
+컴포지션 API의 주요 장점은 [컴포저블(composable) 함수](/guide/reusability/composables) 형태로 깔끔하고 효율적인 로직 재사용이 가능하다는 점입니다. 이는 Options API의 주요 로직 재사용 메커니즘인 [믹스인(mixin)](/guide/reusability/composables#vs-mixins)의 모든 단점을 해결합니다.
 
 컴포지션 API의 로직 재사용 기능 덕분에 [VueUse](https://vueuse.org/)와 같은 인상적인 커뮤니티 프로젝트가 탄생했습니다. 이는 컴포저블 유틸리티의 지속적으로 성장하는 모음집입니다. 또한 [불변 데이터](/guide/extras/reactivity-in-depth#immutable-data), [상태 머신](/guide/extras/reactivity-in-depth#state-machines), [RxJS](/guide/extras/reactivity-in-depth#rxjs) 등 상태를 가지는 서드파티 서비스나 라이브러리를 Vue의 반응성 시스템에 쉽게 통합할 수 있는 깔끔한 메커니즘을 제공합니다.
 
@@ -92,7 +92,7 @@ Vue CLI의 GUI에 있는 폴더 탐색기 컴포넌트를 예로 들어보겠습
 
 ### 더 작은 프로덕션 번들 및 오버헤드 감소 {#smaller-production-bundle-and-less-overhead}
 
-컴포지션 API와 `<script setup>`으로 작성된 코드는 Options API에 비해 더 효율적이고, 난독화(최소화)에 더 적합합니다. 이는 `<script setup>` 컴포넌트의 템플릿이 `<script setup>` 코드와 동일한 스코프에 인라인된 함수로 컴파일되기 때문입니다. `this`에서 프로퍼티에 접근하는 것과 달리, 컴파일된 템플릿 코드는 인스턴스 프록시 없이 `<script setup>` 내부에 선언된 변수에 직접 접근할 수 있습니다. 또한 모든 변수명이 안전하게 짧아질 수 있으므로 난독화 효과도 더 좋습니다.
+컴포지션 API와 `<script setup>`으로 작성된 코드는 Options API에 비해 더 효율적이고, 난독화(최소화)에 더 적합합니다. 이는 `<script setup>` 컴포넌트의 템플릿(template)이 `<script setup>` 코드와 동일한 스코프에 인라인된 함수로 컴파일되기 때문입니다. `this`에서 프로퍼티(property)에 접근하는 것과 달리, 컴파일된 템플릿 코드는 인스턴스(instance) 프록시(proxy) 없이 `<script setup>` 내부에 선언된 변수에 직접 접근할 수 있습니다. 또한 모든 변수명이 안전하게 짧아질 수 있으므로 난독화 효과도 더 좋습니다.
 
 ## Options API와의 관계 {#relationship-with-options-api}
 
@@ -142,11 +142,11 @@ React Hooks는 컴포넌트가 업데이트될 때마다 반복적으로 호출�
 
 - 비용이 많이 드는 계산에는 `useMemo`를 사용해야 하며, 이 역시 올바른 의존성 배열을 수동으로 전달해야 합니다.
 
-- 자식 컴포넌트에 전달되는 이벤트 핸들러는 기본적으로 불필요한 자식 업데이트를 유발하며, 최적화를 위해 명시적으로 `useCallback`을 사용해야 합니다. 이는 거의 항상 필요하며, 역시 올바른 의존성 배열이 필요합니다. 이를 소홀히 하면 앱이 과도하게 렌더링되어 성능 문제가 발생할 수 있습니다.
+- 자식 컴포넌트에 전달되는 이벤트 핸들러는 기본적으로 불필요한 자식 업데이트를 유발하며, 최적화를 위해 명시적으로 `useCallback`을 사용해야 합니다. 이는 거의 항상 필요하며, 역시 올바른 의존성 배열이 필요합니다. 이를 소홀히 하면 앱이 과도하게 렌더링(rendering)되어 성능 문제가 발생할 수 있습니다.
 
 - 오래된 클로저 문제와 Concurrent 기능이 결합되면, 훅 코드가 언제 실행되는지 추론하기 어려워지고, 렌더 간에 유지되어야 하는 변경 가능한 상태(`useRef` 사용)가 번거로워집니다.
 
-> 참고: 위의 메모이제이션 관련 문제 중 일부는 곧 출시될 [React Compiler](https://react.dev/learn/react-compiler)로 해결될 수 있습니다.
+> 참고: 위의 메모이제이션(memoization) 관련 문제 중 일부는 곧 출시될 [React Compiler](https://react.dev/learn/react-compiler)로 해결될 수 있습니다.
 
 이에 비해 Vue 컴포지션 API는:
 
@@ -154,6 +154,6 @@ React Hooks는 컴포넌트가 업데이트될 때마다 반복적으로 호출�
 
 - Vue의 런타임 반응성 시스템은 계산 속성(computed property)과 감시자에서 사용된 반응형 의존성을 자동으로 수집하므로, 수동으로 의존성을 선언할 필요가 없습니다.
 
-- 불필요한 자식 업데이트를 방지하기 위해 콜백 함수를 수동으로 캐시할 필요가 없습니다. 일반적으로 Vue의 세밀한 반응성 시스템은 자식 컴포넌트가 필요할 때만 업데이트되도록 보장합니다. 수동 자식 업데이트 최적화는 Vue 개발자에게 거의 걱정거리가 아닙니다.
+- 불필요한 자식 업데이트를 방지하기 위해 콜백(callback) 함수를 수동으로 캐시할 필요가 없습니다. 일반적으로 Vue의 세밀한 반응성 시스템은 자식 컴포넌트가 필요할 때만 업데이트되도록 보장합니다. 수동 자식 업데이트 최적화는 Vue 개발자에게 거의 걱정거리가 아닙니다.
 
 우리는 React Hooks의 창의성을 인정하며, 이는 컴포지션 API의 주요 영감 중 하나입니다. 하지만 위에서 언급한 문제들은 실제로 존재하며, Vue의 반응성 모델이 이를 우회할 방법을 제공한다는 점을 발견했습니다.

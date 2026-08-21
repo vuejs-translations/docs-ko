@@ -8,7 +8,7 @@ outline: deep
 
 ### SSR이란? {#what-is-ssr}
 
-Vue.js는 클라이언트 사이드 애플리케이션을 구축하기 위한 프레임워크입니다. 기본적으로 Vue 컴포넌트는 브라우저에서 DOM을 생성하고 조작합니다. 하지만 동일한 컴포넌트를 서버에서 HTML 문자열로 렌더링하고, 이를 브라우저로 직접 전송한 뒤, 클라이언트에서 정적 마크업을 완전히 상호작용 가능한 앱으로 "하이드레이트"하는 것도 가능합니다.
+Vue.js는 클라이언트 사이드 애플리케이션을 구축하기 위한 프레임워크입니다. 기본적으로 Vue 컴포넌트(component)는 브라우저에서 DOM을 생성하고 조작합니다. 하지만 동일한 컴포넌트를 서버에서 HTML 문자열로 렌더링(rendering)하고, 이를 브라우저로 직접 전송한 뒤, 클라이언트에서 정적 마크업을 완전히 상호작용 가능한 앱으로 "하이드레이트"하는 것도 가능합니다.
 
 서버에서 렌더링된 Vue.js 앱은 "isomorphic" 또는 "universal" 앱이라고도 할 수 있습니다. 즉, 앱 코드의 대부분이 서버 **와** 클라이언트 모두에서 실행된다는 의미입니다.
 
@@ -18,7 +18,7 @@ Vue.js는 클라이언트 사이드 애플리케이션을 구축하기 위한 �
 
 - **더 빠른 콘텐츠 표시 시간**: 느린 인터넷이나 느린 기기에서 더욱 두드러집니다. 서버에서 렌더링된 마크업은 모든 자바스크립트가 다운로드되고 실행될 때까지 기다릴 필요 없이 바로 표시되므로, 사용자는 더 빨리 완전히 렌더링된 페이지를 볼 수 있습니다. 또한, 초기 방문 시 데이터 페칭이 서버에서 이루어지므로, 클라이언트보다 데이터베이스에 더 빠르게 접근할 수 있습니다. 이는 일반적으로 [Core Web Vitals](https://web.dev/vitals/) 지표를 개선하고 더 나은 사용자 경험을 제공하며, 콘텐츠 표시 시간이 전환율과 직접적으로 연관된 애플리케이션에서는 매우 중요할 수 있습니다.
 
-- **통합된 사고 모델**: 백엔드 템플릿 시스템과 프론트엔드 프레임워크를 오가며 개발하는 대신, 전체 앱 개발에 동일한 언어와 선언적, 컴포넌트 지향적 사고 모델을 사용할 수 있습니다.
+- **통합된 사고 모델**: 백엔드 템플릿(template) 시스템과 프론트엔드 프레임워크를 오가며 개발하는 대신, 전체 앱 개발에 동일한 언어와 선언적, 컴포넌트 지향적 사고 모델을 사용할 수 있습니다.
 
 - **더 나은 SEO**: 검색 엔진 크롤러가 완전히 렌더링된 페이지를 직접 볼 수 있습니다.
 
@@ -28,7 +28,7 @@ Vue.js는 클라이언트 사이드 애플리케이션을 구축하기 위한 �
 
 SSR을 사용할 때 고려해야 할 트레이드오프도 있습니다:
 
-- 개발 제약. 브라우저 전용 코드는 특정 라이프사이클 훅 내에서만 사용할 수 있습니다. 일부 외부 라이브러리는 서버 렌더링 앱에서 실행되도록 별도의 처리가 필요할 수 있습니다.
+- 개발 제약. 브라우저 전용 코드는 특정 라이프사이클(lifecycle) 훅(hook) 내에서만 사용할 수 있습니다. 일부 외부 라이브러리는 서버 렌더링 앱에서 실행되도록 별도의 처리가 필요할 수 있습니다.
 
 - 더 복잡한 빌드 설정 및 배포 요구사항. 완전히 정적인 SPA는 어떤 정적 파일 서버에도 배포할 수 있지만, 서버 렌더링 앱은 Node.js 서버가 실행될 수 있는 환경이 필요합니다.
 
@@ -84,7 +84,7 @@ renderToString(app).then((html) => {
 <button>1</button>
 ```
 
-[`renderToString()`](/api/ssr#rendertostring)은 Vue 앱 인스턴스를 받아 앱의 렌더링된 HTML로 resolve되는 Promise를 반환합니다. [Node.js Stream API](https://nodejs.org/api/stream.html)나 [Web Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)를 사용해 스트림 렌더링도 가능합니다. 자세한 내용은 [SSR API 레퍼런스](/api/ssr)를 참고하세요.
+[`renderToString()`](/api/ssr#rendertostring)은 Vue 앱 인스턴스(instance)를 받아 앱의 렌더링된 HTML로 resolve되는 Promise를 반환합니다. [Node.js Stream API](https://nodejs.org/api/stream.html)나 [Web Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)를 사용해 스트림 렌더링도 가능합니다. 자세한 내용은 [SSR API 레퍼런스](/api/ssr)를 참고하세요.
 
 이제 Vue SSR 코드를 서버 요청 핸들러로 옮겨, 애플리케이션 마크업을 전체 페이지 HTML로 감쌀 수 있습니다. 다음 단계에서는 [`express`](https://expressjs.com/)를 사용합니다:
 
@@ -128,13 +128,13 @@ server.listen(3000, () => {
 
 [StackBlitz에서 직접 실행해보기](https://stackblitz.com/fork/vue-ssr-example-basic?file=index.js)
 
-### 클라이언트 하이드레이션 {#client-hydration}
+### 클라이언트 하이드레이션(hydration) {#client-hydration}
 
 버튼을 클릭해보면 숫자가 변하지 않는 것을 알 수 있습니다. 브라우저에서 Vue를 로드하지 않았기 때문에 HTML이 클라이언트에서 완전히 정적입니다.
 
-클라이언트 사이드 앱을 상호작용 가능하게 만들려면, Vue가 **하이드레이션** 단계를 수행해야 합니다. 하이드레이션 과정에서 서버에서 실행된 것과 동일한 Vue 애플리케이션을 생성하고, 각 컴포넌트를 제어해야 할 DOM 노드와 매칭하며, DOM 이벤트 리스너를 연결합니다.
+클라이언트 사이드 앱을 상호작용 가능하게 만들려면, Vue가 **하이드레이션** 단계를 수행해야 합니다. 하이드레이션 과정에서 서버에서 실행된 것과 동일한 Vue 애플리케이션을 생성하고, 각 컴포넌트를 제어해야 할 DOM 노드와 매칭하며, DOM 이벤트 리스너(listener)를 연결합니다.
 
-하이드레이션 모드로 앱을 마운트하려면 `createApp()` 대신 [`createSSRApp()`](/api/application#createssrapp)을 사용해야 합니다:
+하이드레이션 모드로 앱을 마운트(mount)하려면 `createApp()` 대신 [`createSSRApp()`](/api/application#createssrapp)을 사용해야 합니다:
 
 ```js{2}
 // 이 코드는 브라우저에서 실행됩니다.
@@ -212,7 +212,7 @@ server.get('/', (req, res) => {
 
 - 서버 요청 핸들러에서 올바른 클라이언트 사이드 에셋 링크와 최적의 리소스 힌트로 HTML을 렌더링합니다. SSR과 SSG 모드를 전환하거나, 심지어 동일한 앱에서 둘을 혼합해야 할 수도 있습니다.
 
-- 라우팅, 데이터 페칭, 상태 관리 스토어를 유니버설하게 관리합니다.
+- 라우팅(routing), 데이터 페칭, 상태 관리 스토어(store)를 유니버설하게 관리합니다.
 
 완전한 구현은 상당히 복잡하며, 사용하는 빌드 도구 체인에 따라 달라집니다. 따라서 SSR이 필요하다면 [Vue 프레임워크](/guide/quick-start#frameworks)를 사용하는 것을 강력히 권장합니다. 이러한 프레임워크에는 대부분 SSR 지원이 내장되어 있습니다.
 
@@ -228,7 +228,7 @@ SSR 중에는 각 요청 URL이 애플리케이션의 원하는 상태에 매핑
 
 동적 업데이트가 없으므로 <span class="options-api">`mounted`</span><span class="composition-api">`onMounted`</span>나 <span class="options-api">`updated`</span><span class="composition-api">`onUpdated`</span>와 같은 라이프사이클 훅은 SSR 중에는 **호출되지 않으며**, 클라이언트에서만 실행됩니다.<span class="options-api"> SSR 중에 호출되는 유일한 훅은 `beforeCreate`와 `created`입니다.</span>
 
-<span class="options-api">`beforeCreate`와 `created`</span><span class="composition-api">`setup()` 또는 `<script setup>`의 루트 스코프</span>에서 정리(cleanup)가 필요한 부수 효과를 발생시키는 코드는 피해야 합니다. 예를 들어, `setInterval`로 타이머를 설정하는 것이 부수 효과의 한 예입니다. 클라이언트 전용 코드에서는 타이머를 설정한 뒤 <span class="options-api">`beforeUnmount`</span><span class="composition-api">`onBeforeUnmount`</span>나 <span class="options-api">`unmounted`</span><span class="composition-api">`onUnmounted`</span>에서 해제할 수 있습니다. 하지만 SSR 중에는 언마운트 훅이 절대 호출되지 않으므로, 타이머가 영원히 남아 있게 됩니다. 이를 피하려면 부수 효과 코드를 <span class="options-api">`mounted`</span><span class="composition-api">`onMounted`</span>로 옮기세요.
+<span class="options-api">`beforeCreate`와 `created`</span><span class="composition-api">`setup()` 또는 `<script setup>`의 루트 스코프</span>에서 정리(cleanup)가 필요한 부수 효과를 발생시키는 코드는 피해야 합니다. 예를 들어, `setInterval`로 타이머를 설정하는 것이 부수 효과의 한 예입니다. 클라이언트 전용 코드에서는 타이머를 설정한 뒤 <span class="options-api">`beforeUnmount`</span><span class="composition-api">`onBeforeUnmount`</span>나 <span class="options-api">`unmounted`</span><span class="composition-api">`onUnmounted`</span>에서 해제할 수 있습니다. 하지만 SSR 중에는 언마운트(unmount) 훅이 절대 호출되지 않으므로, 타이머가 영원히 남아 있게 됩니다. 이를 피하려면 부수 효과 코드를 <span class="options-api">`mounted`</span><span class="composition-api">`onMounted`</span>로 옮기세요.
 
 ### 플랫폼 전용 API 접근 {#access-to-platform-specific-apis}
 
@@ -250,7 +250,7 @@ SSR 중에는 각 요청 URL이 애플리케이션의 원하는 상태에 매핑
 
 기술적으로는 각 요청마다 모든 자바스크립트 모듈을 다시 초기화할 수도 있지만, 이는 비용이 많이 들기 때문에 서버 성능에 큰 영향을 미칩니다.
 
-권장되는 해결책은 각 요청마다 라우터와 글로벌 스토어를 포함한 전체 애플리케이션의 새 인스턴스를 생성하는 것입니다. 그리고 컴포넌트에서 직접 import하는 대신, [앱 레벨 provide](/guide/components/provide-inject#app-level-provide)를 사용해 공유 상태를 제공하고, 필요한 컴포넌트에서 inject합니다:
+권장되는 해결책은 각 요청마다 라우터(router)와 글로벌 스토어를 포함한 전체 애플리케이션의 새 인스턴스를 생성하는 것입니다. 그리고 컴포넌트에서 직접 import하는 대신, [앱 레벨 provide](/guide/components/provide-inject#app-level-provide)를 사용해 공유 상태를 제공하고, 필요한 컴포넌트에서 inject합니다:
 
 ```js [app.js]
 // (서버와 클라이언트에서 공유)
@@ -303,7 +303,7 @@ Vue가 하이드레이션 불일치를 감지하면, 자동으로 복구를 시�
 
 Vue 3.5+에서는 [`data-allow-mismatch`](/api/ssr#data-allow-mismatch) 속성을 사용해 불가피한 하이드레이션 불일치를 선택적으로 억제할 수 있습니다.
 
-### 커스텀 디렉티브 {#custom-directives}
+### 커스텀 디렉티브(directive) {#custom-directives}
 
 대부분의 커스텀 디렉티브는 직접 DOM을 조작하므로, SSR 중에는 무시됩니다. 하지만 커스텀 디렉티브가 어떻게 렌더링되어야 하는지(즉, 렌더링된 엘리먼트에 어떤 속성을 추가해야 하는지)를 지정하고 싶다면, `getSSRProps` 디렉티브 훅을 사용할 수 있습니다:
 

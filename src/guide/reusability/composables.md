@@ -6,7 +6,7 @@ const { x, y } = useMouse()
 </script>
 
 :::tip
-이 섹션은 Composition API에 대한 기본 지식을 전제로 합니다. 만약 Options API만으로 Vue를 학습해왔다면, 왼쪽 사이드바 상단의 토글을 사용해 API Preference를 Composition API로 설정하고 [반응성(reactivity)의 기초](/guide/essentials/reactivity-fundamentals) 및 [생명주기 훅](/guide/essentials/lifecycle) 챕터를 다시 읽어보세요.
+이 섹션은 Composition API에 대한 기본 지식을 전제로 합니다. 만약 Options API만으로 Vue를 학습해왔다면, 왼쪽 사이드바 상단의 토글을 사용해 API Preference를 Composition API로 설정하고 [반응성(reactivity)의 기초](/guide/essentials/reactivity-fundamentals) 및 [생명주기(lifecycle) 훅](/guide/essentials/lifecycle) 챕터를 다시 읽어보세요.
 :::
 
 ## "컴포저블"이란? {#what-is-a-composable}
@@ -19,7 +19,7 @@ Vue 애플리케이션의 맥락에서 "컴포저블"이란 Vue의 Composition A
 
 ## 마우스 트래커 예제 {#mouse-tracker-example}
 
-만약 Composition API를 사용하여 마우스 추적 기능을 컴포넌트 내부에 직접 구현한다면, 다음과 같이 작성할 수 있습니다:
+만약 Composition API를 사용하여 마우스 추적 기능을 컴포넌트(component) 내부에 직접 구현한다면, 다음과 같이 작성할 수 있습니다:
 
 ```vue [MouseComponent.vue]
 <script setup>
@@ -89,7 +89,7 @@ const { x, y } = useMouse()
 
 컴포저블의 더 멋진 점은, 컴포저블을 중첩할 수도 있다는 것입니다: 하나의 컴포저블 함수가 하나 이상의 다른 컴포저블 함수를 호출할 수 있습니다. 이를 통해 작은, 독립적인 단위로 복잡한 로직을 조합할 수 있으며, 이는 전체 애플리케이션을 컴포넌트로 조합하는 방식과 유사합니다. 사실, 이러한 패턴을 가능하게 하는 API 모음을 Composition API라고 부르게 된 이유이기도 합니다.
 
-예를 들어, DOM 이벤트 리스너를 추가하고 제거하는 로직을 별도의 컴포저블로 추출할 수 있습니다:
+예를 들어, DOM 이벤트 리스너(listener)를 추가하고 제거하는 로직을 별도의 컴포저블로 추출할 수 있습니다:
 
 ```js [event.js]
 import { onMounted, onUnmounted } from 'vue'
@@ -122,7 +122,7 @@ export function useMouse() {
 ```
 
 :::tip
-각 컴포넌트 인스턴스가 `useMouse()`를 호출하면 `x`와 `y` 상태의 자체 복사본이 생성되므로 서로 간섭하지 않습니다. 컴포넌트 간에 상태를 공유하고 싶다면 [상태 관리](/guide/scaling-up/state-management) 챕터를 읽어보세요.
+각 컴포넌트 인스턴스(instance)가 `useMouse()`를 호출하면 `x`와 `y` 상태의 자체 복사본이 생성되므로 서로 간섭하지 않습니다. 컴포넌트 간에 상태를 공유하고 싶다면 [상태 관리](/guide/scaling-up/state-management) 챕터를 읽어보세요.
 :::
 
 ## 비동기 상태 예제 {#async-state-example}
@@ -232,7 +232,7 @@ export function useFetch(url) {
 
 `toValue()`는 3.3에 추가된 API입니다. ref나 getter를 값으로 정규화하기 위해 설계되었습니다. 인자가 ref라면 ref의 값을 반환하고, 함수라면 함수를 호출해 반환값을 반환합니다. 그렇지 않으면 인자를 그대로 반환합니다. [`unref()`](/api/reactivity-utilities.html#unref)와 유사하지만, 함수에 대해 특별히 처리합니다.
 
-`toValue(url)`이 **watchEffect 콜백 내부**에서 호출된다는 점에 주목하세요. 이렇게 하면 `toValue()` 정규화 과정에서 접근한 모든 반응형 의존성이 watcher에 의해 추적됩니다.
+`toValue(url)`이 **watchEffect 콜백(callback) 내부**에서 호출된다는 점에 주목하세요. 이렇게 하면 `toValue()` 정규화 과정에서 접근한 모든 반응형 의존성이 watcher에 의해 추적됩니다.
 
 이 버전의 `useFetch()`는 이제 정적 URL 문자열, ref, getter를 모두 받아들일 수 있어 훨씬 유연해졌습니다. watch effect는 즉시 실행되며, `toValue(url)`에서 접근한 모든 의존성을 추적합니다. 만약 추적된 의존성이 없다면(예: url이 이미 문자열인 경우), effect는 한 번만 실행되고, 그렇지 않으면 추적된 의존성이 변경될 때마다 다시 실행됩니다.
 
@@ -296,13 +296,13 @@ Mouse position is at: {{ mouse.x }}, {{ mouse.y }}
 
 ### 사용 제한 {#usage-restrictions}
 
-컴포저블은 `<script setup>` 또는 `setup()` 훅에서만 호출해야 합니다. 또한 이들 컨텍스트에서 **동기적으로** 호출해야 합니다. 경우에 따라 `onMounted()`와 같은 생명주기 훅에서도 호출할 수 있습니다.
+컴포저블은 `<script setup>` 또는 `setup()` 훅(hook)에서만 호출해야 합니다. 또한 이들 컨텍스트에서 **동기적으로** 호출해야 합니다. 경우에 따라 `onMounted()`와 같은 생명주기 훅에서도 호출할 수 있습니다.
 
 이러한 제한은 Vue가 현재 활성 컴포넌트 인스턴스를 결정할 수 있는 컨텍스트이기 때문에 중요합니다. 활성 컴포넌트 인스턴스에 접근해야 하는 이유는 다음과 같습니다:
 
 1. 생명주기 훅을 등록할 수 있습니다.
 
-2. watcher를 인스턴스에 연결하여, 인스턴스가 언마운트될 때 watcher가 해제되어 메모리 누수를 방지할 수 있습니다.
+2. watcher를 인스턴스에 연결하여, 인스턴스가 언마운트(unmount)될 때 watcher가 해제되어 메모리 누수를 방지할 수 있습니다.
 
 :::tip
 `<script setup>`은 `await` 사용 **이후**에도 컴포저블을 호출할 수 있는 유일한 곳입니다. 컴파일러가 비동기 작업 이후에도 활성 인스턴스 컨텍스트를 자동으로 복원해줍니다.
@@ -328,7 +328,7 @@ const { qux } = useFeatureC(baz)
 
 ## Options API에서 컴포저블 사용하기 {#using-composables-in-options-api}
 
-Options API를 사용하는 경우, 컴포저블은 반드시 `setup()` 내부에서 호출해야 하며, 반환된 바인딩은 `setup()`에서 반환되어야 `this`와 템플릿에서 노출됩니다:
+Options API를 사용하는 경우, 컴포저블은 반드시 `setup()` 내부에서 호출해야 하며, 반환된 바인딩(binding)은 `setup()`에서 반환되어야 `this`와 템플릿(template)에서 노출됩니다:
 
 ```js
 import { useMouse } from './mouse.js'
@@ -352,7 +352,7 @@ export default {
 
 ### 믹스인과의 비교 {#vs-mixins}
 
-Vue 2에서 온 사용자라면 [믹스인](/api/options-composition#mixins) 옵션에 익숙할 수 있습니다. 믹스인 역시 컴포넌트 로직을 재사용 가능한 단위로 추출할 수 있게 해줍니다. 하지만 믹스인에는 세 가지 주요 단점이 있습니다:
+Vue 2에서 온 사용자라면 [믹스인(mixin)](/api/options-composition#mixins) 옵션에 익숙할 수 있습니다. 믹스인 역시 컴포넌트 로직을 재사용 가능한 단위로 추출할 수 있게 해줍니다. 하지만 믹스인에는 세 가지 주요 단점이 있습니다:
 
 1. **속성의 출처가 불분명함**: 여러 믹스인을 사용할 때, 어떤 인스턴스 속성이 어떤 믹스인에 의해 주입되었는지 불분명해져 구현을 추적하고 컴포넌트의 동작을 이해하기 어려워집니다. 이것이 컴포저블에서 ref + 구조 분해 패턴을 권장하는 이유이기도 합니다: 소비하는 컴포넌트에서 속성의 출처가 명확해집니다.
 
