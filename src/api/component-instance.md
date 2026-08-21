@@ -1,14 +1,14 @@
 # 컴포넌트 인스턴스 {#component-instance}
 
 :::info
-이 페이지는 컴포넌트 공개 인스턴스(instance), 즉 `this`에 노출되는 내장 속성과 메서드에 대해 문서화합니다.
+이 페이지는 컴포넌트 공개 인스턴스(instance), 즉 `this`에 노출되는 내장 속성과 메서드를 설명합니다.
 
 이 페이지에 나열된 모든 속성은 읽기 전용입니다(`$data`의 중첩 속성 제외).
 :::
 
 ## $data {#data}
 
-[`data`](./options-state#data) 옵션에서 반환된 객체로, 컴포넌트(component)에 의해 반응형으로 만들어집니다. 컴포넌트 인스턴스는 자신의 데이터 객체의 속성에 대한 접근을 프록시(proxy)합니다.
+[`data`](./options-state#data) 옵션에서 반환된 객체로, 컴포넌트(component)가 이를 반응형으로 만듭니다. 컴포넌트 인스턴스는 데이터 객체 속성에 대한 접근을 프록시(proxy)합니다.
 
 - **타입**
 
@@ -20,7 +20,7 @@
 
 ## $props {#props}
 
-컴포넌트의 현재, 해석된 props를 나타내는 객체입니다.
+컴포넌트의 현재 해석된 props를 나타내는 객체입니다.
 
 - **타입**
 
@@ -32,7 +32,7 @@
 
 - **세부사항**
 
-  [`props`](./options-state#props) 옵션을 통해 선언된 props만 포함됩니다. 컴포넌트 인스턴스는 자신의 props 객체의 속성에 대한 접근을 프록시합니다.
+  [`props`](./options-state#props) 옵션을 통해 선언된 props만 포함됩니다. 컴포넌트 인스턴스는 props 객체 속성에 대한 접근을 프록시합니다.
 
 ## $el {#el}
 
@@ -72,7 +72,7 @@
 
 - **세부사항**
 
-  `$options` 객체는 현재 컴포넌트의 해석된 옵션을 노출하며, 다음과 같은 가능한 소스의 병합 결과입니다:
+  `$options` 객체는 현재 컴포넌트의 해석된 옵션을 노출하며, 다음과 같은 가능한 소스들이 병합된 결과입니다:
 
   - 전역 믹스인(mixin)
   - 컴포넌트 `extends` 기반
@@ -117,7 +117,7 @@
 
 ## $slots {#slots}
 
-부모 컴포넌트에 의해 전달된 [슬롯(slot)](/guide/components/slots)을 나타내는 객체입니다.
+부모 컴포넌트가 전달한 [슬롯(slot)](/guide/components/slots)을 나타내는 객체입니다.
 
 - **타입**
 
@@ -133,15 +133,15 @@
 
   일반적으로 [렌더 함수](/guide/extras/render-function)를 수동으로 작성할 때 사용되지만, 슬롯이 존재하는지 감지하는 데에도 사용할 수 있습니다.
 
-  각 슬롯은 해당 슬롯 이름에 해당하는 키로 `this.$slots`에 함수로 노출되며, 이 함수는 vnode 배열을 반환합니다. 기본 슬롯은 `this.$slots.default`로 노출됩니다.
+  각 슬롯은 슬롯 이름을 키로 하여 `this.$slots`에 함수로 노출되며, 이 함수는 vnode 배열을 반환합니다. 기본 슬롯은 `this.$slots.default`로 노출됩니다.
 
-  슬롯이 [스코프 슬롯(scoped slots)](/guide/components/slots#scoped-slots)인 경우, 슬롯 함수에 전달된 인자는 슬롯의 슬롯 props로 사용할 수 있습니다.
+  슬롯이 [스코프 슬롯(scoped slots)](/guide/components/slots#scoped-slots)인 경우, 슬롯 함수에 전달된 인자를 해당 슬롯에서 슬롯 props로 사용할 수 있습니다.
 
 - **참고** [렌더 함수 - 슬롯 렌더링(rendering)](/guide/extras/render-function#rendering-slots)
 
 ## $refs {#refs}
 
-[템플릿 ref](/guide/essentials/template-refs)를 통해 등록된 DOM 엘리먼트와 컴포넌트 인스턴스의 객체입니다.
+[템플릿 ref](/guide/essentials/template-refs)를 통해 등록된 DOM 엘리먼트와 컴포넌트 인스턴스를 담은 객체입니다.
 
 - **타입**
 
@@ -170,7 +170,7 @@
 
 - **세부사항**
 
-  [폴스루 속성](/guide/components/attrs)은 부모 컴포넌트에 의해 전달되었지만, 자식에서 prop이나 emit 이벤트로 선언되지 않은 속성과 이벤트 핸들러입니다.
+  [폴스루 속성](/guide/components/attrs)은 부모 컴포넌트가 전달했지만, 자식에서 prop이나 emit 이벤트로 선언되지 않은 속성과 이벤트 핸들러입니다.
 
   기본적으로, `$attrs`의 모든 내용은 컴포넌트에 단일 루트 엘리먼트가 있을 경우 해당 루트 엘리먼트에 자동으로 상속됩니다. 컴포넌트에 여러 루트 노드가 있으면 이 동작은 비활성화되며, [`inheritAttrs`](./options-misc#inheritattrs) 옵션으로 명시적으로 비활성화할 수 있습니다.
 
@@ -212,7 +212,7 @@
 
 - **세부사항**
 
-  첫 번째 인자는 감시할 소스입니다. 컴포넌트 속성 이름 문자열, 단순 점(.)으로 구분된 경로 문자열, 또는 [getter 함수](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/get#description)일 수 있습니다.
+  첫 번째 인자는 감시할 소스입니다. 컴포넌트 속성 이름 문자열, 점(.)으로 구분된 단순 경로 문자열, 또는 [getter 함수](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/get#description)일 수 있습니다.
 
   두 번째 인자는 콜백(callback) 함수입니다. 콜백은 감시 대상의 새 값과 이전 값을 받습니다.
 
@@ -293,7 +293,7 @@
 
 ## $forceUpdate() {#forceupdate}
 
-컴포넌트 인스턴스의 강제 재렌더링을 수행합니다.
+컴포넌트 인스턴스를 강제로 다시 렌더링합니다.
 
 - **타입**
 

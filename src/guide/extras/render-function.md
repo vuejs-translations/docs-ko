@@ -4,7 +4,7 @@ outline: deep
 
 # 렌더 함수 & JSX {#render-functions-jsx}
 
-Vue는 대부분의 경우 애플리케이션을 빌드할 때 템플릿(template) 사용을 권장합니다. 하지만 JavaScript의 완전한 프로그래밍적 힘이 필요한 상황도 있습니다. 이럴 때 **렌더 함수**를 사용할 수 있습니다.
+Vue는 대부분의 경우 애플리케이션을 빌드할 때 템플릿(template) 사용을 권장합니다. 하지만 JavaScript의 프로그래밍 능력을 온전히 활용해야 하는 상황도 있습니다. 이럴 때 **렌더 함수**를 사용할 수 있습니다.
 
 > 가상 DOM과 렌더 함수 개념이 처음이라면, 먼저 [렌더링(rendering) 메커니즘](/guide/extras/rendering-mechanism) 챕터를 읽어보세요.
 
@@ -26,7 +26,7 @@ const vnode = h(
 )
 ```
 
-`h()`는 **hyperscript**의 약자입니다. 이는 "HTML(하이퍼텍스트 마크업 언어)을 생성하는 JavaScript"를 의미합니다. 이 이름은 많은 가상 DOM 구현에서 공유되는 관례에서 유래되었습니다. 더 설명적인 이름은 `createVNode()`일 수 있지만, 렌더 함수에서 이 함수를 여러 번 호출해야 하므로 짧은 이름이 도움이 됩니다.
+`h()`는 **hyperscript**의 약자입니다. 이는 "HTML(하이퍼텍스트 마크업 언어)을 생성하는 JavaScript"를 의미합니다. 이 이름은 많은 가상 DOM 구현에서 공유되는 관례에서 유래했습니다. 더 설명적인 이름은 `createVNode()`일 수 있지만, 렌더 함수에서 이 함수를 여러 번 호출해야 하므로 짧은 이름이 도움이 됩니다.
 
 `h()` 함수는 매우 유연하게 설계되어 있습니다:
 
@@ -73,14 +73,14 @@ vnode.key // null
 ```
 
 :::warning 참고
-전체 `VNode` 인터페이스에는 이 외에도 많은 내부 속성이 있지만, 여기 나열된 속성 외에는 의존하지 않는 것이 강력히 권장됩니다. 내부 속성이 변경될 경우 예기치 않은 오류를 방지할 수 있습니다.
+전체 `VNode` 인터페이스에는 이 외에도 많은 내부 속성이 있지만, 여기 나열된 속성 외에는 의존하지 않기를 강력히 권장합니다. 그래야 내부 속성이 변경되더라도 예기치 않은 오류를 피할 수 있습니다.
 :::
 
 ### 렌더 함수 선언하기 {#declaring-render-functions}
 
 <div class="composition-api">
 
-Composition API에서 템플릿을 사용할 때는 `setup()` 훅(hook)의 반환값이 템플릿에 데이터를 노출하는 데 사용됩니다. 하지만 렌더 함수를 사용할 때는, 렌더 함수를 직접 반환할 수 있습니다:
+컴포지션 API에서 템플릿을 사용할 때는 `setup()` 훅(hook)의 반환값으로 템플릿에 데이터를 노출합니다. 하지만 렌더 함수를 쓸 때는, 렌더 함수를 직접 반환할 수 있습니다:
 
 ```js
 import { ref, h } from 'vue'
@@ -178,7 +178,7 @@ export default {
 
 </div>
 
-렌더 함수 컴포넌트가 인스턴스 상태를 필요로 하지 않는 경우, 간결하게 함수로 직접 선언할 수도 있습니다:
+렌더 함수 컴포넌트에 인스턴스 상태가 필요 없는 경우, 간결하게 함수로 직접 선언할 수도 있습니다:
 
 ```js
 function Hello() {
@@ -203,7 +203,7 @@ function render() {
 }
 ```
 
-동일한 요소/컴포넌트를 여러 번 복제하고 싶다면, 팩토리 함수를 사용하면 됩니다. 예를 들어, 다음 렌더 함수는 20개의 동일한 단락을 렌더링하는 완전히 유효한 방법입니다:
+동일한 요소/컴포넌트를 여러 번 복제하고 싶다면, 팩토리 함수를 사용하면 됩니다. 예를 들어, 다음 렌더 함수는 동일한 단락 20개를 렌더링하는 완전히 유효한 방법입니다:
 
 ```js
 function render() {
@@ -284,7 +284,7 @@ Vue 3.4부터는 더 이상 전역 `JSX` 네임스페이스를 암시적으로 �
 
 파일 단위로 적용하려면 파일 상단에 `/* @jsxImportSource vue */` 주석을 추가할 수도 있습니다.
 
-전역 `JSX` 네임스페이스의 존재에 의존하는 코드가 있다면, 프로젝트에서 `vue/jsx`를 명시적으로 import 또는 reference하여 3.4 이전의 전역 동작을 그대로 유지할 수 있습니다.
+전역 `JSX` 네임스페이스에 의존하는 코드가 있다면, 프로젝트에서 `vue/jsx`를 명시적으로 import 또는 reference하여 3.4 이전의 전역 동작을 그대로 유지할 수 있습니다.
 
 ## 렌더 함수 레시피 {#render-function-recipes}
 
@@ -452,7 +452,7 @@ h('div', {
 
 ### 컴포넌트 {#components}
 
-컴포넌트의 vnode를 생성하려면, `h()`의 첫 번째 인자로 컴포넌트 정의를 전달해야 합니다. 즉, 렌더 함수를 사용할 때는 컴포넌트를 등록할 필요 없이, import한 컴포넌트를 바로 사용할 수 있습니다:
+컴포넌트의 vnode를 생성하려면, `h()`의 첫 번째 인자로 컴포넌트 정의를 전달해야 합니다. 즉, 렌더 함수를 쓸 때는 컴포넌트를 등록할 필요 없이, import한 컴포넌트를 바로 사용할 수 있습니다:
 
 ```js
 import Foo from './Foo.vue'
@@ -602,11 +602,11 @@ JSX 동등 코드:
 }}</MyComponent>
 ```
 
-슬롯을 함수로 전달하면 자식 컴포넌트에서 지연 호출할 수 있습니다. 이로 인해 슬롯의 의존성이 부모가 아닌 자식에 의해 추적되어, 더 정확하고 효율적인 업데이트가 가능합니다.
+슬롯을 함수로 전달하면 자식 컴포넌트에서 지연 호출할 수 있습니다. 그러면 슬롯의 의존성을 부모가 아닌 자식이 추적하게 되어, 더 정확하고 효율적으로 업데이트할 수 있습니다.
 
 ### 스코프 슬롯 {#scoped-slots}
 
-부모 컴포넌트에서 스코프 슬롯(scoped slots)을 렌더링하려면, 슬롯을 자식에게 전달합니다. 이제 슬롯에 `text`라는 매개변수가 있음을 주목하세요. 슬롯은 자식 컴포넌트에서 호출되며, 자식 컴포넌트의 데이터가 부모 컴포넌트로 전달됩니다.
+부모 컴포넌트에서 스코프 슬롯(scoped slots)을 렌더링하려면, 슬롯을 자식에게 전달합니다. 이번에는 슬롯이 `text`라는 매개변수를 받는다는 점에 주목하세요. 슬롯은 자식 컴포넌트에서 호출되며, 자식 컴포넌트의 데이터가 부모 컴포넌트로 전달됩니다.
 
 ```js
 // 부모 컴포넌트
@@ -733,7 +733,7 @@ const vnode = withDirectives(h('div'), [
 
 <div class="composition-api">
 
-Composition API에서 [`useTemplateRef()`](/api/composition-api-helpers#usetemplateref) <sup class="vt-badge" data-text="3.5+" />를 사용할 때, 템플릿 ref는 문자열 값을 vnode의 prop으로 전달하여 생성합니다:
+컴포지션 API에서 [`useTemplateRef()`](/api/composition-api-helpers#usetemplateref) <sup class="vt-badge" data-text="3.5+" />를 사용할 때, 템플릿 ref는 문자열 값을 vnode의 prop으로 전달하여 생성합니다:
 
 ```js
 import { h, useTemplateRef } from 'vue'
@@ -769,7 +769,7 @@ export default {
 </div>
 <div class="options-api">
 
-Options API에서는, vnode props에 ref 이름을 문자열로 전달하여 템플릿 ref를 생성합니다:
+옵션 API에서는, vnode props에 ref 이름을 문자열로 전달하여 템플릿 ref를 생성합니다:
 
 ```js
 export default {
@@ -784,7 +784,7 @@ export default {
 
 ## 함수형 컴포넌트 {#functional-components}
 
-함수형 컴포넌트는 자체 상태가 없는 컴포넌트의 대안 형태입니다. 이들은 순수 함수처럼 동작합니다: props를 입력받아 vnode를 출력합니다. 컴포넌트 인스턴스를 생성하지 않고(즉, `this`가 없음), 일반적인 컴포넌트 라이프사이클(lifecycle) 훅도 없습니다.
+함수형 컴포넌트는 자체 상태가 없는 컴포넌트의 대안 형태입니다. 순수 함수처럼 동작하여, props를 입력받아 vnode를 출력합니다. 컴포넌트 인스턴스를 생성하지 않고(즉, `this`가 없음), 일반적인 컴포넌트 라이프사이클(lifecycle) 훅도 없습니다.
 
 함수형 컴포넌트를 만들려면 옵션 객체 대신 일반 함수를 사용합니다. 이 함수는 사실상 컴포넌트의 `render` 함수입니다.
 
@@ -820,9 +820,9 @@ MyComponent.props = ['value']
 MyComponent.emits = ['click']
 ```
 
-`props` 옵션이 지정되지 않은 경우, 함수에 전달되는 `props` 객체에는 모든 속성이 포함되며, 이는 `attrs`와 동일합니다. `props` 옵션이 지정되지 않으면 prop 이름이 camelCase로 정규화되지 않습니다.
+`props` 옵션이 지정되지 않은 경우, 함수에 전달되는 `props` 객체에는 모든 속성이 포함되며, 이는 `attrs`와 동일합니다. 이 경우 prop 이름은 camelCase로 정규화되지 않습니다.
 
-명시적 `props`가 있는 함수형 컴포넌트의 경우, [속성 전달](/guide/components/attrs)은 일반 컴포넌트와 거의 동일하게 동작합니다. 하지만 `props`를 명시적으로 지정하지 않은 함수형 컴포넌트의 경우, 기본적으로 `class`, `style`, `onXxx` 이벤트 리스너만 `attrs`에서 상속됩니다. 두 경우 모두, `inheritAttrs`를 `false`로 설정하여 속성 상속을 비활성화할 수 있습니다:
+명시적 `props`가 있는 함수형 컴포넌트의 경우, [속성 전달](/guide/components/attrs)은 일반 컴포넌트와 거의 동일하게 동작합니다. 하지만 `props`를 명시적으로 지정하지 않은 함수형 컴포넌트에서는, 기본적으로 `class`, `style`, `onXxx` 이벤트 리스너만 `attrs`에서 상속됩니다. 두 경우 모두, `inheritAttrs`를 `false`로 설정하여 속성 상속을 비활성화할 수 있습니다:
 
 ```js
 MyComponent.inheritAttrs = false

@@ -6,7 +6,7 @@
 
 Vue는 HTML 기반의 템플릿(template) 문법을 사용하여 렌더링(rendering)된 DOM을 컴포넌트 인스턴스(instance)의 데이터에 선언적으로 바인딩(binding)할 수 있게 해줍니다. 모든 Vue 템플릿은 문법적으로 유효한 HTML이기 때문에, 표준을 준수하는 브라우저와 HTML 파서에서 파싱될 수 있습니다.
 
-내부적으로 Vue는 템플릿을 고도로 최적화된 JavaScript 코드로 컴파일합니다. 반응성(reactivity) 시스템과 결합하여, Vue는 앱 상태가 변경될 때 다시 렌더링해야 할 최소한의 컴포넌트(component)와 최소한의 DOM 조작만을 지능적으로 파악하여 적용할 수 있습니다.
+내부적으로 Vue는 템플릿을 고도로 최적화된 JavaScript 코드로 컴파일합니다. 여기에 반응성(reactivity) 시스템이 결합되어, Vue는 앱 상태가 변경될 때 다시 렌더링해야 할 최소한의 컴포넌트(component)와 최소한의 DOM 조작만을 지능적으로 파악하여 적용할 수 있습니다.
 
 Virtual DOM 개념에 익숙하고 JavaScript의 강력한 기능을 선호한다면, 템플릿 대신 [렌더 함수](/guide/extras/render-function)를 직접 작성할 수도 있으며, 선택적으로 JSX도 지원합니다. 하지만, 이 경우 템플릿만큼의 컴파일 타임 최적화는 누릴 수 없다는 점에 유의하세요.
 
@@ -38,7 +38,7 @@ Virtual DOM 개념에 익숙하고 JavaScript의 강력한 기능을 선호한�
   <p>v-html 디렉티브 사용: <span v-html="rawHtml"></span></p>
 </div>
 
-여기서 새로운 개념을 접하게 됩니다. `v-html` 속성은 **디렉티브**라고 부릅니다. 디렉티브는 `v-`로 시작하여 Vue에서 제공하는 특별한 속성임을 나타내며, 예상하셨듯이 렌더링된 DOM에 특별한 반응형 동작을 적용합니다. 여기서는 "이 요소의 inner HTML을 현재 활성 인스턴스의 `rawHtml` 속성과 동기화하라"고 말하는 것과 같습니다.
+여기서 새로운 개념을 접하게 됩니다. `v-html` 속성을 **디렉티브**라고 부릅니다. 디렉티브는 `v-`로 시작하여 Vue에서 제공하는 특별한 속성임을 나타내며, 예상하셨듯이 렌더링된 DOM에 특별한 반응형 동작을 적용합니다. 여기서는 "이 요소의 inner HTML을 현재 활성 인스턴스의 `rawHtml` 속성과 동기화하라"고 말하는 것과 같습니다.
 
 `span`의 내용은 `rawHtml` 속성의 값으로 대체되며, 일반 HTML로 해석됩니다. 데이터 바인딩은 무시됩니다. `v-html`을 사용하여 템플릿 일부를 조합할 수는 없습니다. Vue는 문자열 기반 템플릿 엔진이 아니기 때문입니다. 대신, UI 재사용과 조합의 기본 단위로 컴포넌트를 사용하는 것이 권장됩니다.
 
@@ -64,9 +64,9 @@ Virtual DOM 개념에 익숙하고 JavaScript의 강력한 기능을 선호한�
 <div :id="dynamicId"></div>
 ```
 
-`:`로 시작하는 속성은 일반 HTML과는 다르게 보일 수 있지만, 실제로는 속성 이름에 사용할 수 있는 유효한 문자이며, Vue가 지원하는 모든 브라우저에서 올바르게 파싱됩니다. 또한, 최종 렌더링된 마크업에는 나타나지 않습니다. 축약 문법은 선택 사항이지만, 이후 사용법을 더 배우면 그 편리함을 알게 될 것입니다.
+`:`로 시작하는 속성은 일반 HTML과는 다르게 보일 수 있지만, `:`는 실제로 속성 이름에 사용할 수 있는 유효한 문자이며, Vue가 지원하는 모든 브라우저에서 올바르게 파싱됩니다. 또한, 최종 렌더링된 마크업에는 나타나지 않습니다. 축약 문법은 선택 사항이지만, 이후 사용법을 더 배우면 그 편리함을 알게 될 것입니다.
 
-> 이후 가이드에서는 코드 예제에서 축약 문법을 사용할 것입니다. 이는 Vue 개발자들이 가장 많이 사용하는 방식이기 때문입니다.
+> 이후 가이드의 코드 예제에서는 축약 문법을 사용할 것입니다. 이는 Vue 개발자들이 가장 많이 사용하는 방식이기 때문입니다.
 
 ### 동일 이름 축약 문법 {#same-name-shorthand}
 
@@ -86,7 +86,7 @@ Virtual DOM 개념에 익숙하고 JavaScript의 강력한 기능을 선호한�
 
 ### 불리언 속성 {#boolean-attributes}
 
-[불리언 속성](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes)은 요소에 존재 여부로 true/false 값을 나타내는 속성입니다. 예를 들어, [`disabled`](https://developer.mozilla.org/ko/docs/Web/HTML/Attributes/disabled)는 가장 많이 사용되는 불리언 속성 중 하나입니다.
+[불리언 속성](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes)은 요소에 존재하는지 여부로 true/false 값을 나타내는 속성입니다. 예를 들어, [`disabled`](https://developer.mozilla.org/ko/docs/Web/HTML/Attributes/disabled)는 가장 많이 사용되는 불리언 속성 중 하나입니다.
 
 이 경우 `v-bind`는 약간 다르게 동작합니다:
 
@@ -126,7 +126,7 @@ data() {
 
 </div>
 
-`v-bind`에 인자 없이 사용하여 한 번에 바인딩할 수 있습니다:
+`v-bind`를 인자 없이 사용하면 이 객체를 한 번에 바인딩할 수 있습니다:
 
 ```vue-html
 <div v-bind="objectOfAttrs"></div>
@@ -178,14 +178,14 @@ Vue 템플릿에서는 다음 위치에서 JavaScript 표현식을 사용할 수
 ```
 
 :::tip
-바인딩 표현식 내에서 호출되는 함수는 컴포넌트가 업데이트될 때마다 호출되므로, 데이터 변경이나 비동기 작업과 같은 **부작용**이 없어야 합니다.
+바인딩 표현식 내에서 호출하는 함수는 컴포넌트가 업데이트될 때마다 실행되므로, 데이터 변경이나 비동기 작업과 같은 **부수 효과**이 없어야 합니다.
 :::
 
 ### 제한된 전역 접근 {#restricted-globals-access}
 
 템플릿 표현식은 샌드박스화되어 있으며, [제한된 전역 목록](https://github.com/vuejs/core/blob/main/packages/shared/src/globalsAllowList.ts#L3)에만 접근할 수 있습니다. 이 목록에는 `Math`와 `Date`와 같은 자주 사용되는 내장 전역 객체가 포함되어 있습니다.
 
-목록에 명시적으로 포함되지 않은 전역, 예를 들어 `window`에 추가한 사용자 속성 등은 템플릿 표현식에서 접근할 수 없습니다. 하지만 [`app.config.globalProperties`](/api/application#app-config-globalproperties)에 추가하여 모든 Vue 표현식에서 사용할 전역을 명시적으로 정의할 수 있습니다.
+목록에 명시적으로 포함되지 않은 전역, 예를 들어 `window`에 추가한 사용자 속성 등은 템플릿 표현식에서 접근할 수 없습니다. 하지만 [`app.config.globalProperties`](/api/application#app-config-globalproperties)에 추가하는 방식으로, 모든 Vue 표현식에서 사용할 전역을 명시적으로 정의할 수 있습니다.
 
 ## 디렉티브 {#directives}
 
@@ -210,7 +210,7 @@ Vue 템플릿에서는 다음 위치에서 JavaScript 표현식을 사용할 수
 <a :href="url"> ... </a>
 ```
 
-여기서 `href`는 인자이며, `v-bind` 디렉티브에 요소의 `href` 속성을 `url` 표현식의 값에 바인딩하라고 지시합니다. 축약 문법에서는 인자 앞의 모든 부분(즉, `v-bind:`)이 `:` 한 글자로 축약됩니다.
+여기서 `href`는 인자이며, `v-bind` 디렉티브에 요소의 `href` 속성을 `url` 표현식의 값에 바인딩하라고 지시합니다. 축약 문법에서는 인자 앞의 모든 부분(즉, `v-bind:`)이 `:` 한 글자로 줄어듭니다.
 
 또 다른 예는 DOM 이벤트를 감지하는 `v-on` 디렉티브입니다:
 
@@ -272,7 +272,7 @@ in-DOM 템플릿(HTML 파일에 직접 작성된 템플릿)을 사용할 때는,
 <a :[someAttr]="value"> ... </a>
 ```
 
-위 코드는 in-DOM 템플릿에서 `:[someattr]`로 변환됩니다. 만약 컴포넌트에 `someAttr` 속성이 있고 `someattr`가 아니라면, 코드가 동작하지 않습니다. 싱글 파일 컴포넌트 내부의 템플릿은 **이 제약을 받지 않습니다**.
+위 코드는 in-DOM 템플릿에서 `:[someattr]`로 변환됩니다. 컴포넌트에 `someattr`가 아니라 `someAttr` 속성이 있다면, 이 코드는 동작하지 않습니다. 싱글 파일 컴포넌트 내부의 템플릿은 **이 제약을 받지 않습니다**.
 
 ### 수식어 {#modifiers}
 

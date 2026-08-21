@@ -1,12 +1,12 @@
 # 유틸리티 타입 {#utility-types}
 
 :::info
-이 페이지에는 사용법에 대한 설명이 필요한 몇 가지 일반적으로 사용되는 유틸리티 타입만 나열되어 있습니다. 내보내는 타입의 전체 목록은 [소스 코드](https://github.com/vuejs/core/blob/main/packages/runtime-core/src/index.ts#L131)를 참고하세요.
+이 페이지에는 일반적으로 사용되는 유틸리티 타입 중 사용법 설명이 필요한 몇 가지만 나열되어 있습니다. 내보내는 타입의 전체 목록은 [소스 코드](https://github.com/vuejs/core/blob/main/packages/runtime-core/src/index.ts#L131)를 참고하세요.
 :::
 
 ## PropType\<T> {#proptype-t}
 
-런타임 props 선언을 사용할 때 prop에 더 고급 타입을 주석으로 달 때 사용합니다.
+런타임 props 선언을 사용할 때, prop에 더 고급 타입을 주석으로 달기 위해 사용합니다.
 
 - **예시**
 
@@ -153,7 +153,7 @@
 
 ## ComponentCustomProps {#componentcustomprops}
 
-TSX 요소에서 선언되지 않은 props를 사용하기 위해 허용되는 TSX props를 확장할 때 사용합니다.
+TSX 요소에서 선언되지 않은 props를 사용하기 위해, 허용되는 TSX props를 확장할 때 사용합니다.
 
 - **예시**
 
@@ -205,7 +205,7 @@ style 속성 바인딩(binding)에서 허용되는 값을 확장할 때 사용�
 :::
 
 :::info 관련 문서
-SFC `<style>` 태그는 `v-bind` CSS 함수를 사용하여 CSS 값을 동적 컴포넌트 상태에 연결하는 것을 지원합니다. 이를 통해 타입 확장 없이도 커스텀 속성을 사용할 수 있습니다.
+SFC `<style>` 태그는 `v-bind` CSS 함수를 사용하여 CSS 값을 동적인 컴포넌트 상태에 연결하는 것을 지원합니다. 이를 통해 타입 확장 없이도 커스텀 속성을 사용할 수 있습니다.
 
 - [CSS에서 v-bind()](/api/sfc-css-features#v-bind-in-css)
   :::

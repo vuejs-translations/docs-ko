@@ -74,4 +74,4 @@
   export * from '@vue/runtime-core'
   ```
 
-  Vue의 자체 `@vue/runtime-dom`은 [동일한 API를 사용하여 구현되었습니다](https://github.com/vuejs/core/blob/main/packages/runtime-dom/src/index.ts). 더 간단한 구현을 원한다면, Vue의 자체 단위 테스트를 위한 비공개 패키지인 [`@vue/runtime-test`](https://github.com/vuejs/core/blob/main/packages/runtime-test/src/index.ts)를 참고하세요.
+  Vue의 자체 `@vue/runtime-dom`은 [동일한 API를 사용하여 구현되었습니다](https://github.com/vuejs/core/blob/main/packages/runtime-dom/src/index.ts). 더 간단한 구현을 원한다면, Vue가 자체 단위 테스트에 사용하는 비공개 패키지인 [`@vue/runtime-test`](https://github.com/vuejs/core/blob/main/packages/runtime-test/src/index.ts)를 참고하세요.

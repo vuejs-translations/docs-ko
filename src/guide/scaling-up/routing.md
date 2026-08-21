@@ -4,9 +4,9 @@
 
 서버 사이드 라우팅이란 사용자가 방문하는 URL 경로에 따라 서버가 응답을 보내는 것을 의미합니다. 전통적인 서버 렌더링 웹 앱에서 링크를 클릭하면, 브라우저는 서버로부터 HTML 응답을 받아 전체 페이지를 새로운 HTML로 다시 로드합니다.
 
-하지만 [싱글 페이지 애플리케이션](https://developer.mozilla.org/ko/docs/Glossary/SPA) (SPA)에서는 클라이언트 사이드 자바스크립트가 내비게이션을 가로채고, 동적으로 새로운 데이터를 가져와 전체 페이지를 새로 고침하지 않고 현재 페이지를 업데이트할 수 있습니다. 이는 특히 사용자가 오랜 시간 동안 여러 상호작용을 수행하는 실제 "애플리케이션"과 같은 사용 사례에서 더욱 빠른 사용자 경험을 제공합니다.
+하지만 [싱글 페이지 애플리케이션](https://developer.mozilla.org/ko/docs/Glossary/SPA) (SPA)에서는 클라이언트 사이드 JavaScript가 내비게이션을 가로채고, 동적으로 새로운 데이터를 가져와 전체 페이지를 새로 고침하지 않고 현재 페이지를 업데이트할 수 있습니다. 특히 사용자가 오랜 시간 동안 여러 상호작용을 수행하는 실제 "애플리케이션" 같은 사용 사례에서는, 이 방식이 더욱 빠른 사용자 경험을 제공합니다.
 
-이러한 SPA에서는 "라우팅"이 브라우저에서 클라이언트 사이드에서 이루어집니다. 클라이언트 사이드 라우터(router)는 [History API](https://developer.mozilla.org/ko/docs/Web/API/History)나 [`hashchange` 이벤트](https://developer.mozilla.org/ko/docs/Web/API/Window/hashchange_event)와 같은 브라우저 API를 사용하여 애플리케이션의 렌더링(rendering)된 뷰를 관리하는 역할을 합니다.
+이러한 SPA에서 "라우팅"은 브라우저, 즉 클라이언트 사이드에서 이루어집니다. 클라이언트 사이드 라우터(router)는 [History API](https://developer.mozilla.org/ko/docs/Web/API/History)나 [`hashchange` 이벤트](https://developer.mozilla.org/ko/docs/Web/API/Window/hashchange_event)와 같은 브라우저 API를 사용하여 애플리케이션의 렌더링(rendering)된 뷰를 관리하는 역할을 합니다.
 
 ## 공식 라우터 {#official-router}
 
@@ -21,7 +21,7 @@ Vue는 SPA를 구축하는 데 매우 적합합니다. 대부분의 SPA에서는
 
 ## 간단한 라우팅 직접 구현하기 {#simple-routing-from-scratch}
 
-아주 간단한 라우팅만 필요하고, 기능이 풍부한 라우터 라이브러리를 사용하고 싶지 않다면, [동적 컴포넌트(component)](/guide/essentials/component-basics#dynamic-components)를 사용하고, 브라우저의 [`hashchange` 이벤트](https://developer.mozilla.org/ko/docs/Web/API/Window/hashchange_event)를 감지하거나 [History API](https://developer.mozilla.org/ko/docs/Web/API/History)를 사용하여 현재 컴포넌트 상태를 업데이트하는 방식으로 구현할 수 있습니다.
+아주 간단한 라우팅만 필요하고 기능이 풍부한 라우터 라이브러리를 도입하고 싶지 않다면, [동적 컴포넌트(component)](/guide/essentials/component-basics#dynamic-components)로 직접 구현할 수 있습니다. 브라우저의 [`hashchange` 이벤트](https://developer.mozilla.org/ko/docs/Web/API/Window/hashchange_event)를 감지하거나 [History API](https://developer.mozilla.org/ko/docs/Web/API/History)를 이용해 현재 컴포넌트 상태를 업데이트하는 방식입니다.
 
 다음은 최소한의 예시입니다:
 

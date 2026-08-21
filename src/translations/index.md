@@ -22,7 +22,7 @@ aside: false
 - [繁體中文 / Traditional Chinese](https://zh-hk.vuejs.org/) [[source](https://github.com/vuejs-translations/docs-zh-hk)]
 - [Polski / Polish](https://pl.vuejs.org/) [[source](https://github.com/vuejs-translations/docs-pl)]
 
-## 번역중인 언어 {#work-in-progress-languages}
+## 번역 중인 언어 {#work-in-progress-languages}
 
 - [العربية / Arabic](https://ar.vuejs.org/) [[source](https://github.com/vuejs-translations/docs-ar)]
 - [Español / Spanish](https://vue3-spanish-docs.netlify.app/) [[source](https://github.com/icarusgk/vuejs-spanish-docs)]

@@ -10,7 +10,7 @@ Vue의 핵심 기능은 **선언적 렌더링**입니다. HTML을 확장한 템�
 
 <div class="composition-api">
 
-변경 시 업데이트를 트리거할 수 있는 상태는 **반응형**이라고 간주합니다. Vue의 `reactive()` API를 사용하여 반응형 상태를 선언할 수 있습니다. `reactive()`로 생성된 객체는 일반 객체처럼 동작하는 JavaScript [프록시(Proxy)](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)입니다:
+변경될 때 업데이트를 트리거할 수 있는 상태를 **반응형**이라고 간주합니다. Vue의 `reactive()` API를 사용하여 반응형 상태를 선언할 수 있습니다. `reactive()`로 생성된 객체는 일반 객체처럼 동작하는 JavaScript [프록시(Proxy)](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)입니다:
 
 ```js
 import { reactive } from 'vue'
@@ -66,13 +66,13 @@ setup() {
 <p>Count is: {{ counter.count }}</p>
 ```
 
-템플릿에서 `message` ref에 접근할 때 `.value`를 사용할 필요가 없다는 점에 주목하세요. 더 간결하게 사용할 수 있도록 자동으로 언래핑됩니다.
+템플릿에서 `message` ref에 접근할 때 `.value`를 사용할 필요가 없다는 점에 주목하세요. 더 간결하게 쓸 수 있도록 자동으로 언래핑됩니다.
 
 </div>
 
 <div class="options-api">
 
-변경 시 업데이트를 트리거할 수 있는 상태는 **반응형**이라고 간주합니다. Vue에서 반응형 상태는 컴포넌트에 저장됩니다. <span class="html">예제 코드에서 `createApp()`에 전달되는 객체는 컴포넌트입니다.</span>
+변경될 때 업데이트를 트리거할 수 있는 상태를 **반응형**이라고 간주합니다. Vue에서 반응형 상태는 컴포넌트에 저장됩니다. <span class="html">예제 코드에서 `createApp()`에 전달되는 객체는 컴포넌트입니다.</span>
 
 `data` 컴포넌트 옵션을 사용하여 반응형 상태를 선언할 수 있습니다. 이 옵션은 객체를 반환하는 함수여야 합니다:
 

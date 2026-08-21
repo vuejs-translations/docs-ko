@@ -32,7 +32,7 @@
 
   ### SSR 컨텍스트 {#ssr-context}
 
-  선택적으로 컨텍스트 객체를 전달할 수 있으며, 렌더링(rendering) 중에 추가 데이터를 기록하는 데 사용할 수 있습니다. 예를 들어 [Teleport의 내용 접근](/guide/scaling-up/ssr#teleports)에 사용할 수 있습니다:
+  선택적으로 컨텍스트 객체를 전달할 수 있으며, 렌더링(rendering) 중에 추가 데이터를 기록하는 데 사용할 수 있습니다. 예를 들어 [Teleport의 내용 접근](/guide/scaling-up/ssr#teleports)에 활용할 수 있습니다:
 
   ```js
   const ctx = {}
@@ -41,7 +41,7 @@
   console.log(ctx.teleports) // { '#teleported': 'teleported content' }
   ```
 
-  이 페이지의 대부분의 다른 SSR API도 선택적으로 컨텍스트 객체를 받을 수 있습니다. 컨텍스트 객체는 컴포넌트(component) 코드에서 [useSSRContext](#usessrcontext) 헬퍼를 통해 접근할 수 있습니다.
+  이 페이지에 있는 다른 SSR API 대부분도 선택적으로 컨텍스트 객체를 받을 수 있습니다. 컨텍스트 객체는 컴포넌트(component) 코드에서 [useSSRContext](#usessrcontext) 헬퍼를 통해 접근할 수 있습니다.
 
 - **관련 문서** [가이드 - 서버 사이드 렌더링](/guide/scaling-up/ssr)
 
@@ -73,7 +73,7 @@
 
 ## pipeToNodeWritable() {#pipetonodewritable}
 
-렌더링 후 기존 [Node.js Writable 스트림](https://nodejs.org/api/stream.html#stream_writable_streams) 인스턴스(instance)에 파이프합니다.
+입력을 렌더링하여 기존 [Node.js Writable 스트림](https://nodejs.org/api/stream.html#stream_writable_streams) 인스턴스(instance)에 파이프합니다.
 
 - **`vue/server-renderer`에서 내보냄**
 
@@ -122,7 +122,7 @@
 
 ## pipeToWebWritable() {#pipetowebwritable}
 
-렌더링 후 기존 [Web WritableStream](https://developer.mozilla.org/en-US/docs/Web/API/WritableStream) 인스턴스에 파이프합니다.
+입력을 렌더링하여 기존 [Web WritableStream](https://developer.mozilla.org/en-US/docs/Web/API/WritableStream) 인스턴스에 파이프합니다.
 
 - **`vue/server-renderer`에서 내보냄**
 
@@ -231,7 +231,7 @@
   <div data-allow-mismatch="text">{{ data.toLocaleString() }}</div>
   ```
 
-  값은 허용되는 불일치 유형을 특정 타입으로 제한할 수 있습니다. 허용되는 값은 다음과 같습니다:
+  값을 지정하면 허용할 불일치를 특정 유형으로 제한할 수 있습니다. 사용 가능한 값은 다음과 같습니다:
 
   - `text`
   - `children` (직접 자식에 대한 불일치만 허용)

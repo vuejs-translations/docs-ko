@@ -85,13 +85,13 @@
 
 - **세부사항**
 
-  `customRef()`는 팩토리 함수를 기대하며, 이 함수는 `track`과 `trigger` 함수를 인자로 받아 `get`과 `set` 메서드를 가진 객체를 반환해야 합니다.
+  `customRef()`는 팩토리 함수를 받으며, 이 함수는 `track`과 `trigger` 함수를 인자로 받아 `get`과 `set` 메서드를 가진 객체를 반환해야 합니다.
 
   일반적으로 `track()`은 `get()` 내부에서, `trigger()`는 `set()` 내부에서 호출되어야 합니다. 하지만 언제 호출할지, 혹은 호출하지 않을지에 대한 완전한 제어권이 있습니다.
 
 - **예시**
 
-  마지막 set 호출 이후 일정 시간 후에만 값을 업데이트하는 디바운스(debounce) ref를 생성합니다:
+  마지막 set 호출로부터 일정 시간이 지난 후에만 값을 업데이트하는 디바운스(debounce) ref를 생성합니다:
 
   ```js
   import { customRef } from 'vue'
@@ -134,7 +134,7 @@
   :::warning 주의해서 사용하세요
   customRef를 사용할 때, getter의 반환값에 주의해야 합니다. 특히 getter가 실행될 때마다 새로운 객체 데이터 타입을 생성하는 경우, 이 customRef가 prop으로 전달된 부모-자식 컴포넌트 관계에 영향을 미칩니다.
 
-  부모 컴포넌트의 렌더 함수는 다른 반응성 상태의 변경에 의해 트리거될 수 있습니다. 리렌더링 중에 customRef의 값이 다시 평가되어 자식 컴포넌트에 prop으로 새로운 객체 데이터 타입이 전달됩니다. 이 prop은 자식 컴포넌트에서 이전 값과 비교되며, 값이 다르기 때문에 customRef의 반응성 의존성이 자식 컴포넌트에서 트리거됩니다. 한편, customRef의 setter가 호출되지 않았으므로 부모 컴포넌트의 반응성 의존성은 실행되지 않습니다.
+  부모 컴포넌트의 렌더 함수는 다른 반응성 상태의 변경에 의해 트리거될 수 있습니다. 리렌더링 중에 customRef의 값이 다시 평가되어 자식 컴포넌트에 prop으로 새로운 객체 데이터 타입이 전달됩니다. 이 prop은 자식 컴포넌트에서 이전 값과 비교되며, 값이 다르기 때문에 customRef의 반응성 의존성이 트리거됩니다. 한편, customRef의 setter가 호출되지 않았으므로 부모 컴포넌트의 반응성 의존성은 실행되지 않습니다.
 
   [Playground에서 확인하기](https://play.vuejs.org/#eNqFVEtP3DAQ/itTS9Vm1ZCt1J6WBZUiDvTQIsoNcwiOkzU4tmU7+9Aq/71jO1mCWuhlN/PyfPP45kAujCk2HSdLsnLMCuPBcd+Zc6pEa7T1cADWOa/bW17nYMPPtvRsDT3UVrcww+DZ0flStybpKSkWQQqPU0IVVUwr58FYvdvDWXgpu6ek1pqSHL0fS0vJw/z0xbN1jUPHY/Ys87Zkzzl4K5qG2zmcnUN2oAqg4T6bQ/wENKNXNk+CxWKsSlmLTSk7XlhedYxnWclYDiK+MkQCoK4wnVtnIiBJuuEJNA2qPof7hzkEoc8DXgg9yzYTBBFgNr4xyY4FbaK2p6qfI0iqFgtgulOe27HyQRy69Dk1JXY9C03JIeQ6wg4xWvJCqFpnlNytOcyC2wzYulQNr0Ao+Mhw0KnTTEttl/CIaIJiMz8NGBHFtYetVrPwa58/IL48Zag4N0ssquNYLYBoW16J0vOkC3VQtVqk7cG9QcHz1kj0QAlgVYkNMFk6d0bJ1pbGYKUkmtD42HmvFfi94WhOEiXwjUnBnlEz9OLTJwy5qCo44D4O7en71SIFjI/F9VuG4jEy/GHQKq5hQrJAKOc4uNVighBF5/cygS0GgOMoK+HQb7+EWvLdMM7weVIJy5kXWi0Rj+xaNRhLKRp1IvB9hxYegA6WJ1xkUe9PcF4e9a+suA3YwYiC5MQ79KlFUzw5rZCZEUtoRWuE5PaXCXmxtuWIkpJSSr39EXXHQcWYNWfP/9A/uV3QUXJjueN2E1ZhtPnSIqGS+er3T77D76Ox1VUn0fsd4y3HfewCxuT2vVMVwp74RbTX8WQI1dy5qx12xI1Fpa1K5AreeEHCCN8q/QXul+LrSC3s4nh93jltkVPDIYt5KJkcIKStCReo4rVQ/CZI6dyEzToCCJu7hAtry/1QH/qXncQB400KJwqPxZHxEyona0xS/E3rt1m9Ld1rZl+uhaxecRtP3EjtgddCyimtXyj9H/Ii3eId7uOGTkyk/wOEbQ9h)
 
@@ -155,7 +155,7 @@
   `reactive()`와 달리, 깊은 변환이 없습니다: 얕은 반응성 객체에서는 루트 레벨 속성만 반응성을 가집니다. 속성 값은 그대로 저장되고 노출됩니다. 즉, ref 값을 가진 속성은 **자동으로 언래핑되지 않습니다**.
 
   :::warning 주의해서 사용하세요
-  얕은 데이터 구조는 컴포넌트의 루트 레벨 상태에만 사용해야 합니다. 깊은 반응성 객체 내부에 중첩해서 사용하는 것은 일관성 없는 반응성 트리 구조를 만들어 이해 및 디버깅이 어려워질 수 있습니다.
+  얕은 데이터 구조는 컴포넌트의 루트 레벨 상태에만 사용해야 합니다. 깊은 반응성 객체 내부에 중첩해서 사용하면 일관성 없는 반응성 트리 구조가 만들어져, 동작을 이해하고 디버깅하기 어려워질 수 있습니다.
   :::
 
 - **예시**
@@ -193,7 +193,7 @@
   `readonly()`와 달리, 깊은 변환이 없습니다: 루트 레벨 속성만 읽기 전용으로 만들어집니다. 속성 값은 그대로 저장되고 노출됩니다. 즉, ref 값을 가진 속성은 **자동으로 언래핑되지 않습니다**.
 
   :::warning 주의해서 사용하세요
-  얕은 데이터 구조는 컴포넌트의 루트 레벨 상태에만 사용해야 합니다. 깊은 반응성 객체 내부에 중첩해서 사용하는 것은 일관성 없는 반응성 트리 구조를 만들어 이해 및 디버깅이 어려워질 수 있습니다.
+  얕은 데이터 구조는 컴포넌트의 루트 레벨 상태에만 사용해야 합니다. 깊은 반응성 객체 내부에 중첩해서 사용하면 일관성 없는 반응성 트리 구조가 만들어져, 동작을 이해하고 디버깅하기 어려워질 수 있습니다.
   :::
 
 - **예시**
@@ -263,13 +263,13 @@ Vue에서 생성된 프록시(proxy)의 원본, 즉 가공되지 않은 객체�
   ```
 
   :::warning 주의해서 사용하세요
-  `markRaw()`와 `shallowReactive()`와 같은 얕은 API는 기본 깊은 반응성/읽기 전용 변환에서 선택적으로 제외하고, 상태 그래프에 가공되지 않은(non-proxied) 객체를 삽입할 수 있게 해줍니다. 다양한 이유로 사용할 수 있습니다:
+  `markRaw()`와 `shallowReactive()`와 같은 얕은 API를 사용하면, 기본으로 적용되는 깊은 반응성/읽기 전용 변환에서 선택적으로 벗어나, 상태 그래프에 가공되지 않은(non-proxied) 객체를 삽입할 수 있습니다. 다양한 이유로 사용할 수 있습니다:
 
   - 일부 값은 반응성으로 만들면 안 됩니다. 예를 들어 복잡한 3rd party 클래스 인스턴스(instance)나 Vue 컴포넌트 객체 등입니다.
 
   - 프록시 변환을 건너뛰면 불변 데이터 소스를 가진 대용량 리스트 렌더링(rendering) 시 성능 향상을 얻을 수 있습니다.
 
-  이들은 고급 기능으로 간주되는데, raw 제외는 루트 레벨에만 적용되기 때문입니다. 즉, 중첩된, markRaw되지 않은 raw 객체를 반응성 객체에 설정한 후 다시 접근하면 프록시 버전을 얻게 됩니다. 이는 **아이덴티티 위험**을 초래할 수 있습니다. 즉, 객체 아이덴티티에 의존하는 작업을 수행하면서 동일한 객체의 raw와 프록시 버전을 모두 사용하는 경우입니다:
+  이들은 고급 기능으로 간주되는데, raw 제외는 루트 레벨에만 적용되기 때문입니다. 즉, markRaw 처리되지 않은 중첩 raw 객체를 반응성 객체에 설정한 후 다시 접근하면 프록시 버전을 얻게 됩니다. 이는 **아이덴티티 위험**을 초래할 수 있습니다. 즉, 객체 아이덴티티에 의존하는 작업을 수행하면서 동일한 객체의 raw와 프록시 버전을 모두 사용하는 경우입니다:
 
   ```js
   const foo = markRaw({
@@ -284,13 +284,13 @@ Vue에서 생성된 프록시(proxy)의 원본, 즉 가공되지 않은 객체�
   console.log(foo.nested === bar.nested) // false
   ```
 
-  아이덴티티 위험은 일반적으로 드뭅니다. 하지만 이러한 API를 제대로 활용하면서 아이덴티티 위험을 안전하게 피하려면 반응성 시스템의 동작 원리에 대한 확실한 이해가 필요합니다.
+  아이덴티티 위험은 일반적으로 드뭅니다. 하지만 이러한 위험을 안전하게 피하면서 API를 제대로 활용하려면, 반응성 시스템의 동작 원리를 확실하게 이해하고 있어야 합니다.
 
   :::
 
 ## effectScope() {#effectscope}
 
-효과 스코프 객체를 생성하여, 그 안에서 생성된 반응성 효과(즉, computed와 watcher)를 함께 캡처하고 일괄적으로 해제(dispose)할 수 있습니다. 이 API의 자세한 사용 사례는 해당 [RFC](https://github.com/vuejs/rfcs/blob/master/active-rfcs/0041-reactivity-effect-scope.md)를 참고하세요.
+효과 스코프 객체를 생성하며, 그 안에서 만들어진 반응성 효과(즉, computed와 watcher)를 함께 캡처하고 일괄적으로 해제(dispose)할 수 있습니다. 이 API의 자세한 사용 사례는 해당 [RFC](https://github.com/vuejs/rfcs/blob/master/active-rfcs/0041-reactivity-effect-scope.md)를 참고하세요.
 
 - **타입**
 
@@ -334,7 +334,7 @@ Vue에서 생성된 프록시(proxy)의 원본, 즉 가공되지 않은 객체�
 
 현재 활성화된 [effect scope](#effectscope)에 dispose 콜백(callback)을 등록합니다. 해당 effect scope가 중지될 때 콜백이 호출됩니다.
 
-이 메서드는 재사용 가능한 컴포지션 함수에서 컴포넌트에 종속되지 않는 `onUnmounted`의 대체로 사용할 수 있습니다. 각 Vue 컴포넌트의 `setup()` 함수도 effect scope 내에서 호출되기 때문입니다.
+이 메서드는 재사용 가능한 컴포지션 함수에서 컴포넌트에 종속되지 않는 `onUnmounted`의 대안으로 사용할 수 있습니다. 각 Vue 컴포넌트의 `setup()` 함수도 effect scope 내에서 호출되기 때문입니다.
 
 활성화된 effect scope 없이 이 함수를 호출하면 경고가 발생합니다. 3.5+에서는 두 번째 인자로 `true`를 전달하여 이 경고를 억제할 수 있습니다.
 

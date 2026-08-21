@@ -4,7 +4,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 
 # KeepAlive {#keepalive}
 
-`<KeepAlive>`는 여러 컴포넌트(component) 간을 동적으로 전환할 때 컴포넌트 인스턴스(instance)를 조건부로 캐시할 수 있게 해주는 내장 컴포넌트입니다.
+`<KeepAlive>`는 여러 컴포넌트(component) 사이를 동적으로 전환할 때 컴포넌트 인스턴스(instance)를 조건부로 캐시할 수 있게 해주는 내장 컴포넌트입니다.
 
 ## 기본 사용법 {#basic-usage}
 
@@ -14,7 +14,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 <component :is="activeComponent" />
 ```
 
-기본적으로 활성화된 컴포넌트 인스턴스는 전환 시 언마운트(unmount)됩니다. 이로 인해 해당 컴포넌트가 가지고 있던 변경된 상태는 모두 사라집니다. 다시 이 컴포넌트를 표시하면, 오직 초기 상태만을 가진 새로운 인스턴스가 생성됩니다.
+기본적으로, 활성화된 컴포넌트 인스턴스는 전환 시 언마운트(unmount)됩니다. 이로 인해 해당 컴포넌트가 가지고 있던 변경된 상태는 모두 사라집니다. 다시 이 컴포넌트를 표시하면, 오직 초기 상태만을 가진 새로운 인스턴스가 생성됩니다.
 
 아래 예시에서는 상태를 가진 두 개의 컴포넌트가 있습니다. A는 카운터를, B는 `v-model`을 통해 입력값과 동기화된 메시지를 가지고 있습니다. 둘 중 하나의 상태를 변경한 뒤, 다른 컴포넌트로 전환했다가 다시 돌아와 보세요:
 
@@ -71,7 +71,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 </KeepAlive>
 ```
 
-매칭은 컴포넌트의 [`name`](/api/options-misc#name) 옵션을 기준으로 확인되므로, `KeepAlive`로 조건부 캐시가 필요한 컴포넌트는 반드시 `name` 옵션을 명시적으로 선언해야 합니다.
+매칭은 컴포넌트의 [`name`](/api/options-misc#name) 옵션을 기준으로 이루어지므로, `KeepAlive`로 조건부 캐시가 필요한 컴포넌트는 반드시 `name` 옵션을 명시적으로 선언해야 합니다.
 
 :::tip
 3.2.34 버전부터는 `<script setup>`을 사용하는 단일 파일 컴포넌트의 경우 파일명을 기반으로 `name` 옵션이 자동으로 추론되므로, 직접 이름을 선언할 필요가 없습니다.
@@ -79,7 +79,7 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 
 ## 최대 캐시 인스턴스 수 {#max-cached-instances}
 
-`max` prop을 통해 캐시할 수 있는 컴포넌트 인스턴스의 최대 개수를 제한할 수 있습니다. `max`가 지정되면, `<KeepAlive>`는 [LRU 캐시](<https://ko.wikipedia.org/wiki/%EC%BA%90%EC%8B%9C_%EA%B5%90%EC%B2%B4_%EC%A0%95%EC%B1%85#%EC%B5%9C%EA%B7%BC_%EC%B5%9C%EC%86%8C_%EC%82%AC%EC%9A%A9_(LRU)>)처럼 동작합니다. 캐시된 인스턴스의 수가 지정한 최대 개수를 초과하려고 하면, 가장 오랫동안 접근하지 않은 캐시 인스턴스가 파괴되어 새로운 인스턴스를 위한 공간을 만듭니다.
+`max` prop을 통해 캐시할 수 있는 컴포넌트 인스턴스의 최대 개수를 제한할 수 있습니다. `max`가 지정되면, `<KeepAlive>`는 [LRU 캐시](<https://ko.wikipedia.org/wiki/%EC%BA%90%EC%8B%9C_%EA%B5%90%EC%B2%B4_%EC%A0%95%EC%B1%85#%EC%B5%9C%EA%B7%BC_%EC%B5%9C%EC%86%8C_%EC%82%AC%EC%9A%A9_(LRU)>)처럼 동작합니다. 캐시된 인스턴스의 수가 지정한 최대 개수를 초과하려고 하면, 가장 오랫동안 접근하지 않은 캐시 인스턴스가 파괴되어 새로운 인스턴스를 위한 공간이 확보됩니다.
 
 ```vue-html
 <KeepAlive :max="10">
@@ -87,13 +87,13 @@ import SwitchComponent from './keep-alive-demos/SwitchComponent.vue'
 </KeepAlive>
 ```
 
-## 캐시된 인스턴스의 생명주기(lifecycle) {#lifecycle-of-cached-instance}
+## 캐시된 인스턴스의 라이프사이클(lifecycle) {#lifecycle-of-cached-instance}
 
-컴포넌트 인스턴스가 DOM에서 제거되지만 `<KeepAlive>`로 캐시된 컴포넌트 트리의 일부라면, 언마운트되는 대신 **비활성화(deactivated)** 상태로 전환됩니다. 캐시된 트리의 일부로 DOM에 다시 삽입되면 **활성화(activated)** 됩니다.
+컴포넌트 인스턴스가 DOM에서 제거될 때, `<KeepAlive>`로 캐시된 컴포넌트 트리의 일부라면 언마운트되는 대신 **비활성화(deactivated)** 상태로 전환됩니다. 캐시된 트리의 일부로 DOM에 다시 삽입되면 **활성화(activated)** 됩니다.
 
 <div class="composition-api">
 
-캐시된 컴포넌트는 [`onActivated()`](/api/composition-api-lifecycle#onactivated)와 [`onDeactivated()`](/api/composition-api-lifecycle#ondeactivated)를 사용해 이 두 상태에 대한 생명주기 훅(hook)을 등록할 수 있습니다:
+캐시된 컴포넌트는 [`onActivated()`](/api/composition-api-lifecycle#onactivated)와 [`onDeactivated()`](/api/composition-api-lifecycle#ondeactivated)를 사용해 이 두 상태에 대한 라이프사이클 훅(hook)을 등록할 수 있습니다:
 
 ```vue
 <script setup>
@@ -114,7 +114,7 @@ onDeactivated(() => {
 </div>
 <div class="options-api">
 
-캐시된 컴포넌트는 [`activated`](/api/options-lifecycle#activated)와 [`deactivated`](/api/options-lifecycle#deactivated) 훅을 사용해 이 두 상태에 대한 생명주기 훅을 등록할 수 있습니다:
+캐시된 컴포넌트는 [`activated`](/api/options-lifecycle#activated)와 [`deactivated`](/api/options-lifecycle#deactivated) 훅을 사용해 이 두 상태에 대한 라이프사이클 훅을 등록할 수 있습니다:
 
 ```js
 export default {

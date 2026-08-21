@@ -7,7 +7,7 @@ import AnimateWatcher from './demos/AnimateWatcher.vue'
 
 # 애니메이션 기법 {#animation-techniques}
 
-Vue는 진입/퇴장 및 리스트 전환을 처리하기 위해 [`<Transition>`](/guide/built-ins/transition) 및 [`<TransitionGroup>`](/guide/built-ins/transition-group) 컴포넌트(component)를 제공합니다. 하지만 Vue 애플리케이션에서도 웹에서 애니메이션을 사용하는 다른 많은 방법들이 있습니다. 여기에서는 몇 가지 추가적인 기법에 대해 논의하겠습니다.
+Vue는 진입/퇴장 및 리스트 전환을 처리하기 위해 [`<Transition>`](/guide/built-ins/transition) 및 [`<TransitionGroup>`](/guide/built-ins/transition-group) 컴포넌트(component)를 제공합니다. 하지만 웹에서 애니메이션을 활용하는 다른 방법들도 많으며, Vue 애플리케이션에서도 사용할 수 있습니다. 여기에서는 몇 가지 추가적인 기법을 살펴보겠습니다.
 
 ## 클래스 기반 애니메이션 {#class-based-animations}
 
@@ -90,7 +90,7 @@ export default {
 
 ## 상태 기반 애니메이션 {#state-driven-animations}
 
-일부 전환 효과는 값을 보간(interpolation)하여 적용할 수 있습니다. 예를 들어, 상호작용이 발생하는 동안 스타일을 요소에 바인딩(binding)하는 방식입니다. 예를 들어 다음과 같습니다:
+일부 전환 효과는 값을 보간(interpolation)하여 적용할 수 있습니다. 예를 들어, 상호작용이 발생하는 동안 스타일을 요소에 바인딩(binding)하는 방식입니다. 다음 예시를 보겠습니다:
 
 <div class="composition-api">
 
@@ -141,13 +141,13 @@ export default {
 
 <Colors />
 
-색상 외에도 스타일 바인딩을 사용하여 transform, width, height 등을 애니메이션할 수 있습니다. 심지어 스프링 물리학을 사용하여 SVG 경로도 애니메이션할 수 있습니다. 결국 이들 모두는 속성 데이터 바인딩이기 때문입니다:
+색상 외에도 스타일 바인딩을 사용하여 transform, width, height 등을 애니메이션할 수 있습니다. 심지어 스프링 물리 효과를 사용해 SVG 경로를 애니메이션하는 것도 가능합니다. 결국 이들 모두는 속성 데이터 바인딩이기 때문입니다:
 
 <ElasticHeader />
 
 ## Watcher를 이용한 애니메이션 {#animating-with-watchers}
 
-약간의 창의력을 발휘하면, watcher를 사용하여 어떤 수치 상태에 기반한 모든 것을 애니메이션할 수 있습니다. 예를 들어, 숫자 자체를 애니메이션할 수 있습니다:
+약간의 창의력을 발휘하면, watcher를 사용하여 수치 상태에 기반한 것이라면 무엇이든 애니메이션할 수 있습니다. 예를 들어, 숫자 자체에도 애니메이션을 적용할 수 있습니다:
 
 <div class="composition-api">
 

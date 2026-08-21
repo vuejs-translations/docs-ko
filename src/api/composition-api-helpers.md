@@ -63,7 +63,7 @@ TypeScript를 사용하는 경우, [`defineSlots()`](/api/sfc-script-setup#defin
 
 - **상세 설명**
 
-  `useModel()`은 SFC가 아닌 컴포넌트, 예를 들어 순수 `setup()` 함수를 사용할 때 사용할 수 있습니다. 첫 번째 인자로 `props` 객체를, 두 번째 인자로 모델 이름을 받습니다. 선택적인 세 번째 인자는 결과 모델 ref에 대한 커스텀 getter와 setter를 선언하는 데 사용할 수 있습니다. `defineModel()`과 달리, props와 emits를 직접 선언해야 한다는 점에 유의하세요.
+  `useModel()`은 SFC가 아닌 컴포넌트에서, 예를 들어 순수 `setup()` 함수를 사용할 때 활용할 수 있습니다. 첫 번째 인자로 `props` 객체를, 두 번째 인자로 모델 이름을 받습니다. 선택적인 세 번째 인자는 결과 모델 ref에 대한 커스텀 getter와 setter를 선언하는 데 사용할 수 있습니다. `defineModel()`과 달리, props와 emits를 직접 선언해야 한다는 점에 유의하세요.
 
 ## useTemplateRef() <sup class="vt-badge" data-text="3.5+" /> {#usetemplateref}
 

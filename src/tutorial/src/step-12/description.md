@@ -13,7 +13,7 @@ const props = defineProps({
 </script>
 ```
 
-`defineProps()`는 컴파일 타임 매크로이므로 import할 필요가 없습니다. 선언이 완료되면, `msg` prop은 자식 컴포넌트의 템플릿(template)에서 사용할 수 있습니다. 또한 `defineProps()`가 반환하는 객체를 통해 JavaScript에서도 접근할 수 있습니다.
+`defineProps()`는 컴파일 타임 매크로이므로 import할 필요가 없습니다. 선언이 완료되면 `msg` prop을 자식 컴포넌트의 템플릿(template)에서 사용할 수 있습니다. 또한 `defineProps()`가 반환하는 객체를 통해 JavaScript에서도 접근할 수 있습니다.
 
 </div>
 

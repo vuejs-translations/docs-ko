@@ -6,13 +6,13 @@ Vue의 선언적 렌더링(rendering) 모델은 대부분의 직접적인 DOM �
 <input ref="input">
 ```
 
-`ref`는 `v-for` 챕터에서 다룬 `key` 속성과 유사한 특별한 속성입니다. 이를 통해 마운트(mount)된 후 특정 DOM 요소나 자식 컴포넌트 인스턴스(instance)에 직접 참조를 얻을 수 있습니다. 예를 들어, 컴포넌트(component)가 마운트될 때 프로그래밍적으로 input에 포커스를 주거나, 요소에 3rd party 라이브러리를 초기화할 때 유용할 수 있습니다.
+`ref`는 `v-for` 챕터에서 다룬 `key` 속성과 유사한 특별한 속성입니다. 이 속성을 사용하면 마운트(mount)된 후에 특정 DOM 요소나 자식 컴포넌트 인스턴스(instance)의 참조를 직접 얻을 수 있습니다. 예를 들어, 컴포넌트(component)가 마운트될 때 프로그래밍 방식으로 input에 포커스를 주거나, 요소에 서드파티 라이브러리를 초기화할 때 유용할 수 있습니다.
 
 ## ref 접근하기 {#accessing-the-refs}
 
 <div class="composition-api">
 
-Composition API에서 참조를 얻으려면 [`useTemplateRef()`](/api/composition-api-helpers#usetemplateref) <sup class="vt-badge" data-text="3.5+" /> 헬퍼를 사용할 수 있습니다:
+컴포지션 API에서 참조를 얻으려면 [`useTemplateRef()`](/api/composition-api-helpers#usetemplateref) <sup class="vt-badge" data-text="3.5+" /> 헬퍼를 사용할 수 있습니다:
 
 ```vue
 <script setup>
@@ -31,7 +31,7 @@ onMounted(() => {
 </template>
 ```
 
-TypeScript를 사용할 때, Vue의 IDE 지원과 `vue-tsc`는 일치하는 `ref` 속성이 사용된 요소나 컴포넌트에 따라 `input.value`의 타입을 자동으로 추론합니다.
+TypeScript를 사용할 때, Vue의 IDE 지원과 `vue-tsc`는 일치하는 `ref` 속성이 어떤 요소나 컴포넌트에 사용되었는지에 따라 `input.value`의 타입을 자동으로 추론합니다.
 
 <details>
 <summary>3.5 이전 버전에서의 사용법</summary>
@@ -184,11 +184,11 @@ export default {
 
 </div>
 
-<span class="composition-api">자식 컴포넌트가 Options API를 사용하거나 `<script setup>`을 사용하지 않는 경우, </span>참조된 인스턴스는 자식 컴포넌트의 `this`와 동일합니다. 즉, 부모 컴포넌트는 자식 컴포넌트의 모든 속성과 메서드에 완전히 접근할 수 있습니다. 이는 부모와 자식 간에 강하게 결합된 구현 세부사항을 쉽게 만들 수 있으므로, 컴포넌트 ref는 반드시 필요할 때만 사용해야 합니다. 대부분의 경우, 표준 props와 emit 인터페이스를 사용하여 부모/자식 상호작용을 구현하는 것이 좋습니다.
+<span class="composition-api">자식 컴포넌트가 옵션 API를 사용하거나 `<script setup>`을 사용하지 않는 경우, </span>참조된 인스턴스는 자식 컴포넌트의 `this`와 동일합니다. 즉, 부모 컴포넌트는 자식 컴포넌트의 모든 속성과 메서드에 완전히 접근할 수 있습니다. 이렇게 하면 부모와 자식 간에 강하게 결합된 구현 세부사항이 만들어지기 쉬우므로, 컴포넌트 ref는 반드시 필요할 때만 사용해야 합니다. 대부분의 경우, 표준 props와 emit 인터페이스를 사용하여 부모/자식 상호작용을 구현하는 것이 좋습니다.
 
 <div class="composition-api">
 
-예외적으로, `<script setup>`을 사용하는 컴포넌트는 **기본적으로 비공개**입니다: 부모 컴포넌트가 `<script setup>`을 사용하는 자식 컴포넌트를 참조할 경우, 자식 컴포넌트가 `defineExpose` 매크로를 사용해 공개 인터페이스를 노출하지 않는 한 아무것도 접근할 수 없습니다:
+예외적으로, `<script setup>`을 사용하는 컴포넌트는 **기본적으로 비공개**입니다: 부모 컴포넌트가 `<script setup>`을 사용하는 자식 컴포넌트를 참조할 경우, 자식 컴포넌트가 `defineExpose` 매크로를 사용해 공개 인터페이스를 노출하지 않는 한 아무것에도 접근할 수 없습니다:
 
 ```vue
 <script setup>
@@ -207,7 +207,7 @@ defineExpose({
 
 부모가 템플릿 ref를 통해 이 컴포넌트의 인스턴스를 얻으면, 반환된 인스턴스는 `{ a: number, b: number }` 형태가 됩니다 (ref는 일반 인스턴스처럼 자동으로 언래핑됩니다).
 
-defineExpose는 반드시 await 연산 이전에 호출되어야 합니다. 그렇지 않으면 await 이후에 노출된 속성과 메서드는 접근할 수 없습니다.
+defineExpose는 반드시 await 연산 이전에 호출되어야 합니다. 그렇지 않으면 await 이후에 노출한 속성과 메서드에는 접근할 수 없습니다.
 
 참고: [컴포넌트 템플릿 ref 타입 지정](/guide/typescript/composition-api#typing-component-template-refs) <sup class="vt-badge ts" />
 
@@ -246,7 +246,7 @@ export default {
 
 <div class="composition-api">
 
-`v-for` 내부에서 `ref`를 사용할 때, 해당 ref는 Array 값을 가져야 하며, 마운트 후 요소들로 채워집니다:
+`v-for` 내부에서 `ref`를 사용할 때, 해당 ref는 배열 값을 가져야 하며, 마운트 후 요소들로 채워집니다:
 
 ```vue
 <script setup>
@@ -339,7 +339,7 @@ ref 배열은 소스 배열과 **동일한 순서를 보장하지 않는다**는
 
 ## 함수 ref {#function-refs}
 
-문자열 키 대신, `ref` 속성은 함수에 바인딩(binding)할 수도 있습니다. 이 함수는 각 컴포넌트 업데이트 시 호출되며, 요소 참조를 어디에 저장할지 완전히 자유롭게 결정할 수 있습니다. 함수는 첫 번째 인자로 요소 참조를 받습니다:
+문자열 키 대신, `ref` 속성은 함수에 바인딩(binding)할 수도 있습니다. 이 함수는 컴포넌트가 업데이트될 때마다 호출되며, 요소 참조를 어디에 저장할지는 완전히 자유롭게 결정할 수 있습니다. 함수는 첫 번째 인자로 요소 참조를 받습니다:
 
 ```vue-html
 <input :ref="(el) => { /* el을 속성이나 ref에 할당 */ }">

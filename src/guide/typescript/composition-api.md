@@ -1,6 +1,6 @@
 # 컴포지션 API와 TypeScript {#typescript-with-composition-api}
 
-<ScrimbaLink href="https://scrimba.com/links/vue-ts-composition-api" title="무료 Vue.js TypeScript와 Composition API 강의" type="scrimba">
+<ScrimbaLink href="https://scrimba.com/links/vue-ts-composition-api" title="무료 Vue.js TypeScript와 컴포지션 API 강의" type="scrimba">
   Scrimba에서 인터랙티브 비디오 강의 시청하기
 </ScrimbaLink>
 
@@ -54,7 +54,7 @@ const props = defineProps<Props>()
 </script>
 ```
 
-`Props`가 상대 경로 import, 경로 별칭(예: `@/types`), 외부 의존성(예: `node_modules`) 등 다른 파일에서 import된 경우에도 동작합니다. 이 기능은 TypeScript가 Vue의 peer dependency로 필요합니다.
+`Props`가 상대 경로 import, 경로 별칭(예: `@/types`), 외부 의존성(예: `node_modules`) 등 다른 파일에서 import된 경우에도 동작합니다. 이 기능을 사용하려면 TypeScript가 Vue의 peer dependency로 설치되어 있어야 합니다.
 
 ```vue
 <script setup lang="ts">
@@ -68,11 +68,11 @@ const props = defineProps<Props>()
 
 3.2 버전 이하에서는 `defineProps()`의 제네릭 타입 파라미터가 타입 리터럴 또는 로컬 인터페이스 참조로 제한되었습니다.
 
-이 제한은 3.3에서 해결되었습니다. 최신 버전의 Vue는 타입 파라미터 위치에서 import된 타입과 제한된 복합 타입을 참조할 수 있습니다. 하지만 타입에서 런타임으로의 변환이 여전히 AST 기반이기 때문에, 조건부 타입 등 실제 타입 분석이 필요한 일부 복합 타입은 지원되지 않습니다. 조건부 타입은 단일 prop의 타입으로는 사용할 수 있지만, 전체 props 객체에는 사용할 수 없습니다.
+이 제한은 3.3에서 해결되었습니다. 최신 버전의 Vue는 타입 파라미터 위치에서 import된 타입과 제한된 범위의 복합 타입을 참조할 수 있습니다. 하지만 타입에서 런타임으로의 변환이 여전히 AST 기반이기 때문에, 조건부 타입 등 실제 타입 분석이 필요한 일부 복합 타입은 지원되지 않습니다. 조건부 타입은 단일 prop의 타입으로는 사용할 수 있지만, 전체 props 객체에는 사용할 수 없습니다.
 
 ### Props 기본값 {#props-default-values}
 
-타입 기반 선언을 사용할 때는 props의 기본값을 선언하는 기능을 잃게 됩니다. 이는 [Reactive Props Destructure](/guide/components/props#reactive-props-destructure) <sup class="vt-badge" data-text="3.5+" />를 사용하여 해결할 수 있습니다:
+타입 기반 선언을 사용할 때는 props의 기본값을 선언할 수 없게 됩니다. 이는 [Reactive Props Destructure](/guide/components/props#reactive-props-destructure) <sup class="vt-badge" data-text="3.5+" />를 사용하여 해결할 수 있습니다:
 
 ```ts
 interface Props {
@@ -97,10 +97,10 @@ const props = withDefaults(defineProps<Props>(), {
 })
 ```
 
-이 코드는 동등한 런타임 props `default` 옵션으로 컴파일됩니다. 추가로, `withDefaults` 헬퍼는 기본값에 대한 타입 검사를 제공하며, 기본값이 선언된 속성에 대해 반환된 `props` 타입에서 선택적 플래그를 제거합니다.
+이 코드는 동등한 런타임 props `default` 옵션으로 컴파일됩니다. 추가로, `withDefaults` 헬퍼는 기본값에 대한 타입 검사를 제공하며, 기본값이 선언된 속성에 대해서는 반환된 `props` 타입에서 선택적 플래그를 제거합니다.
 
 :::info
-배열이나 객체와 같은 변경 가능한 참조 타입의 기본값은 `withDefaults`를 사용할 때 함수로 감싸야 하며, 이는 실수로 인한 수정 및 외부 부작용을 방지합니다. 이렇게 하면 각 컴포넌트 인스턴스(instance)가 기본값의 자체 복사본을 갖게 됩니다. 구조 분해 할당을 사용할 때는 이 작업이 **필요하지 않습니다**.
+배열이나 객체와 같은 변경 가능한 참조 타입의 기본값은 `withDefaults`를 사용할 때 함수로 감싸야 하며, 이는 실수로 인한 수정 및 외부 부수 효과을 방지합니다. 이렇게 하면 각 컴포넌트 인스턴스(instance)가 기본값의 자체 복사본을 갖게 됩니다. 구조 분해 할당을 사용할 때는 이 작업이 **필요하지 않습니다**.
 :::
 
 ### `<script setup>` 없이 {#without-script-setup}
@@ -161,7 +161,7 @@ export default defineComponent({
 })
 ```
 
-`props` 옵션은 Options API에서 더 자주 사용되므로, [Options API와 TypeScript](/guide/typescript/options-api#typing-component-props) 가이드에서 더 자세한 예시를 확인할 수 있습니다. 해당 예시에서 보여주는 기법은 `defineProps()`를 사용하는 런타임 선언에도 적용됩니다.
+`props` 옵션은 옵션 API에서 더 자주 사용되므로, [옵션 API와 TypeScript](/guide/typescript/options-api#typing-component-props) 가이드에서 더 자세한 예시를 확인할 수 있습니다. 해당 예시에서 보여주는 기법은 `defineProps()`를 사용하는 런타임 선언에도 적용됩니다.
 
 ## 컴포넌트 Emits 타입 지정하기 {#typing-component-emits}
 
@@ -200,7 +200,7 @@ const emit = defineEmits<{
 
 타입 인자는 다음 중 하나가 될 수 있습니다:
 
-1. 호출 가능한 함수 타입이지만, [Call Signatures](https://www.typescriptlang.org/docs/handbook/2/functions.html#call-signatures)로 작성된 타입 리터럴. 반환된 `emit` 함수의 타입으로 사용됩니다.
+1. 호출 가능한 함수 타입이되, [Call Signatures](https://www.typescriptlang.org/docs/handbook/2/functions.html#call-signatures) 형태의 타입 리터럴로 작성한 것. 반환된 `emit` 함수의 타입으로 사용됩니다.
 2. 이벤트 이름이 키이고, 값이 해당 이벤트에 대해 허용되는 추가 파라미터를 나타내는 배열/튜플 타입인 타입 리터럴. 위 예시는 각 인자가 명시적인 이름을 가질 수 있도록 명명된 튜플을 사용하고 있습니다.
 
 타입 선언을 사용하면, emit되는 이벤트의 타입 제약을 훨씬 더 세밀하게 제어할 수 있습니다.
@@ -408,7 +408,7 @@ onMounted(() => {
 
 적절한 DOM 인터페이스를 얻으려면 [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#technical_summary)과 같은 페이지를 참고할 수 있습니다.
 
-엄격한 타입 안전성을 위해서는 `el.value`에 접근할 때 옵셔널 체이닝 또는 타입 가드를 사용하는 것이 필요합니다. 이는 초기 ref 값이 컴포넌트가 마운트(mount)될 때까지 `null`이며, `v-if`로 참조된 요소가 언마운트(unmount)될 경우에도 `null`이 될 수 있기 때문입니다.
+엄격한 타입 안전성을 위해서는 `el.value`에 접근할 때 옵셔널 체이닝이나 타입 가드를 사용해야 합니다. 이는 초기 ref 값이 컴포넌트가 마운트(mount)될 때까지 `null`이며, `v-if`로 참조된 요소가 언마운트(unmount)될 경우에도 `null`이 될 수 있기 때문입니다.
 
 ## 컴포넌트 템플릿 ref 타입 지정하기 {#typing-component-template-refs}
 
@@ -416,7 +416,7 @@ Vue 3.5와 `@vue/language-tools` 2.1(IDE 언어 서비스와 `vue-tsc` 모두 �
 
 자동 추론이 불가능한 경우(예: SFC가 아닌 사용, 동적 컴포넌트 등)에는 여전히 제네릭 인자를 통해 템플릿 ref를 명시적으로 타입 캐스팅할 수 있습니다.
 
-import된 컴포넌트의 인스턴스 타입을 얻으려면, 먼저 `typeof`로 타입을 얻은 후 TypeScript의 내장 `InstanceType` 유틸리티를 사용해 인스턴스 타입을 추출해야 합니다:
+import된 컴포넌트의 인스턴스 타입을 얻으려면, 먼저 `typeof`로 컴포넌트의 타입을 구한 후 TypeScript의 내장 `InstanceType` 유틸리티를 사용해 인스턴스 타입을 추출해야 합니다:
 
 ```vue{6,7} [App.vue]
 <script setup lang="ts">

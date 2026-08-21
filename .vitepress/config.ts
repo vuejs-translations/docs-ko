@@ -186,7 +186,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
           link: '/guide/essentials/component-basics'
         },
         {
-          text: '생명주기 훅',
+          text: '라이프사이클 훅',
           link: '/guide/essentials/lifecycle'
         }
       ]
@@ -365,7 +365,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
           link: '/api/reactivity-advanced'
         },
         {
-          text: '생명주기 훅',
+          text: '라이프사이클 훅',
           link: '/api/composition-api-lifecycle'
         },
         {
@@ -384,7 +384,7 @@ export const sidebar: ThemeConfig['sidebar'] = {
         { text: '옵션: 상태', link: '/api/options-state' },
         { text: '옵션: 렌더링', link: '/api/options-rendering' },
         {
-          text: '옵션: 생명주기',
+          text: '옵션: 라이프사이클',
           link: '/api/options-lifecycle'
         },
         {

@@ -20,7 +20,7 @@ Vue는 상태 변화에 따라 트랜지션과 애니메이션을 다루는 데 
 
 ## `<Transition>` 컴포넌트 {#the-transition-component}
 
-`<Transition>`은 내장 컴포넌트입니다: 즉, 어떤 컴포넌트의 템플릿(template)에서도 별도의 등록 없이 사용할 수 있습니다. 기본 슬롯(slot)을 통해 전달된 요소나 컴포넌트에 진입 및 퇴장 애니메이션을 적용할 수 있습니다. 진입 또는 퇴장은 다음 중 하나에 의해 트리거될 수 있습니다:
+`<Transition>`은 내장 컴포넌트입니다. 즉, 어떤 컴포넌트의 템플릿(template)에서도 별도의 등록 없이 사용할 수 있습니다. 기본 슬롯(slot)을 통해 전달된 요소나 컴포넌트에 진입 및 퇴장 애니메이션을 적용할 수 있습니다. 진입 또는 퇴장은 다음 중 하나에 의해 트리거될 수 있습니다:
 
 - `v-if`를 통한 조건부 렌더링(rendering)
 - `v-show`를 통한 조건부 표시
@@ -70,9 +70,9 @@ Vue는 상태 변화에 따라 트랜지션과 애니메이션을 다루는 데 
 
 1. Vue는 대상 요소에 CSS 트랜지션 또는 애니메이션이 적용되어 있는지 자동으로 감지합니다. 적용되어 있다면, [CSS 트랜지션 클래스](#transition-classes)들이 적절한 타이밍에 추가/제거됩니다.
 
-2. [자바스크립트 훅(hook)](#javascript-hooks)에 대한 리스너(listener)가 있다면, 이 훅들이 적절한 타이밍에 호출됩니다.
+2. [JavaScript 훅(hook)](#javascript-hooks)에 대한 리스너(listener)가 있다면, 이 훅들이 적절한 타이밍에 호출됩니다.
 
-3. CSS 트랜지션/애니메이션이 감지되지 않고 자바스크립트 훅도 제공되지 않은 경우, 삽입 및/또는 제거에 대한 DOM 조작이 브라우저의 다음 애니메이션 프레임에 실행됩니다.
+3. CSS 트랜지션/애니메이션이 감지되지 않고 JavaScript 훅도 제공되지 않은 경우, 삽입 및/또는 제거에 대한 DOM 조작이 브라우저의 다음 애니메이션 프레임에 실행됩니다.
 
 ## CSS 기반 트랜지션 {#css-based-transitions}
 
@@ -108,7 +108,7 @@ Vue는 상태 변화에 따라 트랜지션과 애니메이션을 다루는 데 
 </Transition>
 ```
 
-네임드 트랜지션의 경우, 트랜지션 클래스는 `v` 대신 해당 이름이 접두사로 붙습니다. 예를 들어, 위 트랜지션에 적용되는 클래스는 `v-enter-active` 대신 `fade-enter-active`가 됩니다. 페이드 트랜지션의 CSS는 다음과 같습니다:
+네임드 트랜지션에서는 트랜지션 클래스에 `v` 대신 해당 이름이 접두사로 붙습니다. 예를 들어, 위 트랜지션에 적용되는 클래스는 `v-enter-active` 대신 `fade-enter-active`가 됩니다. 페이드 트랜지션의 CSS는 다음과 같습니다:
 
 ```css
 .fade-enter-active,
@@ -124,7 +124,7 @@ Vue는 상태 변화에 따라 트랜지션과 애니메이션을 다루는 데 
 
 ### CSS 트랜지션 {#css-transitions}
 
-`<Transition>`은 [네이티브 CSS 트랜지션](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions)과 함께 가장 자주 사용됩니다. 위의 기본 예시에서 볼 수 있습니다. `transition` CSS 속성은 트랜지션의 여러 측면(애니메이션할 속성, 트랜지션 지속 시간, [이징 곡선](https://developer.mozilla.org/ko/docs/Web/CSS/easing-function) 등)을 지정할 수 있는 단축 속성입니다.
+위의 기본 예시에서 보았듯이, `<Transition>`은 [네이티브 CSS 트랜지션](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions)과 함께 가장 자주 사용됩니다. `transition` CSS 속성은 트랜지션의 여러 측면(애니메이션할 속성, 트랜지션 지속 시간, [이징 곡선](https://developer.mozilla.org/ko/docs/Web/CSS/easing-function) 등)을 지정할 수 있는 단축 속성입니다.
 
 다음은 여러 속성을 트랜지션하고, 진입과 퇴장에 서로 다른 지속 시간과 이징 곡선을 사용하는 좀 더 고급 예시입니다:
 
@@ -171,7 +171,7 @@ Vue는 상태 변화에 따라 트랜지션과 애니메이션을 다루는 데 
 
 [네이티브 CSS 애니메이션](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Animations/Using_CSS_animations)은 CSS 트랜지션과 동일한 방식으로 적용되지만, `*-enter-from`이 요소가 삽입된 직후 바로 제거되는 것이 아니라 `animationend` 이벤트에서 제거된다는 차이점이 있습니다.
 
-대부분의 CSS 애니메이션의 경우, `*-enter-active`와 `*-leave-active` 클래스에 선언하면 됩니다. 예시는 다음과 같습니다:
+대부분의 CSS 애니메이션은 `*-enter-active`와 `*-leave-active` 클래스 아래에 선언하기만 하면 됩니다. 예시는 다음과 같습니다:
 
 ```vue-html
 <Transition name="bounce">
@@ -225,7 +225,7 @@ Vue는 상태 변화에 따라 트랜지션과 애니메이션을 다루는 데 
 - `leave-active-class`
 - `leave-to-class`
 
-이들은 기존의 클래스 이름을 덮어씁니다. 이는 [Animate.css](https://daneden.github.io/animate.css/)와 같은 기존 CSS 애니메이션 라이브러리와 Vue의 트랜지션 시스템을 결합하고 싶을 때 특히 유용합니다:
+이 prop들은 관례적인 클래스 이름을 덮어씁니다. 이는 [Animate.css](https://daneden.github.io/animate.css/)와 같은 기존 CSS 애니메이션 라이브러리와 Vue의 트랜지션 시스템을 결합하고 싶을 때 특히 유용합니다:
 
 ```vue-html
 <!-- Animate.css가 페이지에 포함되어 있다고 가정 -->
@@ -251,9 +251,9 @@ Vue는 상태 변화에 따라 트랜지션과 애니메이션을 다루는 데 
 
 ### 트랜지션과 애니메이션을 함께 사용하기 {#using-transitions-and-animations-together}
 
-Vue는 트랜지션이 끝났는지 알기 위해 이벤트 리스너를 부착해야 합니다. 적용된 CSS 규칙의 종류에 따라 `transitionend` 또는 `animationend`가 될 수 있습니다. 둘 중 하나만 사용하는 경우, Vue가 자동으로 올바른 타입을 감지할 수 있습니다.
+Vue는 트랜지션이 끝났는지 알기 위해 이벤트 리스너를 등록해야 합니다. 리스닝할 이벤트는 적용된 CSS 규칙의 종류에 따라 `transitionend` 또는 `animationend`가 될 수 있습니다. 둘 중 하나만 사용하는 경우, Vue가 자동으로 올바른 타입을 감지할 수 있습니다.
 
-하지만, 같은 요소에 둘 다 사용하고 싶을 때가 있습니다. 예를 들어, Vue에 의해 트리거되는 CSS 애니메이션과, hover 시 CSS 트랜지션 효과를 함께 사용하고 싶을 때입니다. 이런 경우, Vue가 신경 써야 할 타입을 `type` prop을 통해 명시적으로 선언해야 하며, 값은 `animation` 또는 `transition` 중 하나입니다:
+하지만, 같은 요소에 둘 다 사용하고 싶을 때가 있습니다. 예를 들어, Vue가 트리거하는 CSS 애니메이션과 hover 시의 CSS 트랜지션 효과를 함께 쓰는 경우가 그렇습니다. 이런 경우, Vue가 신경 써야 할 타입을 `type` prop을 통해 명시적으로 선언해야 하며, 값은 `animation` 또는 `transition` 중 하나입니다:
 
 ```vue-html
 <Transition type="animation">...</Transition>
@@ -326,9 +326,9 @@ Vue는 트랜지션이 끝났는지 알기 위해 이벤트 리스너를 부착�
 
 반면, `height`나 `margin`과 같은 속성은 CSS 레이아웃을 트리거하므로 애니메이션 비용이 훨씬 크며, 주의해서 사용해야 합니다.
 
-## 자바스크립트 훅 {#javascript-hooks}
+## JavaScript 훅 {#javascript-hooks}
 
-`<Transition>` 컴포넌트에서 이벤트를 리스닝하여 트랜지션 과정에 자바스크립트로 개입할 수 있습니다:
+`<Transition>` 컴포넌트에서 이벤트를 리스닝하여 트랜지션 과정에 JavaScript로 개입할 수 있습니다:
 
 ```vue-html
 <Transition
@@ -437,7 +437,7 @@ export default {
 
 이 훅들은 CSS 트랜지션/애니메이션과 함께 또는 단독으로 사용할 수 있습니다.
 
-자바스크립트 전용 트랜지션을 사용할 때는 `:css="false"` prop을 추가하는 것이 좋습니다. 이는 Vue에게 자동 CSS 트랜지션 감지를 건너뛰라고 명시적으로 알립니다. 약간 더 성능이 좋을 뿐만 아니라, CSS 규칙이 트랜지션에 실수로 간섭하는 것도 방지할 수 있습니다:
+JavaScript 전용 트랜지션을 사용할 때는 `:css="false"` prop을 추가하는 것이 좋습니다. 이는 Vue에게 자동 CSS 트랜지션 감지를 건너뛰라고 명시적으로 알립니다. 이렇게 하면 성능이 약간 더 좋아질 뿐만 아니라, CSS 규칙이 트랜지션에 실수로 간섭하는 것도 방지할 수 있습니다:
 
 ```vue-html{3}
 <Transition
@@ -467,7 +467,7 @@ export default {
 
 ## 재사용 가능한 트랜지션 {#reusable-transitions}
 
-트랜지션은 Vue의 컴포넌트 시스템을 통해 재사용할 수 있습니다. 재사용 가능한 트랜지션을 만들기 위해, `<Transition>` 컴포넌트를 감싸고 슬롯 콘텐츠를 전달하는 컴포넌트를 만들 수 있습니다:
+트랜지션은 Vue의 컴포넌트 시스템을 통해 재사용할 수 있습니다. 재사용 가능한 트랜지션을 만들려면, `<Transition>` 컴포넌트를 감싸고 슬롯 콘텐츠를 전달하는 컴포넌트를 작성하면 됩니다:
 
 ```vue{6} [MyTransition.vue]
 <script>
@@ -543,7 +543,7 @@ export default {
 
 <BetweenElements mode="out-in" />
 
-`<Transition>`은 `mode="in-out"`도 지원하지만, 훨씬 덜 자주 사용됩니다.
+`<Transition>`은 `mode="in-out"`도 지원하지만, 이 모드는 훨씬 드물게 사용됩니다.
 
 ## 컴포넌트 간 트랜지션 {#transition-between-components}
 
@@ -578,13 +578,13 @@ export default {
 </Transition>
 ```
 
-Vue의 트랜지션 클래스 규칙을 사용해 CSS 트랜지션/애니메이션을 정의하고, 이를 전환하고 싶을 때 유용합니다.
+이 방식은 Vue의 트랜지션 클래스 규칙을 사용해 CSS 트랜지션/애니메이션을 정의해 두고, 이를 서로 전환하고 싶을 때 유용합니다.
 
-또한, 컴포넌트의 현재 상태에 따라 자바스크립트 트랜지션 훅에서 서로 다른 동작을 적용할 수도 있습니다. 마지막으로, [재사용 가능한 트랜지션 컴포넌트](#reusable-transitions)를 통해 prop을 받아 트랜지션의 성격을 바꿀 수도 있습니다. 다소 진부하게 들릴 수 있지만, 한계는 정말 여러분의 상상력뿐입니다.
+또한, 컴포넌트의 현재 상태에 따라 JavaScript 트랜지션 훅에서 서로 다른 동작을 적용할 수도 있습니다. 마지막으로, [재사용 가능한 트랜지션 컴포넌트](#reusable-transitions)를 통해 prop을 받아 트랜지션의 성격을 바꿀 수도 있습니다. 다소 진부하게 들릴 수 있지만, 한계는 정말 여러분의 상상력뿐입니다.
 
 ## key 속성을 사용한 트랜지션 {#transitions-with-the-key-attribute}
 
-때로는 트랜지션이 발생하도록 DOM 요소의 리렌더를 강제로 해야 할 필요가 있습니다.
+때로는 트랜지션이 발생하도록 DOM 요소를 강제로 리렌더링해야 할 때가 있습니다.
 
 예를 들어, 다음 카운터 컴포넌트를 보세요:
 
@@ -637,7 +637,7 @@ export default {
 
 </div>
 
-`key` 속성을 제외했다면, 텍스트 노드만 업데이트되어 트랜지션이 발생하지 않습니다. 하지만 `key` 속성이 있으면, `count`가 변경될 때마다 Vue는 새로운 `span` 요소를 생성하므로 `Transition` 컴포넌트가 트랜지션할 두 개의 서로 다른 요소를 갖게 됩니다.
+`key` 속성을 생략했다면, 텍스트 노드만 업데이트되어 트랜지션이 발생하지 않습니다. 하지만 `key` 속성이 있으면, `count`가 변경될 때마다 Vue는 새로운 `span` 요소를 생성하므로 `Transition` 컴포넌트가 트랜지션할 두 개의 서로 다른 요소를 갖게 됩니다.
 
 <div class="composition-api">
 

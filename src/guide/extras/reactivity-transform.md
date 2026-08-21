@@ -3,16 +3,16 @@
 :::danger 실험적 기능 제거됨
 반응성 변환(reactivity transform)은 실험적 기능이었으며, 최신 3.4 릴리스에서 제거되었습니다. [관련 논의와 이유를 여기서 확인하세요](https://github.com/vuejs/rfcs/discussions/369#discussioncomment-5059028).
 
-그래도 계속 사용하고 싶다면, 이제 [Vue Macros](https://vue-macros.sxzz.moe/features/reactivity-transform.html) 플러그인(plugin)을 통해 사용할 수 있습니다.
+그래도 계속 사용하고 싶다면, 이제는 [Vue Macros](https://vue-macros.sxzz.moe/features/reactivity-transform.html) 플러그인(plugin)을 통해 이용할 수 있습니다.
 :::
 
 :::tip Composition-API 전용
-반응성 변환은 Composition API 전용 기능이며 빌드 단계가 필요합니다.
+반응성 변환은 컴포지션 API 전용 기능이며 빌드 단계가 필요합니다.
 :::
 
 ## ref와 반응형 변수 {#refs-vs-reactive-variables}
 
-Composition API가 도입된 이후로, 주요하게 해결되지 않은 질문 중 하나는 ref와 반응형 객체의 사용입니다. 반응형 객체를 구조 분해 할당할 때 반응성을 잃기 쉽고, ref를 사용할 때는 `.value`를 여기저기서 써야 해서 번거롭습니다. 또한, 타입 시스템을 사용하지 않으면 `.value`를 빼먹기 쉽습니다.
+컴포지션 API가 도입된 이후로, 해결되지 않은 주요 질문 중 하나는 ref와 반응형 객체의 사용입니다. 반응형 객체를 구조 분해 할당할 때 반응성을 잃기 쉽고, ref를 사용할 때는 `.value`를 여기저기서 써야 해서 번거롭습니다. 또한, 타입 시스템을 사용하지 않으면 `.value`를 빼먹기 쉽습니다.
 
 [Vue 반응성 변환](https://github.com/vuejs/core/tree/main/packages/reactivity-transform)은 컴파일 타임 변환으로, 다음과 같이 코드를 작성할 수 있게 해줍니다:
 
@@ -32,7 +32,7 @@ function increment() {
 </template>
 ```
 
-여기서 `$ref()` 메서드는 **컴파일 타임 매크로**입니다. 런타임에 실제로 호출되는 메서드가 아닙니다. 대신 Vue 컴파일러가 이를 힌트로 사용하여 결과로 나오는 `count` 변수를 **반응형 변수**로 처리합니다.
+여기서 `$ref()` 메서드는 **컴파일 타임 매크로**입니다. 런타임에 실제로 호출되는 메서드가 아닙니다. 대신 Vue 컴파일러가 이를 힌트로 사용하여, 선언 결과인 `count` 변수를 **반응형 변수**로 처리합니다.
 
 반응형 변수는 일반 변수처럼 접근하고 재할당할 수 있지만, 이러한 연산들은 `.value`가 붙은 ref로 컴파일됩니다. 예를 들어, 위 컴포넌트(component)의 `<script>` 부분은 다음과 같이 컴파일됩니다:
 
@@ -56,7 +56,7 @@ ref를 반환하는 모든 반응성 API는 `$`로 시작하는 매크로 버전
 - [`customRef`](/api/reactivity-advanced#customref) -> `$customRef`
 - [`toRef`](/api/reactivity-utilities#toref) -> `$toRef`
 
-이 매크로들은 Reactivity Transform이 활성화되어 있으면 전역적으로 사용할 수 있으며, 더 명확하게 하고 싶다면 `vue/macros`에서 임포트할 수도 있습니다:
+이 매크로들은 반응성 변환이 활성화되어 있으면 전역적으로 사용할 수 있으며, 더 명시적으로 사용하고 싶다면 `vue/macros`에서 임포트할 수도 있습니다:
 
 ```js
 import { $ref } from 'vue/macros'
@@ -89,13 +89,13 @@ const __temp = useMouse(),
 console.log(x.value, y.value)
 ```
 
-`x`가 이미 ref라면, `toRef(__temp, 'x')`는 그대로 반환하며 추가 ref가 생성되지 않습니다. 구조 분해된 값이 ref가 아니면(예: 함수), 그래도 동작합니다. 값이 ref로 감싸져 나머지 코드가 예상대로 동작하게 됩니다.
+`x`가 이미 ref라면, `toRef(__temp, 'x')`는 해당 ref를 그대로 반환하며 추가 ref가 생성되지 않습니다. 구조 분해된 값이 ref가 아니어도(예: 함수) 여전히 잘 동작합니다. 그 값이 ref로 감싸져 나머지 코드가 예상대로 실행되기 때문입니다.
 
 `$()` 구조 분해는 반응형 객체 **및** ref를 포함한 일반 객체 모두에서 동작합니다.
 
 ## 기존 ref를 반응형 변수로 변환하기 - `$()` {#convert-existing-refs-to-reactive-variables-with}
 
-경우에 따라 ref를 반환하는 래핑 함수가 있을 수 있습니다. 하지만 Vue 컴파일러는 함수가 ref를 반환할지 미리 알 수 없습니다. 이런 경우, `$()` 매크로를 사용해 기존 ref를 반응형 변수로 변환할 수 있습니다:
+때로는 ref를 반환하는 래핑 함수가 있을 수 있습니다. 하지만 Vue 컴파일러는 함수가 ref를 반환할지 미리 알 수 없습니다. 이런 경우, `$()` 매크로를 사용해 기존 ref를 반응형 변수로 변환할 수 있습니다:
 
 ```js
 function myCreateRef() {
@@ -158,11 +158,11 @@ export default {
 
 ## 함수 경계를 넘는 반응성 유지 {#retaining-reactivity-across-function-boundaries}
 
-반응형 변수는 `.value`를 여기저기서 쓰지 않아도 되게 해주지만, 반응형 변수를 함수 경계를 넘어 전달할 때 "반응성 손실" 문제가 발생할 수 있습니다. 이는 두 가지 경우에 발생할 수 있습니다:
+반응형 변수를 사용하면 `.value`를 여기저기서 쓰지 않아도 되지만, 함수 경계를 넘어 전달할 때는 "반응성 손실" 문제가 생길 수 있습니다. 이는 다음 두 가지 경우에 발생할 수 있습니다:
 
 ### 인자로 함수에 전달할 때 {#passing-into-function-as-argument}
 
-ref를 인자로 받는 함수가 있다고 가정해봅시다. 예:
+ref를 인자로 받는 함수가 있다고 가정해봅시다. 예를 들면 다음과 같습니다:
 
 ```ts
 function trackChange(x: Ref<number>) {
@@ -231,7 +231,7 @@ return {
 
 반응성을 유지하려면, 반환 시점의 값이 아니라 실제 ref를 반환해야 합니다.
 
-이럴 때도 `$$()`를 사용할 수 있습니다. 이 경우, 반환 객체에 직접 `$$()`를 사용하면, 내부의 반응형 변수 참조가 ref로 유지됩니다:
+이럴 때도 `$$()`를 쓸 수 있습니다. 반환 객체에 직접 `$$()`를 적용하면, 내부의 반응형 변수 참조가 ref로 유지됩니다:
 
 ```ts
 function useMouse() {
@@ -269,7 +269,7 @@ setup(props) {
 
 ## TypeScript 통합 <sup class="vt-badge ts" /> {#typescript-integration}
 
-Vue는 이 매크로들에 대한 타입 정의(전역적으로 사용 가능)를 제공합니다. 모든 타입이 예상대로 동작합니다. 표준 TypeScript 의미와의 비호환성은 없으므로, 기존 모든 툴링과 함께 문법이 동작합니다.
+Vue는 이 매크로들에 대한 타입 정의(전역적으로 사용 가능)를 제공합니다. 모든 타입이 예상대로 동작합니다. 표준 TypeScript 의미 체계와 어긋나는 부분이 없으므로, 기존의 모든 툴링에서 이 문법이 동작합니다.
 
 즉, 이 매크로들은 Vue SFC 내부뿐 아니라 유효한 JS/TS가 허용되는 모든 파일에서 사용할 수 있습니다.
 
@@ -279,7 +279,7 @@ Vue는 이 매크로들에 대한 타입 정의(전역적으로 사용 가능)�
 /// <reference types="vue/macros-global" />
 ```
 
-매크로를 `vue/macros`에서 명시적으로 임포트하면, 글로벌 선언 없이 타입이 동작합니다.
+매크로를 `vue/macros`에서 명시적으로 임포트하면, 전역 선언 없이 타입이 동작합니다.
 
 ## 명시적 옵트인 {#explicit-opt-in}
 
@@ -290,8 +290,8 @@ Vue는 이 매크로들에 대한 타입 정의(전역적으로 사용 가능)�
 ### Vite {#vite}
 
 - `@vitejs/plugin-vue@>=2.0.0` 필요
-- SFC 및 js(x)/ts(x) 파일에 적용됩니다. 매크로를 사용하지 않는 파일에는 성능 저하가 없도록, 변환 적용 전 빠른 사용 여부 체크가 수행됩니다.
-- `reactivityTransform`은 이제 SFC뿐 아니라 전체에 영향을 주므로, 플러그인 루트 옵션입니다(`script.refSugar` 내부가 아님).
+- SFC 및 js(x)/ts(x) 파일에 적용됩니다. 변환을 적용하기 전에 매크로 사용 여부를 빠르게 검사하므로, 매크로를 사용하지 않는 파일에는 성능 저하가 없습니다.
+- `reactivityTransform`은 이제 SFC뿐 아니라 다른 파일에도 영향을 주므로, 플러그인 루트 옵션입니다(`script.refSugar` 내부가 아님).
 
 ```js [vite.config.js]
 export default {
