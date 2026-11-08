@@ -102,6 +102,10 @@ Vue 컴포넌트의 슬롯 메커니즘은 [네이티브 웹 컴포넌트 `<slot
 
 > 부모 템플릿의 표현식은 부모 스코프에만 접근할 수 있고, 자식 템플릿의 표현식은 자식 스코프에만 접근할 수 있습니다.
 
+::: tip 참고
+슬롯 콘텐츠는 부모 렌더링 범위의 일부이므로 자식 컴포넌트에 선언된 `<style scoped>` 블록은 슬롯 콘텐츠에 **적용되지 않습니다**. 슬롯에 전달된 콘텐츠의 스타일을 지정해야 하는 경우 부모 컴포넌트에서 스타일을 지정하거나 자식의 scoped 스타일시트에서 `:deep()` 수정자를 사용하세요(자세한 내용은 [범위가 지정된 CSS](/api/sfc-css-features#scoped-css) 참조).
+:::
+
 ## 폴백(fallback) 콘텐츠 {#fallback-content}
 
 경우에 따라 슬롯에 대해 폴백(즉, 기본) 콘텐츠를 지정하는 것이 유용할 수 있습니다. 이는 슬롯에 아무런 콘텐츠가 제공되지 않았을 때만 렌더링됩니다. 예를 들어, `<SubmitButton>` 컴포넌트에서:
@@ -376,12 +380,12 @@ header / footer / default에 대한 콘텐츠가 있을 때, 추가 스타일링
 
 <div class="composition-api">
 
-[플레이그라운드에서 실행해보기](https://play.vuejs.org/#eJxlj00Kg0AMha8SsnHTKt2KDhQv0ANkUzTFgfljJkpBvHsZhYK6fS+878uCzxDKeWKssUl91EEgsUxBkdM2+CjQjdoMnbfBO3YCn+gtFGV1jPNEQa6p9g1FjlwjbIN5CytyAM1pZ74n46UljNyznnl4RR8S4XYMsCxwKErhr8C6XoveTy43G+SkpbLSXwNveLXOjx9Fs9cukZkt4cjGeMI9qzdeS/jYk+rEWH9AQHet)
+[플레이그라운드에서 실행해보기](https://play.vuejs.org/#eNplj8EKgzAQRH9l2UsvrdKrWKH4A/2AXIpuMRCzIVmlIP57EwMF9TgzyczbBZ/OFfNEWGEdOq+dQCCZXKOsHh17gXbQpm85CktW4ON5hEtR7u1UcVG2LnNH/B2F0OjMWygqgPrQM9+CYXko9NSRnql/eXZB4fYYYFlgFxRCX4F1PQcdTzYl28gBq0lIfwy84pk6Hb4HTVwZIm1GwoGMYYXZq7a96N6zUx421h9AQHet)
 
 </div>
 <div class="options-api">
 
-[플레이그라운드에서 실행해보기](https://play.vuejs.org/#eJxlkMEKgzAMhl8l5LLLpuwqKoy9wB4gl6GRCTUtNYogffdRywbq9f+Tfl+64sO5bJ4YCyzHxvdOa5J+cNYrPD+9aZ92cFZYFDpvB7hk+T6OyxcSEl62pZa792QUVhKA5jc1FimAw6MxCySBpMz/eJJSeXDmrVzHgfIgMt9GY7Ui9NxwP3P78taNhHUirCvsikx5UQjhXDR2kthskMNddVT6a+AVz2fHP9uLRq8kEZkV4YeNsYQpKzZeRXhPSX5ghC8NDY0G)
+[플레이그라운드에서 실행해보기](https://play.vuejs.org/#eNplkEEKhDAMRa8SunEzo8xWnMLgBeYA3YhGLNS21ChC8e7TWkZQoZv8n/S/xLOPtfkyIytZNbVOWuJCy9EaR1APUnW1CYVGTdA7M0KWF2c5DmdCC43rPtRh38yKwAsN0P67pjIJcPk0apvQ4VXFER8KwtGqhpDHhuoCsjwnZegtmMMW5YLd1xk7CcZTgvdwMnLClWDb7kZrZh2dPeSyF49IBwZ7sPva8WZn0MiVIGJmIBxQKSNY0so9L6ivpBSXjO0HDQ2NBg==)
 
 </div>
 
