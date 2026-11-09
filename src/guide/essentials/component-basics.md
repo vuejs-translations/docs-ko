@@ -628,6 +628,4 @@ HTML 명세상 [일부 특정 요소](https://html.spec.whatwg.org/multipage/syn
 네이티브 HTML 요소에서 `is`를 사용할 때는, 값 앞에 `vue:`를 붙여야 Vue 컴포넌트로 인식됩니다. 이는 네이티브 [커스텀 빌트인 요소](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-customized-builtin-example)와 혼동을 피하기 위함입니다.
 :::
 
-지금은 in-DOM 템플릿 파싱 주의사항에 대해 이 정도만 알면 충분합니다. 그리고 사실, 여기까지가 Vue _Essentials_의 끝입니다. 아직 배울 것이 더 있지만, 우선 Vue로 직접 무언가를 만들어보거나, 아직 보지 않았다면 [예제](/examples/)를 살펴보는 등 잠시 쉬어가시길 추천합니다.
-
-방금 익힌 내용에 익숙해졌다면, 가이드의 다음 장으로 넘어가 컴포넌트에 대해 더 깊이 배워보세요.
+지금은 in-DOM 템플릿 파싱 주의사항에 대해 이 정도만 알면 충분합니다.
