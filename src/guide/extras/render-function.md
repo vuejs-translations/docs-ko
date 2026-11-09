@@ -245,7 +245,7 @@ vnode는 컴포넌트 정의가 아니라 이미 생성된 렌더링 출력을 �
 
 ## JSX / TSX {#jsx-tsx}
 
-[JSX](https://facebook.github.io/jsx/)는 JavaScript에 XML과 유사한 확장 문법을 제공하여 다음과 같은 코드를 작성할 수 있게 해줍니다:
+[JSX](https://react.dev/learn/writing-markup-with-jsx)는 JavaScript에 XML과 유사한 확장 문법을 제공하여 다음과 같은 코드를 작성할 수 있게 해줍니다:
 
 ```jsx
 const vnode = <div>hello</div>
