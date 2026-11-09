@@ -1,7 +1,5 @@
 # 텔레포트 {#teleport}
 
- <VueSchoolLink href="https://vueschool.io/lessons/vue-3-teleport" title="무료 Vue.js 텔레포트 강의"/>
-
 `<Teleport>`는 컴포넌트(component)의 템플릿(template) 일부를 해당 컴포넌트의 DOM 계층 외부에 존재하는 DOM 노드로 "텔레포트"할 수 있게 해주는 내장 컴포넌트입니다.
 
 ## 기본 사용법 {#basic-usage}
