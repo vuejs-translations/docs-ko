@@ -12,7 +12,7 @@ import ListStagger from './transition-demos/ListStagger.vue'
 
 `<TransitionGroup>`은 `<Transition>`과 동일한 props, CSS 트랜지션(transition) 클래스, JavaScript 훅(hook) 리스너(listener)를 지원하지만, 다음과 같은 차이점이 있습니다:
 
-- 기본적으로 래퍼 요소를 렌더링하지 않습니다. 하지만 `tag` prop을 사용하여 렌더링할 요소를 지정할 수 있습니다.
+- `tag` prop을 사용하여 리스트를 감싸는 래퍼로 렌더링할 요소를 지정할 수 있습니다. 기본적으로는 `<Transition>`과 마찬가지로 래퍼 요소를 렌더링하지 않습니다.
 
 - [트랜지션 모드](./transition#transition-modes)는 사용할 수 없습니다. 더 이상 상호 배타적인 요소 간에 전환하지 않기 때문입니다.
 
