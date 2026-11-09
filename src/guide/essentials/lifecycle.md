@@ -65,6 +65,6 @@ setTimeout(() => {
 
 모든 라이프사이클 훅과 각각의 사용 사례에 대한 자세한 내용은 <span class="composition-api">[라이프사이클 훅 API 레퍼런스](/api/composition-api-lifecycle)</span><span class="options-api">[라이프사이클 훅 API 레퍼런스](/api/options-lifecycle)</span>를 참고하세요.
 
-여기까지가 Vue _Essentials_의 끝입니다. 축하합니다! 아직 배울 것이 더 있지만, 우선 Vue로 직접 무언가를 만들어보거나, 아직 보지 않았다면 [예제](/examples/)를 살펴보는 등 잠시 쉬어가시길 추천합니다.
+그리고 사실, 여기까지가 Vue _Essentials_의 끝입니다. 아직 배울 것이 더 있지만, 우선 Vue로 직접 무언가를 만들어보거나, 아직 보지 않았다면 [예제](/examples/)를 살펴보는 등 잠시 쉬어가시길 추천합니다.
 
 방금 익힌 내용에 익숙해졌다면, 가이드의 다음 장으로 넘어가 컴포넌트에 대해 더 깊이 배워보세요.
